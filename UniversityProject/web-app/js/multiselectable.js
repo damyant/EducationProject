@@ -11,6 +11,7 @@ function  showSelect(){
         $('#multiSelectDiv').load('/UniversityProject/course/multiSelect', {index:i}, function(data){
             $('#mainDiv').append($('#multiSelectDiv').html());
             $('#multiSelectDiv').html('');
+
         });
     }
 }

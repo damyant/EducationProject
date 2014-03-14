@@ -71,12 +71,10 @@
                     <div id="multiSelectDiv"></div>
                     <div id="mainDiv"></div>
                 </td>
-
             </tr>
             <tr>
                 <td><input type="submit" value="<g:message code="default.button.create"/>"  class="university-button" onclick="validate()"></td>
-                <td><input type="button" value="<g:message code="default.button.clear"/>" class="university-button" ></td>
-
+                <td><input type="reset" value="<g:message code="default.button.clear"/>" class="university-button" ></td>
             </tr>
         </table>
     </g:form>

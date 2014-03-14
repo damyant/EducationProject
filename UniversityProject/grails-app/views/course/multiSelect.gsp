@@ -6,6 +6,9 @@
 --%>
 
 <div class="multiSelect" id="multiSelect-${index}">
+    <div>
+        <label>Semester-${index+1}</label>
+    </div>
     %{--<g:select name="selectfrom" id="select-from" optionKey="id" optionValue="subjectName" from="${Subject.findAll()}" multiple="5"  />--}%
     <g:select id="list-1-${index}" name="list-1-${index}" from="${list1?.subjectName}" multiple="true"/>
     <span class="multiSelect-buttons">
