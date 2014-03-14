@@ -67,24 +67,14 @@
                 <td><input type="text" name="totalCreditPoints" class="university-size-1-2"/></td>
             </tr>
             <tr>
-<<<<<<< HEAD
-                <td>
-                    <div id="multiSelectDiv">
-
-                    </div>
-=======
                 <td colspan="2">
                     <div id="multiSelectDiv"></div>
->>>>>>> f7273ff62d5030c5e9eff05ebd1729f31bce9b9e
                     <div id="mainDiv"></div>
-
                 </td>
-
             </tr>
             <tr>
                 <td><input type="submit" value="<g:message code="default.button.create"/>"  class="university-button" onclick="validate()"></td>
                 <td><input type="reset" value="<g:message code="default.button.clear"/>" class="university-button" ></td>
-
             </tr>
         </table>
     </g:form>
