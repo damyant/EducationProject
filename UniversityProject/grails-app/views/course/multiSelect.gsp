@@ -15,7 +15,7 @@
 
 <script type="text/javascript">
     function addToList(index){
-        alert('in add');
+
         var selectedValues=[];
         var nonSelected=[];
         var inList2;
