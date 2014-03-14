@@ -6,7 +6,9 @@
 --%>
 
 <div class="multiSelect" id="multiSelect-${index}">
-    %{--<g:select name="selectfrom" id="select-from" optionKey="id" optionValue="subjectName" from="${Subject.findAll()}" multiple="5"  />--}%
+    <div>
+        <label>Semester-${index+1}</label>
+    </div>
     <g:select id="list-1-${index}" name="list-1-${index}" from="${list1?.subjectName}" multiple="true" style="width: 100px;height: 300px;"/>
     <a href="#" name="add-${index}" onclick="addToList('${index}')">Add</a>
     <a href="#" name="remove-${index}" onclick="removeFromList('${index}')">Remove</a>
