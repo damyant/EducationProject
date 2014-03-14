@@ -21,7 +21,12 @@ class StudyCenterController {
     def saveStudyCenter() {
         try {
            def objStatus= studyCenterInfoService.saveInfo(params)
-            redirect(action: "createNewStudyCenter", params:['status':objStatus])
+            if(objStatus=='created'){
+                redirect(action: "createNewStudyCenter", params:['status':objStatus])
+            }
+            else if (objStatus=='updated'){
+                redirect(action: "createNewStudyCenter", params:['status':objStatus,'studyCenterId':params.studyCenterId,'type':'edit'])
+            }
         }
         catch (Exception e) {
             println("<<<<<<<<<<<There is some problem in saving new study center" + e)
