@@ -1,46 +1,65 @@
-# .gitignore for Grails 1.2 and 1.3
+# PYTHON .GITIGNORE -------------
+*.pyc
+*.shelve
+
+# JAVA .GITIGNORE -------------
+*.class
+
+# Package Files #
+# include *.jar for library dependencies
+*.war
+*.ear
+
+# GRAILS .GITIGNORE -----------
+
+# configuration files
+# kumulus/grails-app/conf/Config.groovy
+# kumulus/grails-app/conf/DataSource.groovy
 
 # web application files
-/web-app/WEB-INF
+kumulus/web-app/WEB-INF
 
 # IDE support files
-/.classpath
-/.launch
-/.project
-/.settings
-/*.launch
-/*.tmproj
-/ivy*
-/*.iml
-/eclipse
+kumulus/.classpath
+kumulus/.launch
+kumulus/.project
+kumulus/.settings
+kumulus/*.launch
+kumulus/*.tmproj
+kumulus/ivy*
+kumulus/eclipse
 
 # default HSQL database files for production mode
-/prodDb.*
+UniversityProject/prodDb.*
 
 # general HSQL database files
-*Db.properties
-*Db.script
+UniversityProject/*Db.properties
+UniversityProject/*Db.script
 
 # logs
-/stacktrace.log
-/test/reports
-/logs
+UniversityProject/stacktrace.log
+UniversityProject/test/reports
+UniversityProject/logs
+
 
 # project release file
-/*.war
+UniversityProject/*.war
 
-# plugin release file
-/*.zip
+# plugin release files
+UniversityProject/*.zip
+UniversityProject/plugin.xml
 
 # older plugin install locations
-/plugins
-/web-app/plugins
-/web-app/WEB-INF/classes
+UniversityProject/plugins
+UniversityProject/web-app/plugins
 
 # "temporary" build files
-/target
+UniversityProject/target
 
-# other
+# filesystem
+UniversityProject/filesystem/main/*
+UniversityProject/filesystem/staging/*
+
+# other kumulus project files
 *.iws
-*.class
-*.xml
+/manager/target
