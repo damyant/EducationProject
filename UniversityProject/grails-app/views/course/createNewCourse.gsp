@@ -26,48 +26,48 @@
         <table class="university-table">
             <tr>
                 <td><label>Course Name</label></td>
-                <td><input type="text" id="courseName" name="courseName" maxlength="" class="university-size-1-3" /></td>
+                <td><input type="text" id="courseName" name="courseName" maxlength="" class="university-size-1-2" /></td>
             </tr>
             <tr>
                 <td><label> Select Mode </label></td>
-                <td><g:select name="courseMode" id="mode" optionKey="id" optionValue="modeName" class="university-size-1-3" from="${CourseMode.findAll()}" noSelection="['':' Select Mode']" /></td>
+                <td><g:select name="courseMode" id="mode" optionKey="id" optionValue="modeName" class="university-size-1-2" from="${CourseMode.findAll()}" noSelection="['':' Select Mode']" /></td>
             </tr>
             <tr>
                 <td><label> Select Course Type </label></td>
-                <td><g:select name="courseType" id="mode" optionKey="id" optionValue="courseTypeName" class="university-size-1-3" from="${CourseType.findAll()}" noSelection="['':' Select Course Type']" /></td>
+                <td><g:select name="courseType" id="mode" optionKey="id" optionValue="courseTypeName" class="university-size-1-2" from="${CourseType.findAll()}" noSelection="['':' Select Course Type']" /></td>
             </tr>
 
             <tr>
                 <td><label>Number of Terms/Semesters </label></td>
-                <td><input type="text" id="terms" name="" maxlength="" class="university-size-1-3" onblur="showSelect()"/></td>
+                <td><input type="text" id="terms" name="" maxlength="" class="university-size-1-2" onblur="showSelect()"/></td>
             </tr>
             <tr>
                 <td><label>Course Code</label></td>
-                <td><input type="text" name="courseCode" maxlength="" class="university-size-1-3" /></td>
+                <td><input type="text" name="courseCode" maxlength="" class="university-size-1-2" /></td>
             </tr>
             <tr>
                 <td><label>Number of maximum available academic year</label></td>
-                <td><input type="text" name="noOfAcademicYears" maxlength="" class="university-size-1-3" /></td>
+                <td><input type="text" name="noOfAcademicYears" maxlength="" class="university-size-1-2" /></td>
             </tr>
 
             <tr>
                 <td><label>	Number of papers</label></td>
-                <td><input type="text" name="noOfPapers" maxlength="" class="university-size-1-3" /></td>
+                <td><input type="text" name="noOfPapers" maxlength="" class="university-size-1-2" /></td>
             </tr>
             <tr>
                 <td><label>Total Marks</label></td>
-                <td><input type="text" name="totalMarks" maxlength="" class="university-size-1-3" /></td>
+                <td><input type="text" name="totalMarks" maxlength="" class="university-size-1-2" /></td>
             </tr>
             <tr>
                 <td><label>Pass Marks(per paper)</label></td>
-                <td><input type="text" name="" class="university-size-1-3" /></td>
+                <td><input type="text" name="" class="university-size-1-2" /></td>
             </tr>
             <tr>
                 <td><label>Total Credit Points</label></td>
-                <td><input type="text" name="totalCreditPoints" class="university-size-1-3"/></td>
+                <td><input type="text" name="totalCreditPoints" class="university-size-1-2"/></td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     <div id="multiSelectDiv"></div>
                     <div id="mainDiv"></div>
                 </td>
