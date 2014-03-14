@@ -26,7 +26,8 @@
             <g:renderErrors bean="${studyCentreInstance}" as="list"/>
         </div>
     </g:hasErrors>
-    <g:if test="${params.status='true'}"><label class=""><g:message code="studyCenter.create.message"/></label></g:if>
+    <g:if test="${params.status=='created'}"><div class="university-status-message"><g:message code="studyCenter.create.message"/></div></g:if>
+    <g:elseif test="${params.status=='updated'}"><div class="university-status-message"><g:message code="studyCenter.update.message"/></div></g:elseif>
     <g:form controller="studyCenter" action="saveStudyCenter" method="post" name="createStudyCenter" id="createStudyCenter">
         <table class="university-table-1-2">
             <tr>
