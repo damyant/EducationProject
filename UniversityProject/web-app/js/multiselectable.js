@@ -9,7 +9,6 @@ function  showSelect(){
 
     for(var i= 0;i<data;i++){
         $('#multiSelectDiv').load('/UniversityProject/course/multiSelect', {index:i}, function(data){
-
             $('#mainDiv').append($('#multiSelectDiv').html());
             $('#multiSelectDiv').html('');
 

@@ -9,15 +9,17 @@
     <div>
         <label>Semester-${index+1}</label>
     </div>
-    <g:select id="list-1-${index}" name="list-1-${index}" from="${list1?.subjectName}" multiple="true" style="width: 100px;height: 300px;"/>
-    <a href="#" name="add-${index}" onclick="addToList('${index}')">Add</a>
-    <a href="#" name="remove-${index}" onclick="removeFromList('${index}')">Remove</a>
-    <g:select id="list-2-${index}" name="list-2-${index}" from="${list2}" multiple="true" style="width: 100px;height: 300px;"/>
+    %{--<g:select name="selectfrom" id="select-from" optionKey="id" optionValue="subjectName" from="${Subject.findAll()}" multiple="5"  />--}%
+    <g:select id="list-1-${index}" name="list-1-${index}" from="${list1?.subjectName}" multiple="true"/>
+    <span class="multiSelect-buttons">
+        <button type="button" name="add-${index}" onclick="addToList('${index}')">Add</button>
+        <button type="button"  name="remove-${index}" onclick="removeFromList('${index}')">Remove</button>
+    </span>
+    <g:select id="list-2-${index}" name="list-2-${index}" from="${list2}" multiple="true"/>
 </div>
 
 <script type="text/javascript">
     function addToList(index){
-
         var selectedValues=[];
         var nonSelected=[];
         var inList2;
