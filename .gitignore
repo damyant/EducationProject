@@ -13,21 +13,21 @@
 # GRAILS .GITIGNORE -----------
 
 # configuration files
-# kumulus/grails-app/conf/Config.groovy
-# kumulus/grails-app/conf/DataSource.groovy
+# UniversityProject/grails-app/conf/Config.groovy
+# UniversityProject/grails-app/conf/DataSource.groovy
 
 # web application files
-kumulus/web-app/WEB-INF
+UniversityProject/web-app/WEB-INF
 
 # IDE support files
-kumulus/.classpath
-kumulus/.launch
-kumulus/.project
-kumulus/.settings
-kumulus/*.launch
-kumulus/*.tmproj
-kumulus/ivy*
-kumulus/eclipse
+UniversityProject/.classpath
+UniversityProject/.launch
+UniversityProject/.project
+UniversityProject/.settings
+UniversityProject/*.launch
+UniversityProject/*.tmproj
+UniversityProject/ivy*
+UniversityProject/eclipse
 
 # default HSQL database files for production mode
 UniversityProject/prodDb.*
