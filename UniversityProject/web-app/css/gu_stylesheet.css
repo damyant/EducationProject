@@ -1,0 +1,50 @@
+/**
+ * Created by chandan on 3/12/14.
+ */
+
+/*table*/
+.university-table-1-2 td{
+    width: 50%;
+}
+.university-location-select{
+}
+
+.university-label-location-select, .university-location-select select{
+    width: 150px;
+    display: inline-block;
+}
+.university-table-1-3 td{
+    width: 33.33%;
+}
+
+.university-table-1-4 td{
+    width: 20%;
+}
+/*Size*/
+.university-size-1-3{
+    width: 33.33%;
+}
+
+.university-size-1-4{
+    width: 20%;
+}
+
+.university-float-right{
+    float: right;
+}
+/*button*/
+.university-button{
+    border-radius:0;
+    padding:.1em 1.7em;
+    vertical-align:top;
+    height:2em
+}
+/* For Validation*/
+input.error, select.error{
+    border: #cd0a0a solid 1px;
+}
+
+label.error{
+    margin-left: 4px;
+    color: #cd0a0a;
+}
