@@ -11,6 +11,7 @@
 /*.launch
 /*.tmproj
 /ivy*
+/*.iml
 /eclipse
 
 # default HSQL database files for production mode
@@ -41,3 +42,5 @@
 
 # other
 *.iws
+*.class
+*.xml
