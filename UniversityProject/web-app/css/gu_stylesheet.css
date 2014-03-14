@@ -48,3 +48,12 @@ label.error{
     margin-left: 4px;
     color: #cd0a0a;
 }
+
+/*Status Message*/
+
+.university-status-message{
+    margin: auto;
+    color: #0000FF;
+    text-align: center;
+    font-weight: bold ;
+}

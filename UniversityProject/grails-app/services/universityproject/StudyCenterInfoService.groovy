@@ -12,7 +12,7 @@ class StudyCenterInfoService {
     }
 
     def saveInfo(params){
-        def saveStatus=false
+        def saveStatus=null
         if(params.studyCenterId){
             def studyCenter = StudyCenter.get(params.studyCenterId)
             studyCenter.name=params.name
@@ -27,14 +27,14 @@ class StudyCenterInfoService {
             studyCenter.nameOfHeadIns=params.nameOfHeadIns
             studyCenter.emailIdOfHeadIns=params.emailIdOfHeadIns
             if(studyCenter.save(flush: true,failOnError: true)){
-                saveStatus=true
+                saveStatus='updated'
             }
         }
         else{
             if(params){
                 def studyCenterObj=new StudyCenter(params)
                 if(studyCenterObj.save(flush: true,failOnError: true)){
-                    saveStatus=true
+                    saveStatus='created'
                 }
             }
         }
