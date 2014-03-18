@@ -2,7 +2,7 @@
  * Created by chandan on 3/12/14.
  */
 function validate(){
-    $("#createStudyCenter").validate({
+    $("#createStudyCenter,#studentRegister").validate({
         rules: {
             name: "required",
             address: "required",
@@ -26,7 +26,68 @@ function validate(){
             phoneNoOfHeadIns:{
                 required: true,
                 minlength: 10
+            },
+            nameOfApplicant:{
+                required:true
+            },
+            date_of_birth : {
+                required:true
+            },
+            program: {
+                required:true
+            },
+            category:{
+                required:true
+            },
+            nationality:{
+                required:true
+            },
+            gender :{
+                required:true
+            },
+            state:{
+                required:true
+            },
+            contactNo:{
+                required:true
+            },
+            contactCentre:{
+                required:true
+            },
+            location:{
+                required:true
+            },
+//            registrationNo1:{
+//                registrationNo1:true
+//            },
+//            registrationNo2:{
+//                required:true
+//            },
+            studentName:{
+                required:true
+            },
+            town:{
+                required:true
+            },
+            po:{
+                required:true
+            },
+            districtOfCandidate:{
+                required:true
+            },
+            stateOfCandidate:{
+                required:true
+            },
+//            pinCode:{
+//                required:true
+//            },
+            photograph:{
+                required:true
+            },
+            declaration:{
+                required:true
             }
+
         },
         messages: {
             name: "Please enter study center name.",
@@ -39,7 +100,28 @@ function validate(){
             nameOfCoordinator: "Please enter Name of Coordinator.",
             phoneNoOfCoordinator: "Please enter Phone Number of Coordinator.",
             emailIdOfCoordinator: "Please enter Email of Coordinator.",
-            websiteUrl:"Please enter website url"
+            websiteUrl:"Please enter website url",
+            nameOfApplicant :"Please enter Name of an Apllicant",
+            date_of_birth:"Please Enter Date of birth",
+            program:"Please enter Program",
+            category:"Please enter one of these categories",
+            nationality:"please enter Nationality",
+            gender:"Please enter your gender",
+            state:"Please enter your State",
+            contactNo:"Please enter your Contact Number",
+            contactCentre:"Please enter your contact Centre",
+            location:"Please Select your location",
+//            registrationNo1:"please Enter your Registration Number",
+//            registrationNo2:"please Enter your Registration Number",
+            studentName:"please Enter your Name",
+            town:"please Enter your town",
+            po:"please enter your Post Office",
+            districtOfCandidate:"please enter your District",
+            stateOfCandidate:"please enter your State",
+//            pinCode:"please enter your PinCode",
+            photograph:"please upload your PhotoGraph",
+            declaration:"please declare before you proceed"
+
         }
 
     })

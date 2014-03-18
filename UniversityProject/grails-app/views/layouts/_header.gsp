@@ -1,10 +1,6 @@
 <div>
     <div class="logo">
-        <div class="left"><img src="${resource(dir: 'images', file: 'unilogo.jpg')}"></div>
-
-        <div class="right">
-            <h1>INSTITUTE OF DISTANCE & OPEN LEARNING</h1>
-        </div>
+        <div class="left"><img src="${resource(dir: 'images', file: 'logo.png')}"></div>
     </div>
     <ul id="menu">
         <li><a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
@@ -72,7 +68,8 @@
                         </li>
                     </ul>
                 </li>
-                <li><g:link controller="course" action="createNewCourse"><g:message code="default.mainMenu3.subMenu6"/></g:link>
+                <li><g:link controller="course" action="createNewCourse"><g:message
+                        code="default.mainMenu3.subMenu6"/></g:link>
                 </li>
             </ul>
         </li>

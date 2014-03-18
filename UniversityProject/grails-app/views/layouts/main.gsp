@@ -16,22 +16,21 @@
 		%{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">--}%
 		%{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">--}%
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'header.css')}" type="text/css">
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'homePage.css')}" type="text/css">
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}" type="text/css">
-    <link rel='stylesheet' href="${resource(dir: 'css', file: 'style_popup.css')}" type='text/css'>
-    <link rel='stylesheet' href="${resource(dir: 'css', file: 'gu_stylesheet.css')}" type='text/css'>
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.dialog.js')}"></script>--}%
-    <g:javascript library='jquery' />
-    <g:javascript library="application"/>
-    <r:layoutResources />
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}" type="text/css">
+        <link rel='stylesheet' href="${resource(dir: 'css', file: 'style_popup.css')}" type='text/css'>
+        <link rel='stylesheet' href="${resource(dir: 'css', file: 'gu_stylesheet.css')}" type='text/css'>
+        %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.dialog.js')}"></script>--}%
+        <g:javascript library='jquery' />
+        <g:javascript library="application"/>
+        <r:layoutResources />
 
-    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'validate.js')}"></script>
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'viewResult.js')}'></script>
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'admitCard.js')}'></script>
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'viewAdmitCard.js')}'></script>
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'editAdmitCard.js')}'></script>
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'deleteAdmitCard.js')}'></script>
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'base.js')}'></script>
+        <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'validate.js')}"></script>
+        <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'viewResult.js')}'></script>
+        <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'admitCard.js')}'></script>
+        <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'viewAdmitCard.js')}'></script>
+        <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'editAdmitCard.js')}'></script>
+        <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'deleteAdmitCard.js')}'></script>
+        <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'base.js')}'></script>
 
 		<g:layoutHead/>
 

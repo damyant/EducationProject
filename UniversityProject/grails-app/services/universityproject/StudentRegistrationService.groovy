@@ -17,7 +17,7 @@ class StudentRegistrationService {
        studentRegistration.program=params.program
        studentRegistration.category=params.category
        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-       studentRegistration.dob=df.parse(params.date_of_birth)
+//       studentRegistration.dob=params.date_of_birth
        studentRegistration.gender=params.gender
        studentRegistration.nationality=params.nationality
        studentRegistration.state=params.state

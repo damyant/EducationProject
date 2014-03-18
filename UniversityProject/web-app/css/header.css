@@ -6,7 +6,7 @@
 
 #menu {
     width: 100%;
-    margin: 60px auto;
+    margin: 1px auto;
     border: 1px solid #abd361;
     background: linear-gradient(bottom, #abd361 5%, #78A12F 95%);
     background: -moz-linear-gradient(bottom, #abd361 5%, #78A12F 95%);
@@ -37,10 +37,10 @@
 
 #menu a {
     float: left;
-    padding: 12px 30px;
+    padding: 11px 30px;
     color: #ffffff;
     text-transform: uppercase;
-    font: bold 12px Arial, Helvetica;
+    font: bold 11px Arial, Helvetica;
     text-decoration: none;
     text-shadow: 0 1px 0 #000;
 }
@@ -54,7 +54,7 @@
 }
 
 #menu ul {
-    margin: 20px 0 0 0;
+    margin:0px 0 0 0;
     _margin: 0; /*IE6 only*/
     opacity: 0;
     visibility: hidden;
@@ -78,7 +78,7 @@
 #menu ul ul {
     top: 0;
     left: 150px;
-    margin: 0 0 0 20px;
+    margin: 0 0 0 10px;
     _margin: 0; /*IE6 only*/
     box-shadow: -1px 0 0 rgba(255,255,255,.3);
 }
@@ -148,31 +148,27 @@
 /*}*/
 
 .logo{
-    height:70px;
-    width:100%
+    height:133px;
+    width:100%;
+    display: inline-block;
 }
 .left {
     float: left;
-    width: 125px;
-    text-align: right;
-    margin: 2px 10px;
-    display: inline;
-}
-
-.right {
-    float: left;
+    width: 90%;
     text-align: left;
-    margin: 25px 100px;
-    display: inline;
+    margin: 0px 50px;
 }
 
 .right h1{
     color: #78A12E;
-    font:italic bold 30px Georgia, serif;
+    font:italic bold 1.4em Georgia, serif;
+
 }
 
 .divHeader{
-    height: 173px;
+    height: 175px;
     top: 0;
     left: 0;
+
+    background-color: #78A12F;
 }
