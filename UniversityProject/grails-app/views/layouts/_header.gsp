@@ -5,12 +5,18 @@
         <div class="right">
             <h1>INSTITUTE OF DISTANCE & OPEN LEARNING</h1>
         </div>
+        <sec:ifLoggedIn>
+        <div class="right" name="logout">
+            <sec:username /> (<g:link controller="logout">sign out</g:link>)
+        </div>
+        </sec:ifLoggedIn>
     </div>
     <ul id="menu">
         <li><a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
         <li><a href="#"><g:message code="default.mainMenu1"/></a></li>
         <li><a href="#"><g:message code="default.mainMenu2"/></a>
             <ul>
+
                 <li><g:link controller="student" action="registration"><g:message
                         code="default.mainMenu2.subMenu1"/></g:link></li>
                 <li><a class="viewResulttopopup"><g:message code="default.mainMenu2.subMenu2"/></a></li>
@@ -41,7 +47,8 @@
                         <li><g:link controller="examinationCenter" action="updateExaminationCentre"><g:message
                                 code="default.mainMenu3.subMenu1.subMenu3"/></g:link></li>
                         <li><g:link controller="examinationCenter" action="deleteExaminationCentre"><g:message
-                                code="default.mainMenu3.subMenu1.subMenu4"/></g:link></li>
+                                cod
+                                e="default.mainMenu3.subMenu1.subMenu4"/></g:link></li>
                     </ul>
                 </li>
                 <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>
