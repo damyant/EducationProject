@@ -15,10 +15,9 @@
     %{--<g:javascript library="jquery" plugin="jquery"/>--}%
     <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-1.7.1.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.core.js')}"></script>
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-1.7.1.min.js')}"></script>--}%
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-ui-1.8.15.custom.js')}"></script>--}%
     <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.datepicker.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.validate.min.js')}"></script>
+    <g:javascript src='validate.js'/>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript" src="${resource(dir:'js', file:'registerPage.js')}"></script>
 
 
@@ -30,14 +29,14 @@
 </g:if>
 
 <h3>STUDENT INFORMATION SHEET</h3>
-<g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data">
+<g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data" id="studentRegister" name="studentRegister">
 
 <table align="center" cellpadding = "10">
 
 <!----- First Name ---------------------------------------------------------->
 <tr>
     <td>Name of the applicant (In block letters only)</td>
-    <td><input type="text" name="name" maxlength="30" class="textInput" required="true"/>
+    <td><input type="text" name="nameOfApplicant" maxlength="30" class="textInput" />
 
     </td>
 </tr>
@@ -46,14 +45,14 @@
     <td>Date of Birth</td>
 
 
-    <td><input type="text" name="date_of_birth" maxlength="30" class="textInput" id="datePick" required="true"/>
+    <td><input type="date" name="date_of_birth" maxlength="30" class="textInput" id="datePick" required="true"/>
     </td>
 </tr>
 
 <!----- Last Name ---------------------------------------------------------->
 <tr>
     <td>Program</td>
-    <td><input type="text" name="program" maxlength="30" class="textInput" required="true"/>
+    <td><input type="text" name="program" maxlength="30" class="textInput" />
 
     </td>
 </tr>
@@ -61,12 +60,13 @@
 <tr>
     <td>Category</td>
     <td >
-        SC <input type="radio" name="category" value=" SC" class="radioInput" style="" required="true"/>
-        S.T <input type="radio" name="category" value="S.T" class="radioInput" required="true"/>
-        OBC <input type="radio" name="category" value="OBC" class="radioInput" required="true"/>
-        MOBC <input type="radio" name="category" value="MOBC" class="radioInput" required="true"/>
-        MINORITY COMMUNITY <input type="radio" name="category" value="MINORITY COMMUNITY" class="radioInput" required="true"/>
-        General <input type="radio" name="category" value="General" class="radioInput" required="true"/>
+
+        SC <input type="radio" name="category" value=" SC" class="radioInput" style=""/>
+        S.T <input type="radio" name="category" value="S.T" class="radioInput" />
+        OBC <input type="radio" name="category" value="OBC" class="radioInput" />
+        MOBC <input type="radio" name="category" value="MOBC" class="radioInput" />
+        MINORITY COMMUNITY <input type="radio" name="category" value="MINORITY COMMUNITY" class="radioInput" />
+        General <input type="radio" name="category" value="General" class="radioInput" />
 
     </td>
 </tr>
@@ -76,8 +76,8 @@
 <tr>
     <td>Nationality</td>
     <td>
-        Indian <input type="radio" name="nationality" value="Male" class="radioInput" required="true"/>
-        Non-Indian <input type="radio" name="nationality" value="Female" class="radioInput" required="true"/>
+        Indian <input type="radio" name="nationality" value="Male" class="radioInput"/>
+        Non-Indian <input type="radio" name="nationality" value="Female" class="radioInput" />
     </td>
 </tr>
 
@@ -97,16 +97,16 @@
 <tr>
     <td>Gender</td>
     <td>
-        Male <input type="radio" name="gender" value="Male" class="radioInput" required="true"/>
-        Female <input type="radio" name="gender" value="Female" class="radioInput" required="true"/>
+        Male <input type="radio" name="gender" value="Male" class="radioInput" />
+        Female <input type="radio" name="gender" value="Female" class="radioInput" />
     </td>
 </tr>
 <!----- State of Domicile ----------------------------------------------------------->
 <tr>
     <td>State of Domicile</td>
     <td>
-        Assam <input type="radio" name="state" value="Male"  class="radioInput" required="true"/>
-        Others <input type="radio" name="state" value="Female" class="radioInput" required="true"/>
+        Assam <input type="radio" name="state" value="Male"  class="radioInput" />
+        Others <input type="radio" name="state" value="Female" class="radioInput" />
     </td>
 </tr>
 
@@ -114,7 +114,7 @@
     <!----- Mobile Number ---------------------------------------------------------->
     <td>Contact Mobile Number</td>
     <td>
-        <input type="text" name="contactNo" maxlength="10" class="textInput" required="true" onkeypress="return isNumber(event)"/>
+        <input type="text" name="contactNo" maxlength="10" class="textInput"  onkeypress="return isNumber(event)"/>
 
     </td>
 </tr>
@@ -124,7 +124,7 @@
     <!----- Contact centre/study centre ---------------------------------------------------------->
     <td>Contact centre/ Study centre</td>
     <td>
-        <input type="text" name="contactCentre" maxlength="3" class="textInput" required="true" onkeypress="return isNumber(event)"/>
+        <input type="text" name="contactCentre" maxlength="3" class="textInput"  onkeypress="return isNumber(event)"/>
 
     </td>
 </tr>
@@ -134,8 +134,8 @@
     <td>
         %{--<input type="text" name="preference" maxlength="2" class="textInput" required="true" onkeypress="return isNumber(event)"/>--}%
 
-        <select name="location" style="width: 260px" required="required">
-            <option value="0">select location</option>
+        <select name="location" style="width: 260px" >
+            <option value="">select location</option>
             <option value="Noida">Noida</option>
             <option value="Guahati">Guahati</option>
             <option value="Golaghat">Golaghat</option>
@@ -157,90 +157,48 @@
     <td>Candidate Name & Complete Mailing Address (Write in Capital Letter) <br /><br /><br /></td>
     <td>
         <table class="innerTable" style="width: 100%">
-
-            %{--<tr>--}%
-                %{--<td align="center"><b>Sl.No.</b></td>--}%
-                %{--<td align="center"><b>Examination</b></td>--}%
-                %{--<td align="center"><b>Board</b></td>--}%
-                %{--<td align="center"><b>Percentage</b></td>--}%
-                %{--<td align="center"><b>Year of Passing</b></td>--}%
-            %{--</tr>--}%
-
             <tr>
 
                 <td>Name:</td>
-                <td><input type="text" name="studentName" maxlength="30" class="innerTableInput" required="true"/></td>
-                %{--<td><input type="text" name="ClassX_Percentage" maxlength="30" /></td>--}%
-                %{--<td><input type="text" name="ClassX_YrOfPassing" maxlength="30" /></td>--}%
+                <td><input type="text" name="studentName" maxlength="30" class="innerTableInput" /></td>
             </tr>
-
             <tr>
-                %{--<td>2</td>--}%
                 <td>Village/Town:</td>
-                <td><input type="text" name="town" maxlength="30" class="innerTableInput" required="true" /></td>
-                %{--<td><input type="text" name="ClassXII_Percentage" maxlength="30" /></td>--}%
-                %{--<td><input type="text" name="ClassXII_YrOfPassing" maxlength="30" /></td>--}%
-            </tr>
-
+                <td><input type="text" name="town" maxlength="30" class="innerTableInput"  /></td>
+        </tr>
             <tr>
-                %{--<td>3</td>--}%
+
                 <td>P.O.:</td>
-                %{--<td><input type="text" name="Graduation_Board" maxlength="30" /></td>--}%
-                %{--<td><input type="text" name="Graduation_Percentage" maxlength="30" /></td>--}%
-                <td><input type="text" name="po" maxlength="30" class="innerTableInput" required="true" /></td>
+                <td><input type="text" name="po" maxlength="30" class="innerTableInput"  /></td>
             </tr>
-
             <tr>
-                %{--<td>4</td>--}%
                 <td>District:</td>
-                %{--<td><input type="text" name="Masters_Board" maxlength="30" /></td>--}%
-                %{--<td><input type="text" name="Masters_Percentage" maxlength="30" /></td>--}%
-                <td><input type="text" name="district" maxlength="30" class="innerTableInput" required="true"/></td>
+
+                <td><input type="text" name="districtOfCandidate" maxlength="30" class="innerTableInput" /></td>
             </tr>
             <tr>
-                %{--<td>4</td>--}%
                 <td>State:</td>
-                %{--<td><input type="text" name="Masters_Board" maxlength="30" /></td>--}%
-                %{--<td><input type="text" name="Masters_Percentage" maxlength="30" /></td>--}%
-                <td><input type="text" name="state" maxlength="30" class="innerTableInput" required="true"/></td>
+                <td><input type="text" name="stateOfCandidate" maxlength="30" class="innerTableInput" /></td>
             </tr>
             <tr>
-                %{--<td>4</td>--}%
                 <td>Pincode:</td>
-                %{--<td><input type="text" name="Masters_Board" maxlength="30" /></td>--}%
-                %{--<td><input type="text" name="Masters_Percentage" maxlength="30" /></td>--}%
-                <td><input type="text" name="pinCode" maxlength="6" class="innerTableInput" required="true" onkeypress="return isNumber(event)"/></td>
+                <td><input type="text" name="pinCode" maxlength="6" class="innerTableInput" onkeypress="return isNumber(event)"/></td>
             </tr>
-
-
-        </table>
-
+           </table>
     </td>
 </tr>
     <tr>
         <td> Upload Your Photo(upload one recent Passport size black & white Photograph)</td>
         <td>
         %{--<input type='file' onchange="readURL(this);" />--}%
-        <img id="picture" src="#" alt="Space for Photograph " style="height: 200px; width:150px; border:1px solid black; background-color: white;display: block" required="true">
+        <img id="picture" src="#" alt="Space for Photograph " style="height: 200px; width:150px; border:1px solid black; background-color: white;display: block" >
         </img>
             <input type='file' onchange="readURL(this,'picture');"  name="photograph"/>
-
         </td>
     </tr>
-%{--<tr>--}%
-    %{--<td> Signature of The Applicant</td>--}%
-    %{--<td>--}%
-        %{--<input type='file' onchange="readURL(this);" />--}%
-        %{--<img id='signature' src="#" alt="Space for Signature" style="height: 80px; width:250px; border:1px solid black; background-color: white;display: block" required="true">  </img>--}%
-        %{--<input type='file' onchange="readURL(this,'signature');" name="signature" id="signatureFile"/>--}%
-
-    %{--</td>--}%
-%{--</tr>--}%
 <tr>
    <td colspan="2">
-       <input type="checkbox" name="declaration" id="declaration" required="true" />
-    %{--</td>--}%
-    %{--<td>--}%
+       <input type="checkbox" name="declaration" id="declaration" />
         <label>I hereby declare that the information as indicated above is true to the best of my knowledge.</label>
     </td>
 </tr>
@@ -250,7 +208,7 @@
 <!----- Submit and Reset ------------------------------------------------->
 <tr>
     <td colspan="2" align="center">
-        <input type="submit" value="Submit" onclick=" ">
+        <input type="submit" value="Submit" onclick="validate()">
         <input type="reset" value="Reset" onclick="resetImage()">
     </td>
 </tr>

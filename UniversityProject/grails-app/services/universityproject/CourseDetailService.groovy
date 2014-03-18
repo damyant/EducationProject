@@ -12,6 +12,7 @@ class CourseDetailService {
     }
 
     def saveCourseInfo(params){
+//        println("???????????????==="+params["registrationNo${i}"])
         new CourseDetail(params).addToSubject(params).save()
 
 

@@ -1,5 +1,6 @@
 <div>
     <div class="logo">
+
         <div class="left"><img src="${resource(dir: 'images', file: 'unilogo.jpg')}"></div>
 
         <div class="right">
@@ -10,6 +11,9 @@
             <sec:username /> (<g:link controller="logout">sign out</g:link>)
         </div>
         </sec:ifLoggedIn>
+
+        %{--<div class="left"><img src="${resource(dir: 'images', file: 'logo.png')}"></div>--}%
+
     </div>
     <ul id="menu">
         <li><a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
@@ -47,8 +51,7 @@
                         <li><g:link controller="examinationCenter" action="updateExaminationCentre"><g:message
                                 code="default.mainMenu3.subMenu1.subMenu3"/></g:link></li>
                         <li><g:link controller="examinationCenter" action="deleteExaminationCentre"><g:message
-                                cod
-                                e="default.mainMenu3.subMenu1.subMenu4"/></g:link></li>
+                                code="default.mainMenu3.subMenu1.subMenu4"/></g:link></li>
                     </ul>
                 </li>
                 <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>
@@ -79,7 +82,8 @@
                         </li>
                     </ul>
                 </li>
-                <li><g:link controller="course" action="createNewCourse"><g:message code="default.mainMenu3.subMenu6"/></g:link>
+                <li><g:link controller="course" action="createNewCourse"><g:message
+                        code="default.mainMenu3.subMenu6"/></g:link>
                 </li>
             </ul>
         </li>
