@@ -35,7 +35,7 @@ class StudyCenterController {
 //        }
         try {
             studyCenterInfoService.studyCenterDetailInfo(params)
-            return [view: "examinationCenter/createNewStudyCenter"]
+//            return [view: "examinationCenter/createNewStudyCenter"]
         }
         catch (Exception e) {
             println("<<<<<<<<<<<There is some problem in saving new study center" + e)
