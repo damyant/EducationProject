@@ -1,22 +1,49 @@
 package examinationproject
 
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
+import grails.plugins.springsecurity.SecurityTagLib
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class StudyCenterController {
 
     def studyCenterInfoService
+    def springSecurityService
 
     def index() {}
 
-    def createNewStudyCenter() {
+
+    @Secured("ROLE_ADMIN")
+        def createNewStudyCenter() {
+        def config = SpringSecurityUtils.securityConfig
+
+//        if (springSecurityService.isLoggedIn()) {
+//            try {
+//                studyCenterInfoService.studyCenterDetailInfo(params)
+//                return [view: "examinationCenter/createNewStudyCenter"]
+//            }
+//            catch (Exception e) {
+//                println("<<<<<<<<<<<There is some problem in saving new study center" + e)
+//            }
+//
+//        }else{
+//
+//        String view = '/login/auth'
+//        String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
+//        render view: view, model: [postUrl: postUrl,
+//                rememberMeParameter: config.rememberMe.parameter]
+//        }
         try {
             studyCenterInfoService.studyCenterDetailInfo(params)
+            return [view: "examinationCenter/createNewStudyCenter"]
         }
         catch (Exception e) {
             println("<<<<<<<<<<<There is some problem in saving new study center" + e)
         }
 
+
     }
+
 
     def saveStudyCenter() {
         try {
@@ -48,7 +75,7 @@ class StudyCenterController {
         }
 
     }
-
+    @Secured("ROLE_ADMIN")
     def viewStudyCentre() {
 
     }

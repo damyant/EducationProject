@@ -44,6 +44,8 @@ grails.views.default.codec = "html"
 // If unspecified, controllers are prototype scoped.
 grails.controllers.defaultScope = 'singleton'
 
+
+
 // GSP settings
 grails {
     views {
@@ -113,3 +115,11 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.university.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.university.UserRole'
+grails.plugins.springsecurity.authority.className = 'com.university.Role'
+
+
+

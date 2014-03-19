@@ -1,12 +1,26 @@
 <div>
     <div class="logo">
-        <div class="left"><img src="${resource(dir: 'images', file: 'logo.png')}"></div>
+
+        <div class="left"><img src="${resource(dir: 'images', file: 'unilogo.jpg')}"></div>
+
+        <div class="right">
+            <h1>INSTITUTE OF DISTANCE & OPEN LEARNING</h1>
+        </div>
+        <sec:ifLoggedIn>
+        <div class="right" name="logout">
+            <sec:username /> (<g:link controller="logout">sign out</g:link>)
+        </div>
+        </sec:ifLoggedIn>
+
+        %{--<div class="left"><img src="${resource(dir: 'images', file: 'logo.png')}"></div>--}%
+
     </div>
     <ul id="menu">
         <li><a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
         <li><a href="#"><g:message code="default.mainMenu1"/></a></li>
         <li><a href="#"><g:message code="default.mainMenu2"/></a>
             <ul>
+
                 <li><g:link controller="student" action="registration"><g:message
                         code="default.mainMenu2.subMenu1"/></g:link></li>
                 <li><a class="viewResulttopopup"><g:message code="default.mainMenu2.subMenu2"/></a></li>
