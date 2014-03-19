@@ -15,6 +15,12 @@
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'multiselectable.js')}"></script>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'multiselectable.css')}" type='text/css'>
+    <script type="text/javascript">
+
+        makeJson("${subjList}")
+
+
+        </script>
 </head>
 <body>
 <div id="main">
@@ -23,6 +29,7 @@
     </g:if>
 
     <g:form controller="course" action="saveCourse" method="post" name="createCourse" id="createCourse">
+        <g:hiddenField name="subList" id="subList" value="${subjList}"/>
         <table class="university-table">
             <tr>
                 <td><label>Course Name</label></td>
@@ -39,7 +46,7 @@
 
             <tr>
                 <td><label>Number of Terms/Semesters </label></td>
-                <td><input type="text" id="terms" name="noOfTerms" maxlength="" class="university-size-1-2" onblur="showSelect()"/></td>
+                <td><input type="text" id="terms" name="noOfTerms" maxlength="" class="university-size-1-2" onblur="semesterList()"/></td>
             </tr>
             <tr>
                 <td><label>Course Code</label></td>
@@ -66,18 +73,19 @@
                 <td><label>Total Credit Points</label></td>
                 <td><input type="text" name="totalCreditPoints" class="university-size-1-2"/></td>
             </tr>
-            <tr>
-                <td><label>Total Credit Points</label></td>
-                <td><g:select name="semester1" from="${Subject.findAll()}" optionValue="subjectName" optionKey="id" multiple="true" /></td>
-            </tr>
-            <tr>
-                <td><label>Total Credit Points</label></td>
-                <td><g:select name="semester2" from="${Subject.findAll()}" optionValue="subjectName" optionKey="id" multiple="true" /></td>
-            </tr>
+            %{--<tr>--}%
+                %{--<td><label>Total Credit Points</label></td>--}%
+                %{--<td><g:select name="semester1" from="${Subject.findAll()}" optionValue="subjectName" optionKey="id" multiple="true" /></td>--}%
+            %{--</tr>--}%
+            %{--<tr>--}%
+                %{--<td><label>Total Credit Points</label></td>--}%
+                %{--<td><g:select name="semester2" from="${Subject.findAll()}" optionValue="subjectName" optionKey="id" multiple="true" /></td>--}%
+            %{--</tr>--}%
             <tr>
                 <td colspan="2">
-                    <div id="multiSelectDiv"></div>
-                    <div id="mainDiv"></div>
+                    <div id="subjectDiv"></div>
+                    %{--<div id="multiSelectDiv"></div>--}%
+                    %{--<div id="mainDiv"></div>--}%
                 </td>
             </tr>
             <tr>

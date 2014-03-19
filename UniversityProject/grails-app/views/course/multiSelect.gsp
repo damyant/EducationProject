@@ -23,7 +23,7 @@
         var selectedValues=[];
         var nonSelected=[];
         var inList2;
-        $('#subList'+index+' :selected').each(function(i,list1Selected
+        $('#semester'+index+' :selected').each(function(i,list1Selected
                 ){
             selectedValues[i]=$(list1Selected).val();
             inList2 = false;
