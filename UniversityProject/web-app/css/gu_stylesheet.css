@@ -83,14 +83,21 @@ label.error{
 }
 
 .university-session-management{
-    height: 90%;
-    font: bold 12px Impact, fantasy;
+    height: 50px;
+    font: bold 12px DejaVu Serif;
     float: right;
     margin-top: 20px;
     color: #fff;
+    line-height: 50px;
+    text-transform:capitalize;
 }
 .university-session-management a{
     text-decoration: none;
+    color: saddlebrown ;
+}
+
+.university-session-management a:hover{
+    color: #fff ;
 }
 
 .university-registration-photo{
