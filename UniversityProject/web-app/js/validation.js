@@ -78,9 +78,9 @@ function validate(){
             stateOfCandidate:{
                 required:true
             },
-//            pinCode:{
-//                required:true
-//            },
+            pinCode:{
+                required:true
+            },
             photograph:{
                 required:true
             },
@@ -104,10 +104,10 @@ function validate(){
             nameOfApplicant :"Please enter Name of an Apllicant",
             date_of_birth:"Please Enter Date of birth",
             program:"Please enter Program",
-            category:"Please enter one of these categories",
-            nationality:"please enter Nationality",
-            gender:"Please enter your gender",
-            state:"Please enter your State",
+            category:"Please select one of these categories",
+            nationality:"please select Nationality",
+            gender:"Please select your gender",
+            state:"Please select your State",
             contactNo:"Please enter your Contact Number",
             contactCentre:"Please enter your contact Centre",
             location:"Please Select your location",
@@ -118,13 +118,23 @@ function validate(){
             po:"please enter your Post Office",
             districtOfCandidate:"please enter your District",
             stateOfCandidate:"please enter your State",
-//            pinCode:"please enter your PinCode",
+            pinCode:"please enter your PinCode",
             photograph:"please upload your PhotoGraph",
             declaration:"please declare before you proceed"
 
+        },
+        errorPlacement: function(error, element) {
+            if (element.is("input:radio")) {
+                element.parents(".radio_options").after(error);
+            }else if (element.is("input:checkbox")) {
+                element.parents("#declaration-label").after(error);
+            } else {
+                element.after(error);
+            }
         }
 
     })
+
 }
 
 function isNumber(evt) {

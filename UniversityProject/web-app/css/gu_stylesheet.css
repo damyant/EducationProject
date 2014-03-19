@@ -31,6 +31,10 @@ body{
     width: 20%;
 }
 /*Size*/
+.university-size-1-1{
+    width: 90%;
+}
+
 .university-size-1-2{
     width: 50%;
 }
@@ -39,10 +43,16 @@ body{
     width: 33.33%;
 }
 
+.university-size-2-3{
+    width: 66.66%;
+}
+
 .university-size-1-4{
     width: 20%;
 }
-
+.university-float-left{
+    float: left;
+}
 .university-float-right{
     float: right;
 }
@@ -51,7 +61,7 @@ body{
     border-radius:0;
     padding:.1em 1.7em;
     vertical-align:top;
-    height:2em
+    height:2em;
 }
 /* For Validation*/
 input.error, select.error{
@@ -61,6 +71,7 @@ input.error, select.error{
 label.error{
     margin-left: 4px;
     color: #cd0a0a;
+    display: n;
 }
 
 /*Status Message*/
@@ -73,15 +84,25 @@ label.error{
 }
 
 .university-session-management{
-    height: 20px;
-    font: bold 15px Arial, Helvetica;
+    height: 90%;
+    font: bold 12px Impact, fantasy;
     float: right;
-    margin: auto 9px;
+    margin-top: 20px;
     color: #fff;
-    vertical-position:middle ;
 }
 .university-session-management a{
-    list-style: none;
+    text-decoration: none;
+}
+
+.university-registration-photo{
+    height: 200px;
+    width:150px;
+    border:1px solid black;
+    display: block;
+    background: url("../images/profile.png") no-repeat;
+    background-position: bottom;
+    background-size: 100%;
+    text-align: center;
 }
 
 .multiSelect{
@@ -136,19 +157,7 @@ h3{
     text-decoration: underline;
 }
 
-
-.textInput {
-    width:260px
-}
-.innerTableInput{
-    width: 80%
-}
 .radioInput{}
-
-.textInput1 {
-    width:200px
-}
-
 
 #data{
     background-color: lightgrey;
@@ -203,32 +212,27 @@ h3{
 
 /*copy of register.css*/
 
-h3{
-    font-family: Calibri;
-    font-size: 22pt;
-    font-style: normal;
-    font-weight: bold;
-    color:black;
-    text-align: center;
-    text-decoration: underline;
-}
 table{
     font-family: Calibri;
     color:black;
     font-size: 11pt;
     font-style: normal;
-    background-color: lightgrey;
     border: 2px solid black;
 }
 table.inner{
     border: 0px;
 }
 
-
-.textInput {
-    width:260px;
-}
-.innerTableInput{
-    width: 80%;
-}
 .radioInput{}
+
+@media (max-width : 700px) {
+    h3{
+        font-size: 15pt;
+    }
+}
+
+@media (max-width : 350px) {
+    h3{
+        font-size: 11pt;
+    }
+}
