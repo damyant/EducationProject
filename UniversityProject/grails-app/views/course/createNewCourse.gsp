@@ -39,7 +39,7 @@
 
             <tr>
                 <td><label>Number of Terms/Semesters </label></td>
-                <td><input type="text" id="terms" name="" maxlength="" class="university-size-1-2" onblur="showSelect()"/></td>
+                <td><input type="text" id="terms" name="noOfTerms" maxlength="" class="university-size-1-2" onblur="showSelect()"/></td>
             </tr>
             <tr>
                 <td><label>Course Code</label></td>
@@ -65,6 +65,14 @@
             <tr>
                 <td><label>Total Credit Points</label></td>
                 <td><input type="text" name="totalCreditPoints" class="university-size-1-2"/></td>
+            </tr>
+            <tr>
+                <td><label>Total Credit Points</label></td>
+                <td><g:select name="semester1" from="${Subject.findAll()}" optionValue="subjectName" optionKey="id" multiple="true" /></td>
+            </tr>
+            <tr>
+                <td><label>Total Credit Points</label></td>
+                <td><g:select name="semester2" from="${Subject.findAll()}" optionValue="subjectName" optionKey="id" multiple="true" /></td>
             </tr>
             <tr>
                 <td colspan="2">
