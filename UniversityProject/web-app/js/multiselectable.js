@@ -43,7 +43,7 @@ function addToList(j){
 
         if(inList2!=true){
             $('#semester'+j).append("<option value='"+selectedValues[l]+"'>"+$(list1Selected).text()+"</option>");
-         
+
         }
     });
 }
