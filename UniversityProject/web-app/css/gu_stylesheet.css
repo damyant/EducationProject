@@ -10,7 +10,7 @@
 
 /*table*/
 body{
-    width:100%
+    width:100%;
 }
 
 .university-table-1-2 td{
@@ -72,6 +72,18 @@ label.error{
     font-weight: bold ;
 }
 
+.university-session-management{
+    height: 20px;
+    font: bold 15px Arial, Helvetica;
+    float: right;
+    margin: auto 9px;
+    color: #fff;
+    vertical-position:middle ;
+}
+.university-session-management a{
+    list-style: none;
+}
+
 .multiSelect{
     margin-left: 15%;
 }
@@ -94,3 +106,129 @@ label.error{
     vertical-align: middle;
     margin-top: -29px;
 }
+
+/*Copy create css*/
+
+.Venue{
+    width: 50%;
+    float: left;
+}
+.Venue label{
+    display: inline-block; width: 140px;
+    /*text-align: right;*/
+}
+.Venue input{
+    width: 250px;
+    margin-left: 50px;
+}
+.divlabel{
+    width:100px;
+}
+
+/*Copy admit Card CSS*/
+h3{
+    font-family: Calibri;
+    font-size: 22pt;
+    font-style: normal;
+    font-weight: bold;
+    color:black;
+    text-align: center;
+    text-decoration: underline;
+}
+
+
+.textInput {
+    width:260px
+}
+.innerTableInput{
+    width: 80%
+}
+.radioInput{}
+
+.textInput1 {
+    width:200px
+}
+
+
+#data{
+    background-color: lightgrey;
+    border: 2px solid black;
+    padding: 25px 25px 10px;
+    width:1000px;
+}
+#info {
+
+    width:450px;
+}
+
+#papers{
+    margin-top: 10px;
+
+}
+#image{
+    margin-top: 10px;
+
+}
+
+/* Copy popbox css*/
+
+.popbox{
+    margin-left: 500px;
+    text-align: center;
+    position: relative;
+}
+
+.collapse {
+    position: relative;
+}
+
+.box {
+    display: block;
+    /*display:none;*/
+    background: #ffffff;
+    border: solid 1px #BBBBBB;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px #999;
+    position: absolute;
+    width: 350px;
+    height: 140px;
+}
+
+.box a.close {
+    color: red;
+    font-size: 12px;
+    font-family: arial;
+    text-decoration: underline;
+}
+
+/*copy of register.css*/
+
+h3{
+    font-family: Calibri;
+    font-size: 22pt;
+    font-style: normal;
+    font-weight: bold;
+    color:black;
+    text-align: center;
+    text-decoration: underline;
+}
+table{
+    font-family: Calibri;
+    color:black;
+    font-size: 11pt;
+    font-style: normal;
+    background-color: lightgrey;
+    border: 2px solid black;
+}
+table.inner{
+    border: 0px;
+}
+
+
+.textInput {
+    width:260px;
+}
+.innerTableInput{
+    width: 80%;
+}
+.radioInput{}
