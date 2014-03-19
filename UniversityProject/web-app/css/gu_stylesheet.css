@@ -71,7 +71,6 @@ input.error, select.error{
 label.error{
     margin-left: 4px;
     color: #cd0a0a;
-    display: n;
 }
 
 /*Status Message*/
