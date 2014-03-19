@@ -27,7 +27,9 @@
     <form id="formID1" name="formID1">
 
 
-
+           <table class="university-table-1-2">
+               <tr>
+               <td>
            <div>
                 <label><g:message code="default.createExam.location"/></label>
                 <select name="location" >
@@ -38,20 +40,20 @@
                     <option value="Jaipur">Jaipur</option>
                 </select >
            </div>
-
+                </td>
+               </tr>
+        <tr>
+               <td>
         <div  id="VenueDiv" class="middleDiv">
         </div>
-        <table style="border: none">
+        </tr>
+               </td>
+           </table>
+                  <div>
+                    <input type="submit" value="Submit" onclick="submitForm()" class="university-button university-margin-top" >
+                    <input type="button" value="Cancel" onclick="reset1()" class="university-button university-margin-top"/>
+                  </div>
 
-
-            <tr>
-                <td colspan="4">
-                    <input type="submit" value="Submit" onclick="submitForm()" class="${classs} buttonCss" >
-                    <input type="button" value="Cancel" onclick="reset1()" class="${classs} buttonCss"/>
-
-                </td>
-            </tr>
-        </table>
     </form>
 </div>
 <script>
