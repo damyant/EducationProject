@@ -13,8 +13,6 @@ class CourseDetail {
     int totalCreditPoints
 
 
-    static hasMany = [subject : Subject]
-
     static mapping = {
         id column: "CourseId"
         courseName column: "CourseName"
@@ -26,7 +24,7 @@ class CourseDetail {
         noOfPapers column: "NoOfPapers"
         totalMarks column: "TotalMarks"
         totalCreditPoints column: "TotalCreditPoints"
-        subject column: 'SubjectId'
+
 
     }
 
