@@ -44,12 +44,35 @@ function addToList(j){
         if(inList2!=true){
             $('#semester'+j).append("<option value='"+selectedValues[l]+"'>"+$(list1Selected).text()+"</option>");
 
+            var text1 = $(list1Selected).val()
+            alert(text1);
+            $("select option").filter(function() {
+                //may want to use $.trim in here
+                return $(this).val() == text1;
+            }).attr('selected', true);
         }
     });
 }
 
 function removeFromList(j){
+    var semInSelected=[];
+//    $('#semester'+j+' option:not(selected)').each( function(k,semSelected) {
+//        semInSelected[k]=$(semSelected).val();
+//        alert(semInSelected[k]);
+
+
     $('#semester'+j+' option:selected').each( function() {
         $(this).remove();
+        $('#semester'+j+' option:not(selected)').each( function(k,semSelected) {
+            semInSelected[k]=$(semSelected).val();
+//            alert(semInSelected[k]);
+
+        var text2=$(semSelected).val()
+//        alert(semSelected[k]);
+        $("select option").filter(function() {
+            //may want to use $.trim in here
+            return $(this).val() == text2;
+        }).attr('selected', true);
+    });
     });
 }
