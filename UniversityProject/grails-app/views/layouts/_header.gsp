@@ -9,6 +9,8 @@
         <sec:ifLoggedIn>
         <div class="right" name="logout">
             <sec:username /> (<g:link controller="logout">sign out</g:link>)
+            <g:link controller="user" action="index">Manage User</g:link>
+
         </div>
         </sec:ifLoggedIn>
 
