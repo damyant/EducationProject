@@ -29,7 +29,7 @@
     </g:if>
 
     <g:form controller="course" action="saveCourse" method="post" name="createCourse" id="createCourse">
-        <g:hiddenField name="subList" id="subList" value="${subjList}"/>
+        %{--<g:hiddenField name="subList" id="subList" value="${subjList}"/>--}%
         <table class="university-table">
             <tr>
                 <td><label>Course Name</label></td>
@@ -83,9 +83,14 @@
             %{--</tr>--}%
             <tr>
                 <td colspan="2">
-                    <div id="subjectDiv"></div>
+                    %{--<div id="subjectDiv"></div>--}%
                     %{--<div id="multiSelectDiv"></div>--}%
                     %{--<div id="mainDiv"></div>--}%
+                    <table id="multiSelectTab">
+                    <tr>
+
+                    </tr>
+                    </table>
                 </td>
             </tr>
             <tr>
