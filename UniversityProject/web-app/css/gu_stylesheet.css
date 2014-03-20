@@ -231,7 +231,7 @@ table.inner{
 
 .radioInput{}
 
-table#multiSelectTab, table#studyCenterTab{
+table#multiSelectTab, table#studyCenterTab, table#courseTab {
     border-width: 0px;
 }
 
