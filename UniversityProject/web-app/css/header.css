@@ -169,9 +169,13 @@
 .logo{
     width:100%;
     display: inline-block;
-    padding: 1px 0px;
+    padding: 1px 2% 1px 2%;
+    padding-bottom: 1px;
     line-height: 100%;
     vertical-align: middle;
+
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
 }
 .logo-image{
     width: 100%;
@@ -179,8 +183,8 @@
 
 .header-parts {
     float: left;
-    width: 45%;
-    margin: 2px 2px;
+    width: 46%;
+    margin: 2px 1%;
     vertical-align: bottom;
 }
 
