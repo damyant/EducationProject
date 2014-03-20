@@ -1,20 +1,11 @@
 <div>
     <div class="logo">
-
-
-        %{--<div class="left"><img src="${resource(dir: 'images', file: 'unilogo.jpg')}"></div>--}%
-
-        %{--<div class="right">--}%
-            %{--<h1>INSTITUTE OF DISTANCE & OPEN LEARNING</h1>--}%
-        %{--</div>--}%
-
         <div class="header-parts"><img src="${resource(dir: 'images', file: 'logo.png')}" class="logo-image"></div>
-
         <sec:ifLoggedIn>
             <div class="header-parts" name="logout">
                 <div class="university-session-management">
-                     <sec:username/> || <g:link controller="logout">sign out</g:link> ||
-                     <g:link controller="user" action="index">Manage User</g:link>
+                    <sec:username/> || <g:link controller="logout">sign out</g:link> ||
+                    <g:link controller="user" action="index">Manage User</g:link>
                 </div>
             </div>
         </sec:ifLoggedIn>
@@ -67,7 +58,6 @@
                                             code="default.mainMenu3.subMenu2.submenu1.submenu2"/></a>
                                     </li>
 
-
                                 </ul>
                             </li>
                             <li><a href="#" class="viewAdmitCardPopup"><g:message
@@ -84,7 +74,6 @@
                                             code="default.mainMenu3.subMenu2.submenu1.submenu2"/></a>
                                     </li>
                                 </ul>
-
 
                             </li>
                         </ul>
@@ -121,32 +110,4 @@
         </div><!-- /scroller-inner -->
     </div><!-- /scroller -->
 
-
-                        </li>
-                    </ul>
-                </li>
-                <li><g:link controller="course" action="createNewCourse"><g:message
-                        code="default.mainMenu3.subMenu4"/></g:link>
-                </li>
-                <li><a href="#"><g:message code="default.mainMenu3.subMenu5"/></a>
-                    <ul>
-                        <li><g:link controller="rollNo" action="create"> <g:message
-                                code="default.mainMenu3.subMenu5.submenu1"/></g:link></li>
-                        <li><g:link controller="rollNo" action="edit"> <g:message
-                                code="default.mainMenu3.subMenu5.submenu2"/></g:link></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li><a href="#"><g:message code="default.mainMenu4"/></a></li>
-        <li><a href="#"><g:message code="default.mainMenu5"/></a></li>
-        <li><a href="#"><g:message code="default.mainMenu6"/></a></li>
-    </ul>
-    <g:render template="/layouts/viewResultPopup"/>
-    <g:render template="/layouts/newAdmitCardPopup"/>
-    <g:render template="/layouts/viewAdmitCardPopup"/>
-    <g:render template="/layouts/editAdmitCardPopup"/>
-    <g:render template="/layouts/deleteAdmitCardPopup"/>
 </div>
-
-
