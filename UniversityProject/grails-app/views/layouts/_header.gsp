@@ -1,11 +1,11 @@
 <div>
     <div class="logo">
 
-        <div class="left"><img src="${resource(dir: 'images', file: 'unilogo.jpg')}"></div>
+        %{--<div class="left"><img src="${resource(dir: 'images', file: 'unilogo.jpg')}"></div>--}%
 
-        <div class="right">
-            <h1>INSTITUTE OF DISTANCE & OPEN LEARNING</h1>
-        </div>
+        %{--<div class="right">--}%
+            %{--<h1>INSTITUTE OF DISTANCE & OPEN LEARNING</h1>--}%
+        %{--</div>--}%
         <sec:ifLoggedIn>
         <div class="right" name="logout">
             <sec:username /> (<g:link controller="logout">sign out</g:link>)
@@ -14,7 +14,7 @@
         </div>
         </sec:ifLoggedIn>
 
-        %{--<div class="left"><img src="${resource(dir: 'images', file: 'logo.png')}"></div>--}%
+        <div class="left"><img src="${resource(dir: 'images', file: 'logo.png')}"></div>
 
     </div>
     <ul id="menu">
@@ -85,7 +85,15 @@
                     </ul>
                 </li>
                 <li><g:link controller="course" action="createNewCourse"><g:message
-                        code="default.mainMenu3.subMenu6"/></g:link>
+                        code="default.mainMenu3.subMenu4"/></g:link>
+                </li>
+                <li><a href="#"><g:message code="default.mainMenu3.subMenu5"/></a>
+                    <ul>
+                        <li><g:link controller="rollNo" action="create"> <g:message
+                                code="default.mainMenu3.subMenu5.submenu1"/></g:link></li>
+                        <li><g:link controller="rollNo" action="edit"> <g:message
+                                code="default.mainMenu3.subMenu5.submenu2"/></g:link></li>
+                    </ul>
                 </li>
             </ul>
         </li>

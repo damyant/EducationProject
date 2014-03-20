@@ -106,11 +106,11 @@
 
 
         if(index==1){
-            $('#VenueDiv' + index).append('<div class="addButton"> <input type="button" class="buttonClass" onclick="AccountHeadDiv()" value="+" style="color: red;" id="removeButton' + index + '"  ></div></div>');
+            $('#VenueDiv' + index).append('<div class="addButton"> <input type="button" class="buttonClass" onclick="AccountHeadDiv()" value="+" style="color: red; margin-left: 95%" id="removeButton' + index + '"  ></div></div>');
         }
         else{
             $('#VenueDiv' + index).append(
-                    '<div class="addButton"> <input type="button"  class="buttonClass" value="-" onclick="removeAccountHead(\'' + index + '\')"/ style="color: red;float: right" id="removeButton' + index + '"  ></div></div>');
+                    '<div class="addButton"> <input type="button"  class="buttonClass" value="-" onclick="removeAccountHead(\'' + index + '\')"/ style="color: red; margin-left: 95%" id="removeButton' + index + '"  ></div></div>');
 
         }
 
