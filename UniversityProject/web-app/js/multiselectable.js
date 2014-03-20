@@ -9,8 +9,8 @@ function  semesterList(){
     for(var j=1;j<=$('#terms').val();j++){
 
         $('#multiSelectTab tbody').append('<tr><td><select name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
-            ' <td> <button type="button" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button></td>'+
-            ' <td> <button type="button" onclick="removeFromList('+j+')" name="remove'+j+'"  id="remove'+j+'">Remove</button> </td>'+
+            ' <td> <button type="button" class="multiSelect-buttons" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button></td>'+
+            ' <td> <button type="button" class="multiSelect-buttons" onclick="removeFromList('+j+')" name="remove'+j+'"  id="remove'+j+'">Remove</button> </td>'+
             '<td><select name="semester'+j+'" id="semester'+j+'"  multiple="true"  /></td></tr>' )
 
 
@@ -45,34 +45,38 @@ function addToList(j){
             $('#semester'+j).append("<option value='"+selectedValues[l]+"'>"+$(list1Selected).text()+"</option>");
 
             var text1 = $(list1Selected).val()
-            alert(text1);
-            $("select option").filter(function() {
+//            alert(text1);
+            $('#semester'+j+' option').filter(function() {
                 //may want to use $.trim in here
                 return $(this).val() == text1;
             }).attr('selected', true);
+            $('#allsubjectList'+j+' option:selected').each( function(n,allsubSelected) {
+                var text3=$(allsubSelected).val()
+//                alert("textam"+text3);
+                $('#allsubjectList'+j+' option').filter(function(){
+                    return $(this).val() == text3;
+                }).attr('selected',false);
+            });
         }
+
     });
 }
 
 function removeFromList(j){
-    var semInSelected=[];
-//    $('#semester'+j+' option:not(selected)').each( function(k,semSelected) {
-//        semInSelected[k]=$(semSelected).val();
-//        alert(semInSelected[k]);
-
-
-    $('#semester'+j+' option:selected').each( function() {
+  $('#semester'+j+' option:selected').each( function() {
         $(this).remove();
         $('#semester'+j+' option:not(selected)').each( function(k,semSelected) {
-            semInSelected[k]=$(semSelected).val();
-//            alert(semInSelected[k]);
-
         var text2=$(semSelected).val()
-//        alert(semSelected[k]);
-        $("select option").filter(function() {
-            //may want to use $.trim in here
+        $('#semester'+j+' option').filter(function() {
             return $(this).val() == text2;
         }).attr('selected', true);
-    });
+            $('#allsubjectList'+j+' option:selected').each( function(n,allsubSelected) {
+                var text3=$(allsubSelected).val()
+                alert("textam"+text3);
+                $('#allsubjectList'+j+' option').filter(function(){
+                    return $(this).val() == text3;
+                }).attr('selected',false);
+            });
+});
     });
 }
