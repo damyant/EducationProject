@@ -231,6 +231,95 @@ table.inner{
 
 .radioInput{}
 
+/*Login Page*/
+#login {
+    margin: 15px 0px;
+    padding: 0px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#login .inner {
+    width: 390px;
+    height: 70%;
+    margin: 5% auto;
+    text-align: left;
+    border: 2px solid #aab;
+    border-radius: 4px;
+    background-color: #E6E6E6;
+    -moz-box-shadow: 4px 2px 2px #CCB8B8;
+    -webkit-box-shadow: 2px 2px 2px #CCB8B8;
+    -khtml-box-shadow: 2px 2px 2px #CCB8B8;
+    box-shadow: 4px 2px 2px #CCB8B8;
+}
+
+#login .inner .fheader {
+    margin: 15px 0px 14px 20px;
+    font-size:20px;
+    font-weight:bold;
+    font-family:Myriad Pro;
+    text-transform:uppercase;
+    text-shadow: #fff 2px 2px 2px;
+}
+
+#login .inner .cssform input[type='text'] {
+    margin-left:25px;
+    width:300px;
+    height:40px;
+    margin-top:20px;
+    border-radius: 4px;
+    background:url(../images/User.png) no-repeat left;
+    background-size:30px;
+    padding-left: 34px;
+    font-size:14px;
+}
+
+#login .inner .cssform input[type='password'] {
+    margin-left:25px;
+    width:300px;
+    height:40px;
+    margin-top:20px;
+    border-radius: 4px;
+    background:url(../images/password.png) no-repeat left;
+    background-size:30px;
+    padding-left: 34px;
+    font-size:14px;
+}
+
+#login #remember_me_holder {
+    padding-left: 120px;
+}
+
+#login #submit {
+    padding:0;
+    margin-left:2px;
+    width:300px;
+    height:40px;
+    border:0;
+    background: url("../images/submit.png") no-repeat;
+    margin-left:50px;
+}
+
+#login #remember_me_holder label {
+    float: none;
+    margin-left: 0;
+    text-align: left;
+    width: 200px
+}
+
+#login .inner .login_message {
+    padding: 6px 25px 20px 25px;
+    color: #c33;
+}
+
+#login .inner .text_ {
+    width: 120px;
+}
+
+#login .inner .chk {
+    height: 12px;
+}
+
 @media (max-width : 700px) {
     h3{
         font-size: 15pt;
