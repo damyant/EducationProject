@@ -14,8 +14,7 @@
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'multiselectable.js')}"></script>
-    <link rel='stylesheet' href="${resource(dir: 'css', file: 'multiselectable.css')}" type='text/css'>
-    <script type="text/javascript">
+     <script type="text/javascript">
 
         makeJson("${subjList}")
 
@@ -73,19 +72,8 @@
                 <td><label>Total Credit Points</label></td>
                 <td><input type="text" name="totalCreditPoints" class="university-size-1-2"/></td>
             </tr>
-            %{--<tr>--}%
-                %{--<td><label>Total Credit Points</label></td>--}%
-                %{--<td><g:select name="semester1" from="${Subject.findAll()}" optionValue="subjectName" optionKey="id" multiple="true" /></td>--}%
-            %{--</tr>--}%
-            %{--<tr>--}%
-                %{--<td><label>Total Credit Points</label></td>--}%
-                %{--<td><g:select name="semester2" from="${Subject.findAll()}" optionValue="subjectName" optionKey="id" multiple="true" /></td>--}%
-            %{--</tr>--}%
             <tr>
                 <td colspan="2">
-                    %{--<div id="subjectDiv"></div>--}%
-                    %{--<div id="multiSelectDiv"></div>--}%
-                    %{--<div id="mainDiv"></div>--}%
                     <table id="multiSelectTab">
                     <tr>
 

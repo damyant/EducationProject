@@ -14,12 +14,11 @@
 		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
 		%{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">--}%
-		%{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">--}%
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'validationEngine.css')}" type="text/css">
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'header.css')}" type="text/css">
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}" type="text/css">
         <link rel='stylesheet' href="${resource(dir: 'css', file: 'style_popup.css')}" type='text/css'>
         <link rel='stylesheet' href="${resource(dir: 'css', file: 'gu_stylesheet.css')}" type='text/css'>
-        %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.dialog.js')}"></script>--}%
         <g:javascript library='jquery' />
         <g:javascript library="application"/>
         <r:layoutResources />
@@ -31,6 +30,10 @@
         <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'editAdmitCard.js')}'></script>
         <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'deleteAdmitCard.js')}'></script>
         <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'base.js')}'></script>
+
+    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js/jquery', file: 'jquery.js')}'></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'validation-en.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'validation-engine.js')}"></script>
 
 		<g:layoutHead/>
 
@@ -48,7 +51,7 @@
     </div>
     %{--TODO HEADER DONE--}%
 
-    <div style="min-height: 150px;">
+    <div style="min-height: 100%;">
         <g:layoutBody/>
     </div>
 
