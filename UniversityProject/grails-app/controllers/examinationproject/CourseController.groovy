@@ -14,8 +14,9 @@ class CourseController {
     }
 
     def saveCourse() {
-        println("????" + params)
-        courseDetailService.saveCourseInfo(params)
+
+        def data = request.JSON
+        courseDetailService.saveCourseInfo(data)
 
     }
 
