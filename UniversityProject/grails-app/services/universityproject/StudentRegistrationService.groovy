@@ -21,8 +21,12 @@ class StudentRegistrationService {
        studentRegistration.gender=params.gender
        studentRegistration.nationality=params.nationality
        studentRegistration.state=params.state
+       if(params.registrationNo1){
        studentRegistration.registrationNo1=Integer.parseInt(params.registrationNo1)
+       }
+       if(params.registrationNo2){
        studentRegistration.registrationNo2=Integer.parseInt(params.registrationNo2)
+       }
        studentRegistration.addressStudentName=params.studentName
        studentRegistration.addressVillage=params.town
        studentRegistration.addressPO=params.po

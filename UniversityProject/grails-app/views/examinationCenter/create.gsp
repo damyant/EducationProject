@@ -10,11 +10,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Create Examination Center</title>
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'jquery.js')}'></script>
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'create.css')}" type="text/css">
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation-en.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation-engine.js')}"></script>
-    <link rel="stylesheet" href="${resource(dir:'css', file:'validationEngine.css')}" type="text/css">
 
 </head>
 
@@ -108,11 +103,11 @@
 
 
         if(index==1){
-            $('#VenueDiv' + index).append('<div class="addButton"> <input type="button" class="buttonClass" onclick="AccountHeadDiv()" value="+" style="color: red;" id="removeButton' + index + '"  ></div></div>');
+            $('#VenueDiv' + index).append('<div class="addButton"> <input type="button" class="buttonClass" onclick="AccountHeadDiv()" value="+" style="color: red; margin-left: 95%" id="removeButton' + index + '"  ></div></div>');
         }
         else{
             $('#VenueDiv' + index).append(
-                    '<div class="addButton"> <input type="button"  class="buttonClass" value="-" onclick="removeAccountHead(\'' + index + '\')"/ style="color: red;float: right" id="removeButton' + index + '"  ></div></div>');
+                    '<div class="addButton"> <input type="button"  class="buttonClass" value="-" onclick="removeAccountHead(\'' + index + '\')"/ style="color: red;margin-left: 95%" id="removeButton' + index + '"  ></div></div>');
 
         }
 
@@ -136,7 +131,7 @@
                             data:$('#formID1').serialize() ,
                             success:function (response) {
                                 $('div#msg').html(response);
-                                reset1()
+//                                reset1()
 
                             }
                             ,error:function(XMLHttpRequest, textStatus, errorThrown) {
