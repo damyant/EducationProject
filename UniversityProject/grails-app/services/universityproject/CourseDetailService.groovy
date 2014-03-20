@@ -15,29 +15,26 @@ class CourseDetailService {
 
     }
 
-    def saveCourseInfo(params){
+    def saveCourseInfo(params) {
 
         def semObj
-        def courseObj=new CourseDetail(params)
-            courseObj.save(failOnError: true)
-        for(def i=1;i<=Integer.parseInt(params.noOfTerms);i++){
-             semObj=new Semester()
-             semObj.semesterNo=i
-             semObj.save(failOnError: true)
-
-            def subjectList = []
-            subjectList.addAll(params["semester${i}"])
-
-            for(def j=0;j<subjectList.size();j++){
-                CourseSubject.create courseObj,  Subject.findById(Integer.parseInt(subjectList[j].toString())), semObj
+        def courseObj = new CourseDetail(params)
+        courseObj.save(failOnError: true)
+        for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
+            semObj = new Semester()
+            semObj.semesterNo = i
+            semObj.save(failOnError: true)
+            params.semesterList.each { i
+                it."semester${i}".each { obj ->
+                    CourseSubject.create courseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj
+                }
 
             }
 
         }
 
+
     }
-
-
 
 
 }

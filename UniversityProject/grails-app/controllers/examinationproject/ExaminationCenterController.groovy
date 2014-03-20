@@ -18,7 +18,7 @@ class ExaminationCenterController {
         if(flag){
 //            println("value of flag is "+flag)
 //            status.flag="center saved"
-            render  "centre saved"
+            render  "Examination Centre Saved Successfully"
         }
         else{
             println("value of flag is "+flag)

@@ -10,11 +10,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Create Examination Center</title>
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'jquery.js')}'></script>
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'create.css')}" type="text/css">
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation-en.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation-engine.js')}"></script>
-    <link rel="stylesheet" href="${resource(dir:'css', file:'validationEngine.css')}" type="text/css">
 
 </head>
 
@@ -27,7 +22,9 @@
     <form id="formID1" name="formID1">
 
 
-
+           <table class="university-table-1-2">
+               <tr>
+               <td>
            <div>
                 <label><g:message code="default.createExam.location"/></label>
                 <select name="location" >
@@ -38,20 +35,20 @@
                     <option value="Jaipur">Jaipur</option>
                 </select >
            </div>
-
+                </td>
+               </tr>
+        <tr>
+               <td>
         <div  id="VenueDiv" class="middleDiv">
         </div>
-        <table style="border: none">
+        </tr>
+               </td>
+           </table>
+                  <div>
+                    <input type="submit" value="Submit" onclick="submitForm()" class="university-button university-margin-top" >
+                    <input type="button" value="Cancel" onclick="reset1()" class="university-button university-margin-top"/>
+                  </div>
 
-
-            <tr>
-                <td colspan="4">
-                    <input type="submit" value="Submit" onclick="submitForm()" class="${classs} buttonCss" >
-                    <input type="button" value="Cancel" onclick="reset1()" class="${classs} buttonCss"/>
-
-                </td>
-            </tr>
-        </table>
     </form>
 </div>
 <script>
@@ -110,7 +107,11 @@
         }
         else{
             $('#VenueDiv' + index).append(
+
                     '<div class="addButton"> <input type="button"  class="buttonClass" value="-" onclick="removeAccountHead(\'' + index + '\')"/ style="color: red; margin-left: 95%" id="removeButton' + index + '"  ></div></div>');
+
+                    '<div class="addButton"> <input type="button"  class="buttonClass" value="-" onclick="removeAccountHead(\'' + index + '\')"/ style="color: red;margin-left: 95%" id="removeButton' + index + '"  ></div></div>');
+
 
         }
 
@@ -134,7 +135,7 @@
                             data:$('#formID1').serialize() ,
                             success:function (response) {
                                 $('div#msg').html(response);
-                                reset1()
+//                                reset1()
 
                             }
                             ,error:function(XMLHttpRequest, textStatus, errorThrown) {
