@@ -11,6 +11,8 @@
     margin: 1px auto;
     border: 1px solid #abd361;
     box-shadow: 0 1px 1px #777;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
 }
 
 
@@ -178,7 +180,7 @@
 .header-parts {
     float: left;
     width: 45%;
-    margin: 2px 3px;
+    margin: 2px 2px;
     vertical-align: bottom;
 }
 

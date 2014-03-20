@@ -231,6 +231,10 @@ table.inner{
 
 .radioInput{}
 
+table#multiSelectTab, table#studyCenterTab {
+    border-width: 0px;
+}
+
 /*Login Page*/
 #login {
     margin: 15px 0px;

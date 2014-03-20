@@ -27,7 +27,7 @@
         <div class="message">${flash.message}</div>
     </g:if>
 
-    <g:form controller="course" action="saveCourse" method="post" name="createCourse" id="createCourse">
+    <g:form  method="post" name="createCourse" id="createCourse">
         %{--<g:hiddenField name="subList" id="subList" value="${subjList}"/>--}%
         <table class="university-table">
             <tr>
@@ -82,8 +82,8 @@
                 </td>
             </tr>
             <tr>
-                <td><input type="submit" value="<g:message code="default.button.create"/>"  class="university-button" onclick="validate()"></td>
-                <td><input type="reset" value="<g:message code="default.button.clear"/>" class="university-button" ></td>
+                <td><input type="button"  value="<g:message code="default.button.create"/>"  class="university-button" onclick="submitForm()"></td>
+                <td><input id="clear" onclick="test()" type="reset" value="<g:message code="default.button.clear"/>" class="university-button" ></td>
             </tr>
         </table>
     </g:form>
