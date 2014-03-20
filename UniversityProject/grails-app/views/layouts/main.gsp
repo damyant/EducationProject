@@ -48,7 +48,7 @@
     </div>
     %{--TODO HEADER DONE--}%
 
-    <div style="min-height: 150px;">
+    <div style="min-height: 100%;">
         <g:layoutBody/>
     </div>
 
