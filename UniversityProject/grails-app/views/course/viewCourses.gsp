@@ -23,11 +23,11 @@
         </g:else>
         <thead>
         <tr>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
             <g:if test="${params.type == 'update'}">
-                <th></th>
+                <th>4</th>
             </g:if>
         </tr>
         </thead>
