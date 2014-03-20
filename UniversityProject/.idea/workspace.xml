@@ -150,7 +150,7 @@
       <file leaf-file-name="gu_stylesheet.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web-app/css/gu_stylesheet.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="219" column="0" selection-start="3353" selection-end="3353" vertical-scroll-proportion="0.31839624" vertical-offset="3588" max-vertical-offset="5814">
+            <state line="230" column="0" selection-start="3512" selection-end="3512" vertical-scroll-proportion="0.759434" vertical-offset="3588" max-vertical-offset="5814">
               <folding />
             </state>
           </provider>
@@ -815,12 +815,12 @@
       <workItem from="1395135469934" duration="1410000" />
       <workItem from="1395138281405" duration="3150000" />
       <workItem from="1395298186512" duration="2202000" />
-      <workItem from="1395309165187" duration="6219000" />
+      <workItem from="1395309165187" duration="6264000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30650000" />
+    <option name="totallyTimeSpent" value="30695000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="776" extended-state="0" />
@@ -1245,7 +1245,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/css/gu_stylesheet.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="219" column="0" selection-start="3353" selection-end="3353" vertical-scroll-proportion="0.31839624" vertical-offset="3588" max-vertical-offset="5814">
+        <state line="230" column="0" selection-start="3512" selection-end="3512" vertical-scroll-proportion="0.759434" vertical-offset="3588" max-vertical-offset="5814">
           <folding />
         </state>
       </provider>
