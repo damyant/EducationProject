@@ -77,7 +77,7 @@
       <file leaf-file-name="_header.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/_header.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="10" selection-start="533" selection-end="533" vertical-scroll-proportion="-0.0" vertical-offset="187" max-vertical-offset="2006">
+            <state line="10" column="10" selection-start="505" selection-end="505" vertical-scroll-proportion="-0.0" vertical-offset="170" max-vertical-offset="2006">
               <folding />
             </state>
           </provider>
@@ -86,9 +86,10 @@
       <file leaf-file-name="header.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/css/header.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="171" column="18" selection-start="3283" selection-end="3283" vertical-scroll-proportion="0.0" vertical-offset="2714" max-vertical-offset="4301">
+            <state line="175" column="0" selection-start="3369" selection-end="3369" vertical-scroll-proportion="0.0" vertical-offset="2782" max-vertical-offset="4369">
               <folding>
-                <marker date="1395317280907" expanded="true" signature="116:460" placeholder="{...}" />
+                <marker date="1395318341207" expanded="true" signature="116:460" placeholder="{...}" />
+                <marker date="1395318341207" expanded="true" signature="3298:3430" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -106,7 +107,7 @@
       <file leaf-file-name="BootStrap.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/conf/BootStrap.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="71" selection-start="212" selection-end="212" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="493">
+            <state line="10" column="0" selection-start="377" selection-end="377" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="510">
               <folding />
             </state>
           </provider>
@@ -149,7 +150,7 @@
       <file leaf-file-name="gu_stylesheet.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web-app/css/gu_stylesheet.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="233" column="59" selection-start="3587" selection-end="3587" vertical-scroll-proportion="0.879717" vertical-offset="3588" max-vertical-offset="5814">
+            <state line="219" column="0" selection-start="3353" selection-end="3353" vertical-scroll-proportion="0.31839624" vertical-offset="3588" max-vertical-offset="5814">
               <folding />
             </state>
           </provider>
@@ -814,16 +815,16 @@
       <workItem from="1395135469934" duration="1410000" />
       <workItem from="1395138281405" duration="3150000" />
       <workItem from="1395298186512" duration="2202000" />
-      <workItem from="1395309165187" duration="6030000" />
+      <workItem from="1395309165187" duration="6219000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30461000" />
+    <option name="totallyTimeSpent" value="30650000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="776" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -832,7 +833,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25748503" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934132" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -840,7 +841,7 @@
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28828126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28828126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25748503" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1169,7 +1170,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/conf/BootStrap.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="71" selection-start="212" selection-end="212" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+        <state line="10" column="0" selection-start="377" selection-end="377" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="510">
           <folding />
         </state>
       </provider>
@@ -1211,16 +1212,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/_header.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="10" selection-start="533" selection-end="533" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="2006">
+        <state line="10" column="10" selection-start="505" selection-end="505" vertical-scroll-proportion="-0.0" vertical-offset="170" max-vertical-offset="2006">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/css/header.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="18" selection-start="3283" selection-end="3283" vertical-scroll-proportion="0.0" vertical-offset="2714" max-vertical-offset="4301">
+        <state line="175" column="0" selection-start="3369" selection-end="3369" vertical-scroll-proportion="0.0" vertical-offset="2782" max-vertical-offset="4369">
           <folding>
-            <marker date="1395317280907" expanded="true" signature="116:460" placeholder="{...}" />
+            <marker date="1395318341207" expanded="true" signature="116:460" placeholder="{...}" />
+            <marker date="1395318341207" expanded="true" signature="3298:3430" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -1243,7 +1245,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/css/gu_stylesheet.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="233" column="59" selection-start="3587" selection-end="3587" vertical-scroll-proportion="0.879717" vertical-offset="3588" max-vertical-offset="5814">
+        <state line="219" column="0" selection-start="3353" selection-end="3353" vertical-scroll-proportion="0.31839624" vertical-offset="3588" max-vertical-offset="5814">
           <folding />
         </state>
       </provider>

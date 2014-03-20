@@ -4,8 +4,8 @@
         <sec:ifLoggedIn>
             <div class="header-parts" name="logout">
                 <div class="university-session-management">
-                     <sec:username/> || <g:link controller="logout">sign out</g:link> ||
-                     <g:link controller="user" action="index">Manage User</g:link>
+                    <sec:username/> || <g:link controller="logout">sign out</g:link> ||
+                    <g:link controller="user" action="index">Manage User</g:link>
                 </div>
             </div>
         </sec:ifLoggedIn>

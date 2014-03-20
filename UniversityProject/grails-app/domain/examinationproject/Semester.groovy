@@ -15,8 +15,4 @@ class Semester {
         semesterNo(nullable: false)
         description(nullable: true)
     }
-
 }
-
-
-
