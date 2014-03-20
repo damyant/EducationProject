@@ -141,5 +141,5 @@ function ConvertFormToJSON(form){
 
 
 function clearFields(){
-    
+
 }
