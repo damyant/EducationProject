@@ -115,18 +115,18 @@ label.error{
     margin-left: 15%;
 }
 
-.multiSelect select{
+#multiSelectTab select{
     width: 30%;
     margin: 6px 5%;
     height: 70px;
 }
 
-.multiSelect-buttons button{
+.multiSelect-buttons-button{
     width: 80%;
     margin-bottom: 5px;
     font-size: 80%;
 }
-.multiSelect-buttons{
+#multiSelectTab .multiSelect-buttons{
     width: 10%;
     height: 70px;
     display: inline-block;

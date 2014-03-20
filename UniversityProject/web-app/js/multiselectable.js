@@ -8,10 +8,10 @@ function  semesterList(){
  $('#multiSelectTab tbody tr').remove()
     for(var j=1;j<=$('#terms').val();j++){
 
-        $('#multiSelectTab tbody').append('<tr><td><select name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
-            ' <td> <button type="button" class="multiSelect-buttons" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button></td>'+
-            ' <td> <button type="button" class="multiSelect-buttons" onclick="removeFromList('+j+')" name="remove'+j+'"  id="remove'+j+'">Remove</button> </td>'+
-            '<td><select name="semester'+j+'" id="semester'+j+'"  multiple="true"  /></td></tr>' )
+        $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <select  style="width: 90%" name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
+            ' <td <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button>'+
+            '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList('+j+')" name="remove'+j+'"  id="remove'+j+'">Remove</button> </td>'+
+            '<td <td style="width:40% "><select style="width: 90%"  name="semester'+j+'" id="semester'+j+'"  multiple="true"  /></td></tr>' )
 
 
     for(var i=0;i<subjectList.length;i++){
