@@ -1,13 +1,14 @@
 package examinationproject
 
 import universityproject.StudentRegistrationService
-
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 class StudentController {
  def studentRegistrationService
-
+    def springSecurityService
 
     def registration= {
         println("inside registration")
+
 
     }
     def viewResult={
