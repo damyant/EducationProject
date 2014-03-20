@@ -5,7 +5,6 @@
   Time: 4:11 PM
 --%>
 
-<%@ page import="examinationproject.District" contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
         <meta name="layout" content="main"/>

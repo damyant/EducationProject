@@ -24,6 +24,8 @@ class CourseController {
 
 
     }
-
+    def updateCourses(){
+        redirect(action: "viewCourses", params:['type':"update"])
+    }
 
 }
