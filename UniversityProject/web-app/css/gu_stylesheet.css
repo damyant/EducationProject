@@ -274,7 +274,9 @@ h3{
     margin: 10px 4px;
 }
 
-
+fieldset.form{
+    margin-top: 10px;
+}
 
 /*copy of register.css*/
 
