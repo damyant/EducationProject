@@ -45,4 +45,10 @@ class StudentRegistrationService {
        return studentRegistrationInsSaved
 
    }
+
+    def genarateStudentRollNumber(){
+
+    }
+
+
 }

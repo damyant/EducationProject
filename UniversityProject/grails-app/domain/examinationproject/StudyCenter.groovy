@@ -27,8 +27,6 @@ class StudyCenter {
         phoneNoOfCoordinator column: 'PhoneNoOfCoordinator'
         emailIdOfCoordinator column:'EmailIdOfCoordinator'
         city column: 'CityID'
-
-
     }
 
     static constraints = {
