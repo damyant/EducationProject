@@ -138,7 +138,7 @@
       <file leaf-file-name="registration.gsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grails-app/views/student/registration.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="46" selection-start="2496" selection-end="2496" vertical-scroll-proportion="0.5217391" vertical-offset="918" max-vertical-offset="4505">
+            <state line="48" column="0" selection-start="1775" selection-end="1775" vertical-scroll-proportion="-8.478261" vertical-offset="4131" max-vertical-offset="4522">
               <folding />
             </state>
           </provider>
@@ -932,12 +932,12 @@
       <workItem from="1395138281405" duration="3150000" />
       <workItem from="1395298186512" duration="2202000" />
       <workItem from="1395309165187" duration="6972000" />
-      <workItem from="1395376029039" duration="10964000" />
+      <workItem from="1395376029039" duration="11102000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42367000" />
+    <option name="totallyTimeSpent" value="42505000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="776" extended-state="0" />
@@ -1239,8 +1239,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="175" column="0" selection-start="3369" selection-end="3369" vertical-scroll-proportion="0.0" vertical-offset="2782" max-vertical-offset="4369">
           <folding>
-            <marker date="1395318341207" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1395318341207" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1395389360341" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1395389360341" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -1369,7 +1369,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/student/registration.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="46" selection-start="2496" selection-end="2496" vertical-scroll-proportion="0.5217391" vertical-offset="918" max-vertical-offset="4505">
+        <state line="48" column="0" selection-start="1775" selection-end="1775" vertical-scroll-proportion="-8.478261" vertical-offset="4131" max-vertical-offset="4522">
           <folding />
         </state>
       </provider>

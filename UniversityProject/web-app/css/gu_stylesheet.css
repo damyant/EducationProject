@@ -30,6 +30,11 @@ body{
 .university-table-1-4 td{
     width: 20%;
 }
+
+.university-table-1-7 td, .university-table-1-7 th{
+    min-width: 12%;
+    text-align: center;
+}
 /*Size*/
 .university-size-1-1{
     width: 90%;
@@ -55,6 +60,10 @@ body{
 }
 .university-float-right{
     float: right;
+}
+
+.university-text-decoration-none{
+    text-decoration: none;
 }
 /*button*/
 .university-button{
@@ -133,7 +142,44 @@ label.error{
     vertical-align: middle;
     margin-top: -29px;
 }
+.nav{
 
+    margin-top: 40px;
+}
+.nav ul{
+    list-style: none;
+    display: inline;
+}
+
+.university-role-management{
+    margin: auto;
+}
+.university-role-management li{
+    display: inline;
+}
+.university-role-management a{
+    padding: 40px 100px;
+    margin: 45px 100px 45px 100px;
+    border: #c0acf0 solid 1px;
+    border: 5px;
+    background-color: #ccbccc;
+    color: #fff;
+    font: bold 15px DejaVu Serif;
+    text-decoration:none;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    -webkit-box-shadow: 2px 4px 5px 1px rgba(97,45,97,1);
+    -moz-box-shadow: 2px 4px 5px 1px rgba(97,45,97,1);
+    box-shadow: 2px 4px 5px 1px rgba(97,45,97,1);
+    -webkit-text-fill-color: #08a640;
+    -webkit-text-stroke-color: #03521e;
+    -webkit-text-stroke-width: 1px;
+    text-fill-color: #08a640;
+    text-stroke-color: #03521e;
+    text-stroke-width: 1px;
+
+}
 /*Copy create css*/
 
 .Venue{
@@ -161,6 +207,7 @@ h3{
     color:black;
     text-align: center;
     text-decoration: underline;
+    margin: 5px auto;
 }
 
 .radioInput{}
@@ -215,6 +262,19 @@ h3{
     font-family: arial;
     text-decoration: underline;
 }
+
+.fieldcontain{
+
+    display: inline;
+}
+
+.fieldcontain div{
+    width: 40%;
+    display: inline-block;
+    margin: 10px 4px;
+}
+
+
 
 /*copy of register.css*/
 

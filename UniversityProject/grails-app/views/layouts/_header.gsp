@@ -46,6 +46,9 @@
                             <li><g:link controller="examinationCenter"
                                         action="updateExaminationCentre"><g:message
                                         code="default.mainMenu3.subMenu1.subMenu3"/></g:link></li>
+                            <li><g:link controller="examinationCenter"
+                                        action="deleteExaminationCentre"><g:message
+                                        code="default.mainMenu3.subMenu1.subMenu4"/></g:link></li>
                         </ul>
                     </li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>

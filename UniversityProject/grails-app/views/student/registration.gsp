@@ -46,8 +46,9 @@
         <td>Date of Birth</td>
 
 
-        <td><input type="date" name="dob" maxlength="30" class="university-size-1-2" id="datePick"
-                   required="true"/>
+
+        <td><input type="text" name="dob" maxlength="30" class="university-size-1-2" id="datePick"
+
         </td>
     </tr>
 

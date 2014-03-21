@@ -34,6 +34,8 @@
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js/jquery', file: 'jquery.js')}'></script>
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'validation-en.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'validation-engine.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.datepicker.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.core.js')}"></script>
 
 		<g:layoutHead/>
 
