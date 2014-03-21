@@ -4,8 +4,8 @@
         <sec:ifLoggedIn>
             <div class="header-parts" name="logout">
                 <div class="university-session-management">
-                     <sec:username/> || <g:link controller="logout">sign out</g:link> ||
-                     <g:link controller="user" action="index">Manage User</g:link>
+                    <sec:username/> || <g:link controller="logout">sign out</g:link> ||
+                    <g:link controller="user" action="index">Manage User</g:link>
                 </div>
             </div>
         </sec:ifLoggedIn>
@@ -46,6 +46,9 @@
                             <li><g:link controller="examinationCenter"
                                         action="updateExaminationCentre"><g:message
                                         code="default.mainMenu3.subMenu1.subMenu3"/></g:link></li>
+                            <li><g:link controller="examinationCenter"
+                                        action="deleteExaminationCentre"><g:message
+                                        code="default.mainMenu3.subMenu1.subMenu4"/></g:link></li>
                         </ul>
                     </li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>

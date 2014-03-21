@@ -107,7 +107,11 @@
         }
         else{
             $('#VenueDiv' + index).append(
+
+                    '<div class="addButton"> <input type="button"  class="buttonClass" value="-" onclick="removeAccountHead(\'' + index + '\')"/ style="color: red; margin-left: 95%" id="removeButton' + index + '"  ></div></div>');
+
                     '<div class="addButton"> <input type="button"  class="buttonClass" value="-" onclick="removeAccountHead(\'' + index + '\')"/ style="color: red;margin-left: 95%" id="removeButton' + index + '"  ></div></div>');
+
 
         }
 

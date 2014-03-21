@@ -1,3 +1,4 @@
+
 package com.university
 
 
@@ -9,7 +10,7 @@ import grails.transaction.Transactional
 class UserController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
+    def userService
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond User.list(params), model:[userInstanceCount: User.count()]
@@ -19,35 +20,45 @@ class UserController {
         respond userInstance
     }
 
-    def create() {
-        respond new User(params)
+    def createUser() {
+
+        def userInstance = new User()
+        userInstance.properties = params
+        def roleList=userService.getRoleList()
+        [userInstance: userInstance,roles:roleList]
+    }
+
+
+    def userList(Integer max){
+        params.max = Math.min(max ?: 10, 100)
+        respond User.list(params), model:[userInstanceCount: User.count()]
+
     }
 
     @Transactional
-    def save(User userInstance) {
-        if (userInstance == null) {
-            notFound()
-            return
+    def saveUser(User userInstance) {
+
+        userInstance = new User(params)
+        def role=Role.findByAuthority(params?.userRole)
+        if (userInstance.save(flush: true)) {
+            UserRole.create userInstance, role
+            redirect(action: "index")
         }
-
-        if (userInstance.hasErrors()) {
-            respond userInstance.errors, view:'create'
-            return
-        }
-
-        userInstance.save flush:true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'userInstance.label', default: 'User'), userInstance.id])
-                redirect userInstance
-            }
-            '*' { respond userInstance, [status: CREATED] }
+        else {
+            render(view: "createUser", model: [userInstance: userInstance])
         }
     }
 
-    def edit(User userInstance) {
-        respond userInstance
+    def editUser(User userInstance) {
+//        userInstance = User.get(params.id)
+        def role
+        if (!userInstance) {
+            redirect(action: "index")
+        }
+        else {
+            role=UserRole.findByUser(userInstance)
+            return [userInstance: userInstance,role:role.role]
+        }
     }
 
     @Transactional
@@ -58,16 +69,16 @@ class UserController {
         }
 
         if (userInstance.hasErrors()) {
-            respond userInstance.errors, view:'edit'
+            respond userInstance.errors, view:'editUser'
             return
         }
 
-        userInstance.save flush:true
+        userInstance.save(flush:true)
+
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'User.label', default: 'User'), userInstance.id])
-                redirect userInstance
+                          redirect(action: "index")
             }
             '*'{ respond userInstance, [status: OK] }
         }
@@ -85,7 +96,7 @@ class UserController {
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'User.label', default: 'User'), userInstance.id])
+
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -95,10 +106,11 @@ class UserController {
     protected void notFound() {
         request.withFormat {
             form {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'userInstance.label', default: 'User'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
         }
     }
 }
+
+
