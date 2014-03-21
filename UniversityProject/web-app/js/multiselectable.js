@@ -6,11 +6,7 @@ var subjectList
 function  semesterList(){
 
  $('#multiSelectTab tbody tr').remove()
-    for(var j=1;j<=$('#terms').val();j++){
-//        $('#multiSelectTab tbody').append('<tr><td><select name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"/></td>'+
-//            ' <td> <button type="button" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button></td>'+
-//            ' <td> <button type="button" onclick="removeFromList('+j+')" name="remove'+j+'"  id="remove'+j+'">Remove</button> </td>'+
-//            '<td><select name="semester'+j+'" id="semester'+j+'"  multiple="true"  /></td></tr>' )
+    for(var j=1;j<=$('#noOfTerms').val();j++){
 
         $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <select  style="width: 90%" name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
             ' <td <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button>'+
@@ -28,6 +24,7 @@ function  semesterList(){
 }
 
 function makeJson(list){
+
     subjectList=jQuery.parseJSON(list.replace(/&quot;/g,'"'))
 
 }
@@ -120,25 +117,50 @@ function ConvertFormToJSON(form){
     });
     var semesterList ={};
 
-    for(var j=1;j<=$('#terms').val();j++){
+    for(var j=1;j<=$('#noOfTerms').val();j++){
 
         var subList = []
     $('#semester'+j+' option').each(function(){
-
-
-         subList.push($(this).val() || '');
+        subList.push($(this).val() || '');
         semesterList["semester"+j]=subList;
+        console.log(semesterList)
 
     })
 
     }
     finalList.push(semesterList);
+ console.log(finalList)
 
     json["semesterList"] = finalList;
 
     return json
 }
 
+function test(obj){
+
+    var courseDetailJson=jQuery.parseJSON(obj.replace(/&quot;/g,'"'))
+
+    $('#courseName').val(courseDetailJson['course'].courseName)
+    $('#modeName option[value='+courseDetailJson['course'].courseMode.id+']').attr("selected", "selected");
+    $('#courseTypeName option[value='+courseDetailJson['course'].courseType.id+']').attr("selected", "selected");
+    $('#noOfTerms').val(courseDetailJson['course'].noOfTerms)
+    $('#courseCode').val(courseDetailJson['course'].courseCode)
+    $('#noOfAcademicYears').val(courseDetailJson['course'].noOfAcademicYears)
+    $('#totalMarks').val(courseDetailJson['course'].totalMarks)
+    $('#marksPerPaper').val(courseDetailJson['course'].marksPerPaper)
+    $('#totalCreditPoints').val(courseDetailJson['course'].totalCreditPoints)
+    $('#noOfPapers').val(courseDetailJson['course'].noOfPapers)
+    semesterList()
+    for(var i=1;i<= $('#noOfTerms').val();i++){
+        for(var j=0;j<courseDetailJson['semesterList'][i].length;j++){
+            $('#semester'+i).append('<option value="'+courseDetailJson['semesterList'][i][j].id+'">'+courseDetailJson['semesterList'][i][j].subjectName +'</option> ')
+        }
+
+    }
+
+
+
+}
 
 function clearFields(){
 
