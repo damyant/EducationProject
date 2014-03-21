@@ -34,7 +34,13 @@
             <g:sortableColumn property="enabled" title="${message(code: 'user.enabled.label', default: 'Enabled')}" />
 
             <g:sortableColumn property="passwordExpired" title="${message(code: 'user.passwordExpired.label', default: 'Password Expired')}" />
-            <g:sortableColumn property="edit" title="${message(code: 'user.enabledited.label', default: 'Edit')}" />
+
+            <th title="${message(code: 'user.enabledited.label', default: 'Edit')}"></th>
+
+            <th title="${message(code: 'user.reset.label', default: 'Reset Password')}" />
+
+
+
 
         </tr>
         </thead>
@@ -55,6 +61,8 @@
                 <td><g:formatBoolean boolean="${userInstance.passwordExpired}" /></td>
 
                 <td><g:link action="editUser" id="${userInstance.id}">Edit</g:link></td>
+
+                <td><g:link controller="user" action="resetPassword" params="[id:userInstance.id]">Reset Password</g:link></td>
 
             </tr>
         </g:each>

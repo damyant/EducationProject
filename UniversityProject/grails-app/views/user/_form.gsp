@@ -21,7 +21,7 @@
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
 
     <label for="email">
-        <g:message code="email.label" default="Email"/></label>
+        <g:message code="user.email.label" default="Email"/></label>
     <span class="required-indicator">*</span>
     <g:textField name="email" required="" value="${userInstance?.email}"/>
 
@@ -34,21 +34,35 @@
             <span class="required-indicator">*</span>
            <g:select from="${roles}" name="userRole" optionKey="authority" optionValue="authority" style="width: 300px;height: 30px"/>--}%
 
-    <g:if test="${roles!=null}" >
-        <td valign="top">
-        <g:message code="email.label" default="Role"/></label>
-        <span class="required-indicator">*</span>
-            <g:select from="${Role.list()}" optionKey="authority" optionValue="authority" value="" name="userRole"  noSelection="['':'-Choose role-']"
+    %{--<g:if test="${roles!=null}" >--}%
+        %{--<td valign="top">--}%
+        %{--<g:message code="user.role.label" default="Role"/></label>--}%
+        %{--<span class="required-indicator">*</span>--}%
+            %{--<g:select from="${Role.list()}" optionKey="authority" optionValue="authority" value="" name="userRole"  noSelection="['':'-Choose role-']"--}%
+                      %{--style="width: 300px;"/>--}%
+        %{--</td>--}%
+    %{--</g:if>--}%
+    %{--<g:else>--}%
+        %{--<td valign="top">--}%
+        %{--<g:message code="user.role.label" default="Role"/></label>--}%
+            %{--<g:select from="${Role.list()}" optionKey="authority" optionValue="authority" value="" name="userRole"  noSelection="['':'-Choose role-']"--}%
+                      %{--style="width: 300px;"/>--}%
+        %{--</td>--}%
+    %{--</g:else>--}%
+    <g:if test="${UserRole.findByUser(userInstance)!=null}" >
+        <label for="role">
+            <g:message code="user.role.label" default="Email"/></label>
+            <g:select from="${Role.list()}" optionKey="authority" optionValue="authority" value="${role.authority}" name="userRole"
                       style="width: 300px;"/>
-        </td>
+
     </g:if>
     <g:else>
-        <td valign="top">
+        <label for="role">
+            <g:message code="user.role.label" default="Email"/></label>
             <g:select from="${Role.list()}" optionKey="authority" optionValue="authority" value="" name="userRole"  noSelection="['':'-Choose role-']"
                       style="width: 300px;"/>
-        </td>
-    </g:else>
 
+    </g:else>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'accountExpired', 'error')} ">
