@@ -7,10 +7,14 @@ class CourseController {
 
 
     def createNewCourse() {
-
+        def courseDetail=[:]
         def subObj = Subject.findAll()
 
-       [subjList:subObj as JSON]
+        if(params.courseId){
+        courseDetail= courseDetailService.getFullDetailOfCourse(params)
+        }
+
+       [courseDetail:courseDetail as JSON ,subjList:subObj as JSON]
     }
 
     def saveCourse() {
@@ -22,10 +26,19 @@ class CourseController {
 
     def viewCourses(){
 
+      def courseList=  courseDetailService.getAllCourses()
+        [courseList:courseList]
 
     }
     def updateCourses(){
+
         redirect(action: "viewCourses", params:['type':"update"])
     }
+
+    def deleteCourse(){
+        courseDetailService.deleteCourse(params)
+        redirect(action: "viewCourses", params:['type':"update"])
+    }
+
 
 }
