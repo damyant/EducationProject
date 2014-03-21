@@ -1,14 +1,20 @@
 <div>
     <div class="logo">
         <div class="header-parts"><img src="${resource(dir: 'images', file: 'logo.png')}" class="logo-image"></div>
-        <sec:ifLoggedIn>
-            <div class="header-parts" name="logout">
+
+        <div class="header-parts" name="logout">
+            <sec:ifLoggedIn>
                 <div class="university-session-management">
                     <sec:username/> || <g:link controller="logout">sign out</g:link> ||
                     <g:link controller="user" action="index">Manage User</g:link>
                 </div>
-            </div>
-        </sec:ifLoggedIn>
+            </sec:ifLoggedIn>
+            <sec:ifNotLoggedIn>
+                <div class="university-session-management">
+                    |<g:link controller="login" action="auth"> Login </g:link>|
+                </div>
+            </sec:ifNotLoggedIn>
+        </div>
     </div>
 
     <div id="header-Menu">
