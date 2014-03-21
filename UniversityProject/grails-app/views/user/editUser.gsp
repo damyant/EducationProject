@@ -73,23 +73,18 @@
                     <div><label for="role">
                         <g:message code="user.role.label" default="Role"/></label>
                         <span class="required-indicator">*</span></div>
+                <div>
+                    <g:if test="${UserRole.findByUser(userInstance) != null}">
 
-                    <div class="university-size-1-3"><g:if test="${UserRole.findByUser(userInstance) != null}">
-                        <label for="role">
-                            <g:message code="user.role.label" default="Email"/></label>
                         <g:select from="${Role.list()}" optionKey="authority" optionValue="authority"
-                                  value="${role.authority}" name="userRole"
-                                  style="width: 300px;"/>
+                                  value="${role.authority}" name="userRole" class="university-size-2-3"/>
 
                     </g:if>
-                        <g:else>
-                            <label for="role">
-                                <g:message code="user.role.label" default="Email"/></label>
-                            <g:select from="${Role.list()}" optionKey="authority" optionValue="authority" value=""
-                                      name="userRole" noSelection="['': '-Choose role-']"
-                                      style="width: 300px;"/>
+                    <g:else>
+                        <g:select from="${Role.list()}" optionKey="authority" optionValue="authority" value=""
+                                  name="userRole" class="university-size-2-3" noSelection="['': '-Choose role-']"/>
 
-                        </g:else>
+                    </g:else>
 
                     </div>
 
@@ -100,7 +95,7 @@
                         </label></div>
 
                         <div>
-                            <g:checkBox name="accountExpired"  value="${userInstance?.accountExpired}"/>
+                            <g:checkBox name="accountExpired" value="${userInstance?.accountExpired}"/>
                         </div>
                     </div>
 
@@ -132,13 +127,14 @@
                         </label></div>
 
                         <div><g:checkBox name="passwordExpired"
-                                                                     value="${userInstance?.passwordExpired}"/></div>
+                                         value="${userInstance?.passwordExpired}"/></div>
                     </div>
             </fieldset>
             <fieldset class="buttons">
-                <g:actionSubmit class="save" action="update"
+                <g:actionSubmit class="save university-button" action="update"
                                 value="${message(code: 'default.button.update.label', default: 'Update')}"/>
-                <g:link controller="user" action="index"><input type="button" name="create" class="save"
+                <g:link controller="user" action="index"><input type="button" name="create"
+                                                                class="save university-button"
                                                                 value="${message(code: 'default.button.cancel', default: 'Cancel')}"/></g:link>
             </fieldset>
         </g:form>
