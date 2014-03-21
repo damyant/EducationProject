@@ -2,17 +2,19 @@ package examinationproject
 
 class Semester {
     int semesterNo
-    String description
+
+    static belongsTo = [courseDetail: CourseDetail]
 
     static mapping = {
         id column :"SemesterId"
         semesterNo column: "SemesterNo"
-        description column: "Description"
+        courseDetail column: "CourseDetailId"
+
 
     }
 
     static constraints = {
         semesterNo(nullable: false)
-        description(nullable: true)
+
     }
 }

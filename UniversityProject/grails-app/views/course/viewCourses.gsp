@@ -1,9 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: chandan
-  Date: 20/3/14
-  Time: 4:11 PM
---%>
 
 <html>
     <head>
@@ -22,35 +16,42 @@
         </g:else>
         <thead>
         <tr>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
+            <th>Course Name</th>
+            <th>Course Type</th>
+            <th>Course Mode</th>
             <g:if test="${params.type == 'update'}">
-                <th>4</th>
+                <th>&nbsp;</th>
             </g:if>
         </tr>
         </thead>
         <tbody>
         <g:if test="${params.type == 'update'}">
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+            <g:each var="course"  in="${courseList}">
+                <tr>
+                    <td>${course.courseName}</td>
+                    <td>${course.courseType.courseTypeName}</td>
+                    <td>${course.courseMode.modeName}</td>
                 <td><div class="university-float-right">
-                    <input type="submit" value="Update" class="university-button"/>
-                    <input type="button" value="Delete"  class="university-button"/>
+                    %{--<input type="submit" value="Update" class="university-button"/>--}%
+                    <g:link  controller="course" action="createNewCourse" params="[courseId:course.id,semester:course.noOfTerms]" class="university-button">Update</g:link>
+                    <g:link  controller="course" action="deleteCourse" params="[courseId:course.id,semester:course.noOfTerms]" class="university-button">Delete</g:link>
+                    %{--<input type="button" value="Delete"  class="university-button"/>--}%
                 </div></td>
             </tr>
+           </g:each>
         </g:if>
         <g:else>
+           <g:each var="course"  in="${courseList}">
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>${course.courseName}</td>
+                <td>${course.courseType.courseTypeName}</td>
+                <td>${course.courseMode.modeName}</td>
             </tr>
+           </g:each>
         </g:else>
         </tbody>
     </table>
     </div>
     </body>
+
 </html>

@@ -10,8 +10,10 @@ class CourseDetail {
     int noOfAcademicYears
     int noOfPapers
     int totalMarks
+    int marksPerPaper
     int totalCreditPoints
 
+    static hasMany = [semester: Semester]
 
     static mapping = {
         id column: "CourseId"
@@ -23,8 +25,9 @@ class CourseDetail {
         noOfAcademicYears column: "NoOfAcademicYears"
         noOfPapers column: "NoOfPapers"
         totalMarks column: "TotalMarks"
+        marksPerPaper column: "MarksPerPaper"
         totalCreditPoints column: "TotalCreditPoints"
-
+        semester cascade:"all,delete-orphan"
 
     }
 
@@ -37,6 +40,7 @@ class CourseDetail {
         noOfAcademicYears(nullable: false)
         noOfPapers(nullable: false)
         totalMarks(nullable: false)
+        marksPerPaper(nullable: false)
         totalCreditPoints(nullable:false)
 
     }
