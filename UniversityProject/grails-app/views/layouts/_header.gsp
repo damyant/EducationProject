@@ -1,14 +1,22 @@
 <div>
     <div class="logo">
         <div class="header-parts"><img src="${resource(dir: 'images', file: 'logo.png')}" class="logo-image"></div>
-        <sec:ifLoggedIn>
-            <div class="header-parts" name="logout">
+
+        <div class="header-parts" name="logout">
+            <sec:ifLoggedIn>
                 <div class="university-session-management">
-                    <sec:username/> || <g:link controller="logout">sign out</g:link> ||
-                    <g:link controller="user" action="index">Manage User</g:link>
+                    <sec:username/> || <g:link controller="logout">Logout</g:link>
+                    <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_SUPERVISOR">
+                        ||<g:link controller="user" action="index">Manage User</g:link>
+                    </sec:ifAnyGranted>
                 </div>
-            </div>
-        </sec:ifLoggedIn>
+            </sec:ifLoggedIn>
+            <sec:ifNotLoggedIn>
+                <div class="university-session-management">
+                    |<g:link controller="login" action="auth"> Login </g:link>|
+                </div>
+            </sec:ifNotLoggedIn>
+        </div>
     </div>
 
     <div id="header-Menu">
@@ -46,6 +54,9 @@
                             <li><g:link controller="examinationCenter"
                                         action="updateExaminationCentre"><g:message
                                         code="default.mainMenu3.subMenu1.subMenu3"/></g:link></li>
+                            <li><g:link controller="examinationCenter"
+                                        action="deleteExaminationCentre"><g:message
+                                        code="default.mainMenu3.subMenu1.subMenu4"/></g:link></li>
                         </ul>
                     </li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>
