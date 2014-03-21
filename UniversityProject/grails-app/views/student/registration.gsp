@@ -13,9 +13,9 @@
     <meta name="layout" content="main"/>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'register.css')}" type="text/css">
     %{--<g:javascript library="jquery" plugin="jquery"/>--}%
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-1.7.1.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.core.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.datepicker.js')}"></script>
+    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-1.7.1.js')}"></script>--}%
+    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.core.js')}"></script>--}%
+    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.datepicker.js')}"></script>--}%
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>
@@ -37,7 +37,7 @@
     <!----- First Name ---------------------------------------------------------->
     <tr>
         <td>Name of the applicant (In block letters only)</td>
-        <td><input type="text" name="nameOfApplicant" maxlength="30" class="university-size-1-2"/>
+        <td><input type="text" name="name" maxlength="30" class="university-size-1-2"/>
 
         </td>
     </tr>
@@ -46,7 +46,7 @@
         <td>Date of Birth</td>
 
 
-        <td><input type="date" name="date_of_birth" maxlength="30" class="university-size-1-2" id="datePick"
+        <td><input type="date" name="dob" maxlength="30" class="university-size-1-2" id="datePick"
                    required="true"/>
         </td>
     </tr>
@@ -79,8 +79,8 @@
         <td>Nationality</td>
         <td>
             <div class="radio_options">
-                <label> Indian <input type="radio" name="nationality" value="Male" class="radioInput"/></label>
-                <label>Non-Indian <input type="radio" name="nationality" value="Female" class="radioInput"/></label>
+                <label> Indian <input type="radio" name="nationality" value="Indian" class="radioInput"/></label>
+                <label>Non-Indian <input type="radio" name="nationality" value="Non-Indian" class="radioInput"/></label>
             </div>
         </td>
     </tr>
@@ -112,8 +112,8 @@
         <td>State of Domicile</td>
         <td>
             <div class="radio_options">
-                <label> Assam <input type="radio" name="state" value="Male" class="radioInput"/></label>
-                <label>Others <input type="radio" name="state" value="Female" class="radioInput"/></label>
+                <label> Assam <input type="radio" name="state" value="Assam" class="radioInput"/></label>
+                <label>Others <input type="radio" name="state" value="Others" class="radioInput"/></label>
             </div>
         </td>
     </tr>
@@ -122,7 +122,7 @@
         <!----- Mobile Number ---------------------------------------------------------->
         <td>Contact Mobile Number</td>
         <td>
-                <input type="text" name="contactNo" maxlength="10" class="university-size-1-2"
+                <input type="text" name="mobileNo" maxlength="10" class="university-size-1-2"
                    onkeypress="return isNumber(event)"/>
         </td>
     </tr>
@@ -131,9 +131,10 @@
         <!----- Contact centre/study centre ---------------------------------------------------------->
         <td>Contact centre/ Study centre</td>
         <td>
-            <input type="text" name="contactCentre" maxlength="3" class="university-size-1-2"
-                   onkeypress="return isNumber(event)"/>
+            <input type="text" name="studyCentre"  class="university-size-1-2" value="${studyCentre?.name}" readonly/>
 
+
+        </select>
         </td>
     </tr>
     <tr>
@@ -170,31 +171,31 @@
                 <tr>
 
                     <td>Name:</td>
-                    <td><input type="text" name="studentName" maxlength="30" class="university-size-1-2"/></td>
+                    <td><input type="text" name="addressStudentName" maxlength="30" class="university-size-1-2"/></td>
                 </tr>
                 <tr>
                     <td>Village/Town:</td>
-                    <td><input type="text" name="town" maxlength="30" class="university-size-1-2"/></td>
+                    <td><input type="text" name="addressTown" maxlength="30" class="university-size-1-2"/></td>
                 </tr>
                 <tr>
 
                     <td>P.O.:</td>
-                    <td><input type="text" name="po" maxlength="30" class="university-size-1-2"/></td>
+                    <td><input type="text" name="addressPO" maxlength="30" class="university-size-1-2"/></td>
                 </tr>
                 <tr>
                     <td>District:</td>
 
-                    <td><input type="text" name="districtOfCandidate" maxlength="30"
+                    <td><input type="text" name="addressDistrict" maxlength="30"
                                class="university-size-1-2"/></td>
                 </tr>
                 <tr>
                     <td>State:</td>
-                    <td><input type="text" name="stateOfCandidate" maxlength="30" class="university-size-1-2"/>
+                    <td><input type="text" name="addressState" maxlength="30" class="university-size-1-2"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Pincode:</td>
-                    <td><input type="text" name="pinCode" maxlength="6" class="university-size-1-2"
+                    <td><input type="text" name="addressPinCode" maxlength="6" class="university-size-1-2"
                                onkeypress="return isNumber(event)"/></td>
                 </tr>
             </table>

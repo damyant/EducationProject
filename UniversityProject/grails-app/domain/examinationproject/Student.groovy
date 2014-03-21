@@ -12,12 +12,12 @@ class Student {
     String nationality
     String state
     BigInteger mobileNo
-    int studyCentre
+    String studyCentre
     int preferenceOfExaminationCentre
     BigInteger registrationNo1
     BigInteger registrationNo2
     String addressStudentName
-    String addressVillage
+    String addressTown
     String addressPO
     String addressDistrict
     String addressState
@@ -42,7 +42,7 @@ class Student {
         registrationNo1(nullable: true)
         registrationNo2(nullable: true)
         addressStudentName(nullable: true)
-        addressVillage(nullable: true)
+        addressTown(nullable: true)
         addressPO(nullable: true)
         addressDistrict(nullable: true)
         addressState(nullable: true)
@@ -55,24 +55,24 @@ class Student {
         studentImage column: "studentImage", sqlType: "blob"
 //        studentSignature column: "studentSignature", sqlType: "blob"
 //        examinationCentre cascade:'none'
-        name column: "Name"
-        dob column: "Dob"
-        category column: "Category"
-        gender column: "Gender"
-        nationality column: "Nationality"
-        state column: "State"
-        mobileNo column : "MobileNo"
-        studyCentre column: "StudyCentre"
-        preferenceOfExaminationCentre column: "PreferenceOfExaminationCentre"
-        registrationNo1 column: "RegistrationNo1"
-        registrationNo2 column: "RegistrationNo2"
-        addressStudentName column: "AddressStudentName"
-        addressVillage column: "AddressVillage"
-        addressPO column: "AddressPO"
-        addressDistrict column: "AddressDistrict"
-        addressState column: "AddressState"
-        addressPinCode column: "AddressPinCode"
-        location column: "Location"
+//        name column: "Name"
+//        dob column: "Dob"
+//        category column: "Category"
+//        gender column: "Gender"
+//        nationality column: "Nationality"
+//        state column: "State"
+//        mobileNo column : "MobileNo"
+//        studyCentre column: "StudyCentre"
+//        preferenceOfExaminationCentre column: "PreferenceOfExaminationCentre"
+//        registrationNo1 column: "RegistrationNo1"
+//        registrationNo2 column: "RegistrationNo2"
+//        addressStudentName column: "AddressStudentName"
+//        addressTown column: "AddressTown"
+//        addressPO column: "AddressPO"
+//        addressDistrict column: "AddressDistrict"
+//        addressState column: "AddressState"
+//        addressPinCode column: "AddressPinCode"
+//        location column: "Location"
     }
 
 }

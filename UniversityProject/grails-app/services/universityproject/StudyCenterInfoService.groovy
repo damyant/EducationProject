@@ -1,5 +1,8 @@
 package universityproject
 
+import com.university.Role
+import com.university.User
+import com.university.UserRole
 import examinationproject.City
 import examinationproject.StudyCenter
 import grails.transaction.Transactional
@@ -34,6 +37,15 @@ class StudyCenterInfoService {
             if(params){
                 def studyCenterObj=new StudyCenter(params)
                 if(studyCenterObj.save(flush: true,failOnError: true)){
+                    def studyCentreUser = User.findByUsername(params.emailIdOfHeadIns) ?: new User(
+                            username: params.emailIdOfHeadIns,
+                            password: 'admin',
+                            email: params.emailIdOfHeadIns,
+                            enabled: true).save(failOnError: true)
+                    def studyCentreRole = Role.findByAuthority('ROLE_STUDYCENTRE')
+                    if (!studyCentreUser.authorities.contains(studyCentreRole)) {
+                        UserRole.create studyCentreUser, studyCentreRole
+                    }
                     saveStatus='created'
                 }
             }
