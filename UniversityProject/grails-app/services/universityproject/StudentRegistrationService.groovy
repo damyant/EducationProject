@@ -1,5 +1,6 @@
 package universityproject
 
+import examinationproject.CourseDetail
 import examinationproject.ExaminationCentre
 import examinationproject.Student
 import grails.transaction.Transactional
@@ -46,7 +47,27 @@ class StudentRegistrationService {
 
    }
 
-    def genarateStudentRollNumber(){
+    def genarateStudentRollNumber(courseId){
+
+        def course = CourseDetail.findById(courseId)
+        def courseCode =course.courseCode
+        SimpleDateFormat sdf = new SimpleDateFormat("yy"); // Just the year, with 2 digits
+        String year = sdf.format(Calendar.getInstance().getTime());
+        //def rolNumber = Student.f
+
+        String courseCodeStr= Integer.toString(courseCode);
+
+        int rollno= 1001;
+        String r = Integer.toString(rollno);
+
+        String rollNumber = null;
+
+        rollNumber= crsecode+yr+r;
+
+        System.out.println(rollNumber);
+
+
+
 
     }
 
