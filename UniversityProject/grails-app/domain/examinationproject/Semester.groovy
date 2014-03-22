@@ -3,7 +3,7 @@ package examinationproject
 class Semester {
     int semesterNo
 
-    static belongsTo = [courseDetail: CourseDetail]
+    static belongsTo = [courseDetail: ProgramDetail]
 
     static mapping = {
         id column :"SemesterId"

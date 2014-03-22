@@ -3,7 +3,7 @@ package examinationproject
 import org.apache.commons.lang.builder.HashCodeBuilder
 
 class CourseSubject implements Serializable  {
-    CourseDetail courseDetail
+    ProgramDetail courseDetail
     Subject subject
     Semester semester
 
@@ -32,12 +32,12 @@ class CourseSubject implements Serializable  {
                 [courseId: courseId, subjectId: subjectId,semesterId:semesterId]
     }
 
-    static CourseSubject create(CourseDetail courseDetail, Subject subject, Semester semester,boolean flush = false) {
+    static CourseSubject create(ProgramDetail courseDetail, Subject subject, Semester semester,boolean flush = false) {
 
         new CourseSubject(courseDetail: courseDetail, subject: subject,semester:semester).save()
     }
 
-    static boolean remove(CourseDetail courseDetail, Subject subject, Semester semester, boolean flush = false) {
+    static boolean remove(ProgramDetail courseDetail, Subject subject, Semester semester, boolean flush = false) {
         CourseSubject instance = CourseSubject.findByCourseDetailAndSubjectAndSemester(courseDetail, subject,semester)
         if (!instance) {
             return false
@@ -47,7 +47,7 @@ class CourseSubject implements Serializable  {
         true
     }
 
-    static void removeAll(CourseDetail courseDetail) {
+    static void removeAll(ProgramDetail courseDetail) {
         executeUpdate 'DELETE FROM CourseSubject WHERE courseDetail=:courseDetail', [courseDetail: courseDetail]
     }
 

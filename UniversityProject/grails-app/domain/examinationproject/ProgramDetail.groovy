@@ -1,6 +1,6 @@
 package examinationproject
 
-class CourseDetail {
+class ProgramDetail {
 
     String courseName
     int courseCode
@@ -13,8 +13,8 @@ class CourseDetail {
     int marksPerPaper
     int totalCreditPoints
 
-    static hasMany = [semester: Semester]
-
+    static hasMany = [semester: Semester, student: Student]
+    static belongsTo = [Student]
     static mapping = {
         id column: "CourseId"
         courseName column: "CourseName"

@@ -274,7 +274,10 @@ h3{
     margin: 10px 4px;
 }
 
-
+fieldset.form,
+fieldset.buttons{
+    margin-top: 10px;
+}
 
 /*copy of register.css*/
 
@@ -291,10 +294,13 @@ table.inner{
 
 .radioInput{}
 
-table#multiSelectTab, table#studyCenterTab, #multiSelectTab {
+table#multiSelectTab, table#studyCenterTab, #multiSelectTab{
     border-width: 0px;
 }
-
+#resetPasswordContainer {
+    border-width: 0px;
+    width: 100%;
+}
 /*Login Page*/
 #login {
     margin: 15px 0px;
@@ -384,9 +390,45 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab {
     height: 12px;
 }
 
+.mainContent{
+    border:1px solid #000000;
+    height: 450px;
+    width: 50%;
+    margin-left: 20%;
+    margin-top: 40px;
+    border-radius: 4px;
+}
+
+.reset-message{
+    font-size: 15px;
+    color: blue;
+}
+
+.reset-button{
+    float: right;
+}
+.university-reset-pass-header{
+    width: 100%;
+    height:50px;
+    background-color: #666666;
+}
+.University-reset-h2{
+    padding:10px;
+    margin-left:10px;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 @media (max-width : 700px) {
     h3{
         font-size: 15pt;
+    }
+
+    .mainContent{
+        width:70%;
+        margin-left: 10%;
+        margin-top: 40px;
     }
 }
 
@@ -394,4 +436,20 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab {
     h3{
         font-size: 11pt;
     }
+<<<<<<< HEAD
+}
+.ui-datepicker {
+    background: #fff;
+    border: 1px solid #555;
+    color: #000;
+=======
+    h2{
+        font-size: 15pt;
+    }
+    .mainContent{
+        width:80%;
+        margin-left: 5%;
+        margin-top: 40px;
+    }
+>>>>>>> 11890008d05ccbec1abbb0fe29ac3fde8b5a4912
 }

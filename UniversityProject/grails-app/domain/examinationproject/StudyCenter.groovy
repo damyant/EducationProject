@@ -12,9 +12,13 @@ class StudyCenter {
     String phoneNoOfCoordinator
     String emailIdOfCoordinator
     City city
-
+    static hasMany = [
+            student : Student
+    ]
+    static belongsTo = Student
 
     static mapping = {
+        student cascade:'none'
         id column: "StudyCenterId"
         name column: "Name"
         address column: "Address"
@@ -42,6 +46,11 @@ class StudyCenter {
             city(nullable:true)
 
 
+    }
+    def beforeDelete = {
+        this.student.each {
+            it.removeFromStudyCentre(this)
+        }
     }
 }
 

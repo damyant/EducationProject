@@ -2,6 +2,9 @@ package universityproject
 
 import examinationproject.CourseDetail
 import examinationproject.ExaminationCentre
+import examinationproject.ProgramDetail
+import examinationproject.Status
+import examinationproject.StudyCenter
 import examinationproject.Student
 import grails.transaction.Transactional
 import java.text.DateFormat;
@@ -18,7 +21,7 @@ class StudentRegistrationService {
 //       studentRegistration.program=params.program
 //       studentRegistration.category=params.category
 //       DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-////       studentRegistration.dob=params.date_of_birth
+//       studentRegistration.dob=df.parse(params.dob)
 //       studentRegistration.gender=params.gender
 //       studentRegistration.nationality=params.nationality
 //       studentRegistration.state=params.state
@@ -34,8 +37,11 @@ class StudentRegistrationService {
 //       studentRegistration.addressDistrict=params.district
 //       studentRegistration.addressState=params.addressState
 //       studentRegistration.addressPinCode=Integer.parseInt(params.pinCode)
-//       Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllByCentreCode(Integer.parseInt(params.preference))
-//       studentRegistration.examinationCentre=examinationCentreList
+       Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
+       studentRegistration.status= Status.findById(1)
+       studentRegistration.studyCentre=studyCentre
+       Set<ProgramDetail> programDetail = ProgramDetail.findAllByCourseCode(Integer.parseInt(params.programDetail))
+       studentRegistration.programDetail=programDetail
        studentRegistration.studentImage=photographe.bytes
 //       studentRegistration.studentSignature=signature.bytes
        if(studentRegistration.save(flush:true,failOnError: true)){

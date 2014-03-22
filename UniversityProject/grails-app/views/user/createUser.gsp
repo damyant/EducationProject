@@ -210,10 +210,12 @@
                 </div>
             </fieldset>
             <fieldset class="buttons">
-                <g:submitButton name="create" class="save"
+                <div class="university-size-1-3">  </div>
+                <div class="university-size-1-3"><g:submitButton name="create" class="save university-button"
                                 value="${message(code: 'default.button.create.label', default: 'Save')}"/>
-                <g:link controller="user" action="index"><input type="button" name="create" class="save"
+                <g:link controller="user" action="index"><input type="button" name="create" class="save university-button"
                                                                 value="${message(code: 'default.button.cancel', default: 'Cancel')}"/></g:link>
+            </div>
             </fieldset>
         </g:form>
     </div>

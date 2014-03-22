@@ -11,40 +11,23 @@
 <head>
     <meta name="layout" content="main"/>
     <g:set var="entityName" value="${message(code: 'userProfile.label', default: 'UserProfile')}"/>
-    <style type="text/css">
-    .mainContent{
-        border:2px solid #000000;height: 450px;width: 600px;margin-left: 200px;margin-top: 40px;
-    }
-
-    .message{
-        font-size: 15px;
-        color: blue;
-    }
-
-    .button{
-        width: 190px;
-        margin-top: 20px;
-        height: 40px;font-size: 20px;font-weight: bold;
-        /*margin: 10px;*/
-    }
-    </style>
     <script type="text/javascript">
-        function validateForm(thisForm){
+        function validateForm(thisForm) {
 
-            var newPwd=thisForm.newPwd;
-            var reNewPwd=thisForm.reNewPwd;
+            var newPwd = thisForm.newPwd;
+            var reNewPwd = thisForm.reNewPwd;
 
-            if(!newPwd.value || newPwd.value==''){
+            if (!newPwd.value || newPwd.value == '') {
                 alert("New Password Should not be Null !");
                 newPwd.focus();
                 return false;
             }
-            if(!reNewPwd.value || reNewPwd.value==''){
+            if (!reNewPwd.value || reNewPwd.value == '') {
                 alert("Confirm Password Should not be Null !");
                 reNewPwd.focus();
                 return false;
             }
-            if(newPwd.value!=reNewPwd.value){
+            if (newPwd.value != reNewPwd.value) {
                 alert("New password & Confirm password not Matched !");
                 reNewPwd.focus();
                 return false;
@@ -56,54 +39,53 @@
 </head>
 
 <body>
+<div id="main">
+    <div class="mainContent" style="height: 300px">
+        <div class="university-reset-pass-header">
+            <h2 style="padding:10px;margin-left:10px;color: #ffffff;font-weight: bold;text-transform: uppercase;">
+                <span style="float: left">
+                    Reset Password
+                </span>
 
-<div class="mainContent" style="height: 300px">
-    <div style="width: 100%;height:50px;background-color: #666666;">
-        <h2 style="padding:10px;margin-left:10px;color: #ffffff;font-weight: bold;text-transform: uppercase;">
-            <span style="float: left">
-                Reset Password
-            </span>
+            </h2>
+        </div>
 
-        </h2>
-    </div>
+        <div style="font-size: 20px;">
+            <div class="body" style="padding: 5%;">
+                <g:if test="${flash.message}">
+                    <div class="reset-message">${flash.message}</div>
+                </g:if>
+                <g:form method="post" controller="user" action="updatePwd" onsubmit="return validateForm(this)">
+                    <g:hiddenField name="id" value="${params.id}"/>
+                    <table id="resetPasswordContainer">
+                        <tr>
+                            <td>
+                                New Password
+                            </td>
+                            <td>
+                                <input type="password" value="" name="newPwd" class="university-size-1-1">
+                            </td>
+                        </tr>
 
-    <div style="font-size: 20px;">
-        <div class="body" style="padding: 50px;">
-            <g:if test="${flash.message}">
-                <div class="message">${flash.message}</div>
-            </g:if>
-            <g:form method="post" controller="user" action="updatePwd" onsubmit="return validateForm(this)">
-                <g:hiddenField name="id" value="${params.id}"/>
-                <table>
-
-                    <tr>
-                        <td>
-                            New Password
-                        </td>
-                        <td>
-                            <input type="password" value="" name="newPwd">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Confirm Password</td>
-                        <td><input type="password" value="" name="reNewPwd"></td>
-                    </tr>
-                    <tr></tr>
-
-                </table>
-                <g:submitButton name="changePwd" value="Reset Password" class="button"/>
-                <g:link action="userList" >
-                    <input type="button" value="Cancel" class="button">
-                </g:link>
-
-            </g:form>
-
+                        <tr>
+                            <td>Confirm Password</td>
+                            <td><input type="password" value="" name="reNewPwd" class="university-size-1-1"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="reset-button">
+                                    <g:submitButton name="changePwd" value="Submit" class="university-button"/>
+                                    <g:link action="userList">
+                                        <input type="button" value="Cancel" class="university-button">
+                                    </g:link>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </g:form>
+            </div>
         </div>
     </div>
-
 </div>
-
-
 </body>
 </html>

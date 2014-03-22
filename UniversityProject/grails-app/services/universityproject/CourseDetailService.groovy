@@ -1,9 +1,7 @@
 package universityproject
 
-import examinationproject.CourseDetail
-import examinationproject.CourseMode
+import examinationproject.ProgramDetail
 import examinationproject.CourseSubject
-import examinationproject.CourseType
 import examinationproject.Semester
 import examinationproject.Subject
 import grails.transaction.Transactional
@@ -19,7 +17,7 @@ class CourseDetailService {
 
         def semObj
 
-        def existingCourseObj = CourseDetail.findById(params.courseId)
+        def existingCourseObj = ProgramDetail.findById(params.courseId)
 
         if (existingCourseObj) {
             existingCourseObj.courseName = params.courseName
@@ -57,7 +55,7 @@ class CourseDetailService {
             }
         } else {
 
-            def courseObj = new CourseDetail(params)
+            def courseObj = new ProgramDetail(params)
             courseObj.save(failOnError: true)
             for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
                 semObj = new Semester()
@@ -80,14 +78,14 @@ class CourseDetailService {
 
     def getAllCourses() {
 
-        def courseObj = CourseDetail.findAll()
+        def courseObj = ProgramDetail.findAll()
 
     }
 
     def getFullDetailOfCourse(params) {
         def courseDetail = [:], subMap = [:]
         def subList = []
-        def courseObj = CourseDetail.findById(params.courseId)
+        def courseObj = ProgramDetail.findById(params.courseId)
         courseDetail.course = courseObj
         courseObj.semester.each {
             subMap[it.semesterNo] = CourseSubject.findAllByCourseDetailAndSemester(courseObj, it).subject
@@ -100,7 +98,7 @@ class CourseDetailService {
 
     def deleteCourse(params) {
 
-        def existingCourseObj = CourseDetail.findById(params.courseId)
+        def existingCourseObj = ProgramDetail.findById(params.courseId)
         if (existingCourseObj) {
             def semesterList = Semester.findAllByCourseDetail(existingCourseObj)
             CourseSubject.removeAll(existingCourseObj)

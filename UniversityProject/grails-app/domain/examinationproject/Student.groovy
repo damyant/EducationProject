@@ -1,18 +1,16 @@
 package examinationproject
 
-import java.sql.Blob
-
 class Student {
 
     String name
     Date dob
-    String program
+//    String program
     String category
     String gender
     String nationality
     String state
     BigInteger mobileNo
-    String studyCentre
+//    String studyCentre
     int preferenceOfExaminationCentre
     BigInteger registrationNo1
     BigInteger registrationNo2
@@ -23,21 +21,24 @@ class Student {
     String addressState
     int addressPinCode
     String location
+    int rollNo
+    Status status
+
     byte[] studentImage
 //    byte[] studentSignature
 
-    static hasMany = [examinationCentre : ExaminationCentre]
+    static hasMany = [examinationCentre : ExaminationCentre, studyCentre : StudyCenter, programDetail:ProgramDetail]
 
     static constraints = {
         name(nullable: true)
         dob(nullable: true)
-        program(nullable: true)
+//        program(nullable: true)
         category(nullable: true)
         gender(nullable: true)
         nationality(nullable: true)
         state(nullable: true)
         mobileNo(nullable: true)
-        studyCentre(nullable: true)
+//        studyCentre(nullable: true)
         preferenceOfExaminationCentre(nullable: true)
         registrationNo1(nullable: true)
         registrationNo2(nullable: true)
@@ -49,30 +50,37 @@ class Student {
         addressPinCode(nullable:true)
         studentImage(nullable: true)
         location(nullable: true)
+        rollNo(nullable:true)
+        status(nullable:true)
+
+
+
 //        studentSignature(nullable: true)
     }
     static mapping ={
         studentImage column: "studentImage", sqlType: "blob"
 //        studentSignature column: "studentSignature", sqlType: "blob"
-//        examinationCentre cascade:'none'
-//        name column: "Name"
-//        dob column: "Dob"
-//        category column: "Category"
-//        gender column: "Gender"
-//        nationality column: "Nationality"
-//        state column: "State"
-//        mobileNo column : "MobileNo"
-//        studyCentre column: "StudyCentre"
-//        preferenceOfExaminationCentre column: "PreferenceOfExaminationCentre"
-//        registrationNo1 column: "RegistrationNo1"
-//        registrationNo2 column: "RegistrationNo2"
-//        addressStudentName column: "AddressStudentName"
-//        addressTown column: "AddressTown"
-//        addressPO column: "AddressPO"
-//        addressDistrict column: "AddressDistrict"
-//        addressState column: "AddressState"
-//        addressPinCode column: "AddressPinCode"
-//        location column: "Location"
+        studyCentre cascade:'none'
+        programDetail cascade: 'none'
+        examinationCentre cascade:'none'
+        name column: "Name"
+        dob column: "Dob"
+        category column: "Category"
+        gender column: "Gender"
+        nationality column: "Nationality"
+        state column: "State"
+        mobileNo column : "MobileNo"
+        studyCentre column: "StudyCentre"
+        preferenceOfExaminationCentre column: "PreferenceOfExaminationCentre"
+        registrationNo1 column: "RegistrationNo1"
+        registrationNo2 column: "RegistrationNo2"
+        addressStudentName column: "AddressStudentName"
+        addressTown column: "AddressTown"
+        addressPO column: "AddressPO"
+        addressDistrict column: "AddressDistrict"
+        addressState column: "AddressState"
+        addressPinCode column: "AddressPinCode"
+        location column: "Location"
     }
 
 }

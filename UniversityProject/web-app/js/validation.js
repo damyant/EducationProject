@@ -81,9 +81,9 @@ function validate(){
             pinCode:{
                 required:true
             },
-            photograph:{
-                required:true
-            },
+//            photograph:{
+//                required:true
+//            },
             declaration:{
                 required:true
             }

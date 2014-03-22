@@ -66,6 +66,10 @@ class StudyCenterController {
         try{
             println('in delete Centre')
             StudyCenter studyCenter = StudyCenter.get(params.int('data'))
+            def tmp=[]
+            studyCenter.student.each { tmp << it }
+            tmp.each { studyCenter.removeFromStudent(it) }
+//            studyCenter.delete()
             studyCenter.delete(flush: true)
             flash.message = "${message(code: 'centre.deleted.message')}"
             redirect(action: "updateStudyCentre")
