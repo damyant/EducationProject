@@ -40,7 +40,7 @@ class StudentRegistrationService {
        studentRegistration.status= Status.findById(1)
        studentRegistration.studyCentre=studyCentre
        Set<ProgramDetail> programDetail = ProgramDetail.findAllByCourseCode(Integer.parseInt(params.programDetail))
-       studentRegistration.program=programDetail
+       studentRegistration.programDetail=programDetail
        studentRegistration.studentImage=photographe.bytes
 //       studentRegistration.studentSignature=signature.bytes
        if(studentRegistration.save(flush:true,failOnError: true)){
