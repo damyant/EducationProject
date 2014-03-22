@@ -4,7 +4,7 @@ class Student {
 
     String name
     Date dob
-    String program
+//    String program
     String category
     String gender
     String nationality
@@ -27,12 +27,12 @@ class Student {
     byte[] studentImage
 //    byte[] studentSignature
 
-    static hasMany = [examinationCentre : ExaminationCentre, studyCentre : StudyCenter, course:CourseDetail]
+    static hasMany = [examinationCentre : ExaminationCentre, studyCentre : StudyCenter, programDetail:ProgramDetail]
 
     static constraints = {
         name(nullable: true)
         dob(nullable: true)
-        program(nullable: true)
+//        program(nullable: true)
         category(nullable: true)
         gender(nullable: true)
         nationality(nullable: true)
@@ -61,6 +61,7 @@ class Student {
         studentImage column: "studentImage", sqlType: "blob"
 //        studentSignature column: "studentSignature", sqlType: "blob"
         studyCentre cascade:'none'
+        programDetail cascade: 'none'
         examinationCentre cascade:'none'
         name column: "Name"
         dob column: "Dob"

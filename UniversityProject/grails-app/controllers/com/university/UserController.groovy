@@ -20,8 +20,30 @@ class UserController {
         respond userInstance
     }
 
-    def createUser() {
+    def resetPassword(){
 
+    }
+
+
+    @Transactional
+    def updatePwd(){
+        println("?????????????????????"+params)
+        def userInstance=User.findById(params.id)
+        userInstance.password=params.newPwd
+        userInstance.save(flush: true)
+//        println newPassword
+//        userInstance.password=newPassword
+//         if (!userInstance.hasErrors() && userInstance.save(flush: true)) {
+//             mailerService.sendForgetPassword(newPassword,userInstance)
+
+        flash.message = "${message(code:'password.reset.msg',args:[userInstance.username,userInstance.email])}"
+        redirect(action: "userList")
+//         }
+        /* flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
+         redirect(action: "userList")*/
+    }
+
+    def createUser() {
         def userInstance = new User()
         userInstance.properties = params
         def roleList=userService.getRoleList()
@@ -51,36 +73,45 @@ class UserController {
 
     def editUser(User userInstance) {
 //        userInstance = User.get(params.id)
+
         def role
         if (!userInstance) {
             redirect(action: "index")
         }
         else {
             role=UserRole.findByUser(userInstance)
+            println(role.role)
             return [userInstance: userInstance,role:role.role]
         }
     }
 
     @Transactional
     def update(User userInstance) {
-        if (userInstance == null) {
-            notFound()
-            return
-        }
-
-        if (userInstance.hasErrors()) {
-            respond userInstance.errors, view:'editUser'
-            return
-        }
-
-        userInstance.save(flush:true)
-
-
-        request.withFormat {
-            form {
-                          redirect(action: "index")
+        userInstance = User.get(params.id)
+        def role=Role.findByAuthority(params?.userRole)
+        if (userInstance) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (userInstance.version > version) {
+                    userInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'user.label', default: 'User')] as Object[], "Another user has updated this User while you were editing")
+                    render(view: "edit", model: [userInstance: userInstance])
+                    return
+                }
             }
-            '*'{ respond userInstance, [status: OK] }
+            userInstance.properties = params
+            if (!userInstance.hasErrors() && userInstance.save(flush: true)) {
+                if(role)
+                    userService.updateUserRole(userInstance,role)
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])}"
+                redirect(action: "userList", id: userInstance.id)
+            }
+            else {
+                render(view: "editUser", model: [userInstance: userInstance])
+            }
+        }
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
+            redirect(action: "userList")
         }
     }
 

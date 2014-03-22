@@ -1,6 +1,7 @@
 package universityproject
 
 import examinationproject.ExaminationCentre
+import examinationproject.ProgramDetail
 import examinationproject.Status
 import examinationproject.StudyCenter
 import examinationproject.Student
@@ -38,6 +39,8 @@ class StudentRegistrationService {
        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
        studentRegistration.status= Status.findById(1)
        studentRegistration.studyCentre=studyCentre
+       Set<ProgramDetail> programDetail = ProgramDetail.findAllByCourseCode(Integer.parseInt(params.programDetail))
+       studentRegistration.program=programDetail
        studentRegistration.studentImage=photographe.bytes
 //       studentRegistration.studentSignature=signature.bytes
        if(studentRegistration.save(flush:true,failOnError: true)){

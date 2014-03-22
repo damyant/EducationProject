@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="examinationproject.ProgramDetail; examinationproject.CourseDetail" contentType="text/html;charset=UTF-8" %>
+<%@ page import="examinationproject.ProgramDetail; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Student Registration</title>
@@ -59,7 +59,7 @@
         <td>Program</td>
         %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
         <td>
-        <g:select name="courseDetail" id="district" optionKey="id" class="university-size-1-3"  optionValue="courseName" from="${CourseDetail.findAll()}" noSelection="['':' Select Program']" />
+        <g:select name="programDetail" id="programDetail" optionKey="id" class="university-size-1-3"  optionValue="courseName" from="${ProgramDetail.findAll()}" noSelection="['':' Select Program']" />
 
         </td>
     </tr>

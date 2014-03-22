@@ -4,9 +4,9 @@
     <facet type="web" name="GrailsWeb">
       <configuration>
         <webroots>
-          <root url="file://$MODULE_DIR$/target/work/plugins/database-migration-1.3.8/grails-app/views" relative="/" />
-          <root url="file://$MODULE_DIR$/target/work/plugins/jquery-1.11.0/web-app" relative="/" />
           <root url="file://$MODULE_DIR$/target/work/plugins/resources-1.2.1/web-app" relative="/" />
+          <root url="file://$MODULE_DIR$/target/work/plugins/jquery-1.11.0/web-app" relative="/" />
+          <root url="file://$MODULE_DIR$/target/work/plugins/database-migration-1.3.8/grails-app/views" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -15,7 +15,6 @@
       <configuration>
         <datasource-map>
           <unit-entry name="Gorm" />
-          <unit-entry name="sessionFactory" />
         </datasource-map>
         <naming-strategy-map />
       </configuration>
