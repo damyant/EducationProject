@@ -395,3 +395,8 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab {
         font-size: 11pt;
     }
 }
+.ui-datepicker {
+    background: #fff;
+    border: 1px solid #555;
+    color: #000;
+}

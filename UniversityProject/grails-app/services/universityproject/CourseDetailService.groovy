@@ -1,9 +1,7 @@
 package universityproject
 
 import examinationproject.CourseDetail
-import examinationproject.CourseMode
 import examinationproject.CourseSubject
-import examinationproject.CourseType
 import examinationproject.Semester
 import examinationproject.Subject
 import grails.transaction.Transactional

@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="examinationproject.ProgramDetail; examinationproject.CourseDetail" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Student Registration</title>
@@ -19,7 +19,9 @@
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>
+    <style type="text/css">
 
+    </style>
 </head>
 
 <body>
@@ -47,7 +49,7 @@
 
 
 
-        <td><input type="text" name="dob" maxlength="30" class="university-size-1-2" id="datePick"
+        <td><input type="text" name="d_o_b" maxlength="30" class="university-size-1-2" id="datePick"
 
         </td>
     </tr>
@@ -55,7 +57,9 @@
     <!----- Last Name ---------------------------------------------------------->
     <tr>
         <td>Program</td>
-        <td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>
+        %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
+        <td>
+        <g:select name="courseDetail" id="district" optionKey="id" class="university-size-1-3"  optionValue="courseName" from="${CourseDetail.findAll()}" noSelection="['':' Select Program']" />
 
         </td>
     </tr>
@@ -226,6 +230,11 @@
         <td colspan="2" align="center">
             <input type="submit" value="Submit" onclick="validate()" class="university-button">
             <input type="reset" value="Reset" onclick="resetImage()" class="university-button">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="hidden" name="studyCentreCode" value="${studyCentre?.centerCode}">
         </td>
     </tr>
 </table>
