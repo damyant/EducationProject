@@ -15,7 +15,7 @@ class StudentRegistrationService {
 
    Boolean saveNewStudentRegistration(params, signature, photographe){
        Boolean studentRegistrationInsSaved = false;
-   println("params in service "+ params)
+
       def studentRegistration = new Student(params)
 //       studentRegistration.name=params.name
 //       studentRegistration.program=params.program
@@ -43,6 +43,18 @@ class StudentRegistrationService {
        Set<ProgramDetail> programDetail = ProgramDetail.findAllByCourseCode(Integer.parseInt(params.programDetail))
        studentRegistration.programDetail=programDetail
        studentRegistration.studentImage=photographe.bytes
+
+        //RAJ CODE
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year, with 2 digits
+       String year = sdf.format(Calendar.getInstance().getTime());
+
+       studentRegistration.registrationYear=Integer.parseInt(year)
+
+
+       studentRegistration.rollNo=getStudentRollNumber(params.programDetail)
+
+      //END RAJ CODE
+
 //       studentRegistration.studentSignature=signature.bytes
        if(studentRegistration.save(flush:true,failOnError: true)){
            println('new student registered successfully')
@@ -53,24 +65,34 @@ class StudentRegistrationService {
 
    }
 
-    def genarateStudentRollNumber(courseId){
+    def getStudentRollNumber(courseId){
 
-        def course = CourseDetail.findById(courseId)
-        def courseCode =course.courseCode
-        SimpleDateFormat sdf = new SimpleDateFormat("yy"); // Just the year, with 2 digits
-        String year = sdf.format(Calendar.getInstance().getTime());
-        //def rolNumber = Student.f
+        Set<ProgramDetail> course = ProgramDetail.findAllById(courseId)
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year, with 2 digits
+        int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 
-        String courseCodeStr= Integer.toString(courseCode);
+        String courseCodeStr= course.courseCode.toString()
+        int rollNumber = 0;
 
-        int rollno= 1001;
-        String r = Integer.toString(rollno);
 
-        String rollNumber = null;
+        def student =Student.findByRegistrationYear(year)
+        def studentCourse = student.programDetail
 
-        rollNumber= crsecode+yr+r;
+        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+student)
+        println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"+student.programDetail)
+        if(student && studentCourse){
+        def lastStudent = Student.findByProgramDetailAndRegistrationYear(course,year, [max:1, sort:"rollNo", order:"desc"])
+        rollNumber = lastStudent.rollNo+1
+         }else{
+                       String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
+                       int rollno= 1001
+            String rollStr = Integer.toString(rollno)
+            rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+        }
 
-        System.out.println(rollNumber);
+        println(rollNumber);
+
+        return rollNumber
 
 
 

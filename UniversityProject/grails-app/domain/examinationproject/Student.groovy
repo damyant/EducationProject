@@ -1,5 +1,7 @@
 package examinationproject
 
+import java.text.SimpleDateFormat
+
 class Student {
 
     String name
@@ -23,6 +25,7 @@ class Student {
     String location
     int rollNo
     Status status
+    int registrationYear
 
     byte[] studentImage
 //    byte[] studentSignature
@@ -81,6 +84,7 @@ class Student {
         addressState column: "AddressState"
         addressPinCode column: "AddressPinCode"
         location column: "Location"
+        registrationYear column: "registrationYear"
     }
 
 }
