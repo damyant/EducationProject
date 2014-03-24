@@ -2,7 +2,8 @@
  * Created by chandan on 3/12/14.
  */
 function validate(){
-    $("#createStudyCenter,#studentRegister").validate({
+    $("#createStudyCenter,#studentRegister,#createCourse").validate({
+
         rules: {
             name: "required",
             address: "required",
@@ -81,14 +82,50 @@ function validate(){
             pinCode:{
                 required:true
             },
-//            photograph:{
-//                required:true
-//            },
+            photograph:{
+                required:true
+            },
             declaration:{
                 required:true
+            }, courseName :{
+                required:true
+            },
+            courseMode:{
+                required:true
+            },
+            courseType :{
+                required:true
+            },
+            noOfTerms:{
+                required:true,
+                number: true
+            },
+            courseCode:{
+                required:true,
+                number: true
+            },
+            noOfAcademicYears:{
+                required:true,
+                number: true
+            },
+            totalMarks:{
+                required:true,
+                number: true
+            },
+            noOfPapers:{
+                required:true,
+                number: true
+            },
+            passMarks:{
+                required:true,
+                number: true
+            },
+            totalCreditPoints:{
+                required:true,
+                number: true
             }
 
-        },
+    },
         messages: {
             name: "Please enter study center name.",
             address: "Please enter study center address.",
@@ -120,8 +157,17 @@ function validate(){
             stateOfCandidate:"please enter your State",
             pinCode:"please enter your PinCode",
             photograph:"please upload your PhotoGraph",
-            declaration:"please declare before you proceed"
-
+            declaration:"please declare before you proceed",
+            courseName:"please Enter your Name",
+            courseMode:"please Enter course mode",
+            courseType:"please Enter your Course Type",
+            noOfTerms:"please Enter Number of terms",
+            courseCode:"please Enter your Course Code ",
+            noOfAcademicYears:"please enter your Academic years",
+            totalMarks:"please Enter Total Marks",
+            noOfPapers:"please Enter Number of papers",
+            passMarks:"please Enter Passing Marks",
+            totalCreditPoints:"Please Enter total Credit Points"
         },
         errorPlacement: function(error, element) {
             if (element.is("input:radio")) {
