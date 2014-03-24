@@ -3,82 +3,53 @@ package examinationproject
 import grails.converters.JSON
 
 class ExaminationCenterController {
-    def saveExaminationCentreService
+    def examinationCentreService
 
     def index() {}
 
     def createNewCentre(){
-
     }
     def saveExaminationCentre ={
-        println("hello kuldeep "+ params)
-        def status=[:]
-        Boolean flag = saveExaminationCentreService.saveCentres(params);
-        println("back to controller")
+        Boolean flag = examinationCentreService.saveCentres(params)
         if(flag){
-//            println("value of flag is "+flag)
-//            status.flag="center saved"
-            render  "Examination Centre Saved Successfully"
+            render   "${message(code: 'centre.created.message')}"
         }
         else{
-            println("value of flag is "+flag)
-            render "Centres Not Saved"
+             render "Centres Not Saved"
         }
     }
-    def saveNewCentre = {
-        println("save centre " + params)
-        def examCentreIns = new ExaminationCentre()
-        examCentreIns.location= params.location;
-        examCentreIns.capacity=Integer.parseInt(params.capacity)
-        examCentreIns.name=params.centreName
-        examCentreIns.contactNo= params.contactNo
-//        examCentreIns.rooms= Integer.parseInt(params.rooms)
-        examCentreIns.address= params.address
-       if(examCentreIns.save(flush: true)){
-           flash.message = "${message(code: 'centre.created.message')}"
-           redirect(action: "createNewCentre")
-       }
+    def viewExaminationCentre(){}
 
-    }
-    def viewExaminationCentre(){
-
-
-    }
     def getCentreList = {
         println("in getCentreList "+ params)
-       def examinationCentreList = ExaminationCentre.list()
-        println("<<>><>><<>><><><<<< "+ params.edit)
-        if(examinationCentreList){
-        render(template: "listOfCentre", model: [centreList: examinationCentreList, edit:params.edit, delete:params.delete])
+        def result= examinationCentreService.studyCenterList(params)
+       if(result){
+        render(template: "listOfCentre", model: [centreList: result, edit:params.edit, delete:params.delete])
         }
         else
         {
             render "<h1>No Examination Centre Found</h1>"
         }
     }
-    def updateExaminationCentre= {
+    def updateExaminationCentre= {}
 
-    }
+
     def editExaminationCentre ={
         println(params.id)
         def examinationCentreInstance = ExaminationCentre.findById(params.id)
-        println("location of examination centre is "+ examinationCentreInstance.location)
+        println("location of examination centre is "+ examinationCentreInstance.city.district.districtName)
         return [examinationCentreInstance: examinationCentreInstance]
     }
     def updateCentre ={
-
-
-            println("update centre "+ params.id)
             def examCentreIns =  ExaminationCentre.get(params.id)
-            examCentreIns.location= params.location;
-            examCentreIns.capacity=Integer.parseInt(params.capacity)
-            examCentreIns.name=params.centreName
-            examCentreIns.contactNo= params.contactNo
-//            examCentreIns.rooms= Integer.parseInt(params.rooms)
-            examCentreIns.address= params.address
-            if(examCentreIns.save(flush: true)){
+           def isSaved= examinationCentreService.updateExaminationCentre(params)
+            if(isSaved){
                 println("updated succesfully")
                 flash.message = "${message(code: 'centre.updated.message', args: [message( default: 'ExaminationCentre'),   examCentreIns.id])}"
+                render(view: "editExaminationCentre" , model:[examinationCentreInstance:examCentreIns])
+            }
+        else{
+                flash.message = "${message(code: 'centre.notUpdated.message', args: [message( default: 'ExaminationCentre'),   examCentreIns.id])}"
                 render(view: "editExaminationCentre" , model:[examinationCentreInstance:examCentreIns])
             }
 
@@ -88,11 +59,36 @@ class ExaminationCenterController {
 
     }
     def deleteCentre={
-        println('in delete Centre')
-        def examCentreInstance = ExaminationCentre.get(params.id)
-        examCentreInstance.delete(flush: true)
-        flash.message = "${message(code: 'centre.deleted.message')}"
-        redirect(action: "deleteExaminationCentre")
+        try {
+            println('in delete Centre')
+            def examCentreInstance = ExaminationCentre.get(params.id)
+            examCentreInstance.delete(flush: true)
+            flash.message = "${message(code: 'centre.deleted.message')}"
+            redirect(action: "deleteExaminationCentre")
+        }
+      catch (Exception e){
+          flash.message = "${message(code: 'centre.cannotDeleted.message')}"
+          redirect(action: "deleteExaminationCentre")
+      }
+
+
+    }
+    def getExaminationCentreList(){
+        println("hello kuldeep you are displaying this"+ params)
+        try{
+            City city = City.get(params.int('data'));
+            def centreList = null
+            if (city != null) {
+                centreList = ExaminationCentre.findAllByCity(city)
+                println("<><><><><><><><>><<><>"+centreList)
+                render centreList as JSON
+            } else {
+                render null
+            }
+        }
+        catch (Exception e){
+            println("<<<<<<<<<<<Problem in getting city list" + e)
+        }
     }
     def create={
 

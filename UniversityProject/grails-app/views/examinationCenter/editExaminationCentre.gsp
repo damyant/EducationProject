@@ -5,12 +5,12 @@
   Time: 10:37 AM
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="javax.validation.constraints.Null; examinationproject.City; examinationproject.District" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
     <title>Create Examination Center</title>
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'jquery.min.js')}'></script>
+    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'jquery/jquery.min.js')}'></script>
 
 </head>
 
@@ -29,14 +29,17 @@
         <table>
 
             <tr>
-                <td><label><g:message code="default.createExam.location"/></label></td>
-                <td><select name="location">
-                    <option value="${examinationCentreInstance.location}">${examinationCentreInstance.location}</option>
-                    <option value="Noida">Noida</option>
-                    <option value="Guahati">Guahati</option>
-                    <option value="Golaghat">Golaghat</option>
-                    <option value="Jaipur">Jaipur</option>
-                </select ></td>
+                <td><label><g:message code="default.createStudy.district"/></label></td>
+                <td>
+                    <g:select name="district" id="district" optionKey="id" value="${examinationCentreInstance?.city?.district?.id}" class="university-size-1-3" onchange="showCityList()" optionValue="districtName" from="${District.findAll()}" noSelection="['':' Select District']" />
+                </td>
+            </tr>
+            <tr>
+                <td><label><g:message code="default.createStudy.city"/></label></td>
+                <td>
+                 <g:select name="city" id="city" optionKey="id" value="${examinationCentreInstance?.city?.id}" class="university-size-1-3"  optionValue="cityName" from="${City.findAllByDistrict(District.get(examinationCentreInstance?.city?.district?.id))}" noSelection="['':' Select City']"/>
+
+                </td>
             </tr>
 
             <tr>

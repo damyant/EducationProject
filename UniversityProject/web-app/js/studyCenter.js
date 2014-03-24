@@ -93,4 +93,22 @@ function updateStudyCenter(studyCenterId){
     window.location.href = '/UniversityProject/studyCenter/createNewStudyCenter?studyCenterId='+data+'&type=edit';
 
 }
+function showCentreList(){
+    var data = $('#city').val();
+
+    $.ajax({
+        type: "post",
+        url: url('examinationCenter', 'getExaminationCentreList', ''),
+        data: {data: data},
+        success: function (data) {
+            $("#examinationCentre").empty().append('<option value="">Select Examination Centre</option>')
+            for (var i = 0; i <= data.length; i++) {
+                $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+
+}
 
