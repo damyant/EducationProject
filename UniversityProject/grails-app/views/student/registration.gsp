@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="examinationproject.ProgramDetail; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+<%@ page import="javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Student Registration</title>
@@ -17,6 +17,7 @@
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.core.js')}"></script>--}%
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.datepicker.js')}"></script>--}%
     <g:javascript src='validate.js'/>
+    <g:javascript src='studyCenter.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>
     <style type="text/css">
@@ -49,7 +50,7 @@
 
 
 
-        <td><input type="text" name="d_o_b" maxlength="30" class="university-size-1-2" id="datePick"
+        <td><input type="text" name="d_o_b" maxlength="30" class="university-size-1-2" id="datePick"/>
 
         </td>
     </tr>
@@ -148,13 +149,16 @@
         <td>
             %{--<input type="text" name="preference" maxlength="2" class="textInput" required="true" onkeypress="return isNumber(event)"/>--}%
 
-            <select name="location" class="university-size-1-2">
-                <option value="">select location</option>
-                <option value="Noida">Noida</option>
-                <option value="Guahati">Guahati</option>
-                <option value="Golaghat">Golaghat</option>
-                <option value="Jaipur">Jaipur</option>
-            </select>
+            %{--<select name="location" class="university-size-1-2">--}%
+                %{--<option value="">select location</option>--}%
+                %{--<option value="Noida">Noida</option>--}%
+                %{--<option value="Guahati">Guahati</option>--}%
+                %{--<option value="Golaghat">Golaghat</option>--}%
+                %{--<option value="Jaipur">Jaipur</option>--}%
+            %{--</select>--}%
+            <g:select name="district" id="district" optionKey="id"  class="university-size-1-3" onchange="showCityList()" optionValue="districtName" from="${District.findAll()}" noSelection="['':' Select District']" />
+            <g:select name="city" id="city" optionKey="id"  class="university-size-1-3"  optionValue="cityName" from="" onchange="showCentreList()" noSelection="['':' Select City']"/>
+            <g:select name="examiNationCentre" id="examinationCentre"  class="university-size-1-3" from=" "  noSelection="['':' Select Examination Centre']"/>
         </td>
     </tr>
     <tr>

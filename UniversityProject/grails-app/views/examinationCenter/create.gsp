@@ -5,12 +5,18 @@
   Time: 10:37 AM
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="javax.validation.constraints.Null; examinationproject.City; examinationproject.District" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
     <title>Create Examination Center</title>
-
+    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'jquery/jquery.js')}'></script>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'create.css')}" type="text/css">
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-en.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-engine.js')}"></script>
+    <link rel="stylesheet" href="${resource(dir:'css', file:'validationEngine.css')}" type="text/css">
+    <g:javascript src='studyCenter.js'/>
+    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
 </head>
 
 <body>
@@ -22,33 +28,29 @@
     <form id="formID1" name="formID1">
 
 
-           <table class="university-table-1-2">
-               <tr>
-               <td>
-           <div>
-                <label><g:message code="default.createExam.location"/></label>
-                <select name="location" >
-                    <option value="0">select location</option>
-                    <option value="Noida">Noida</option>
-                    <option value="Guahati">Guahati</option>
-                    <option value="Golaghat">Golaghat</option>
-                    <option value="Jaipur">Jaipur</option>
-                </select >
-           </div>
-                </td>
-               </tr>
-        <tr>
-               <td>
+
+        <div>
+            <label><g:message code="default.createStudy.district"/></label>
+                <g:select name="district" id="district" optionKey="id" value="${studyCentreInstance?.city?.district?.id}" class="university-size-1-3" onchange="showCityList()" optionValue="districtName" from="${District.findAll()}" noSelection="['':' Select District']" />
+
+        </div>
+        <label><g:message code="default.createStudy.city"/></label>
+            <g:select name="city" id="city" optionKey="id" value="${studyCentreInstance?.city?.id}" class="university-size-1-3"  optionValue="cityName" from="${City.findAllByDistrict(District.get(studyCentreInstance?.city?.district?.id))}" noSelection="['':' Select City']"/>
+
+
         <div  id="VenueDiv" class="middleDiv">
         </div>
-        </tr>
-               </td>
-           </table>
-                  <div>
-                    <input type="submit" value="Submit" onclick="submitForm()" class="university-button university-margin-top" >
-                    <input type="button" value="Cancel" onclick="reset1()" class="university-button university-margin-top"/>
-                  </div>
+        <table style="border: none">
 
+
+            <tr>
+                <td colspan="4">
+                    <input type="submit" value="Submit" onclick="submitForm()" class="${classs} buttonCss" >
+                    <input type="button" value="Cancel" onclick="reset1()" class="${classs} buttonCss"/>
+
+                </td>
+            </tr>
+        </table>
     </form>
 </div>
 <script>
@@ -81,19 +83,19 @@
                         '<label>Name</label>' +
                         '<input type="text" style="" placeholder="Name of Examination Centre"  class="validate[required] text-input "   style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/></div>'+
                         '<div class="Venue"><label>Centre Code</label>' +
-                        '<input type="text"  placeholder="Code of Examination Centre" type="text" style="" class="validate[required] text-input "  name="examinationCentreCode" id="examinationCentreCode' + index + '" />' +
+                        '<input type="text"  placeholder="Code of Examination Centre" type="text" style="" onkeypress="return isNumber(event)" class="validate[required] text-input "  name="examinationCentreCode" id="examinationCentreCode' + index + '" />' +
                         '</div>');
         $('#VenueDiv' + index).append(
                 '<div class="Venue">' +
                         '<label>Capacity</label>' +
-                        '<input type="text" style="" placeholder="Capacity of Examination Centre"  class="validate[required] text-input "   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/></div>'+
+                        '<input type="text" style="" placeholder="Capacity of Examination Centre" onkeypress="return isNumber(event)" class="validate[required] text-input "   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/></div>'+
                         '<div class="Venue"><label>Incharge</label>' +
                         '<input type="text" style="" placeholder="In charge of Examination Centre"  class="validate[required] text-input "   style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/>' +
-                '</div>');
+                        '</div>');
         $('#VenueDiv' + index).append(
                 '<div class="Venue">' +
                         '<label>Contact No</label>' +
-                        '<input type="text"  placeholder="Contact No of Examination Centre"  style="" class="validate[required] text-input "  name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '" /></div>' +
+                        '<input type="text"  placeholder="Contact No of Examination Centre" onkeypress="return isNumber(event)" style="" class="validate[required] text-input "  name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /></div>' +
                         '<div class="Venue"><label style="vertical-align: top">Address</label>' +
                         '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" placeholder="Address of Examination Centre"  class="validate[required] text-input "   style="" name="examinationCentreAddress" id="examinationCentreAddress' + index + '" "/>' +
                         '</div>');
@@ -103,15 +105,11 @@
 
 
         if(index==1){
-            $('#VenueDiv' + index).append('<div class="addButton"> <input type="button" class="buttonClass" onclick="AccountHeadDiv()" value="+" style="color: red; margin-left: 95%" id="removeButton' + index + '"  ></div></div>');
+            $('#VenueDiv' + index).append('<div class="addButton"> <input type="button" class="buttonClass" onclick="AccountHeadDiv()" value="+" style="color: red; margin-left: 95%;" id="removeButton' + index + '"  ></div></div>');
         }
         else{
             $('#VenueDiv' + index).append(
-
-                    '<div class="addButton"> <input type="button"  class="buttonClass" value="-" onclick="removeAccountHead(\'' + index + '\')"/ style="color: red; margin-left: 95%" id="removeButton' + index + '"  ></div></div>');
-
                     '<div class="addButton"> <input type="button"  class="buttonClass" value="-" onclick="removeAccountHead(\'' + index + '\')"/ style="color: red;margin-left: 95%" id="removeButton' + index + '"  ></div></div>');
-
 
         }
 
@@ -124,18 +122,23 @@
 
 
     function submitForm() {
-
-        jQuery("#formID1").validationEngine('attach', {
-            onValidationComplete: function(form, status){
-               if (status == true) {
+        var location= $("#location").val();
+        if(location==0){
+            alert("Please Select Location of examination centre");
+        }
+        else{
+            jQuery("#formID1").validationEngine('attach', {
+                onValidationComplete: function(form, status){
+                    if (status == true) {
                         $.ajax({
                             type:"post",
                             url:'${createLink(controller: 'examinationCenter', action: 'saveExaminationCentre')}',
                             async: false,
                             data:$('#formID1').serialize() ,
                             success:function (response) {
+                                reset1()
                                 $('div#msg').html(response);
-//                                reset1()
+
 
                             }
                             ,error:function(XMLHttpRequest, textStatus, errorThrown) {
@@ -143,9 +146,20 @@
                             }
                         });
                     }
-            }
-        });
+                }
+            });
+        }
 
+    }
+    function checkLocation(){
+        var location= $("#location").val();
+        if(location==0){
+            alert("Please Select Location of examination centre");
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
 

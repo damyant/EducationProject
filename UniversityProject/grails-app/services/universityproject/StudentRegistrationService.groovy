@@ -17,6 +17,8 @@ class StudentRegistrationService {
        Boolean studentRegistrationInsSaved = false;
 
       def studentRegistration = new Student(params)
+       DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+       studentRegistration.dob=df.parse(params.d_o_b)
 //       studentRegistration.name=params.name
 //       studentRegistration.program=params.program
 //       studentRegistration.category=params.category
@@ -42,6 +44,8 @@ class StudentRegistrationService {
        studentRegistration.studyCentre=studyCentre
        Set<ProgramDetail> programDetail = ProgramDetail.findAllByCourseCode(Integer.parseInt(params.programDetail))
        studentRegistration.programDetail=programDetail
+       Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examiNationCentre))
+       studentRegistration.examinationCentre=examinationCentreList
        studentRegistration.studentImage=photographe.bytes
 
         //RAJ CODE

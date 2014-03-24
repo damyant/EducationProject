@@ -13,7 +13,7 @@ class Student {
     String state
     BigInteger mobileNo
 //    String studyCentre
-    int preferenceOfExaminationCentre
+//    int preferenceOfExaminationCentre
     BigInteger registrationNo1
     BigInteger registrationNo2
     String addressStudentName
@@ -42,7 +42,7 @@ class Student {
         state(nullable: true)
         mobileNo(nullable: true)
 //        studyCentre(nullable: true)
-        preferenceOfExaminationCentre(nullable: true)
+//        preferenceOfExaminationCentre(nullable: true)
         registrationNo1(nullable: true)
         registrationNo2(nullable: true)
         addressStudentName(nullable: true)
@@ -74,7 +74,7 @@ class Student {
         state column: "State"
         mobileNo column : "MobileNo"
         studyCentre column: "StudyCentre"
-        preferenceOfExaminationCentre column: "PreferenceOfExaminationCentre"
+//        preferenceOfExaminationCentre column: "PreferenceOfExaminationCentre"
         registrationNo1 column: "RegistrationNo1"
         registrationNo2 column: "RegistrationNo2"
         addressStudentName column: "AddressStudentName"
