@@ -14,10 +14,10 @@ function  semesterList(){
             '<td <td style="width:40% "><select class="select-to" style="width: 90%"  name="semester'+j+'" id="semester'+j+'"  multiple="true"  /></td></tr>' )
 
         if($('#mode option:selected').text()=="annual"){
-            $("<div>Term</div>").insertBefore($('#semester'+j))
+            $("<div>Term"+j+"</div>").insertBefore($('#semester'+j))
         }
         else if(($('#mode option:selected').text()=="semester")){
-            $("<div>semester</div>").insertBefore($('#semester'+j))
+            $("<div>semester"+j+"</div>").insertBefore($('#semester'+j))
         }
 
 
