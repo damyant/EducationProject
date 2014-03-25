@@ -18,9 +18,13 @@ class CourseController {
     }
 
     def saveCourse() {
-
+        def response=[:]
         def data = request.JSON
-        courseDetailService.saveCourseInfo(data)
+        println(data)
+        def status=courseDetailService.saveCourseInfo(data)
+        response.response1=status
+        println(response)
+        render response as JSON
 
     }
 
