@@ -38,12 +38,10 @@
                 <g:sortableColumn property="enabled"
                                   title="${message(code: 'user.enabled.label', default: 'Enabled')}"/>
 
+                <g:sortableColumn property="passwordExpired"
+                                  title="${message(code: 'user.passwordExpired.label', default: 'Password Expired')}"/>
+                <g:sortableColumn property="edit" title="${message(code: 'user.enabledited.label', default: 'Edit')}"/>
 
-            <g:sortableColumn property="passwordExpired" title="${message(code: 'user.passwordExpired.label', default: 'Password Expired')}" />
-
-            <th title="${message(code: 'user.enabledited.label', default: 'Edit')}"></th>
-
-            <th title="${message(code: 'user.reset.label', default: 'Reset Password')}" />
             </tr>
             </thead>
             <tbody>
@@ -64,17 +62,15 @@
 
                     <td><button class="university-button"> <g:link class="university-text-decoration-none" action="editUser" id="${userInstance.id}">Edit</g:link></button></td>
 
-                <td><g:link controller="user" action="resetPassword" params="[id:userInstance.id]">Reset Password</g:link></td>
+                </tr>
+            </g:each>
+            </tbody>
+        </table>
 
-            </tr>
-        </g:each>
-        </tbody>
-    </table>
-    <div class="pagination">
-        <g:paginate total="${userInstanceCount ?: 0}" />
-
+        <div class="pagination">
+            <g:paginate total="${userInstanceCount ?: 0}"/>
+        </div>
     </div>
 </div>
-    </div>
 </body>
 </html>
