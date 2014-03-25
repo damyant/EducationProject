@@ -1,5 +1,7 @@
 package universityproject
 
+import examinationproject.CourseMode
+import examinationproject.CourseType
 import examinationproject.ProgramDetail
 import examinationproject.CourseSubject
 import examinationproject.Semester
@@ -14,7 +16,7 @@ class CourseDetailService {
     }
 
     def saveCourseInfo(params) {
-
+        def status=false
         def semObj
 
         def existingCourseObj = ProgramDetail.findById(params.courseId)
@@ -49,9 +51,9 @@ class CourseDetailService {
                     it."semester${i}".each { obj ->
                         CourseSubject.create existingCourseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj
                     }
-
+                    status=true
                 }
-
+                return status
             }
         } else {
 
@@ -67,9 +69,9 @@ class CourseDetailService {
                     it."semester${i}".each { obj ->
                         CourseSubject.create courseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj
                     }
-
+                   status=true
                 }
-
+                return status
             }
         }
 

@@ -13,7 +13,7 @@ class StudentController {
             def currentUser= springSecurityService.currentUser.username
             println("<><>><<><><><<><><>>><><>><<<<<<<<>>>"+currentUser)
             def studyCentre= StudyCenter.findByEmailIdOfHeadIns(currentUser)
-            println("<><>><<><><><<><><>>><><>><<<<<<<<>>>"+studyCentre.name)
+//            println("<><>><<><><><<><><>>><><>><<<<<<<<>>>"+studyCentre.name)
               [studyCentre:studyCentre]
 
         }

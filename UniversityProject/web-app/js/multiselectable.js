@@ -236,6 +236,7 @@ function save() {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
+                alert(data.response1)
                 if(data.response1){
                     document.getElementById("statusMessage").style.display = "block";
                 }
