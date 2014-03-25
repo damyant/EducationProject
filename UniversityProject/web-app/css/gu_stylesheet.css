@@ -324,7 +324,7 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab{
 }
 
 #login .inner .fheader {
-    margin: 15px 0px 14px 20px;
+    margin: 15px 0px 20px 20px;
     font-size:20px;
     font-weight:bold;
     font-family:Myriad Pro;
@@ -334,9 +334,10 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab{
 
 #login .inner .cssform input[type='text'] {
     margin-left:25px;
+    margin-top:8px;
+    margin-bottom: 15px;
     width:300px;
     height:40px;
-    margin-top:20px;
     border-radius: 4px;
     background:url(../images/User.png) no-repeat left;
     background-size:30px;
@@ -344,11 +345,15 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab{
     font-size:14px;
 }
 
+#login .inner .cssform label{
+    margin-left:28px;
+}
+
 #login .inner .cssform input[type='password'] {
     margin-left:25px;
+    margin-top:8px;
     width:300px;
     height:40px;
-    margin-top:20px;
     border-radius: 4px;
     background:url(../images/password.png) no-repeat left;
     background-size:30px;
@@ -436,13 +441,12 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab{
     h3{
         font-size: 11pt;
     }
-<<<<<<< HEAD
 }
 .ui-datepicker {
     background: #fff;
     border: 1px solid #555;
     color: #000;
-=======
+}
     h2{
         font-size: 15pt;
     }
@@ -451,5 +455,20 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab{
         margin-left: 5%;
         margin-top: 40px;
     }
->>>>>>> 11890008d05ccbec1abbb0fe29ac3fde8b5a4912
+.ui-datepicker-prev, .ui-datepicker-next{
+    visibility: hidden;
+    height: 0px;
+}
+
+table h3{
+    font-family: Calibri;
+    font-size: 16pt;
+    font-style: normal;
+    font-weight: bold;
+    color:black;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 15px;
+    margin-top: 5px;
+
 }

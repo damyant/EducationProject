@@ -28,19 +28,23 @@
 <body>
 <div id="main">
 <g:if test="${flash.message}">
-    <div class="message">${flash.message}</div>
+    <div class="message"><div class="university-status-message">${flash.message}</div></div>
 </g:if>
 
-<h3>STUDENT INFORMATION SHEET</h3>
+
 <g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data"
               id="studentRegister" name="studentRegister">
 
 <table align="center" cellpadding="10">
-
+    <tr>
+        <td colspan="2">
+            <h3>STUDENT INFORMATION SHEET</h3>
+        </td>
+    </tr>
     <!----- First Name ---------------------------------------------------------->
     <tr>
         <td>Name of the applicant (In block letters only)</td>
-        <td><input type="text" name="name" maxlength="30" class="university-size-1-2"/>
+        <td><input type="text" name="name"  style="text-transform:uppercase" maxlength="30" class="university-size-1-2"/>
 
         </td>
     </tr>
@@ -69,8 +73,8 @@
         <td>Category</td>
         <td>
             <div class="radio_options">
-                <label>General <input type="radio" name="category" value="General" class="radioInput"/></label>
-                <label>MOBC <input type="radio" name="category" value="MOBC" class="radioInput"/></label>
+                <label style="width: 70px;">General <input type="radio" name="category" value="General" class="radioInput"/></label>
+                <label style="width: 70px;">MOBC <input type="radio" name="category" value="MOBC" class="radioInput"/></label>
                 <label>OBC <input type="radio" name="category" value="OBC" class="radioInput"/></label>
                 <label>SC <input type="radio" name="category" value=" SC" class="radioInput" style=""/></label>
                 <label>ST <input type="radio" name="category" value="S.T" class="radioInput"/></label>
@@ -156,9 +160,17 @@
                 %{--<option value="Golaghat">Golaghat</option>--}%
                 %{--<option value="Jaipur">Jaipur</option>--}%
             %{--</select>--}%
-            <g:select name="district" id="district" optionKey="id"  class="university-size-1-3" onchange="showCityList()" optionValue="districtName" from="${District.findAll()}" noSelection="['':' Select District']" />
-            <g:select name="city" id="city" optionKey="id"  class="university-size-1-3"  optionValue="cityName" from="" onchange="showCentreList()" noSelection="['':' Select City']"/>
-            <g:select name="examiNationCentre" id="examinationCentre"  class="university-size-1-3" from=" "  noSelection="['':' Select Examination Centre']"/>
+    <table class="inner">
+           <tr>
+               <td> <g:select name="district" id="district" optionKey="id"  class="university-size-1-2" onchange="showCityList()" optionValue="districtName" from="${District.findAll()}" noSelection="['':' Select District']" /></td>
+            </tr>
+            <tr>
+                <td><g:select name="city" id="city" optionKey="id"  class="university-size-1-2"  optionValue="cityName" from="" onchange="showCentreList()" noSelection="['':' Select City']"/></td>
+            </tr>
+    <tr>
+                <td><g:select name="examiNationCentre" id="examinationCentre"  class="university-size-1-2" from=" "  noSelection="['':' Select Examination Centre']"/></td>
+            </tr>
+    </table>
         </td>
     </tr>
     <tr>
@@ -176,35 +188,35 @@
     <tr>
         <td>Candidate Name & Complete Mailing Address (Write in Capital Letter) <br/><br/><br/></td>
         <td>
-            <table class="innerTable" style="width: 100%">
+            <table class="" style="width: 100%">
                 <tr>
 
                     <td>Name:</td>
-                    <td><input type="text" name="addressStudentName" maxlength="30" class="university-size-1-2"/></td>
+                    <td colspan="2"><input type="text" name="addressStudentName" maxlength="30" class="university-size-1-2"/></td>
                 </tr>
                 <tr>
                     <td>Village/Town:</td>
-                    <td><input type="text" name="addressTown" maxlength="30" class="university-size-1-2"/></td>
+                    <td colspan="2"><input type="text" name="addressTown" maxlength="30" class="university-size-1-2"/></td>
                 </tr>
                 <tr>
 
                     <td>P.O.:</td>
-                    <td><input type="text" name="addressPO" maxlength="30" class="university-size-1-2"/></td>
+                    <td colspan="2"><input type="text" name="addressPO" maxlength="30" class="university-size-1-2"/></td>
                 </tr>
                 <tr>
                     <td>District:</td>
 
-                    <td><input type="text" name="addressDistrict" maxlength="30"
+                    <td colspan="2"><input type="text" name="addressDistrict" maxlength="30"
                                class="university-size-1-2"/></td>
                 </tr>
                 <tr>
                     <td>State:</td>
-                    <td><input type="text" name="addressState" maxlength="30" class="university-size-1-2"/>
+                    <td colspan="2"><input type="text" name="addressState" maxlength="30" class="university-size-1-2"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Pincode:</td>
-                    <td><input type="text" name="addressPinCode" maxlength="6" class="university-size-1-2"
+                    <td colspan="2"><input type="text" name="addressPinCode" maxlength="6" class="university-size-1-2"
                                onkeypress="return isNumber(event)"/></td>
                 </tr>
             </table>

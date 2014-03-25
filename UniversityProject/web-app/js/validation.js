@@ -58,12 +58,6 @@ function validate(){
             location:{
                 required:true
             },
-//            registrationNo1:{
-//                registrationNo1:true
-//            },
-//            registrationNo2:{
-//                required:true
-//            },
             studentName:{
                 required:true
             },
@@ -123,7 +117,18 @@ function validate(){
             totalCreditPoints:{
                 required:true,
                 number: true
-            }
+            },
+            d_o_b: "required",
+            programDetail: "required",
+            mobileNo: "required",
+            studyCentre: "required",
+            examiNationCentre: "required",
+            addressStudentName: "required",
+            addressTown: "required",
+            addressPO: "required",
+            addressDistrict: "required",
+            addressState: "required",
+            addressPinCode: "required"
 
     },
         messages: {
@@ -140,16 +145,17 @@ function validate(){
             websiteUrl:"Please enter website url",
             nameOfApplicant :"Please enter Name of an Apllicant",
             date_of_birth:"Please Enter Date of birth",
+            d_o_b:"Please Enter Date of birth",
             program:"Please enter Program",
+            programDetail:"Please enter Program",
             category:"Please select one of these categories",
             nationality:"please select Nationality",
             gender:"Please select your gender",
             state:"Please select your State",
             contactNo:"Please enter your Contact Number",
+            mobileNo:"Please enter your Contact Number",
             contactCentre:"Please enter your contact Centre",
             location:"Please Select your location",
-//            registrationNo1:"please Enter your Registration Number",
-//            registrationNo2:"please Enter your Registration Number",
             studentName:"please Enter your Name",
             town:"please Enter your town",
             po:"please enter your Post Office",
@@ -159,6 +165,14 @@ function validate(){
             photograph:"please upload your PhotoGraph",
             declaration:"please declare before you proceed",
             courseName:"please Enter your Name",
+            studyCentre:"please Enter your Study Center Name",
+            examiNationCentre:"please Enter your Examination Center Name",
+            addressStudentName: "Please enter Student Name",
+            addressTown: "please Enter your town",
+            addressPO: "please enter your Post Office",
+            addressDistrict: "please enter your District",
+            addressState: "please enter your State",
+            addressPinCode: "please enter your PinCode",
             courseMode:"please Enter course mode",
             courseType:"please Enter your Course Type",
             noOfTerms:"please Enter Number of terms",
