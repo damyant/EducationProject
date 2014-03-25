@@ -90,7 +90,7 @@
             <tr>
                 <td><input type="hidden" value="${studyCentreInstance?.id}" name="studyCenterId" >
                     <input type="submit" value="<g:if test="${params.type!='edit'}"><g:message code="default.button.create"/></g:if><g:else><g:message code="default.button.save"/></g:else>"  class="university-button" onclick="validate()"></td>
-                <td><input type="button" value="<g:message code="default.button.clear"/>" class="university-button" ></td>
+                <td><g:if test="${params.status!='updated'}"><input type="button" value="<g:message code="default.button.clear"/>" class="university-button" ></g:if> <g:else><input type="button" value="<g:message code="default.button.clear"/>" class="university-button" disabled></g:else></td>
             </tr>
         </table>
     </g:form>

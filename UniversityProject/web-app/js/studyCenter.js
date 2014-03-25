@@ -76,6 +76,8 @@ function updateStudyCenter(){
     window.location.href = '/UniversityProject/studyCenter/createNewStudyCenter';
 }
 function deleteStudyCenter(studyCenterId){
+    var result= confirm("Are you sure you want to delete this item?", "Confirm Delete");
+    if(result==true){
     var data = studyCenterId;
     $.ajax({
         type: "post",
@@ -86,7 +88,7 @@ function deleteStudyCenter(studyCenterId){
             showStudyCenterList()
         }
     });
-
+    }
 }
 function updateStudyCenter(studyCenterId){
     var data = studyCenterId
