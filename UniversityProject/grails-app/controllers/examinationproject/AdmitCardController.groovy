@@ -4,12 +4,23 @@ class AdmitCardController {
 
     def index() {}
 
-    def createAdmintCard = {
+    def viewAdmitCard = {
         println "here.. "+params
-        render(view: "createAdmintCard")
+        render(view: "viewAdmitCard")
     }
 
     def editAdmitCard={
+
+    }
+
+    def createAdmitCard ={
+        def programList = ProgramDetail.list()
+        def studyCentreList = StudyCenter.list()
+        def examinationCentre = ExaminationCentre.list()
+        [programList: programList, studyCentreList: studyCentreList, examinationCentre: examinationCentre]
+
+
+
 
     }
 

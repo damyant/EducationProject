@@ -55,7 +55,7 @@ class StudentRegistrationService {
        studentRegistration.registrationYear=Integer.parseInt(year)
 
 
-       studentRegistration.rollNo=getStudentRollNumber(params.programDetail)
+       studentRegistration.rollNo=getStudentRollNumber(Long.parseLong(params.programDetail))
 
       //END RAJ CODE
 
@@ -69,28 +69,54 @@ class StudentRegistrationService {
 
    }
 
-    def getStudentRollNumber(courseId){
+    def getStudentRollNumber(Long courseId){
 
-        Set<ProgramDetail> course = ProgramDetail.findAllById(courseId)
+      Set<ProgramDetail> course = ProgramDetail.findAllById(courseId)
+      //  def course = ProgramDetail.findAllById(courseId)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year, with 2 digits
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 
-        String courseCodeStr= course.courseCode.toString()
+        String courseCodeStr= course[0].courseCode.toString()
         int rollNumber = 0;
 
+        def program = ProgramDetail.findById(courseId)
+        println("NNNNNNNNNNNNNNNNNNNNNN"+program.student)
 
-        def student =Student.findByRegistrationYear(year)
-        def studentCourse = student.programDetail
 
-        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+student)
-        println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"+student.programDetail)
-        if(student && studentCourse){
-        def lastStudent = Student.findByProgramDetailAndRegistrationYear(course,year, [max:1, sort:"rollNo", order:"desc"])
-        rollNumber = lastStudent.rollNo+1
+        def student=Student.list()
+
+       // def student =Student.findByProgramDetailAndRegistrationYear(course[0],year)
+
+        if(student){
+            //def studentByYearAndCourse=Student.findByRegistrationYearAndProgramDetailInList(year,course)
+            Map paginateParams=null
+            println("Check for Student++++++++++++++++++++++++")
+//            def studentByYearAndCourse = Student.findByRegistrationYearAndProgramDetail(year, course, paginateParams)
+            def obj=Student .createCriteria()
+           def studentByYearAndCourse= obj.list{
+                programDetail{
+                    eq('id', courseId)
+                }
+               and{
+                       eq('registrationYear',year)
+               }
+               maxResults(1)
+               order("rollNo", "desc")
+            }
+            println("Check for Student++++++++++++++++++++++++@@@@@@@@@@@@@@@@"+studentByYearAndCourse)
+            if(studentByYearAndCourse){
+//           def lastStudent = Student.findByRegistrationYearAndProgramDetailInList(year,course,[max:1, sort:"rollNo", order:"desc"])
+              rollNumber = studentByYearAndCourse[0].rollNo+1
+            }else{
+                String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
+                int rollNo= 1001
+                String rollStr = Integer.toString(rollNo)
+                rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+            }
          }else{
-                       String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
-                       int rollno= 1001
-            String rollStr = Integer.toString(rollno)
+            String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
+            int rollNo= 1001
+            String rollStr = Integer.toString(rollNo)
             rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
         }
 

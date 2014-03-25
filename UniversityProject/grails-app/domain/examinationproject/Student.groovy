@@ -26,16 +26,17 @@ class Student {
     int rollNo
     Status status
     int registrationYear
+ // ProgramDetail programDetail
 
     byte[] studentImage
 //    byte[] studentSignature
 
-    static hasMany = [examinationCentre : ExaminationCentre, studyCentre : StudyCenter, programDetail:ProgramDetail]
+    static hasMany = [examinationCentre : ExaminationCentre, studyCentre : StudyCenter,programDetail:ProgramDetail]
 
     static constraints = {
         name(nullable: true)
         dob(nullable: true)
-//        program(nullable: true)
+        //programDetail(nullable: false)
         category(nullable: true)
         gender(nullable: true)
         nationality(nullable: true)
@@ -85,6 +86,7 @@ class Student {
         addressPinCode column: "AddressPinCode"
         location column: "Location"
         registrationYear column: "registrationYear"
+        //programDetail column: "programDetail"
     }
 
 }

@@ -69,6 +69,9 @@
                                             code="default.mainMenu3.subMenu2.submenu1.submenu2"/></a>
                                     </li>
 
+                                    <li><g:link controller="admitCard" action="createAdmitCard"><g:message
+                                            />Create Admit Card</g:link></li>
+
                                 </ul>
                             </li>
                             <li><a href="#" class="viewAdmitCardPopup"><g:message

@@ -11,15 +11,15 @@ class StudentController {
         println("inside registration")
         if(springSecurityService.isLoggedIn()){
             def currentUser= springSecurityService.currentUser.username
-            println("<><>><<><><><<><><>>><><>><<<<<<<<>>>"+currentUser)
+
             def studyCentre= StudyCenter.findByEmailIdOfHeadIns(currentUser)
-            println("<><>><<><><><<><><>>><><>><<<<<<<<>>>"+studyCentre.name)
+
               [studyCentre:studyCentre]
 
         }
         else{
              println("user is not logged in")
-            def studyCentre= StudyCenter.findByCenterCode('001')
+            def studyCentre= StudyCenter.findByCenterCode('111')
             println("<><>><<><><><<><><>>><><>><<<<<<<<>>>"+studyCentre.name)
             [studyCentre:studyCentre]
         }
