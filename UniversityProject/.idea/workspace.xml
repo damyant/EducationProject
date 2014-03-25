@@ -161,8 +161,10 @@
       <file leaf-file-name="userList.gsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grails-app/views/user/userList.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="0" selection-start="3199" selection-end="3199" vertical-scroll-proportion="2.486166" vertical-offset="0" max-vertical-offset="1462">
-              <folding />
+            <state line="78" column="7" selection-start="3236" selection-end="3236" vertical-scroll-proportion="0.7312253" vertical-offset="905" max-vertical-offset="1411">
+              <folding>
+                <element signature="tag#div#1;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -703,12 +705,12 @@
       <workItem from="1395467695204" duration="6790000" />
       <workItem from="1395635800197" duration="6383000" />
       <workItem from="1395653982731" duration="189000" />
-      <workItem from="1395750050316" duration="49000" />
+      <workItem from="1395750050316" duration="115000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13411000" />
+    <option name="totallyTimeSpent" value="13477000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1080,8 +1082,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/user/userList.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="0" selection-start="3199" selection-end="3199" vertical-scroll-proportion="2.486166" vertical-offset="0" max-vertical-offset="1462">
-          <folding />
+        <state line="78" column="7" selection-start="3236" selection-end="3236" vertical-scroll-proportion="0.7312253" vertical-offset="905" max-vertical-offset="1411">
+          <folding>
+            <element signature="tag#div#1;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
