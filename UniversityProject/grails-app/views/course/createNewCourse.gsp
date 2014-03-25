@@ -47,32 +47,32 @@
 
             <tr>
                 <td><label>Number of Terms/Semesters </label></td>
-                <td><input type="text" id="terms" name="noOfTerms" maxlength="" class="university-size-1-2" onblur="semesterList()"/></td>
+                <td><input type="text" id="terms" name="noOfTerms" onkeypress="return isNumber(event)" maxlength="" class="university-size-1-2" onblur="semesterList()"/></td>
             </tr>
             <tr>
                 <td><label>Course Code</label></td>
-                <td><input type="text" name="courseCode" maxlength="" class="university-size-1-2" /></td>
+                <td><input type="text" name="courseCode" maxlength=""onkeypress="return isNumber(event)" class="university-size-1-2" /></td>
             </tr>
             <tr>
                 <td><label>Number of maximum available academic year</label></td>
-                <td><input type="text" name="noOfAcademicYears" maxlength="" class="university-size-1-2" /></td>
+                <td><input type="text" name="noOfAcademicYears" maxlength="" onkeypress="return isNumber(event)"class="university-size-1-2" /></td>
             </tr>
 
             <tr>
                 <td><label>	Number of papers</label></td>
-                <td><input type="text" name="noOfPapers" maxlength="" class="university-size-1-2" /></td>
+                <td><input type="text" name="noOfPapers" maxlength=""onkeypress="return isNumber(event)" class="university-size-1-2" /></td>
             </tr>
             <tr>
                 <td><label>Total Marks</label></td>
-                <td><input type="text" name="totalMarks" maxlength="" class="university-size-1-2" /></td>
+                <td><input type="text" name="totalMarks" maxlength=""onkeypress="return isNumber(event)" class="university-size-1-2" /></td>
             </tr>
             <tr>
                 <td><label>Pass Marks(per paper)</label></td>
-                <td><input type="text" name="passMarks" class="university-size-1-2" /></td>
+                <td><input type="text" name="passMarks" onkeypress="return isNumber(event)"class="university-size-1-2" /></td>
             </tr>
             <tr>
                 <td><label>Total Credit Points</label></td>
-                <td><input type="text" name="totalCreditPoints" class="university-size-1-2"/></td>
+                <td><input type="text" name="totalCreditPoints"onkeypress="return isNumber(event)" class="university-size-1-2"/></td>
             </tr>
             <tr>
                 <td colspan="2">

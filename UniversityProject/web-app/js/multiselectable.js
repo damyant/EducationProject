@@ -11,7 +11,7 @@ function  semesterList(){
         $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Subjects</label><select style="width: 90%" name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
             ' <td <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button>'+
             '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList('+j+')" name="remove'+j+'"  id="remove'+j+'">Remove</button> </td>'+
-            '<td <td style="width:40% "><select class="select-to" style="width: 90%"  name="semester'+j+'" id="semester'+j+'"  multiple="true"  /></td></tr>' )
+            '<td <td style="width:40% "><select class="select-to" style="width: 90%"  name="semester'+j+'" id="semester'+j+'"  multiple="true"  /><div id="error-select-' + j + '"></div></td></tr>' )
 
         if($('#mode option:selected').text()=="annual"){
             $("<div>Term"+j+"</div>").insertBefore($('#semester'+j))
@@ -68,7 +68,7 @@ function addToList(j){
                 }).attr('selected',false);
             });
         }
-
+        validateLength(j);
     });
 }
 
@@ -88,94 +88,33 @@ function removeFromList(j){
             });
 });
     });
+    validateLength(j);
 }
+function validateLength(j) {
+    var validate;
+    var length = document.getElementById('semester' + j).options.length;
+    if (length == 0) {
+        $('#error-select-' + j).html("<label style='margin-left: 4px; color: #cd0a0a; '>Please choose subjects for semesters</label>");
+        validate = false;
+    } else {
+        $('#error-select-' + j).html("");
+        validate = true;
+    }
 
-
-//$(document).ready(function(){
-//$("#createCourse").validate({
-//    rules:{
-//
-//        courseName :{
-//            required:true
-//        },
-//        courseMode:{
-//            required:true
-//        },
-//        courseType :{
-//            required:true
-//        },
-//        noOfTerms:{
-//            required:true
-//        },
-//        courseCode:{
-//            required:true
-//        },
-//        noOfAcademicYears:{
-//            required:true
-//        },
-//        totalMarks:{
-//            required:true
-//        },
-//        noOfPapers:{
-//            required:true
-//        },
-//        passMarks:{
-//            required:true
-//        },
-//        totalCreditPoints:{
-//            required:true
-//        }
-//    },
-//
-//    messages:{
-//
-//        courseName:"please Enter your Name",
-//        courseMode:"please Enter course mode",
-//        courseType:"please Enter your Course Type",
-//        noOfTerms:"please Enter Number of terms",
-//        courseCode:"please Enter your Course Code ",
-//        noOfAcademicYears:"please enter your Academic years",
-//        totalMarks:"please Enter Total Marks",
-//        noOfPapers:"please Enter Number of papers",
-//        passMarks:"please Enter Passing Marks",
-//        totalCreditPoints:"Please Enter total Credit Points"
-//  },
-//
-//    submitHandler: function(form) {
-//        var formObj = $("#createCourse");
-//        var data = ConvertFormToJSON(formObj);
-//        $.ajax({
-//           type: "post",
-//           url: url('course', 'saveCourse', ''),
-//           data: JSON.stringify(data),
-//           contentType: 'application/json; charset=utf-8',
-//           dataType: 'json',
-//           success: function (data) {
-//               if(data.response1){
-//                   document.getElementById("statusMessage").style.display = "block";
-//               }
-//               clearField();
-//
-//           }
-//        });
-//
-//    }
-//
-//})
-//    fireMultiValidate();
-//
-//});
-
-function fireMultiValidate(){
-            for(var i=1;i<=$("#terms").val();i++){
-                if(document.getElementById('semester'+i).options.length==0){
-                    $('#semester'+i).after("<label style='margin-left: 4px; color: #cd0a0a; '>please choose subjects for semesters</label>")
-                }
-
+    return validate;
 }
+function fireMultiValidate() {
+    var validate = true;
+    for (var i = 1; i <= $("#terms").val(); i++) {
+        if (!validateLength(i)) {
+            validate = false;
+//            return false;
+        }
+
+    }
+
+    return validate;
 }
-
-
 function ConvertFormToJSON(form){
     var array = jQuery(form).serializeArray();
     var json = {};
@@ -220,11 +159,11 @@ function clearField(){
 
 }
 function save() {
-    fireMultiValidate();
     validate();
     var status = $("#createCourse").valid();
-
-
+    if (!fireMultiValidate()) {
+        return;
+    }
     if (status ) {
         var formObj = $("#createCourse");
         var data = ConvertFormToJSON(formObj);
