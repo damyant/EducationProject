@@ -18,14 +18,17 @@
 <body>
 <div id="main">
      <div>
-         <div>
-             <label><g:message code="default.createStudy.district"/></label>
+         <div class="university-location-select">
+             <div class="university-label-location-select">
+             <label><g:message code="default.createStudy.district"/></label></div>
              <g:select name="district" id="district" optionKey="id" value="${studyCentreInstance?.city?.district?.id}" class="university-size-1-3" onchange="showCityList()" optionValue="districtName" from="${District.findAll()}" noSelection="['':' Select District']" />
 
          </div>
-         <label><g:message code="default.createStudy.city"/></label>
+         <div class="university-location-select">
+             <div class="university-label-location-select">
+         <label><g:message code="default.createStudy.city"/></label></div>
          <g:select name="city" id="city" optionKey="id" value="${studyCentreInstance?.city?.id}" class="university-size-1-3"  optionValue="cityName" from="${City.findAllByDistrict(District.get(studyCentreInstance?.city?.district?.id))}" onchange="showList()" noSelection="['':' Select City']"/>
-
+        </div>
      </div>
 
 <div id="centreList" style="text-align: center; width: 100%">
@@ -38,7 +41,7 @@
         $.ajax({
             type:"post",
             url:'${createLink(controller: 'examinationCenter', action: 'getCentreList')}',
-            data:{valueOf:data},
+            data:{data:data},
 //            contentType: "application/json; charset=utf-8",
 //            dataType: "json",
             success:function (response) {
