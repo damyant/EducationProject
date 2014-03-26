@@ -49,7 +49,7 @@ class StudentRegistrationService {
        studentRegistration.studentImage=photographe.bytes
 
         //RAJ CODE
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year, with 2 digits
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
        String year = sdf.format(Calendar.getInstance().getTime());
 
        studentRegistration.registrationYear=Integer.parseInt(year)
@@ -73,9 +73,12 @@ class StudentRegistrationService {
             def getStudentRollNumber(Long courseId){
 
             Set<ProgramDetail> course = ProgramDetail.findAllById(courseId)
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year, with 2 digits
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
             String courseCodeStr= course[0].courseCode.toString()
+                if(courseCodeStr.length()>2){
+                    courseCodeStr= courseCodeStr.substring(0,2)
+                }
             int rollNumber = 0;
 
             def program = ProgramDetail.findById(courseId)
@@ -122,6 +125,9 @@ class StudentRegistrationService {
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 
         String courseCodeStr= course[0].courseCode.toString()
+        if(courseCodeStr.length()>2){
+            courseCodeStr= courseCodeStr.substring(0,2)
+        }
         int referenceNumber = 0;
 
 
@@ -138,10 +144,10 @@ class StudentRegistrationService {
                     eq('registrationYear',year)
                 }
                 maxResults(1)
-                order("rollNo", "desc")
+                order("referenceNumber", "desc")
             }
             if(studentByYearAndCourse){
-                referenceNumber = studentByYearAndCourse[0].rollNo+1
+                referenceNumber = studentByYearAndCourse[0].referenceNumber+1
             }else{
                 String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
                 int reference= 1111
