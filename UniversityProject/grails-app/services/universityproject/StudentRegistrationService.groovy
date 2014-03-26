@@ -1,6 +1,6 @@
 package universityproject
 
-import examinationproject.CourseDetail
+
 import examinationproject.ExaminationCentre
 import examinationproject.ProgramDetail
 import examinationproject.Status
@@ -42,7 +42,7 @@ class StudentRegistrationService {
        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
        studentRegistration.status= Status.findById(1)
        studentRegistration.studyCentre=studyCentre
-       Set<ProgramDetail> programDetail = ProgramDetail.findAllByCourseCode(Integer.parseInt(params.programDetail))
+       Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programDetail))
        studentRegistration.programDetail=programDetail
        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examiNationCentre))
        studentRegistration.examinationCentre=examinationCentreList
@@ -53,10 +53,7 @@ class StudentRegistrationService {
        String year = sdf.format(Calendar.getInstance().getTime());
 
        studentRegistration.registrationYear=Integer.parseInt(year)
-
-
-       studentRegistration.rollNo=getStudentRollNumber(Long.parseLong(params.programDetail))
-
+       studentRegistration.referenceNumber=getStudentReferenceNumber(Long.parseLong(params.programDetail))
       //END RAJ CODE
 
 //       studentRegistration.studentSignature=signature.bytes
@@ -68,65 +65,96 @@ class StudentRegistrationService {
        return studentRegistrationInsSaved
 
    }
+    /**
+     * Service to generate the roll no.
+     * @param courseId
+     * @return
+     */
+            def getStudentRollNumber(Long courseId){
 
-    def getStudentRollNumber(Long courseId){
+            Set<ProgramDetail> course = ProgramDetail.findAllById(courseId)
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year, with 2 digits
+            int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
+            String courseCodeStr= course[0].courseCode.toString()
+            int rollNumber = 0;
 
-      Set<ProgramDetail> course = ProgramDetail.findAllById(courseId)
-      //  def course = ProgramDetail.findAllById(courseId)
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year, with 2 digits
-        int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
-
-        String courseCodeStr= course[0].courseCode.toString()
-        int rollNumber = 0;
-
-        def program = ProgramDetail.findById(courseId)
-        println("NNNNNNNNNNNNNNNNNNNNNN"+program.student)
-
-
-        def student=Student.list()
-
-       // def student =Student.findByProgramDetailAndRegistrationYear(course[0],year)
-
-        if(student){
-            //def studentByYearAndCourse=Student.findByRegistrationYearAndProgramDetailInList(year,course)
-            Map paginateParams=null
-            println("Check for Student++++++++++++++++++++++++")
-//            def studentByYearAndCourse = Student.findByRegistrationYearAndProgramDetail(year, course, paginateParams)
-            def obj=Student .createCriteria()
-           def studentByYearAndCourse= obj.list{
-                programDetail{
-                    eq('id', courseId)
+            def program = ProgramDetail.findById(courseId)
+            def student=Student.list()
+            if(student){
+                Map paginateParams=null
+                def obj=Student .createCriteria()
+                def studentByYearAndCourse= obj.list{
+                    programDetail{
+                        eq('id', courseId)
+                    }
+                    and{
+                        eq('registrationYear',year)
+                    }
+                    maxResults(1)
+                    order("rollNo", "desc")
                 }
-               and{
-                       eq('registrationYear',year)
-               }
-               maxResults(1)
-               order("rollNo", "desc")
-            }
-            println("Check for Student++++++++++++++++++++++++@@@@@@@@@@@@@@@@"+studentByYearAndCourse)
-            if(studentByYearAndCourse){
-//           def lastStudent = Student.findByRegistrationYearAndProgramDetailInList(year,course,[max:1, sort:"rollNo", order:"desc"])
-              rollNumber = studentByYearAndCourse[0].rollNo+1
+                if(studentByYearAndCourse){
+                    rollNumber = studentByYearAndCourse[0].rollNo+1
+                }else{
+                    String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
+                    int rollNo= 1001
+                    String rollStr = Integer.toString(rollNo)
+                    rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                }
             }else{
                 String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
                 int rollNo= 1001
                 String rollStr = Integer.toString(rollNo)
                 rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
             }
-         }else{
+            return rollNumber
+    }
+
+    /**
+     * Service to generate the reference no.
+     * @param courseId
+     * @return
+     */
+    def getStudentReferenceNumber(Long courseId){
+
+        Set<ProgramDetail> course = ProgramDetail.findAllById(courseId)
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year, with 2 digits
+        int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
+
+        String courseCodeStr= course[0].courseCode.toString()
+        int referenceNumber = 0;
+
+
+        def program = ProgramDetail.findById(courseId)
+        def student=Student.list()
+        if(student){
+            Map paginateParams=null
+            def obj=Student .createCriteria()
+            def studentByYearAndCourse= obj.list{
+                programDetail{
+                    eq('id', courseId)
+                }
+                and{
+                    eq('registrationYear',year)
+                }
+                maxResults(1)
+                order("rollNo", "desc")
+            }
+            if(studentByYearAndCourse){
+                referenceNumber = studentByYearAndCourse[0].rollNo+1
+            }else{
+                String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
+                int reference= 1111
+                String rollStr = Integer.toString(reference)
+                referenceNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+            }
+        }else{
             String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
-            int rollNo= 1001
-            String rollStr = Integer.toString(rollNo)
-            rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+            int reference= 1111
+            String rollStr = Integer.toString(reference)
+            referenceNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
         }
-
-        println(rollNumber);
-
-        return rollNumber
-
-
-
-
+        return referenceNumber
     }
 
 
