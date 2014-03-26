@@ -120,7 +120,9 @@ function validate(){
             },
             d_o_b: "required",
             programDetail: "required",
-            mobileNo: "required",
+            mobileNo: {required:true,
+                minlength: 10
+            },
             studyCentre: "required",
             examiNationCentre: "required",
             addressStudentName: "required",

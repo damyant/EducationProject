@@ -31,6 +31,8 @@ body{
     width: 20%;
 }
 
+
+
 .university-table-1-7 td, .university-table-1-7 th{
     min-width: 12%;
     text-align: center;
@@ -54,6 +56,9 @@ body{
 
 .university-size-1-4{
     width: 20%;
+}
+.university-size-2-5{
+    width: 38%;
 }
 .university-float-left{
     float: left;
@@ -118,6 +123,9 @@ label.error{
     background-position: bottom;
     background-size: 100%;
     text-align: center;
+}
+#examCenterSelect td{
+    vertical-align: top;
 }
 
 .multiSelect{
@@ -290,6 +298,9 @@ table{
 }
 table.inner{
     border: 0px;
+    padding: 0px;
+    margin-left: -2%;
+
 }
 
 .radioInput{}
@@ -357,8 +368,22 @@ textarea::-webkit-input-placeholder { font-size: 10px; color: #555; }
 textarea::-moz-placeholder { font-size:10px; color: #555; }
 textarea:-ms-input-placeholder { font-size: 10px; color: #555; }
 textarea:-moz-placeholder { font-size: 10px; color: #555; }
+.radio_options{
+    display: inline;
+    width: 90%;
+}
+.radio_options label {
+    /*padding-left:26px;*/
+    min-width:15%;
+    text-transform: capitalize;
+    display:inline-block
+}
 
-
+.radio_options label span{
+    /*padding-left:26px;*/
+    min-width:60%;
+    display:inline-block
+}
 #login .inner .cssform label{
     margin-left:28px;
 }
@@ -437,6 +462,13 @@ textarea:-moz-placeholder { font-size: 10px; color: #555; }
     color: #ffffff;
     font-weight: bold;
     text-transform: uppercase;
+}
+#mobileNoCntryCode{
+    width: 28px;
+}
+
+#mobileNo{
+    width: 41%;
 }
 
 @media (max-width : 700px) {
