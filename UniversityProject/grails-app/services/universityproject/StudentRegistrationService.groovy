@@ -43,7 +43,6 @@ class StudentRegistrationService {
        studentRegistration.status= Status.findById(1)
        studentRegistration.studyCentre=studyCentre
        Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programDetail))
-       println("==========================="+programDetail)
        studentRegistration.programDetail=programDetail
        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examiNationCentre))
        studentRegistration.examinationCentre=examinationCentreList
@@ -54,10 +53,7 @@ class StudentRegistrationService {
        String year = sdf.format(Calendar.getInstance().getTime());
 
        studentRegistration.registrationYear=Integer.parseInt(year)
-
-
        studentRegistration.referenceNumber=getStudentReferenceNumber(Long.parseLong(params.programDetail))
-
       //END RAJ CODE
 
 //       studentRegistration.studentSignature=signature.bytes
@@ -124,8 +120,10 @@ class StudentRegistrationService {
         Set<ProgramDetail> course = ProgramDetail.findAllById(courseId)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year, with 2 digits
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
+
         String courseCodeStr= course[0].courseCode.toString()
         int referenceNumber = 0;
+
 
         def program = ProgramDetail.findById(courseId)
         def student=Student.list()

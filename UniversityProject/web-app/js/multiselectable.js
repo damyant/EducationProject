@@ -1,24 +1,17 @@
 /**
  * Created by sonali on 3/13/14.
  */
-
 var subjectList
 
 function  semesterList(){
 
  $('#multiSelectTab tbody tr').remove()
-    for(var j=1;j<=$('#terms').val();j++){
-        $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Subjects</label><select style="width: 90%" name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
+    for(var j=1;j<=$('#noOfTerms').val();j++){
+
+        $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <select  style="width: 90%" name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
             ' <td <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button>'+
             '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList('+j+')" name="remove'+j+'"  id="remove'+j+'">Remove</button> </td>'+
-            '<td <td style="width:40% "><select class="select-to" style="width: 90%"  name="semester'+j+'" id="semester'+j+'"  multiple="true"  /></td></tr>' )
-
-        if($('#mode option:selected').text()=="annual"){
-            $("<div>Term"+j+"</div>").insertBefore($('#semester'+j))
-        }
-        else if(($('#mode option:selected').text()=="semester")){
-            $("<div>semester"+j+"</div>").insertBefore($('#semester'+j))
-        }
+            '<td <td style="width:40% "><select style="width: 90%"  name="semester'+j+'" id="semester'+j+'"  multiple="true"  /></td></tr>' )
 
 
 
@@ -28,12 +21,10 @@ function  semesterList(){
     }
 
     }
-
-    }
-
-
+}
 
 function makeJson(list){
+
     subjectList=jQuery.parseJSON(list.replace(/&quot;/g,'"'))
 
 }
@@ -63,6 +54,7 @@ function addToList(j){
 //            }).attr('selected', true);
             $('#allsubjectList'+j+' option:selected').each( function(n,allsubSelected) {
                 var text3=$(allsubSelected).val()
+//                alert("textam"+text3);
                 $('#allsubjectList'+j+' option').filter(function(){
                     return $(this).val() == text3;
                 }).attr('selected',false);
@@ -82,6 +74,7 @@ function removeFromList(j){
 //        }).attr('selected', true);
             $('#allsubjectList'+j+' option:selected').each( function(n,allsubSelected) {
                 var text3=$(allsubSelected).val()
+                alert("textam"+text3);
                 $('#allsubjectList'+j+' option').filter(function(){
                     return $(this).val() == text3;
                 }).attr('selected',false);
@@ -91,88 +84,37 @@ function removeFromList(j){
 }
 
 
-//$(document).ready(function(){
-//$("#createCourse").validate({
-//    rules:{
-//
-//        courseName :{
-//            required:true
-//        },
-//        courseMode:{
-//            required:true
-//        },
-//        courseType :{
-//            required:true
-//        },
-//        noOfTerms:{
-//            required:true
-//        },
-//        courseCode:{
-//            required:true
-//        },
-//        noOfAcademicYears:{
-//            required:true
-//        },
-//        totalMarks:{
-//            required:true
-//        },
-//        noOfPapers:{
-//            required:true
-//        },
-//        passMarks:{
-//            required:true
-//        },
-//        totalCreditPoints:{
-//            required:true
-//        }
-//    },
-//
-//    messages:{
-//
-//        courseName:"please Enter your Name",
-//        courseMode:"please Enter course mode",
-//        courseType:"please Enter your Course Type",
-//        noOfTerms:"please Enter Number of terms",
-//        courseCode:"please Enter your Course Code ",
-//        noOfAcademicYears:"please enter your Academic years",
-//        totalMarks:"please Enter Total Marks",
-//        noOfPapers:"please Enter Number of papers",
-//        passMarks:"please Enter Passing Marks",
-//        totalCreditPoints:"Please Enter total Credit Points"
-//  },
-//
-//    submitHandler: function(form) {
-//        var formObj = $("#createCourse");
-//        var data = ConvertFormToJSON(formObj);
-//        $.ajax({
-//           type: "post",
-//           url: url('course', 'saveCourse', ''),
-//           data: JSON.stringify(data),
-//           contentType: 'application/json; charset=utf-8',
-//           dataType: 'json',
-//           success: function (data) {
-//               if(data.response1){
-//                   document.getElementById("statusMessage").style.display = "block";
-//               }
-//               clearField();
-//
-//           }
-//        });
-//
-//    }
-//
-//})
-//    fireMultiValidate();
-//
-//});
+function save(){
+    fireMultiValidate();
+    validate();
+    var status = $("#createCourse").valid();
+        if(status){
+    var formObj = $("#createCourse");
+    var data = ConvertFormToJSON(formObj);
 
-function fireMultiValidate(){
-            for(var i=1;i<=$("#terms").val();i++){
-                if(document.getElementById('semester'+i).options.length==0){
-                    $('#semester'+i).after("<label style='margin-left: 4px; color: #cd0a0a; '>please choose subjects for semesters</label>")
-                }
+    $.ajax({
+        type: "post",
+        url: url('course', 'saveCourse', ''),
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (data) {
+            //document.location.reload();
+            clearFields()
+        }
+    });
+
+        }
 
 }
+
+function fireMultiValidate(){
+    for(var i=1;i<=$("#noOfTerms").val();i++){
+        if(document.getElementById('semester'+i).options.length==0){
+            $('#semester'+i).after("<label style='margin-left: 4px; color: #cd0a0a; '>please choose subjects for semesters</label>")
+        }
+
+    }
 }
 
 
@@ -189,28 +131,56 @@ function ConvertFormToJSON(form){
     });
     var semesterList ={};
 
-    for(var j=1;j<=$('#terms').val();j++){
+    for(var j=1;j<=$('#noOfTerms').val();j++){
 
         var subList = []
     $('#semester'+j+' option').each(function(){
-
-
-         subList.push($(this).val() || '');
+        subList.push($(this).val() || '');
         semesterList["semester"+j]=subList;
+        console.log(semesterList)
 
     })
 
     }
     finalList.push(semesterList);
+ console.log(finalList)
 
     json["semesterList"] = finalList;
 
     return json
 }
 
-function clearField(){
+function updateInfo(obj){
 
-    for(var i=1;i<=$('#terms').val();i++){
+    var courseDetailJson=jQuery.parseJSON(obj.replace(/&quot;/g,'"'))
+
+    $('#courseName').val(courseDetailJson['course'].courseName)
+    $('#modeName option[value='+courseDetailJson['course'].courseMode.id+']').attr("selected", "selected");
+    $('#courseTypeName option[value='+courseDetailJson['course'].courseType.id+']').attr("selected", "selected");
+    $('#noOfTerms').val(courseDetailJson['course'].noOfTerms)
+    $('#courseCode').val(courseDetailJson['course'].courseCode)
+    $('#noOfAcademicYears').val(courseDetailJson['course'].noOfAcademicYears)
+    $('#totalMarks').val(courseDetailJson['course'].totalMarks)
+    $('#marksPerPaper').val(courseDetailJson['course'].marksPerPaper)
+    $('#totalCreditPoints').val(courseDetailJson['course'].totalCreditPoints)
+    $('#noOfPapers').val(courseDetailJson['course'].noOfPapers)
+    semesterList()
+    for(var i=1;i<= $('#noOfTerms').val();i++){
+
+        for(var j=0;j<courseDetailJson['semesterList'][i].length;j++){
+
+            $('#semester'+i).append('<option value="'+courseDetailJson['semesterList'][i][j].id+'">'+courseDetailJson['semesterList'][i][j].subjectName +'</option> ')
+        }
+
+    }
+
+
+
+}
+
+function clearFields(){
+
+    for(var i=1;i<=$('#noOfTerms').val();i++){
         $('#semester'+i).empty();
     }
     $( '#createCourse' ).each(function(){
@@ -218,31 +188,4 @@ function clearField(){
     });
 
 
-}
-function save() {
-    fireMultiValidate();
-    validate();
-    var status = $("#createCourse").valid();
-
-
-    if (status ) {
-        var formObj = $("#createCourse");
-        var data = ConvertFormToJSON(formObj);
-
-        $.ajax({
-            type: "post",
-            url: url('course', 'saveCourse', ''),
-            data: JSON.stringify(data),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                alert(data.response1)
-                if(data.response1){
-                    document.getElementById("statusMessage").style.display = "block";
-                }
-                clearField();
-
-            }
-        });
-    }
 }
