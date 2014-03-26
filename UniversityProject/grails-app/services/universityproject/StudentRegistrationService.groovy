@@ -1,6 +1,6 @@
 package universityproject
 
-import examinationproject.CourseDetail
+import examinationproject.ProgramDetail
 import examinationproject.ExaminationCentre
 import examinationproject.ProgramDetail
 import examinationproject.Status
@@ -42,7 +42,7 @@ class StudentRegistrationService {
        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
        studentRegistration.status= Status.findById(1)
        studentRegistration.studyCentre=studyCentre
-       Set<ProgramDetail> programDetail = ProgramDetail.findAllByCourseCode(Integer.parseInt(params.programDetail))
+       Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programDetail))
        studentRegistration.programDetail=programDetail
        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examiNationCentre))
        studentRegistration.examinationCentre=examinationCentreList
@@ -55,7 +55,7 @@ class StudentRegistrationService {
        studentRegistration.registrationYear=Integer.parseInt(year)
 
 
-       studentRegistration.rollNo=getStudentRollNumber(Long.parseLong(params.programDetail))
+//       studentRegistration.rollNo=getStudentRollNumber(Long.parseLong(params.programDetail))
 
       //END RAJ CODE
 
@@ -76,7 +76,7 @@ class StudentRegistrationService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year, with 2 digits
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 
-        String courseCodeStr= course[0].courseCode.toString()
+        String courseCodeStr= course.courseCode.toString()
         int rollNumber = 0;
 
         def program = ProgramDetail.findById(courseId)
