@@ -1,7 +1,9 @@
 package examinationproject
 
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
+@Secured("ROLE_ADMIN")
 class ExaminationCenterController {
     def examinationCentreService
 
