@@ -22,21 +22,23 @@
 <body>
 <div id="main">
     <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
+        <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>
     <div id="msg"> </div>
     <form id="formID1" name="formID1">
 
 
 
-        <div>
-            <label><g:message code="default.createStudy.district"/></label>
+        <div class="university-location-select">
+            <div class="university-label-location-select">
+            <label><g:message code="default.createStudy.district"/></label></div>
                 <g:select name="district" id="district" optionKey="id" value="${studyCentreInstance?.city?.district?.id}" class="university-size-1-3" onchange="showCityList()" optionValue="districtName" from="${District.findAll()}" noSelection="['':' Select District']" />
-
         </div>
-        <label><g:message code="default.createStudy.city"/></label>
+        <div id="cityList" class="university-location-select">
+            <div class="university-label-location-select">
+        <label><g:message code="default.createStudy.city"/></label></div>
             <g:select name="city" id="city" optionKey="id" value="${studyCentreInstance?.city?.id}" class="university-size-1-3"  optionValue="cityName" from="${City.findAllByDistrict(District.get(studyCentreInstance?.city?.district?.id))}" noSelection="['':' Select City']"/>
-
+        </div>
 
         <div  id="VenueDiv" class="middleDiv">
         </div>

@@ -31,6 +31,8 @@ body{
     width: 20%;
 }
 
+
+
 .university-table-1-7 td, .university-table-1-7 th{
     min-width: 12%;
     text-align: center;
@@ -55,6 +57,9 @@ body{
 .university-size-1-4{
     width: 20%;
 }
+.university-size-2-5{
+    width: 38%;
+}
 .university-float-left{
     float: left;
 }
@@ -64,6 +69,7 @@ body{
 
 .university-text-decoration-none{
     text-decoration: none;
+    color: #000;
 }
 /*button*/
 .university-button{
@@ -118,6 +124,13 @@ label.error{
     background-position: bottom;
     background-size: 100%;
     text-align: center;
+}
+#examCenterSelect td{
+    vertical-align: top;
+}
+
+#examCenterSelect, #examCenterAddress{
+    border:1px solid #BBB;
 }
 
 .multiSelect{
@@ -180,6 +193,15 @@ label.error{
     text-stroke-width: 1px;
 
 }
+
+.university-table-text-center td, .university-table-text-center th{
+    text-align: center;
+}
+
+.university-table-text-left td, .university-table-text-left th{
+    text-align: left;
+    margin-left: 8px;
+}
 /*Copy create css*/
 
 .Venue{
@@ -229,9 +251,16 @@ h3{
 }
 #image{
     margin-top: 10px;
-
 }
-
+#studentList{
+    border: solid 1px #BBBBBB;
+    margin: auto;
+    visibility: hidden;
+}
+#studentList td, #studentList th{
+    text-align: left;
+    padding-left: 10px;
+}
 /* Copy popbox css*/
 
 .popbox{
@@ -290,6 +319,9 @@ table{
 }
 table.inner{
     border: 0px;
+    padding: 0px;
+    margin-left: -2%;
+
 }
 
 .radioInput{}
@@ -344,7 +376,35 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab{
     padding-left: 34px;
     font-size:14px;
 }
+.middleDiv{
+    padding: 10px;
+    margin-bottom: 3px;
+}
 
+input::-webkit-input-placeholder { font-size: 10px; color: #555; }
+input::-moz-placeholder { font-size:10px; color: #555; }
+input:-ms-input-placeholder { font-size: 10px; color: #555; }
+input:-moz-placeholder { font-size: 10px; color: #555; }
+textarea::-webkit-input-placeholder { font-size: 10px; color: #555; }
+textarea::-moz-placeholder { font-size:10px; color: #555; }
+textarea:-ms-input-placeholder { font-size: 10px; color: #555; }
+textarea:-moz-placeholder { font-size: 10px; color: #555; }
+.radio_options{
+    display: inline;
+    width: 90%;
+}
+.radio_options label {
+    /*padding-left:26px;*/
+    min-width:15%;
+    text-transform: capitalize;
+    display:inline-block
+}
+
+.radio_options label span{
+    /*padding-left:26px;*/
+    min-width:60%;
+    display:inline-block
+}
 #login .inner .cssform label{
     margin-left:28px;
 }
@@ -423,6 +483,13 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab{
     color: #ffffff;
     font-weight: bold;
     text-transform: uppercase;
+}
+#mobileNoCntryCode{
+    width: 28px;
+}
+
+#mobileNo{
+    width: 41%;
 }
 
 @media (max-width : 700px) {

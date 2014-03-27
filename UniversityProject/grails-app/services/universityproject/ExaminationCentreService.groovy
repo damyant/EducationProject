@@ -52,6 +52,7 @@ class ExaminationCentreService {
 
 
     def studyCenterList(params){
+        println("paramssssssssssssssssssssss "+ params)
         if(params){
             ExaminationCentre.findAllByCity(City.findById(params.data))
 
@@ -75,4 +76,3 @@ class ExaminationCentreService {
     }
 
     }
-

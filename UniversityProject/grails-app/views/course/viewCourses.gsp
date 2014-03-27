@@ -9,10 +9,10 @@
     <body>
     <div id="main">
         <g:if test="${params.type == 'update'}">
-            <table id="courseTab" class="university-table-1-4">
+            <table id="courseTab" class="university-table-1-4 university-table-text-left">
         </g:if>
         <g:else>
-            <table id="courseTab" class="university-table-1-3">
+            <table id="courseTab" class="university-table-1-3 university-table-text-left">
         </g:else>
         <thead>
         <tr>
@@ -33,8 +33,8 @@
                     <td>${course.courseMode.modeName}</td>
                 <td><div class="university-float-right">
                     %{--<input type="submit" value="Update" class="university-button"/>--}%
-                    <g:link  controller="course" action="createNewCourse" params="[courseId:course.id,semester:course.noOfTerms]" class="university-button">Update</g:link>
-                    <g:link  controller="course" action="deleteCourse" params="[courseId:course.id,semester:course.noOfTerms]" class="university-button">Delete</g:link>
+                    <button class="university-button"> <g:link  controller="course" action="createNewCourse" params="[courseId:course.id,semester:course.noOfTerms]" class="university-text-decoration-none">Update</g:link></button>
+                    <button class="university-button"> <g:link  controller="course" action="deleteCourse" params="[courseId:course.id,semester:course.noOfTerms]" class="university-text-decoration-none">Delete</g:link></button>
                     %{--<input type="button" value="Delete"  class="university-button"/>--}%
                 </div></td>
             </tr>

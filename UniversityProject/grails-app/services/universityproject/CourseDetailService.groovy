@@ -59,8 +59,9 @@ class CourseDetailService {
 
             def courseObj = new ProgramDetail(params)
             courseObj.save(failOnError: true)
-            for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
+           for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
                 semObj = new Semester()
+                println("????")
                 semObj.semesterNo = i
                 semObj.courseDetail = courseObj
                 semObj.save(failOnError: true)
@@ -71,8 +72,9 @@ class CourseDetailService {
                     }
                    status=true
                 }
-                return status
+
             }
+            return status
         }
 
 

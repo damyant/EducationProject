@@ -23,6 +23,7 @@ class ExaminationCenterController {
     def getCentreList = {
         println("in getCentreList "+ params)
         def result= examinationCentreService.studyCenterList(params)
+        println("resultttttttttttttttttttttt "+ result)
        if(result){
         render(template: "listOfCentre", model: [centreList: result, edit:params.edit, delete:params.delete])
         }

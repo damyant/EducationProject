@@ -6,7 +6,7 @@ var subjectList
 
 function  semesterList(){
 
- $('#multiSelectTab tbody tr').remove()
+    $('#multiSelectTab tbody tr').remove()
     for(var j=1;j<=$('#terms').val();j++){
         $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Subjects</label><select style="width: 90%" name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
             ' <td <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button>'+
@@ -22,14 +22,14 @@ function  semesterList(){
 
 
 
-    for(var i=0;i<subjectList.length;i++){
+        for(var i=0;i<subjectList.length;i++){
 
-        $("#allsubjectList"+j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
-    }
-
-    }
+            $("#allsubjectList"+j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
+        }
 
     }
+
+}
 
 
 
@@ -68,15 +68,16 @@ function addToList(j){
                 }).attr('selected',false);
             });
         }
-        validateLength(j);
+
     });
+    validateLength(j);
 }
 
 function removeFromList(j){
-  $('#semester'+j+' option:selected').each( function() {
+    $('#semester'+j+' option:selected').each( function() {
         $(this).remove();
         $('#semester'+j+' option:not(selected)').each( function(k,semSelected) {
-        var text2=$(semSelected).val()
+            var text2=$(semSelected).val()
 //        $('#semester'+j+' option').filter(function() {
 //            return $(this).val() == text2;
 //        }).attr('selected', true);
@@ -86,7 +87,7 @@ function removeFromList(j){
                     return $(this).val() == text3;
                 }).attr('selected',false);
             });
-});
+        });
     });
     validateLength(j);
 }
@@ -103,6 +104,9 @@ function validateLength(j) {
 
     return validate;
 }
+
+
+
 function fireMultiValidate() {
     var validate = true;
     for (var i = 1; i <= $("#terms").val(); i++) {
@@ -115,6 +119,9 @@ function fireMultiValidate() {
 
     return validate;
 }
+
+
+
 function ConvertFormToJSON(form){
     var array = jQuery(form).serializeArray();
     var json = {};
@@ -122,7 +129,7 @@ function ConvertFormToJSON(form){
     var i = 0;
 
     jQuery.each(array, function() {
-            json[this.name] = this.value || '';
+        json[this.name] = this.value || '';
 
         i++;
     });
@@ -131,13 +138,13 @@ function ConvertFormToJSON(form){
     for(var j=1;j<=$('#terms').val();j++){
 
         var subList = []
-    $('#semester'+j+' option').each(function(){
+        $('#semester'+j+' option').each(function(){
 
 
-         subList.push($(this).val() || '');
-        semesterList["semester"+j]=subList;
+            subList.push($(this).val() || '');
+            semesterList["semester"+j]=subList;
 
-    })
+        })
 
     }
     finalList.push(semesterList);
@@ -159,11 +166,17 @@ function clearField(){
 
 }
 function save() {
+//    alert(fireMultiValidate());
     validate();
     var status = $("#createCourse").valid();
     if (!fireMultiValidate()) {
+//        alert(fireMultiValidate());
         return;
     }
+//    validate();
+//    var status = $("#createCourse").valid();
+
+
     if (status ) {
         var formObj = $("#createCourse");
         var data = ConvertFormToJSON(formObj);

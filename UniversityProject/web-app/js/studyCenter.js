@@ -76,6 +76,8 @@ function updateStudyCenter(){
     window.location.href = '/UniversityProject/studyCenter/createNewStudyCenter';
 }
 function deleteStudyCenter(studyCenterId){
+    var result= confirm("Are you sure you want to delete this item?", "Confirm Delete");
+    if(result==true){
     var data = studyCenterId;
     $.ajax({
         type: "post",
@@ -86,7 +88,7 @@ function deleteStudyCenter(studyCenterId){
             showStudyCenterList()
         }
     });
-
+    }
 }
 function updateStudyCenter(studyCenterId){
     var data = studyCenterId
@@ -101,7 +103,7 @@ function showCentreList(){
         url: url('examinationCenter', 'getExaminationCentreList', ''),
         data: {data: data},
         success: function (data) {
-            $("#examinationCentre").empty().append('<option value="">Select Examination Centre</option>')
+            $("#examinationCentre").empty().append('<option value=""> Select Examination Centre</option>')
             for (var i = 0; i <= data.length; i++) {
                 $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
             }
