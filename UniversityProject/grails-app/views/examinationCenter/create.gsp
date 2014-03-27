@@ -82,23 +82,23 @@
 
         $('#VenueDiv' + index).append(
                 '<div class="Venue">' +
-                        '<label>Name</label>' +
+                        '<label>Name *</label>' +
                         '<input type="text" style="" class="validate[required] text-input "   style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/></div>'+
-                        '<div class="Venue"><label>Centre Code</label>' +
+                        '<div class="Venue"><label>Centre Code *</label>' +
                         '<input type="text"  type="text" style="" onkeypress="return isNumber(event)" class="validate[required] text-input "  name="examinationCentreCode" id="examinationCentreCode' + index + '" />' +
                         '</div>');
         $('#VenueDiv' + index).append(
                 '<div class="Venue">' +
-                        '<label>Capacity</label>' +
+                        '<label>Capacity *</label>' +
                         '<input type="text" style="" onkeypress="return isNumber(event)" class="validate[required] text-input "   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/></div>'+
-                        '<div class="Venue"><label>Incharge Name</label>' +
+                        '<div class="Venue"><label>Incharge Name *</label>' +
                         '<input type="text" style="" class="validate[required] text-input "   style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/>' +
                         '</div>');
         $('#VenueDiv' + index).append(
                 '<div class="Venue">' +
-                        '<label>Contact No</label>' +
+                        '<label>Contact No *</label>' +
                         '<input type="text"  onkeypress="return isNumber(event)" style="" class="validate[required] text-input "  name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /></div>' +
-                        '<div class="Venue"><label style="vertical-align: top">Address</label>' +
+                        '<div class="Venue"><label style="vertical-align: top">Address *</label>' +
                         '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" class="validate[required] text-input "   style="" name="examinationCentreAddress" id="examinationCentreAddress' + index + '" "/>' +
                         '</div>');
 

@@ -11,11 +11,6 @@
 <head>
     <title>Student Registration</title>
     <meta name="layout" content="main"/>
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'register.css')}" type="text/css">
-    %{--<g:javascript library="jquery" plugin="jquery"/>--}%
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-1.7.1.js')}"></script>--}%
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.core.js')}"></script>--}%
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.ui.datepicker.js')}"></script>--}%
     <g:javascript src='validate.js'/>
     <g:javascript src='studyCenter.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
