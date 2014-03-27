@@ -15,6 +15,8 @@
 
 <body>
 <div id="main">
+<g:form controller="admin" action="generateRollNo" id="generateRollNo" name="generateRollNo">
+    <g:hiddenField name="studentId" id="studentId"/>
 <table class="inner university-table-1-2" style="margin: auto;">
     <tr>
         <td>
@@ -30,7 +32,7 @@
     <thead></thead>
    <tbody></tbody>
 </table>
-
+</g:form>
 <div id="msg"></div>
 </div>
 </body>
