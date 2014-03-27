@@ -30,6 +30,7 @@
                     <li><a class="viewResulttopopup"><g:message code="default.mainMenu2.subMenu2"/></a></li>
                     <li><a href="#"><g:message code="default.mainMenu2.subMenu3"/></a></li>
                     <li><a href="#"><g:message code="default.mainMenu2.subMenu4"/></a></li>
+                    <li><a class="statustopopup" href="#"><g:message code="default.mainMenu2.subMenu5"/></a></li>
                 </ul>
             </li>
             <li><a href="#"><g:message code="default.mainMenu3"/></a>
@@ -134,6 +135,7 @@
             <g:render template="/layouts/viewAdmitCardPopup"/>
             <g:render template="/layouts/editAdmitCardPopup"/>
             <g:render template="/layouts/deleteAdmitCardPopup"/>
+            <g:render template="/layouts/statusPopup"/>
         </div><!-- /scroller-inner -->
     </div><!-- /scroller -->
 

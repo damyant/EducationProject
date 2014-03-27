@@ -7,7 +7,6 @@ import grails.converters.JSON
 class AdminController {
 
     def adminInfoService
-    def studentRegistrationService
     def viewProvisionalStudents() {
 
         def studyCenterList=StudyCenter.findAll()
@@ -23,11 +22,6 @@ class AdminController {
     }
 
     def generateRollNo(){
-        println("??????????"+params)
-        studentRegistrationService.getStudentRollNumber(params)
-
-        redirect(controller: 'admin', action: 'viewProvisionalStudents')
-
 
     }
 }

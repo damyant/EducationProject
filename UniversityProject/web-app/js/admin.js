@@ -58,8 +58,14 @@ function getStudents() {
     });
 
 }
-
-
+function enableProgram(t) {
+    var op =$(t).val();
+    if(op !='null') {
+        $('#programs').prop('disabled',false);
+    } else {
+        $('#programs').prop('disabled', true);
+    }
+}
 function toggleChecked(status) {
     $(".checkbox").each( function() {
         $('input:checkbox:not(:disabled)').attr("checked",status)
