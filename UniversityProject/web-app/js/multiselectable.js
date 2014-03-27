@@ -13,11 +13,11 @@ function  semesterList(){
             '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList('+j+')" name="remove'+j+'"  id="remove'+j+'">Remove</button> </td>'+
             '<td <td style="width:40% "><select class="select-to" style="width: 90%"  name="semester'+j+'" id="semester'+j+'"  multiple="true"  /><div id="error-select-' + j + '"></div></td></tr>' )
 
-        if($('#modeName option:selected').text()=="annual"){
+        if($('#modeName option:selected').text().toLowerCase()=="annual"){
             $("<div>Term"+j+"</div>").insertBefore($('#semester'+j))
         }
-        else if(($('#modeName option:selected').text()=="semester")){
-            $("<div>semester"+j+"</div>").insertBefore($('#semester'+j))
+        else if(($('#modeName option:selected').text().toLowerCase()=="semester")){
+            $("<div>Semester"+j+"</div>").insertBefore($('#semester'+j))
         }
 
 
@@ -215,7 +215,7 @@ function save() {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
-                alert(data.response1)
+//                alert(data.response1)
                 if(data.response1){
                     document.getElementById("statusMessage").style.display = "block";
                 }
