@@ -30,3 +30,11 @@ function getStudents() {
     });
 
 }
+function enableProgram(t) {
+    var op =$(t).val();
+    if(op !='null') {
+        $('#programs').prop('disabled',false);
+    } else {
+        $('#programs').prop('disabled', true);
+    }
+}

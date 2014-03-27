@@ -500,9 +500,18 @@ textarea:-moz-placeholder { font-size: 10px; color: #555; }
 #university-footer-box{
     width: 90%;
     margin: auto;
-
     font-size: 10px;
     text-align: center;
+}
+
+.university-not-authorized{
+    margin:100pt auto;
+    text-align: center;
+    font-size:20px;
+    font-weight:bold;
+    font-family:Myriad Pro;
+    text-transform:uppercase;
+    text-shadow: #13f 1px 1px 1px;
 }
 
 @media (max-width : 700px) {
