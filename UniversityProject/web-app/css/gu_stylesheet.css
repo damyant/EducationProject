@@ -69,6 +69,7 @@ body{
 
 .university-text-decoration-none{
     text-decoration: none;
+    color: #000;
 }
 /*button*/
 .university-button{
@@ -126,6 +127,10 @@ label.error{
 }
 #examCenterSelect td{
     vertical-align: top;
+}
+
+#examCenterSelect, #examCenterAddress{
+    border:1px solid #BBB;
 }
 
 .multiSelect{
@@ -187,6 +192,15 @@ label.error{
     text-stroke-color: #03521e;
     text-stroke-width: 1px;
 
+}
+
+.university-table-text-center td, .university-table-text-center th{
+    text-align: center;
+}
+
+.university-table-text-left td, .university-table-text-left th{
+    text-align: left;
+    margin-left: 8px;
 }
 /*Copy create css*/
 
