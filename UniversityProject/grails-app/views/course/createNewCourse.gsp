@@ -26,7 +26,7 @@
 <body>
 <div id="main">
     <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
+        <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>
 
     <div id="statusMessage" style="display:none;" class="university-status-message"><g:message code="course.create.message"/></div>

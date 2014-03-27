@@ -167,17 +167,18 @@
         %{--<option value="Golaghat">Golaghat</option>--}%
         %{--<option value="Jaipur">Jaipur</option>--}%
         %{--</select>--}%
-        <table class="inner" id="examCenterSelect">
+        <table id="examCenterSelect">
             <tr>
-                <td style="width: 25%"><g:select name="district" id="district" optionKey="id" class="university-size-1-1"
+                <td style="width: 50%"><g:select name="district" id="district" optionKey="id" class="university-size-1-1"
                               onchange="showCityList()" optionValue="districtName" from="${District.findAll()}"
-                              noSelection="['': 'District']"/>
+                              noSelection="['': ' Select District']"/>
                 </td>
-                 <td style="width: 25%"><g:select name="city" id="city" optionKey="id" class="university-size-1-1" optionValue="cityName"
-                              from="" onchange="showCentreList()" noSelection="['': 'City']"/></td>
-                <td style="width: 50%"><g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" from=" "
-                              noSelection="['': 'Examination Centre']"/>
-                </td>
+                 <td style="width: 50%"><g:select name="city" id="city" optionKey="id" class="university-size-1-1" optionValue="cityName"
+                              from="" onchange="showCentreList()" noSelection="['': ' Select City']"/></td>
+            </tr><tr>
+                <td ><g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" from=" "
+                              noSelection="['': 'Select Examination Centre']"/>
+                </td><td></td>
             </tr>
         </table>
     </td>
@@ -197,7 +198,7 @@
 <tr>
     <td>Candidate Name & Complete Mailing Address (Write in Capital Letter) <br/><br/><br/></td>
     <td>
-        <table style="width: 100%">
+        <table style="width: 100%" id="examCenterAddress">
             <tr>
 
                 <td style="width: 30%;">Name:</td>

@@ -69,6 +69,7 @@ body{
 
 .university-text-decoration-none{
     text-decoration: none;
+    color: #000;
 }
 /*button*/
 .university-button{
@@ -126,6 +127,10 @@ label.error{
 }
 #examCenterSelect td{
     vertical-align: top;
+}
+
+#examCenterSelect, #examCenterAddress{
+    border:1px solid #BBB;
 }
 
 .multiSelect{
@@ -188,6 +193,15 @@ label.error{
     text-stroke-width: 1px;
 
 }
+
+.university-table-text-center td, .university-table-text-center th{
+    text-align: center;
+}
+
+.university-table-text-left td, .university-table-text-left th{
+    text-align: left;
+    margin-left: 8px;
+}
 /*Copy create css*/
 
 .Venue{
@@ -237,9 +251,16 @@ h3{
 }
 #image{
     margin-top: 10px;
-
 }
-
+#studentList{
+    border: solid 1px #BBBBBB;
+    margin: auto;
+    visibility: hidden;
+}
+#studentList td, #studentList th{
+    text-align: left;
+    padding-left: 10px;
+}
 /* Copy popbox css*/
 
 .popbox{
@@ -469,6 +490,19 @@ textarea:-moz-placeholder { font-size: 10px; color: #555; }
 
 #mobileNo{
     width: 41%;
+}
+
+#footer{
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#university-footer-box{
+    width: 90%;
+    margin: auto;
+
+    font-size: 10px;
+    text-align: center;
 }
 
 @media (max-width : 700px) {
