@@ -15,6 +15,9 @@
 
 <body>
 <div id="main">
+    <g:if test="${params.rollNo=='generated'}">
+        <div class="message"><div class="university-status-message"><g:message code="rollNo.Generated.message"/></div></div>
+    </g:if>
 <g:form controller="admin" action="generateRollNo" id="generateRollNo" name="generateRollNo">
     <g:hiddenField name="studentId" id="studentId"/>
 <table class="inner" style="margin: auto;">

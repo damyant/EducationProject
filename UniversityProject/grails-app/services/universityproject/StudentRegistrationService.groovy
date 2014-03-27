@@ -135,7 +135,7 @@ class StudentRegistrationService {
 //                String rollStr = Integer.toString(rollNo)
 //                rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
 //            }
-//            return rollNumber
+           return rollNumber
     }
 
     /**

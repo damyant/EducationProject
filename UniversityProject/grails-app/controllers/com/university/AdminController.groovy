@@ -29,10 +29,8 @@ class AdminController {
 
     def generateRollNo(){
 
-        studentRegistrationService.getStudentRollNumber(params)
-
-        redirect(controller: 'admin', action: 'viewProvisionalStudents')
-
+        def rollNo=studentRegistrationService.getStudentRollNumber(params)
+        redirect(controller: 'admin', action: 'viewProvisionalStudents' , params: [rollNo:"generated"])
 
     }
 }

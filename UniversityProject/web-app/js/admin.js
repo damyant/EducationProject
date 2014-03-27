@@ -43,6 +43,7 @@ function getStudents() {
             $('#studentList tbody tr').remove()
 
             if (data.length > 0) {
+                $('#msg').html("")
                 document.getElementById("studentList").style.visibility = "visible";
                 $('#studentList thead').append('<tr><th><input type="checkbox" onchange="toggleChecked(this.checked)"/></th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th></tr>')
                 for (var i = 0; i < data.length; i++) {
