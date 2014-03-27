@@ -3,6 +3,8 @@ package examinationproject
 import grails.plugins.springsecurity.Secured
 import universityproject.StudentRegistrationService
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+
+@Secured("ROLE_STUDYCENTRE")
 class StudentController {
  def studentRegistrationService
     def springSecurityService

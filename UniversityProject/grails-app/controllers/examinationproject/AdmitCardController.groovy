@@ -1,5 +1,8 @@
 package examinationproject
 
+import grails.plugins.springsecurity.Secured
+
+@Secured("ROLE_ADMIN")
 class AdmitCardController {
 
     def index() {}
