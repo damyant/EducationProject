@@ -116,9 +116,9 @@
                     <li><g:link controller="course"
                                 action="viewCourses"><g:message
                                 code="default.mainMenu6.subMenu2"/></g:link></li>
-                    %{--<li><g:link controller="course"--}%
-                                %{--action="updateCourses"><g:message--}%
-                                %{--code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>--}%
+                    <li><g:link controller="admin"
+                                action="viewApprovedStudents"><g:message
+                                code="default.mainMenu6.subMenu3"/></g:link></li>
                 </ul>
 
 

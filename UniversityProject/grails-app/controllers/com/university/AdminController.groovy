@@ -14,6 +14,11 @@ class AdminController {
         def programList=ProgramDetail.findAll()
        [studyCenterList:studyCenterList,programList:programList]
     }
+    def viewApprovedStudents(){
+        def studyCenterList=StudyCenter.findAll()
+        def programList=ProgramDetail.findAll()
+        [studyCenterList:studyCenterList,programList:programList]
+    }
 
     def getStudentList(){
 

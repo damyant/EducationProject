@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>View Students</title>
+    <title>View Provisional Students</title>
     <meta name="layout" content="main"/>
     <g:javascript src='admin.js'/>
 </head>
