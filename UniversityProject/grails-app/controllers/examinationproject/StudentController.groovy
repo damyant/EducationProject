@@ -4,6 +4,8 @@ import grails.plugins.springsecurity.Secured
 import universityproject.StudentRegistrationService
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
+import java.security.SecureRandom
+
 @Secured("ROLE_STUDYCENTRE")
 class StudentController {
  def studentRegistrationService
@@ -45,5 +47,10 @@ class StudentController {
             flash.message = "${message(code: 'register.notCreated.message')}"
             redirect(action: "registration")
         }
+    }
+
+
+    def getReferenceNumber={
+       println("Reference number is:"+studentRegistrationService.getReferenceNumber())
     }
 }
