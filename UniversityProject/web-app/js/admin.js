@@ -20,7 +20,7 @@ $(document).ready(function() {
             document.forms["generateRollNo"].submit();
         }
         else {
-            alert("Select the ad to be sent.");
+            alert("Select the student first.");
             return false;
         }
     });
@@ -30,8 +30,6 @@ $(document).ready(function() {
 
 
 function getStudents() {
-
-
 
     $.ajax({
         type: "post",
@@ -46,11 +44,11 @@ function getStudents() {
 
             if (data.length > 0) {
                 document.getElementById("studentList").style.visibility = "visible";
-                $('#studentList thead').append('<tr><th><input type="checkbox"/></th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th></tr>')
+                $('#studentList thead').append('<tr><th><input type="checkbox" onchange="toggleChecked(this.checked)"/></th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th></tr>')
                 for (var i = 0; i < data.length; i++) {
-                    $('#studentList tbody').append('<tr><td><input type="checkbox" id="' + data[i].id + '"/></td><td>' + data[i].name + '</td><td>' + "Reference Number" + '</td></tr>')
+                    $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data[i].id + '"/></td><td>' + data[i].name + '</td><td>' + data[i].referenceNumber + '</td></tr>')
                 }
-                $('#studentList tbody').append('<tr><td colspan="3"><input type="button" value="Assign RollNo"></td></tr>')
+                $('#studentList tbody').append('<tr><td colspan="3"><input type="button" value="Assign RollNo" id="assignRollNo"></td></tr>')
 
             }
             else {

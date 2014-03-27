@@ -55,7 +55,7 @@ class StudentRegistrationService {
        String year = sdf.format(Calendar.getInstance().getTime());
 
        studentRegistration.registrationYear=Integer.parseInt(year)
-       studentRegistration.referenceNumber=getStudentReferenceNumber()
+       studentRegistration.referenceNumber=Integer.parseInt(getStudentReferenceNumber())
       //END RAJ CODE
 
 //       studentRegistration.studentSignature=signature.bytes
