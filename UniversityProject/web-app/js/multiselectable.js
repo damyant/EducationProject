@@ -1,30 +1,39 @@
 /**
  * Created by sonali on 3/13/14.
  */
+
 var subjectList
 
 function  semesterList(){
 
- $('#multiSelectTab tbody tr').remove()
+    $('#multiSelectTab tbody tr').remove()
     for(var j=1;j<=$('#noOfTerms').val();j++){
-
-        $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <select  style="width: 90%" name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
+        $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Subjects</label><select style="width: 90%" name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
             ' <td <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button>'+
             '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList('+j+')" name="remove'+j+'"  id="remove'+j+'">Remove</button> </td>'+
-            '<td <td style="width:40% "><select style="width: 90%"  name="semester'+j+'" id="semester'+j+'"  multiple="true"  /></td></tr>' )
+            '<td <td style="width:40% "><select class="select-to" style="width: 90%"  name="semester'+j+'" id="semester'+j+'"  multiple="true"  /><div id="error-select-' + j + '"></div></td></tr>' )
+
+        if($('#modeName option:selected').text()=="annual"){
+            $("<div>Term"+j+"</div>").insertBefore($('#semester'+j))
+        }
+        else if(($('#modeName option:selected').text()=="semester")){
+            $("<div>semester"+j+"</div>").insertBefore($('#semester'+j))
+        }
 
 
 
-    for(var i=0;i<subjectList.length;i++){
+        for(var i=0;i<subjectList.length;i++){
 
-        $("#allsubjectList"+j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
+            $("#allsubjectList"+j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
+        }
+
     }
 
-    }
 }
 
-function makeJson(list){
 
+
+function makeJson(list){
     subjectList=jQuery.parseJSON(list.replace(/&quot;/g,'"'))
 
 }
@@ -54,7 +63,6 @@ function addToList(j){
 //            }).attr('selected', true);
             $('#allsubjectList'+j+' option:selected').each( function(n,allsubSelected) {
                 var text3=$(allsubSelected).val()
-//                alert("textam"+text3);
                 $('#allsubjectList'+j+' option').filter(function(){
                     return $(this).val() == text3;
                 }).attr('selected',false);
@@ -62,98 +70,45 @@ function addToList(j){
         }
 
     });
+    validateLength(j);
 }
 
 function removeFromList(j){
-  $('#semester'+j+' option:selected').each( function() {
+    $('#semester'+j+' option:selected').each( function() {
         $(this).remove();
         $('#semester'+j+' option:not(selected)').each( function(k,semSelected) {
-        var text2=$(semSelected).val()
+            var text2=$(semSelected).val()
 //        $('#semester'+j+' option').filter(function() {
 //            return $(this).val() == text2;
 //        }).attr('selected', true);
             $('#allsubjectList'+j+' option:selected').each( function(n,allsubSelected) {
                 var text3=$(allsubSelected).val()
-                alert("textam"+text3);
                 $('#allsubjectList'+j+' option').filter(function(){
                     return $(this).val() == text3;
                 }).attr('selected',false);
             });
-});
+        });
     });
+    validateLength(j);
 }
-
-
-function save(){
-    fireMultiValidate();
-    validate();
-    var status = $("#createCourse").valid();
-        if(status){
-    var formObj = $("#createCourse");
-    var data = ConvertFormToJSON(formObj);
-
-    $.ajax({
-        type: "post",
-        url: url('course', 'saveCourse', ''),
-        data: JSON.stringify(data),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function (data) {
-            //document.location.reload();
-            clearFields()
-        }
-    });
-
-        }
-
-}
-
-function fireMultiValidate(){
-    for(var i=1;i<=$("#noOfTerms").val();i++){
-        if(document.getElementById('semester'+i).options.length==0){
-            $('#semester'+i).after("<label style='margin-left: 4px; color: #cd0a0a; '>please choose subjects for semesters</label>")
-        }
-
+function validateLength(j) {
+    var validate;
+    var length = document.getElementById('semester' + j).options.length;
+    if (length == 0) {
+        $('#error-select-' + j).html("<label style='margin-left: 4px; color: #cd0a0a; '>Please choose subjects for semesters</label>");
+        validate = false;
+    } else {
+        $('#error-select-' + j).html("");
+        validate = true;
     }
-}
 
-
-function ConvertFormToJSON(form){
-    var array = jQuery(form).serializeArray();
-    var json = {};
-    var finalList=new Array();
-    var i = 0;
-
-    jQuery.each(array, function() {
-            json[this.name] = this.value || '';
-
-        i++;
-    });
-    var semesterList ={};
-
-    for(var j=1;j<=$('#noOfTerms').val();j++){
-
-        var subList = []
-    $('#semester'+j+' option').each(function(){
-        subList.push($(this).val() || '');
-        semesterList["semester"+j]=subList;
-        console.log(semesterList)
-
-    })
-
-    }
-    finalList.push(semesterList);
- console.log(finalList)
-
-    json["semesterList"] = finalList;
-
-    return json
+    return validate;
 }
 
 function updateInfo(obj){
 
     var courseDetailJson=jQuery.parseJSON(obj.replace(/&quot;/g,'"'))
-
+    console.log(courseDetailJson)
     $('#courseName').val(courseDetailJson['course'].courseName)
     $('#modeName option[value='+courseDetailJson['course'].courseMode.id+']').attr("selected", "selected");
     $('#courseTypeName option[value='+courseDetailJson['course'].courseType.id+']').attr("selected", "selected");
@@ -164,6 +119,7 @@ function updateInfo(obj){
     $('#marksPerPaper').val(courseDetailJson['course'].marksPerPaper)
     $('#totalCreditPoints').val(courseDetailJson['course'].totalCreditPoints)
     $('#noOfPapers').val(courseDetailJson['course'].noOfPapers)
+    $('#courseId').val(courseDetailJson['course'].id)
     semesterList()
     for(var i=1;i<= $('#noOfTerms').val();i++){
 
@@ -178,7 +134,54 @@ function updateInfo(obj){
 
 }
 
-function clearFields(){
+function fireMultiValidate() {
+    var validate = true;
+    for (var i = 1; i <= $("#noOfTerms").val(); i++) {
+        if (!validateLength(i)) {
+            validate = false;
+//            return false;
+        }
+
+    }
+
+    return validate;
+}
+
+
+
+function ConvertFormToJSON(form){
+    var array = jQuery(form).serializeArray();
+    var json = {};
+    var finalList=new Array();
+    var i = 0;
+
+    jQuery.each(array, function() {
+        json[this.name] = this.value || '';
+
+        i++;
+    });
+    var semesterList ={};
+
+    for(var j=1;j<=$('#noOfTerms').val();j++){
+
+        var subList = []
+        $('#semester'+j+' option').each(function(){
+
+
+            subList.push($(this).val() || '');
+            semesterList["semester"+j]=subList;
+
+        })
+
+    }
+    finalList.push(semesterList);
+
+    json["semesterList"] = finalList;
+
+    return json
+}
+
+function clearField(){
 
     for(var i=1;i<=$('#noOfTerms').val();i++){
         $('#semester'+i).empty();
@@ -188,4 +191,37 @@ function clearFields(){
     });
 
 
+}
+function save() {
+//    alert(fireMultiValidate());
+    validate();
+    var status = $("#createCourse").valid();
+    if (!fireMultiValidate()) {
+//        alert(fireMultiValidate());
+        return;
+    }
+//    validate();
+//    var status = $("#createCourse").valid();
+
+
+    if (status ) {
+        var formObj = $("#createCourse");
+        var data = ConvertFormToJSON(formObj);
+
+        $.ajax({
+            type: "post",
+            url: url('course', 'saveCourse', ''),
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                alert(data.response1)
+                if(data.response1){
+                    document.getElementById("statusMessage").style.display = "block";
+                }
+                clearField();
+
+            }
+        });
+    }
 }

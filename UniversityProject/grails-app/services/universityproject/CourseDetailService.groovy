@@ -18,10 +18,14 @@ class CourseDetailService {
     def saveCourseInfo(params) {
         def status=false
         def semObj
-
-        def existingCourseObj = ProgramDetail.findById(params.courseId)
+        def existingCourseObj
+        println(params.courseId)
+        if(params.courseId){
+        existingCourseObj = ProgramDetail.findById(Integer.parseInt(params.courseId))
+        }
 
         if (existingCourseObj) {
+            println("innnn"+ params)
             existingCourseObj.courseName = params.courseName
             existingCourseObj.courseCode = Integer.parseInt(params.courseCode)
             existingCourseObj.courseMode = CourseMode.findById(params.courseMode)
@@ -53,8 +57,9 @@ class CourseDetailService {
                     }
                     status=true
                 }
-                return status
+
             }
+            return status
         } else {
 
             def courseObj = new ProgramDetail(params)
