@@ -492,6 +492,19 @@ textarea:-moz-placeholder { font-size: 10px; color: #555; }
     width: 41%;
 }
 
+#footer{
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#university-footer-box{
+    width: 90%;
+    margin: auto;
+
+    font-size: 10px;
+    text-align: center;
+}
+
 @media (max-width : 700px) {
     h3{
         font-size: 15pt;

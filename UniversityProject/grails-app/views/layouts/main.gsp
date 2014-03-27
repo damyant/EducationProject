@@ -58,8 +58,8 @@
     </div>
 
     %{--TODO: INTEGRATING FOOTER--}%
-<div>
-    %{--<g:render template="/layouts/footer"/>--}%
+    <div>
+        <g:render template="/layouts/footer"/>
     </div>
 
 
