@@ -14,6 +14,11 @@ class AdminController {
         def programList=ProgramDetail.findAll()
        [studyCenterList:studyCenterList,programList:programList]
     }
+    def viewApprovedStudents(){
+        def studyCenterList=StudyCenter.findAll()
+        def programList=ProgramDetail.findAll()
+        [studyCenterList:studyCenterList,programList:programList]
+    }
 
     def getStudentList(){
 
@@ -23,7 +28,7 @@ class AdminController {
     }
 
     def generateRollNo(){
-        println("??????????"+params)
+
         studentRegistrationService.getStudentRollNumber(params)
 
         redirect(controller: 'admin', action: 'viewProvisionalStudents')

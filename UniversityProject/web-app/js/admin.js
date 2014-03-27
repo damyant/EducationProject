@@ -34,7 +34,7 @@ function getStudents() {
     $.ajax({
         type: "post",
         url: url('admin', 'getStudentList', ''),
-        data: {studyCenterId: $('#studyCenter').val(), programId: $('#programs').val()},
+        data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val()},
         success: function (data) {
             //document.location.reload();
 //            showStudyCenterList()
@@ -61,9 +61,9 @@ function getStudents() {
 function enableProgram(t) {
     var op =$(t).val();
     if(op !='null') {
-        $('#programs').prop('disabled',false);
+        $('#programId').prop('disabled',false);
     } else {
-        $('#programs').prop('disabled', true);
+        $('#programId').prop('disabled', true);
     }
 }
 function toggleChecked(status) {

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>View Students</title>
+    <title>View Provisional Students</title>
     <meta name="layout" content="main"/>
     <g:javascript src='admin.js'/>
 </head>
@@ -26,10 +26,10 @@
             <g:select name="studyCenter" class="university-size-1-1" id="studyCenter" from="${studyCenterList}" optionKey="id" optionValue="name" noSelection="['null':' Select Study Center']" onchange="enableProgram(this)"/>
         </td>
         <td style="min-width: 10%">
-            <label for="programs">Select Program</label>
+            <label for="programId">Select Program</label>
         </td>
         <td style="width: 33%">
-            <g:select name="programs" id="programs" class="university-size-1-1" from="${programList}" optionKey="id" optionValue="courseName" noSelection="['null':' Select Program']" onchange="getStudents()" disabled="true"/>
+            <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}" optionKey="id" optionValue="courseName" noSelection="['null':' Select Program']" onchange="getStudents()" disabled="true"/>
         </td>
         <td style="width: 10%"></td>
     </tr>
