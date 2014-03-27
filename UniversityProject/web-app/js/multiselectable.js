@@ -7,16 +7,16 @@ var subjectList
 function  semesterList(){
 
     $('#multiSelectTab tbody tr').remove()
-    for(var j=1;j<=$('#terms').val();j++){
+    for(var j=1;j<=$('#noOfTerms').val();j++){
         $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Subjects</label><select style="width: 90%" name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
             ' <td <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button>'+
             '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList('+j+')" name="remove'+j+'"  id="remove'+j+'">Remove</button> </td>'+
             '<td <td style="width:40% "><select class="select-to" style="width: 90%"  name="semester'+j+'" id="semester'+j+'"  multiple="true"  /><div id="error-select-' + j + '"></div></td></tr>' )
 
-        if($('#mode option:selected').text()=="annual"){
+        if($('#modeName option:selected').text()=="annual"){
             $("<div>Term"+j+"</div>").insertBefore($('#semester'+j))
         }
-        else if(($('#mode option:selected').text()=="semester")){
+        else if(($('#modeName option:selected').text()=="semester")){
             $("<div>semester"+j+"</div>").insertBefore($('#semester'+j))
         }
 
@@ -105,11 +105,38 @@ function validateLength(j) {
     return validate;
 }
 
+function updateInfo(obj){
 
+    var courseDetailJson=jQuery.parseJSON(obj.replace(/&quot;/g,'"'))
+    console.log(courseDetailJson)
+    $('#courseName').val(courseDetailJson['course'].courseName)
+    $('#modeName option[value='+courseDetailJson['course'].courseMode.id+']').attr("selected", "selected");
+    $('#courseTypeName option[value='+courseDetailJson['course'].courseType.id+']').attr("selected", "selected");
+    $('#noOfTerms').val(courseDetailJson['course'].noOfTerms)
+    $('#courseCode').val(courseDetailJson['course'].courseCode)
+    $('#noOfAcademicYears').val(courseDetailJson['course'].noOfAcademicYears)
+    $('#totalMarks').val(courseDetailJson['course'].totalMarks)
+    $('#marksPerPaper').val(courseDetailJson['course'].marksPerPaper)
+    $('#totalCreditPoints').val(courseDetailJson['course'].totalCreditPoints)
+    $('#noOfPapers').val(courseDetailJson['course'].noOfPapers)
+    $('#courseId').val(courseDetailJson['course'].id)
+    semesterList()
+    for(var i=1;i<= $('#noOfTerms').val();i++){
+
+        for(var j=0;j<courseDetailJson['semesterList'][i].length;j++){
+
+            $('#semester'+i).append('<option value="'+courseDetailJson['semesterList'][i][j].id+'">'+courseDetailJson['semesterList'][i][j].subjectName +'</option> ')
+        }
+
+    }
+
+
+
+}
 
 function fireMultiValidate() {
     var validate = true;
-    for (var i = 1; i <= $("#terms").val(); i++) {
+    for (var i = 1; i <= $("#noOfTerms").val(); i++) {
         if (!validateLength(i)) {
             validate = false;
 //            return false;
@@ -135,7 +162,7 @@ function ConvertFormToJSON(form){
     });
     var semesterList ={};
 
-    for(var j=1;j<=$('#terms').val();j++){
+    for(var j=1;j<=$('#noOfTerms').val();j++){
 
         var subList = []
         $('#semester'+j+' option').each(function(){
@@ -156,7 +183,7 @@ function ConvertFormToJSON(form){
 
 function clearField(){
 
-    for(var i=1;i<=$('#terms').val();i++){
+    for(var i=1;i<=$('#noOfTerms').val();i++){
         $('#semester'+i).empty();
     }
     $( '#createCourse' ).each(function(){
