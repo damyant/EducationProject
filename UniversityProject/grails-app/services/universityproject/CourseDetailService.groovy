@@ -25,7 +25,7 @@ class CourseDetailService {
         }
 
         if (existingCourseObj) {
-            println("innnn"+ params)
+
             existingCourseObj.courseName = params.courseName
             existingCourseObj.courseCode = Integer.parseInt(params.courseCode)
             existingCourseObj.courseMode = CourseMode.findById(params.courseMode)

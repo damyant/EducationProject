@@ -7,6 +7,8 @@ import examinationproject.Status
 import examinationproject.StudyCenter
 import examinationproject.Student
 import grails.transaction.Transactional
+
+import java.security.SecureRandom
 import java.text.DateFormat;
 import java.text.SimpleDateFormat
 
@@ -53,7 +55,7 @@ class StudentRegistrationService {
        String year = sdf.format(Calendar.getInstance().getTime());
 
        studentRegistration.registrationYear=Integer.parseInt(year)
-       studentRegistration.referenceNumber=getStudentReferenceNumber(Long.parseLong(params.programDetail))
+       studentRegistration.referenceNumber=getStudentReferenceNumber()
       //END RAJ CODE
 
 //       studentRegistration.studentSignature=signature.bytes
@@ -70,25 +72,28 @@ class StudentRegistrationService {
      * @param courseId
      * @return
      */
-            def getStudentRollNumber(Long courseId){
+            def getStudentRollNumber(params){
 
-            Set<ProgramDetail> course = ProgramDetail.findAllById(courseId)
+            Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
             String courseCodeStr= course[0].courseCode.toString()
+            String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
+            int rollNo= 1001
+            String rollStr = Integer.toString(rollNo)
+
                 if(courseCodeStr.length()>2){
                     courseCodeStr= courseCodeStr.substring(0,2)
                 }
             int rollNumber = 0;
 
-            def program = ProgramDetail.findById(courseId)
+//            def program = ProgramDetail.findById(courseId)
             def student=Student.list()
             if(student){
-                Map paginateParams=null
-                def obj=Student .createCriteria()
+                def obj=Student.createCriteria()
                 def studentByYearAndCourse= obj.list{
                     programDetail{
-                        eq('id', courseId)
+                        eq('id', Long.parseLong(params.programId))
                     }
                     and{
                         eq('registrationYear',year)
@@ -96,21 +101,41 @@ class StudentRegistrationService {
                     maxResults(1)
                     order("rollNo", "desc")
                 }
+
+                def studentIdList=params.studentId.split(",")
+                studentIdList.each{i ->
+                 def stuObj=Student.findById(Long.parseLong(i.toString()))
+
                 if(studentByYearAndCourse){
-                    rollNumber = studentByYearAndCourse[0].rollNo+1
-                }else{
-                    String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
-                    int rollNo= 1001
-                    String rollStr = Integer.toString(rollNo)
-                    rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                    if(studentByYearAndCourse[0].rollNo>0){
+                        if(rollNumber==0){
+                        rollNumber = studentByYearAndCourse[0].rollNo+1
+                        }
+                        else{
+                            rollNumber=++rollNumber
+                        }
+                    }
+                    else{
+                        rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                    }
                 }
-            }else{
-                String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
-                int rollNo= 1001
-                String rollStr = Integer.toString(rollNo)
-                rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+
+                else{
+                 rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                 }
+                    stuObj.rollNo=rollNumber
+                    stuObj.status=Status.findById(Long.parseLong("2"))
+                    stuObj.save(failOnError: true)
+                }
             }
-            return rollNumber
+//            else{
+//                println(params.studentId)
+//                String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
+//                int rollNo= 1001
+//                String rollStr = Integer.toString(rollNo)
+//                rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+//            }
+//            return rollNumber
     }
 
     /**
@@ -118,49 +143,22 @@ class StudentRegistrationService {
      * @param courseId
      * @return
      */
-    def getStudentReferenceNumber(Long courseId){
 
-        Set<ProgramDetail> course = ProgramDetail.findAllById(courseId)
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year, with 2 digits
-        int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
+      def getStudentReferenceNumber(){
+      //  static long uniqueId=2
 
-        String courseCodeStr= course[0].courseCode.toString()
-        if(courseCodeStr.length()>2){
-            courseCodeStr= courseCodeStr.substring(0,2)
-        }
-        int referenceNumber = 0;
+            /* Assign a string that contains the set of characters you allow. */
+            String symbols = "01234567899876543210";
+//            String s="abcdefghijklmnopqrstuvwxyz"
+            Random random = new SecureRandom();
+            char[] buf;
+            buf = new char[6];
+            def bufLength = buf.length
+            for (int idx = 0; idx < bufLength;idx++)
+                buf[idx] = symbols.charAt(random.nextInt(symbols.length()));
 
-
-        def program = ProgramDetail.findById(courseId)
-        def student=Student.list()
-        if(student){
-            Map paginateParams=null
-            def obj=Student .createCriteria()
-            def studentByYearAndCourse= obj.list{
-                programDetail{
-                    eq('id', courseId)
-                }
-                and{
-                    eq('registrationYear',year)
-                }
-                maxResults(1)
-                order("referenceNumber", "desc")
-            }
-            if(studentByYearAndCourse){
-                referenceNumber = studentByYearAndCourse[0].referenceNumber+1
-            }else{
-                String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
-                int reference= 1111
-                String rollStr = Integer.toString(reference)
-                referenceNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
-            }
-        }else{
-            String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
-            int reference= 1111
-            String rollStr = Integer.toString(reference)
-            referenceNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
-        }
-        return referenceNumber
+          //  buf[bufLength-1]  = s.charAt(random.nextInt(s.length()))
+            return new String(buf);
     }
 
 
