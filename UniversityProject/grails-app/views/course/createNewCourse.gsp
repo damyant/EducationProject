@@ -18,21 +18,25 @@
 
         makeJson("${subjList}")
 
+      if(${updateFlag}){
+          alert(${updateFlag})
         $(window).bind("load",function(){
+
             updateInfo("${courseDetail}")
         })
+      }
         </script>
 </head>
 <body>
 <div id="main">
     <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
+        <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>
 
     <div id="statusMessage" style="display:none;" class="university-status-message"><g:message code="course.create.message"/></div>
 
     <g:form  method="post" name="createCourse" id="createCourse">
-        %{--<g:hiddenField name="subList" id="subList" value="${subjList}"/>--}%
+        <g:hiddenField name="courseId" id="courseId" />
         <table class="university-table">
             <tr>
                 <td><label>Course Name</label></td>
@@ -70,7 +74,7 @@
             </tr>
             <tr>
                 <td><label>Pass Marks(per paper)</label></td>
-                <td><input type="text" id="marksPerPaper" name="passMarks" class="university-size-1-2" /></td>
+                <td><input type="text" id="marksPerPaper" name="marksPerPaper" class="university-size-1-2" /></td>
             </tr>
             <tr>
                 <td><label>Total Credit Points</label></td>

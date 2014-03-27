@@ -58,7 +58,7 @@ function onlyAlphabets(e, t) {
             var charCode = e.which;
         }
         else { return true; }
-        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+        if (charCode == 32 ||(charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
             return true;
         else
             return false;

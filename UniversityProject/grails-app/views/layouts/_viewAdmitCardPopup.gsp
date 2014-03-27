@@ -3,7 +3,7 @@
     <div class="close"></div>
     <span class="ecs_tooltip">Press Esc to close <span class="arrow"></span></span>
     <div class="popup_content" id="viewadmitCardPopupContent"> <!--your content start-->
-        <g:form action="createAdmintCard" method="post"  controller="admitCard" >
+        <g:form action="viewAdmitCard" method="post"  controller="admitCard" >
             <p><bold>Please fill the information to view Admit Card</bold></p>
             <div class="input">
                 <g:textField name="Registration Number" value="" placeholder="Registration Number"/>

@@ -1,20 +1,25 @@
 package examinationproject
 
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
+@Secured("ROLE_ADMIN")
 class CourseController {
     def courseDetailService
 
 
     def createNewCourse() {
+        boolean updateFlag=false
         def courseDetail=[:]
         def subObj = Subject.findAll()
-
+        println("create"+ params)
         if(params.courseId){
         courseDetail= courseDetailService.getFullDetailOfCourse(params)
+            updateFlag=true
         }
+        println(updateFlag)
 
-       [courseDetail:courseDetail as JSON ,subjList:subObj as JSON]
+       [courseDetail:courseDetail as JSON ,subjList:subObj as JSON,updateFlag:updateFlag]
     }
 
     def saveCourse() {

@@ -5,6 +5,7 @@ import grails.plugins.springsecurity.Secured
 import grails.plugins.springsecurity.SecurityTagLib
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
+@Secured(["ROLE_ADMIN", "ROLE_STUDYCENTRE"])
 class StudyCenterController {
 
     def studyCenterInfoService
@@ -13,7 +14,7 @@ class StudyCenterController {
     def index() {}
 
 
-    @Secured("ROLE_ADMIN")
+
         def createNewStudyCenter() {
         def config = SpringSecurityUtils.securityConfig
 
