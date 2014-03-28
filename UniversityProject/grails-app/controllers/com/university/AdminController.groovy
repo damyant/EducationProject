@@ -6,17 +6,20 @@ import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 
-@Secured("ROLE_ADMIN")
+
 class AdminController {
 
     def adminInfoService
     def studentRegistrationService
+    @Secured(["ROLE_ADMIN","ROLE_STUDYCENTRE"])
     def viewProvisionalStudents() {
 
         def studyCenterList=StudyCenter.findAll()
         def programList=ProgramDetail.findAll()
        [studyCenterList:studyCenterList,programList:programList]
     }
+
+    @Secured("ROLE_ADMIN")
     def viewApprovedStudents(){
         def studyCenterList=StudyCenter.findAll()
         def programList=ProgramDetail.findAll()

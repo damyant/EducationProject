@@ -22,12 +22,14 @@
     <g:hiddenField name="studentId" id="studentId"/>
 <table class="inner" style="margin: auto;">
     <tr>
+        <sec:ifAnyGranted roles="ROLE_ADMIN">
         <td style="min-width: 12%">
             <label for="studyCenter">Select Study Center</label>
         </td>
         <td style="width: 33%">
             <g:select name="studyCenter" class="university-size-1-1" id="studyCenter" from="${studyCenterList}" optionKey="id" optionValue="name" noSelection="['null':' Select Study Center']" onchange="enableProgram(this)"/>
         </td>
+        </sec:ifAnyGranted>
         <td style="min-width: 10%">
             <label for="programId">Select Program</label>
         </td>
