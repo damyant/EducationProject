@@ -1,5 +1,6 @@
 package examinationproject
 
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 import universityproject.StudentRegistrationService
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
@@ -7,6 +8,7 @@ import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import java.security.SecureRandom
 
 
+//@Secured("ROLE_STUDYCENTRE")
 class StudentController {
  def studentRegistrationService
     def springSecurityService
@@ -53,4 +55,32 @@ class StudentController {
     def getReferenceNumber={
         println("Reference number is:"+studentRegistrationService.getReferenceNumber())
     }
+
+    def showStatus(){
+        try{
+        def response = [:]
+//        println("showing data.."+params.data)
+        def refNumber=Student.findByReferenceNumber(params.data)
+//        println(refNumber)
+        def statusName
+        if(refNumber!=null){
+            def status=refNumber.statusId
+//            println(status)
+            def statusIn=Status.findById(status)
+//            println(statusIn)
+            statusName=statusIn.status
+            println(statusName)
+//            render statusName
+            response.response1=statusName
+            render response as JSON
+        }
+        else{
+            render response as JSON
+        }
+      } catch(Exception e) {
+           println("***problem in showing Status of Application***")
+        }
+    }
+
+
 }

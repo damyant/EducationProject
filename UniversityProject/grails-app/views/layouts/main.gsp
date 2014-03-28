@@ -21,7 +21,6 @@
     <g:javascript library='jquery'/>
     <g:javascript library="application"/>
     <r:layoutResources/>
-
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'validate.js')}"></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'viewResult.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'admitCard.js')}'></script>
@@ -30,15 +29,13 @@
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'deleteAdmitCard.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'status.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'base.js')}'></script>
-
+    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'validation.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js/jquery', file: 'jquery.js')}'></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-en.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-engine.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.datepicker.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.core.js')}"></script>
-
-
-    <g:layoutHead/>
+ <g:layoutHead/>
 
 </head>
 

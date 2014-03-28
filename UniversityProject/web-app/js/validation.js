@@ -86,6 +86,29 @@ function validate(){
                 required:true,
                 textonly: true
             },
+
+//            location:{
+//                required:true
+//            },
+//            studentName:{
+//                required:true
+//            },
+//            town:{
+//                required:true
+//            },
+//            po:{
+//                required:true
+//            },
+//            districtOfCandidate:{
+//                required:true
+//            },
+//            stateOfCandidate:{
+//                required:true
+//            },
+//            pinCode:{
+//                required:true
+//            },
+
 //            photograph:{
 //                required:true
 //            },
@@ -139,6 +162,7 @@ function validate(){
                 minlength: 10
             },
             studyCentre: "required",
+
             examiNationCentre: "required",
 //            addressStudentName: "required",
 //            addressTown: "required",

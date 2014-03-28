@@ -41,7 +41,9 @@ class StudyCenterInfoService {
                             username: params.emailIdOfHeadIns,
                             password: 'admin',
                             email: params.emailIdOfHeadIns,
-                            enabled: true).save(failOnError: true)
+                            studyCentreId:studyCenterObj.id,
+                                    enabled: true).save(failOnError: true)
+
                     def studyCentreRole = Role.findByAuthority('ROLE_STUDYCENTRE')
                     if (!studyCentreUser.authorities.contains(studyCentreRole)) {
                         UserRole.create studyCentreUser, studyCentreRole

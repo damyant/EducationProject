@@ -54,7 +54,7 @@ class StudentRegistrationService {
      * @return
      */
      def getStudentRollNumber(params){
-
+            def status=false
             Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
@@ -83,7 +83,7 @@ class StudentRegistrationService {
                     order("rollNo", "desc")
                 }
 
-                def studentIdList=params.studentId.split(",")
+                def studentIdList=params.studentList.split(",")
                 studentIdList.each{i ->
                  def stuObj=Student.findById(Long.parseLong(i.toString()))
 
@@ -107,6 +107,7 @@ class StudentRegistrationService {
                     stuObj.status=Status.findById(Long.parseLong("2"))
                     stuObj.save(failOnError: true)
                 }
+                return status=true
             }
 
      }
@@ -127,5 +128,16 @@ class StudentRegistrationService {
             for (int idx = 0; idx < bufLength;idx++)
                 buf[idx] = symbols.charAt(random.nextInt(symbols.length()));
             return new String(buf);
+    }
+
+    def approvedStudents(params){
+        def studentIdList=params.studentList.split(",")
+        studentIdList.each{i ->
+            def stuObj=Student.findById(Long.parseLong(i.toString()))
+            stuObj.status=Status.findById(Long.parseLong("3"))
+            stuObj.save(failOnError: true)
+        }
+
+
     }
 }

@@ -27,16 +27,39 @@ class AdminController {
     }
 
     def getStudentList(){
-
+    println("<<<<<<<"+params)
+        def responseMap=[:]
        def stuList= adminInfoService.provisionalStudentList(params)
-        render stuList as JSON
+        responseMap.status="referenceNo"
+        responseMap.label=params.pageType
+        responseMap.stuList=stuList
+        render responseMap as JSON
 
     }
 
     def generateRollNo(){
+    println("????????????"+params)
+        def stuList=[]
+        def responseMap=[:]
+        def status
+        if(params.pageType=="Approve RollNo"){
+            status= studentRegistrationService.approvedStudents(params)
+        }
+        else{
+         status=studentRegistrationService.getStudentRollNumber(params)
+        }
 
-        def rollNo=studentRegistrationService.getStudentRollNumber(params)
-        redirect(controller: 'admin', action: 'viewProvisionalStudents' , params: [rollNo:"generated"])
+        println(status)
+        if(status==true){
+        stuList= adminInfoService.provisionalStudentList(params)
+
+        }
+        responseMap.status='rollNo'
+        responseMap.stuList=stuList
+        render responseMap as JSON
+        render stuList as JSON
+
+
 
     }
 }
