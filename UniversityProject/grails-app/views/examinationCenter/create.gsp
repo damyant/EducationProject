@@ -48,7 +48,7 @@
             <tr>
                 <td colspan="4">
                     <input type="submit" value="Submit" onclick="submitForm()" class="${classs} buttonCss" >
-                    <input type="button" value="Cancel" onclick="reset1()" class="${classs} buttonCss"/>
+                    <input type="reset" value="Cancel" onclick="reset1()" class="${classs} buttonCss"/>
 
                 </td>
             </tr>
@@ -83,21 +83,21 @@
         $('#VenueDiv' + index).append(
                 '<div class="Venue">' +
                         '<label>Name *</label>' +
-                        '<input type="text" style="" class="validate[required] text-input "   style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/></div>'+
+                        '<input type="text" style="" class="validate[required, custom[onlyLetterSp],minSize[5],maxSize[50]] text-input "   style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/></div>'+
                         '<div class="Venue"><label>Centre Code *</label>' +
-                        '<input type="text"  type="text" style="" onkeypress="return isNumber(event)" class="validate[required] text-input "  name="examinationCentreCode" id="examinationCentreCode' + index + '" />' +
+                        '<input type="text"  type="text" style="" onkeypress="return isNumber(event)" class="validate[required,custom[number],minSize[1],maxSize[10]] text-input "  name="examinationCentreCode" id="examinationCentreCode' + index + '" />' +
                         '</div>');
         $('#VenueDiv' + index).append(
                 '<div class="Venue">' +
                         '<label>Capacity *</label>' +
                         '<input type="text" style="" onkeypress="return isNumber(event)" class="validate[required] text-input "   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/></div>'+
                         '<div class="Venue"><label>Incharge Name *</label>' +
-                        '<input type="text" style="" class="validate[required] text-input "   style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/>' +
+                        '<input type="text" style="" class="validate[required, custom[onlyLetterSp]] text-input "   style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/>' +
                         '</div>');
         $('#VenueDiv' + index).append(
                 '<div class="Venue">' +
                         '<label>Contact No *</label>' +
-                        '<input type="text"  onkeypress="return isNumber(event)" style="" class="validate[required] text-input "  name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /></div>' +
+                        '<input type="text"  onkeypress="return isNumber(event)" style="" class="validate[required] text-input " maxlength="10" name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /></div>' +
                         '<div class="Venue"><label style="vertical-align: top">Address *</label>' +
                         '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" class="validate[required] text-input "   style="" name="examinationCentreAddress" id="examinationCentreAddress' + index + '" "/>' +
                         '</div>');

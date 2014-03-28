@@ -5,29 +5,55 @@ function validate(){
     $("#createStudyCenter,#studentRegister,#createCourse").validate({
 
         rules: {
-            name: "required",
+
+//            Study Center
+            name: {
+                required:true,
+                textonly: true
+            },
             address: "required",
             district: "required",
             city: "required",
             centerCode:{
-                required: false
+                required: false,
+                number: true
             },
-            nameOfHeadIns: "required",
-            emailIdOfHeadIns: "required",
-            nameOfCoordinator: "required",
-            emailIdOfCoordinator: "required",
+            nameOfHeadIns: {
+                required:true,
+                textonly: true
+            },
+            emailIdOfHeadIns: {
+                required: true,
+                email: true
+            },
+            nameOfCoordinator: {
+                required:true,
+                textonly: true
+            },
+            emailIdOfCoordinator: {
+                required: true,
+                email: true
+            },
             websiteUrl:{
                 required: true,
                 url: true
             },
             phoneNoOfCoordinator:{
                 required: true,
-                minlength: 10
+                minlength: 10,
+                number: true
             },
             phoneNoOfHeadIns:{
                 required: true,
-                minlength: 10
+                minlength: 10,
+                number: true
             },
+//            Study Center
+
+//            Student Enroll
+
+            programDetail: "required",
+
             nameOfApplicant:{
                 required:true
             },
@@ -52,6 +78,13 @@ function validate(){
             },
             contactCentre:{
                 required:true
+            },
+            location:{
+                required:true
+            },
+            studentName:{
+                required:true,
+                textonly: true
             },
 
 //            location:{
@@ -102,7 +135,6 @@ function validate(){
             noOfAcademicYears:{
                 required:true,
                 number: true
-
             },
             totalMarks:{
                 required:true,
@@ -124,7 +156,6 @@ function validate(){
                 required:true,
                 date:true
             },
-            programDetail: "required",
             mobileNo: {
                 required:true,
                 number: true,
@@ -133,8 +164,6 @@ function validate(){
             studyCentre: "required",
 
             examiNationCentre: "required",
-
-
 //            addressStudentName: "required",
 //            addressTown: "required",
 //            addressPO: "required",
@@ -142,6 +171,14 @@ function validate(){
 //            addressState: "required",
 //            addressPinCode: "required"
 
+
+//              Student Enroll End
+
+//            Exam Center Create
+             examinationCentreName:{
+                 required:true,
+                 textonly: true
+             }
     },
         messages: {
             name: "Please enter study center name.",
@@ -168,12 +205,6 @@ function validate(){
             mobileNo:"Please enter your Contact Number",
             contactCentre:"Please enter your contact Centre",
             location:"Please Select your location",
-            studentName:"please Enter your Name",
-            town:"please Enter your town",
-            po:"please enter your Post Office",
-            districtOfCandidate:"please enter your District",
-            stateOfCandidate:"please enter your State",
-            pinCode:"please enter your PinCode",
             photograph:"please upload your PhotoGraph",
             declaration:"please declare before you proceed",
             courseName:"please Enter your Name",
@@ -193,7 +224,8 @@ function validate(){
             totalMarks:"please Enter Total Marks",
             noOfPapers:"please Enter Number of papers",
             marksPerPaper:"please Enter Passing Marks",
-            totalCreditPoints:"Please Enter total Credit Points"
+            totalCreditPoints:"Please Enter total Credit Points",
+            examinationCentreName:"Please Enter examination Centre Name"
         },
         errorPlacement: function(error, element) {
             if (element.is("input:radio")) {

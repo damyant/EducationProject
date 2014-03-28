@@ -151,7 +151,7 @@
                     "alertText": "* Numbers only"
                 },
                 "onlyLetterSp": {
-                    "regex": /^[a-zA-Z\ \']+$/,
+                    "regex": /^[a-zA-Z\ \.']+$/,
                     "alertText": "* Letters only"
                 },
                 "onlyLetterNumber": {

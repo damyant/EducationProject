@@ -69,8 +69,8 @@
             </tr>
 
             <tr>
+                <td></td>
                 <td><input type="submit" value="<g:message code="default.button.update"/>"></td>
-                <td><input type="button" value="<g:message code="default.button.cancel"/>"></td>
             </tr>
 
         </table>
