@@ -20,7 +20,7 @@ $(document).ready(function() {
             document.forms["generateRollNo"].submit();
         }
         else {
-            alert("Select the ad to be sent.");
+            alert("Select the student first.");
             return false;
         }
     });
@@ -31,12 +31,10 @@ $(document).ready(function() {
 
 function getStudents() {
 
-
-
     $.ajax({
         type: "post",
         url: url('admin', 'getStudentList', ''),
-        data: {studyCenterId: $('#studyCenter').val(), programId: $('#programs').val()},
+        data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val()},
         success: function (data) {
             //document.location.reload();
 //            showStudyCenterList()
@@ -45,12 +43,13 @@ function getStudents() {
             $('#studentList tbody tr').remove()
 
             if (data.length > 0) {
+                $('#msg').html("")
                 document.getElementById("studentList").style.visibility = "visible";
-                $('#studentList thead').append('<tr><th><input type="checkbox"/></th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th></tr>')
+                $('#studentList thead').append('<tr><th><input type="checkbox" onchange="toggleChecked(this.checked)"/></th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th></tr>')
                 for (var i = 0; i < data.length; i++) {
-                    $('#studentList tbody').append('<tr><td><input type="checkbox" id="' + data[i].id + '"/></td><td>' + data[i].name + '</td><td>' + "Reference Number" + '</td></tr>')
+                    $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data[i].id + '"/></td><td>' + data[i].name + '</td><td>' + data[i].referenceNumber + '</td></tr>')
                 }
-                $('#studentList tbody').append('<tr><td colspan="3"><input type="button" value="Assign RollNo"></td></tr>')
+                $('#studentList tbody').append('<tr><td colspan="3"><input type="button" value="Assign RollNo" id="assignRollNo"></td></tr>')
 
             }
             else {
@@ -63,9 +62,9 @@ function getStudents() {
 function enableProgram(t) {
     var op =$(t).val();
     if(op !='null') {
-        $('#programs').prop('disabled',false);
+        $('#programId').prop('disabled',false);
     } else {
-        $('#programs').prop('disabled', true);
+        $('#programId').prop('disabled', true);
     }
 }
 function toggleChecked(status) {

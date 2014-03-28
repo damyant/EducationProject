@@ -10,11 +10,17 @@ import grails.plugins.springsecurity.Secured
 class AdminController {
 
     def adminInfoService
+    def studentRegistrationService
     def viewProvisionalStudents() {
 
         def studyCenterList=StudyCenter.findAll()
         def programList=ProgramDetail.findAll()
        [studyCenterList:studyCenterList,programList:programList]
+    }
+    def viewApprovedStudents(){
+        def studyCenterList=StudyCenter.findAll()
+        def programList=ProgramDetail.findAll()
+        [studyCenterList:studyCenterList,programList:programList]
     }
 
     def getStudentList(){
@@ -25,6 +31,9 @@ class AdminController {
     }
 
     def generateRollNo(){
+
+        def rollNo=studentRegistrationService.getStudentRollNumber(params)
+        redirect(controller: 'admin', action: 'viewProvisionalStudents' , params: [rollNo:"generated"])
 
     }
 }

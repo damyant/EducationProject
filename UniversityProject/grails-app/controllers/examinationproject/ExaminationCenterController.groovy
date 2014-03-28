@@ -3,7 +3,7 @@ package examinationproject
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
-@Secured(["IS_AUTHENTICATED_FULLY"])
+
 class ExaminationCenterController {
     def examinationCentreService
 

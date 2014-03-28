@@ -18,7 +18,7 @@ function showCityList() {
         data: {data: data},
         success: function (data) {
             $("#city").empty().append('<option value="">Select City</option>')
-            for (var i = 0; i <= data.length; i++) {
+                 for (var i = 0; i <data.length; i++) {
                 $("#city").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>')
             }
         },
@@ -96,15 +96,16 @@ function updateStudyCenter(studyCenterId){
 
 }
 function showCentreList(){
-    var data = $('#city').val();
 
+    var data = $('#city').val();
+    debugger;
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExaminationCentreList', ''),
         data: {data: data},
         success: function (data) {
             $("#examinationCentre").empty().append('<option value=""> Select Examination Centre</option>')
-            for (var i = 0; i <= data.length; i++) {
+            for (var i = 0; i <data.length; i++) {
                 $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
             }
         },

@@ -82,24 +82,24 @@
 
         $('#VenueDiv' + index).append(
                 '<div class="Venue">' +
-                        '<label>Name</label>' +
-                        '<input type="text" style="" placeholder="Name of Examination Centre"  class="validate[required] text-input "   style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/></div>'+
-                        '<div class="Venue"><label>Centre Code</label>' +
-                        '<input type="text"  placeholder="Code of Examination Centre" type="text" style="" onkeypress="return isNumber(event)" class="validate[required] text-input "  name="examinationCentreCode" id="examinationCentreCode' + index + '" />' +
+                        '<label>Name *</label>' +
+                        '<input type="text" style="" class="validate[required] text-input "   style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/></div>'+
+                        '<div class="Venue"><label>Centre Code *</label>' +
+                        '<input type="text"  type="text" style="" onkeypress="return isNumber(event)" class="validate[required] text-input "  name="examinationCentreCode" id="examinationCentreCode' + index + '" />' +
                         '</div>');
         $('#VenueDiv' + index).append(
                 '<div class="Venue">' +
-                        '<label>Capacity</label>' +
-                        '<input type="text" style="" placeholder="Capacity of Examination Centre" onkeypress="return isNumber(event)" class="validate[required] text-input "   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/></div>'+
-                        '<div class="Venue"><label>Incharge</label>' +
-                        '<input type="text" style="" placeholder="In charge of Examination Centre"  class="validate[required] text-input "   style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/>' +
+                        '<label>Capacity *</label>' +
+                        '<input type="text" style="" onkeypress="return isNumber(event)" class="validate[required] text-input "   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/></div>'+
+                        '<div class="Venue"><label>Incharge Name *</label>' +
+                        '<input type="text" style="" class="validate[required] text-input "   style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/>' +
                         '</div>');
         $('#VenueDiv' + index).append(
                 '<div class="Venue">' +
-                        '<label>Contact No</label>' +
-                        '<input type="text"  placeholder="Contact No of Examination Centre" onkeypress="return isNumber(event)" style="" class="validate[required] text-input "  name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /></div>' +
-                        '<div class="Venue"><label style="vertical-align: top">Address</label>' +
-                        '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" placeholder="Address of Examination Centre"  class="validate[required] text-input "   style="" name="examinationCentreAddress" id="examinationCentreAddress' + index + '" "/>' +
+                        '<label>Contact No *</label>' +
+                        '<input type="text"  onkeypress="return isNumber(event)" style="" class="validate[required] text-input "  name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /></div>' +
+                        '<div class="Venue"><label style="vertical-align: top">Address *</label>' +
+                        '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" class="validate[required] text-input "   style="" name="examinationCentreAddress" id="examinationCentreAddress' + index + '" "/>' +
                         '</div>');
 
 //        $('#accountHeadId' + index).html('');
