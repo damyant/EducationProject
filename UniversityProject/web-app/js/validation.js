@@ -131,11 +131,10 @@ function validate(){
                 minlength: 10
             },
             studyCentre: "required",
-<<<<<<< HEAD
+
             examiNationCentre: "required",
-=======
-            examiNationCentre: "required"
->>>>>>> 2feef8167d131cb71621c4ed96f6f1e1ad8ecc48
+
+
 //            addressStudentName: "required",
 //            addressTown: "required",
 //            addressPO: "required",
