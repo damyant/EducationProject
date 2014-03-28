@@ -108,8 +108,9 @@ class StudentRegistrationService {
                     stuObj.save(failOnError: true)
                 }
             }
-           return rollNumber
+
      }
+
 
     /**
      * Service to generate the reference no.

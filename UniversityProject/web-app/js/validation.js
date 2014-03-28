@@ -31,9 +31,6 @@ function validate(){
             nameOfApplicant:{
                 required:true
             },
-            date_of_birth : {
-                required:true
-            },
             program: {
                 required:true
             },
@@ -50,7 +47,8 @@ function validate(){
                 required:true
             },
             contactNo:{
-                required:true
+                required:true,
+                number: true
             },
             contactCentre:{
                 required:true
@@ -59,7 +57,8 @@ function validate(){
                 required:true
             },
             studentName:{
-                required:true
+                required:true,
+                textonly: true
             },
             town:{
                 required:true
@@ -74,15 +73,17 @@ function validate(){
                 required:true
             },
             pinCode:{
-                required:true
+                required:true,
+                number: true
             },
-            photograph:{
-                required:true
-            },
+//            photograph:{
+//                required:true
+//            },
             declaration:{
                 required:true
             }, courseName :{
-                required:true
+                required:true,
+                textonly: true
             },
             courseMode:{
                 required:true
@@ -101,6 +102,7 @@ function validate(){
             noOfAcademicYears:{
                 required:true,
                 number: true
+
             },
             totalMarks:{
                 required:true,
@@ -110,7 +112,7 @@ function validate(){
                 required:true,
                 number: true
             },
-            passMarks:{
+            marksPerPaper:{
                 required:true,
                 number: true
             },
@@ -118,19 +120,24 @@ function validate(){
                 required:true,
                 number: true
             },
-            d_o_b: "required",
+            d_o_b:{
+                required:true,
+                date:true
+            },
             programDetail: "required",
-            mobileNo: {required:true,
+            mobileNo: {
+                required:true,
+                number: true,
                 minlength: 10
             },
             studyCentre: "required",
-            examiNationCentre: "required",
-            addressStudentName: "required",
-            addressTown: "required",
-            addressPO: "required",
-            addressDistrict: "required",
-            addressState: "required",
-            addressPinCode: "required"
+            examiNationCentre: "required"
+//            addressStudentName: "required",
+//            addressTown: "required",
+//            addressPO: "required",
+//            addressDistrict: "required",
+//            addressState: "required",
+//            addressPinCode: "required"
 
     },
         messages: {
@@ -182,7 +189,7 @@ function validate(){
             noOfAcademicYears:"please enter your Academic years",
             totalMarks:"please Enter Total Marks",
             noOfPapers:"please Enter Number of papers",
-            passMarks:"please Enter Passing Marks",
+            marksPerPaper:"please Enter Passing Marks",
             totalCreditPoints:"Please Enter total Credit Points"
         },
         errorPlacement: function(error, element) {
@@ -195,7 +202,17 @@ function validate(){
             }
         }
 
+
     })
+    jQuery.validator.addMethod("textonly",function(value, element){
+            valid = false;
+            check = /[^-\.a-zA-Z\s\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02AE]/.test(value);
+            if(check==false)
+                valid = true;
+            return this.optional(element) || valid;
+        },
+        jQuery.format("Please only enter letters, spaces, periods, or hyphens.")
+    );
 
 }
 

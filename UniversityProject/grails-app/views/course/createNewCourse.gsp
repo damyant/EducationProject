@@ -39,8 +39,8 @@
         <g:hiddenField name="courseId" id="courseId" />
         <table class="university-table">
             <tr>
-                <td><label>Course Name</label></td>
-                <td><input type="text" id="courseName" name="courseName" maxlength="" class="university-size-1-2" /></td>
+                <td style="width: 40%"><label>Course Name</label></td>
+                <td style="width: 60%"><input type="text" id="courseName" name="courseName" maxlength="" class="university-size-1-2" /></td>
             </tr>
             <tr>
                 <td><label> Select Mode </label></td>
