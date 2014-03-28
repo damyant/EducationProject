@@ -3,12 +3,13 @@ package examinationproject
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
-//@Secured("ROLE_ADMIN")
+
 class ExaminationCenterController {
     def examinationCentreService
 
     def index() {}
 
+    @Secured("ROLE_ADMIN")
     def createNewCentre(){
     }
     def saveExaminationCentre ={
@@ -20,6 +21,8 @@ class ExaminationCenterController {
              render "Centres Not Saved"
         }
     }
+
+    @Secured("ROLE_ADMIN")
     def viewExaminationCentre(){}
 
     def getCentreList = {
@@ -34,9 +37,11 @@ class ExaminationCenterController {
             render "<h1>No Examination Centre Found</h1>"
         }
     }
+
+    @Secured("ROLE_ADMIN")
     def updateExaminationCentre= {}
 
-
+    @Secured("ROLE_ADMIN")
     def editExaminationCentre ={
         println(params.id)
         def examinationCentreInstance = ExaminationCentre.findById(params.id)
@@ -58,6 +63,7 @@ class ExaminationCenterController {
 
         }
 
+    @Secured("ROLE_ADMIN")
     def deleteExaminationCentre={
 
     }
@@ -93,6 +99,7 @@ class ExaminationCenterController {
             println("<<<<<<<<<<<Problem in getting city list" + e)
         }
     }
+    @Secured("ROLE_ADMIN")
     def create={
 
     }
