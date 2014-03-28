@@ -3,7 +3,10 @@ package com.university
 import examinationproject.ProgramDetail
 import examinationproject.StudyCenter
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
+
+@Secured("ROLE_ADMIN")
 class AdminController {
 
     def adminInfoService
