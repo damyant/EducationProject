@@ -31,9 +31,6 @@ function validate(){
             nameOfApplicant:{
                 required:true
             },
-            date_of_birth : {
-                required:true
-            },
             program: {
                 required:true
             },
@@ -123,7 +120,10 @@ function validate(){
                 required:true,
                 number: true
             },
-            d_o_b: "required",
+            d_o_b:{
+                required:true,
+                date:true
+            },
             programDetail: "required",
             mobileNo: {
                 required:true,
