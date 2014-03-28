@@ -81,5 +81,26 @@ jQuery(function($) {
     /************** end: functions. **************/
 }); // jQuery End
 
+//to show Status
+function showStatus(){
+   var data= $('#referenceNumber').val()
+    $('#statusofApp').html("")
+    $.ajax({
+        type: "post",
+        url: url('student', 'showStatus', ''),
+        data: {data: data},
+        success: function (data) {
+            if(data.response1){
+                document.getElementById("statusofApp").style.display = "block";
+                $('#statusofApp').append('<div>Status of Application is '+data.response1 +'</div>')
+            }
+            else{
+                document.getElementById("statusofApp").style.display = "block";
+                $('#statusofApp').append('<div>You have Entered Wrong Reference Number</div>')
+            }
+        }
 
+    });
+
+}
 
