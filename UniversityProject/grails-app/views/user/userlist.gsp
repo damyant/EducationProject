@@ -20,7 +20,7 @@
         <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
         </g:if>
-        <table class="university-table-1-7">
+        <table class="university-table-1-7" id="userListTable">
             <thead>
             <tr>
 
@@ -64,7 +64,7 @@
 
                     <td><button class="university-button"> <g:link class="university-text-decoration-none" action="editUser" id="${userInstance.id}">Edit</g:link></button></td>
 
-                <td><g:link controller="user" action="resetPassword" params="[id:userInstance.id]">Reset Password</g:link></td>
+                <td><button class="university-button"><g:link class="university-text-decoration-none" controller="user" action="resetPassword" params="[id:userInstance.id]">Reset Password</g:link></button></td>
 
             </tr>
         </g:each>

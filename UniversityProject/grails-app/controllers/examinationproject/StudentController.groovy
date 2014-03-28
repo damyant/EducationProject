@@ -7,7 +7,11 @@ import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 import java.security.SecureRandom
 
+<<<<<<< HEAD
 //@Secured("ROLE_STUDYCENTRE")
+=======
+
+>>>>>>> a65bf1032858ed0c76bfd024a2decea34406eb64
 class StudentController {
  def studentRegistrationService
     def springSecurityService
@@ -24,7 +28,7 @@ class StudentController {
         }
         else{
              println("user is not logged in")
-            def studyCentre= StudyCenter.findByCenterCode('111')
+            def studyCentre= StudyCenter.findByCenterCode('11111')
             println("<><>><<><><><<><><>>><><>><<<<<<<<>>>"+studyCentre.name)
             [studyCentre:studyCentre]
         }
@@ -52,7 +56,7 @@ class StudentController {
 
 
     def getReferenceNumber={
-       println("Reference number is:"+studentRegistrationService.getReferenceNumber())
+        println("Reference number is:"+studentRegistrationService.getReferenceNumber())
     }
 
     def showStatus(){

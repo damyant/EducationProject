@@ -7,7 +7,7 @@
 <div id="main">
 <div class='body'>
 	<div class='errors'><div class="university-not-authorized">
-        <p><img src="${resource(dir: 'images', file: 'cancel.png')}" alt="Grails" style="margin: auto;"/></p>
+        <p><img src="${resource(dir: 'images', file: 'cancel.png')}" alt="Not Authorized" style="margin: auto;"/></p>
         <p><g:message code="springSecurity.denied.message" /></p>
     </div></div>
 </div>

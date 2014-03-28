@@ -15,16 +15,40 @@
 
 <body>
 <div id="main">
-<g:form controller="admin" action="generateRollNo" id="generateRollNo" name="generateRollNo">
+    <g:if test="${params.rollNo=='generated'}">
+        <div class="message"><div class="university-status-message"><g:message code="rollNo.Generated.message"/></div></div>
+    </g:if>
+<g:form  id="generateRollNo" name="generateRollNo">
     <g:hiddenField name="studentId" id="studentId"/>
-<table class="inner university-table-1-2" style="margin: auto;">
+    <g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>
+<table class="inner" style="margin: auto;">
     <tr>
-        <td>
-            <g:select name="studyCenter" class="university-size-1-2" id="studyCenter" from="${studyCenterList}" optionKey="id" optionValue="name" noSelection="['null':' Select Study Center']" onchange="enableProgram(this)"/>
+        <sec:ifAnyGranted roles="ROLE_ADMIN">
+            <g:hiddenField name="roleType" id="roleType" value="admin" />
+        <td style="min-width: 12%">
+            <label for="studyCenter">Select Study Center</label>
         </td>
-        <td>
-            <g:select name="programs" id="programs" class="university-size-1-2" from="${programList}" optionKey="id" optionValue="courseName" noSelection="['null':' Select Program']" onchange="getStudents()" disabled="true"/>
+        <td style="width: 33%">
+            <g:select name="studyCenter" class="university-size-1-1" id="studyCenter" from="${studyCenterList}" optionKey="id" optionValue="name" noSelection="['null':' Select Study Center']" onchange="enableProgram(this)"/>
         </td>
+            <td style="min-width: 10%">
+                <label for="programId">Select Program</label>
+            </td>
+            <td style="width: 33%">
+                <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}" optionKey="id" optionValue="courseName" noSelection="['null':' Select Program']" onchange="getStudents()" disabled="true"/>
+            </td>
+            <td style="width: 10%"></td>
+        </sec:ifAnyGranted>
+     <sec:ifAnyGranted roles="ROLE_STUDYCENTRE">
+         <td style="min-width: 10%">
+             <label for="programId">Select Program</label>
+         </td>
+         <td style="width: 33%">
+             <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}" optionKey="id" optionValue="courseName" noSelection="['null':' Select Program']" onchange="getStudents()" />
+         </td>
+         <td style="width: 10%"></td>
+      </sec:ifAnyGranted>
+
     </tr>
 </table>
 

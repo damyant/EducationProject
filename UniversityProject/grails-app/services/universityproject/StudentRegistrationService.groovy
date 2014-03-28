@@ -21,26 +21,7 @@ class StudentRegistrationService {
       def studentRegistration = new Student(params)
        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
        studentRegistration.dob=df.parse(params.d_o_b)
-//       studentRegistration.name=params.name
-//       studentRegistration.program=params.program
-//       studentRegistration.category=params.category
-//       DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-//       studentRegistration.dob=df.parse(params.dob)
-//       studentRegistration.gender=params.gender
-//       studentRegistration.nationality=params.nationality
-//       studentRegistration.state=params.state
-//       if(params.registrationNo1){
-//       studentRegistration.registrationNo1=Integer.parseInt(params.registrationNo1)
-//       }
-//       if(params.registrationNo2){
-//       studentRegistration.registrationNo2=Integer.parseInt(params.registrationNo2)
-//       }
-//       studentRegistration.addressStudentName=params.studentName
-//       studentRegistration.addressVillage=params.town
-//       studentRegistration.addressPO=params.po
-//       studentRegistration.addressDistrict=params.district
-//       studentRegistration.addressState=params.addressState
-//       studentRegistration.addressPinCode=Integer.parseInt(params.pinCode)
+
        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
        studentRegistration.status= Status.findById(1)
        studentRegistration.studyCentre=studyCentre
@@ -72,8 +53,8 @@ class StudentRegistrationService {
      * @param courseId
      * @return
      */
-            def getStudentRollNumber(params){
-
+     def getStudentRollNumber(params){
+            def status=false
             Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
@@ -102,7 +83,7 @@ class StudentRegistrationService {
                     order("rollNo", "desc")
                 }
 
-                def studentIdList=params.studentId.split(",")
+                def studentIdList=params.studentList.split(",")
                 studentIdList.each{i ->
                  def stuObj=Student.findById(Long.parseLong(i.toString()))
 
@@ -119,7 +100,6 @@ class StudentRegistrationService {
                         rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
                     }
                 }
-
                 else{
                  rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
                  }
@@ -127,39 +107,37 @@ class StudentRegistrationService {
                     stuObj.status=Status.findById(Long.parseLong("2"))
                     stuObj.save(failOnError: true)
                 }
+                return status=true
             }
-//            else{
-//                println(params.studentId)
-//                String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
-//                int rollNo= 1001
-//                String rollStr = Integer.toString(rollNo)
-//                rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
-//            }
-//            return rollNumber
-    }
+
+     }
+
 
     /**
      * Service to generate the reference no.
      * @param courseId
      * @return
      */
-
       def getStudentReferenceNumber(){
-      //  static long uniqueId=2
-
             /* Assign a string that contains the set of characters you allow. */
             String symbols = "01234567899876543210";
-//            String s="abcdefghijklmnopqrstuvwxyz"
             Random random = new SecureRandom();
             char[] buf;
             buf = new char[6];
             def bufLength = buf.length
             for (int idx = 0; idx < bufLength;idx++)
                 buf[idx] = symbols.charAt(random.nextInt(symbols.length()));
-
-          //  buf[bufLength-1]  = s.charAt(random.nextInt(s.length()))
             return new String(buf);
     }
 
+    def approvedStudents(params){
+        def studentIdList=params.studentList.split(",")
+        studentIdList.each{i ->
+            def stuObj=Student.findById(Long.parseLong(i.toString()))
+            stuObj.status=Status.findById(Long.parseLong("3"))
+            stuObj.save(failOnError: true)
+        }
 
+
+    }
 }
