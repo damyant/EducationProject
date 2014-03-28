@@ -7,11 +7,8 @@ import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 import java.security.SecureRandom
 
-<<<<<<< HEAD
-//@Secured("ROLE_STUDYCENTRE")
-=======
 
->>>>>>> a65bf1032858ed0c76bfd024a2decea34406eb64
+//@Secured("ROLE_STUDYCENTRE")
 class StudentController {
  def studentRegistrationService
     def springSecurityService
