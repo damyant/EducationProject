@@ -60,22 +60,6 @@ function validate(){
                 required:true,
                 textonly: true
             },
-            town:{
-                required:true
-            },
-            po:{
-                required:true
-            },
-            districtOfCandidate:{
-                required:true
-            },
-            stateOfCandidate:{
-                required:true
-            },
-            pinCode:{
-                required:true,
-                number: true
-            },
 //            photograph:{
 //                required:true
 //            },
