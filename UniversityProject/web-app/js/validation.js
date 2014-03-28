@@ -79,9 +79,9 @@ function validate(){
                 required:true,
                 number: true
             },
-            photograph:{
-                required:true
-            },
+//            photograph:{
+//                required:true
+//            },
             declaration:{
                 required:true
             }, courseName :{
@@ -131,13 +131,13 @@ function validate(){
                 minlength: 10
             },
             studyCentre: "required",
-            examiNationCentre: "required",
-            addressStudentName: "required",
-            addressTown: "required",
-            addressPO: "required",
-            addressDistrict: "required",
-            addressState: "required",
-            addressPinCode: "required"
+            examiNationCentre: "required"
+//            addressStudentName: "required",
+//            addressTown: "required",
+//            addressPO: "required",
+//            addressDistrict: "required",
+//            addressState: "required",
+//            addressPinCode: "required"
 
     },
         messages: {
