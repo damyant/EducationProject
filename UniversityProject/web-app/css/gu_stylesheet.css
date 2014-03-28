@@ -201,6 +201,7 @@ label.error{
 .Venue{
     width: 50%;
     float: left;
+    margin-bottom: 20px;
 }
 .Venue label{
     display: inline-block; width: 140px;
@@ -511,6 +512,42 @@ textarea:-moz-placeholder { font-size: 10px; color: #555; }
     background-color: aliceblue;
 }
 
+
+textarea {
+    resize: none;
+}
+
+.ui-datepicker {
+    background: #fff;
+    border: 1px solid #555;
+    color: #000;
+}
+h2{
+    font-size: 15pt;
+}
+.mainContent{
+    width:80%;
+    margin-left: 5%;
+    margin-top: 40px;
+}
+.ui-datepicker-prev, .ui-datepicker-next{
+    visibility: hidden;
+    height: 0px;
+}
+
+table h3{
+    font-family: Calibri;
+    font-size: 16pt;
+    font-style: normal;
+    font-weight: bold;
+    color:black;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 15px;
+    margin-top: 5px;
+
+}
+
 @media (max-width : 700px) {
     h3{
         font-size: 15pt;
@@ -537,34 +574,4 @@ textarea:-moz-placeholder { font-size: 10px; color: #555; }
     h3{
         font-size: 11pt;
     }
-}
-.ui-datepicker {
-    background: #fff;
-    border: 1px solid #555;
-    color: #000;
-}
-    h2{
-        font-size: 15pt;
-    }
-    .mainContent{
-        width:80%;
-        margin-left: 5%;
-        margin-top: 40px;
-    }
-.ui-datepicker-prev, .ui-datepicker-next{
-    visibility: hidden;
-    height: 0px;
-}
-
-table h3{
-    font-family: Calibri;
-    font-size: 16pt;
-    font-style: normal;
-    font-weight: bold;
-    color:black;
-    text-align: center;
-    text-decoration: underline;
-    margin-bottom: 15px;
-    margin-top: 5px;
-
 }
