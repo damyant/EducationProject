@@ -9,11 +9,10 @@
 <body>
 <div id="main">
     <div class="nav" role="navigation">
-        <ul class="university-role-management">
-            <li><g:link class="create" action="createUser">Create User</g:link></li>
-            <li><g:link class="create" action="userList">User List</g:link></li>
+            <div class="university-Create-User"><g:link class="create" action="createUser"><img src="${resource(dir: 'images', file: 'Add-User.png')}" alt="Create User" /></image>Create User</g:link></div>
+            <div class="university-User-List"><g:link class="create" action="userList"><img src="${resource(dir: 'images', file: 'users-icon.png')}" alt="User List" />User List</g:link></div>
 
-        </ul>
+        </div>
     </div>
 </div>
 %{--<a href="#list-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
