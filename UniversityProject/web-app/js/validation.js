@@ -55,30 +55,30 @@ function validate(){
             contactCentre:{
                 required:true
             },
-            location:{
-                required:true
-            },
-            studentName:{
-                required:true
-            },
-            town:{
-                required:true
-            },
-            po:{
-                required:true
-            },
-            districtOfCandidate:{
-                required:true
-            },
-            stateOfCandidate:{
-                required:true
-            },
-            pinCode:{
-                required:true
-            },
-            photograph:{
-                required:true
-            },
+//            location:{
+//                required:true
+//            },
+//            studentName:{
+//                required:true
+//            },
+//            town:{
+//                required:true
+//            },
+//            po:{
+//                required:true
+//            },
+//            districtOfCandidate:{
+//                required:true
+//            },
+//            stateOfCandidate:{
+//                required:true
+//            },
+//            pinCode:{
+//                required:true
+//            },
+//            photograph:{
+//                required:true
+//            },
             declaration:{
                 required:true
             }, courseName :{
@@ -125,12 +125,12 @@ function validate(){
             },
             studyCentre: "required",
             examiNationCentre: "required",
-            addressStudentName: "required",
-            addressTown: "required",
-            addressPO: "required",
-            addressDistrict: "required",
-            addressState: "required",
-            addressPinCode: "required"
+//            addressStudentName: "required",
+//            addressTown: "required",
+//            addressPO: "required",
+//            addressDistrict: "required",
+//            addressState: "required",
+//            addressPinCode: "required"
 
     },
         messages: {
