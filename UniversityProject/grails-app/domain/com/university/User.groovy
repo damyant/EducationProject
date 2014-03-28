@@ -7,6 +7,7 @@ class User {
 	String username
 	String password
     String email
+    int studyCentreId
 	boolean enabled
 	boolean accountExpired
 	boolean accountLocked
@@ -15,10 +16,12 @@ class User {
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
+        studyCentreId(nullable:true)
 	}
 
 	static mapping = {
 		password column: '`password`'
+        studyCentreId column: "studyCentreId"
 	}
 
 	Set<Role> getAuthorities() {
