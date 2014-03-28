@@ -21,26 +21,7 @@ class StudentRegistrationService {
       def studentRegistration = new Student(params)
        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
        studentRegistration.dob=df.parse(params.d_o_b)
-//       studentRegistration.name=params.name
-//       studentRegistration.program=params.program
-//       studentRegistration.category=params.category
-//       DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-//       studentRegistration.dob=df.parse(params.dob)
-//       studentRegistration.gender=params.gender
-//       studentRegistration.nationality=params.nationality
-//       studentRegistration.state=params.state
-//       if(params.registrationNo1){
-//       studentRegistration.registrationNo1=Integer.parseInt(params.registrationNo1)
-//       }
-//       if(params.registrationNo2){
-//       studentRegistration.registrationNo2=Integer.parseInt(params.registrationNo2)
-//       }
-//       studentRegistration.addressStudentName=params.studentName
-//       studentRegistration.addressVillage=params.town
-//       studentRegistration.addressPO=params.po
-//       studentRegistration.addressDistrict=params.district
-//       studentRegistration.addressState=params.addressState
-//       studentRegistration.addressPinCode=Integer.parseInt(params.pinCode)
+
        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
        studentRegistration.status= Status.findById(1)
        studentRegistration.studyCentre=studyCentre
@@ -72,7 +53,7 @@ class StudentRegistrationService {
      * @param courseId
      * @return
      */
-            def getStudentRollNumber(params){
+     def getStudentRollNumber(params){
 
             Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
@@ -119,7 +100,6 @@ class StudentRegistrationService {
                         rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
                     }
                 }
-
                 else{
                  rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
                  }
@@ -128,38 +108,24 @@ class StudentRegistrationService {
                     stuObj.save(failOnError: true)
                 }
             }
-//            else{
-//                println(params.studentId)
-//                String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
-//                int rollNo= 1001
-//                String rollStr = Integer.toString(rollNo)
-//                rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
-//            }
-           return rollNumber
-    }
+
+     }
+
 
     /**
      * Service to generate the reference no.
      * @param courseId
      * @return
      */
-
       def getStudentReferenceNumber(){
-      //  static long uniqueId=2
-
             /* Assign a string that contains the set of characters you allow. */
             String symbols = "01234567899876543210";
-//            String s="abcdefghijklmnopqrstuvwxyz"
             Random random = new SecureRandom();
             char[] buf;
             buf = new char[6];
             def bufLength = buf.length
             for (int idx = 0; idx < bufLength;idx++)
                 buf[idx] = symbols.charAt(random.nextInt(symbols.length()));
-
-          //  buf[bufLength-1]  = s.charAt(random.nextInt(s.length()))
             return new String(buf);
     }
-
-
 }
