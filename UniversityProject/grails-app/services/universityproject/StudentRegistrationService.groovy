@@ -128,14 +128,7 @@ class StudentRegistrationService {
                     stuObj.save(failOnError: true)
                 }
             }
-//            else{
-//                println(params.studentId)
-//                String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
-//                int rollNo= 1001
-//                String rollStr = Integer.toString(rollNo)
-//                rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
-//            }
-//            return rollNumber
+
     }
 
     /**
