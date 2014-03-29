@@ -19,7 +19,7 @@
         makeJson("${subjList}")
 
       if(${updateFlag}){
-          alert(${updateFlag})
+          %{--alert(${updateFlag})--}%
         $(window).bind("load",function(){
 
             updateInfo("${courseDetail}")
