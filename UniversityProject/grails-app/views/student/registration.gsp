@@ -178,16 +178,16 @@
         </table>
     </td>
 </tr>
-<tr>
-    <!----- GU Registration Number( If already registered in GU) ---------------------------------------------------------->
-    <td>GU Registration Number (if already registered in GU)</td>
-    <td>
-        <input type="text" name="registrationNo1" maxlength="9" class="university-size-1-3"
-               onkeypress="return isNumber(event)"/> Of
-        <input type="text" name="registrationNo2" maxlength="6" class="university-size-1-3"
-               onkeypress="return isNumber(event)"/>
-    </td>
-</tr>
+%{--<tr>--}%
+    %{--<!----- GU Registration Number( If already registered in GU) ---------------------------------------------------------->--}%
+    %{--<td>GU Registration Number (if already registered in GU)</td>--}%
+    %{--<td>--}%
+        %{--<input type="text" name="registrationNo1" maxlength="9" class="university-size-1-3"--}%
+               %{--onkeypress="return isNumber(event)"/> Of--}%
+        %{--<input type="text" name="registrationNo2" maxlength="6" class="university-size-1-3"--}%
+               %{--onkeypress="return isNumber(event)"/>--}%
+    %{--</td>--}%
+%{--</tr>--}%
 
 <!----- Address ---------------------------------------------------------->
 <tr>
