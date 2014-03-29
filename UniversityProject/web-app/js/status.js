@@ -44,7 +44,7 @@ jQuery(function($) {
     });
 
     $('a.livebox').click(function() {
-        alert('Hello World!');
+//        alert('Hello World!');
         return false;
     });
 
@@ -90,7 +90,7 @@ function showStatus(){
         url: url('student', 'showStatus', ''),
         data: {data: data},
         success: function (data) {
-            alert(data.response2)
+//            alert(data.response2)
             if(data.response1){
                 document.getElementById("statusofApp").style.display = "block";
                 if(data.response2!=0){

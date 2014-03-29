@@ -38,7 +38,7 @@ jQuery(function($) {
     });
 
     $('a.livebox').click(function() {
-        alert('Hello World!');
+//        alert('Hello World!');
         return false;
     });
 
