@@ -73,13 +73,12 @@ class StudentController {
         def statusName
         if(refNumber!=null){
             def status=refNumber.statusId
-//            println(status)
+            def rollNo=refNumber.rollNo
             def statusIn=Status.findById(status)
 //            println(statusIn)
             statusName=statusIn.status
-            println(statusName)
-//            render statusName
             response.response1=statusName
+            response.response2=rollNo
             render response as JSON
         }
         else{

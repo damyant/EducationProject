@@ -44,7 +44,7 @@ jQuery(function($) {
     });
 
     $('a.livebox').click(function() {
-        alert('Hello World!');
+//        alert('Hello World!');
         return false;
     });
 
@@ -90,11 +90,15 @@ function showStatus(){
         url: url('student', 'showStatus', ''),
         data: {data: data},
         success: function (data) {
+//            alert(data.response2)
             if(data.response1){
                 document.getElementById("statusofApp").style.display = "block";
-                $('#statusofApp').append('<div>Status of Application is '+data.response1 +'</div>')
-            }
-            else{
+                if(data.response2!=0){
+                $('#statusofApp').append('<div>Status of Application is '+data.response1 +' with Roll Number '+ data.response2+'</div>')
+                }else{
+                $('#statusofApp').append('<div>Status of Application is '+data.response1 +' whose Roll Number not Generated yet </div>')
+                }
+            }            else{
                 document.getElementById("statusofApp").style.display = "block";
                 $('#statusofApp').append('<div>You have Entered Wrong Reference Number</div>')
             }

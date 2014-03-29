@@ -10,7 +10,7 @@ return true;
 }
 
 $('#profile-image').on('click', function() {
-    alert("click")
+//    alert("click")
     $('#profile-image-upload').click();
 });
 
