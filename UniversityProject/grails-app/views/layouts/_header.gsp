@@ -113,8 +113,8 @@
                 <ul>
                     <li><g:link controller="admin" action="viewProvisionalStudents"><g:message
                             code="default.mainMenu6.subMenu1"/></g:link></li>
-                    <li><g:link controller="course"
-                                action="viewCourses"><g:message
+                    <li><g:link controller="admin"
+                                action="generateFeeVoucher"><g:message
                                 code="default.mainMenu6.subMenu2"/></g:link></li>
                     <li><g:link controller="admin"
                                 action="viewApprovedStudents"><g:message
