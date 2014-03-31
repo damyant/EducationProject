@@ -115,3 +115,8 @@ function showCentreList(){
 
 }
 
+function checkWebsiteUrl(t){
+    alert(this.val())
+
+}
+
