@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
 @Transactional
 class StudentRegistrationService {
 
-   Boolean saveNewStudentRegistration(params, signature, photographe){
+   Student saveNewStudentRegistration(params, signature, photographe){
        Boolean studentRegistrationInsSaved = false;
 
       def studentRegistration = new Student(params)
@@ -43,9 +43,11 @@ class StudentRegistrationService {
        if(studentRegistration.save(flush:true,failOnError: true)){
            println('new student registered successfully')
            studentRegistrationInsSaved= true
-
+           return studentRegistration
+        }else{
+           return null
        }
-       return studentRegistrationInsSaved
+
 
    }
     /**

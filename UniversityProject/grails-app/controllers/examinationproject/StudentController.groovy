@@ -11,6 +11,7 @@ import java.security.SecureRandom
 //@Secured("ROLE_STUDYCENTRE")
 class StudentController {
  def studentRegistrationService
+    def pdfRenderingService
     def springSecurityService
 //    @Secured('ROLE_STUDYCENTRE')
     def registration= {
@@ -46,11 +47,11 @@ class StudentController {
         println("in submit Registration "+ params)
         def signature= request.getFile('signature')
         def photographe= request.getFile("photograph")
-        def flag = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe)
-        if(flag==true){
+        def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe)
+        if(studentRegistration){
            println("New Student Registered Successfully")
             flash.message = "${message(code: 'register.created.message')}"
-            redirect(action: "registration")
+            redirect(action: "applicationPrintPreview",studentID:studentRegistration.id)
         }
         else{
             println("Cannot Register new Student")
@@ -60,8 +61,16 @@ class StudentController {
     }
 
 
-    def getReferenceNumber={
-        println("Reference number is:"+studentRegistrationService.getReferenceNumber())
+    def applicationPrintPreview={
+
+        println("params"+params)
+        def student = Student.findById(params.studentID)
+
+        def args = [template:"applicationPrintPreview", model:[studentInstance:student]]
+        pdfRenderingService.render(args+[controller:this],response)
+        println("Student Name is "+student.name)
+
+
     }
 
     def showStatus(){

@@ -29,16 +29,19 @@
 
 <body>
 <div id="main">
+
+
 <table align="center" cellpadding="20" class="university-table-1-3" id="examCenterSelect" style="width: 80% ">
     <tr>
         <td>
             <label>Name</label>
         </td>
         <td>
-            <label>Name</label>
+            <label>${studentInstance?.name}</label>
         </td>
         <td rowspan="5">
-            <img id="picture" src="" class="university-registration-photo" style="margin: auto;"/>
+            <rendering:inlineJpeg bytes="${studentInstance?.getStudentImage()}" height="200px"/>
+            %{--<img id="picture" src="" class="university-registration-photo" style="margin: auto;"/>--}%
         </td>
     </tr>
     <tr>
@@ -46,7 +49,7 @@
             <label>Date of Birth</label>
         </td>
         <td>
-            <label>Name</label>
+            <label><g:formatDate date="${studentInstance?.dob}" format="dd MMM yyyy"/></label>
         </td>
     </tr>
     <tr>
@@ -54,7 +57,7 @@
             <label>Program</label>
         </td>
         <td>
-            <label>Name</label>
+            <label>${studentInstance?.programDetail?.courseName[0]}</label>
         </td>
     </tr>
     <tr>
@@ -62,7 +65,7 @@
             <label>Category</label>
         </td>
         <td>
-            <label>Name</label>
+            <label>${studentInstance?.category}</label>
         </td>
     </tr>
     <tr>
@@ -70,7 +73,7 @@
             <label>Nationality</label>
         </td>
         <td>
-            <label>Name</label>
+            <label>${studentInstance?.nationality}</label>
         </td>
     </tr>
     <tr>
@@ -78,7 +81,7 @@
             <label>Gender</label>
         </td>
         <td>
-            <label>Name</label>
+            <label>${studentInstance?.gender}</label>
         </td>
         <td>
         </td>
@@ -88,7 +91,7 @@
             <label>State of Domicile</label>
         </td>
         <td>
-            <label>Name</label>
+            <label>${studentInstance?.state}</label>
         </td>
         <td></td>
     </tr>
@@ -97,7 +100,7 @@
             <label>Mobile Number</label>
         </td>
         <td>
-            <label>Name</label>
+            <label>${studentInstance?.mobileNo}</label>
         </td>
         <td></td>
     </tr>
@@ -106,7 +109,7 @@
             <label>Study Centre</label>
         </td>
         <td>
-            <label>Name</label>
+            <label>${studentInstance?.studyCentre?.name[0]}</label>
         </td>
         <td></td>
     </tr>
@@ -115,7 +118,7 @@
             <label>Prefered of examination centre </label>
         </td>
         <td>
-            <label>Name</label>
+            <label>${studentInstance?.examinationCentre?.name[0]}</label>
         </td>
         <td></td>
     </tr>
@@ -124,9 +127,11 @@
             <label>Complete Mailing Address</label>
         </td>
         <td style="vertical-align: top;">
-            <p>Damyant Software</p>
-            <p>Sec 64 Noida</p>
-            <p>Up 201301</p>
+            <p>${studentInstance?.addressTown}</p>
+            <p>${studentInstance?.addressDistrict}</p>
+            <p>${studentInstance?.addressPO}</p>
+            <p>${studentInstance?.addressState}, ${studentInstance?.addressPinCode}</p>
+
         </td>
         <td></td>
     </tr>
