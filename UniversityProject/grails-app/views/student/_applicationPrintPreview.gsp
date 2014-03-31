@@ -33,6 +33,13 @@
 
 <table align="center" cellpadding="20" class="university-table-1-3" id="examCenterSelect" style="width: 80% ">
     <tr>
+
+        <td>
+            <label>Reference No.</label>
+        </td>
+        <td>
+            <label>${studentInstance?.referenceNumber}</label>
+        </td>
         <td>
             <label>Name</label>
         </td>
