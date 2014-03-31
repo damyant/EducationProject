@@ -10,6 +10,7 @@ import grails.plugins.springsecurity.Secured
 class AdminController {
 
     def adminInfoService
+    def pdfRenderingService
     def studentRegistrationService
     @Secured(["ROLE_ADMIN","ROLE_STUDYCENTRE"])
     def viewProvisionalStudents() {
@@ -58,8 +59,16 @@ class AdminController {
         responseMap.stuList=stuList
         render responseMap as JSON
         render stuList as JSON
+    }
 
+    def feeVoucher={
 
+    }
+
+    def generateFeeVoucher(){
+
+        def args = [template:"feeVoucher"]
+        pdfRenderingService.render(args+[controller:this],response)
 
     }
 }

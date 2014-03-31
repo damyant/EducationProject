@@ -19,7 +19,7 @@
         makeJson("${subjList}")
 
       if(${updateFlag}){
-          alert(${updateFlag})
+          %{--alert(${updateFlag})--}%
         $(window).bind("load",function(){
 
             updateInfo("${courseDetail}")
@@ -40,7 +40,7 @@
         <table class="university-table">
             <tr>
                 <td style="width: 40%"><label>Course Name</label></td>
-                <td style="width: 60%"><input type="text" id="courseName" name="courseName" maxlength="" class="university-size-1-2" /></td>
+                <td style="width: 60%"><input type="text" id="courseName" name="courseName" maxlength="" class="university-size-1-2" onkeypress="return onlyAlphabets(event,this);"/></td>
             </tr>
             <tr>
                 <td><label> Select Mode </label></td>
@@ -53,32 +53,32 @@
 
             <tr>
                 <td><label>Number of Terms/Semesters </label></td>
-                <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2" onblur="semesterList()"/></td>
+                <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)" onblur="semesterList()"/></td>
             </tr>
             <tr>
                 <td><label>Course Code</label></td>
-                <td><input type="text" id="courseCode" name="courseCode" maxlength="" class="university-size-1-2" /></td>
+                <td><input type="text" id="courseCode" name="courseCode" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
                 <td><label>Number of maximum available academic year</label></td>
-                <td><input type="text" id="noOfAcademicYears" name="noOfAcademicYears" maxlength="" class="university-size-1-2" /></td>
+                <td><input type="text" id="noOfAcademicYears" name="noOfAcademicYears" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
 
             <tr>
                 <td><label>	Number of papers</label></td>
-                <td><input type="text" id="noOfPapers" name="noOfPapers" maxlength="" class="university-size-1-2" /></td>
+                <td><input type="text" id="noOfPapers" name="noOfPapers" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
                 <td><label>Total Marks</label></td>
-                <td><input type="text" id="totalMarks" name="totalMarks" maxlength="" class="university-size-1-2" /></td>
+                <td><input type="text" id="totalMarks" name="totalMarks" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
                 <td><label>Pass Marks(per paper)</label></td>
-                <td><input type="text" id="marksPerPaper" name="marksPerPaper" class="university-size-1-2" /></td>
+                <td><input type="text" id="marksPerPaper" name="marksPerPaper" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
                 <td><label>Total Credit Points</label></td>
-                <td><input type="text" id="totalCreditPoints" name="totalCreditPoints" class="university-size-1-2"/></td>
+                <td><input type="text" id="totalCreditPoints" name="totalCreditPoints" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
                 <td colspan="2">

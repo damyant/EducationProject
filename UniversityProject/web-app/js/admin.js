@@ -91,6 +91,7 @@ function appendTable(data){
 
     }
     else {
-        $('#msg').html("No Students Found")
+        document.getElementById("studentList").style.visibility = "hidden";
+        $('#msg').html("<div class='university-status-message'>No Students Found</div>")
     }
 }

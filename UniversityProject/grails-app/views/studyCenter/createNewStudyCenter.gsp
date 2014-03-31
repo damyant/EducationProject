@@ -31,21 +31,21 @@
     <g:form controller="studyCenter" action="saveStudyCenter" method="post" name="createStudyCenter" id="createStudyCenter">
         <table class="university-table-1-2">
             <tr>
-                <td><label><g:message code="default.createStudy.nameOfCenter"/></label></td>
-                <td><input type="text" name="name" id="name" value="${studyCentreInstance?.name}" class="university-size-1-3"/></td>
+                <td><label><g:message code="default.createStudy.nameOfCenter"/> <span>*</span></label></td>
+                <td><input type="text" name="name" id="name" value="${studyCentreInstance?.name}" class="university-size-1-3" /></td>
             </tr>
             <tr>
-                <td><label><g:message code="default.createStudy.address"/></label></td>
+                <td><label><g:message code="default.createStudy.address"/> <span>*</span></label></td>
                 <td><input type="text" name="address" value="${studyCentreInstance?.address}" id="address" maxlength="" class="university-size-1-3"/></td>
             </tr>
             <tr>
-                <td><label><g:message code="default.createStudy.district"/></label></td>
+                <td><label><g:message code="default.createStudy.district"/> <span>*</span></label></td>
                 <td>
                     <g:select name="district" id="district" optionKey="id" value="${studyCentreInstance?.city?.district?.id}" class="university-size-1-3" onchange="showCityList()" optionValue="districtName" from="${District.findAll()}" noSelection="['':' Select District']" />
                 </td>
             </tr>
             <tr>
-                <td><label><g:message code="default.createStudy.city"/></label></td>
+                <td><label><g:message code="default.createStudy.city"/> <span>*</span></label></td>
                 <td>
                 <g:if test="${params.type!='edit'}">
                     <g:select name="city" id="city" optionKey="id" class="university-size-1-3"  optionValue="cityName" from="" noSelection="['':' Select City']"/>
@@ -60,31 +60,31 @@
                 <td><input type="text" name="centerCode" value="${studyCentreInstance?.centerCode}" maxlength="" class="university-size-1-3" /></td>
             </tr>
             <tr>
-                <td><label><g:message code="default.createStudy.websiteUrl"/></label></td>
-                <td><input type="text" name="websiteUrl" value="${studyCentreInstance?.websiteUrl}" id="websiteUrl" class="university-size-1-3" onblur="checkWebsiteUrl()"/></td>
+                <td><label><g:message code="default.createStudy.websiteUrl"/> <span>*</span></label></td>
+                <td><input type="text" name="websiteUrl" value="${studyCentreInstance?.websiteUrl}" id="websiteUrl" class="university-size-1-3" onblur="checkWebsiteUrl(this)"/></td>
             </tr>
             <tr>
-                <td><label><g:message code="default.createStudy.nameOfHeadIns"/></label></td>
+                <td><label><g:message code="default.createStudy.nameOfHeadIns"/> <span>*</span></label></td>
                 <td><input type="text" name="nameOfHeadIns" value="${studyCentreInstance?.nameOfHeadIns}" class="university-size-1-3"/></td>
             </tr>
             <tr>
-                <td><label><g:message code="default.createStudy.phoneNoOfHeadIns"/></label></td>
+                <td><label><g:message code="default.createStudy.phoneNoOfHeadIns"/> <span>*</span></label></td>
                 <td><input type="text" name="phoneNoOfHeadIns" value="${studyCentreInstance?.phoneNoOfHeadIns}" id="phoneNoOfHeadIns" class="university-size-1-3" maxlength="10" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
-                <td><label><g:message code="default.createStudy.emailIdOfHeadIns"/></label></td>
+                <td><label><g:message code="default.createStudy.emailIdOfHeadIns"/> <span>*</span></label></td>
                 <td><input type="email" name="emailIdOfHeadIns" value="${studyCentreInstance?.emailIdOfHeadIns}" class="university-size-1-3"/></td>
             </tr>
             <tr>
-                <td><label><g:message code="default.createStudy.nameOfCoordinator"/></label></td>
+                <td><label><g:message code="default.createStudy.nameOfCoordinator"/> <span>*</span></label></td>
                 <td><input type="text" name="nameOfCoordinator" value="${studyCentreInstance?.nameOfCoordinator}" class="university-size-1-3"/></td>
             </tr>
             <tr>
-                <td><label><g:message code="default.createStudy.phoneNoOfCoordinator"/></label></td>
+                <td><label><g:message code="default.createStudy.phoneNoOfCoordinator"/> <span>*</span></label></td>
                 <td><input type="text" name="phoneNoOfCoordinator" value="${studyCentreInstance?.phoneNoOfCoordinator}" class="university-size-1-3" maxlength="10" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
-                <td><label><g:message code="default.createStudy.emailIdOfCoordinator"/></label></td>
+                <td><label><g:message code="default.createStudy.emailIdOfCoordinator"/> <span>*</span></label></td>
                 <td><input type="email" name="emailIdOfCoordinator" value="${studyCentreInstance?.emailIdOfCoordinator}" class="university-size-1-3"/></td>
             </tr>
             <tr>
