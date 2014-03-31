@@ -88,6 +88,8 @@ class StudentController {
            println("***problem in showing Status of Application***")
         }
     }
+    def applicationPreview(){
 
+    }
 
 }

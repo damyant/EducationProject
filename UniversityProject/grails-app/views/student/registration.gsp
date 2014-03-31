@@ -191,7 +191,7 @@
 
 <!----- Address ---------------------------------------------------------->
 <tr>
-    <td>Candidate Name & Complete Mailing Address (Write in Capital Letter) <br/><br/><br/></td>
+    <td>Candidate Name & Complete Mailing Address<br/><br/><br/></td>
     <td>
         <table style="width: 100%" id="examCenterAddress">
             <tr>
