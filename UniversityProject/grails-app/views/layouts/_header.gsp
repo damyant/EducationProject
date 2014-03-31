@@ -66,10 +66,8 @@
                                 <ul>
                                     <li><a href="#" class="newAdmitCardPopup"><g:message
                                             code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
-                                    <li><a href="#"><g:message
-                                            code="default.mainMenu3.subMenu2.submenu1.submenu2"/></a>
+                                    <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
                                     </li>
-
                                     <li><g:link controller="admitCard" action="createAdmitCard"><g:message
                                             />Create Admit Card</g:link></li>
 

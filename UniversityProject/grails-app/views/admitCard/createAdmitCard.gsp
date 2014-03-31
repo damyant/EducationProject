@@ -37,12 +37,7 @@
                         <g:select name="examinationCentre"   optionKey="id" optionValue="name" from="${examinationCentre}" noSelection="['':' Select Examination Centre']" />
                     </td>
                 </tr>
-
-
-
-
             </table>
-
         </div>
     </g:uploadForm>
 </div>
