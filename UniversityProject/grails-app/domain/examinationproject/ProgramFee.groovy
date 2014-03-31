@@ -8,6 +8,7 @@ class ProgramFee {
     String centreType
     int feeAmount
     int lateFeeAmount
+    String studyCentreType
 
 
     static constraints = {
