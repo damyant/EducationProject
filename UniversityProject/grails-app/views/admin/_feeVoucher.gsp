@@ -4,7 +4,7 @@
     <table>
 
       <tr>
-          <td>Sr. No. 1321333</td>
+          <td><lable>Sr. No.</lable></td><td> <label>${student?.referenceNumber}</label></td>
       </tr>
         <tr>
             <td>Gauhati University Branch(CODE-4332)</td>
@@ -21,10 +21,10 @@
     </table>
 
     <table>
-        <tr><td>Name:</td><tr><td></td><td></td></tr><td>Kuldeep Sharma</td></tr>
-        <tr><td>Roll No.:</td><tr><td></td><td></td></tr><td>11141001</td></tr>
-        <tr><td>Type Of Fee:</td><tr><td></td><td></td></tr><td>Annual</td></tr>
-        <tr><td>Amount:</td><tr><td></td><td></td></tr><td>Rs. 6000 (Six Thousand Only)</td></tr>
+        <tr> <td><lable>Name:</lable></td><td> <label>${student?.name}</label></td></tr>
+        <tr> <td><lable>Roll No.</lable></td><td> <label>${student?.rollNo}</label></td></tr>
+        <tr><td>Type Of Fee:</td><tr><td></td><td></td></tr><td>M.Sc-IT 1st Semester Fees</td></tr>
+        <tr> <td><lable>Amount</lable></td><td> <label>${programFee?.feeAmount}</label></td></tr>
 
         <tr><td>${new Date()}</td><td></td><td></td><td></td><td>Cashier's Signature</td></tr>
     </table>
@@ -34,7 +34,7 @@
     <table>
 
         <tr>
-            <td>Sr. No. 1321333</td>
+            <td><lable>Sr. No.</lable></td><td> <label>${student?.referenceNumber}</label></td>
         </tr>
         <tr>
             <td>Gauhati University Branch(CODE-4332)</td>
@@ -51,10 +51,10 @@
     </table>
 
     <table>
-        <tr><td>Name:</td><tr><td></td><td></td></tr><td>Kuldeep Sharma</td></tr>
-        <tr><td>Roll No.:</td><tr><td></td><td></td></tr><td>11141001</td></tr>
-        <tr><td>Type Of Fee:</td><tr><td></td><td></td></tr><td>Annual</td></tr>
-        <tr><td>Amount:</td><tr><td></td><td></td></tr><td>Rs. 6000 (Six Thousand Only)</td></tr>
+        <tr> <td><lable>Name:</lable></td><td> <label>${student?.name}</label></td></tr>
+        <tr> <td><lable>Roll No.</lable></td><td> <label>${student?.rollNo}</label></td></tr>
+        <tr><td>Type Of Fee:</td><tr><td></td><td></td></tr><td>M.Sc-IT 1st Semester Fees</td></tr>
+        <tr> <td><lable>Amount</lable></td><td> <label>${programFee?.feeAmount}</label></td></tr>
 
         <tr><td>${new Date()}</td><td></td><td></td><td></td><td>Cashier's Signature</td></tr>
     </table>
@@ -66,7 +66,7 @@
         <table><tr><td>------------------------------------------------STUDENT COPY----------------------------------------------------</td></tr></table>
 
         <tr>
-            <td>Sr. No. 1321333</td>
+            <td><lable>Sr. No.</lable></td><td> <label>${student?.referenceNumber}</label></td>
         </tr>
         <tr>
             <td>Gauhati University Branch(CODE-4332)</td>
@@ -83,10 +83,10 @@
     </table>
 
     <table>
-        <tr><td>Name:</td><tr><td></td><td></td></tr><td>Kuldeep Sharma</td></tr>
-        <tr><td>Roll No.:</td><tr><td></td><td></td></tr><td>11141001</td></tr>
-        <tr><td>Type Of Fee:</td><tr><td></td><td></td></tr><td>Annual</td></tr>
-        <tr><td>Amount:</td><tr><td></td><td></td></tr><td>Rs. 6000 (Six Thousand Only)</td></tr>
+        <tr> <td><lable>Name:</lable></td><td> <label>${student?.name}</label></td></tr>
+        <tr> <td><lable>Roll No.</lable></td><td> <label>${student?.rollNo}</label></td></tr>
+        <tr><td>Type Of Fee:</td><tr><td></td><td></td></tr><td>M.Sc-IT 1st Semester Fees</td></tr>
+        <tr> <td><lable>Amount</lable></td><td> <label>${programFee?.feeAmount}</label></td></tr>
 
         <tr><td>${new Date()}</td><td></td><td></td><td></td><td>Cashier's Signature</td></tr>
     </table>

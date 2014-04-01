@@ -18,39 +18,15 @@
     <g:if test="${params.rollNo=='generated'}">
         <div class="message"><div class="university-status-message"><g:message code="rollNo.Generated.message"/></div></div>
     </g:if>
-    <g:form  id="generateFeeVoucher" name="generateFeeVoucher">
+    <g:form  id="generateFeeVoucher" name="generateFeeVoucher" controller="admin" action="generateFeeVoucher">
         %{--<g:hiddenField name="studentId" id="studentId"/>--}%
         %{--<g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>--}%
         <table class="inner" style="margin: auto;">
             <tr>
-                <sec:ifAnyGranted roles="ROLE_ADMIN">
-                    <g:hiddenField name="roleType" id="roleType" value="admin" />
-                    <td style="min-width: 12%">
-                        <label for="studyCenter">Enter Role Number</label>
-                    </td>
-                    <td style="width: 33%">
-                        <g:textField name="rollNo" class="university-size-1-1" id="rollNo" onchange="enableProgram(this)"/>
-                    </td>
-
-                    <td style="min-width: 10%">
-                        <label for="programId">Select Semester</label>
-                    </td>
-                    <td style="width: 33%">
-                        <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}" optionKey="id" optionValue="courseName" noSelection="['null':' Select Program']" onchange="getStudents()" disabled="true"/>
-                    </td>
-                    <td style="width: 10%"></td>
-                </sec:ifAnyGranted>
-                <sec:ifAnyGranted roles="ROLE_STUDYCENTRE">
-                    <td style="min-width: 10%">
-                        <label for="programId">Select Program</label>
-                    </td>
-                    <td style="width: 33%">
-                        <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}" optionKey="id" optionValue="courseName" noSelection="['null':' Select Program']" onchange="getStudents()" />
-                    </td>
-                    <td style="width:50%"></td>
-                </sec:ifAnyGranted>
-
+               <td>Enter Roll No.:</td><td><g:textField name="rollNo" id="rollNo"/></td>
             </tr>
+
+            <tr><td><g:submitButton name="submit" value="Submit"></g:submitButton></td></tr>
         </table>
 
         <table id="studentList" class="inner university-table-1-3">

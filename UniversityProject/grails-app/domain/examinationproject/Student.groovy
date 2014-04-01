@@ -24,6 +24,7 @@ class Student {
     int addressPinCode
     String location
     int rollNo
+    int semester
     Status status
     int registrationYear
  // ProgramDetail programDetail
