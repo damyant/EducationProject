@@ -48,7 +48,7 @@
             </td>
             </tr>
         </table>
-<table align="center" cellpadding="18" class="university-table-1-2" style="width: 100%;margin: auto; border: 1px solid; ">
+<table align="center" cellpadding="18"  id="preview-pdf" class="university-table-1-2" style="width: 100%;margin: auto; border: 1px solid; ">
     <tr>
         <td>
             <label>Name</label>
