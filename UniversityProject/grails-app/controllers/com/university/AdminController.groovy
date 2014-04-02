@@ -89,21 +89,6 @@ class AdminController {
 
         def programFee = ProgramFee.findByProgramDetailAndSemesterAndStudyCentreType(program,semester,studyCentreType,[s:'s'])
         println("Program Fee Amount"+programFee)
-//        def obj=ProgramFee.createCriteria()
-//        def programFee= obj.list{
-//            programFee{
-//                eq('programDetail', program)
-//            }
-//            and{
-//                eq('semester',semester)
-//            }
-//            and{
-//                eq('studyCentreType',studyCentreType)
-//            }
-//            maxResults(1)
-//
-//        }
-
         def args = [template:"feeVoucher", model:[student:student, programFee:programFee]]
         pdfRenderingService.render(args+[controller:this],response)
 

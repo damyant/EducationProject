@@ -30,6 +30,7 @@ class StudentRegistrationService {
        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examiNationCentre))
        studentRegistration.examinationCentre=examinationCentreList
        studentRegistration.studentImage=photographe.bytes
+       studentRegistration.semester=1
 
         //RAJ CODE
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
