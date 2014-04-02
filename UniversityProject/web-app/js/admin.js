@@ -7,7 +7,7 @@ var studentIdList = [] ;
 $(document).ready(function() {
 
     $(document).on('click', '#assignRollNo', function() {
-     
+
         if ($("input[name=rollno_checkbox]:checked").length != 0) {
             $("input[name=rollno_checkbox]:checked").each(function(i) {
 
