@@ -31,41 +31,50 @@
             <tr>
                 <td><label><g:message code="default.createStudy.district"/></label></td>
                 <td>
-                    <g:select name="district" id="district" optionKey="id" value="${examinationCentreInstance?.city?.district?.id}" class="university-size-1-3" onchange="showCityList()" optionValue="districtName" from="${District.findAll()}" noSelection="['':' Select District']" />
+                    <g:select name="district" id="district" optionKey="id"
+                              value="${examinationCentreInstance?.city?.district?.cityName}" class="university-size-1-3"
+                              onchange="showCityList()" optionValue="districtName" from="${District.findAll()}"
+                              noSelection="['': ' Select District']"/>
                 </td>
             </tr>
             <tr>
                 <td><label><g:message code="default.createStudy.city"/></label></td>
                 <td>
-                 <g:select name="city" id="city" optionKey="id" value="${examinationCentreInstance?.city?.id}" class="university-size-1-3"  optionValue="cityName" from="${City.findAllByDistrict(District.get(examinationCentreInstance?.city?.district?.id))}" noSelection="['':' Select City']"/>
-
+                    <g:select name="city" id="city" optionKey="id" value="${examinationCentreInstance?.city?.id}"
+                              class="university-size-1-3" optionValue="cityName"
+                              from="${City.findAllByDistrict(District.get(examinationCentreInstance?.city?.district?.id))}"
+                              noSelection="['': ' Select City']"/>
                 </td>
             </tr>
 
             <tr>
                 <td><label><g:message code="default.createExam.nameOfCenter"/></label></td>
-                <td><input type="text" name="centreName" value="${examinationCentreInstance?.name}"/></td>
+                <td><input type="text" name="centreName" value="${examinationCentreInstance?.name}"
+                           class="university-size-1-3"/></td>
             </tr>
 
             <tr>
                 <td><label><g:message code="default.createExam.contactNo"/></label></td>
-                <td><input type="text" name="contactNo" maxlength="" value="${examinationCentreInstance?.contactNo}"/></td>
+                <td><input type="text" class="university-size-1-3" name="contactNo" maxlength=""
+                           value="${examinationCentreInstance?.contactNo}"/></td>
             </tr>
             <tr>
                 <td><label><g:message code="default.createExam.address"/></label></td>
-                <td><input type="text" name="address" maxlength="" value="${examinationCentreInstance?.address}"/></td>
+                <td><input type="text" class="university-size-1-3" name="address" maxlength=""
+                           value="${examinationCentreInstance?.address}"/></td>
             </tr>
 
 
             %{--<tr>--}%
-                %{--<td><label><g:message code="default.createExam.nOfRooms" /></label></td>--}%
-                %{--<td><input type="text" name="rooms" value="${examinationCentreInstance?.rooms}"/></td>--}%
+            %{--<td><label><g:message code="default.createExam.nOfRooms" /></label></td>--}%
+            %{--<td><input type="text" name="rooms" value="${examinationCentreInstance?.rooms}"/></td>--}%
             %{--</tr>--}%
 
 
             <tr>
-                <td><label><g:message code="default.createExam.studentCapacity" /></label></td>
-                <td><input type="text" name="capacity" value="${examinationCentreInstance?.capacity}"/></td>
+                <td><label><g:message code="default.createExam.studentCapacity"/></label></td>
+                <td><input type="text" class="university-size-1-3" name="capacity"
+                           value="${examinationCentreInstance?.capacity}"/></td>
             </tr>
 
             <tr>
