@@ -65,6 +65,7 @@ class AdminController {
         render stuList as JSON
     }
 
+    @Secured(["ROLE_ADMIN","ROLE_STUDYCENTRE"])
     def feeVoucher={
 
     }
@@ -77,9 +78,13 @@ class AdminController {
         def semester = Semester.findById(semesterID)
         def program= student.programDetail
         def studyCenter = student.studyCentre
-        def currentUser= springSecurityService.currentUser
-        def role = springSecurityService.getPrincipal().getAuthorities()[0]
-        println("Current user Role is "+role)
+        def currentUser
+        def role
+        if(springSecurityService.isLoggedIn()){
+            currentUser= springSecurityService.currentUser
+            role = springSecurityService.getPrincipal().getAuthorities()[0]
+            println("Current user Role is "+role)
+    }
         if(role=="ROLE_ADMIN"){
             studyCentreType="IDOL"
         }else{
