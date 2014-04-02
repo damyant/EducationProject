@@ -26,28 +26,35 @@
 
     </style>
 </head>
-<body>
-<div id="main">
-
-
-<table align="center" cellpadding="20" class="university-table-1-3" id="examCenterSelect" style="width: 80% ">
+ <body>
+<div id="main" style="text-transform: capitalize">
+<div>
+    <table align="center" cellpadding="20"  style="width: 100%;height:150px">
+        <tr>
+            <td style="width: 80%; vertical-align: top;">
+               <div class="preview-header" style="text-align: center; top:2px;">
+                  <div><strong>Institute Of Distance And Open Learning (IDOL)</strong></div>
+                   <div>Guwahati University,Gopinath Bardoloi Nagar</div>
+                   <div>Jalukbari, Guwahati - 781014</div>
+                   <div>Toll Free No. 1800-345-3614</div>
+                   <div>Phone : (0361) 2673728,2679911</div>
+                   <div>Fax: (0361) 2573887</div>
+                   <div> Email: idol.gauhatiuniversity@gmail.com</div>
+               </div>
+            </td>
+            <td style="width: 80%;">
+                <rendering:inlineJpeg bytes="${studentInstance?.getStudentImage()}" class="university-registration-photo"   style="margin:auto; height: 150px;"/>
+                <div style="margin: 3px auto;padding: 2px; font-size: 12px;border: 1px solid;"> <label>Reference No : </label><label>${studentInstance?.referenceNumber}</label></div>
+            </td>
+            </tr>
+        </table>
+<table align="center" cellpadding="18"  id="preview-pdf" class="university-table-1-2" style="width: 100%;margin: auto; border: 1px solid; ">
     <tr>
-
-        <td>
-            <label>Reference No.</label>
-        </td>
-        <td>
-            <label>${studentInstance?.referenceNumber}</label>
-        </td>
         <td>
             <label>Name</label>
         </td>
         <td>
             <label>${studentInstance?.name}</label>
-        </td>
-        <td rowspan="5">
-            <rendering:inlineJpeg bytes="${studentInstance?.getStudentImage()}" height="200px"/>
-            %{--<img id="picture" src="" class="university-registration-photo" style="margin: auto;"/>--}%
         </td>
     </tr>
     <tr>
@@ -89,8 +96,6 @@
         <td>
             <label>${studentInstance?.gender}</label>
         </td>
-        <td>
-        </td>
     </tr>
     <tr>
         <td>
@@ -99,7 +104,6 @@
         <td>
             <label>${studentInstance?.state}</label>
         </td>
-        <td></td>
     </tr>
     <tr>
         <td>
@@ -108,7 +112,6 @@
         <td>
             <label>${studentInstance?.mobileNo}</label>
         </td>
-        <td></td>
     </tr>
     <tr>
         <td>
@@ -117,7 +120,6 @@
         <td>
             <label>${studentInstance?.studyCentre?.name[0]}</label>
         </td>
-        <td></td>
     </tr>
     <tr>
         <td>
@@ -126,22 +128,19 @@
         <td>
             <label>${studentInstance?.examinationCentre?.name[0]}</label>
         </td>
-        <td></td>
     </tr>
     <tr >
         <td style="vertical-align: top;">
             <label>Complete Mailing Address</label>
         </td>
         <td style="vertical-align: top;">
-            <p>${studentInstance?.addressTown}</p>
-            <p>${studentInstance?.addressDistrict}</p>
-            <p>${studentInstance?.addressPO}</p>
-            <p>${studentInstance?.addressState}, ${studentInstance?.addressPinCode}</p>
-
+            <div>${studentInstance?.addressTown}</div>
+            <div>${studentInstance?.addressPO},${studentInstance?.addressDistrict}</div>
+            <div>${studentInstance?.addressState}, ${studentInstance?.addressPinCode}</div>
         </td>
-        <td></td>
     </tr>
 </table>
+</div>
 </div>
 </body>
 </html>

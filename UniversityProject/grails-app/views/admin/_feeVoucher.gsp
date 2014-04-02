@@ -1,94 +1,91 @@
 <div>
+    <div style="width: 100%; margin: 6px auto; display: inline-block;text-align: center;">----------------------------------------BANK COPY----------------------------------------</div>
 
-    <table><tr><td>--------------------------------------------BANK COPY--------------------------------------------------------</td></tr></table>
-    <table>
+    <div style="border: 1px solid; padding: 10px;">
+        <div style="float: right"><lable>Sr. No.</lable><label>${student?.referenceNumber}</label></div>
 
-      <tr>
-          <td><lable>Sr. No.</lable></td><td> <label>${student?.referenceNumber}</label></td>
-      </tr>
-        <tr>
-            <td>Gauhati University Branch(CODE-4332)</td>
+        <p style="width:80%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
 
-        </tr>
-        <tr>
-            <td>A/C No. 57846586846</td>
-        </tr>
-        <tr>
-            <td>INSTITUTE OF DISTANCE AND OPEN LEARNING GAUHATI UNIVERSITY</td>
+        <div>State Bank of India</div>
 
-        </tr>
+        <div>Gauhati University Branch (CODE-4332)</div>
 
-    </table>
+        <div>A/C No. 57846586846</div>
 
-    <table>
-        <tr> <td><lable>Name:</lable></td><td> <label>${student?.name}</label></td></tr>
-        <tr> <td><lable>Roll No.</lable></td><td> <label>${student?.rollNo}</label></td></tr>
-        <tr><td>Type Of Fee:</td><tr><td></td><td></td></tr><td>M.Sc-IT 1st Semester Fees</td></tr>
-        <tr> <td><lable>Amount</lable></td><td> <label>${programFee?.feeAmount}</label></td></tr>
+        <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
 
-        <tr><td>${new Date()}</td><td></td><td></td><td></td><td>Cashier's Signature</td></tr>
-    </table>
+        <div>GAUHATI UNIVERSITY</div>
+    </p>
+        <div style="clear: both; margin-bottom: 10px;"></div>
+        <table width="100%" class="university-table-1-2">
+            <tr><td><lable>Name:</lable></td><td><label>${student?.name}</label></td></tr>
+            <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
+            <tr><td>Type Of Fee:</td><td>M.Sc-IT 1st Semester Fees</td></tr>
+            <tr><td><lable>Amount:</lable></td><td><label>${programFee?.feeAmount}</label></td></tr>
 
-    <table><tr><td>--------------------------------------------UNIVERSITY COPY--------------------------------------------------------</td></tr></table>
+            <tr><td style="vertical-align: bottom;">${new Date()}</td><td
+                    style="vertical-align: bottom;height: 63px;"><div
+                        style="width: 100%;text-align: right; bottom: 2px;">Cashier's Signature</div></td></tr>
+        </table>
+    </div>
 
-    <table>
+    <div style="width: 100%; margin: 6px auto; display: inline-block;text-align: center;">-----------------------------------UNIVERSITY COPY-----------------------------------</div>
 
-        <tr>
-            <td><lable>Sr. No.</lable></td><td> <label>${student?.referenceNumber}</label></td>
-        </tr>
-        <tr>
-            <td>Gauhati University Branch(CODE-4332)</td>
+    <div style="border: 1px solid; padding: 10px;">
+        <div style="float: right"><lable>Sr. No.</lable><label>${student?.referenceNumber}</label></div>
 
-        </tr>
-        <tr>
-            <td>A/C No. 57846586846</td>
-        </tr>
-        <tr>
-            <td>INSTITUTE OF DISTANCE AND OPEN LEARNING GAUHATI UNIVERSITY</td>
+        <p style="width:80%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
 
-        </tr>
+        <div>State Bank of India</div>
 
-    </table>
+        <div>Gauhati University Branch (CODE-4332)</div>
 
-    <table>
-        <tr> <td><lable>Name:</lable></td><td> <label>${student?.name}</label></td></tr>
-        <tr> <td><lable>Roll No.</lable></td><td> <label>${student?.rollNo}</label></td></tr>
-        <tr><td>Type Of Fee:</td><tr><td></td><td></td></tr><td>M.Sc-IT 1st Semester Fees</td></tr>
-        <tr> <td><lable>Amount</lable></td><td> <label>${programFee?.feeAmount}</label></td></tr>
+        <div>A/C No. 57846586846</div>
 
-        <tr><td>${new Date()}</td><td></td><td></td><td></td><td>Cashier's Signature</td></tr>
-    </table>
+        <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
 
+        <div>GAUHATI UNIVERSITY</div>
+    </p>
+        <div style="clear: both; margin-bottom: 10px;"></div>
+        <table width="100%" class="university-table-1-2">
+            <tr><td><lable>Name:</lable></td><td><label>${student?.name}</label></td></tr>
+            <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
+            <tr><td>Type Of Fee:</td><td>M.Sc-IT 1st Semester Fees</td></tr>
+            <tr><td><lable>Amount:</lable></td><td><label>${programFee?.feeAmount}</label></td></tr>
 
-    <table>
+            <tr><td style="vertical-align: bottom;">${new Date()}</td><td
+                    style="vertical-align: bottom;height: 63px;"><div
+                        style="width: 100%;text-align: right; bottom: 2px;">Cashier's Signature</div></td></tr>
+        </table>
+    </div>
 
+    <div style="width: 100%; margin: 6px auto; display: inline-block;text-align: center;">--------------------------------------STUDENT COPY--------------------------------------</div>
 
-        <table><tr><td>------------------------------------------------STUDENT COPY----------------------------------------------------</td></tr></table>
+    <div style="border: 1px solid; padding: 10px;">
+        <div style="float: right"><lable>Sr. No.</lable><label>${student?.referenceNumber}</label></div>
 
-        <tr>
-            <td><lable>Sr. No.</lable></td><td> <label>${student?.referenceNumber}</label></td>
-        </tr>
-        <tr>
-            <td>Gauhati University Branch(CODE-4332)</td>
+        <p style="width:80%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
 
-        </tr>
-        <tr>
-            <td>A/C No. 57846586846</td>
-        </tr>
-        <tr>
-            <td>INSTITUTE OF DISTANCE AND OPEN LEARNING GAUHATI UNIVERSITY</td>
+        <div>State Bank of India</div>
 
-        </tr>
+        <div>Gauhati University Branch (CODE-4332)</div>
 
-    </table>
+        <div>A/C No. 57846586846</div>
 
-    <table>
-        <tr> <td><lable>Name:</lable></td><td> <label>${student?.name}</label></td></tr>
-        <tr> <td><lable>Roll No.</lable></td><td> <label>${student?.rollNo}</label></td></tr>
-        <tr><td>Type Of Fee:</td><tr><td></td><td></td></tr><td>M.Sc-IT 1st Semester Fees</td></tr>
-        <tr> <td><lable>Amount</lable></td><td> <label>${programFee?.feeAmount}</label></td></tr>
+        <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
 
-        <tr><td>${new Date()}</td><td></td><td></td><td></td><td>Cashier's Signature</td></tr>
-    </table>
+        <div>GAUHATI UNIVERSITY</div>
+    </p>
+        <div style="clear: both; margin-bottom: 10px;"></div>
+        <table width="100%" class="university-table-1-2">
+            <tr><td><lable>Name:</lable></td><td><label>${student?.name}</label></td></tr>
+            <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
+            <tr><td>Type Of Fee:</td><td>M.Sc-IT 1st Semester Fees</td></tr>
+            <tr><td><lable>Amount:</lable></td><td><label>${programFee?.feeAmount}</label></td></tr>
 
+            <tr><td style="vertical-align: bottom;">${new Date()}</td><td
+                    style="vertical-align: bottom;height: 63px;"><div
+                        style="width: 100%;text-align: right; bottom: 2px;">Cashier's Signature</div></td></tr>
+        </table>
+    </div>
 </div>
