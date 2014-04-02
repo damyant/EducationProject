@@ -32,7 +32,13 @@ body{
     width: 20%;
 }
 
+.university-table-1-5 td {
+    width: 20%;
+}
 
+.university-table-1-6 td {
+    width: 16%;
+}
 
 .university-table-1-7 td, .university-table-1-7 th{
     min-width: 12%;

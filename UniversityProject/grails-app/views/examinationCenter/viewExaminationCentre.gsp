@@ -41,7 +41,7 @@
         $.ajax({
             type:"post",
             url:'${createLink(controller: 'examinationCenter', action: 'getCentreList')}',
-            data:{data:data},
+            data: {data: data, view: 'view'},
 //            contentType: "application/json; charset=utf-8",
 //            dataType: "json",
             success:function (response) {
