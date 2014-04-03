@@ -6,7 +6,7 @@
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
     margin: 0px auto 20px;
     padding: 25px 25px 10px; width:90%;
-    min-height: 500px;
+    min-height: 300px;
 }
 
 /*table*/
@@ -234,8 +234,8 @@ h3{
     font-weight: bold;
     color:black;
     text-align: center;
-    text-decoration: underline;
     margin: 5px auto;
+    text-shadow: 4px 3px 5px #A68AA3;
 }
 
 .radioInput{}
@@ -301,12 +301,17 @@ h3{
 .fieldcontain{
 
     display: inline;
+    padding: 4px;
 }
 
 .fieldcontain div{
     width: 40%;
     display: inline-block;
-    margin: 10px 4px;
+    margin: 15px 4px;
+}
+
+fieldset.form {
+    margin: 20px auto;
 }
 
 fieldset.form,
