@@ -28,8 +28,13 @@ class ExaminationCenterController {
     def getExamCentreList = {
         println("in getExamCentreList " + params)
         def result = examinationCentreService.studyCenterList(params)
+        println("resultttttttttttttttttttttt " + result)
+        def centre = [:]
         if (result) {
-            render result as JSON
+            centre.name = result.name
+            centre.id = result.centreCode
+            println(centre)
+            render centre as JSON
         } else {
             render "No Examination Centre Found"
         }

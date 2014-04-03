@@ -87,6 +87,30 @@ body{
     vertical-align:top;
     height:2em;
 }
+
+.university-List-View {
+    height: 235px;
+    width: 95%;
+    margin: 5px auto;
+    border: 1px solid #000;
+}
+
+.university-scrollable-y {
+    overflow-y: auto;
+}
+
+.university-scrollable-x {
+    overflow-x: auto;
+}
+
+.university-left-right-margin {
+    margin: auto 10px;
+}
+
+.university-left-margin {
+    margin-left: 10px;
+}
+
 /* For Validation*/
 input.error, select.error{
     border: #cd0a0a solid 1px;
