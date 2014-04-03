@@ -321,7 +321,7 @@ table{
     color:black;
     font-size: 11pt;
     font-style: normal;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 table.inner{
     border: 0px;
