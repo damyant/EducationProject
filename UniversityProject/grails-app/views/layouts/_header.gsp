@@ -90,17 +90,19 @@
                         </ul>
                     </li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>
-                        <ul>
-                            <li><g:link controller="course" action="createNewCourse"><g:message
-                                    code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
-                            <li><g:link controller="course"
-                                        action="viewCourses"><g:message
-                                        code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>
-                            <li><g:link controller="course"
-                                        action="updateCourses"><g:message
-                                        code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
-                        </ul>
-                    </li>
+                    <ul>
+                        <li><g:link controller="course" action="createNewCourse"><g:message
+                                code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
+                        <li><g:link controller="course"
+                                    action="viewCourses"><g:message
+                                    code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>
+                        <li><g:link controller="course"
+                                    action="updateCourses"><g:message
+                                    code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
+                    </ul>
+                </li>
+
+
                 </ul>
             </li>
             <li><a href="#"><g:message code="default.mainMenu4"/></a></li>
@@ -115,9 +117,22 @@
                     <li><g:link controller="admin"
                                 action="viewApprovedStudents"><g:message
                                 code="default.mainMenu6.subMenu3"/></g:link></li>
+
+                    <li><a href="#"><g:message code="default.mainMenu3.subMenu7"/></a>
+                        <ul>
+                            <li><g:link controller="programFee" action="createNewFeeType"><g:message
+                                    code="default.mainMenu3.subMenu7.subMenu1"/></g:link></li>
+                            <li><g:link controller="programFee"
+                                        action="listOfFeeType"><g:message
+                                        code="default.mainMenu3.subMenu7.subMenu2"/></g:link></li>
+
+                        </ul>
+                    </li>
                 </ul>
 
             </li>
+
+
         </ul>
     </div>
     %{--</div>--}%
