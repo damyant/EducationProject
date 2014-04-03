@@ -7,7 +7,7 @@ import grails.transaction.Transactional
 @Secured("ROLE_ADMIN")
 @Transactional
 class ProgramFeeController {
-
+    def programFeeService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def listOfFeeType(Integer max) {
@@ -15,9 +15,9 @@ class ProgramFeeController {
         respond ProgramFee.list(params), model: [programFeeInstanceCount: ProgramFee.count()]
     }
 
-    def show(ProgramFee programFeeInstance) {
-        respond programFeeInstance
-    }
+//    def show(ProgramFee programFeeInstance) {
+//        respond programFeeInstance
+//    }
 
     def createNewFeeType() {
         respond new ProgramFee(params)
@@ -35,15 +35,9 @@ class ProgramFeeController {
             return
         }
 
-        programFeeInstance.save flush: true
+        programFeeService.saveProgramFeeType(programFeeInstance)
         redirect(action: "listOfFeeType")
-//        request.withFormat {
-//            form {
-//                flash.message = message(code: 'default.created.message', args: [message(code: 'programFeeInstance.label', default: 'ProgramFee'), programFeeInstance.id])
-//                redirect programFeeInstance
-//            }
-//            '*' { respond programFeeInstance, [status: CREATED] }
-//        }
+
     }
 
     def editFeeType(ProgramFee programFeeInstance) {
@@ -63,17 +57,10 @@ class ProgramFeeController {
             return
         }
 
-        programFeeInstance.save flush: true
+        programFeeService.saveProgramFeeType(programFeeInstance)
 
         redirect(action: "listOfFeeType")
 
-//        request.withFormat {
-//            form {
-//                flash.message = message(code: 'default.updated.message', args: [message(code: 'ProgramFee.label', default: 'ProgramFee'), programFeeInstance.id])
-//                redirect programFeeInstance
-//            }
-//            '*' { respond programFeeInstance, [status: OK] }
-//        }
     }
 
     @Transactional
@@ -84,16 +71,9 @@ class ProgramFeeController {
             return
         }
 
-        programFeeInstance.delete flush: true
+        programFeeService.deleteFeeType(programFeeInstance)
         redirect(action: "listOfFeeType")
 
-//        request.withFormat {
-//            form {
-//                flash.message = message(code: 'default.deleted.message', args: [message(code: 'ProgramFee.label', default: 'ProgramFee'), programFeeInstance.id])
-//                redirect action: "listOfFeeType", method: "GET"
-//            }
-//            '*' { render status: NO_CONTENT }
-//        }
     }
 
     protected void notFound() {
