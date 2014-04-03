@@ -77,15 +77,15 @@
 //;
 
 function getSemester(){
-    var data=$('#program').val();
+    var data = $('#programList').val();
     $.ajax({
         type: "post",
         url: url('admitCard', 'getSemesterList', ''),
         data: {data: data},
         success: function (data) {
-            $("#semesterList").empty().append('<option value="">Select Semester</option>')
-            for (var i = 0; i <data.length; i++) {
-                $("#semesterList").append('<option value="' + data[i].id + '">' + data[i] + '</option>')
+            $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+            for (var i = 1; i <= data.totalSem; i++) {
+                $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
             }
         }
 
@@ -98,6 +98,24 @@ function showStudentInfo(){
 $("#admitCardTab ").append('<tr><th>Roll Number</th><th>Name of the Student</th><th>Select Student</th><th></th></tr>')
  $('#subjectTab').append('<tr><th>Subject</th><th>Subject-Code</th><th>Time Of Exam</th><th>Date Of Exam</th></tr>')
 }
+
+function showExamCentreList() {
+    var data = $('#city').val();
+    $.ajax({
+        type: "post",
+        url: url('examinationCenter', 'getExamCentreList', ''),
+        data: {data: data},
+        success: function (data) {
+            $("#examCenterList").empty().append('data <option value="">Select Examination Venue</option>')
+            for (var i = 1; i <= data.length(); i++) {
+                $("#examCenterList").append('<option value="' + data[i].centreCode + '">' + data[i].name + '</option>')
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}
+
 
 
 

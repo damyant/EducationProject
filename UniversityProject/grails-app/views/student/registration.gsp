@@ -39,7 +39,8 @@
 <!----- First Name ---------------------------------------------------------->
 <tr>
     <td>Name of the applicant <span>*</span></td>
-    <td><input type="text" name="name" style="text-transform:uppercase" onkeypress="return onlyAlphabets(event,this);" maxlength="30" class="university-size-1-2"/>
+    <td><input type="text" name="name" style="text-transform:uppercase" onkeypress="return onlyAlphabets(event, this);"
+               maxlength="30" class="university-size-1-2"/>
 
     </td>
 </tr>
@@ -79,7 +80,8 @@
 
             <label><span>ST</span><input type="radio" name="category" value="S.T" class="radioInput"/></label>
 
-           <label><span>MINORITY</span><input type="radio" name="category" value="MINORITY COMMUNITY" class="radioInput"/>
+            <label><span>MINORITY</span><input type="radio" name="category" value="MINORITY COMMUNITY"
+                                               class="radioInput"/>
             </label>
         </div>
     </td>
@@ -92,7 +94,8 @@
     <td>
         <div class="radio_options">
             <label><span>Indian</span><input type="radio" name="nationality" value="Indian" class="radioInput"/></label>
-            <label><span>Non-Indian</span><input type="radio" name="nationality" value="Non-Indian" class="radioInput"/></label>
+            <label><span>Non-Indian</span><input type="radio" name="nationality" value="Non-Indian" class="radioInput"/>
+            </label>
         </div>
     </td>
 </tr>
@@ -134,14 +137,15 @@
     <!----- Mobile Number ---------------------------------------------------------->
     <td>Contact Mobile Number <span>*</span></td>
     <td>
-        <input type="text" id="mobileNoCntryCode" name="mobileNoCntryCode" maxlength="3" value="+91" readonly> - <input type="text" id="mobileNo" name="mobileNo" maxlength="10"
-               onkeypress="return isNumber(event)"/>
+        <input type="text" id="mobileNoCntryCode" name="mobileNoCntryCode" maxlength="3" value="+91" readonly> - <input
+            type="text" id="mobileNo" name="mobileNo" maxlength="10"
+            onkeypress="return isNumber(event)"/>
     </td>
 </tr>
 <tr>
 
     <!----- Contact centre/study centre ---------------------------------------------------------->
-    <td>Contact centre/ Study centre <span>*</span></td>
+    <td>Study centre <span>*</span></td>
     <td>
         <input type="text" name="studyCentre" class="university-size-1-2" value="${studyCentre?.name}" readonly/>
 
@@ -164,29 +168,33 @@
         %{--</select>--}%
         <table id="examCenterSelect">
             <tr>
-                <td style="width: 50%"><g:select name="district" id="district" optionKey="id" class="university-size-1-1"
-                              onchange="showCityList()" optionValue="districtName" from="${District.findAll()}"
-                              noSelection="['': ' Select District']"/>
+                <td style="width: 50%"><g:select name="district" id="district" optionKey="id"
+                                                 class="university-size-1-1"
+                                                 onChange="showCityList()" optionValue="districtName"
+                                                 from="${District.findAll()}"
+                                                 noSelection="['': ' Select District']"/>
                 </td>
-                 <td style="width: 50%"><g:select name="city" id="city" optionKey="id" class="university-size-1-1" optionValue="cityName"
-                              from="" onchange="showCentreList()" noSelection="['': ' Select City']"/></td>
+                <td style="width: 50%"><g:select name="city" id="city" optionKey="id" class="university-size-1-1"
+                                                 optionValue="cityName"
+                                                 from="" onchange="showCentreList()"
+                                                 noSelection="['': ' Select City']"/></td>
             </tr><tr>
-                <td ><g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" from=" "
-                              noSelection="['': 'Select Examination Centre']"/>
-                </td><td></td>
-            </tr>
+            <td><g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" from=" "
+                          noSelection="['': 'Select Examination Centre']"/>
+            </td><td></td>
+        </tr>
         </table>
     </td>
 </tr>
 %{--<tr>--}%
-    %{--<!----- GU Registration Number( If already registered in GU) ---------------------------------------------------------->--}%
-    %{--<td>GU Registration Number (if already registered in GU)</td>--}%
-    %{--<td>--}%
-        %{--<input type="text" name="registrationNo1" maxlength="9" class="university-size-1-3"--}%
-               %{--onkeypress="return isNumber(event)"/> Of--}%
-        %{--<input type="text" name="registrationNo2" maxlength="6" class="university-size-1-3"--}%
-               %{--onkeypress="return isNumber(event)"/>--}%
-    %{--</td>--}%
+%{--<!----- GU Registration Number( If already registered in GU) ---------------------------------------------------------->--}%
+%{--<td>GU Registration Number (if already registered in GU)</td>--}%
+%{--<td>--}%
+%{--<input type="text" name="registrationNo1" maxlength="9" class="university-size-1-3"--}%
+%{--onkeypress="return isNumber(event)"/> Of--}%
+%{--<input type="text" name="registrationNo2" maxlength="6" class="university-size-1-3"--}%
+%{--onkeypress="return isNumber(event)"/>--}%
+%{--</td>--}%
 %{--</tr>--}%
 
 <!----- Address ---------------------------------------------------------->
@@ -196,34 +204,39 @@
         <table style="width: 100%" id="examCenterAddress">
             <tr>
 
-                <td style="width: 30%;">Name:</td>
+                <td style="width: 30%;">Address:</td>
                 <td style="width: 70%;"><input type="text" name="addressStudentName" maxlength="30"
-                                       class="university-size-1-2" onkeypress="return onlyAlphabets(event,this);"/></td>
+                                               class="university-size-1-2"
+                                               onkeypress="return onlyAlphabets(event, this);"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">Village/Town:</td>
-                <td style="width: 70%;"><input type="text" name="addressTown" maxlength="30" class="university-size-1-2"/></td>
+                <td style="width: 70%;"><input type="text" name="addressTown" maxlength="30"
+                                               class="university-size-1-2"/></td>
             </tr>
             <tr>
 
                 <td style="width: 30%;">P.O.:</td>
-                <td style="width: 70%;"><input type="text" name="addressPO" maxlength="30" class="university-size-1-2"/></td>
+                <td style="width: 70%;"><input type="text" name="addressPO" maxlength="30" class="university-size-1-2"/>
+                </td>
             </tr>
             <tr>
                 <td style="width: 30%;">District:</td>
 
                 <td style="width: 70%;"><input type="text" name="addressDistrict" maxlength="30"
-                                       class="university-size-1-2"/></td>
+                                               class="university-size-1-2"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">State:</td>
-                <td style="width: 70%;"><input type="text" name="addressState" maxlength="30" class="university-size-1-2"/>
+                <td style="width: 70%;"><input type="text" name="addressState" maxlength="30"
+                                               class="university-size-1-2"/>
                 </td>
             </tr>
             <tr>
                 <td style="width: 30%;">Pincode:</td>
-                <td style="width: 70%;"><input type="text" name="addressPinCode" maxlength="6" class="university-size-1-2"
-                                       onkeypress="return isNumber(event)"/></td>
+                <td style="width: 70%;"><input type="text" name="addressPinCode" maxlength="6"
+                                               class="university-size-1-2"
+                                               onkeypress="return isNumber(event)"/></td>
             </tr>
         </table>
     </td>
@@ -232,7 +245,8 @@
     <td>Upload Your Photo(upload one recent Passport size black & white Photograph)</td>
     <td>
         %{--<input type='file' onchange="readURL(this);" />--}%
-        <div id="profile-image"><img id="picture" src="" alt="Space for Photograph " class="university-registration-photo"/></div>
+        <div id="profile-image"><img id="picture" src="" alt="Space for Photograph "
+                                     class="university-registration-photo"/></div>
         <input type='file' id="profile-image-upload" onchange="readURL(this, 'picture');" class="university-button"
                name="photograph"/>
     </td>
@@ -240,7 +254,8 @@
 <tr>
     <td colspan="2">
         <label id="declaration-label"><input type="checkbox" id="declaration" name="declaration"/>
-            I hereby declare that the information as indicated above is true to the best of my knowledge.<span>*</span></label>
+            I hereby declare that the information as indicated above is true to the best of my knowledge.<span>*</span>
+        </label>
     </td>
 </tr>
 

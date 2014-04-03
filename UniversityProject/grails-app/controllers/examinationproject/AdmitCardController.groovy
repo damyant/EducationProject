@@ -31,18 +31,17 @@ class AdmitCardController {
         try{
         println("program is "+ params.data)
         def course=ProgramDetail.findById(params.data)
-        if(course!=null){
-        def semesterId=course.semester
-        def semesterList=semesterId.semesterNo
-        semesterList.sort()
-        println(semesterList)
-        render semesterList as JSON
-        }
+            def semesterNo = [:]
+            if(course!=null){
+                semesterNo.totalSem = course.noOfTerms
+                println("sem no" + semesterNo)
+                render semesterNo as JSON
+            }
         else {
             render null
         }
         }catch (Exception e){
-            println("Error in getting SemesterList")
+            println("Error in getting Semester Number")
         }
     }
 

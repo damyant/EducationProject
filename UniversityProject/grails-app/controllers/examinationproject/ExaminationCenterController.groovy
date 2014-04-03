@@ -25,6 +25,15 @@ class ExaminationCenterController {
     @Secured("ROLE_ADMIN")
     def viewExaminationCentre(){}
 
+    def getExamCentreList = {
+        println("in getExamCentreList " + params)
+        def result = examinationCentreService.studyCenterList(params)
+        if (result) {
+            render result as JSON
+        } else {
+            render "No Examination Centre Found"
+        }
+    }
     def getCentreList = {
         println("in getCentreList "+ params)
         def result= examinationCentreService.studyCenterList(params)
