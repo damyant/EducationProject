@@ -5,7 +5,6 @@
 var subjectList
 
 function  semesterList(){
-
     $('#multiSelectTab tbody tr').remove()
     for(var j=1;j<=$('#noOfTerms').val();j++){
         $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Subjects</label><select style="width: 90%" name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
@@ -26,6 +25,27 @@ function  semesterList(){
 
             $("#allsubjectList"+j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
         }
+
+    }
+
+}
+
+
+
+function  viewSemesterList(){
+    $('#multiSelectTab tbody tr').remove()
+    for(var j=1;j<=$('#noOfTerms').html();j++){
+        $('#multiSelectTab tbody').append('<tr><td><label>Semester - ' +j+'</label>'+
+             '<td><select class="select-to" name="semester'+j+'" id="semester'+j+'"  multiple="true" /></td></tr>' )
+
+//        if($('#modeName option:selected').text().toLowerCase()=="annual"){
+//            $("<div>Term"+j+"</div>").insertBefore($('#semester'+j))
+//        }
+//        else if(($('#modeName option:selected').text().toLowerCase()=="semester")){
+//            $("<div>Semester"+j+"</div>").insertBefore($('#semester'+j))
+//        }
+
+
 
     }
 
@@ -129,8 +149,34 @@ function updateInfo(obj){
         }
 
     }
+}
 
 
+function viewCourseInfo(obj){
+
+    var courseDetailJson=jQuery.parseJSON(obj.replace(/&quot;/g,'"'))
+    console.log(courseDetailJson)
+    $('#courseName').html(courseDetailJson['course'].courseName)
+    //$('#modeName option[value='+courseDetailJson['course'].courseMode.id+']').attr("selected", "selected");
+    $('#modeName').html(courseDetailJson['course'].courseMode.id)
+    $('#courseTypeName').html(courseDetailJson['course'].courseType.id)
+    $('#noOfTerms').html(courseDetailJson['course'].noOfTerms)
+    $('#courseCode').html(courseDetailJson['course'].courseCode)
+    $('#noOfAcademicYears').html(courseDetailJson['course'].noOfAcademicYears)
+    $('#totalMarks').html(courseDetailJson['course'].totalMarks)
+    $('#marksPerPaper').html(courseDetailJson['course'].marksPerPaper)
+    $('#totalCreditPoints').html(courseDetailJson['course'].totalCreditPoints)
+    $('#noOfPapers').html(courseDetailJson['course'].noOfPapers)
+    $('#courseId').html(courseDetailJson['course'].id)
+    viewSemesterList()
+    for(var i=1;i<= $('#noOfTerms').html();i++){
+
+        for(var j=0;j<courseDetailJson['semesterList'][i].length;j++){
+
+            $('#semester'+i).append('<option value="'+courseDetailJson['semesterList'][i][j].id+'">'+courseDetailJson['semesterList'][i][j].subjectName +'</option> ')
+        }
+
+    }
 
 }
 
