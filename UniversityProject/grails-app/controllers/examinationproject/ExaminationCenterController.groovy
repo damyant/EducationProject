@@ -26,7 +26,7 @@ class ExaminationCenterController {
     def viewExaminationCentre(){}
 
     def getExamCentreList = {
-        println("in getCentreList " + params)
+        println("in getExamCentreList " + params)
         def result = examinationCentreService.studyCenterList(params)
         if (result) {
             render result as JSON

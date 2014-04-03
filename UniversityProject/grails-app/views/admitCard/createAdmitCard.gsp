@@ -52,7 +52,7 @@
                     <td><label>Select Examination Venue :</label></td>
                     <td>
                         <g:select name="examinationCenter" class="university-size-2-3" id="examCenterList" from=""
-                                  noSelection="['': ' Select Examination Centre']"/>
+                                  noSelection="['': ' Select Examination Venue']"/>
                     </td>
                     <td>
                         <input type="button" class="university-button university-float-right" value="Show Candidates"/>
