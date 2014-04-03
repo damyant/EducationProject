@@ -8,14 +8,14 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-
-		<div id="list-programFee" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
+    <div id="main">
+        <div id="list-programFee" class="content scaffold-list" role="main">
+            <h3><g:message code="default.list.program.fee"/></h3>
+            <g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-			<thead>
+            <table class="university-table-1-5">
+                <thead>
 					<tr>
 					
 						<th><g:message code="programFee.programDetail.label" default="Program Detail" /></th>
@@ -26,7 +26,6 @@
 					
 						<g:sortableColumn property="lateFeeAmount" title="${message(code: 'programFee.lateFeeAmount.label', default: 'Late Fee Amount')}" />
 
-                        <th></th>
                         <th></th>
 					
 					</tr>
@@ -43,10 +42,16 @@
 					
 						<td>${fieldValue(bean: programFeeInstance, field: "lateFeeAmount")}</td>
 
-                        <td><g:link action="deleteFeeType" id="${programFeeInstance.id}">Delete</g:link></td>
-                        <td><g:link action="editFeeType" id="${programFeeInstance.id}">Edit</g:link></td>
-					
-					</tr>
+                        <td>
+                            <g:link action="deleteFeeType" id="${programFeeInstance.id}"
+                                    class="university-text-decoration-none"><button
+                                    class="university-button">Delete</button></g:link>
+                            <g:link action="editFeeType" id="${programFeeInstance.id}"
+                                    class="university-text-decoration-none"><button
+                                    class="university-button">Edit</button></g:link>
+                        </td>
+
+                    </tr>
 				</g:each>
 				</tbody>
 			</table>
@@ -54,5 +59,6 @@
 				<g:paginate total="${programFeeInstanceCount ?: 0}" />
 			</div>
 		</div>
-	</body>
+    </div>
+    </body>
 </html>
