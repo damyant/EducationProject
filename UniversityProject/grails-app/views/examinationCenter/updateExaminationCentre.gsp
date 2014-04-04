@@ -17,7 +17,8 @@
 
 <body>
 <div id="main">
-    <div>
+    <fieldset class="form">
+        <div>
         <div class="university-location-select">
             <div class="university-label-location-select">
                 <label><g:message code="default.createStudy.district"/></label>
@@ -41,6 +42,7 @@
 
     <div id="centreList" style="text-align: center; width: 100%">
     </div>
+    </fieldset>
 </div>
 <script>
     function showList() {

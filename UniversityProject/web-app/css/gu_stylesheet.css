@@ -88,6 +88,14 @@ body{
     height:2em;
 }
 
+.university-button-small {
+    border-radius: 0;
+    padding: .1em 7px;
+    vertical-align: top;
+    height: 2em;
+    font-size: 11px;
+}
+
 .university-List-View {
     height: 235px;
     width: 95%;
