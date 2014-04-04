@@ -11,21 +11,24 @@
     <div id="main">
         <fieldset class="form">
             <div id="list-programFee" class="content scaffold-list" role="main">
-            <h3><g:message code="default.list.program.fee"/></h3>
+                <h3><g:message code="default.list.program.fee"/></h3>
             <g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
                 <table class="university-table-1-5 inner" style="margin: auto;width: 100%;">
                     <thead>
-					<tr>
+                    <tr>
 					
 						<th><g:message code="programFee.programDetail.label" default="Program Detail" /></th>
 
-                        <g:sortableColumn property="feeAmountAtIDOL" title="${message(code: 'programFee.feeAmountAtIDOL.label', default: 'Fee Amount At IDOL')}" />
+                        <g:sortableColumn property="feeAmountAtIDOL"
+                                          title="${message(code: 'programFee.feeAmountAtIDOL.label', default: 'Fee Amount At IDOL')}"/>
 
-                        <g:sortableColumn property="feeAmountAtSC" title="${message(code: 'programFee.feeAmountAtSC.label', default: 'Fee Amount At SC')}" />
+                        <g:sortableColumn property="feeAmountAtSC"
+                                          title="${message(code: 'programFee.feeAmountAtSC.label', default: 'Fee Amount At SC')}"/>
 
-                        <g:sortableColumn property="lateFeeAmount" title="${message(code: 'programFee.lateFeeAmount.label', default: 'Late Fee Amount')}" />
+                        <g:sortableColumn property="lateFeeAmount"
+                                          title="${message(code: 'programFee.lateFeeAmount.label', default: 'Late Fee Amount')}"/>
 
                         <th></th>
 					

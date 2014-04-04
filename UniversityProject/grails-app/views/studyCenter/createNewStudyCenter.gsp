@@ -18,8 +18,8 @@
 
 <body>
 <div id="main">
-    <fieldset class="form">
-        <g:if test="${flash.message}">
+<fieldset class="form">
+<g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
     </g:if>
     <g:hasErrors bean="${studyCentreInstance}">
@@ -38,7 +38,7 @@
             <table class="university-table-1-2 inner">
             <tr>
                 <td><label><g:message code="default.createStudy.nameOfCenter"/> :</label></td>
-                    <td><label>${studyCentreInstance?.name}</label></td>
+            <td><label>${studyCentreInstance?.name}</label></td>
                 </tr>
                 <tr>
                     <td><label><g:message code="default.createStudy.address"/> :</label></td>
@@ -96,7 +96,7 @@
                     <td><label><g:message code="default.createStudy.nameOfCenter"/><span
                     class="university-obligatory">*</span> </label></td>
                 <td>
-                        <input type="text" name="name" id="name" value="${studyCentreInstance?.name}"
+                    <input type="text" name="name" id="name" value="${studyCentreInstance?.name}"
                                class="university-size-1-3" onkeypress="return onlyAlphabets(event, this);"/>
                     </td>
 
@@ -227,7 +227,7 @@
             </g:else>
         </table>
     </g:form>
-    </fieldset>
+</fieldset>
 </div>
 </body>
 </html>
