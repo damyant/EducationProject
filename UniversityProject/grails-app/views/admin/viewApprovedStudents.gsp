@@ -17,7 +17,7 @@
 <body>
 <div id="main">
     <fieldset class="form">
-        <h3>Approved Student List</h3>
+    %{--<h3>Approved Student List</h3>--}%
         <g:form controller="admin" action="generateRollNo" id="generateRollNo" name="generateRollNo">
             <g:hiddenField name="studentId" id="studentId"/>
             <g:hiddenField name="pageType" id="pageType" value="Approve RollNo"/>
