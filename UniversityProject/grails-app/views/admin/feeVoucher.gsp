@@ -15,44 +15,40 @@
 
 <body>
 <div id="main">
-    <g:if test="${params.rollNo=='generated'}">
-        <div class="message"><div class="university-status-message"><g:message code="rollNo.Generated.message"/></div></div>
+    <g:if test="${params.rollNo == 'generated'}">
+        <div class="message"><div class="university-status-message"><g:message code="rollNo.Generated.message"/></div>
+        </div>
     </g:if>
-    <g:form  id="generateFeeVoucher" name="generateFeeVoucher" controller="admin" action="generateFeeVoucher">
-        %{--<g:hiddenField name="studentId" id="studentId"/>--}%
-        %{--<g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>--}%
+    <g:form id="generateFeeVoucher" name="generateFeeVoucher" controller="admin" action="generateFeeVoucher">
+    %{--<g:hiddenField name="studentId" id="studentId"/>--}%
+    %{--<g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>--}%
         <table class="inner" style="margin: auto;">
             <tr>
-<<<<<<< HEAD
                 <td>Enter Roll No.:</td><td><g:textField name="rollNo" id="rollNo"
                                                          onkeypress="return isNumber(event)"/></td>
-=======
-               <td>Enter Roll No.:</td><td><g:textField name="rollNo" id="rollNo" class="university-size-1-2"/></td>
             </tr>
 
             <tr><td>
-            <div class="university-size-1-3"><label for="programDetail">
-            <g:message code="programFee.programDetail.label" default="Program Name"/><span
-                    class="required-indicator">*</span>
-        </label>
-        </div>
+                <div class="university-size-1-3"><label for="programDetail">
+                    <g:message code="programFee.programDetail.label" default="Program Name"/><span
+                            class="required-indicator">*</span>
+                </label>
+                </div>
+            </td>
+                <td>
+
+                    <g:if test="${params.error == "error"}">
+                        Roll Number does Not belongs to IDOL
+
+                    </g:if>
+                    <div class="university-size-2-3">
+                        <g:select id="type" name="feeType"
+                                  from="${feeType}" optionKey="id"
+                                  optionValue="type" class="many-to-one university-size-1-2"
+                                  noSelection="['': 'Choose Type']"/>
+                    </div>
                 </td>
-        <td>
 
-
-            <g:if test="${params.error=="error"}">
-                Roll Number does Not belongs to IDOL
-
-            </g:if>
-        <div class="university-size-2-3">
-            <g:select id="type" name="feeType"
-                      from="${feeType}" optionKey="id"
-                      optionValue="type" class="many-to-one university-size-1-2"
-                      noSelection="['': 'Choose Type']"/>
-        </div>
-        </td>
-
->>>>>>> 23ecb98a988f5f2e54bcd7cb09fee90e8459e470
             </tr>
 
             <tr><td><g:submitButton name="submit" value="Submit"></g:submitButton></td></tr>
