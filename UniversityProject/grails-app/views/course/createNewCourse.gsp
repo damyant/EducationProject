@@ -29,7 +29,8 @@
 </head>
 <body>
 <div id="main">
-    <g:if test="${flash.message}">
+    <fieldset class="form">
+        <g:if test="${flash.message}">
         <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>
 
@@ -37,7 +38,8 @@
 
     <g:form  method="post" name="createCourse" id="createCourse">
         <g:hiddenField name="courseId" id="courseId" />
-        <table class="university-table" border="0">
+        <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
+        <table class="university-table inner" border="0">
             <tr>
                 <td style="width: 40%"><label>Course Name :<span class="university-obligatory">*</span></label></td>
                 <td style="width: 60%"><input type="text" id="courseName" name="courseName" maxlength="" class="university-size-1-2" onkeypress="return onlyAlphabets(event,this);"/></td>
@@ -96,6 +98,7 @@
             </tr>
         </table>
     </g:form>
+    </fieldset>
 </div>
 </body>
 </html>

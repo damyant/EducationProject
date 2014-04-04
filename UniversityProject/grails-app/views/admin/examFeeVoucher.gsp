@@ -21,15 +21,17 @@
             <div class="message"><div class="university-status-message"><g:message
                     code="rollNo.Generated.message"/></div></div>
         </g:if>
-        <g:form id="generateFeeVoucher" name="generateFeeVoucher" controller="admin" action="generateFeeVoucher">
+        <g:form id="generateExamFeeVoucher" name="generateFeeVoucher" controller="admin" action="generateFeeVoucher">
         %{--<g:hiddenField name="studentId" id="studentId"/>--}%
         %{--<g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>--}%
+            <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
             <table class="inner" style="margin: auto;text-align: center; width: 70%">
                 <tr>
                     <td class="university-size-1-3"><p>Enter Roll Number :<span class="university-obligatory">*</span>
                     </p></td>
                     <td class="university-size-2-3"><g:textField name="rollNo" id="rollNo"
-                                                                 class="university-size-2-3"/></td>
+                                                                 class="university-size-2-3" required="true"
+                                                                 onkeypress="return isNumber(event)"/></td>
                 </tr>
 
                 <tr>
@@ -45,7 +47,7 @@
                         <g:select id="programDetail" name="programDetail"
                                   from="${feeType}" optionKey="id"
                                   optionValue="type" class="many-to-one university-size-2-3"
-                                  noSelection="['': 'Choose Type']"/>
+                                  noSelection="['': 'Choose Type']" required="required"/>
                     </td>
                 </tr>
                 <tr>
@@ -62,7 +64,7 @@
                         <g:select id="programDetail" name="programDetail"
                                   from="${feeType}" optionKey="id"
                                   optionValue="type" class="many-to-one university-size-2-3"
-                                  noSelection="['': 'Choose Term']"/>
+                                  noSelection="['': 'Choose Term']" required="required"/>
                     </td>
 
                 </tr>

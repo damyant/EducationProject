@@ -272,6 +272,7 @@ h3{
     text-align: center;
     margin: 5px auto;
     text-shadow: 4px 3px 2px #A68AA0;
+    text-transform: uppercase;
 }
 
 .radioInput{}
@@ -294,7 +295,6 @@ h3{
     margin-top: 10px;
 }
 #studentList{
-    border: solid 1px #BBBBBB;
     margin: auto;
     visibility: hidden;
 }
@@ -347,11 +347,17 @@ h3{
 
 fieldset.form {
     margin: 20px auto;
+    padding: 15px;
+    min-height: 240px;
 }
 
 fieldset.form,
 fieldset.buttons{
     margin-top: 10px;
+}
+
+h6 {
+    margin: 2px 4px;
 }
 
 /*copy of register.css*/

@@ -16,7 +16,7 @@
 <body>
 <div id="main">
     <fieldset>
-        <h3>Generate Fees Challan</h3>
+        <h3>Generate Fee Challan</h3>
         <g:if test="${params.rollNo == 'generated'}">
         <div class="message"><div class="university-status-message"><g:message code="rollNo.Generated.message"/></div>
         </div>
@@ -27,6 +27,7 @@
     <g:form id="generateFeeVoucher" name="generateFeeVoucher" controller="admin" action="generateFeeVoucher">
     %{--<g:hiddenField name="studentId" id="studentId"/>--}%
     %{--<g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>--}%
+        <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
         <table class="inner" style="margin: auto;text-align: center; width: 70%">
             <tr>
                 <td class="university-size-1-3">
@@ -34,7 +35,7 @@
                 </td>
                 <td class="university-size-2-3">
                     <g:textField name="rollNo" id="rollNo" class="university-size-2-3"
-                                 onkeypress="return isNumber(event)"/>
+                                 onkeypress="return isNumber(event)" required="true"/>
                 </td>
             </tr>
 
@@ -48,7 +49,7 @@
                         <g:select id="type" name="feeType"
                                   from="${feeType}" optionKey="id"
                                   optionValue="type" class="many-to-one university-size-2-3"
-                                  noSelection="['': 'Choose Type']"/>
+                                  noSelection="['': 'Choose Type']" required="required"/>
                 </td>
 
             </tr>

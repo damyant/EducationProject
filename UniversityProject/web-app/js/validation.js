@@ -2,7 +2,7 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-    $("#createStudyCenter,#studentRegister,#createCourse").validate({
+    $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee").validate({
 
         rules: {
 
@@ -198,18 +198,32 @@ function validate() {
 //            CreateNewFeeType
             feeAmountAtIDOL: {
                 required: true,
-                number: true,
-                greaterThan: '0'
+                number: true
             },
             feeAmountAtSC: {
                 required: true,
-                number: true,
-                greaterThan: '0'
+                number: true
             },
             lateFeeAmount: {
                 required: true,
                 number: true,
                 min: 0
+            },
+            examinationFee: {
+                required: true,
+                number: true
+            },
+            certificateFee: {
+                required: true,
+                number: true
+            },
+//            fee voucher
+            rollNo: {
+                required: true,
+                number: true
+            },
+            feeType: {
+                required: true
             }
 
         },
@@ -262,7 +276,9 @@ function validate() {
             noOfPapers: "please Enter Number of papers",
             marksPerPaper: "please Enter Passing Marks",
             totalCreditPoints: "Please Enter total Credit Points",
-            examinationCentreName: "Please Enter examination Centre Name"
+            examinationCentreName: "Please Enter examination Centre Name",
+            rollNo: "Please Enter a Roll Number",
+            feeType: "Please Select Fee type"
         },
         errorPlacement: function (error, element) {
             if (element.is("input:radio")) {
@@ -302,7 +318,7 @@ function isNumber(evt) {
 
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode > 48 && charCode < 57) || charCode == 8) {
+    if ((charCode > 47 && charCode < 58) || charCode == 8) {
         return true;
     }
     return false;
