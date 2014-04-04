@@ -1,5 +1,6 @@
 package com.university
 
+import examinationproject.FeeType
 import examinationproject.ProgramDetail
 import examinationproject.ProgramFee
 import examinationproject.Semester
@@ -16,7 +17,7 @@ class AdminController {
     def pdfRenderingService
     def studentRegistrationService
     def springSecurityService
-    @Secured(["ROLE_ADMIN","ROLE_STUDYCENTRE"])
+    @Secured(["ROLE_ADMIN","ROLE_STUDYCENTRE","ROLE_IDOL_USER"])
     def viewProvisionalStudents() {
 
         def studyCenterList=StudyCenter.findAll()
@@ -65,36 +66,56 @@ class AdminController {
         render stuList as JSON
     }
 
-    @Secured(["ROLE_ADMIN","ROLE_STUDYCENTRE"])
+    @Secured(["ROLE_IDOL_USER"])
     def feeVoucher={
+        def feeType = FeeType.list()
+        [feeType:feeType]
+    }
 
+
+    def examFeeVoucher = {
+        def feeType = FeeType.list()
+
+        [feeType:feeType]
     }
 
     def generateFeeVoucher={
 
         def student = Student.findByRollNo(params.rollNo)
+
+        if(!(student.studyCentre[0].centerCode=="11111")){
+        redirect(action: "feeVoucher",params:[error:"error"])
+        }
         def studyCentreType
         def semesterID = student.semester
-        def semester = Semester.findById(semesterID)
         def program= student.programDetail
-        def studyCenter = student.studyCentre
         def currentUser
         def role
         if(springSecurityService.isLoggedIn()){
             currentUser= springSecurityService.currentUser
             role = springSecurityService.getPrincipal().getAuthorities()[0]
-            println("Current user Role is "+role)
     }
-        if(role=="ROLE_ADMIN"){
-            studyCentreType="IDOL"
-        }else{
-            studyCentreType="ST"
+
+        def feeTypeId =Integer.parseInt(params.feeType)
+        def feeType = FeeType.findById(feeTypeId)
+        def programFee = ProgramFee.findByProgramDetail(program)
+        def programFeeAmount
+        if(role=="ROLE_IDOL_USER"){
+            switch(feeTypeId){
+                case 1:
+                    programFeeAmount = programFee.feeAmountAtIDOL
+                    break;
+                case 2:
+                    programFeeAmount = programFee.examinationFee
+                    break;
+                case 3:
+                    programFeeAmount = programFee.certificateFee
+                    break;
+            }
+
         }
 
-
-        def programFee = ProgramFee.findByProgramDetailAndSemesterAndStudyCentreType(program,semester,studyCentreType,[s:'s'])
-        println("Program Fee Amount"+programFee)
-        def args = [template:"feeVoucher", model:[student:student, programFee:programFee]]
+        def args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
         pdfRenderingService.render(args+[controller:this],response)
 
     }

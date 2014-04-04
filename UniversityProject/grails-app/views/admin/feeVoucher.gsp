@@ -23,11 +23,37 @@
         %{--<g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>--}%
         <table class="inner" style="margin: auto;">
             <tr>
-               <td>Enter Roll No.:</td><td><g:textField name="rollNo" id="rollNo"/></td>
+               <td>Enter Roll No.:</td><td><g:textField name="rollNo" id="rollNo" class="university-size-1-2"/></td>
+            </tr>
+
+            <tr><td>
+            <div class="university-size-1-3"><label for="programDetail">
+            <g:message code="programFee.programDetail.label" default="Program Name"/><span
+                    class="required-indicator">*</span>
+        </label>
+        </div>
+                </td>
+        <td>
+
+
+            <g:if test="${params.error=="error"}">
+                Roll Number does Not belongs to IDOL
+
+            </g:if>
+        <div class="university-size-2-3">
+            <g:select id="type" name="feeType"
+                      from="${feeType}" optionKey="id"
+                      optionValue="type" class="many-to-one university-size-1-2"
+                      noSelection="['': 'Choose Type']"/>
+        </div>
+        </td>
+
             </tr>
 
             <tr><td><g:submitButton name="submit" value="Submit"></g:submitButton></td></tr>
         </table>
+
+
 
         <table id="studentList" class="inner university-table-1-3">
             <thead></thead>

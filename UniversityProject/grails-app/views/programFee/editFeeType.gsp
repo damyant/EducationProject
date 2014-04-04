@@ -80,6 +80,34 @@
                         </div>
                     </div>
 
+                    <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">
+                        <div class="university-size-1-3">
+                            <label for="examinationFee">
+                                <g:message code="programFee.examinationFee.label" default="Examination Fee"/>
+                                <span class="required-indicator">*</span>
+                            </label>
+                        </div>
+
+                        <div class="university-size-2-3">
+                            <g:textField name="examinationFee" class="university-size-1-2" type="number"
+                                         value="${programFeeInstance.examinationFee}" required=""/>
+                        </div>
+                    </div>
+
+                    <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">
+                        <div class="university-size-1-3">
+                            <label for="certificateFee">
+                                <g:message code="programFee.certificateFee.label" default="Certificate Fee"/>
+                                <span class="required-indicator">*</span>
+                            </label>
+                        </div>
+
+                        <div class="university-size-2-3">
+                            <g:textField name="certificateFee" class="university-size-1-2" type="number"
+                                         value="${programFeeInstance.certificateFee}" required=""/>
+                        </div>
+                    </div>
+
                     <div class="fieldcontain">
                         <div class="university-size-1-3"></div>
 
