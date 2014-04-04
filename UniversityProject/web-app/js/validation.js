@@ -302,10 +302,10 @@ function isNumber(evt) {
 
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        return false;
+    if ((charCode > 48 && charCode < 57) || charCode == 8) {
+        return true;
     }
-    return true;
+    return false;
 }
 function onlyAlphabets(e, t) {
     try {
@@ -318,7 +318,7 @@ function onlyAlphabets(e, t) {
         else {
             return true;
         }
-        if (charCode == 32 || charCode == 46 || charCode == 45 || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+        if (charCode == 8 || charCode == 32 || charCode == 46 || charCode == 45 || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
             return true;
         else
             return false;
@@ -331,7 +331,7 @@ function onlyAlphabets(e, t) {
 function isAlphaNumeric(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (((charCode > 48 && charCode < 57) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
+    if ((charCode == 8 || (charCode > 48 && charCode < 57) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
         return true;
     }
     return false;

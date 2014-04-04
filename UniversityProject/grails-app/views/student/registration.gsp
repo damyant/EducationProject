@@ -38,15 +38,15 @@
 </tr>
 <!----- First Name ---------------------------------------------------------->
 <tr>
-    <td>Name of the applicant <span>*</span></td>
+    <td>Name of the applicant :<span class="university-obligatory">*</span></td>
     <td><input type="text" name="name" style="text-transform:uppercase" onkeypress="return onlyAlphabets(event, this);"
-               maxlength="30" class="university-size-1-2"/>
+               maxlength="50" class="university-size-1-2"/>
 
     </td>
 </tr>
 <!----- Date Of Birth -------------------------------------------------------->
 <tr>
-    <td>Date of Birth <span>*</span></td>
+    <td>Date of Birth :<span class="university-obligatory">*</span></td>
 
 
 
@@ -57,7 +57,7 @@
 
 <!----- Last Name ---------------------------------------------------------->
 <tr>
-    <td>Program <span>*</span></td>
+    <td>Program :<span class="university-obligatory">*</span></td>
     %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
     <td>
         <g:select name="programDetail" id="programDetail" optionKey="id" class="university-size-1-2"
@@ -67,7 +67,7 @@
 </tr>
 <!----- category ----------------------------------------------------------->
 <tr>
-    <td>Category <span>*</span></td>
+    <td>Category :<span class="university-obligatory">*</span></td>
     <td>
         <div class="radio_options">
             <label><span>General</span><input type="radio" name="category" value="General" class="radioInput"/></label>
@@ -90,7 +90,7 @@
 
 <!----- Nationality ----------------------------------------------------------->
 <tr>
-    <td>Nationality <span>*</span></td>
+    <td>Nationality :<span class="university-obligatory">*</span></td>
     <td>
         <div class="radio_options">
             <label><span>Indian</span><input type="radio" name="nationality" value="Indian" class="radioInput"/></label>
@@ -114,7 +114,7 @@
 
 <!----- Gender ----------------------------------------------------------->
 <tr>
-    <td>Gender <span>*</span></td>
+    <td>Gender :<span class="university-obligatory">*</span></td>
     <td>
         <div class="radio_options">
             <label><span>Male</span><input type="radio" name="gender" value="Male" class="radioInput"/></label>
@@ -124,7 +124,7 @@
 </tr>
 <!----- State of Domicile ----------------------------------------------------------->
 <tr>
-    <td>State of Domicile <span>*</span></td>
+    <td>State of Domicile :<span class="university-obligatory">*</span></td>
     <td>
         <div class="radio_options">
             <label><span>Assam</span><input type="radio" name="state" value="Assam" class="radioInput"/></label>
@@ -135,7 +135,7 @@
 
 <tr>
     <!----- Mobile Number ---------------------------------------------------------->
-    <td>Mobile Number <span>*</span></td>
+    <td>Mobile Number :<span class="university-obligatory">*</span></td>
     <td>
         <input type="text" id="mobileNoCntryCode" name="mobileNoCntryCode" maxlength="3" value="+91" readonly> - <input
             type="text" id="mobileNo" name="mobileNo" maxlength="10"
@@ -145,7 +145,7 @@
 <tr>
 
     <!----- Contact centre/study centre ---------------------------------------------------------->
-    <td>Study centre <span>*</span></td>
+    <td>Study centre :<span class="university-obligatory">*</span></td>
     <td>
         <input type="text" name="studyCentre" class="university-size-1-2" value="${studyCentre?.name}" readonly/>
 
@@ -155,7 +155,7 @@
 </tr>
 <tr>
     <!----- Preference of examination centre ---------------------------------------------------------->
-    <td>Select Preference of examination centre <span>*</span></td>
+    <td>Select Preference of examination centre :<span class="university-obligatory">*</span></td>
     <td>
         %{--<input type="text" name="preference" maxlength="2" class="textInput" required="true" onkeypress="return isNumber(event)"/>--}%
 
@@ -254,7 +254,8 @@
 <tr>
     <td colspan="2">
         <label id="declaration-label"><input type="checkbox" id="declaration" name="declaration"/>
-            I hereby declare that the information as indicated above is true to the best of my knowledge.<span>*</span>
+            I hereby declare that the information as indicated above is true to the best of my knowledge. :<span
+                class="university-obligatory">*</span>
         </label>
     </td>
 </tr>
