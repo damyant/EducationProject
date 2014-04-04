@@ -15,7 +15,7 @@
 
 <body>
 <div id="main">
-    <fieldset style="margin-bottom: 7px;">
+    <fieldset class="form">
         <h3>Exam Fee Challan</h3>
         <g:if test="${params.rollNo == 'generated'}">
             <div class="message"><div class="university-status-message"><g:message
