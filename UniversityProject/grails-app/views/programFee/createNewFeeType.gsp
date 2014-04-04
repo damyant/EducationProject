@@ -8,6 +8,7 @@
 
 <body>
 <div id="main">
+
 <div id="create-programFee" class="content scaffold-create" role="main">
     <h3><g:message code="default.create.Program.Fee"/></h3>
     <g:if test="${flash.message}">
@@ -22,6 +23,7 @@
         </ul>
     </g:hasErrors>
     <g:form url="[resource: programFeeInstance, action: 'save']">
+        <div class="university-">* obligatory fields</div>
         <fieldset class="form">
             <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} university-size-1-1">
         <div class="university-size-1-3"><label for="programDetail">

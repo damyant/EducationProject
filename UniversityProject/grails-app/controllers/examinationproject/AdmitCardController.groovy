@@ -25,6 +25,10 @@ class AdmitCardController {
 
     }
     def bulkCreationOfAdmitCard ={
+        def programList = ProgramDetail.list()
+        def studyCentreList = StudyCenter.list()
+        def examinationCentre = ExaminationCentre.list()
+        [programList: programList, studyCentreList: studyCentreList, examinationCentre: examinationCentre]
     }
 
     def getSemesterList={

@@ -7,11 +7,13 @@
     margin: 0px auto 20px;
     padding: 25px 25px 10px; width:90%;
     min-height: 300px;
+
 }
 
 /*table*/
 body{
     width:100%;
+
 }
 
 .university-table-1-2 td{
@@ -85,6 +87,30 @@ body{
     vertical-align:top;
     height:2em;
 }
+
+.university-List-View {
+    height: 235px;
+    width: 95%;
+    margin: 5px auto;
+    border: 1px solid #000;
+}
+
+.university-scrollable-y {
+    overflow-y: auto;
+}
+
+.university-scrollable-x {
+    overflow-x: auto;
+}
+
+.university-left-right-margin {
+    margin: auto 10px;
+}
+
+.university-left-margin {
+    margin-left: 10px;
+}
+
 /* For Validation*/
 input.error, select.error{
     border: #cd0a0a solid 1px;
@@ -235,7 +261,7 @@ h3{
     color:black;
     text-align: center;
     margin: 5px auto;
-    text-shadow: 4px 3px 5px #A68AA3;
+    text-shadow: 4px 3px 2px #fff, 6px 5px 2px #A68AA0;
 }
 
 .radioInput{}
@@ -253,7 +279,6 @@ h3{
 
 #papers{
     margin-top: 10px;
-
 }
 #image{
     margin-top: 10px;

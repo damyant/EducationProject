@@ -103,12 +103,12 @@ function showExamCentreList() {
     var data = $('#city').val();
     $.ajax({
         type: "post",
-        url: url('examinationCenter', 'getCentreList', ''),
+        url: url('examinationCenter', 'getExamCentreList', ''),
         data: {data: data},
         success: function (data) {
-            $("#examCenterList").empty().append('data <option value="">Select Examination Center</option>')
-            for (var i = 1; i <= data.length(); i++) {
-                $("#examCenterList").append('<option value="' + data[i].centreCode + '">' + data[i].name + '</option>')
+            $("#examCenterList").empty().append('data <option value="">Select Examination Venue</option>')
+            for (var i = 0; i < data.name.length; i++) {
+                $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
