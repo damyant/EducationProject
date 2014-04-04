@@ -16,7 +16,7 @@ function validate() {
             city: "required",
             centerCode: {
                 required: true,
-                number: true
+                alphanumeric: true
             },
             nameOfHeadIns: {
                 required: true,
@@ -290,15 +290,9 @@ function validate() {
         },
         $.format("Please larger value.")
     );
-    $.validator.addMethod("greaterThan", function (value, element) {
-        var $min = $(param);
-        if (this.settings.onfocusout) {
-            $min.off(".validate-greaterThan").on("blur.validate-greaterThan", function () {
-                $(element).valid();
-            });
-        }
-        return parseInt(value) > parseInt($min.val());
-    }, "Max must be greater than min");
+    $.validator.addMethod("alphanumeric", function (value, element) {
+        return this.optional(element) || /^[a-z0-9\-]+$/i.test(value);
+    }, "Username must contain only letters, numbers, or dashes.");
 
 
 }
@@ -332,4 +326,13 @@ function onlyAlphabets(e, t) {
     catch (err) {
         alert(err.Description);
     }
+}
+
+function isAlphaNumeric(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (((charCode > 48 && charCode < 57) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
+        return true;
+    }
+    return false;
 }

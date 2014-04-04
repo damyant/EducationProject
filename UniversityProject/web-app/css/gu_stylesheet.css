@@ -100,6 +100,11 @@ body{
     margin-left: 15px;
 }
 
+.university-obligatory {
+    color: red;
+    font-size: 10px;
+}
+
 .university-scrollable-y {
     overflow-y: auto;
 }

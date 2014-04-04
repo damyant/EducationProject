@@ -128,7 +128,7 @@
                 </tr>
                 <tr>
                     <td><label><g:message code="default.createStudy.centerCode"/> <span>*</span></label></td>
-                    <td><input type="text" name="centerCode" onkeypress="return isNumber(event)"
+                    <td><input type="text" name="centerCode" onkeypress="return isAlphaNumeric(event)"
                                value="${studyCentreInstance?.centerCode}" maxlength=""
                                class="university-size-1-3"/></td>
                 </tr>
