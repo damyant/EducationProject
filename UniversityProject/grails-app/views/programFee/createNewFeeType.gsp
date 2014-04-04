@@ -23,7 +23,7 @@
         </ul>
     </g:hasErrors>
     <g:form url="[resource: programFeeInstance, action: 'save']">
-        <div class="university-">* obligatory fields</div>
+        <div class="university-obligatory-fields">* obligatory fields</div>
         <fieldset class="form">
             <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} university-size-1-1">
         <div class="university-size-1-3"><label for="programDetail">
@@ -50,7 +50,8 @@
 
             <div class="university-size-2-3">
                 <g:textField name="feeAmountAtIDOL" class="university-size-1-2" type="number"
-                             value="${programFeeInstance.feeAmountAtIDOL}" required=""/>
+                             value="${programFeeInstance?.feeAmountAtIDOL}" onclick="this.value = ''"
+                             onkeypress="return isNumber(event)"/>
             </div>
         </div>
 
@@ -63,8 +64,11 @@
                     </div>
 
             <div class="university-size-2-3">
-                <g:textField name="feeAmountAtSC" class="university-size-1-2" type="number"
-                             value="${programFeeInstance.feeAmountAtSC}" required=""/>
+                <g:textField name="feeAmountAtSC"
+                             class="university-size-1-2 validate[required,custom[number],minSize[1],maxSize[10]]"
+                             type="number"
+                             value="${programFeeInstance?.feeAmountAtSC}" onclick="this.value = ''"
+                             onkeypress="return isNumber(event)"/>
             </div>
         </div>
 
@@ -77,8 +81,11 @@
                     </div>
 
             <div class="university-size-2-3">
-                <g:textField name="lateFeeAmount" class="university-size-1-2" type="number"
-                             value="${programFeeInstance.lateFeeAmount}" required=""/>
+                <g:textField name="lateFeeAmount"
+                             class="university-size-1-2 validate[required,custom[number],minSize[1],maxSize[10]]"
+                             type="number"
+                             value="${programFeeInstance?.lateFeeAmount}" onclick="this.value = ''"
+                             onkeypress="return isNumber(event)"/>
             </div>
         </div>
 
@@ -93,7 +100,6 @@
                                                       class="save university-button"
                                                       value="${message(code: 'default.button.cancel', default: 'Cancel')}"/></g:link>
             </div>
-        </div>
         </div>
     </fieldset>
     </g:form>

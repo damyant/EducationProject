@@ -23,7 +23,8 @@
         %{--<g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>--}%
         <table class="inner" style="margin: auto;">
             <tr>
-               <td>Enter Roll No.:</td><td><g:textField name="rollNo" id="rollNo"/></td>
+                <td>Enter Roll No.:</td><td><g:textField name="rollNo" id="rollNo"
+                                                         onkeypress="return isNumber(event)"/></td>
             </tr>
 
             <tr><td><g:submitButton name="submit" value="Submit"></g:submitButton></td></tr>

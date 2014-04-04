@@ -18,13 +18,13 @@
 <body>
 <div id="main">
     <div class="university-location-select">
-        <div class="university-label-location-select">Select The District:</div>
+        <div class="university-label-location-select">Select District:</div>
         <g:select name="districtList" id="district" optionKey="id" optionValue="districtName"
                   noSelection="['null': ' Select District']" from="${District.findAll()}" onchange="showCityList()"/>
     </div>
 
     <div id="cityList" class="university-location-select">
-        <div class="university-label-location-select">Select the city:</div>
+        <div class="university-label-location-select">Select City:</div>
         <g:select name="cityLocationList" id="city" optionKey="id" optionValue="cityName"
                   noSelection="['null': ' Select City']" from="" onchange="showStudyCenterList()"/>
         <input type="hidden" value="${params.type}" id="ParameterType"/>

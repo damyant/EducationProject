@@ -135,7 +135,7 @@
 
 <tr>
     <!----- Mobile Number ---------------------------------------------------------->
-    <td>Contact Mobile Number <span>*</span></td>
+    <td>Mobile Number <span>*</span></td>
     <td>
         <input type="text" id="mobileNoCntryCode" name="mobileNoCntryCode" maxlength="3" value="+91" readonly> - <input
             type="text" id="mobileNo" name="mobileNo" maxlength="10"
@@ -199,7 +199,7 @@
 
 <!----- Address ---------------------------------------------------------->
 <tr>
-    <td>Candidate Name & Complete Mailing Address<br/><br/><br/></td>
+    <td>Complete Mailing Address of Candidate<br/><br/><br/></td>
     <td>
         <table style="width: 100%" id="examCenterAddress">
             <tr>

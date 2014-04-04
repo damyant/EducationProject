@@ -90,7 +90,7 @@
 
             <g:else>
                 <tr>
-                    <td><label><g:message code="default.createStudy.nameOfCenter"/></label></td>
+                    <td><label><g:message code="default.createStudy.nameOfCenter"/><span>*</span></label></td>
                     <td>
                         <input type="text" name="name" id="name" value="${studyCentreInstance?.name}"
                                class="university-size-1-3" onkeypress="return onlyAlphabets(event, this);"/>
@@ -172,13 +172,37 @@
                                value="${studyCentreInstance?.emailIdOfCoordinator}" class="university-size-1-3"/></td>
                 </tr>
                 <tr>
-                    <td><input type="hidden" value="${studyCentreInstance?.id}" name="studyCenterId">
+                    <td><label><g:message code="default.createStudy.nameOfAsstCoordinator"/> <span>*</span></label></td>
+                    <td><input type="text" name="nameOfAsstCoordinator" onkeypress="return onlyAlphabets(event, this);"
+                               value="${studyCentreInstance?.nameOfAsstCoordinator}"
+                               class="university-size-1-3"/></td>
+                </tr>
+                <tr>
+                    <td><label><g:message code="default.createStudy.phoneNoOfAsstCoordinator"/> <span>*</span></label>
+                    </td>
+                    <td><input type="text" name="phoneNoOfAsstCoordinator"
+                               value="${studyCentreInstance?.phoneNoOfAsstCoordinator}" class="university-size-1-3"
+                               maxlength="10" onkeypress="return isNumber(event)"/></td>
+                </tr>
+                <tr>
+                    <td><label><g:message code="default.createStudy.emailIdOfAsstCoordinator"/> <span>*</span></label>
+                    </td>
+                    <td><input type="email" name="emailIdOfAsstCoordinator"
+                               value="${studyCentreInstance?.emailIdOfAsstCoordinator}" class="university-size-1-3"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input type="hidden" value="${studyCentreInstance?.id}" name="studyCenterId">
                         <input type="submit" value="<g:if test="${params.type != 'edit'}"><g:message
                                 code="default.button.create"/></g:if><g:else><g:message
                                 code="default.button.save"/></g:else>" class="university-button" onclick="validate()">
-                    </td>
-                    <td><g:if test="${params.status != 'updated'}"><input type="button" value="<g:message
-                            code="default.button.clear"/>" class="university-button"></g:if> <g:else><input
+
+
+                        <g:if test="${params.status != 'updated'}"><input type="button" value="<g:message
+                                code="default.button.clear"/>" class="university-button"></g:if> <g:else><input
                             type="button" value="<g:message code="default.button.clear"/>" class="university-button"
                             disabled></g:else></td>
                 </tr>

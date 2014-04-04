@@ -82,13 +82,15 @@
             </table>
         </div>
 
-        <div class="" style="margin: 10px auto;width:94%;text-align: center; border: 1px solid; padding: 0.5%">
+        <div class=""
+             style="margin: 10px auto;width:94%;text-align: center; border: 1px solid; padding: 0.5%;border-radius: 2px;">
 
             <label class="university-left-right-margin"><strong>Print</strong></label>
             <label class="university-left-margin">from</label>
-            <input type="text" value="0" width="7" onclick="this.value = ''">
+            <input type="text" value="0" width="7" onclick="this.value = ''" onkeypress="return isNumber(event)">
             <label class="university-left-right-margin">to</label>
-            <input type="text" class="university-left-right-margin" value="0" width="7" onclick="this.value = ''">
+            <input type="text" class="university-left-right-margin" value="0" width="7" onclick="this.value = ''"
+                   onkeypress="return isNumber(event)">
             <label class="university-left-margin">OR</label>
             <label class="university-left-right-margin">All</label>
             <input type="checkbox" id="ck"/>

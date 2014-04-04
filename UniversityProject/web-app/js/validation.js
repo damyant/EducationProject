@@ -48,6 +48,20 @@ function validate() {
                 minlength: 10,
                 number: true
             },
+            nameOfAsstCoordinator: {
+                required: true,
+                textonly: true
+            },
+            phoneNoOfAsstCoordinator: {
+                required: true,
+                minlength: 10,
+                number: true
+            },
+            emailIdOfAsstCoordinator: {
+                required: true,
+                email: true
+            },
+
 //            Study Center
 
 //            Student Enroll
@@ -178,19 +192,41 @@ function validate() {
             examinationCentreName: {
                 required: true,
                 textonly: true
+            },
+
+
+//            CreateNewFeeType
+            feeAmountAtIDOL: {
+                required: true,
+                number: true,
+                greaterThan: '0'
+            },
+            feeAmountAtSC: {
+                required: true,
+                number: true,
+                greaterThan: '0'
+            },
+            lateFeeAmount: {
+                required: true,
+                number: true,
+                min: 0
             }
+
         },
         messages: {
             name: "Please enter study center name.",
             address: "Please enter study center address.",
             district: "Please select district of study center.",
             city: "Please select city of study center.",
-            nameOfHeadIns: "Please enter name of the Head of the Institute.",
-            phoneNoOfHeadIns: "Please enter Phone Number of the Head of the Institute.",
-            emailIdOfHeadIns: "Please enter email of the Head of the Institute.",
+            nameOfHeadIns: "Please enter name of the Principal.",
+            phoneNoOfHeadIns: "Please enter Contact No of Principal.",
+            emailIdOfHeadIns: "Please enter email of Principal.",
             nameOfCoordinator: "Please enter Name of Coordinator.",
-            phoneNoOfCoordinator: "Please enter Phone Number of Coordinator.",
+            phoneNoOfCoordinator: "Please enter Phone No of Coordinator.",
             emailIdOfCoordinator: "Please enter Email of Coordinator.",
+            nameOfAsstCoordinator: "Please enter Name of Asst. Coordinator.",
+            phoneNoOfAsstCoordinator: "Please enter Phone No of Asst. Coordinator.",
+            emailIdOfAsstCoordinator: "Please enter Email of Asst. Coordinator.",
             websiteUrl: "Please enter website url",
             nameOfApplicant: "Please enter Name of an Applicant",
             date_of_birth: "Please Enter Date of birth",
@@ -249,8 +285,24 @@ function validate() {
         },
         jQuery.format("Please only enter letters, spaces, periods, or hyphens.")
     );
+    $.validator.addMethod('minStrict', function (value, element, param) {
+            return value > param;
+        },
+        $.format("Please larger value.")
+    );
+    $.validator.addMethod("greaterThan", function (value, element) {
+        var $min = $(param);
+        if (this.settings.onfocusout) {
+            $min.off(".validate-greaterThan").on("blur.validate-greaterThan", function () {
+                $(element).valid();
+            });
+        }
+        return parseInt(value) > parseInt($min.val());
+    }, "Max must be greater than min");
+
 
 }
+
 
 function isNumber(evt) {
 
