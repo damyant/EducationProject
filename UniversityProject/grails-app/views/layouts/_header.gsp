@@ -126,9 +126,7 @@
                 <ul>
                     <li><g:link controller="admin" action="viewProvisionalStudents"><g:message
                             code="default.mainMenu6.subMenu1"/></g:link></li>
-                    <li><g:link controller="admin"
-                                action="feeVoucher"><g:message
-                                code="default.mainMenu6.subMenu2"/></g:link></li>
+
                     <li><g:link controller="admin"
                                 action="viewApprovedStudents"><g:message
                                 code="default.mainMenu6.subMenu3"/></g:link></li>
@@ -146,6 +144,18 @@
                 </ul>
 
             </li>
+        <li><a href="#"><g:message code="default.mainMenu7"/></a>
+            <ul>
+                <li><g:link controller="admin"
+                            action="feeVoucher"><g:message
+                            code="default.mainMenu6.subMenu9"/></g:link></li>
+                <li><g:link controller="admin"
+                            action="examFeeVoucher"><g:message
+                            code="default.mainMenu6.subMenu8"/></g:link></li>
+
+
+            </ul>
+        </li>
 
 
         </ul>

@@ -39,7 +39,7 @@
             </td>
             <td style="width: 10%"></td>
         </sec:ifAnyGranted>
-     <sec:ifAnyGranted roles="ROLE_STUDYCENTRE">
+     <sec:ifAnyGranted roles="ROLE_STUDYCENTRE,ROLE_IDOL_USER">
          <td style="min-width: 10%">
              <label for="programId">Select Program</label>
          </td>

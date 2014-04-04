@@ -20,8 +20,8 @@
         <table width="100%" class="university-table-1-2">
             <tr><td><lable>Name:</lable></td><td><label>${student?.name}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
-            <tr><td>Type Of Fee:</td><td>M.Sc-IT 1st Semester Fees</td></tr>
-            <tr><td><lable>Amount:</lable></td><td><label>${programFee?.feeAmount}</label></td></tr>
+            <tr><td>Type Of Fee:</td><td>${programFee?.programDetail?.courseName} ${feeType?.type}</td></tr>
+            <tr><td><lable>Amount:</lable></td><td><label>${programFeeAmount}</label></td></tr>
 
             <tr><td style="vertical-align: bottom;">${new Date()}</td><td
                     style="vertical-align: bottom;height: 63px;"><div
@@ -50,8 +50,8 @@
         <table width="100%" class="university-table-1-2">
             <tr><td><lable>Name:</lable></td><td><label>${student?.name}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
-            <tr><td>Type Of Fee:</td><td>M.Sc-IT 1st Semester Fees</td></tr>
-            <tr><td><lable>Amount:</lable></td><td><label>${programFee?.feeAmount}</label></td></tr>
+            <tr><td>Type Of Fee:</td><td>${programFee?.programDetail?.courseName} ${feeType?.type}</td></tr>
+            <tr><td><lable>Amount:</lable></td><td><label>${programFeeAmount}</label></td></tr>
 
             <tr><td style="vertical-align: bottom;">${new Date()}</td><td
                     style="vertical-align: bottom;height: 63px;"><div
@@ -80,8 +80,8 @@
         <table width="100%" class="university-table-1-2">
             <tr><td><lable>Name:</lable></td><td><label>${student?.name}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
-            <tr><td>Type Of Fee:</td><td>M.Sc-IT 1st Semester Fees</td></tr>
-            <tr><td><lable>Amount:</lable></td><td><label>${programFee?.feeAmount}</label></td></tr>
+            <tr><td>Type Of Fee:</td><td>${programFee?.programDetail?.courseName} ${feeType?.type}</td></tr>
+            <tr><td><lable>Amount:</lable></td><td><label>${programFeeAmount}</label></td></tr>
 
             <tr><td style="vertical-align: bottom;">${new Date()}</td><td
                     style="vertical-align: bottom;height: 63px;"><div
