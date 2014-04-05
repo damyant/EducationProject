@@ -88,11 +88,29 @@ body{
     height:2em;
 }
 
+.university-button-small {
+    border-radius: 0;
+    padding: .1em 7px;
+    vertical-align: top;
+    height: 2em;
+    font-size: 11px;
+}
+
 .university-List-View {
     height: 235px;
     width: 95%;
     margin: 5px auto;
     border: 1px solid #000;
+    border-radius: 2px;
+}
+
+.university-obligatory-fields {
+    margin-left: 15px;
+}
+
+.university-obligatory {
+    color: red;
+    font-size: 10px;
 }
 
 .university-scrollable-y {
@@ -261,7 +279,8 @@ h3{
     color:black;
     text-align: center;
     margin: 5px auto;
-    text-shadow: 4px 3px 2px #fff, 6px 5px 2px #A68AA0;
+    text-shadow: 4px 3px 2px #A68AA0;
+    text-transform: uppercase;
 }
 
 .radioInput{}
@@ -284,7 +303,6 @@ h3{
     margin-top: 10px;
 }
 #studentList{
-    border: solid 1px #BBBBBB;
     margin: auto;
     visibility: hidden;
 }
@@ -337,11 +355,17 @@ h3{
 
 fieldset.form {
     margin: 20px auto;
+    padding: 15px;
+    min-height: 240px;
 }
 
 fieldset.form,
 fieldset.buttons{
     margin-top: 10px;
+}
+
+h6 {
+    margin: 2px 4px;
 }
 
 /*copy of register.css*/

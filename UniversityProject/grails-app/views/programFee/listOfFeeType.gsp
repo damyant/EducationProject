@@ -9,28 +9,33 @@
 	</head>
 	<body>
     <div id="main">
-        <div id="list-programFee" class="content scaffold-list" role="main">
-            <h3><g:message code="default.list.program.fee"/></h3>
+        <fieldset class="form">
+            <div id="list-programFee" class="content scaffold-list" role="main">
+                <h3><g:message code="default.list.program.fee"/></h3>
             <g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-            <table class="university-table-1-5">
-                <thead>
-					<tr>
+                <table class="university-table-1-5 inner" style="margin: auto;width: 100%;">
+                    <thead>
+                    <tr>
 					
 						<th><g:message code="programFee.programDetail.label" default="Program Detail" /></th>
-					
-						<g:sortableColumn property="feeAmountAtIDOL" title="${message(code: 'programFee.feeAmountAtIDOL.label', default: 'Fee Amount At IDOL')}" />
-					
-						<g:sortableColumn property="feeAmountAtSC" title="${message(code: 'programFee.feeAmountAtSC.label', default: 'Fee Amount At SC')}" />
-					
-						<g:sortableColumn property="lateFeeAmount" title="${message(code: 'programFee.lateFeeAmount.label', default: 'Late Fee Amount')}" />
+
+                        <g:sortableColumn property="feeAmountAtIDOL"
+                                          title="${message(code: 'programFee.feeAmountAtIDOL.label', default: 'Fee Amount At IDOL')}"/>
+
+                        <g:sortableColumn property="feeAmountAtSC"
+                                          title="${message(code: 'programFee.feeAmountAtSC.label', default: 'Fee Amount At SC')}"/>
+
+                        <g:sortableColumn property="lateFeeAmount"
+                                          title="${message(code: 'programFee.lateFeeAmount.label', default: 'Late Fee Amount')}"/>
 
                         <th></th>
 					
 					</tr>
 				</thead>
 				<tbody>
+                <g:if test="${programFeeInstanceList}">
 				<g:each in="${programFeeInstanceList}" status="i" var="programFeeInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
@@ -53,12 +58,21 @@
 
                     </tr>
 				</g:each>
+                </g:if>
+                <g:else>
+                    <tr>
+                        <td colspan="5" style="text-align: center;">
+                            <label><h5>No Existing Fees Type.</h5></label>
+                        </td>
+                    </tr>
+                </g:else>
 				</tbody>
 			</table>
 			<div class="pagination">
 				<g:paginate total="${programFeeInstanceCount ?: 0}" />
 			</div>
 		</div>
+        </fieldset>
     </div>
     </body>
 </html>

@@ -29,7 +29,8 @@
 </head>
 <body>
 <div id="main">
-    <g:if test="${flash.message}">
+    <fieldset class="form">
+        <g:if test="${flash.message}">
         <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>
 
@@ -37,47 +38,49 @@
 
     <g:form  method="post" name="createCourse" id="createCourse">
         <g:hiddenField name="courseId" id="courseId" />
-        <table class="university-table">
+        <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
+        <table class="university-table inner" border="0">
             <tr>
-                <td style="width: 40%"><label>Course Name</label></td>
+                <td style="width: 40%"><label>Course Name :<span class="university-obligatory">*</span></label></td>
                 <td style="width: 60%"><input type="text" id="courseName" name="courseName" maxlength="" class="university-size-1-2" onkeypress="return onlyAlphabets(event,this);"/></td>
             </tr>
             <tr>
-                <td><label> Select Mode </label></td>
+                <td><label>Select Mode :<span class="university-obligatory">*</span></label></td>
                 <td><g:select name="courseMode" id="modeName" optionKey="id" optionValue="modeName" class="university-size-1-2" from="${CourseMode.findAll()}" noSelection="['':' Select Mode']" /></td>
             </tr>
             <tr>
-                <td><label> Select Course Type </label></td>
+                <td><label>Select Course Type :<span class="university-obligatory">*</span></label></td>
                 <td><g:select name="courseType" id="courseTypeName" optionKey="id" optionValue="courseTypeName" class="university-size-1-2" from="${CourseType.findAll()}" noSelection="['':' Select Course Type']" /></td>
             </tr>
 
             <tr>
-                <td><label>Number of Terms/Semesters </label></td>
+                <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
                 <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)" onblur="semesterList()"/></td>
             </tr>
             <tr>
-                <td><label>Course Code</label></td>
+                <td><label>Course Code :<span class="university-obligatory">*</span></label></td>
                 <td><input type="text" id="courseCode" name="courseCode" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
-                <td><label>Number of maximum available academic year</label></td>
+                <td><label>Number of maximum available academic year :<span class="university-obligatory">*</span>
+                </label></td>
                 <td><input type="text" id="noOfAcademicYears" name="noOfAcademicYears" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
 
             <tr>
-                <td><label>	Number of papers</label></td>
+                <td><label>Number of papers :<span class="university-obligatory">*</span></label></td>
                 <td><input type="text" id="noOfPapers" name="noOfPapers" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
-                <td><label>Total Marks</label></td>
+                <td><label>Total Marks :<span class="university-obligatory">*</span></label></td>
                 <td><input type="text" id="totalMarks" name="totalMarks" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
-                <td><label>Pass Marks(per paper)</label></td>
+                <td><label>Pass Marks(per paper) :<span class="university-obligatory">*</span></label></td>
                 <td><input type="text" id="marksPerPaper" name="marksPerPaper" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
-                <td><label>Total Credit Points</label></td>
+                <td><label>Total Credit Points :<span class="university-obligatory">*</span></label></td>
                 <td><input type="text" id="totalCreditPoints" name="totalCreditPoints" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
@@ -90,11 +93,12 @@
                 </td>
             </tr>
             <tr>
-                <td><input type="button" id="submitForm" onclick="save();" value="<g:message code="default.button.create"/>" class="university-button"></td>
-                <td><input id="clear" onclick="clearField()" type="reset" value="<g:message code="default.button.clear"/>" class="university-button" ></td>
+                <td colspan="2" style="text-align: center"><input type="button" id="submitForm" onclick="save();" value="<g:message code="default.button.create"/>" class="university-button">
+                <input id="clear" onclick="clearField()" type="reset" value="<g:message code="default.button.clear"/>" class="university-button" ></td>
             </tr>
         </table>
     </g:form>
+    </fieldset>
 </div>
 </body>
 </html>

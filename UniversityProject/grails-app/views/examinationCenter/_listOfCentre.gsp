@@ -1,8 +1,8 @@
 <g:if test="${edit}">
-    <table id="centreListTable" class="university-table-1-7">
+    <table id="centreListTable" class="inner university-table-1-7" style="width: 98%;margin: 3px auto;">
 </g:if>
 <g:else>
-    <table id="centreListTable" class="university-table-1-6">
+    <table id="centreListTable" class="inner university-table-1-6" style="width: 98%;margin: 3px auto;">
 </g:else>
 <thead class='thclass'>
 <tr>
@@ -38,10 +38,10 @@
 
                 <g:link controller="examinationCenter" action="editExaminationCentre"
                         params="[id: examCentreListInstance.id]"><button value='update'
-                                                                         class="university-button actionButton">Update</button></g:link>
+                                                                         class="university-button-small actionButton">Update</button></g:link>
                 <g:link controller="examinationCenter" action="deleteCentre"
                         params="[id: examCentreListInstance.id]"><button value='Edit'
-                                                                         class="actionButton university-button"
+                                                                         class="university-button-small actionButton"
                                                                          onclick="return confirm('Are you sure you would like to delete this User?')">Delete</button></g:link>
 
             </td>

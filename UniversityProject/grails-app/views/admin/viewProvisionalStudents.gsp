@@ -15,6 +15,8 @@
 
 <body>
 <div id="main">
+    <fieldset class="form">
+    %{--<h3>Generate Roll Number</h3>--}%
     <g:if test="${params.rollNo=='generated'}">
         <div class="message"><div class="university-status-message"><g:message code="rollNo.Generated.message"/></div></div>
     </g:if>
@@ -58,6 +60,7 @@
 </table>
 </g:form>
 <div id="msg"></div>
+    </fieldset>
 </div>
 </body>
 </html>

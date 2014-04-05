@@ -2,7 +2,7 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-    $("#createStudyCenter,#studentRegister,#createCourse").validate({
+    $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee").validate({
 
         rules: {
 
@@ -16,7 +16,7 @@ function validate() {
             city: "required",
             centerCode: {
                 required: true,
-                number: true
+                alphanumeric: true
             },
             nameOfHeadIns: {
                 required: true,
@@ -48,6 +48,20 @@ function validate() {
                 minlength: 10,
                 number: true
             },
+            nameOfAsstCoordinator: {
+                required: true,
+                textonly: true
+            },
+            phoneNoOfAsstCoordinator: {
+                required: true,
+                minlength: 10,
+                number: true
+            },
+            emailIdOfAsstCoordinator: {
+                required: true,
+                email: true
+            },
+
 //            Study Center
 
 //            Student Enroll
@@ -178,19 +192,55 @@ function validate() {
             examinationCentreName: {
                 required: true,
                 textonly: true
+            },
+
+
+//            CreateNewFeeType
+            feeAmountAtIDOL: {
+                required: true,
+                number: true
+            },
+            feeAmountAtSC: {
+                required: true,
+                number: true
+            },
+            lateFeeAmount: {
+                required: true,
+                number: true,
+                min: 0
+            },
+            examinationFee: {
+                required: true,
+                number: true
+            },
+            certificateFee: {
+                required: true,
+                number: true
+            },
+//            fee voucher
+            rollNo: {
+                required: true,
+                number: true
+            },
+            feeType: {
+                required: true
             }
+
         },
         messages: {
             name: "Please enter study center name.",
             address: "Please enter study center address.",
             district: "Please select district of study center.",
             city: "Please select city of study center.",
-            nameOfHeadIns: "Please enter name of the Head of the Institute.",
-            phoneNoOfHeadIns: "Please enter Phone Number of the Head of the Institute.",
-            emailIdOfHeadIns: "Please enter email of the Head of the Institute.",
+            nameOfHeadIns: "Please enter name of the Principal.",
+            phoneNoOfHeadIns: "Please enter Contact No of Principal.",
+            emailIdOfHeadIns: "Please enter email of Principal.",
             nameOfCoordinator: "Please enter Name of Coordinator.",
-            phoneNoOfCoordinator: "Please enter Phone Number of Coordinator.",
+            phoneNoOfCoordinator: "Please enter Phone No of Coordinator.",
             emailIdOfCoordinator: "Please enter Email of Coordinator.",
+            nameOfAsstCoordinator: "Please enter Name of Asst. Coordinator.",
+            phoneNoOfAsstCoordinator: "Please enter Phone No of Asst. Coordinator.",
+            emailIdOfAsstCoordinator: "Please enter Email of Asst. Coordinator.",
             websiteUrl: "Please enter website url",
             nameOfApplicant: "Please enter Name of an Applicant",
             date_of_birth: "Please Enter Date of birth",
@@ -226,7 +276,9 @@ function validate() {
             noOfPapers: "please Enter Number of papers",
             marksPerPaper: "please Enter Passing Marks",
             totalCreditPoints: "Please Enter total Credit Points",
-            examinationCentreName: "Please Enter examination Centre Name"
+            examinationCentreName: "Please Enter examination Centre Name",
+            rollNo: "Please Enter a Roll Number",
+            feeType: "Please Select Fee type"
         },
         errorPlacement: function (error, element) {
             if (element.is("input:radio")) {
@@ -249,17 +301,27 @@ function validate() {
         },
         jQuery.format("Please only enter letters, spaces, periods, or hyphens.")
     );
+    $.validator.addMethod('minStrict', function (value, element, param) {
+            return value > param;
+        },
+        $.format("Please larger value.")
+    );
+    $.validator.addMethod("alphanumeric", function (value, element) {
+        return this.optional(element) || /^[a-z0-9\-]+$/i.test(value);
+    }, "Username must contain only letters, numbers, or dashes.");
+
 
 }
+
 
 function isNumber(evt) {
 
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        return false;
+    if ((charCode > 47 && charCode < 58) || charCode == 8) {
+        return true;
     }
-    return true;
+    return false;
 }
 function onlyAlphabets(e, t) {
     try {
@@ -272,7 +334,7 @@ function onlyAlphabets(e, t) {
         else {
             return true;
         }
-        if (charCode == 32 || charCode == 46 || charCode == 45 || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+        if (charCode == 8 || charCode == 32 || charCode == 46 || charCode == 45 || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
             return true;
         else
             return false;
@@ -280,4 +342,13 @@ function onlyAlphabets(e, t) {
     catch (err) {
         alert(err.Description);
     }
+}
+
+function isAlphaNumeric(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if ((charCode == 8 || (charCode > 48 && charCode < 57) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
+        return true;
+    }
+    return false;
 }

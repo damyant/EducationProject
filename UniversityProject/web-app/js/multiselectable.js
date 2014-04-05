@@ -4,26 +4,25 @@
 
 
 
-function  semesterList(){
+function semesterList() {
     $('#multiSelectTab tbody tr').remove()
-    for(var j=1;j<=$('#noOfTerms').val();j++){
-        $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Subjects</label><select style="width: 90%" name="allsubjectList'+j+'" id="allsubjectList'+j+'"  multiple="true"  /></td>'+
-            ' <td <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList('+j+')" name="add'+j+'"  id="add'+j+'">Add</button>'+
-            '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList('+j+')" name="remove'+j+'"  id="remove'+j+'">Remove</button> </td>'+
-            '<td <td style="width:40% "><select class="select-to" style="width: 90%"  name="semester'+j+'" id="semester'+j+'"  multiple="true"  /><div id="error-select-' + j + '"></div></td></tr>' )
+    for (var j = 1; j <= $('#noOfTerms').val(); j++) {
+        $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Subjects <span class="university-obligatory">*</span></label><select style="width: 90%" name="allsubjectList' + j + '" id="allsubjectList' + j + '"  multiple="true"  /></td>' +
+            ' <td <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList(' + j + ')" name="add' + j + '"  id="add' + j + '">Add</button>' +
+            '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList(' + j + ')" name="remove' + j + '"  id="remove' + j + '">Remove</button> </td>' +
+            '<td <td style="width:40% "><select class="select-to" style="width: 90%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  /><div id="error-select-' + j + '"></div></td></tr>')
 
-        if($('#modeName option:selected').text().toLowerCase()=="annual"){
-            $("<div>Term"+j+"</div>").insertBefore($('#semester'+j))
+        if ($('#modeName option:selected').text().toLowerCase() == "annual") {
+            $("<div>Term" + j + "</div>").insertBefore($('#semester' + j))
         }
-        else if(($('#modeName option:selected').text().toLowerCase()=="semester")){
-            $("<div>Semester"+j+"</div>").insertBefore($('#semester'+j))
+        else if (($('#modeName option:selected').text().toLowerCase() == "semester")) {
+            $("<div>Semester" + j + "</div>").insertBefore($('#semester' + j))
         }
 
 
+        for (var i = 0; i < subjectList.length; i++) {
 
-        for(var i=0;i<subjectList.length;i++){
-
-            $("#allsubjectList"+j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
+            $("#allsubjectList" + j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
         }
 
     }
@@ -31,12 +30,11 @@ function  semesterList(){
 }
 
 
-
-function  viewSemesterList(){
+function viewSemesterList() {
     $('#multiSelectTab tbody tr').remove()
-    for(var j=1;j<=$('#noOfTerms').html();j++){
-        $('#multiSelectTab tbody').append('<tr><td><label>Semester - ' +j+'</label>'+
-             '<td><select class="select-to" name="semester'+j+'" id="semester'+j+'"  multiple="true" /></td></tr>' )
+    for (var j = 1; j <= $('#noOfTerms').html(); j++) {
+        $('#multiSelectTab tbody').append('<tr><td><label>Semester - ' + j + '</label>' +
+            '<td><select class="select-to" name="semester' + j + '" id="semester' + j + '"  multiple="true" /></td></tr>')
 
 //        if($('#modeName option:selected').text().toLowerCase()=="annual"){
 //            $("<div>Term"+j+"</div>").insertBefore($('#semester'+j))
@@ -46,34 +44,31 @@ function  viewSemesterList(){
 //        }
 
 
-
     }
 
 }
 
 
-
-function makeJson(list){
-    subjectList=jQuery.parseJSON(list.replace(/&quot;/g,'"'))
+function makeJson(list) {
+    subjectList = jQuery.parseJSON(list.replace(/&quot;/g, '"'))
 
 }
-function addToList(j){
-    var selectedValues=[];
-    var nonSelected=[];
+function addToList(j) {
+    var selectedValues = [];
+    var nonSelected = [];
     var inList2;
-    $('#allsubjectList'+j+' :selected').each(function(l,list1Selected
-        ){
-        selectedValues[l]=$(list1Selected).val();
+    $('#allsubjectList' + j + ' :selected').each(function (l, list1Selected) {
+        selectedValues[l] = $(list1Selected).val();
         inList2 = false;
-        $('#semester'+j+' option').each(function(m,list2Selected){
-            nonSelected[m]=$(list2Selected).val();
-            if(selectedValues[l]==nonSelected[m]){
+        $('#semester' + j + ' option').each(function (m, list2Selected) {
+            nonSelected[m] = $(list2Selected).val();
+            if (selectedValues[l] == nonSelected[m]) {
                 inList2 = true;
             }
         });
 
-        if(inList2!=true){
-            $('#semester'+j).append("<option value='"+selectedValues[l]+"'>"+$(list1Selected).text()+"</option>");
+        if (inList2 != true) {
+            $('#semester' + j).append("<option value='" + selectedValues[l] + "'>" + $(list1Selected).text() + "</option>");
 
             var text1 = $(list1Selected).val()
 //            alert(text1);
@@ -81,11 +76,11 @@ function addToList(j){
 //                //may want to use $.trim in here
 //                return $(this).val() == text1;
 //            }).attr('selected', true);
-            $('#allsubjectList'+j+' option:selected').each( function(n,allsubSelected) {
-                var text3=$(allsubSelected).val()
-                $('#allsubjectList'+j+' option').filter(function(){
+            $('#allsubjectList' + j + ' option:selected').each(function (n, allsubSelected) {
+                var text3 = $(allsubSelected).val()
+                $('#allsubjectList' + j + ' option').filter(function () {
                     return $(this).val() == text3;
-                }).attr('selected',false);
+                }).attr('selected', false);
             });
         }
 
@@ -93,19 +88,19 @@ function addToList(j){
     validateLength(j);
 }
 
-function removeFromList(j){
-    $('#semester'+j+' option:selected').each( function() {
+function removeFromList(j) {
+    $('#semester' + j + ' option:selected').each(function () {
         $(this).remove();
-        $('#semester'+j+' option:not(selected)').each( function(k,semSelected) {
-            var text2=$(semSelected).val()
+        $('#semester' + j + ' option:not(selected)').each(function (k, semSelected) {
+            var text2 = $(semSelected).val()
 //        $('#semester'+j+' option').filter(function() {
 //            return $(this).val() == text2;
 //        }).attr('selected', true);
-            $('#allsubjectList'+j+' option:selected').each( function(n,allsubSelected) {
-                var text3=$(allsubSelected).val()
-                $('#allsubjectList'+j+' option').filter(function(){
+            $('#allsubjectList' + j + ' option:selected').each(function (n, allsubSelected) {
+                var text3 = $(allsubSelected).val()
+                $('#allsubjectList' + j + ' option').filter(function () {
                     return $(this).val() == text3;
-                }).attr('selected',false);
+                }).attr('selected', false);
             });
         });
     });
@@ -125,13 +120,13 @@ function validateLength(j) {
     return validate;
 }
 
-function updateInfo(obj){
+function updateInfo(obj) {
 
-    var courseDetailJson=jQuery.parseJSON(obj.replace(/&quot;/g,'"'))
+    var courseDetailJson = jQuery.parseJSON(obj.replace(/&quot;/g, '"'))
     console.log(courseDetailJson)
     $('#courseName').val(courseDetailJson['course'].courseName)
-    $('#modeName option[value='+courseDetailJson['course'].courseMode.id+']').attr("selected", "selected");
-    $('#courseTypeName option[value='+courseDetailJson['course'].courseType.id+']').attr("selected", "selected");
+    $('#modeName option[value=' + courseDetailJson['course'].courseMode.id + ']').attr("selected", "selected");
+    $('#courseTypeName option[value=' + courseDetailJson['course'].courseType.id + ']').attr("selected", "selected");
     $('#noOfTerms').val(courseDetailJson['course'].noOfTerms)
     $('#courseCode').val(courseDetailJson['course'].courseCode)
     $('#noOfAcademicYears').val(courseDetailJson['course'].noOfAcademicYears)
@@ -141,20 +136,20 @@ function updateInfo(obj){
     $('#noOfPapers').val(courseDetailJson['course'].noOfPapers)
     $('#courseId').val(courseDetailJson['course'].id)
     semesterList()
-    for(var i=1;i<= $('#noOfTerms').val();i++){
+    for (var i = 1; i <= $('#noOfTerms').val(); i++) {
 
-        for(var j=0;j<courseDetailJson['semesterList'][i].length;j++){
+        for (var j = 0; j < courseDetailJson['semesterList'][i].length; j++) {
 
-            $('#semester'+i).append('<option value="'+courseDetailJson['semesterList'][i][j].id+'">'+courseDetailJson['semesterList'][i][j].subjectName +'</option> ')
+            $('#semester' + i).append('<option value="' + courseDetailJson['semesterList'][i][j].id + '">' + courseDetailJson['semesterList'][i][j].subjectName + '</option> ')
         }
 
     }
 }
 
 
-function viewCourseInfo(obj){
+function viewCourseInfo(obj) {
 
-    var courseDetailJson=jQuery.parseJSON(obj.replace(/&quot;/g,'"'))
+    var courseDetailJson = jQuery.parseJSON(obj.replace(/&quot;/g, '"'))
     console.log(courseDetailJson)
     $('#courseName').html(courseDetailJson['course'].courseName)
     //$('#modeName option[value='+courseDetailJson['course'].courseMode.id+']').attr("selected", "selected");
@@ -169,11 +164,11 @@ function viewCourseInfo(obj){
     $('#noOfPapers').html(courseDetailJson['course'].noOfPapers)
     $('#courseId').html(courseDetailJson['course'].id)
     viewSemesterList()
-    for(var i=1;i<= $('#noOfTerms').html();i++){
+    for (var i = 1; i <= $('#noOfTerms').html(); i++) {
 
-        for(var j=0;j<courseDetailJson['semesterList'][i].length;j++){
+        for (var j = 0; j < courseDetailJson['semesterList'][i].length; j++) {
 
-            $('#semester'+i).append('<option value="'+courseDetailJson['semesterList'][i][j].id+'">'+courseDetailJson['semesterList'][i][j].subjectName +'</option> ')
+            $('#semester' + i).append('<option value="' + courseDetailJson['semesterList'][i][j].id + '">' + courseDetailJson['semesterList'][i][j].subjectName + '</option> ')
         }
 
     }
@@ -194,28 +189,27 @@ function fireMultiValidate() {
 }
 
 
-
-function ConvertFormToJSON(form){
+function ConvertFormToJSON(form) {
     var array = jQuery(form).serializeArray();
     var json = {};
-    var finalList=new Array();
+    var finalList = new Array();
     var i = 0;
 
-    jQuery.each(array, function() {
+    jQuery.each(array, function () {
         json[this.name] = this.value || '';
 
         i++;
     });
-    var semesterList ={};
+    var semesterList = {};
 
-    for(var j=1;j<=$('#noOfTerms').val();j++){
+    for (var j = 1; j <= $('#noOfTerms').val(); j++) {
 
         var subList = []
-        $('#semester'+j+' option').each(function(){
+        $('#semester' + j + ' option').each(function () {
 
 
             subList.push($(this).val() || '');
-            semesterList["semester"+j]=subList;
+            semesterList["semester" + j] = subList;
 
         })
 
@@ -227,12 +221,12 @@ function ConvertFormToJSON(form){
     return json
 }
 
-function clearField(){
+function clearField() {
 
-    for(var i=1;i<=$('#noOfTerms').val();i++){
-        $('#semester'+i).empty();
+    for (var i = 1; i <= $('#noOfTerms').val(); i++) {
+        $('#semester' + i).empty();
     }
-    $( '#createCourse' ).each(function(){
+    $('#createCourse').each(function () {
         this.reset();
     });
 
@@ -250,7 +244,7 @@ function save() {
 //    var status = $("#createCourse").valid();
 
 
-    if (status ) {
+    if (status) {
         var formObj = $("#createCourse");
         var data = ConvertFormToJSON(formObj);
 
@@ -262,7 +256,7 @@ function save() {
             dataType: 'json',
             success: function (data) {
 //                alert(data.response1)
-                if(data.response1){
+                if (data.response1) {
                     document.getElementById("statusMessage").style.display = "block";
                 }
                 clearField();
