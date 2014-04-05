@@ -157,6 +157,19 @@
             </ul>
         </li>
 
+        <li><a href="#"><g:message code="default.mainMenu8"/></a>
+            <ul>
+                <li><g:link controller="feeDetails"
+                            action="createFeeDetails"><g:message
+                            code="default.mainMenu8.subMenu1"/></g:link></li>
+                %{--<li><g:link controller="admin"--}%
+                            %{--action="examFeeVoucher"><g:message--}%
+                            %{--code="default.mainMenu8.subMenu2"/></g:link></li>--}%
+
+
+            </ul>
+        </li>
+
 
         </ul>
     </div>

@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat
 @Transactional
 class StudentRegistrationService {
 
+    def springSecurityService
+
    Student saveNewStudentRegistration(params, signature, photographe){
        Boolean studentRegistrationInsSaved = false;
 
@@ -25,7 +27,7 @@ class StudentRegistrationService {
        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
        studentRegistration.status= Status.findById(1)
        studentRegistration.studyCentre=studyCentre
-       Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programDetail))
+       Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
        studentRegistration.programDetail=programDetail
        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examiNationCentre))
        studentRegistration.examinationCentre=examinationCentreList
@@ -37,7 +39,13 @@ class StudentRegistrationService {
        String year = sdf.format(Calendar.getInstance().getTime());
 
        studentRegistration.registrationYear=Integer.parseInt(year)
-       studentRegistration.referenceNumber=Integer.parseInt(getStudentReferenceNumber())
+       if(springSecurityService.isLoggedIn()){
+       studentRegistration.rollNo=(Integer)getStudentRollNumber(params)
+       }else{
+           studentRegistration.referenceNumber=Integer.parseInt(getStudentReferenceNumber())
+       }
+       studentRegistration.status= Status.findById(2)
+
       //END RAJ CODE
 
 //       studentRegistration.studentSignature=signature.bytes
@@ -51,6 +59,8 @@ class StudentRegistrationService {
 
 
    }
+
+
     /**
      * Service to generate the roll no.
      * @param courseId
@@ -86,6 +96,7 @@ class StudentRegistrationService {
                     order("rollNo", "desc")
                 }
 
+                if(params.studentList){
                 def studentIdList=params.studentList.split(",")
                 studentIdList.each{i ->
                  def stuObj=Student.findById(Long.parseLong(i.toString()))
@@ -111,6 +122,28 @@ class StudentRegistrationService {
                     stuObj.save(failOnError: true)
                 }
                 return status=true
+            }else{
+
+                    if(studentByYearAndCourse){
+                        if(studentByYearAndCourse[0].rollNo>0){
+                            if(rollNumber==0){
+                                rollNumber = studentByYearAndCourse[0].rollNo+1
+                            }
+                            else{
+                                rollNumber=++rollNumber
+                            }
+                        }
+                        else{
+                            rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                        }
+                    }
+                    else{
+                        rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                    }
+
+                    return rollNumber
+
+                }
             }
 
      }

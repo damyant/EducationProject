@@ -47,5 +47,11 @@ jQuery(function($) {
         changeYear: true,
         dateFormat: "mm/dd/yy"
     });
+
+    $( "#datePick1" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "mm/dd/yy"
+    });
 });
 

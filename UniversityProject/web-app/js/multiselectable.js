@@ -2,7 +2,7 @@
  * Created by sonali on 3/13/14.
  */
 
-var subjectList
+
 
 function  semesterList(){
     $('#multiSelectTab tbody tr').remove()

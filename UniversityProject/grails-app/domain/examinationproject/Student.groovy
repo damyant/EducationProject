@@ -6,14 +6,11 @@ class Student {
 
     String name
     Date dob
-//    String program
     String category
     String gender
     String nationality
     String state
     BigInteger mobileNo
-//    String studyCentre
-//    int preferenceOfExaminationCentre
     BigInteger registrationNo1
     BigInteger registrationNo2
     String addressStudentName
@@ -27,10 +24,10 @@ class Student {
     int semester
     Status status
     int registrationYear
- // ProgramDetail programDetail
     int referenceNumber
     byte[] studentImage
-//    byte[] studentSignature
+    FeeDetails feeDetails
+
 
     static hasMany = [examinationCentre : ExaminationCentre, studyCentre : StudyCenter,programDetail:ProgramDetail]
 
@@ -58,6 +55,7 @@ class Student {
         location(nullable: true)
         rollNo(nullable:true)
         status(nullable:true)
+        feeDetails(nullable: true)
 
 
 
@@ -89,6 +87,7 @@ class Student {
         location column: "Location"
         registrationYear column: "registrationYear"
         referenceNumber:column:"referenceNumber"
+        feeDetails column: "feeDetails"
     }
 
 }

@@ -50,7 +50,7 @@
 
             <div class="university-size-2-3">
                 <g:textField name="feeAmountAtIDOL" class="university-size-1-2" type="number"
-                             value="${programFeeInstance.feeAmountAtIDOL}" required=""/>
+                             value="" required=""/>
             </div>
         </div>
 
@@ -64,7 +64,7 @@
 
             <div class="university-size-2-3">
                 <g:textField name="feeAmountAtSC" class="university-size-1-2" type="number"
-                             value="${programFeeInstance.feeAmountAtSC}" required=""/>
+                             value="" required=""/>
             </div>
         </div>
 
@@ -78,7 +78,7 @@
 
             <div class="university-size-2-3">
                 <g:textField name="lateFeeAmount" class="university-size-1-2" type="number"
-                             value="${programFeeInstance.lateFeeAmount}" required=""/>
+                             value="" required=""/>
             </div>
         </div>
 
@@ -92,7 +92,7 @@
 
             <div class="university-size-2-3">
                 <g:textField name="examinationFee" class="university-size-1-2" type="number"
-                             value="${programFeeInstance.examinationFee}" required=""/>
+                             value="" required=""/>
             </div>
         </div>
 
@@ -106,7 +106,7 @@
 
             <div class="university-size-2-3">
                 <g:textField name="certificateFee" class="university-size-1-2" type="number"
-                             value="${programFeeInstance.certificateFee}" required=""/>
+                             value="" required=""/>
             </div>
         </div>
 

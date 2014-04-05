@@ -35,6 +35,7 @@
     <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-engine.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.datepicker.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.core.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>
  <g:layoutHead/>
 
 </head>

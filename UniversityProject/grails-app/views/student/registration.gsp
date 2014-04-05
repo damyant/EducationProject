@@ -14,7 +14,7 @@
     <g:javascript src='validate.js'/>
     <g:javascript src='studyCenter.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>
+    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
     <style type="text/css">
 
     </style>
@@ -60,7 +60,7 @@
     <td>Program <span>*</span></td>
     %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
     <td>
-        <g:select name="programDetail" id="programDetail" optionKey="id" class="university-size-1-2"
+        <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                   optionValue="courseName" from="${ProgramDetail.findAll()}" noSelection="['': ' Select Program']"/>
 
     </td>

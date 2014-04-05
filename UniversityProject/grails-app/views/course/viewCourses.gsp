@@ -15,7 +15,10 @@
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'multiselectable.js')}"></script>
     <script type="text/javascript">
+   var ab=0
+   ab=$('#courseId').val()
 
+   alert("?????"+ab)
             $(window).bind("load",function(){
 
                 viewCourseInfo("${courseDetail}")
@@ -90,7 +93,11 @@
             <tr>
                <td style="text-align: center" colspan="2"><input type="button" value="Back" class="university-button"  onClick="history.go(-1);return true;" ></td>
             </tr>
-
+        <tr>
+            <td>
+                <g:link controller="course" action="test">aaaaaaaaaa</g:link>
+            </td>
+        </tr>
         </table>
     </g:form>
 </div>
