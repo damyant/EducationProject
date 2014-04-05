@@ -135,8 +135,9 @@ input.error, select.error{
 }
 
 label.error{
-    margin-left: 4px;
+    margin-left: 2px;
     color: #cd0a0a;
+    text-transform: capitalize;
 }
 
 /*Status Message*/
@@ -192,6 +193,13 @@ label.error{
     width: 30%;
     margin: 6px 5%;
     height: 70px;
+}
+
+input[disabled], input[readonly] {
+    border: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .multiSelect-buttons-button{

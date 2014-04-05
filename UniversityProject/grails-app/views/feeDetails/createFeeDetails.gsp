@@ -57,7 +57,7 @@
             <g:form url="[resource: feeDetailsInstance, action: 'saveFeeDetails']">
                 <div class="university-size-1-1" style="margin-left: 4px;">
                     <label>
-                        <h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6>
+                        <h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory</h6>
                     </label>
                 </div>
 
@@ -70,7 +70,8 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField id="rollNo" name="rollNo" class="many-to-one university-size-2-3" required="true"/>
+                        <g:textField id="rollNo" name="rollNo" class="many-to-one university-size-2-3" required="true"
+                                     onkeypress="return isNumber(event)"/>
                     </div>
                 </div>
 

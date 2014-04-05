@@ -36,7 +36,7 @@ class ExaminationCenterController {
             println(centre)
             render centre as JSON
         } else {
-            render "No Examination Centre Found"
+            render "<h5>No Examination Centre Found</h5>"
         }
     }
     def getCentreList = {
@@ -48,7 +48,7 @@ class ExaminationCenterController {
         }
         else
         {
-            render "<h1>No Examination Centre Found</h1>"
+            render "<h5>No Examination Centre Found</h5>"
         }
     }
 
