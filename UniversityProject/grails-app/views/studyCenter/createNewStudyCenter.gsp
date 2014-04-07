@@ -219,9 +219,9 @@
                         code="default.button.save"/></g:else>" class="university-button" onclick="validate()">
 
 
-                <g:if test="${params.status != 'updated'}"><input type="button" value="<g:message
+                <g:if test="${params.status != 'updated'}"><input type="reset" value="<g:message
                         code="default.button.clear"/>" class="university-button"></g:if> <g:else><input
-                    type="button" value="<g:message code="default.button.clear"/>" class="university-button"
+                    type="reset" value="<g:message code="default.button.clear"/>" class="university-button"
                     disabled></g:else></td>
         </tr>
     </g:else>
