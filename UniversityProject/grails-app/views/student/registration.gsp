@@ -26,12 +26,12 @@
     <div class="message"><div class="university-status-message">${flash.message}</div></div>
 </g:if>
 
-
+<fieldset class="form">
 <g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data"
               id="studentRegister" name="studentRegister">
 <h3>STUDENT INFORMATION SHEET</h3>
 <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
-<table align="center" cellpadding="10" class="university-table-1-2">
+<table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;">
 <!----- First Name ---------------------------------------------------------->
 <tr>
     <td>Name of the applicant <span class="university-obligatory">*</span></td>
@@ -273,6 +273,7 @@
 </table>
 
 </g:uploadForm>
+</fieldset>
 </div>
 <script>
 
