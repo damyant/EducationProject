@@ -11,7 +11,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class FeeDetailsController {
     def feeDetailService
-
+    def adminInfoService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -98,8 +98,29 @@ class FeeDetailsController {
 
      def bulkFeeEntry   = {
 
+         def filterType = []
+         def programList = ProgramDetail.list()
+         def studyCentre = StudyCenter.list();
+         filterType.add("By Program")
+         filterType.add("By Study Centre")
+         filterType.add("By Admission Date")
 
+         [filterType:filterType,programList:programList,studyCentre:studyCentre]
      }
+
+    def getStudentList(){
+        println("<<<<<<<"+params)
+        def responseMap=[:]
+        def stuList= feeDetailService.provisionalStudentList(params)
+        responseMap.status="referenceNo"
+        responseMap.label=params.pageType
+        responseMap.stuList=stuList
+        println("StudentList"+stuList)
+        render responseMap as JSON
+
+    }
+
+
 
     def checkStudentByRollNo = {
         println("Roll Number entered by user")

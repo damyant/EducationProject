@@ -26,6 +26,7 @@ class Student {
     int registrationYear
     int referenceNumber
     byte[] studentImage
+    Date admissionDate =new Date()
    // FeeDetails feeDetails
 
 

@@ -15,7 +15,9 @@ body{
     width:100%;
 
 }
-
+#fee-table td{
+    padding: 0px;
+}
 .university-table-1-2 td{
     width: 50%;
 }

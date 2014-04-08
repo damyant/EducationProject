@@ -53,5 +53,10 @@ jQuery(function($) {
         changeYear: true,
         dateFormat: "mm/dd/yy"
     });
+    $( "#admissionDate" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "mm/dd/yy"
+    });
 });
 
