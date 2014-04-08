@@ -41,17 +41,35 @@ function readURL(input,type) {
     }
 }
 
-jQuery(function($) {
-    $( "#datePick" ).datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "mm/dd/yy"
-    });
+//jQuery(function($) {
+//    $( "#datePick" ).datepicker({
+//        changeMonth: true,
+//        changeYear: true,
+//        dateFormat: "mm/dd/yy"
+//    });
+//
+//    $( "#datePick1" ).datepicker({
+//        changeMonth: true,
+//        changeYear: true,
+//        dateFormat: "mm/dd/yy"
+//    });
+//});
 
-    $( "#datePick1" ).datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "mm/dd/yy"
-    });
-});
+//$('#inputDate').DatePicker({
+//    format:'m/d/Y',
+//    date: $('#inputDate').val(),
+//    current: $('#inputDate').val(),
+//    starts: 1,
+//    position: 'r',
+//    onBeforeShow: function(){
+//        $('#inputDate').DatePickerSetDate($('#inputDate').val(), true);
+//    },
+//    onChange: function(formated, dates){
+//        $('#inputDate').val(formated);
+//        if ($('#closeOnSelect input').attr('checked')) {
+//            $('#inputDate').DatePickerHide();
+//        }
+//    }
+//});
+
 

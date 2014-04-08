@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}" type="text/css">
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'style_popup.css')}" type='text/css'>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'gu_stylesheet.css')}" type='text/css'>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.datepicker.css')}" type='text/css'>
     <g:javascript library='jquery'/>
     <g:javascript library="application"/>
     <r:layoutResources/>
@@ -33,7 +34,9 @@
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js/jquery', file: 'jquery.js')}'></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-en.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-engine.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery-1.10.2.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.datepicker.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.widget.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.core.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>
  <g:layoutHead/>

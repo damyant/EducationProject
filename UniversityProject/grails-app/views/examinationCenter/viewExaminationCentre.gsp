@@ -10,7 +10,6 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/jquery-1.7.1.js')}"></script>
     <g:javascript src='studyCenter.js'/>
     <title>Create Examination Center</title>
 </head>

@@ -14,6 +14,9 @@
     <g:javascript src='validate.js'/>
     <g:javascript src='studyCenter.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
+
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
     <style type="text/css">
 
@@ -46,7 +49,9 @@
 
 
 
-    <td><input type="text" name="d_o_b" maxlength="30" class="university-size-1-2" id="datePick"/>
+    <td>
+        %{--<input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datePick"/>--}%
+        <input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datepicker">
 
     </td>
 </tr>
@@ -203,7 +208,7 @@
                 <td style="width: 30%;">Address:</td>
                 <td style="width: 70%;"><input type="text" name="addressStudentName" maxlength="30"
                                                class="university-size-1-2"
-                                               onkeypress="return onlyAlphabets(event, this);"/></td>
+                                               onkeypress="return isAlphaNumeric(event, this);"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">Village/Town:</td>
@@ -298,7 +303,15 @@
     //            return false
     //        }
     //}
-
+    $(function () {
+        $(function () {
+            $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm/dd/yy"
+            });
+        });
+    });
 </script>
 </body>
 </html>
