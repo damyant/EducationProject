@@ -41,6 +41,7 @@ function readURL(input,type) {
     }
 }
 
+
 jQuery(function($) {
     $( "#datePick" ).datepicker({
         changeMonth: true,
@@ -59,4 +60,5 @@ jQuery(function($) {
         dateFormat: "mm/dd/yy"
     });
 });
+
 

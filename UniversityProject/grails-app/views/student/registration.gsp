@@ -14,6 +14,9 @@
     <g:javascript src='validate.js'/>
     <g:javascript src='studyCenter.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
+
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
     <style type="text/css">
 
@@ -26,12 +29,12 @@
     <div class="message"><div class="university-status-message">${flash.message}</div></div>
 </g:if>
 
-
+<fieldset class="form">
 <g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data"
               id="studentRegister" name="studentRegister">
 <h3>STUDENT INFORMATION SHEET</h3>
 <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
-<table align="center" cellpadding="10" class="university-table-1-2">
+<table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;">
 <!----- First Name ---------------------------------------------------------->
 <tr>
     <td>Name of the applicant <span class="university-obligatory">*</span></td>
@@ -46,7 +49,9 @@
 
 
 
-    <td><input type="text" name="d_o_b" maxlength="30" class="university-size-1-2" id="datePick"/>
+    <td>
+        %{--<input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datePick"/>--}%
+        <input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datepicker">
 
     </td>
 </tr>
@@ -203,7 +208,7 @@
                 <td style="width: 30%;">Address:</td>
                 <td style="width: 70%;"><input type="text" name="addressStudentName" maxlength="30"
                                                class="university-size-1-2"
-                                               onkeypress="return onlyAlphabets(event, this);"/></td>
+                                               onkeypress="return isAlphaNumeric(event, this);"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">Village/Town:</td>
@@ -238,7 +243,9 @@
     </td>
 </tr>
 <tr>
-    <td>Upload Your Photo(upload one recent Passport size black & white Photograph)</td>
+    <td>
+        Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 30KB )
+    </td>
     <td>
         %{--<input type='file' onchange="readURL(this);" />--}%
         <div id="profile-image"><img id="picture" src="" alt="Space for Photograph "
@@ -273,6 +280,7 @@
 </table>
 
 </g:uploadForm>
+</fieldset>
 </div>
 <script>
 
@@ -297,7 +305,15 @@
     //            return false
     //        }
     //}
-
+    $(function () {
+        $(function () {
+            $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm/dd/yy"
+            });
+        });
+    });
 </script>
 </body>
 </html>

@@ -20,86 +20,85 @@
 <div id="main">
 <fieldset class="form">
 <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
+    <div class="message">${flash.message}</div>
+</g:if>
+<g:hasErrors bean="${studyCentreInstance}">
+    <div class="errors">
+        <g:renderErrors bean="${studyCentreInstance}" as="list"/>
+    </div>
+</g:hasErrors>
+<g:if test="${params.status == 'created'}"><div class="university-status-message"><g:message
+        code="studyCenter.create.message"/></div></g:if>
+<g:elseif test="${params.status == 'updated'}"><div class="university-status-message"><g:message
+        code="studyCenter.update.message"/></div></g:elseif>
+<g:form controller="studyCenter" action="saveStudyCenter" method="post" name="createStudyCenter"
+        id="createStudyCenter">
+
+    <g:if test="${params.type == 'view'}">
+        <table class="university-table-1-2 inner" style="width: 98%; margin: auto;">
+        <tr>
+            <td><label><g:message code="default.createStudy.nameOfCenter"/> :</label></td>
+        <td><label>${studyCentreInstance?.name}</label></td>
+        </tr>
+        <tr>
+            <td><label><g:message code="default.createStudy.address"/> :</label></td>
+            <td><label>${studyCentreInstance?.address}</label></td>
+        </tr>
+        <tr>
+            <td><label><g:message code="default.createStudy.district"/> :</label></td>
+            <td><label>${studyCentreInstance?.city?.district?.districtName}</label>
+            </td>
+        </tr>
+        <tr>
+            <td><label><g:message code="default.createStudy.city"/> :</label></td>
+            <td><label>${studyCentreInstance?.city?.cityName}</label></td>
+        </tr>
+        <tr>
+            <td><label><g:message code="default.createStudy.centerCode"/> :</label></td>
+            <td><label>${studyCentreInstance?.centerCode}</label></td>
+        </tr>
+        <tr>
+            <td><label><g:message code="default.createStudy.websiteUrl"/> :</label></td>
+            <td><label>${studyCentreInstance?.websiteUrl}</label></td>
+        </tr>
+        <tr>
+            <td><label><g:message code="default.createStudy.nameOfHeadIns"/> :</label></td>
+            <td><label>${studyCentreInstance?.nameOfHeadIns}</label></td>
+        </tr>
+        <tr>
+            <td><label><g:message code="default.createStudy.phoneNoOfHeadIns"/></label></td>
+            <td><label>${studyCentreInstance?.phoneNoOfHeadIns}</label></td>
+        </tr>
+        <tr>
+            <td><label><g:message code="default.createStudy.emailIdOfHeadIns"/> :</label></td>
+            <td><label>${studyCentreInstance?.emailIdOfHeadIns}</label></td>
+        </tr>
+        <tr>
+            <td><label><g:message code="default.createStudy.nameOfCoordinator"/> :</label></td>
+            <td><label>${studyCentreInstance?.nameOfCoordinator}</label></td>
+        </tr>
+        <tr>
+            <td><label><g:message code="default.createStudy.phoneNoOfCoordinator"/> :</label></td>
+            <td><label>${studyCentreInstance?.phoneNoOfCoordinator}</label></td>
+        </tr>
+        <tr>
+            <td><label><g:message code="default.createStudy.emailIdOfCoordinator"/> :</label></td>
+            <td><label>${studyCentreInstance?.emailIdOfCoordinator}</label></td>
+        </tr>
     </g:if>
-    <g:hasErrors bean="${studyCentreInstance}">
-        <div class="errors">
-            <g:renderErrors bean="${studyCentreInstance}" as="list"/>
-        </div>
-    </g:hasErrors>
-    <g:if test="${params.status == 'created'}"><div class="university-status-message"><g:message
-            code="studyCenter.create.message"/></div></g:if>
-    <g:elseif test="${params.status == 'updated'}"><div class="university-status-message"><g:message
-            code="studyCenter.update.message"/></div></g:elseif>
-    <g:form controller="studyCenter" action="saveStudyCenter" method="post" name="createStudyCenter"
-            id="createStudyCenter">
 
-        <g:if test="${params.type == 'view'}">
-            <table class="university-table-1-2 inner">
-            <tr>
-                <td><label><g:message code="default.createStudy.nameOfCenter"/> :</label></td>
-            <td><label>${studyCentreInstance?.name}</label></td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.address"/> :</label></td>
-                    <td><label>${studyCentreInstance?.address}</label></td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.district"/> :</label></td>
-                    <td><label>${studyCentreInstance?.city?.district?.districtName}</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.city"/> :</label></td>
-                    <td><label>${studyCentreInstance?.city?.cityName}</label></td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.centerCode"/> :</label></td>
-                    <td><label>${studyCentreInstance?.centerCode}</label></td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.websiteUrl"/> :</label></td>
-                    <td><label>${studyCentreInstance?.websiteUrl}</label></td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.nameOfHeadIns"/> :</label></td>
-                    <td><label>${studyCentreInstance?.nameOfHeadIns}</label></td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.phoneNoOfHeadIns"/></label></td>
-                    <td><label>${studyCentreInstance?.phoneNoOfHeadIns}</label></td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.emailIdOfHeadIns"/> :</label></td>
-                    <td><label>${studyCentreInstance?.emailIdOfHeadIns}</label></td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.nameOfCoordinator"/> :</label></td>
-                    <td><label>${studyCentreInstance?.nameOfCoordinator}</label></td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.phoneNoOfCoordinator"/> :</label></td>
-                    <td><label>${studyCentreInstance?.phoneNoOfCoordinator}</label></td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.emailIdOfCoordinator"/> :</label></td>
-                    <td><label>${studyCentreInstance?.emailIdOfCoordinator}</label></td>
-                </tr>
-            </g:if>
+%{--for  Create new Study Center--}%
 
-        %{--for  Create new Study Center--}%
-
-            <g:else>
-                <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
-                <table class="university-table-1-2 inner">
-                <tr>
-                    <td><label><g:message code="default.createStudy.nameOfCenter"/><span
-                    class="university-obligatory">*</span> </label></td>
-                <td>
-                    <input type="text" name="name" id="name" value="${studyCentreInstance?.name}"
-                               class="university-size-1-3" onkeypress="return onlyAlphabets(event, this);"/>
-                    </td>
-
+    <g:else>
+        <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
+        <table class="university-table-1-2 inner" style="width: 100%; margin: auto;">
+        <tr>
+            <td><label><g:message code="default.createStudy.nameOfCenter"/><span
+            class="university-obligatory">*</span> </label></td>
+        <td>
+            <input type="text" name="name" id="name" value="${studyCentreInstance?.name}"
+                   class="university-size-1-3" onkeypress="return onlyAlphabets(event, this);"/>
+        </td
                 </tr>
                 <tr>
                     <td><label><g:message code="default.createStudy.address"/> <span
@@ -218,15 +217,14 @@
                                 code="default.button.create"/></g:if><g:else><g:message
                                 code="default.button.save"/></g:else>" class="university-button" onclick="validate()">
 
-
-                        <g:if test="${params.status != 'updated'}"><input type="button" value="<g:message
-                                code="default.button.clear"/>" class="university-button"></g:if> <g:else><input
-                            type="button" value="<g:message code="default.button.clear"/>" class="university-button"
-                            disabled></g:else></td>
-                </tr>
-            </g:else>
-        </table>
-    </g:form>
+                <g:if test="${params.status != 'updated'}"><input type="reset" value="<g:message
+                        code="default.button.clear"/>" class="university-button"></g:if> <g:else><input
+                    type="reset" value="<g:message code="default.button.clear"/>" class="university-button"
+                    disabled></g:else></td>
+        </tr>
+    </g:else>
+    </table>
+</g:form>
 </fieldset>
 </div>
 </body>

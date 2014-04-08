@@ -5,34 +5,41 @@
 #main {
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
     margin: 0px auto 20px;
-    padding: 25px 25px 10px; width:90%;
+    padding: 25px 25px 10px;
+    width: 90%;
     min-height: 300px;
 
 }
 
 /*table*/
-body{
-    width:100%;
+body {
+    width: 100%;
 
 }
+
 #fee-table td{
     padding: 0px;
 }
-.university-table-1-2 td{
+
+
+.university-table-1-2 td {
+
     width: 50%;
 }
-.university-location-select{
+
+.university-location-select {
 }
 
-.university-label-location-select, .university-location-select select{
+.university-label-location-select, .university-location-select select {
     width: 150px;
     display: inline-block;
 }
-.university-table-1-3 td{
+
+.university-table-1-3 td {
     width: 33.33%;
 }
 
-.university-table-1-4 td{
+.university-table-1-4 td {
     width: 20%;
 }
 
@@ -44,50 +51,55 @@ body{
     width: 16%;
 }
 
-.university-table-1-7 td, .university-table-1-7 th{
+.university-table-1-7 td, .university-table-1-7 th {
     min-width: 12%;
     text-align: center;
 }
+
 /*Size*/
-.university-size-1-1{
+.university-size-1-1 {
     width: 90%;
 }
 
-.university-size-1-2{
+.university-size-1-2 {
     width: 50%;
 }
 
-.university-size-1-3{
+.university-size-1-3 {
     width: 33.33%;
 }
 
-.university-size-2-3{
+.university-size-2-3 {
     width: 66.66%;
 }
 
-.university-size-1-4{
+.university-size-1-4 {
     width: 20%;
 }
-.university-size-2-5{
+
+.university-size-2-5 {
     width: 38%;
 }
-.university-float-left{
+
+.university-float-left {
     float: left;
 }
-.university-float-right{
+
+.university-float-right {
     float: right;
 }
 
-.university-text-decoration-none{
+.university-text-decoration-none {
     text-decoration: none;
     color: #000;
 }
+
 /*button*/
-.university-button{
-    border-radius:0;
-    padding:.1em 1.7em;
-    vertical-align:top;
-    height:2em;
+.university-button {
+    border-radius: 0;
+    padding: .1em 1.7em;
+    vertical-align: top;
+    height: 2em;
 }
 
 .university-button-small {
@@ -132,189 +144,220 @@ body{
 }
 
 /* For Validation*/
-input.error, select.error{
+input.error, select.error {
     border: #cd0a0a solid 1px;
 }
 
-label.error{
-    margin-left: 4px;
+label.error {
+    margin-left: 2px;
     color: #cd0a0a;
+    text-transform: capitalize;
 }
 
 /*Status Message*/
 
-.university-status-message{
+.university-status-message {
     margin: auto;
     color: #0000FF;
     text-align: center;
-    font-weight: bold ;
+    font-weight: bold;
 }
 
-.university-session-management{
+.university-session-management {
     height: 50px;
     font: bold 12px DejaVu Serif;
     float: right;
     margin-top: 20px;
     color: #fff;
     line-height: 50px;
-    text-transform:capitalize;
+    text-transform: capitalize;
 }
-.university-session-management a{
+
+.university-session-management a {
     text-decoration: none;
-    color: saddlebrown ;
+    color: #F5BCA9;
 }
 
-.university-session-management a:hover{
-    color: #fff ;
+.university-session-management a:hover {
+    color: #fff;
 }
 
-.university-registration-photo{
+table.ui-datepicker-calendar {
+    border: 0px;
+}
+
+.university-registration-photo {
     height: 200px;
-    width:150px;
-    border:1px solid black;
+    width: 150px;
+    border: 1px solid black;
     display: block;
     background: url("../images/profile.png") no-repeat;
     background-position: bottom;
     background-size: 100%;
     text-align: center;
 }
-#examCenterSelect td{
+
+#examCenterSelect td {
     vertical-align: top;
 }
 
-#examCenterSelect, #examCenterAddress{
-    border:1px solid #BBB;
+#examCenterSelect, #examCenterAddress {
+    border: 1px solid #BBB;
 }
 
-.multiSelect{
+.multiSelect {
     margin-left: 15%;
 }
 
-#multiSelectTab select{
+#multiSelectTab select {
     width: 30%;
     margin: 6px 5%;
     height: 70px;
 }
 
-.multiSelect-buttons-button{
+input[disabled], input[readonly] {
+    border: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.multiSelect-buttons-button {
     width: 80%;
     margin-bottom: 5px;
     font-size: 80%;
 }
-#multiSelectTab .multiSelect-buttons{
+
+#multiSelectTab .multiSelect-buttons {
     width: 10%;
     height: 70px;
     display: inline-block;
     vertical-align: middle;
     margin-top: -29px;
 }
-.nav{
+
+.nav {
     height: 200px;
     width: 80%;
     margin: auto;
 }
-.nav div{
+
+.nav div {
     margin: 10%;
 }
 
-.university-role-management{
+.university-role-management {
     margin: auto;
-    box-sizing: border-box ;
+    box-sizing: border-box;
     list-style: none;
     display: inline;
     height: 100%;
 }
-.nav div a{
+
+.nav div a {
     color: #ffAA00;
-    text-decoration:none;
+    text-decoration: none;
     font: bold 15px DejaVu Serif;
 }
 
-.nav div a img{
+.nav div a img {
     margin-bottom: -10px;
     width: 10%;
 }
 
-.nav div{
+.nav div {
     display: inline;
 }
-.preview-header td{
+
+.preview-header td {
     border: 1px solid;
 }
-.preview-header p{
+
+.preview-header p {
     margin-bottom: 2px;
 }
 
-.university-table-text-center td, .university-table-text-center th{
+.university-table-text-center td, .university-table-text-center th {
     text-align: center;
 }
 
-.university-table-text-left td, .university-table-text-left th{
+.university-table-text-left td, .university-table-text-left th {
     text-align: left;
     margin-left: 8px;
 }
+
 /*Copy create css*/
 
-.Venue{
+.Venue {
     width: 50%;
     float: left;
     margin-bottom: 20px;
 }
-.Venue label{
-    display: inline-block; width: 140px;
+
+.Venue label {
+    display: inline-block;
+    width: 140px;
     /*text-align: right;*/
 }
-.Venue input{
+
+.Venue input {
     width: 250px;
     margin-left: 50px;
 }
-.divlabel{
-    width:100px;
+
+.divlabel {
+    width: 100px;
 }
 
 /*Copy admit Card CSS*/
-h3{
+h3 {
     font-family: Calibri;
     font-size: 22pt;
     font-style: normal;
     font-weight: bold;
-    color:black;
+    color: black;
     text-align: center;
     margin: 5px auto;
     text-shadow: 4px 3px 2px #A68AA0;
     text-transform: uppercase;
 }
 
-.radioInput{}
+.radioInput {
+}
 
-#data{
+#data {
     background-color: lightgrey;
     border: 2px solid black;
     padding: 25px 25px 10px;
-    width:1000px;
+    width: 1000px;
 }
+
 #info {
 
-    width:450px;
+    width: 450px;
 }
 
-#papers{
+#papers {
     margin-top: 10px;
 }
-#image{
+
+#image {
     margin-top: 10px;
 }
-#studentList{
+
+#studentList {
     margin: auto;
     visibility: hidden;
 }
-#studentList td, #studentList th{
+
+#studentList td, #studentList th {
     text-align: left;
     padding-left: 10px;
 }
+
 /* Copy popbox css*/
 
-.popbox{
+.popbox {
     margin-left: 500px;
     text-align: center;
     position: relative;
@@ -343,13 +386,13 @@ h3{
     text-decoration: underline;
 }
 
-.fieldcontain{
+.fieldcontain {
 
     display: inline;
     padding: 4px;
 }
 
-.fieldcontain div{
+.fieldcontain div {
     width: 40%;
     display: inline-block;
     margin: 15px 4px;
@@ -359,10 +402,11 @@ fieldset.form {
     margin: 20px auto;
     padding: 15px;
     min-height: 240px;
+    border-radius: 2px;
 }
 
 fieldset.form,
-fieldset.buttons{
+fieldset.buttons {
     margin-top: 10px;
 }
 
@@ -372,29 +416,33 @@ h6 {
 
 /*copy of register.css*/
 
-table{
+table {
     font-family: Calibri;
-    color:black;
+    color: black;
     font-size: 11pt;
     font-style: normal;
     border: 1px solid black;
 }
-table.inner{
+
+table.inner {
     border: 0px;
     padding: 0px;
     margin-left: -2%;
 
 }
 
-.radioInput{}
+.radioInput {
+}
 
-table#multiSelectTab, table#studyCenterTab, #multiSelectTab{
+table#multiSelectTab, table#studyCenterTab, #multiSelectTab {
     border-width: 0px;
 }
+
 #resetPasswordContainer {
     border-width: 0px;
     width: 100%;
 }
+
 /*Login Page*/
 #login {
     margin: 15px 0px;
@@ -419,68 +467,103 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab{
 
 #login .inner .fheader {
     margin: 15px 0px 20px 20px;
-    font-size:20px;
-    font-weight:bold;
-    font-family:Myriad Pro;
-    text-transform:uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Myriad Pro;
+    text-transform: uppercase;
     text-shadow: #fff 2px 2px 2px;
 }
 
 #login .inner .cssform input[type='text'] {
-    margin-left:25px;
-    margin-top:8px;
+    margin-left: 25px;
+    margin-top: 8px;
     margin-bottom: 15px;
-    width:300px;
-    height:40px;
+    width: 300px;
+    height: 40px;
     border-radius: 4px;
-    background:url(../images/User.png) no-repeat left;
-    background-size:30px;
+    background: url(../images/User.png) no-repeat left;
+    background-size: 30px;
     padding-left: 34px;
-    font-size:14px;
+    font-size: 14px;
 }
-.middleDiv{
+
+.middleDiv {
     padding: 10px;
     margin-bottom: 3px;
 }
 
-input::-webkit-input-placeholder { font-size: 10px; color: #555; }
-input::-moz-placeholder { font-size:10px; color: #555; }
-input:-ms-input-placeholder { font-size: 10px; color: #555; }
-input:-moz-placeholder { font-size: 10px; color: #555; }
-textarea::-webkit-input-placeholder { font-size: 10px; color: #555; }
-textarea::-moz-placeholder { font-size:10px; color: #555; }
-textarea:-ms-input-placeholder { font-size: 10px; color: #555; }
-textarea:-moz-placeholder { font-size: 10px; color: #555; }
-.radio_options{
+input::-webkit-input-placeholder {
+    font-size: 10px;
+    color: #555;
+}
+
+input::-moz-placeholder {
+    font-size: 10px;
+    color: #555;
+}
+
+input:-ms-input-placeholder {
+    font-size: 10px;
+    color: #555;
+}
+
+input:-moz-placeholder {
+    font-size: 10px;
+    color: #555;
+}
+
+textarea::-webkit-input-placeholder {
+    font-size: 10px;
+    color: #555;
+}
+
+textarea::-moz-placeholder {
+    font-size: 10px;
+    color: #555;
+}
+
+textarea:-ms-input-placeholder {
+    font-size: 10px;
+    color: #555;
+}
+
+textarea:-moz-placeholder {
+    font-size: 10px;
+    color: #555;
+}
+
+.radio_options {
     display: inline;
     width: 90%;
 }
+
 .radio_options label {
     /*padding-left:26px;*/
-    min-width:15%;
+    min-width: 15%;
     text-transform: capitalize;
-    display:inline-block
+    display: inline-block
 }
 
-.radio_options label span{
+.radio_options label span {
     /*padding-left:26px;*/
-    min-width:60%;
-    display:inline-block
+    min-width: 60%;
+    display: inline-block
 }
-#login .inner .cssform label{
-    margin-left:28px;
+
+#login .inner .cssform label {
+    margin-left: 28px;
 }
 
 #login .inner .cssform input[type='password'] {
-    margin-left:25px;
-    margin-top:8px;
-    width:300px;
-    height:40px;
+    margin-left: 25px;
+    margin-top: 8px;
+    width: 300px;
+    height: 40px;
     border-radius: 4px;
-    background:url(../images/password.png) no-repeat left;
-    background-size:30px;
+    background: url(../images/password.png) no-repeat left;
+    background-size: 30px;
     padding-left: 34px;
-    font-size:14px;
+    font-size: 14px;
 }
 
 #login #remember_me_holder {
@@ -488,13 +571,26 @@ textarea:-moz-placeholder { font-size: 10px; color: #555; }
 }
 
 #login #submit {
-    padding:0;
-    margin-left:2px;
-    width:300px;
-    height:40px;
-    border:0;
-    background: url("../images/submit.png") no-repeat;
-    margin-left:50px;
+    padding: 0;
+    margin-left: 2px;
+    width: 300px;
+    height: 40px;
+    border: 0;
+    border-radius: 4px;
+    /*background: url("../images/submit.png") no-repeat;*/
+    background: rgb(98, 125, 77); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(98, 125, 77, 1) 0%, rgba(31, 59, 8, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(98, 125, 77, 1)), color-stop(100%, rgba(31, 59, 8, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(98, 125, 77, 1) 0%, rgba(31, 59, 8, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(98, 125, 77, 1) 0%, rgba(31, 59, 8, 1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(98, 125, 77, 1) 0%, rgba(31, 59, 8, 1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(98, 125, 77, 1) 0%, rgba(31, 59, 8, 1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#627d4d', endColorstr='#1f3b08', GradientType=0); /* IE6-9 */
+    margin-left: 50px;
+    color: #fff;
+    text-transform: uppercase;
+    font: bold 14px Arial MT;
+    text-shadow: 1px 1px 0 #080C69;
 }
 
 #login #remember_me_holder label {
@@ -517,8 +613,8 @@ textarea:-moz-placeholder { font-size: 10px; color: #555; }
     height: 12px;
 }
 
-.mainContent{
-    border:1px solid #000000;
+.mainContent {
+    border: 1px solid #000000;
     height: 450px;
     width: 50%;
     margin-left: 20%;
@@ -526,59 +622,62 @@ textarea:-moz-placeholder { font-size: 10px; color: #555; }
     border-radius: 4px;
 }
 
-.reset-message{
+.reset-message {
     font-size: 15px;
     color: blue;
 }
 
-.reset-button{
+.reset-button {
     float: right;
 }
-.university-reset-pass-header{
+
+.university-reset-pass-header {
     width: 100%;
-    height:50px;
+    height: 50px;
     background-color: #666666;
 }
-.University-reset-h2{
-    padding:10px;
-    margin-left:10px;
+
+.University-reset-h2 {
+    padding: 10px;
+    margin-left: 10px;
     color: #ffffff;
     font-weight: bold;
     text-transform: uppercase;
 }
-#mobileNoCntryCode{
+
+#mobileNoCntryCode {
     width: 28px;
 }
 
-#mobileNo{
+#mobileNo {
     width: 41%;
 }
 
-#footer{
+#footer {
     width: 100%;
     margin-bottom: 5px;
 }
 
-#university-footer-box{
+#university-footer-box {
     width: 90%;
     margin: auto;
     font-size: 10px;
     text-align: center;
 }
 
-.university-not-authorized{
-    margin:40pt auto;
+.university-not-authorized {
+    margin: 40pt auto;
     text-align: center;
-    font-size:20px;
-    font-weight:bold;
-    font-family:Myriad Pro;
-    text-transform:uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Myriad Pro;
+    text-transform: uppercase;
     text-shadow: #13f 1px 1px 1px;
 }
-#userListTable th{
+
+#userListTable th {
     background-color: aliceblue;
 }
-
 
 textarea {
     resize: none;
@@ -589,25 +688,28 @@ textarea {
     border: 1px solid #555;
     color: #000;
 }
-h2{
+
+h2 {
     font-size: 15pt;
 }
-.mainContent{
-    width:80%;
+
+.mainContent {
+    width: 80%;
     margin-left: 5%;
     margin-top: 40px;
 }
-.ui-datepicker-prev, .ui-datepicker-next{
+
+.ui-datepicker-prev, .ui-datepicker-next {
     visibility: hidden;
     height: 0px;
 }
 
-table h3{
+table h3 {
     font-family: Calibri;
     font-size: 16pt;
     font-style: normal;
     font-weight: bold;
-    color:black;
+    color: black;
     text-align: center;
     text-decoration: underline;
     margin-bottom: 15px;
@@ -615,30 +717,33 @@ table h3{
 
 }
 
-@media (max-width : 700px) {
-    h3{
+@media (max-width: 700px) {
+    h3 {
         font-size: 15pt;
     }
 
-    .mainContent{
-        width:70%;
+    .mainContent {
+        width: 70%;
         margin-left: 10%;
         margin-top: 40px;
     }
-    .nav div a{
+
+    .nav div a {
         font: bold 10px DejaVu Serif;
     }
-    .university-session-management{
+
+    .university-session-management {
         font-size: 10px;
     }
+
     #main {
         min-height: 300px;
         font-size: 10px;
     }
 }
 
-@media (max-width : 350px) {
-    h3{
+@media (max-width: 350px) {
+    h3 {
         font-size: 11pt;
     }
 }
