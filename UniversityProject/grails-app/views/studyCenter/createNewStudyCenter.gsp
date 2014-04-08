@@ -189,24 +189,24 @@
                 <tr>
                     <td><label><g:message code="default.createStudy.nameOfAsstCoordinator"/> <span
                             class="university-obligatory">*</span></label></td>
-                    <td><input type="text" name="nameOfAsstCoordinator" onkeypress="return onlyAlphabets(event, this);"
-                               value="${studyCentreInstance?.nameOfAsstCoordinator}"
+                    <td><input type="text" name="asstCooirdinator" onkeypress="return onlyAlphabets(event, this);"
+                               value="${studyCentreInstance?.asstCooirdinator}"
                                class="university-size-1-3"/></td>
                 </tr>
                 <tr>
                     <td><label><g:message code="default.createStudy.phoneNoOfAsstCoordinator"/> <span
                             class="university-obligatory">*</span></label>
                     </td>
-                    <td><input type="text" name="phoneNoOfAsstCoordinator"
-                               value="${studyCentreInstance?.phoneNoOfAsstCoordinator}" class="university-size-1-3"
+                    <td><input type="text" name="asstMobile"
+                               value="${studyCentreInstance?.asstMobile}" class="university-size-1-3"
                                maxlength="10" onkeypress="return isNumber(event)"/></td>
                 </tr>
                 <tr>
                     <td><label><g:message code="default.createStudy.emailIdOfAsstCoordinator"/> <span
                             class="university-obligatory">*</span></label>
                     </td>
-                    <td><input type="email" name="emailIdOfAsstCoordinator"
-                               value="${studyCentreInstance?.emailIdOfAsstCoordinator}" class="university-size-1-3"/>
+                    <td><input type="email" name="asstEmail"
+                               value="${studyCentreInstance?.asstEmail}" class="university-size-1-3"/>
                     </td>
                 </tr>
                 <tr>

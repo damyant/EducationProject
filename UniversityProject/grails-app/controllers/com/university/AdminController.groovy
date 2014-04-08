@@ -66,7 +66,7 @@ class AdminController {
         render stuList as JSON
     }
 
-    @Secured(["ROLE_IDOL_USER"])
+
     def feeVoucher={
         def feeType = FeeType.list()
         [feeType:feeType]

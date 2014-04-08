@@ -2,11 +2,15 @@ package examinationproject
 
 import grails.converters.JSON
 
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class FeeDetailsController {
+    def feeDetailService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -25,24 +29,23 @@ class FeeDetailsController {
 
     @Transactional
     def saveFeeDetails(FeeDetails feeDetailsInstance) {
+
+        //println("The feeDetails is "+feeDetailsInstance.draftDate)
         if (feeDetailsInstance == null) {
             notFound()
             return
         }
 
+        feeDetailsInstance = feeDetailService.saveFeeDetails(params)
+
         if (feeDetailsInstance.hasErrors()) {
+            println("Error in saving the fee details>>>>>>>>>>>>>>>>>>>>>>>>")
             respond feeDetailsInstance.errors, view: 'createFeeDetails'
             return
         }
 
-        feeDetailsInstance.save flush: true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'feeDetailsInstance.label', default: 'FeeDetails'), feeDetailsInstance.id])
-                redirect feeDetailsInstance
-            }
-            '*' { respond feeDetailsInstance, [status: CREATED] }
+        if(feeDetailsInstance){
+            redirect(action: "createFeeDetails")
         }
     }
 
@@ -91,6 +94,12 @@ class FeeDetailsController {
             '*' { render status: NO_CONTENT }
         }
     }
+
+
+     def bulkFeeEntry   = {
+
+
+     }
 
     def checkStudentByRollNo = {
         println("Roll Number entered by user")
