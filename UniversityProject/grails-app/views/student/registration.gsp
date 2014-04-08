@@ -243,7 +243,9 @@
     </td>
 </tr>
 <tr>
-    <td>Upload Your Photo(upload one recent Passport size black & white Photograph)</td>
+    <td>
+        Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 30KB )
+    </td>
     <td>
         %{--<input type='file' onchange="readURL(this);" />--}%
         <div id="profile-image"><img id="picture" src="" alt="Space for Photograph "
