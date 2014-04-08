@@ -217,7 +217,7 @@
             </tr>
             <tr>
 
-                <td style="width: 30%;">P.O.:</td>
+                <td style="width: 30%;">Post Office:</td>
                 <td style="width: 70%;"><input type="text" name="addressPO" maxlength="30" class="university-size-1-2"/>
                 </td>
             </tr>
