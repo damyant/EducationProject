@@ -87,7 +87,7 @@ class CourseDetailService {
 
     def getAllCourses() {
 
-        def courseObj = ProgramDetail.findAll()
+        def courseObj = ProgramDetail.list(sort: 'courseName')
 
     }
 

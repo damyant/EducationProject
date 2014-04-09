@@ -71,7 +71,7 @@ function validate() {
             nameOfApplicant: {
                 required: true
             },
-            program: {
+            programId: {
                 required: true
             },
             category: {
@@ -246,7 +246,7 @@ function validate() {
             date_of_birth: "Please Enter Date of birth",
             centerCode: "Please Enter Center Code",
             d_o_b: "Please Enter Date of birth",
-            program: "Please enter Program",
+            programId: "Please select Program",
             programDetail: "Please enter Program",
             category: "Please select one of these categories",
             nationality: "please select Nationality",
