@@ -11,8 +11,8 @@
     <title>Create Study Center</title>
     <meta name="layout" content="main"/>
     <g:javascript src='studyCenter.js'/>
-    <g:javascript src='validate.js'/>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
+    %{--<g:javascript src='validate.js'/>--}%
+    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>--}%
     <title>Create Study Center</title>
 </head>
 
@@ -143,7 +143,7 @@
                     <td><label><g:message code="default.createStudy.websiteUrl"/> <span
                             class="university-obligatory">*</span></label></td>
                     <td><input type="text" name="websiteUrl" value="${studyCentreInstance?.websiteUrl}" id="websiteUrl"
-                               class="university-size-1-3" onblur="checkWebsiteUrl(this)"/></td>
+                               class="university-size-1-3" /></td>
                 </tr>
                 <tr>
                     <td><label><g:message code="default.createStudy.nameOfHeadIns"/> <span

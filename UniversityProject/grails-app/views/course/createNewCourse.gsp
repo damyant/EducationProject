@@ -46,7 +46,7 @@
             </tr>
             <tr>
                 <td><label>Select Mode :<span class="university-obligatory">*</span></label></td>
-                <td><g:select name="courseMode" id="modeName" optionKey="id" optionValue="modeName" class="university-size-1-2" from="${CourseMode.findAll()}" noSelection="['':' Select Mode']" /></td>
+                <td><g:select name="courseMode" id="modeName" optionKey="id" optionValue="modeName" onchange="enableNoOfSem(this)" class="university-size-1-2" from="${CourseMode.findAll()}" noSelection="['':' Select Mode']" /></td>
             </tr>
             <tr>
                 <td><label>Select Course Type :<span class="university-obligatory">*</span></label></td>
@@ -55,7 +55,7 @@
 
             <tr>
                 <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
-                <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)" onblur="semesterList()"/></td>
+                <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)" onblur="semesterList()" disabled/></td>
             </tr>
             <tr>
                 <td><label>Course Code :<span class="university-obligatory">*</span></label></td>
