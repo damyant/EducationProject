@@ -39,6 +39,7 @@ grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
 // Legacy setting for codec used to encode data with ${}
 grails.views.default.codec = "html"
+grails.databinding.dateFormats = ['MM/dd/yyyy']
 
 // The default scope for controllers. May be prototype, session or singleton.
 // If unspecified, controllers are prototype scoped.
@@ -78,6 +79,8 @@ grails.enable.native2ascii = true
 grails.spring.bean.packages = []
 // whether to disable processing of multi part requests
 grails.web.disable.multipart=false
+
+feeTypeList = ["Education Fee", "Examination Fee", "Certificate Fee"]
 
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']

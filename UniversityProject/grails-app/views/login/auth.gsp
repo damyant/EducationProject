@@ -25,8 +25,8 @@
 			</p>
 
 			<p>
-				<input type='submit' id="submit" value=''/>
-			</p>
+                <input type='submit' id="submit" value='SIGN IN'/>
+            </p>
 		</form>
 	</div>
 </div>

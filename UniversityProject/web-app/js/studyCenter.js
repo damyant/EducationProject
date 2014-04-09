@@ -9,6 +9,7 @@
 //
 //});
 
+
 function showCityList() {
     var data = $('#district').val();
 
@@ -18,7 +19,7 @@ function showCityList() {
         data: {data: data},
         success: function (data) {
             $("#city").empty().append('<option value="">Select City</option>')
-                 for (var i = 0; i <data.length; i++) {
+            for (var i = 0; i < data.length; i++) {
                 $("#city").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>')
             }
         },
@@ -28,7 +29,7 @@ function showCityList() {
 
 }
 
-function showStudyCenterList(){
+function showStudyCenterList() {
 
     var data = $('#city').val();
     var type = $('#ParameterType').val();
@@ -38,28 +39,23 @@ function showStudyCenterList(){
         data: {data: data},
         success: function (data) {
 
-            if(data.flag!="false"){
+            if (data.flag != "false") {
                 $("#msgDiv").html("")
                 $("#studyCenterTab thead tr").remove()
-                if(type=='update'){
-                    $("#studyCenterTab thead").append('<tr><th>Name</th><th>Address</th><th>Website URL</th><th></th></tr>')
-                }
-                else{
-                    $("#studyCenterTab thead").append('<tr><th>Name</th><th>Address</th><th>Website URL</th></tr>')
-                }
+                $("#studyCenterTab thead").append('<tr><th>Name</th><th>Address</th><th>Website URL</th><th></th></tr>')
                 $("#studyCenterTab tbody tr").remove()
-              for (var i = 0; i <data.length; i++) {
-                  if(type=='update'){
+                for (var i = 0; i < data.length; i++) {
+                    if (type == 'update') {
 
-                      $("#studyCenterTab tbody").append('<tr><td>'+data[i].name+'</td><td>'+data[i].address+'</td><td>'+data[i].websiteUrl+'</td><td><div class="university-float-right"><input type="submit" value="Update" class="university-button" onclick="updateStudyCenter('+data[i].id+')"/><input type="button" onclick="deleteStudyCenter('+data[i].id+')"  value="Delete" class="university-button" /></div></td></tr>')
+                        $("#studyCenterTab tbody").append('<tr><td>' + data[i].name + '</td><td>' + data[i].address + '</td><td>' + data[i].websiteUrl + '</td><td><div class="university-float-right"><input type="submit" value="Update" class="university-button" onclick="updateStudyCenter(' + data[i].id + ')"/><input type="button" onclick="deleteStudyCenter(' + data[i].id + ')"  value="Delete" class="university-button" /></div></td></tr>')
 
-                  }
-                  else{
-                      $("#studyCenterTab tbody").append('<tr><td>'+data[i].name+'</td><td>'+data[i].address+'</td><td>'+data[i].websiteUrl+'</td></tr>')
-                  }
+                    }
+                    else {
+                        $("#studyCenterTab tbody").append('<tr><td>' + data[i].name + '</td><td>' + data[i].address + '</td><td>' + data[i].websiteUrl + '</td><td><div class="university-float-right"><input type="submit" value="View" class="university-button" onclick="viewStudyCenter(' + data[i].id + ')"/></td></tr>')
+                    }
+                }
             }
-          }
-          else{
+            else {
                 $("#studyCenterTab tbody tr").remove()
                 $("#msgDiv").html("No Study Center found")
             }
@@ -70,32 +66,36 @@ function showStudyCenterList(){
 }
 
 
-
-function updateStudyCenter(){
+function updateStudyCenter() {
 
     window.location.href = '/UniversityProject/studyCenter/createNewStudyCenter';
 }
-function deleteStudyCenter(studyCenterId){
-    var result= confirm("Are you sure you want to delete this item?", "Confirm Delete");
-    if(result==true){
-    var data = studyCenterId;
-    $.ajax({
-        type: "post",
-        url: url('studyCenter', 'deleteStudyCenter', ''),
-        data: {data: data},
-        success: function (data) {
-            //document.location.reload();
-            showStudyCenterList()
-        }
-    });
+function deleteStudyCenter(studyCenterId) {
+    var result = confirm("Are you sure you want to delete this item?", "Confirm Delete");
+    if (result == true) {
+        var data = studyCenterId;
+        $.ajax({
+            type: "post",
+            url: url('studyCenter', 'deleteStudyCenter', ''),
+            data: {data: data},
+            success: function (data) {
+                //document.location.reload();
+                showStudyCenterList()
+            }
+        });
     }
 }
-function updateStudyCenter(studyCenterId){
+function updateStudyCenter(studyCenterId) {
     var data = studyCenterId
-    window.location.href = '/UniversityProject/studyCenter/createNewStudyCenter?studyCenterId='+data+'&type=edit';
+    window.location.href = '/UniversityProject/studyCenter/createNewStudyCenter?studyCenterId=' + data + '&type=edit';
 
 }
-function showCentreList(){
+function viewStudyCenter(studyCenterId) {
+    var data = studyCenterId
+    window.location.href = '/UniversityProject/studyCenter/createNewStudyCenter?studyCenterId=' + data + '&type=view';
+
+}
+function showCentreList() {
 
     var data = $('#city').val();
     debugger;
@@ -105,13 +105,18 @@ function showCentreList(){
         data: {data: data},
         success: function (data) {
             $("#examinationCentre").empty().append('<option value=""> Select Examination Centre</option>')
-            for (var i = 0; i <data.length; i++) {
+            for (var i = 0; i < data.length; i++) {
                 $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
+
+}
+
+function checkWebsiteUrl(t) {
+    alert(this.val())
 
 }
 

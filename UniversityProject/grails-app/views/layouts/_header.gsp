@@ -13,7 +13,7 @@
             </sec:ifLoggedIn>
             <sec:ifNotLoggedIn>
                 <div class="university-session-management">
-                    |<g:link controller="login" action="auth"> Login </g:link>|
+                    |<g:link controller="login" action="auth">Login</g:link>|
                 </div>
             </sec:ifNotLoggedIn>
         </div>
@@ -55,9 +55,6 @@
                             <li><g:link controller="examinationCenter"
                                         action="updateExaminationCentre"><g:message
                                         code="default.mainMenu3.subMenu1.subMenu3"/></g:link></li>
-                            <li><g:link controller="examinationCenter"
-                                        action="deleteExaminationCentre"><g:message
-                                        code="default.mainMenu3.subMenu1.subMenu4"/></g:link></li>
                         </ul>
                     </li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>
@@ -66,12 +63,11 @@
                                 <ul>
                                     <li><a href="#" class="newAdmitCardPopup"><g:message
                                             code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
-                                    <li><a href="#"><g:message
-                                            code="default.mainMenu3.subMenu2.submenu1.submenu2"/></a>
+                                    <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message
+                                            code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
                                     </li>
-
-                                    <li><g:link controller="admitCard" action="createAdmitCard"><g:message
-                                            />Create Admit Card</g:link></li>
+                                    <li><g:link controller="admitCard"
+                                                action="createAdmitCard"><g:message/>Create Admit Card</g:link></li>
 
                                 </ul>
                             </li>
@@ -94,17 +90,34 @@
                         </ul>
                     </li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>
+
                         <ul>
                             <li><g:link controller="course" action="createNewCourse"><g:message
                                     code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
                             <li><g:link controller="course"
-                                        action="viewCourses"><g:message
+                                        action="listOfCourses"><g:message
                                         code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>
                             <li><g:link controller="course"
                                         action="updateCourses"><g:message
                                         code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
                         </ul>
                     </li>
+                    %{--<!----}%
+                    %{--<li>--}%
+                    %{--<ul>--}%
+                        %{--<li><g:link controller="course" action="createNewCourse"><g:message--}%
+                                %{--code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>--}%
+                        %{--<li><g:link controller="course"--}%
+                                    %{--action="viewCourses"><g:message--}%
+                                    %{--code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>--}%
+                        %{--<li><g:link controller="course"--}%
+                                    %{--action="updateCourses"><g:message--}%
+                                    %{--code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>--}%
+                    %{--</ul>--}%
+                %{--</li>--}%
+%{---->--}%
+
+
                 </ul>
             </li>
             <li><a href="#"><g:message code="default.mainMenu4"/></a></li>
@@ -113,16 +126,51 @@
                 <ul>
                     <li><g:link controller="admin" action="viewProvisionalStudents"><g:message
                             code="default.mainMenu6.subMenu1"/></g:link></li>
-                    <li><g:link controller="course"
-                                action="viewCourses"><g:message
-                                code="default.mainMenu6.subMenu2"/></g:link></li>
+
                     <li><g:link controller="admin"
                                 action="viewApprovedStudents"><g:message
                                 code="default.mainMenu6.subMenu3"/></g:link></li>
+
+                    <li><a href="#"><g:message code="default.mainMenu3.subMenu7"/></a>
+                        <ul>
+                            <li><g:link controller="programFee" action="createNewFeeType"><g:message
+                                    code="default.mainMenu3.subMenu7.subMenu1"/></g:link></li>
+                            <li><g:link controller="programFee"
+                                        action="listOfFeeType"><g:message
+                                        code="default.mainMenu3.subMenu7.subMenu2"/></g:link></li>
+
+                        </ul>
+                    </li>
                 </ul>
 
-
             </li>
+        <li><a href="#"><g:message code="default.mainMenu7"/></a>
+            <ul>
+                <li><g:link controller="admin"
+                            action="feeVoucher"><g:message
+                            code="default.mainMenu6.subMenu9"/></g:link></li>
+                <li><g:link controller="admin"
+                            action="examFeeVoucher"><g:message
+                            code="default.mainMenu6.subMenu8"/></g:link></li>
+
+
+            </ul>
+        </li>
+
+        <li><a href="#"><g:message code="default.mainMenu8"/></a>
+            <ul>
+                <li><g:link controller="feeDetails"
+                            action="createFeeDetails"><g:message
+                            code="default.mainMenu8.subMenu1"/></g:link></li>
+                <li><g:link controller="feeDetails"
+                            action="bulkFeeEntry"><g:message
+                            code="default.mainMenu8.subMenu2"/></g:link></li>
+
+
+            </ul>
+        </li>
+
+
         </ul>
     </div>
     %{--</div>--}%

@@ -15,39 +15,55 @@ import java.text.SimpleDateFormat
 @Transactional
 class StudentRegistrationService {
 
-   Boolean saveNewStudentRegistration(params, signature, photographe){
+    def springSecurityService
+
+   Student saveNewStudentRegistration(params, signature, photographe){
        Boolean studentRegistrationInsSaved = false;
 
-      def studentRegistration = new Student(params)
+       def studentRegistration = new Student(params)
        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
        studentRegistration.dob=df.parse(params.d_o_b)
+
 
        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
        studentRegistration.status= Status.findById(1)
        studentRegistration.studyCentre=studyCentre
-       Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programDetail))
+       Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
        studentRegistration.programDetail=programDetail
        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examiNationCentre))
        studentRegistration.examinationCentre=examinationCentreList
        studentRegistration.studentImage=photographe.bytes
+       studentRegistration.semester=1
 
         //RAJ CODE
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
        String year = sdf.format(Calendar.getInstance().getTime());
 
        studentRegistration.registrationYear=Integer.parseInt(year)
-       studentRegistration.referenceNumber=Integer.parseInt(getStudentReferenceNumber())
+       if(springSecurityService.isLoggedIn()){
+       studentRegistration.rollNo=(Integer)getStudentRollNumber(params)
+       studentRegistration.status= Status.findById(2)
+       }else{
+           studentRegistration.referenceNumber=Integer.parseInt(getStudentReferenceNumber())
+           studentRegistration.status= Status.findById(1)
+       }
+
+
       //END RAJ CODE
 
 //       studentRegistration.studentSignature=signature.bytes
        if(studentRegistration.save(flush:true,failOnError: true)){
            println('new student registered successfully')
            studentRegistrationInsSaved= true
-
+           return studentRegistration
+        }else{
+           return null
        }
-       return studentRegistrationInsSaved
+
 
    }
+
+
     /**
      * Service to generate the roll no.
      * @param courseId
@@ -83,6 +99,7 @@ class StudentRegistrationService {
                     order("rollNo", "desc")
                 }
 
+                if(params.studentList){
                 def studentIdList=params.studentList.split(",")
                 studentIdList.each{i ->
                  def stuObj=Student.findById(Long.parseLong(i.toString()))
@@ -108,6 +125,28 @@ class StudentRegistrationService {
                     stuObj.save(failOnError: true)
                 }
                 return status=true
+            }else{
+
+                    if(studentByYearAndCourse){
+                        if(studentByYearAndCourse[0].rollNo>0){
+                            if(rollNumber==0){
+                                rollNumber = studentByYearAndCourse[0].rollNo+1
+                            }
+                            else{
+                                rollNumber=++rollNumber
+                            }
+                        }
+                        else{
+                            rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                        }
+                    }
+                    else{
+                        rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                    }
+
+                    return rollNumber
+
+                }
             }
 
      }

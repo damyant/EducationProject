@@ -10,7 +10,7 @@ return true;
 }
 
 $('#profile-image').on('click', function() {
-    alert("click")
+//    alert("click")
     $('#profile-image-upload').click();
 });
 
@@ -41,29 +41,24 @@ function readURL(input,type) {
     }
 }
 
+
 jQuery(function($) {
     $( "#datePick" ).datepicker({
         changeMonth: true,
         changeYear: true,
         dateFormat: "mm/dd/yy"
     });
+
+    $( "#datePick1" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "mm/dd/yy"
+    });
+    $( "#admissionDate" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "mm/dd/yy"
+    });
 });
 
-function onlyAlphabets(e, t) {
-    try {
-        if (window.event) {
-            var charCode = window.event.keyCode;
-        }
-        else if (e) {
-            var charCode = e.which;
-        }
-        else { return true; }
-        if (charCode == 32 ||(charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
-            return true;
-        else
-            return false;
-    }
-    catch (err) {
-        alert(err.Description);
-    }
-}
+

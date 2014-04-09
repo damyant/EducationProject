@@ -14,7 +14,10 @@
     <g:javascript src='validate.js'/>
     <g:javascript src='studyCenter.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>
+
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
+    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
     <style type="text/css">
 
     </style>
@@ -26,47 +29,46 @@
     <div class="message"><div class="university-status-message">${flash.message}</div></div>
 </g:if>
 
-
+<fieldset class="form">
 <g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data"
               id="studentRegister" name="studentRegister">
-
-<table align="center" cellpadding="10" class="university-table-1-2">
-<tr>
-    <td colspan="2">
-        <h3>STUDENT INFORMATION SHEET</h3>
-    </td>
-</tr>
+<h3>STUDENT INFORMATION SHEET</h3>
+<label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
+<table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;">
 <!----- First Name ---------------------------------------------------------->
 <tr>
-    <td>Name of the applicant <span>*</span></td>
-    <td><input type="text" name="name" style="text-transform:uppercase" onkeypress="return onlyAlphabets(event,this);" maxlength="30" class="university-size-1-2"/>
+    <td>Name of the applicant <span class="university-obligatory">*</span></td>
+    <td><input type="text" name="name" style="text-transform:uppercase" onkeypress="return onlyAlphabets(event, this);"
+               maxlength="50" class="university-size-1-2"/>
 
     </td>
 </tr>
 <!----- Date Of Birth -------------------------------------------------------->
 <tr>
-    <td>Date of Birth <span>*</span></td>
+    <td>Date of Birth <span class="university-obligatory">*</span></td>
 
 
 
-    <td><input type="text" name="d_o_b" maxlength="30" class="university-size-1-2" id="datePick"/>
+    <td>
+        %{--<input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datePick"/>--}%
+        <input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datepicker">
 
     </td>
 </tr>
 
 <!----- Last Name ---------------------------------------------------------->
 <tr>
-    <td>Program <span>*</span></td>
+    <td>Program <span class="university-obligatory">*</span></td>
     %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
     <td>
-        <g:select name="programDetail" id="programDetail" optionKey="id" class="university-size-1-2"
+        <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                   optionValue="courseName" from="${ProgramDetail.findAll()}" noSelection="['': ' Select Program']"/>
 
     </td>
 </tr>
 <!----- category ----------------------------------------------------------->
 <tr>
-    <td>Category <span>*</span></td>
+    <td>Category <span class="university-obligatory">*</span></td>
     <td>
         <div class="radio_options">
             <label><span>General</span><input type="radio" name="category" value="General" class="radioInput"/></label>
@@ -79,7 +81,8 @@
 
             <label><span>ST</span><input type="radio" name="category" value="S.T" class="radioInput"/></label>
 
-           <label><span>MINORITY</span><input type="radio" name="category" value="MINORITY COMMUNITY" class="radioInput"/>
+            <label><span>MINORITY</span><input type="radio" name="category" value="MINORITY COMMUNITY"
+                                               class="radioInput"/>
             </label>
         </div>
     </td>
@@ -88,11 +91,12 @@
 
 <!----- Nationality ----------------------------------------------------------->
 <tr>
-    <td>Nationality <span>*</span></td>
+    <td>Nationality <span class="university-obligatory">*</span></td>
     <td>
         <div class="radio_options">
             <label><span>Indian</span><input type="radio" name="nationality" value="Indian" class="radioInput"/></label>
-            <label><span>Non-Indian</span><input type="radio" name="nationality" value="Non-Indian" class="radioInput"/></label>
+            <label><span>Non-Indian</span><input type="radio" name="nationality" value="Non-Indian" class="radioInput"/>
+            </label>
         </div>
     </td>
 </tr>
@@ -111,7 +115,7 @@
 
 <!----- Gender ----------------------------------------------------------->
 <tr>
-    <td>Gender <span>*</span></td>
+    <td>Gender <span class="university-obligatory">*</span></td>
     <td>
         <div class="radio_options">
             <label><span>Male</span><input type="radio" name="gender" value="Male" class="radioInput"/></label>
@@ -121,7 +125,7 @@
 </tr>
 <!----- State of Domicile ----------------------------------------------------------->
 <tr>
-    <td>State of Domicile <span>*</span></td>
+    <td>State of Domicile <span class="university-obligatory">*</span></td>
     <td>
         <div class="radio_options">
             <label><span>Assam</span><input type="radio" name="state" value="Assam" class="radioInput"/></label>
@@ -132,16 +136,17 @@
 
 <tr>
     <!----- Mobile Number ---------------------------------------------------------->
-    <td>Contact Mobile Number <span>*</span></td>
+    <td>Mobile Number <span class="university-obligatory">*</span></td>
     <td>
-        <input type="text" id="mobileNoCntryCode" name="mobileNoCntryCode" maxlength="3" value="+91" readonly> - <input type="text" id="mobileNo" name="mobileNo" maxlength="10"
-               onkeypress="return isNumber(event)"/>
+        <input type="text" id="mobileNoCntryCode" name="mobileNoCntryCode" maxlength="3" value="+91" readonly> - <input
+            type="text" id="mobileNo" name="mobileNo" maxlength="10"
+            onkeypress="return isNumber(event)"/>
     </td>
 </tr>
 <tr>
 
     <!----- Contact centre/study centre ---------------------------------------------------------->
-    <td>Contact centre/ Study centre <span>*</span></td>
+    <td>Study centre <span class="university-obligatory">*</span></td>
     <td>
         <input type="text" name="studyCentre" class="university-size-1-2" value="${studyCentre?.name}" readonly/>
 
@@ -151,7 +156,7 @@
 </tr>
 <tr>
     <!----- Preference of examination centre ---------------------------------------------------------->
-    <td>Select Preference of examination centre <span>*</span></td>
+    <td>Select Preference of examination centre <span class="university-obligatory">*</span></td>
     <td>
         %{--<input type="text" name="preference" maxlength="2" class="textInput" required="true" onkeypress="return isNumber(event)"/>--}%
 
@@ -164,75 +169,87 @@
         %{--</select>--}%
         <table id="examCenterSelect">
             <tr>
-                <td style="width: 50%"><g:select name="district" id="district" optionKey="id" class="university-size-1-1"
-                              onchange="showCityList()" optionValue="districtName" from="${District.findAll()}"
-                              noSelection="['': ' Select District']"/>
+                <td style="width: 50%"><g:select name="district" id="district" optionKey="id"
+                                                 class="university-size-1-1"
+                                                 onChange="showCityList()" optionValue="districtName"
+                                                 from="${District.findAll()}"
+                                                 noSelection="['': ' Select District']"/>
                 </td>
-                 <td style="width: 50%"><g:select name="city" id="city" optionKey="id" class="university-size-1-1" optionValue="cityName"
-                              from="" onchange="showCentreList()" noSelection="['': ' Select City']"/></td>
+                <td style="width: 50%"><g:select name="city" id="city" optionKey="id" class="university-size-1-1"
+                                                 optionValue="cityName"
+                                                 from="" onchange="showCentreList()"
+                                                 noSelection="['': ' Select City']"/></td>
             </tr><tr>
-                <td ><g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" from=" "
-                              noSelection="['': 'Select Examination Centre']"/>
-                </td><td></td>
-            </tr>
+            <td><g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" from=" "
+                          noSelection="['': 'Select Examination Centre']"/>
+            </td><td></td>
+        </tr>
         </table>
     </td>
 </tr>
-<tr>
-    <!----- GU Registration Number( If already registered in GU) ---------------------------------------------------------->
-    <td>GU Registration Number (if already registered in GU)</td>
-    <td>
-        <input type="text" name="registrationNo1" maxlength="9" class="university-size-1-3"
-               onkeypress="return isNumber(event)"/> Of
-        <input type="text" name="registrationNo2" maxlength="6" class="university-size-1-3"
-               onkeypress="return isNumber(event)"/>
-    </td>
-</tr>
+%{--<tr>--}%
+%{--<!----- GU Registration Number( If already registered in GU) ---------------------------------------------------------->--}%
+%{--<td>GU Registration Number (if already registered in GU)</td>--}%
+%{--<td>--}%
+%{--<input type="text" name="registrationNo1" maxlength="9" class="university-size-1-3"--}%
+%{--onkeypress="return isNumber(event)"/> Of--}%
+%{--<input type="text" name="registrationNo2" maxlength="6" class="university-size-1-3"--}%
+%{--onkeypress="return isNumber(event)"/>--}%
+%{--</td>--}%
+%{--</tr>--}%
 
 <!----- Address ---------------------------------------------------------->
 <tr>
-    <td>Candidate Name & Complete Mailing Address (Write in Capital Letter) <br/><br/><br/></td>
+    <td>Complete Mailing Address of Candidate<br/><br/><br/></td>
     <td>
         <table style="width: 100%" id="examCenterAddress">
             <tr>
 
-                <td style="width: 30%;">Name:</td>
+                <td style="width: 30%;">Address:</td>
                 <td style="width: 70%;"><input type="text" name="addressStudentName" maxlength="30"
-                                       class="university-size-1-2" onkeypress="return onlyAlphabets(event,this);"/></td>
+                                               class="university-size-1-2"
+                                               onkeypress="return isAlphaNumeric(event, this);"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">Village/Town:</td>
-                <td style="width: 70%;"><input type="text" name="addressTown" maxlength="30" class="university-size-1-2"/></td>
+                <td style="width: 70%;"><input type="text" name="addressTown" maxlength="30"
+                                               class="university-size-1-2"/></td>
             </tr>
             <tr>
 
-                <td style="width: 30%;">P.O.:</td>
-                <td style="width: 70%;"><input type="text" name="addressPO" maxlength="30" class="university-size-1-2"/></td>
+                <td style="width: 30%;">Post Office:</td>
+                <td style="width: 70%;"><input type="text" name="addressPO" maxlength="30" class="university-size-1-2"/>
+                </td>
             </tr>
             <tr>
                 <td style="width: 30%;">District:</td>
 
                 <td style="width: 70%;"><input type="text" name="addressDistrict" maxlength="30"
-                                       class="university-size-1-2"/></td>
+                                               class="university-size-1-2"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">State:</td>
-                <td style="width: 70%;"><input type="text" name="addressState" maxlength="30" class="university-size-1-2"/>
+                <td style="width: 70%;"><input type="text" name="addressState" maxlength="30"
+                                               class="university-size-1-2"/>
                 </td>
             </tr>
             <tr>
                 <td style="width: 30%;">Pincode:</td>
-                <td style="width: 70%;"><input type="text" name="addressPinCode" maxlength="6" class="university-size-1-2"
-                                       onkeypress="return isNumber(event)"/></td>
+                <td style="width: 70%;"><input type="text" name="addressPinCode" maxlength="6"
+                                               class="university-size-1-2"
+                                               onkeypress="return isNumber(event)"/></td>
             </tr>
         </table>
     </td>
 </tr>
 <tr>
-    <td>Upload Your Photo(upload one recent Passport size black & white Photograph)</td>
+    <td>
+        Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 30KB )
+    </td>
     <td>
         %{--<input type='file' onchange="readURL(this);" />--}%
-        <div id="profile-image"><img id="picture" src="" alt="Space for Photograph " class="university-registration-photo"/></div>
+        <div id="profile-image"><img id="picture" src="" alt="Space for Photograph "
+                                     class="university-registration-photo"/></div>
         <input type='file' id="profile-image-upload" onchange="readURL(this, 'picture');" class="university-button"
                name="photograph"/>
     </td>
@@ -240,7 +257,9 @@
 <tr>
     <td colspan="2">
         <label id="declaration-label"><input type="checkbox" id="declaration" name="declaration"/>
-            I hereby declare that the information as indicated above is true to the best of my knowledge.<span>*</span></label>
+            I hereby declare that the information as indicated above is true to the best of my knowledge. <span
+                class="university-obligatory">*</span>
+        </label>
     </td>
 </tr>
 
@@ -261,6 +280,7 @@
 </table>
 
 </g:uploadForm>
+</fieldset>
 </div>
 <script>
 
@@ -285,7 +305,15 @@
     //            return false
     //        }
     //}
-
+    $(function () {
+        $(function () {
+            $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm/dd/yy"
+            });
+        });
+    });
 </script>
 </body>
 </html>

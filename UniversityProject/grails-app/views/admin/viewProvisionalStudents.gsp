@@ -15,6 +15,8 @@
 
 <body>
 <div id="main">
+    <fieldset class="form">
+    %{--<h3>Generate Roll Number</h3>--}%
     <g:if test="${params.rollNo=='generated'}">
         <div class="message"><div class="university-status-message"><g:message code="rollNo.Generated.message"/></div></div>
     </g:if>
@@ -39,14 +41,14 @@
             </td>
             <td style="width: 10%"></td>
         </sec:ifAnyGranted>
-     <sec:ifAnyGranted roles="ROLE_STUDYCENTRE">
+     <sec:ifAnyGranted roles="ROLE_STUDYCENTRE,ROLE_IDOL_USER">
          <td style="min-width: 10%">
              <label for="programId">Select Program</label>
          </td>
          <td style="width: 33%">
              <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}" optionKey="id" optionValue="courseName" noSelection="['null':' Select Program']" onchange="getStudents()" />
          </td>
-         <td style="width: 10%"></td>
+         <td style="width:50%"></td>
       </sec:ifAnyGranted>
 
     </tr>
@@ -58,6 +60,7 @@
 </table>
 </g:form>
 <div id="msg"></div>
+    </fieldset>
 </div>
 </body>
 </html>
