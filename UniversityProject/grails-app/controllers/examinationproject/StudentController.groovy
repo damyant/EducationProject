@@ -16,28 +16,28 @@ class StudentController {
 //    @Secured('ROLE_STUDYCENTRE')
     def registration= {
         println("inside registration")
+        def studyCentre
         if(springSecurityService.isLoggedIn()){
 
 
             def currentUser= springSecurityService.currentUser.username
             if(springSecurityService.currentUser.studyCentreId!=0){
-            def studyCentre= StudyCenter.findByEmailIdOfHeadIns(currentUser)
-
-              [studyCentre:studyCentre]
+                 studyCentre= StudyCenter.findByEmailIdOfHeadIns(currentUser)
             }
-            else{
-                def studyCentre= StudyCenter.findByCenterCode('11111')
+            else
+            {
+               studyCentre= StudyCenter.findByCenterCode('11111')
                 println("<><>><<><><><<><><>>><><>><<<<<<<<>>>"+studyCentre.name)
-                [studyCentre:studyCentre]
             }
 
           }
         else{
              println("user is not logged in")
-            def studyCentre= StudyCenter.findByCenterCode('11111')
-            println("<><>><<><><><<><><>>><><>><<<<<<<<>>>"+studyCentre.name)
-            [studyCentre:studyCentre]
+             studyCentre= StudyCenter.findByCenterCode('11111')
+//            println("<><>><<><><><<><><>>><><>><<<<<<<<>>>"+studyCentre.name)
+
         }
+        [studyCentre:studyCentre]
 
     }
     def viewResult={

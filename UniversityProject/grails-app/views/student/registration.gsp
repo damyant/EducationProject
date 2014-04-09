@@ -29,6 +29,20 @@
     <div class="message"><div class="university-status-message">${flash.message}</div></div>
 </g:if>
 
+
+<g:if test="${!studyCentre}">
+    <fieldset class="form">
+        <div class='body'>
+            <div class='errors'><div class="university-not-authorized">
+                <p><img src="${resource(dir: 'images', file: 'cancel.png')}" alt="Not Authorized"
+                        style="margin: auto;"/></p>
+
+                <p><g:message code="registration.denied.message"/></p>
+            </div></div>
+        </div>
+    </fieldset>
+</g:if>
+<g:else>
 <fieldset class="form">
 <g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data"
               id="studentRegister" name="studentRegister">
@@ -281,6 +295,7 @@
 
 </g:uploadForm>
 </fieldset>
+</g:else>
 </div>
 <script>
 
