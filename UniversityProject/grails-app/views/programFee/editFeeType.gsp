@@ -48,7 +48,7 @@
 
                         <div class="university-size-2-3">
                             <g:textField name="feeAmountAtIDOL" class="university-size-1-2" type="number"
-                                         value="${programFeeInstance.feeAmountAtIDOL}" required=""/>
+                                         value="${programFeeInstance.feeAmountAtIDOL}"/>
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
 
                         <div class="university-size-2-3">
                             <g:textField name="feeAmountAtSC" type="number" class="university-size-1-2"
-                                         value="${programFeeInstance.feeAmountAtSC}" required=""/>
+                                         value="${programFeeInstance.feeAmountAtSC}"/>
                         </div>
                     </div>
 
@@ -76,7 +76,7 @@
 
                         <div class="university-size-2-3">
                             <g:textField name="lateFeeAmount" type="number" class="university-size-1-2"
-                                         value="${programFeeInstance.lateFeeAmount}" required=""/>
+                                         value="${programFeeInstance.lateFeeAmount}"/>
                         </div>
                     </div>
 
@@ -90,7 +90,7 @@
 
                         <div class="university-size-2-3">
                             <g:textField name="examinationFee" class="university-size-1-2" type="number"
-                                         value="${programFeeInstance.examinationFee}" required=""/>
+                                         value="${programFeeInstance.examinationFee}"/>
                         </div>
                     </div>
 
@@ -104,7 +104,7 @@
 
                         <div class="university-size-2-3">
                             <g:textField name="certificateFee" class="university-size-1-2" type="number"
-                                         value="${programFeeInstance.certificateFee}" required=""/>
+                                         value="${programFeeInstance.certificateFee}"/>
                         </div>
                     </div>
 
@@ -113,7 +113,7 @@
 
                         <div class="university-size-2-3">
                             <g:actionSubmit class="save university-button" action="update"
-                                            value="${message(code: 'default.button.update.label', default: 'Update')}"/>
+                                            onclick="validate()" value="${message(code: 'default.button.update.label', default: 'Update')}"/>
                             <g:link controller="programFee" class="university-text-decoration-none"
                                     action="listOfFeeType"><input type="button" name="create"
                                                                   class="save university-button"

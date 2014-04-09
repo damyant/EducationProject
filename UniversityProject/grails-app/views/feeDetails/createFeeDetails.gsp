@@ -4,7 +4,8 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'feeDetails.label', default: 'FeeDetails')}"/>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
-
+    <g:javascript src='validate.js'/>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.js')}"></script>--}%
 
     <script type="text/javascript">
@@ -59,14 +60,14 @@
                     </g:eachError>
                 </ul>
             </g:hasErrors>
-            <g:form url="[resource: feeDetailsInstance, action: 'saveFeeDetails']">
+            <g:form url="[resource: feeDetailsInstance, action: 'saveFeeDetails']" id="createFeeDetail">
                 <div class="university-size-1-1" style="margin-left: 4px;">
                     <label>
                         <h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory</h6>
                     </label>
                 </div>
 
-                <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'Roll Number', 'error')} required">
+                <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'Roll Number', 'error')} required university-size-1-1">
                     <div class="university-size-1-3">
                         <label for="feeType">
                             <g:message code="feeDetails.rollno.label" default="Roll Number"/>
@@ -76,7 +77,7 @@
 
                     <div class="university-size-2-3">
 
-                        <g:textField id="rollNo" name="rollNo" class="many-to-one university-size-2-3" required="true"/>
+                        <g:textField id="rollNo" name="rollNo" onkeypress="return isNumber(event)" class="many-to-one university-size-1-2"/>
                         <g:hiddenField name="studentId" id="studentId" value=""/>
 
 
@@ -95,8 +96,8 @@
                     <div class="university-size-2-3">
                         <g:select id="feeType" name="feeType" from="${examinationproject.FeeType.list()}"
                                   optionKey="id"
-                                  disabled="disabled" required="required"  optionValue="type"
-                                  class="many-to-one university-size-2-3"/>
+                                  disabled="disabled" optionValue="type"
+                                  class="many-to-one university-size-1-2"/>
                     </div>
                 </div>
 
@@ -110,7 +111,7 @@
 
                     <div class="university-size-2-3">
                         <g:textField name="paymentMode" value="${feeDetailsInstance?.paymentMode}" disabled="disabled"
-                                     class="university-size-2-3" required="true"/>
+                                     class="university-size-1-2"/>
                     </div>
                 </div>
 
@@ -123,8 +124,8 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField name="draftNumber" value="${feeDetailsInstance?.draftNumber}" disabled="disabled"
-                                     class="university-size-2-3" required="true"/>
+                        <g:textField name="draftNumber" onkeypress="return isNumber(event)" value="${feeDetailsInstance?.draftNumber}" disabled="disabled"
+                                     class="university-size-1-2"/>
                     </div>
                 </div>
 
@@ -137,8 +138,8 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField name="paymentDate" maxlength="30" id="datePick1" class="university-size-2-3" value=""
-                               disabled="disabled" required="true"/>
+                        <g:textField name="paymentDate" maxlength="10" id="datePick1" class="university-size-1-2" value=""
+                               disabled="disabled"/>
                     </div>
                 </div>
 
@@ -151,8 +152,8 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <input type="text" name="draftDate" maxlength="30" id="datePick" class="university-size-2-3"
-                               disabled="disabled" required="true"/>
+                        <input type="text" name="draftDate" maxlength="10" id="datePick" class="university-size-1-2"
+                               disabled="disabled"/>
                     </div>
                 </div>
 
@@ -166,7 +167,7 @@
 
                     <div class="university-size-2-3">
                         <g:textField name="issuingBank" id="issuingBank" value="${feeDetailsInstance?.issuingBank}"
-                                     disabled="disabled" class="university-size-2-3" required="true"/>
+                                     disabled="disabled" class="university-size-1-2"/>
                     </div>
                 </div>
 
@@ -181,7 +182,7 @@
                     <div class="university-size-2-3">
                         <g:textField name="issuingBranch" id="issuingBranch"
                                      value="${feeDetailsInstance?.issuingBranch}"
-                                     disabled="disabled" class="university-size-2-3" required="true"/>
+                                     disabled="disabled" class="university-size-1-2"/>
                     </div>
                 </div>
 
@@ -191,7 +192,7 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:submitButton name="create" class="save university-button"
+                        <g:submitButton name="create" class="save university-button" onclick="validate()"
                                         value="${message(code: 'default.button.create.label', default: 'Create')}"/>
                     </div>
                 </div>

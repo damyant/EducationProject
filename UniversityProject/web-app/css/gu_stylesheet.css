@@ -64,6 +64,9 @@ body {
 .university-size-1-2 {
     width: 50%;
 }
+.university-size-3-4{
+    width: 75%;
+}
 
 .university-size-1-3 {
     width: 33.33%;
@@ -161,6 +164,10 @@ label.error {
     color: #0000FF;
     text-align: center;
     font-weight: bold;
+}
+
+#createFeeDetail .fieldcontain div{
+    min-width: 20%;
 }
 
 .university-session-management {

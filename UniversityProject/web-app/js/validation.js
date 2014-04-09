@@ -2,7 +2,7 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-    $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee").validate({
+    $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
 
         rules: {
 
@@ -224,7 +224,34 @@ function validate() {
             },
             feeType: {
                 required: true
-            }
+            },
+            paymentMode:{
+                required: true
+            },
+            draftNumber: {
+                required: true,
+                number: true
+            },
+            paymentDate:{
+                required: true
+            },
+            draftDate: {
+                required: true
+            },
+            issuingBank:{
+                required: true
+            },
+            issuingBranch:{
+                required: true
+            },
+
+             //Exam Centre
+            examinationCentreName:{required: true},
+            examinationCentreCode:{},
+            examinationCentreCapacity:{},
+            examinationCentreIncharge:{},
+            examinationCentreContactNo:{},
+            examinationCentreAddress:{}
 
         },
         messages: {
@@ -278,7 +305,18 @@ function validate() {
             totalCreditPoints: "Please Enter total Credit Points",
             examinationCentreName: "Please Enter examination Centre Name",
             rollNo: "Please Enter a Roll Number",
-            feeType: "Please Select Fee type"
+            feeType: "Please Select Fee type",
+            feeAmountAtIDOL: "Please Enter Fee amount at IDOL",
+            feeAmountAtSC: "Please Enter Fee amount at Study Centre",
+            lateFeeAmount: "Please Enter Late Fee amount",
+            examinationFee: "Please Enter Examination Fee amount",
+            certificateFee: "Please Enter Certificate Fee amount",
+            paymentMode:"Please Enter Payment Mode",
+            draftNumber: "Please Enter Draft Number",
+            paymentDate:"Please Enter Payment Date",
+            draftDate: "Please Enter Draft Date",
+            issuingBank:"Please Enter Issuing Bank Name",
+            issuingBranch:"Please Enter Issuing Branch Name"
         },
         errorPlacement: function (error, element) {
             if (element.is("input:radio")) {

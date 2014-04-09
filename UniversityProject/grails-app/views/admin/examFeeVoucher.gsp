@@ -11,6 +11,8 @@
     <title>Generate Fee Voucher</title>
     <meta name="layout" content="main"/>
     <g:javascript src='admin.js'/>
+    <g:javascript src='validate.js'/>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
 </head>
 
 <body>
@@ -30,7 +32,7 @@
                     <td class="university-size-1-3"><p>Enter Roll Number :<span class="university-obligatory">*</span>
                     </p></td>
                     <td class="university-size-2-3"><g:textField name="rollNo" id="rollNo"
-                                                                 class="university-size-2-3" required="true"
+                                                                 class="university-size-1-2" required="true"
                                                                  onkeypress="return isNumber(event)"/></td>
                 </tr>
 
@@ -46,7 +48,7 @@
                     <td>
                         <g:select id="programDetail" name="programDetail"
                                   from="${feeType}" optionKey="id"
-                                  optionValue="type" class="many-to-one university-size-2-3"
+                                  optionValue="type" class="many-to-one university-size-1-2"
                                   noSelection="['': 'Choose Type']" required="required"/>
                     </td>
                 </tr>
@@ -63,14 +65,14 @@
                     <td>
                         <g:select id="programDetail" name="programDetail"
                                   from="${feeType}" optionKey="id"
-                                  optionValue="type" class="many-to-one university-size-2-3"
+                                  optionValue="type" class="many-to-one university-size-1-2"
                                   noSelection="['': 'Choose Term']" required="required"/>
                     </td>
 
                 </tr>
 
                 <tr><td colspan="2" style="text-align: center; "><g:submitButton name="submit" class="university-button"
-                                                                                 value="Submit"
+                                                                                 value="Submit" onclick="validate()"
                                                                                  style="margin-top: 15px;"></g:submitButton></td>
                 </tr>
             </table>
