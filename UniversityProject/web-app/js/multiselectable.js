@@ -146,7 +146,7 @@ function updateInfo(obj) {
     }
 }
 function enableNoOfSem(t){
-    alert($(t).val())
+//    alert($(t).val())
     if($(t).val()==1||$(t).val()==2){
         $('#noOfTerms').val('');
         $('#noOfTerms').prop('disabled', false);
