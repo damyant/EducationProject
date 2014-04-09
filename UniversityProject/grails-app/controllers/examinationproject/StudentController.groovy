@@ -15,9 +15,10 @@ class StudentController {
     def springSecurityService
 //    @Secured('ROLE_STUDYCENTRE')
 
-    def registration = {
+    def registration= {
 
         def studyCentre
+
         if (springSecurityService.isLoggedIn()) {
 
 
@@ -35,6 +36,7 @@ class StudentController {
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
         [studyCentre: studyCentre, programList: programList,districtList:districtList]
+
 
     }
     def viewResult = {

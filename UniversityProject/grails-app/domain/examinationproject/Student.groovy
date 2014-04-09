@@ -18,7 +18,7 @@ class Student {
     String addressPO
     String addressDistrict
     String addressState
-    int addressPinCode
+    String addressPinCode
     String location
     int rollNo
     int semester
