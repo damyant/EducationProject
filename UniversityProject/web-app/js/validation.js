@@ -48,16 +48,16 @@ function validate() {
                 minlength: 10,
                 number: true
             },
-            nameOfAsstCoordinator: {
+            asstCooirdinator: {
                 required: true,
                 textonly: true
             },
-            phoneNoOfAsstCoordinator: {
+            asstMobile: {
                 required: true,
                 minlength: 10,
                 number: true
             },
-            emailIdOfAsstCoordinator: {
+            asstEmail: {
                 required: true,
                 email: true
             },
@@ -238,9 +238,9 @@ function validate() {
             nameOfCoordinator: "Please enter Name of Coordinator",
             phoneNoOfCoordinator: "Please enter Phone No of Coordinator",
             emailIdOfCoordinator: "Please enter Email of Coordinator",
-            nameOfAsstCoordinator: "Please enter Name of Asst. Coordinator",
-            phoneNoOfAsstCoordinator: "Please enter Phone No of Asst. Coordinator",
-            emailIdOfAsstCoordinator: "Please enter Email of Asst. Coordinator",
+            asstCooirdinator: "Please enter Name of Asst. Coordinator",
+            asstMobile: "Please enter Phone No of Asst. Coordinator",
+            asstEmail: "Please enter Email of Asst. Coordinator",
             websiteUrl: "Please Enter Website URL",
             nameOfApplicant: "Please enter Name of an Applicant",
             date_of_birth: "Please Enter Date of birth",
@@ -347,7 +347,7 @@ function onlyAlphabets(e, t) {
 function isAlphaNumeric(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode == 8 || (charCode > 48 && charCode < 57) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
+    if ((charCode == 8 || (charCode > 47 && charCode < 58) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
         return true;
     }
     return false;

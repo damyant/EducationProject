@@ -17,6 +17,7 @@
 
 <body>
 <div id="main">
+    <fieldset class="form">
     <div class="university-location-select">
         <div class="university-label-location-select">Select District:</div>
         <g:select name="districtList" id="district" optionKey="id" optionValue="districtName"
@@ -37,6 +38,7 @@
     </table>
 
     <div id="msgDiv"></div>
+        </fieldset>
 </div>
 </body>
 </html>
