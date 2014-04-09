@@ -21,7 +21,7 @@ environments {
             driverClassName = "com.mysql.jdbc.Driver"
             url = "jdbc:mysql://localhost:3306/universityProject_dev?autoreconnect=true"
             username = "root"
-            password = "root123"
+            password = "root"
             properties {
                 //run the evictor every 30 minutes and evict any connections older than 30 minutes.
                 minEvictableIdleTimeMillis=1800000
