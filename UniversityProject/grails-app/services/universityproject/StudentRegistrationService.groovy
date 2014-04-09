@@ -41,7 +41,7 @@ class StudentRegistrationService {
 
        studentRegistration.registrationYear=Integer.parseInt(year)
        if(springSecurityService.isLoggedIn()){
-       studentRegistration.rollNo=(Integer)getStudentRollNumber(params)
+       studentRegistration.rollNo=getStudentRollNumber(params)
        studentRegistration.status= Status.findById(2)
        }else{
            studentRegistration.referenceNumber=Integer.parseInt(getStudentReferenceNumber())
@@ -70,6 +70,8 @@ class StudentRegistrationService {
      * @return
      */
      def getStudentRollNumber(params){
+
+         println("Roll Number Service>>>>>>>>>>>>>>>>>>>>>>")
             def status=false
             Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year

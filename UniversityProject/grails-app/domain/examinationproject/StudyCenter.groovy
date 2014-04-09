@@ -11,7 +11,7 @@ class StudyCenter {
     String nameOfCoordinator
     String phoneNoOfCoordinator
     String emailIdOfCoordinator
-    String asstCooirdinator
+    String asstCoordinator
     String asstMobile
     String asstEmail
 
@@ -35,7 +35,7 @@ class StudyCenter {
         phoneNoOfCoordinator column: 'PhoneNoOfCoordinator'
         emailIdOfCoordinator column:'EmailIdOfCoordinator'
         city column: 'CityID'
-        asstCooirdinator column: "asstCooirdinator"
+        asstCoordinator column: "asstCooirdinator"
         asstMobile column: "asstMobile"
         asstEmail column: "asstEmail"
 
@@ -52,7 +52,7 @@ class StudyCenter {
             phoneNoOfCoordinator(nullable:false)
             emailIdOfCoordinator(email: true,nullable:false)
             city(nullable:true)
-            asstCooirdinator(nullable: true)
+            asstCoordinator(nullable: true)
             asstMobile (nullable: true)
             asstEmail(nullable: true)
 
