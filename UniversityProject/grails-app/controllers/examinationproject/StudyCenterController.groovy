@@ -83,6 +83,8 @@ class StudyCenterController {
     }
     @Secured("ROLE_ADMIN")
     def viewStudyCentre() {
+        def districtList=District.list(sort:'districtName')
+        [districtList:districtList]
 
     }
 
@@ -114,7 +116,7 @@ class StudyCenterController {
         District district = District.get(params.int('data'));
         def cityList = null
         if (district != null) {
-            cityList = City.findAllByDistrict(district)
+            cityList = City.findAllByDistrict(district,[sort:'cityName'])
             render cityList as JSON
         } else {
             render null

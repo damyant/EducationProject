@@ -20,20 +20,19 @@ class AdminController {
     @Secured(["ROLE_ADMIN","ROLE_STUDYCENTRE","ROLE_IDOL_USER"])
     def viewProvisionalStudents() {
 
-        def studyCenterList=StudyCenter.findAll()
-        def programList=ProgramDetail.findAll()
+        def studyCenterList=StudyCenter.list(sort: 'name')
+        def programList=ProgramDetail.list(sort: 'courseName')
        [studyCenterList:studyCenterList,programList:programList]
     }
 
     @Secured("ROLE_ADMIN")
     def viewApprovedStudents(){
-        def studyCenterList=StudyCenter.findAll()
-        def programList=ProgramDetail.findAll()
+        def studyCenterList=StudyCenter.list(sort: 'name')
+        def programList=ProgramDetail.list(sort: 'courseName')
         [studyCenterList:studyCenterList,programList:programList]
     }
 
     def getStudentList(){
-    println("<<<<<<<"+params)
         def responseMap=[:]
        def stuList= adminInfoService.provisionalStudentList(params)
         responseMap.status="referenceNo"
@@ -44,7 +43,7 @@ class AdminController {
     }
 
     def generateRollNo(){
-    println("????????????"+params)
+  
         def stuList=[]
         def responseMap=[:]
         def status

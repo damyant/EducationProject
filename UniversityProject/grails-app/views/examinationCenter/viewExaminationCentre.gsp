@@ -23,7 +23,7 @@
                     <label><g:message code="default.createStudy.district"/></label></div>
                 <g:select name="district" id="district" optionKey="id"
                           value="${studyCentreInstance?.city?.district?.id}" class="university-size-1-3"
-                          onchange="showCityList()" optionValue="districtName" from="${District.findAll()}"
+                          onchange="showCityList()" optionValue="districtName" from="${districtList}"
                           noSelection="['': ' Select District']"/>
 
             </div>
