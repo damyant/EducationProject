@@ -26,7 +26,8 @@ class Student {
     int registrationYear
     int referenceNumber
     byte[] studentImage
-    FeeDetails feeDetails
+    Date admissionDate =new Date()
+   // FeeDetails feeDetails
 
 
     static hasMany = [examinationCentre : ExaminationCentre, studyCentre : StudyCenter,programDetail:ProgramDetail]
@@ -55,7 +56,7 @@ class Student {
         location(nullable: true)
         rollNo(nullable:true)
         status(nullable:true)
-        feeDetails(nullable: true)
+      //  feeDetails(nullable: true)
 
 
 
@@ -87,7 +88,7 @@ class Student {
         location column: "Location"
         registrationYear column: "registrationYear"
         referenceNumber:column:"referenceNumber"
-        feeDetails column: "feeDetails"
+
     }
 
 }

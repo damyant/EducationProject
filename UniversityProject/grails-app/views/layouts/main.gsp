@@ -39,6 +39,7 @@
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.widget.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.core.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
  <g:layoutHead/>
 
 </head>

@@ -11,6 +11,10 @@ class StudyCenter {
     String nameOfCoordinator
     String phoneNoOfCoordinator
     String emailIdOfCoordinator
+    String asstCooirdinator
+    String asstMobile
+    String asstEmail
+
     City city
     static hasMany = [
             student : Student
@@ -31,6 +35,10 @@ class StudyCenter {
         phoneNoOfCoordinator column: 'PhoneNoOfCoordinator'
         emailIdOfCoordinator column:'EmailIdOfCoordinator'
         city column: 'CityID'
+        asstCooirdinator column: "asstCooirdinator"
+        asstMobile column: "asstMobile"
+        asstEmail column: "asstEmail"
+
     }
 
     static constraints = {
@@ -44,6 +52,10 @@ class StudyCenter {
             phoneNoOfCoordinator(nullable:false)
             emailIdOfCoordinator(email: true,nullable:false)
             city(nullable:true)
+            asstCooirdinator(nullable: true)
+            asstMobile (nullable: true)
+            asstEmail(nullable: true)
+
 
 
     }

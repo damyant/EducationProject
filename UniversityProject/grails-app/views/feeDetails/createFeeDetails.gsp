@@ -28,6 +28,9 @@
                             $("#datePick").prop('disabled', false);
                             $("#issuingBank").prop('disabled', false);
                             $("#issuingBranch").prop('disabled', false);
+                            $("input[name='studentId']").val(json.id);
+
+
 
                         }
                     });
@@ -46,6 +49,8 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
+
+
             <g:hasErrors bean="${feeDetailsInstance}">
                 <ul class="errors" role="alert">
                     <g:eachError bean="${feeDetailsInstance}" var="error">
@@ -70,8 +75,12 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField id="rollNo" name="rollNo" class="many-to-one university-size-2-3" required="true"
-                                     onkeypress="return isNumber(event)"/>
+
+                        <g:textField id="rollNo" name="rollNo" class="many-to-one university-size-2-3" required="true"/>
+                        <g:hiddenField name="studentId" id="studentId" value=""/>
+
+
+
                     </div>
                 </div>
 
@@ -84,9 +93,9 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:select id="feeType" name="feeType.id" from="${examinationproject.FeeType.list()}"
+                        <g:select id="feeType" name="feeType" from="${examinationproject.FeeType.list()}"
                                   optionKey="id"
-                                  disabled="disabled" required="required" value="${feeDetailsInstance?.feeType?.id}"
+                                  disabled="disabled" required="required"  optionValue="type"
                                   class="many-to-one university-size-2-3"/>
                     </div>
                 </div>
@@ -128,7 +137,7 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <input type="text" name="paymentDate" maxlength="30" id="datePick1" class="university-size-2-3"
+                        <g:textField name="paymentDate" maxlength="30" id="datePick1" class="university-size-2-3" value=""
                                disabled="disabled" required="true"/>
                     </div>
                 </div>

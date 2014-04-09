@@ -20,9 +20,10 @@ class StudentRegistrationService {
    Student saveNewStudentRegistration(params, signature, photographe){
        Boolean studentRegistrationInsSaved = false;
 
-      def studentRegistration = new Student(params)
+       def studentRegistration = new Student(params)
        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
        studentRegistration.dob=df.parse(params.d_o_b)
+
 
        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
        studentRegistration.status= Status.findById(1)
@@ -41,10 +42,12 @@ class StudentRegistrationService {
        studentRegistration.registrationYear=Integer.parseInt(year)
        if(springSecurityService.isLoggedIn()){
        studentRegistration.rollNo=(Integer)getStudentRollNumber(params)
+       studentRegistration.status= Status.findById(2)
        }else{
            studentRegistration.referenceNumber=Integer.parseInt(getStudentReferenceNumber())
+           studentRegistration.status= Status.findById(1)
        }
-       studentRegistration.status= Status.findById(2)
+
 
       //END RAJ CODE
 
