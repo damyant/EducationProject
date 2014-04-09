@@ -23,7 +23,11 @@ class ExaminationCenterController {
     }
 
     @Secured("ROLE_ADMIN")
-    def viewExaminationCentre(){}
+    def viewExaminationCentre(){
+
+        def districtList=District.list(sort:'districtName')
+        [districtList:districtList]
+    }
 
     def getExamCentreList = {
         println("in getExamCentreList " + params)
@@ -97,12 +101,12 @@ class ExaminationCenterController {
 
     }
     def getExaminationCentreList(){
-        println("hello kuldeep you are displaying this"+ params)
+
         try{
             City city = City.get(params.int('data'));
             def centreList = null
             if (city != null) {
-                centreList = ExaminationCentre.findAllByCity(city)
+                centreList = ExaminationCentre.findAllByCity(city,[sort:'name'])
                 println("<><><><><><><><>><<><>"+centreList)
                 render centreList as JSON
             } else {

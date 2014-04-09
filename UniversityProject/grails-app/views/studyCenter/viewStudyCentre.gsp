@@ -20,7 +20,7 @@
     <div class="university-location-select">
         <div class="university-label-location-select">Select District:</div>
         <g:select name="districtList" id="district" optionKey="id" optionValue="districtName"
-                  noSelection="['null': ' Select District']" from="${District.findAll()}" onchange="showCityList()"/>
+                  noSelection="['null': ' Select District']" from="${districtList}" onchange="showCityList()"/>
     </div>
 
     <div id="cityList" class="university-location-select">

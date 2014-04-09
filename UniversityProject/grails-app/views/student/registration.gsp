@@ -62,7 +62,7 @@
     %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
     <td>
         <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
-                  optionValue="courseName" from="${ProgramDetail.findAll()}" noSelection="['': ' Select Program']"/>
+                  optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"/>
 
     </td>
 </tr>
@@ -100,16 +100,6 @@
         </div>
     </td>
 </tr>
-
-
-
-
-%{--<!----- Email Id ---------------------------------------------------------->--}%
-%{--<tr>--}%
-%{--<td>EMAIL ID</td>--}%
-%{--<td><input type="text" name="Email_Id" maxlength="100"  class="textInput"/></td>--}%
-%{--</tr>--}%
-
 
 
 
@@ -158,21 +148,13 @@
     <!----- Preference of examination centre ---------------------------------------------------------->
     <td>Select Preference of examination centre <span class="university-obligatory">*</span></td>
     <td>
-        %{--<input type="text" name="preference" maxlength="2" class="textInput" required="true" onkeypress="return isNumber(event)"/>--}%
 
-        %{--<select name="location" class="university-size-1-2">--}%
-        %{--<option value="">select location</option>--}%
-        %{--<option value="Noida">Noida</option>--}%
-        %{--<option value="Guahati">Guahati</option>--}%
-        %{--<option value="Golaghat">Golaghat</option>--}%
-        %{--<option value="Jaipur">Jaipur</option>--}%
-        %{--</select>--}%
         <table id="examCenterSelect">
             <tr>
                 <td style="width: 50%"><g:select name="district" id="district" optionKey="id"
                                                  class="university-size-1-1"
                                                  onChange="showCityList()" optionValue="districtName"
-                                                 from="${District.findAll()}"
+                                                 from="${districtList}"
                                                  noSelection="['': ' Select District']"/>
                 </td>
                 <td style="width: 50%"><g:select name="city" id="city" optionKey="id" class="university-size-1-1"
