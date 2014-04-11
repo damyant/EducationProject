@@ -2,7 +2,9 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
+
     $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
+
 
         rules: {
 

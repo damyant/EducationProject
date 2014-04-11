@@ -44,7 +44,7 @@ class StudyCenter {
     static constraints = {
             name(nullable: false)
             address(nullable:false)
-            centerCode(nullable: false)
+            centerCode(nullable: false,unique: true)
             nameOfHeadIns(nullable:false)
             phoneNoOfHeadIns (nullable:false)
             emailIdOfHeadIns(email: true,nullable:false)

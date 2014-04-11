@@ -157,6 +157,12 @@ label.error {
     text-transform: capitalize;
 }
 
+label.error1 {
+    margin-left: 2px;
+    color: #cd0a0a;
+    text-transform: capitalize;
+}
+
 /*Status Message*/
 
 .university-status-message {

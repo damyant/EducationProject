@@ -43,7 +43,7 @@ class AdminController {
     }
 
     def generateRollNo(){
-  
+
         def stuList=[]
         def responseMap=[:]
         def status

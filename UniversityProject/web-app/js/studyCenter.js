@@ -8,7 +8,18 @@
 //    });
 //
 //});
+$(document).ready(function(){
 
+    $('#submitButton').click(function(){
+
+        if($("#errorMsg").text()!=""){
+
+        }
+        else{
+       $("#createStudyCenter").submit()
+        }
+    })
+})
 
 function showCityList() {
     var data = $('#district').val();
@@ -98,7 +109,7 @@ function viewStudyCenter(studyCenterId) {
 function showCentreList() {
 
     var data = $('#city').val();
-    debugger;
+
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExaminationCentreList', ''),
@@ -116,7 +127,33 @@ function showCentreList() {
 }
 
 function checkWebsiteUrl(t) {
-    alert(this.val())
+//    alert(this.val())
 
 }
+
+function checkCenterCode(obj){
+
+
+    var data = $('#centerCode').val();
+    $.ajax({
+        type: "post",
+        url: url('examinationCenter', 'checkCenterCode', ''),
+        data: {centerCode: data},
+        success: function (data) {
+           if(data.centerCode=="true"){
+                $('#errorMsg').text("Centre Code is already registered")
+               $('#errorMsg').attr('display',true)
+            }
+            else{
+                $('#errorMsg').text("")
+            }
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+
+}
+
+
 
