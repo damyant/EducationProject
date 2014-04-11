@@ -53,6 +53,9 @@
         </tbody>
     </table>
     </div>
+    <div class="paginateButtons">
+        <g:paginate controller="course" action="listOfCourses" total="${courseInstanceTotal}" />
+    </div>
     </body>
 
 </html>

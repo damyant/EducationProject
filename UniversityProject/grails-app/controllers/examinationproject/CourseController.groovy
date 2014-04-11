@@ -58,7 +58,8 @@ class CourseController {
     def listOfCourses(){
 
       def courseList=  courseDetailService.getAllCourses()
-        [courseList:courseList]
+
+        [courseList:courseList,courseInstanceTotal:courseList.size()]
 
     }
     def updateCourses(){
@@ -69,6 +70,18 @@ class CourseController {
     def deleteCourse(){
         courseDetailService.deleteCourse(params)
         redirect(action: "listOfCourses", params:['type':"update"])
+    }
+
+    def checkCourseCode(){
+        def status=[:]
+        def courseCodeIns=ProgramDetail.findByCourseCode(Integer.parseInt(params.courseCode))
+        if(courseCodeIns){
+            status.courseCode='true'
+        }
+        else{
+            status.courseCode='false'
+        }
+        render status as JSON
     }
 
 

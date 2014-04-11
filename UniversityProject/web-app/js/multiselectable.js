@@ -278,14 +278,14 @@ function save() {
 
 function checkCourseCode(){
 
-    var data = $('#centerCode').val();
+    var data = $('#courseCode').val();
     $.ajax({
         type: "post",
-        url: url('examinationCenter', 'checkCenterCode', ''),
-        data: {centerCode: data},
+        url: url('course', 'checkCourseCode', ''),
+        data: {courseCode: data},
         success: function (data) {
-            if(data.centerCode=="true"){
-                $('#errorMsg').text("Centre Code is already registered")
+            if(data.courseCode=="true"){
+                $('#errorMsg').text("CourseCode Code is already registered")
                 $('#errorMsg').attr('display',true)
             }
             else{
