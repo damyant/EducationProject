@@ -52,10 +52,10 @@
             <tr>
                 <td colspan="4">
 
-                    <input type="button" id="submitButton" value="Submit" onclick="submitForm()" class="${classs} buttonCss">
+                    <input type="button" id="submitButton" value="Submit" onclick="validateAndSubmitForm()" class="${classs} buttonCss">
 
                     <input type="reset" value="Cancel" onclick="reset1()" class="${classs} buttonCss"/>
-
+                    <input type="hidden" id="totalIndex" value=""/>
                 </td>
             </tr>
         </table>

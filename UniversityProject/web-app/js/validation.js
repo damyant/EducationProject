@@ -323,9 +323,6 @@ function validate() {
             draftDate: "Please Enter Draft Date",
             issuingBank:"Please Enter Issuing Bank Name",
             issuingBranch:"Please Enter Issuing Branch Name",
-            examinationCentreName:"",
-            examinationCentreCode:"Please Enter Examination Centre Code",
-            examinationCentreCapacity:"Please Enter Examination Centre Capacity",
             examinationCentreIncharge:"Please Enter Examination Centre Name",
             examinationCentreContactNo:"Please Enter Examination Centre Contact Number",
             examinationCentreAddress:"Please Enter Examination Centre Address"
@@ -343,19 +340,7 @@ function validate() {
 
 
     })
-    $(function() {
-        $("#formID1").validate();
-        $("[name=examinationCentreName]").each(function () {
-            $(this).rules("add", {
-                required: true,
-                textonly: true,
-                messages: {
-                    required: "Please Enter Examination Centre Name",
-                    textonly: "only Accepts Texts"
-                }
-            });
-        });
-    });
+
     jQuery.validator.addMethod("textonly", function (value, element) {
             valid = false;
             check = /[^-\.a-zA-Z\s\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02AE]/.test(value);
