@@ -12,10 +12,8 @@
     <title>Create Examination Center</title>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'jquery/jquery.js')}'></script>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'create.css')}" type="text/css">
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-en.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-engine.js')}"></script>
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'validationEngine.css')}" type="text/css">
-    <g:javascript src='studyCenter.js'/>
+    <g:javascript src='validate.js'/>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
 </head>
 
@@ -26,7 +24,7 @@
     </g:if>
     <div id="msg"></div>
 
-    <form id="formID1" name="formID1">
+
 
         <div class="university-location-select">
             <div class="university-label-location-select">
@@ -44,7 +42,7 @@
                       from="${City.findAllByDistrict(District.get(studyCentreInstance?.city?.district?.id))}"
                       noSelection="['': ' Select City']"/>
         </div>
-
+    <form id="formID1" name="formID1">
         <div id="VenueDiv" class="middleDiv">
         </div>
         <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
@@ -52,7 +50,7 @@
 
             <tr>
                 <td colspan="4">
-                    <input type="submit" value="Submit" onclick="submitForm()" class="${classs} buttonCss">
+                    <input type="submit" value="Submit" onclick="submitForm()" class="${classs} buttonCss"/>
                     <input type="reset" value="Cancel" onclick="reset1()" class="${classs} buttonCss"/>
 
                 </td>
@@ -85,24 +83,24 @@
 
         $('#VenueDiv' + index).append(
                         '<div class="Venue">' +
-                        '<label>Name <span class="university-obligatory">*</span></label>' +
-                        '<input type="text" style="" class="validate[required, custom[onlyLetterSp],minSize[3],maxSize[50]] text-input " onkeypress="return onlyAlphabets(event,this);"  style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/></div>' +
-                        '<div class="Venue"><label>Centre Code <span class="university-obligatory">*</span></label>' +
-                        '<input type="text"  type="text" style="" onkeypress="return isNumber(event)" class="validate[required,custom[number],minSize[1],maxSize[10]] text-input "  name="examinationCentreCode" id="examinationCentreCode' + index + '" />' +
+                        '<label class="Venue-label">Name <span class="university-obligatory">*</span></label>' +
+                        '<input type="text" style="" class="" onkeypress="return onlyAlphabets(event,this);"  style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/></div>' +
+                        '<div class="Venue"><label class="Venue-label">Centre Code <span class="university-obligatory">*</span></label>' +
+                        '<input type="text"  type="text" style="" onkeypress="return isNumber(event)" class=""  name="examinationCentreCode" id="examinationCentreCode' + index + '" />' +
                         '</div>');
         $('#VenueDiv' + index).append(
                         '<div class="Venue">' +
-                        '<label>Capacity <span class="university-obligatory">*</span></label>' +
-                        '<input type="text" style="" onkeypress="return isNumber(event)" class="validate[required] text-input "   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/></div>' +
-                        '<div class="Venue"><label>Incharge Name <span class="university-obligatory">*</span></label>' +
-                        '<input type="text" style="" class="validate[required, custom[onlyLetterSp]] text-input " onkeypress="return onlyAlphabets(event,this);"  style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/>' +
+                        '<label  class="Venue-label">Capacity <span class="university-obligatory">*</span></label>' +
+                        '<input type="text" style="" onkeypress="return isNumber(event)" class=""   style="" name="examinationCentreCapacity[]" id="examinationCentreCapacity' + index + '" "/></div>' +
+                        '<div class="Venue"><label  class="Venue-label">Incharge Name <span class="university-obligatory">*</span></label>' +
+                        '<input type="text" style="" class="" onkeypress="return onlyAlphabets(event,this);"  style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/>' +
                         '</div>');
         $('#VenueDiv' + index).append(
                         '<div class="Venue">' +
-                        '<label>Contact No <span class="university-obligatory">*</span></label>' +
-                        '<input type="text"  onkeypress="return isNumber(event)" style="" class="validate[required] text-input " maxlength="10" name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /></div>' +
-                        '<div class="Venue"><label style="vertical-align: top">Address <span class="university-obligatory">*</span></label>' +
-                        '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" class="validate[required] text-input "   style="" name="examinationCentreAddress" id="examinationCentreAddress' + index + '" "/>' +
+                        '<label  class="Venue-label">Contact No <span class="university-obligatory">*</span></label>' +
+                        '<input type="text"  onkeypress="return isNumber(event)" style="" class="" maxlength="10" name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /></div>' +
+                        '<div class="Venue"><label style="vertical-align: top" class="Venue-label">Address <span class="university-obligatory">*</span></label>' +
+                        '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" class=" "   style="" name="examinationCentreAddress" id="examinationCentreAddress' + index + '" "/>' +
                         '</div>');
 
 //        $('#accountHeadId' + index).html('');
@@ -126,6 +124,7 @@
 
 
     function submitForm() {
+        validate()
         var location = $("#location").val();
         if (location == 0) {
             alert("Please Select Location of examination centre");
