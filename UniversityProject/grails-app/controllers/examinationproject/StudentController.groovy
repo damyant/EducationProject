@@ -15,10 +15,7 @@ class StudentController {
     def springSecurityService
 //    @Secured('ROLE_STUDYCENTRE')
 
-    def registration= {
-
-
-        println("After Registration success"+params)
+    def registration = {
 
         def studyCentre
 
@@ -37,8 +34,8 @@ class StudentController {
 
         }
         def programList = ProgramDetail.list(sort: 'courseName')
-        def districtList=District.list(sort: 'districtName')
-        [studyCentre: studyCentre, programList: programList,districtList:districtList,registered:params.registered]
+        def districtList = District.list(sort: 'districtName')
+        [studyCentre: studyCentre, programList: programList, districtList: districtList, registered: params.registered, studentID: params.studentID]
 
 
     }
@@ -46,39 +43,36 @@ class StudentController {
 
     }
     def submitRegistration = {
-        println("in submit Registration " + params)
+
         def signature = request.getFile('signature')
         def photographe = request.getFile("photograph")
         def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe)
         if (studentRegistration) {
-            if( !springSecurityService.isLoggedIn()){
-            println("New Student Registered Successfully")
-            flash.message = "${message(code: 'register.created.message')}"
-            redirect(action: "registration",params: [studentID: studentRegistration.id,registered:'registered'])
-            }else{
+            if (!springSecurityService.isLoggedIn()) {
+
+                flash.message = "${message(code: 'register.created.message')}"
+                redirect(action: "registration", params: [studentID: studentRegistration.id, registered: 'registered'])
+            } else {
                 flash.message = "${message(code: 'register.created.message')}"
                 redirect(action: "registration", studentID: studentRegistration.id)
             }
         } else {
-            println("Cannot Register new Student")
+
             flash.message = "${message(code: 'register.notCreated.message')}"
             redirect(action: "registration")
         }
     }
 
     def newTab = {
-        println("In new Tab"+params)
-        [params:params]
+        println("In new Tab" + params)
+        [params: params]
     }
 
     def applicationPrintPreview = {
 
-        println("params" + params)
         def student = Student.findById(params.studentID)
-
         def args = [template: "applicationPrintPreview", model: [studentInstance: student]]
         pdfRenderingService.render(args + [controller: this], response)
-        println("Student Name is " + student.name)
 
 
     }

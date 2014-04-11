@@ -275,3 +275,25 @@ function save() {
         });
     }
 }
+
+function checkCourseCode(){
+
+    var data = $('#centerCode').val();
+    $.ajax({
+        type: "post",
+        url: url('examinationCenter', 'checkCenterCode', ''),
+        data: {centerCode: data},
+        success: function (data) {
+            if(data.centerCode=="true"){
+                $('#errorMsg').text("Centre Code is already registered")
+                $('#errorMsg').attr('display',true)
+            }
+            else{
+                $('#errorMsg').text("")
+            }
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}

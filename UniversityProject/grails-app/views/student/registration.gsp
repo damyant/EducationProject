@@ -8,7 +8,7 @@
 
 <%@ page import="javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
+<head>registration
     <title>Student Registration</title>
     <meta name="layout" content="main"/>
     <g:javascript src='validate.js'/>
@@ -23,11 +23,12 @@
     <script type="text/javascript">
 
         $(window).bind("load",function(){
-            alert("???????????"+"${registered}")
+
             var flag = "${registered}"
-//            alert(""+flag)
+            var studentId="${studentID}"
+
             if(flag=='registered'){
-                window.open('/UniversityProject/student/applicationPrintPreview');
+                window.open('/UniversityProject/student/applicationPrintPreview/?studentID='+studentId);
             }
         })
 
