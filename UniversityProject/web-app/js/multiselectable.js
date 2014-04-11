@@ -13,10 +13,10 @@ function semesterList() {
             '<td <td style="width:40% "><select class="select-to" style="width: 90%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  /><div id="error-select-' + j + '"></div></td></tr>')
 
         if ($('#modeName option:selected').text().toLowerCase() == "annual") {
-            $("<div>Term" + j + "</div>").insertBefore($('#semester' + j))
+            $("<div>Term-" + j + "</div>").insertBefore($('#semester' + j))
         }
         else if (($('#modeName option:selected').text().toLowerCase() == "semester")) {
-            $("<div>Semester" + j + "</div>").insertBefore($('#semester' + j))
+            $("<div>Semester-" + j + "</div>").insertBefore($('#semester' + j))
         }
 
 
@@ -145,7 +145,17 @@ function updateInfo(obj) {
 
     }
 }
-
+function enableNoOfSem(t){
+//    alert($(t).val())
+    if($(t).val()==1||$(t).val()==2){
+        $('#noOfTerms').val('');
+        $('#noOfTerms').prop('disabled', false);
+    }
+    else{
+        $('#noOfTerms').val('');
+        $('#noOfTerms').prop('disabled', true);
+    }
+}
 
 function viewCourseInfo(obj) {
 

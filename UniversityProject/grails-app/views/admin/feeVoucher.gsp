@@ -11,6 +11,8 @@
     <title>Generate Fee Voucher</title>
     <meta name="layout" content="main"/>
     <g:javascript src='admin.js'/>
+    <g:javascript src='validate.js'/>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
 </head>
 
 <body>
@@ -34,8 +36,8 @@
                     <p>Enter Roll Number:<span class="university-obligatory">*</span></p>
                 </td>
                 <td class="university-size-2-3">
-                    <g:textField name="rollNo" id="rollNo" class="university-size-2-3"
-                                 onkeypress="return isNumber(event)" required="true"/>
+                    <g:textField name="rollNo" id="rollNo" class="university-size-1-2"
+                                 onkeypress="return isNumber(event)"/>
                 </td>
             </tr>
 
@@ -48,14 +50,14 @@
                 <td>
                         <g:select id="type" name="feeType"
                                   from="${feeType}" optionKey="id"
-                                  optionValue="type" class="many-to-one university-size-2-3"
-                                  noSelection="['': 'Choose Type']" required="required"/>
+                                  optionValue="type" class="many-to-one university-size-1-2"
+                                  noSelection="['': 'Choose Type']"/>
                 </td>
 
             </tr>
 
             <tr><td colspan="2" style="text-align: center; "><g:submitButton name="submit" class="university-button"
-                                                                             value="Submit"
+                                                                             value="Submit" onclick="validate()"
                                                                              style="margin-top: 15px;"></g:submitButton></td>
             </tr>
         </table>

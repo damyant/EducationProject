@@ -2,7 +2,7 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-    $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee").validate({
+    $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
 
         rules: {
 
@@ -48,16 +48,16 @@ function validate() {
                 minlength: 10,
                 number: true
             },
-            nameOfAsstCoordinator: {
+            asstCooirdinator: {
                 required: true,
                 textonly: true
             },
-            phoneNoOfAsstCoordinator: {
+            asstMobile: {
                 required: true,
                 minlength: 10,
                 number: true
             },
-            emailIdOfAsstCoordinator: {
+            asstEmail: {
                 required: true,
                 email: true
             },
@@ -224,7 +224,34 @@ function validate() {
             },
             feeType: {
                 required: true
-            }
+            },
+            paymentMode:{
+                required: true
+            },
+            draftNumber: {
+                required: true,
+                number: true
+            },
+            paymentDate:{
+                required: true
+            },
+            draftDate: {
+                required: true
+            },
+            issuingBank:{
+                required: true
+            },
+            issuingBranch:{
+                required: true
+            },
+
+             //Exam Centre
+            examinationCentreName:{required: true},
+            examinationCentreCode:{},
+            examinationCentreCapacity:{},
+            examinationCentreIncharge:{},
+            examinationCentreContactNo:{},
+            examinationCentreAddress:{}
 
         },
         messages: {
@@ -238,9 +265,9 @@ function validate() {
             nameOfCoordinator: "Please enter Name of Coordinator",
             phoneNoOfCoordinator: "Please enter Phone No of Coordinator",
             emailIdOfCoordinator: "Please enter Email of Coordinator",
-            nameOfAsstCoordinator: "Please enter Name of Asst. Coordinator",
-            phoneNoOfAsstCoordinator: "Please enter Phone No of Asst. Coordinator",
-            emailIdOfAsstCoordinator: "Please enter Email of Asst. Coordinator",
+            asstCooirdinator: "Please enter Name of Asst. Coordinator",
+            asstMobile: "Please enter Phone No of Asst. Coordinator",
+            asstEmail: "Please enter Email of Asst. Coordinator",
             websiteUrl: "Please Enter Website URL",
             nameOfApplicant: "Please enter Name of an Applicant",
             date_of_birth: "Please Enter Date of birth",
@@ -278,7 +305,18 @@ function validate() {
             totalCreditPoints: "Please Enter total Credit Points",
             examinationCentreName: "Please Enter examination Centre Name",
             rollNo: "Please Enter a Roll Number",
-            feeType: "Please Select Fee type"
+            feeType: "Please Select Fee type",
+            feeAmountAtIDOL: "Please Enter Fee amount at IDOL",
+            feeAmountAtSC: "Please Enter Fee amount at Study Centre",
+            lateFeeAmount: "Please Enter Late Fee amount",
+            examinationFee: "Please Enter Examination Fee amount",
+            certificateFee: "Please Enter Certificate Fee amount",
+            paymentMode:"Please Enter Payment Mode",
+            draftNumber: "Please Enter Draft Number",
+            paymentDate:"Please Enter Payment Date",
+            draftDate: "Please Enter Draft Date",
+            issuingBank:"Please Enter Issuing Bank Name",
+            issuingBranch:"Please Enter Issuing Branch Name"
         },
         errorPlacement: function (error, element) {
             if (element.is("input:radio")) {
@@ -347,7 +385,7 @@ function onlyAlphabets(e, t) {
 function isAlphaNumeric(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode == 8 || (charCode > 48 && charCode < 57) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
+    if ((charCode == 8 || (charCode > 47 && charCode < 58) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
         return true;
     }
     return false;
