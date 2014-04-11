@@ -284,8 +284,27 @@ function syllabusUpload(index){
 
     }
     else{
-        alert("Select a Subject to Add Syllabus.");
+    alert("Select a Subject to Add Syllabus.");
+    }
     }
 
+function checkCourseCode() {
+    var data = $('#courseCode').val();
+    $.ajax({
+        type: "post",
+        url: url('course', 'checkCourseCode', ''),
+        data: {courseCode: data},
+        success: function (data) {
+            if (data.courseCode == "true") {
+                $('#errorMsg').text("CourseCode Code is already registered")
+                $('#errorMsg').attr('display', true)
+            }
+            else {
+                $('#errorMsg').text("")
+            }
 
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
 }

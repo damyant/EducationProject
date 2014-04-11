@@ -8,7 +8,7 @@
 
 <%@ page import="javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
+<head>registration
     <title>Student Registration</title>
     <meta name="layout" content="main"/>
     <g:javascript src='validate.js'/>
@@ -19,11 +19,24 @@
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
     <style type="text/css">
+   </style>
+    <script type="text/javascript">
 
-    </style>
+        $(window).bind("load",function(){
+
+            var flag = "${registered}"
+            var studentId="${studentID}"
+
+            if(flag=='registered'){
+                window.open('/UniversityProject/student/applicationPrintPreview/?studentID='+studentId);
+            }
+        })
+
+    </script>
+
 </head>
 
-<body>
+<body >
 <div id="main">
 <g:if test="${flash.message}">
     <div class="message"><div class="university-status-message">${flash.message}</div></div>
