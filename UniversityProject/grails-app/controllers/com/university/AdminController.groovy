@@ -118,5 +118,9 @@ class AdminController {
         pdfRenderingService.render(args+[controller:this],response)
 
     }
+    def assignExaminationDate={
+        def programList = ProgramDetail.list()
+        [programList: programList]
+    }
 }
 

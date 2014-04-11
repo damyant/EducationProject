@@ -32,7 +32,7 @@
         <% def count = 3 %>
         <% def count1 = 4 %>
         <g:each in="${(1..count).toList()}" var="c">
-            <label><h3>Semester-${c}</h3></label>
+            <label><h4>Semester-${c}</h4></label>
             <table style="width: 95%;margin: auto">
                 <tr>
                     <th class="university-size-1-2" style="padding-left: 10px;">Subject</th>

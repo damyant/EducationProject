@@ -18,7 +18,7 @@ class ExaminationCentre {
         inchargeName(nullable: true)
         capacity(nullable: true)
         contactNo(nullable: true)
-        centreCode(nullable:true)
+        centreCode(nullable:true,unique: true)
         city(nullable:true)
     }
     static mapping = {

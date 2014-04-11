@@ -119,7 +119,21 @@ class ExaminationCenterController {
     }
     @Secured("ROLE_ADMIN")
     def create={
+        def districtList=District.list(sort:'districtName')
+        [districtList:districtList]
 
     }
 
+    def checkCenterCode(){
+        def status=[:]
+        def centerCodeIns=ExaminationCentre.findByCentreCode(Integer.parseInt(params.centerCode))
+        if(centerCodeIns){
+            status.centerCode='true'
+        }
+        else{
+            status.centerCode='false'
+        }
+        render status as JSON
+
+    }
 }
