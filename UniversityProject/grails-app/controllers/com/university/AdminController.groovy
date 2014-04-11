@@ -122,5 +122,9 @@ class AdminController {
         def programList = ProgramDetail.list()
         [programList: programList]
     }
+    def assignExaminationVenue={
+        def programList = ProgramDetail.list()
+        [programList: programList]
+    }
 }
 
