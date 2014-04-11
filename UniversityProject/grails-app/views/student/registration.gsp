@@ -19,11 +19,23 @@
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
     <style type="text/css">
+   </style>
+    <script type="text/javascript">
 
-    </style>
+        $(window).bind("load",function(){
+            alert("???????????"+"${registered}")
+            var flag = "${registered}"
+//            alert(""+flag)
+            if(flag=='registered'){
+                window.open('/UniversityProject/student/applicationPrintPreview');
+            }
+        })
+
+    </script>
+
 </head>
 
-<body>
+<body >
 <div id="main">
 <g:if test="${flash.message}">
     <div class="message"><div class="university-status-message">${flash.message}</div></div>

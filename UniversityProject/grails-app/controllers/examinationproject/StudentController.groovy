@@ -17,6 +17,9 @@ class StudentController {
 
     def registration= {
 
+
+        println("After Registration success"+params)
+
         def studyCentre
 
         if (springSecurityService.isLoggedIn()) {
@@ -35,7 +38,7 @@ class StudentController {
         }
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
-        [studyCentre: studyCentre, programList: programList,districtList:districtList]
+        [studyCentre: studyCentre, programList: programList,districtList:districtList,registered:params.registered]
 
 
     }
@@ -48,9 +51,14 @@ class StudentController {
         def photographe = request.getFile("photograph")
         def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe)
         if (studentRegistration) {
+            if( !springSecurityService.isLoggedIn()){
             println("New Student Registered Successfully")
             flash.message = "${message(code: 'register.created.message')}"
-            redirect(action: "applicationPrintPreview", studentID: studentRegistration.id)
+            redirect(action: "registration",params: [studentID: studentRegistration.id,registered:'registered'])
+            }else{
+                flash.message = "${message(code: 'register.created.message')}"
+                redirect(action: "registration", studentID: studentRegistration.id)
+            }
         } else {
             println("Cannot Register new Student")
             flash.message = "${message(code: 'register.notCreated.message')}"
@@ -58,6 +66,10 @@ class StudentController {
         }
     }
 
+    def newTab = {
+        println("In new Tab"+params)
+        [params:params]
+    }
 
     def applicationPrintPreview = {
 
