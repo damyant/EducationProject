@@ -3,6 +3,8 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'programFee.label', default: 'ProgramFee')}"/>
+    <g:javascript src='validate.js'/>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
 </head>
 
@@ -22,7 +24,7 @@
                     </g:eachError>
                 </ul>
             </g:hasErrors>
-            <g:form url="[resource: programFeeInstance, action: 'save']" id="createNewFee">
+            <g:form url="[resource: programFeeInstance, action: 'save']" id="createNewFee" name="createNewFee">
                 <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
 
                 <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} university-size-1-1">
@@ -36,7 +38,7 @@
                         <g:select id="programDetail" name="programDetail"
                                   from="${examinationproject.ProgramDetail.list()}" optionKey="id"
                                   optionValue="courseName" class="many-to-one university-size-1-2"
-                                  noSelection="['': 'Choose Type']" required="required"/>
+                                  noSelection="['': 'Choose Type']"/>
                     </div>
                 </div>
 
@@ -57,8 +59,8 @@
 %{--=======--}%
                     <div class="university-size-2-3">
                         <g:textField name="feeAmountAtIDOL" class="university-size-1-2" type="number"
-                                     value="" onclick="this.value = ''"
-                                     onkeypress="return isNumber(event)" required="true"/>
+                                     value=""
+                                     onkeypress="return isNumber(event)"/>
                     </div>
                 </div>
 
@@ -80,10 +82,10 @@
 %{--=======--}%
                     <div class="university-size-2-3">
                         <g:textField name="feeAmountAtSC"
-                                     class="university-size-1-2 validate[required,custom[number],minSize[1],maxSize[10]]"
+                                     class="university-size-1-2"
                                      type="number"
-                                     value="" onclick="this.value = ''"
-                                     onkeypress="return isNumber(event)" required="true"/>
+                                     value=""
+                                     onkeypress="return isNumber(event)"/>
                     </div>
                 </div>
 
@@ -99,11 +101,10 @@
 
                     <div class="university-size-2-3">
                         <g:textField name="lateFeeAmount"
-                                     class="university-size-1-2 validate[required,custom[number],minSize[1],maxSize[10]]"
+                                     class="university-size-1-2"
                                      type="number"
                                      value="" onclick="this.value = ''"
-                                     onkeypress="return isNumber(event)"
-                                     required="true"/>
+                                     onkeypress="return isNumber(event)"/>
                     </div>
                 </div>
 
@@ -116,8 +117,8 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField name="examinationFee" class="university-size-1-2" type="number"
-                                     value="" required="true"/>
+                        <g:textField name="examinationFee" class="university-size-1-2" type="number" onkeypress="return isNumber(event)"
+                                     value=""/>
                     </div>
                 </div>
 
@@ -131,8 +132,8 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField name="certificateFee" class="university-size-1-2" type="number"
-                                     value="" required="true"/>
+                        <g:textField name="certificateFee" class="university-size-1-2" type="number" onkeypress="return isNumber(event)"
+                                     value=""/>
                     </div>
                 </div>
 
@@ -141,7 +142,7 @@
 
                     <div class="university-size-2-3" style="margin: auto;">
                         <g:submitButton name="create" class="save university-button"
-                                        value="${message(code: 'default.button.create.label', default: 'Create')}"/>
+                                        onclick="validate()" value="${message(code: 'default.button.create.label', default: 'Create')}"/>
                         <g:link controller="programFee" class="university-text-decoration-none"
                                 action="listOfFeeType"><input type="button" name="create"
                                                               class="save university-button"

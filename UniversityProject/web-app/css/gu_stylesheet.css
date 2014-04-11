@@ -64,6 +64,9 @@ body {
 .university-size-1-2 {
     width: 50%;
 }
+.university-size-3-4{
+    width: 75%;
+}
 
 .university-size-1-3 {
     width: 33.33%;
@@ -167,6 +170,10 @@ label.error1 {
     color: #0000FF;
     text-align: center;
     font-weight: bold;
+}
+
+#createFeeDetail .fieldcontain div{
+    min-width: 20%;
 }
 
 .university-session-management {
@@ -721,6 +728,20 @@ table h3 {
     margin-bottom: 15px;
     margin-top: 5px;
 
+}
+th{
+    background-image: -webkit-gradient(
+        linear,
+        right bottom,
+        right top,
+        color-stop(0.15, #979999),
+        color-stop(0.92, #F5F0F5)
+    );
+    background-image: -o-linear-gradient(top, #979999 15%, #F5F0F5 92%);
+    background-image: -moz-linear-gradient(top, #979999 15%, #F5F0F5 92%);
+    background-image: -webkit-linear-gradient(top, #979999 15%, #F5F0F5 92%);
+    background-image: -ms-linear-gradient(top, #979999 15%, #F5F0F5 92%);
+    background-image: linear-gradient(to top, #979999 15%, #F5F0F5 92%);
 }
 
 @media (max-width: 700px) {

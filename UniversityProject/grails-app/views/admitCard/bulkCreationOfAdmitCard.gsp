@@ -20,38 +20,47 @@
             <div>
                 <table class="university-table-1-3 inner" style="width: 60%;margin: auto;">
                     <tr>
-                        <td><label>Select an Examination Centre :</label></td>
+                        <td><label>Select an Examination Centre </label></td>
                         <td>
-                            <g:select name="city" id="city" optionKey="id" class="university-size-2-3"
+                            <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
                                       optionValue="cityName" from="${City.findAll()}" noSelection="['': ' Select City']"
                                       onchange="showExamCentreList()"/>
                         </td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td><label>Select a Course :</label></td>
+                        <td><label>Select a Course </label></td>
                         <td>
-                            <g:select name="programList" class="university-size-2-3" optionKey="id"
+                            <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
                                       from="${programList}" noSelection="['': ' Select Program']"
                                       onchange="getSemester()"/>
                         </td>
                         <td></td>
                     </tr>
-                    <tr><td><label>Select a Term :</label></td>
+                    <tr><td><label>Select a Term </label></td>
                         <td>
-                            <select name="programTerm" class="university-size-2-3" id="semesterList">
+                            <select name="programTerm" class="university-size-1-1" id="semesterList">
                                 <option value="">Select Semester</option>
                             </select>
                         </td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td><label>Select Examination Venue :</label></td>
+                    <tr><td><label>Select a Session</label></td>
                         <td>
-                            <g:select name="examinationCenter" class="university-size-2-3" id="examCenterList" from=""
+                            <select name="programSession" class="university-size-1-1" id="SessionList">
+                                <option value="">Select Session</option>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><label>Select Examination Venue </label></td>
+                        <td>
+                            <g:select name="examinationCenter" class="university-size-1-1" id="examCenterList" from=""
                                       noSelection="['': ' Select Examination Venue']"/>
                         </td>
+
                         <td>
                             <input type="button" class="university-button university-float-right"
                                    value="Show Candidates"/>
