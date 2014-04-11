@@ -135,9 +135,9 @@
                 <tr>
                     <td><label><g:message code="default.createStudy.centerCode"/> <span
                             class="university-obligatory">*</span></label></td>
-                    <td><input type="text" name="centerCode" onkeypress="return isAlphaNumeric(event)"
+                    <td><input type="text" id="centerCode" name="centerCode" onkeypress="return isAlphaNumeric(event)" onchange="checkCenterCode(this)"
                                value="${studyCentreInstance?.centerCode}" maxlength=""
-                               class="university-size-1-3"/></td>
+                               class="university-size-1-3"/><label id="errorMsg" class="error1" ></label></td>
                 </tr>
                 <tr>
                     <td><label><g:message code="default.createStudy.websiteUrl"/> <span
@@ -213,7 +213,7 @@
                     </td>
                     <td>
                         <input type="hidden" value="${studyCentreInstance?.id}" name="studyCenterId">
-                        <input type="submit" value="<g:if test="${params.type != 'edit'}"><g:message
+                        <input type="button" id="submitButton" value="<g:if test="${params.type != 'edit'}"><g:message
                                 code="default.button.create"/></g:if><g:else><g:message
                                 code="default.button.save"/></g:else>" class="university-button" onclick="validate()">
 

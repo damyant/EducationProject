@@ -11,30 +11,29 @@ class ExaminationCentreService {
 
     }
    Boolean saveCentres(params){
-       println("params in service "+ params)
-       println("<><><><><><><><><><>1 "+params.examinationCentreName)
+
        Boolean examinationCentreInsSaved = false;
        def examinationCentreNameList =[]
        examinationCentreNameList.addAll(params?.examinationCentreName)
-       println("<><><><><><><><><><> 2"+params.examinationCentreName)
+
        def examinationCentreAddressList =[]
        examinationCentreAddressList.addAll(params?.examinationCentreAddress)
-       println("<><><><><><><><><><>3 "+params.examinationCentreAddress)
+
        def examinationCentreContactNoList =[]
        examinationCentreContactNoList.addAll(params?.examinationCentreContactNo)
-       println("<><><><><><><><><><>4 "+params.examinationCentreContactNo)
+
        def examinationCentreInchargeList =[]
        examinationCentreInchargeList.addAll(params?.examinationCentreIncharge)
-       println("<><><><><><><><><><>5 "+params.examinationCentreIncharge)
+
        def examinationCentreCapacityList =[]
        examinationCentreCapacityList.addAll(params?.examinationCentreCapacity)
-       println("<><><><><><><><><><>6 "+params.examinationCentreCapacity)
+
        def examinationCentreCodeList =[]
        examinationCentreCodeList.addAll(params?.examinationCentreCode)
        for(int i=0;i<examinationCentreNameList.size();i++) {
-            println("saving this centre "+i)
+
             ExaminationCentre examinationCentreIns = new ExaminationCentre()
-           println("????????????"+City.findById(Integer.parseInt(params.city)))
+
             examinationCentreIns.city =City.findById(Integer.parseInt(params.city))
             examinationCentreIns.address= examinationCentreAddressList[i].toString()
             examinationCentreIns.capacity=Integer.parseInt(examinationCentreCapacityList[i])
@@ -42,7 +41,7 @@ class ExaminationCentreService {
             examinationCentreIns.inchargeName= examinationCentreInchargeList[i].toString()
             examinationCentreIns.name= examinationCentreNameList[i].toString()
             examinationCentreIns.centreCode= Integer.parseInt(examinationCentreCodeList[i])
-            if (examinationCentreIns.save(flush: true)) {
+            if (examinationCentreIns.save(flush: true,failOnError: true)) {
                 println("centre saved successfully")
                 examinationCentreInsSaved = true;
             }
@@ -52,7 +51,7 @@ class ExaminationCentreService {
 
 
     def studyCenterList(params){
-        println("paramssssssssssssssssssssss "+ params)
+
         if(params){
             ExaminationCentre.findAllByCity(City.findById(params.data))
 

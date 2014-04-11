@@ -130,4 +130,17 @@ class StudyCenterController {
 
     }
 
+    def checkCenterCode(){
+        def status=[:]
+        def centerCodeIns=StudyCenter.findByCenterCode(params.centerCode)
+        if(centerCodeIns){
+          status.centerCode='true'
+        }
+        else{
+            status.centerCode='false'
+        }
+        render status as JSON
+
+    }
+
 }

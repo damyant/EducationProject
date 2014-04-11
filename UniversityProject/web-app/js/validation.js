@@ -2,6 +2,7 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
+    alert("hi")
     $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee").validate({
 
         rules: {
@@ -347,7 +348,7 @@ function onlyAlphabets(e, t) {
 function isAlphaNumeric(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode == 8 || (charCode > 48 && charCode < 57) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
+    if ((charCode == 8 || (charCode > 47 && charCode < 58) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
         return true;
     }
     return false;
