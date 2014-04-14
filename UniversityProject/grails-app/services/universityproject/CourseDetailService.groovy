@@ -89,6 +89,7 @@ class CourseDetailService {
 
         def courseObj = ProgramDetail.list(sort: 'courseName')
 
+
     }
 
     def getFullDetailOfCourse(params) {
