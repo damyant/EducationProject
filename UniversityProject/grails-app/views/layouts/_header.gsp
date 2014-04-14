@@ -130,6 +130,12 @@
                     <li><g:link controller="admin"
                                 action="viewApprovedStudents"><g:message
                                 code="default.mainMenu6.subMenu3"/></g:link></li>
+                    <li><g:link controller="admin"
+                                action="assignExaminationDate"><g:message
+                                code="default.mainMenu6.subMenu4"/></g:link></li>
+                    <li><g:link controller="admin"
+                                action="assignExaminationVenue"><g:message
+                                code="default.mainMenu6.subMenu5"/></g:link></li>
 
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu7"/></a>
                         <ul>
