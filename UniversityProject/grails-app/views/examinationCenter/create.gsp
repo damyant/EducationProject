@@ -12,10 +12,9 @@
     <title>Create Examination Center</title>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'jquery/jquery.js')}'></script>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'create.css')}" type="text/css">
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-en.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-engine.js')}"></script>
+    <g:javascript src='validate.js'/>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'examinationCentre.js')}"></script>
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'validationEngine.css')}" type="text/css">
     <g:javascript src='studyCenter.js'/>
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
 </head>
@@ -27,7 +26,6 @@
     </g:if>
     <div id="msg"></div>
 
-    <form id="examinationCenterForm" name="examinationCenterForm">
 
         <div class="university-location-select">
             <div class="university-label-location-select">
@@ -45,7 +43,7 @@
                       from="${City.findAllByDistrict(District.get(studyCentreInstance?.city?.district?.id))}"
                       noSelection="['': ' Select City']"/>
         </div>
-
+    <form id="examinationCenterForm" name="examinationCenterForm">
         <div id="VenueDiv" class="middleDiv">
         </div>
         <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
@@ -53,18 +51,15 @@
 
             <tr>
                 <td colspan="4">
-                    <input type="button" id="submitButton" value="Submit" onclick="submitForm()" class="${classs} buttonCss">
-                    <input type="reset" value="Cancel" onclick="reset1()" class="${classs} buttonCss"/>
 
+                    <input type="button" id="submitButton" value="Submit" onclick="validateAndSubmitForm()" class="${classs} buttonCss">
+
+                    <input type="reset" value="Cancel" onclick="reset1()" class="${classs} buttonCss"/>
+                    <input type="hidden" id="totalIndex" value=""/>
                 </td>
             </tr>
         </table>
     </form>
 </div>
-<script>
-
-
-
-</script>
 </body>
 </html>

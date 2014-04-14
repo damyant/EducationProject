@@ -43,7 +43,7 @@ class AdminController {
     }
 
     def generateRollNo(){
-
+  
         def stuList=[]
         def responseMap=[:]
         def status
@@ -117,6 +117,14 @@ class AdminController {
         def args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
         pdfRenderingService.render(args+[controller:this],response)
 
+    }
+    def assignExaminationDate={
+        def programList = ProgramDetail.list()
+        [programList: programList]
+    }
+    def assignExaminationVenue={
+        def programList = ProgramDetail.list()
+        [programList: programList]
     }
 }
 

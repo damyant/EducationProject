@@ -13,7 +13,6 @@ class ExaminationCenterController {
     def createNewCentre(){
     }
     def saveExaminationCentre ={
-
         Boolean flag = examinationCentreService.saveCentres(params)
         if(flag){
             render   "${message(code: 'centre.created.message')}"
@@ -137,5 +136,4 @@ class ExaminationCenterController {
         render status as JSON
 
     }
-
 }

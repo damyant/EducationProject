@@ -59,7 +59,7 @@
             </tr>
             <tr>
                 <td><label>Course Code :<span class="university-obligatory">*</span></label></td>
-                <td><input type="text" id="courseCode" name="courseCode" maxlength="" class="university-size-1-2" onchange="checkCourseCode()" onkeypress="return isNumber(event)"/><label id="errorMsg" class="error1"></label></td>
+                <td><input type="text" id="courseCode" name="courseCode" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
             </tr>
             <tr>
                 <td><label>Number of maximum available academic year :<span class="university-obligatory">*</span>
