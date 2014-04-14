@@ -57,9 +57,13 @@ class CourseController {
 
     def listOfCourses(){
 
-      def courseList=  courseDetailService.getAllCourses()
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def c = ProgramDetail.createCriteria()
+        def courseList = c.list(params) {
+         order("courseName", "asc")
+        }
 
-        [courseList:courseList,courseInstanceTotal:courseList.size()]
+        [courseList:courseList,courseInstanceTotal:ProgramDetail.count()]
 
     }
     def updateCourses(){
