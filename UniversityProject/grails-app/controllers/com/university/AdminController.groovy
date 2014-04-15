@@ -1,5 +1,6 @@
 package com.university
 
+import examinationproject.District
 import examinationproject.FeeType
 import examinationproject.ProgramDetail
 import examinationproject.ProgramFee
@@ -43,7 +44,7 @@ class AdminController {
     }
 
     def generateRollNo(){
-
+  
         def stuList=[]
         def responseMap=[:]
         def status
@@ -67,13 +68,13 @@ class AdminController {
 
 
     def feeVoucher={
-        def feeType = FeeType.list()
+        def feeType = FeeType.list(sort:'type')
         [feeType:feeType]
     }
 
 
     def examFeeVoucher = {
-        def feeType = FeeType.list()
+        def feeType = FeeType.list(sort:'type')
 
         [feeType:feeType]
     }
@@ -117,6 +118,14 @@ class AdminController {
         def args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
         pdfRenderingService.render(args+[controller:this],response)
 
+    }
+    def assignExaminationDate={
+        def programList = ProgramDetail.list(sort:'courseName')
+        [programList: programList]
+    }
+    def assignExaminationVenue={
+        def programList = ProgramDetail.list(sort:'courseName')
+        [programList: programList]
     }
 }
 

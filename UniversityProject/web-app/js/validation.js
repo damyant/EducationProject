@@ -248,12 +248,16 @@ function validate() {
             },
 
              //Exam Centre
-            examinationCentreName:{required: true},
-            examinationCentreCode:{},
-            examinationCentreCapacity:{},
-            examinationCentreIncharge:{},
-            examinationCentreContactNo:{},
-            examinationCentreAddress:{}
+            examinationCentreName:{required: true, textonly: true},
+            examinationCentreCode:{required: true,
+                number: true},
+            examinationCentreCapacity:{required: true,
+                number: true},
+            examinationCentreIncharge:{required: true,
+                textonly: true},
+            examinationCentreContactNo:{required: true,
+                number: true},
+            examinationCentreAddress:{required: true}
 
         },
         messages: {
@@ -318,7 +322,11 @@ function validate() {
             paymentDate:"Please Enter Payment Date",
             draftDate: "Please Enter Draft Date",
             issuingBank:"Please Enter Issuing Bank Name",
-            issuingBranch:"Please Enter Issuing Branch Name"
+            issuingBranch:"Please Enter Issuing Branch Name",
+            examinationCentreIncharge:"Please Enter Examination Centre Name",
+            examinationCentreContactNo:"Please Enter Examination Centre Contact Number",
+            examinationCentreAddress:"Please Enter Examination Centre Address"
+
         },
         errorPlacement: function (error, element) {
             if (element.is("input:radio")) {
@@ -332,6 +340,7 @@ function validate() {
 
 
     })
+
     jQuery.validator.addMethod("textonly", function (value, element) {
             valid = false;
             check = /[^-\.a-zA-Z\s\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02AE]/.test(value);

@@ -95,3 +95,7 @@ function appendTable(data) {
         $('#msg').html("<div class='university-status-message'>No Students Found</div>")
     }
 }
+
+function getSemesterAndSubjectList(){
+
+}

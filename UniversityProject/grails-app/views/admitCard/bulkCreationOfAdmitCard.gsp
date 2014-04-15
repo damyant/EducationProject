@@ -51,6 +51,9 @@
                         <td>
                             <select name="programSession" class="university-size-1-1" id="SessionList">
                                 <option value="">Select Session</option>
+                                <option value="">2012-2013</option>
+                                <option value="">2013-2014</option>
+                                <option value="">2014-2016</option>
                             </select>
                         </td>
                         <td></td>

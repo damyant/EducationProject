@@ -7,10 +7,13 @@
 function semesterList() {
     $('#multiSelectTab tbody tr').remove()
     for (var j = 1; j <= $('#noOfTerms').val(); j++) {
-        $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Subjects <span class="university-obligatory">*</span></label><select style="width: 90%" name="allsubjectList' + j + '" id="allsubjectList' + j + '"  multiple="true"  /></td>' +
-            ' <td <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList(' + j + ')" name="add' + j + '"  id="add' + j + '">Add</button>' +
+        $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Subjects <span class="university-obligatory">*</span></label><select style="width: 60%" name="allsubjectList' + j + '" id="allsubjectList' + j + '"  multiple="true"  /></td>' +
+            ' <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList(' + j + ')" name="add' + j + '"  id="add' + j + '">Add</button>' +
             '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList(' + j + ')" name="remove' + j + '"  id="remove' + j + '">Remove</button> </td>' +
-            '<td <td style="width:40% "><select class="select-to" style="width: 90%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  /><div id="error-select-' + j + '"></div></td></tr>')
+            '<td style="width:40%;"><select class="select-to" style="width: 50%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  />' +
+            '<div id="upload-syllabus" style="width: 30%;float:right;">' +
+            '<input type="button" style="float: right; margin-top:20%" id="Syllabus_link" value="Upload Syllabus" onclick="syllabusUpload(' + j + ')" /></div>'+
+            '<input type="file" id="syllabusOfSemester' + j + '" style="visibility: hidden"><div id="error-select-' + j + '"></div></div></td></tr>')
 
         if ($('#modeName option:selected').text().toLowerCase() == "annual") {
             $("<div>Term-" + j + "</div>").insertBefore($('#semester' + j))
@@ -275,20 +278,28 @@ function save() {
         });
     }
 }
+function syllabusUpload(index){
+    alert("hiii")
+    if($('#semester' + index+' option:selected')){
 
-function checkCourseCode(){
+    }
+    else{
+    alert("Select a Subject to Add Syllabus.");
+    }
+    }
 
-    var data = $('#centerCode').val();
+function checkCourseCode() {
+    var data = $('#courseCode').val();
     $.ajax({
         type: "post",
-        url: url('examinationCenter', 'checkCenterCode', ''),
-        data: {centerCode: data},
+        url: url('course', 'checkCourseCode', ''),
+        data: {courseCode: data},
         success: function (data) {
-            if(data.centerCode=="true"){
-                $('#errorMsg').text("Centre Code is already registered")
-                $('#errorMsg').attr('display',true)
+            if (data.courseCode == "true") {
+                $('#errorMsg').text("CourseCode Code is already registered")
+                $('#errorMsg').attr('display', true)
             }
-            else{
+            else {
                 $('#errorMsg').text("")
             }
 

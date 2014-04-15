@@ -56,18 +56,17 @@ function appendDataTable(data) {
         document.getElementById("studentListForFee").style.visibility = "visible";
         $('#studentListForFee thead').append('<tr><th><input type="checkbox" name="chkbox" onchange="toggleChecked(this.checked)"/> <label for="chkbox">Select All</label> </th><th>' + "Roll Number" + '</th><th>' + "Student Name" + '</th><th>' + "Fee Entry" + '</th></tr>')
         for (var i = 0; i < data.stuList.length; i++) {
+
             $('#studentListForFee tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].rollNo + '</td><td>' + data.stuList[i].name
                 + '</td><td><button id="fee">Fee Entry</button></td></tr>')
-
-        }
-//        $('#studentList tbody').append('<tr><td colspan="3"><input type="button" value="' + data.label + '" id="assignRollNo"></td></tr>')
-
+    }
     }
     else {
         document.getElementById("studentListForFee").style.visibility = "hidden";
         $('#msg').html("<div class='university-status-message'>No Students Found</div>")
     }
-}
+
+
 
 
 function enablecriteria(t) {
@@ -102,7 +101,7 @@ function enablecriteria(t) {
     }
 
 
-
+}
 
 
 }

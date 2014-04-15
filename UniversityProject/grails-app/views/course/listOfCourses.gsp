@@ -52,7 +52,11 @@
         </g:else>
         </tbody>
     </table>
+        <div class="paginateButtons">
+            <g:paginate  total="${courseInstanceTotal}" />
+        </div>
     </div>
+
     </body>
 
 </html>
