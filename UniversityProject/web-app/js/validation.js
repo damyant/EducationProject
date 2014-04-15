@@ -401,3 +401,12 @@ function isAlphaNumeric(evt) {
     }
     return false;
 }
+
+function isTime(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if ((charCode == 58 ||charCode == 8 || (charCode > 47 && charCode < 58) || charCode ==65 || charCode == 97|| charCode == 77 || charCode == 109|| charCode == 80 || charCode ==112)) {
+        return true;
+    }
+    return false;
+}

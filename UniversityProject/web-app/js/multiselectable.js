@@ -12,8 +12,15 @@ function semesterList() {
             '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList(' + j + ')" name="remove' + j + '"  id="remove' + j + '">Remove</button> </td>' +
             '<td style="width:40%;"><select class="select-to" style="width: 50%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  />' +
             '<div id="upload-syllabus" style="width: 30%;float:right;">' +
-            '<input type="button" style="float: right; margin-top:20%" id="Syllabus_link" value="Upload Syllabus" onclick="syllabusUpload(' + j + ')" /></div>'+
-            '<input type="file" id="syllabusOfSemester' + j + '" style="visibility: hidden"><div id="error-select-' + j + '"></div></div></td></tr>')
+            '<input type="button" style="float: right; margin-top:20%" id="Syllabus_link" value="Upload Syllabus" onclick="syllabusUpload(' + j + ')" /></div>' +
+//            '<form action="/UniversityProject/course/uploadSyllabus" method="post" name="syllabusUploadForm" id="syllabusUploadForm" >'+
+////            '<g:uploadForm id="syllabusUploadForm" name="syllabusUploadForm" action="uploadSyllabus" controller="course">'+
+//            '<input type="file" name="syllabusFile" id="syllabusFile" value="" style="visibility: hidden;">'+
+//            '<input type="hidden" name="syllabusCourse" id="syllabusCourse" value="">'+
+//            '<input type="hidden" name="syllabusOfSubject" id="syllabusOfSubject" value="">'+
+//            '<input type="hidden" name="syllabusOfSemester" id="syllabusOfSemester" value=="semester' + j + '">'+
+//            '</form>'+
+            '<div id="error-select-' + j + '"></div></div></td></tr>')
 
         if ($('#modeName option:selected').text().toLowerCase() == "annual") {
             $("<div>Term-" + j + "</div>").insertBefore($('#semester' + j))
@@ -148,15 +155,14 @@ function updateInfo(obj) {
 
     }
 }
-function enableNoOfSem(t){
+function enableNoOfSem(t) {
 //    alert($(t).val())
-    if($(t).val()==1||$(t).val()==2){
-        $('#noOfTerms').val('');
-        $('#noOfTerms').prop('disabled', false);
+    if ($('#modeName').val() == 1 || $('#modeName').val() == 2) {
+        $('#noOfTerms').prop('readonly', false);
     }
-    else{
+    else {
         $('#noOfTerms').val('');
-        $('#noOfTerms').prop('disabled', true);
+        $('#noOfTerms').prop('readonly', true);
     }
 }
 
@@ -278,15 +284,40 @@ function save() {
         });
     }
 }
-function syllabusUpload(index){
-    alert("hiii")
-    if($('#semester' + index+' option:selected')){
+function syllabusUpload(index) {
+    if ($('#courseName').val()!= "") {
+        if (!$('#semester' + index).find(":selected").val()=='') {
+            if (($('#semester' + index + ' :selected').length == 1)) {
+                $('#syllabusFile').trigger('click');
+                $('#syllabusFile').on('change', function () {
+                    myfile= $( this ).val();
+                    var ext = myfile.split('.').pop();
+//                    if(ext=="pdf" || ext=="docx" || ext=="doc") {
+                        $('#syllabusOfSubject').val($('#semester' + index).find(":selected").val());
+                        $('#syllabusCourse').val($('#courseName').val());
+                        $('#syllabusOfSemester').val('Semester'+ index);
+                        $('#syllabusUploadForm').submit();
+//                    $.ajax({
+//                        type: "post",
+//                        url: url('course', 'uploadSyllabus'),
+//                        data: {syllabusSubject: subject, syllabusCourse: course, syllabusSemester: index}
+//                    });
+//                    }
+                });
+            }
+            else {
+                alert("Select only One Option.")
+            }
+        }
+        else {
+            alert("Select a Subject to Add Syllabus.");
+        }
+    }
+    else {
+        alert("Enter The Course Name First.");
+    }
+}
 
-    }
-    else{
-    alert("Select a Subject to Add Syllabus.");
-    }
-    }
 
 function checkCourseCode() {
     var data = $('#courseCode').val();

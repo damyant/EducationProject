@@ -11,6 +11,7 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Assign Examination Venue</title>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'admitCard.js')}"></script>
 </head>
 
 <body>
@@ -32,7 +33,7 @@
                 <td class="university-size-1-4">
                     <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
                               optionValue="cityName" from="${City.findAll()}" noSelection="['': ' Select City']"
-                              onchange="showExamCentreList()"/>
+                              onchange="showExamVenueList()"/>
                 </td>
                 <td class="university-size-1-2"></td>
             </tr>
@@ -40,17 +41,18 @@
                 <td class="university-size-1-4"><label>Select Examination Venue </label></td>
                 <td class="university-size-1-4">
                     <g:select name="examinationCenter" class="university-size-1-1" id="examCenterList" from=""
-                              noSelection="['': ' Select Examination Venue']"/>
+                              noSelection="['': ' Select Examination Venue']" multiple="true" onchange="addVenue(this)"/>
                 </td>
                 <td class="university-size-1-2"></td>
             </tr>
 
         </table>
 
-            <table style="width: 95%;margin: auto">
+            <table style="width: 95%;margin: auto" id="examVenueList">
                 <tr>
-                    <th class="university-size-1-2" style="padding-left: 10px;">Y</th>
-                    <th class="university-size-1-2" style="padding-left: 10px;">Z</th>
+                    <th class="university-size-1-3" style="padding-left: 10px;">Course</th>
+                    <th class="university-size-1-3" style="padding-left: 10px;">Examination Centre</th>
+                    <th class="university-size-1-3" style="padding-left: 10px;">Examination Venue</th>
                 </tr>
             </table>
     </fieldset>

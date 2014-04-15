@@ -17,8 +17,6 @@
     <script type="text/javascript">
    var ab=0
    ab=$('#courseId').val()
-
-   alert("?????"+ab)
             $(window).bind("load",function(){
 
                 viewCourseInfo("${courseDetail}")
@@ -39,7 +37,7 @@
         <table class="university-table">
             <tr>
                 <td style="width: 40%"><label>Course Name</label></td>
-                <td style="width: 60%"><label id="courseName"> </label></td>
+                <td style="width: 60%"><label id="courseName"></label></td>
             </tr>
             <tr>
                 <td><label> Mode </label></td>
@@ -79,23 +77,14 @@
                 <td><label>Total Credit Points</label></td>
                 <td style="width: 60%"><label id="totalCreditPoints"> </label></td>
             </tr>
-            <!--
-            <tr>
-                <td colspan="2">
-                    <table id="multiSelectTab" name="multiSelectTab">
-                        <tr>
-
-                        </tr>
-                    </table>
-                </td>
+            <tr id="Subjects">
             </tr>
-            -->
             <tr>
                <td style="text-align: center" colspan="2"><input type="button" value="Back" class="university-button"  onClick="history.go(-1);return true;" ></td>
             </tr>
         <tr>
             <td>
-                <g:link controller="course" action="test">aaaaaaaaaa</g:link>
+                <g:link controller="course" action="test"></g:link>
             </td>
         </tr>
         </table>

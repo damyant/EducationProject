@@ -106,9 +106,10 @@ function showExamCentreList() {
         url: url('examinationCenter', 'getExamCentreList', ''),
         data: {data: data},
         success: function (data) {
-            $("#examCenterList").empty().append('data <option value="">Select Examination Venue</option>')
+            $("#examCenterList").empty().append('<option value="">Select Examination Venue</option>')
             for (var i = 0; i < data.name.length; i++) {
                 $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
+//                $("#examCenterList").multiselect();
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -116,6 +117,32 @@ function showExamCentreList() {
     });
 }
 
+
+function showExamVenueList()  {
+    var data = $('#city').val();
+    $.ajax({
+        type: "post",
+        url: url('examinationCenter', 'getExamCentreList', ''),
+        data: {data: data},
+        success: function (data) {
+            $("#examCenterList").empty().append('')
+            for (var i = 0; i < data.name.length; i++) {
+                $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
+//                $("#examCenterList").multiselect();
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}
+
+function addVenue(param){
+    alert('kiii')
+    var venue=$(param).find(":selected").val()
+    var centre=$('city').find(":selected").val()
+    var course=$('programList').find(":selected").val()
+    $("#examVenueList").append('<tr><td></td><td>centre</td><td>venue</td></tr>');
+}
 
 
 

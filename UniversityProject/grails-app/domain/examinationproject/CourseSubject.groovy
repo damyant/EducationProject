@@ -6,7 +6,6 @@ class CourseSubject implements Serializable  {
     ProgramDetail courseDetail
     Subject subject
     Semester semester
-    String syllabus
 
 
     boolean equals(other) {
