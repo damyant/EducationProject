@@ -18,7 +18,6 @@
    var ab=0
    ab=$('#courseId').val()
 
-   alert("?????"+ab)
             $(window).bind("load",function(){
 
                 viewCourseInfo("${courseDetail}")

@@ -31,8 +31,8 @@
                 <td class="university-size-1-4"><label>Select an Examination Centre </label></td>
                 <td class="university-size-1-4">
                     <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
-                              optionValue="cityName" from="${City.findAll()}" noSelection="['': ' Select City']"
-                              onchange="showExamCentreList()"/>
+                              optionValue="cityName" from="${examinationCenterList}" noSelection="['': ' Select City']"
+                              onchange="showExamVenueList()"/>
                 </td>
                 <td class="university-size-1-2"></td>
             </tr>
