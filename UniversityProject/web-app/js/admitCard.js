@@ -108,7 +108,40 @@ function showExamVenueList() {
         success: function (data) {
             $("#examCenterList").empty().append('data <option value="">Select Examination Venue</option>')
             for (var i = 0; i < data.name.length; i++) {
-                $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
+               $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}
+
+function showExamVenueCapacity(){
+
+    $.ajax({
+        type: "post",
+        url: url('admitCard', 'examVenueCapacity', ''),
+        data: {examCenterId: $("#examCenterList").val()},
+        success: function (data) {
+        if(data.capacity){
+            $('#totalCapacity').val(data.capacity)
+        }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}
+
+
+function getStudentsForAdmitCard(){
+
+    $.ajax({
+        type: "post",
+        url: url('admitCard', 'getStudentsForAdmitCard', ''),
+        data: $("#admitCardForm").serialize(),
+        success: function (data) {
+            if(data.capacity){
+                $('#totalCapacity').val(data.capacity)
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

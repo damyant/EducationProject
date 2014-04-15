@@ -34,7 +34,7 @@ class ExaminationCenterController {
        def centre = [:]
         if (result) {
             centre.name = result.name
-            centre.id = result.centreCode
+            centre.id = result.id
             render centre as JSON
         } else {
             render "<h5>No Examination Centre Found</h5>"
@@ -43,7 +43,7 @@ class ExaminationCenterController {
     def getCentreList = {
         println("in getCentreList "+ params)
         def result= examinationCentreService.studyCenterList(params)
-        println("resultttttttttttttttttttttt "+ result)
+
        if(result){
         render(template: "listOfCentre", model: [centreList: result, edit:params.edit, delete:params.delete])
         }

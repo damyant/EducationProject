@@ -25,10 +25,14 @@ class AdmitCardController {
 
     }
     def bulkCreationOfAdmitCard ={
-        def programList = ProgramDetail.list()
+        def programList = ProgramDetail.list(sort:'courseName')
         def studyCentreList = StudyCenter.list()
-        def examinationCentre = ExaminationCentre.list()
-        [programList: programList, studyCentreList: studyCentreList, examinationCentre: examinationCentre]
+//        def examinationCentre = ExaminationCentre.list()
+        def examinationCenter=ExaminationCentre.list()*.city as Set
+        def finalExaminationCenterList= examinationCenter.sort{a,b->
+            a.cityName<=>b.cityName
+        }
+        [programList: programList, studyCentreList: studyCentreList, examinationCenterList: finalExaminationCenterList]
     }
 
     def getSemesterList={
@@ -45,8 +49,27 @@ class AdmitCardController {
             render null
         }
         }catch (Exception e){
-            println("Error in getting Semester Number")
+            println("Error in getting Semester Number"+e)
         }
+    }
+
+    def examVenueCapacity={
+        try{
+        def examCenterMap=[:]
+        def examCenter=ExaminationCentre.findById(Long.parseLong(params.examCenterId))
+        examCenterMap.capacity=examCenter.capacity
+        render examCenterMap as JSON
+        }
+        catch (Exception e){
+            println("Error in getting Examination Center capacity"+e)
+        }
+
+    }
+
+    def getStudentsForAdmitCard={
+        println("??????????????"+params)
+
+
     }
 
 }

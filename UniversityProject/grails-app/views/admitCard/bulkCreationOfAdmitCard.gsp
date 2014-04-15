@@ -16,15 +16,15 @@
 <div id="main">
     <fieldset>
         <h3>STUDENT ADMIT CARD</h3>
-        <g:uploadForm controller="admitCard" action="createAdmintCard" method='post' enctype="multipart/form-data">
+        <form name="admitCardForm" id="admitCardForm">
             <div>
                 <table class="university-table-1-3 inner" style="width: 60%;margin: auto;">
                     <tr>
                         <td><label>Select an Examination Centre </label></td>
                         <td>
-                            <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
-                                      optionValue="cityName" from="${City.findAll()}" noSelection="['': ' Select City']"
-                                      onchange="showExamCentreList()"/>
+                            <g:select name="examinationCenter" id="city" optionKey="id" class="university-size-1-1"
+                                      optionValue="cityName" from="${examinationCenterList}" noSelection="['': ' Select City']"
+                                      onchange="showExamVenueList()"/>
                         </td>
                         <td></td>
                     </tr>
@@ -60,18 +60,18 @@
                     <tr>
                         <td><label>Select Examination Venue </label></td>
                         <td>
-                            <g:select name="examinationCenter" class="university-size-1-1" id="examCenterList" from=""
+                            <g:select name="examinationVenue" class="university-size-1-1" id="examCenterList" from="" onchange="showExamVenueCapacity()"
                                       noSelection="['': ' Select Examination Venue']"/>
                         </td>
-
+                        <td><label>Max Capacity</label><input type="text" id="totalCapacity" /></td>
                         <td>
                             <input type="button" class="university-button university-float-right"
-                                   value="Show Candidates"/>
+                                   value="Show Candidates" onclick="getStudentsForAdmitCard()"/>
                         </td>
                     </tr>
                 </table>
             </div>
-        </g:uploadForm>
+        </form>
         <div class="university-List-View university-scrollable-y">
             <table id="admitCardTab" class="university-table-1-5 inner" style="width:98%;margin: 1px">
                 <tr>
