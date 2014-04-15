@@ -1,3 +1,24 @@
+
+
+
+$(document).ready(function () {
+    var cnt=0;
+    var maxCap=0;
+    $("input[name='student']").change(function () {
+        var maxAllowed = 4;
+        cnt = $("input[name='student']:checked").length;
+        maxCap = $("input[name='capacity']").val()
+        if(maxCap>0)
+        $("input[name='capacity']").val(maxCap-cnt);
+        if (cnt>maxAllowed) {
+            $("input[name='capacity']").val(cnt-1);
+            $(this).prop("checked", "");
+            alert('You can select maximum ' + maxAllowed + ' Students only!!');
+        }
+    });
+});
+
+
 //
 //jQuery(function($) {
 //

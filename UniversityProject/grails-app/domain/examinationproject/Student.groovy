@@ -23,6 +23,7 @@ class Student {
     int rollNo
     int semester
     Status status
+    Status feeStatus
     int registrationYear
     int referenceNumber
     byte[] studentImage
@@ -56,6 +57,7 @@ class Student {
         location(nullable: true)
         rollNo(nullable:true)
         status(nullable:true)
+        feeStatus(nullable: true)
       //  feeDetails(nullable: true)
 
 
@@ -87,7 +89,8 @@ class Student {
         addressPinCode column: "AddressPinCode"
         location column: "Location"
         registrationYear column: "registrationYear"
-        referenceNumber:column:"referenceNumber"
+        referenceNumber column:"referenceNumber"
+        feeStatus column: "feeStatus"
 
     }
 
