@@ -26,7 +26,8 @@
                                       optionValue="cityName" from="${City.findAll()}" noSelection="['': ' Select City']"
                                       onchange="showExamCentreList()"/>
                         </td>
-                        <td></td>
+                        <td>Max Capacity</td>
+                        <td><g:textField name="capacity" id="capacity" value="4"></g:textField> </td>
                     </tr>
                     <tr>
                         <td><label>Select a Course </label></td>
@@ -78,10 +79,10 @@
                     <th>Name</th>
                     <th>GU Registration No</th>
                 </tr>
-                <% def count = 5 %>
+                <% def count = 12 %>
                 <g:each in="${(1..count).toList()}" var="c">
                     <tr>
-                        <td><input type="checkbox" id=""/></td>
+                        <td><input type="checkbox" name="student" /></td>
                         <td>${c}</td>
                         <td></td>
                         <td></td>

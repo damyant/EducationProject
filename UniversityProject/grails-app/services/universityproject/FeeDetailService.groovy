@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat
 
 @Transactional
 class FeeDetailService {
+    def springSecurityService
 
     def serviceMethod() {
 
@@ -40,6 +41,11 @@ class FeeDetailService {
         return feeDetailsInstance
     }
 
+    /**
+     * Service to get provisional students
+     * @param params
+     * @return
+     */
     def  provisionalStudentList(params){
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -50,22 +56,17 @@ class FeeDetailService {
              date = df.parse(params.admissionDate)
         }
         if(params.studyCenterId){
+            println("assign Study Centre1")
             studyCenterId=params.studyCenterId
         }
         else{
             def currentUser=springSecurityService.getCurrentUser()
-
+            println("assign Study Centre2")
             studyCenterId=currentUser.studyCentreId
         }
+        statusObj=Status.findById(2)
 
 
-        if(params.pageType=="Registered RollNo"){
-
-            statusObj=Status.findById(2)
-        }
-        else{
-            statusObj=Status.findById(1)
-        }
         def obj=Student .createCriteria()
         def stuList
         if(params.programId!='null'){
@@ -80,13 +81,14 @@ class FeeDetailService {
         } else if(params.studyCenterId!='null'){
             stuList= obj.list{
                 studyCentre{
-                    eq('id', Long.parseLong(params.studyCenterId))
+                    eq('id', Long.parseLong(studyCenterId))
                 }
                 and{
                     eq('status',statusObj)
                 }
             }
-        }else if(params.admissionDate!='null'){
+       }
+        else if(params.admissionDate!='null'){
 
             stuList = Student.findAllByAdmissionDateAndStatus(date,statusObj)
         }
