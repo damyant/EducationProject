@@ -17,6 +17,7 @@
 <body>
 <div id="main">
     <fieldset class="form">
+<g:form  method='post' enctype="multipart/form-data" id="assignExamVenue" name="assignExamVenue">
         <table class="inner" style="width: 95%;margin: auto">
             <tr>
                 <td class="university-size-1-4"><label>Select a Course</label></td>
@@ -68,6 +69,7 @@
             </tr>
 
         </table>
+    </g:form>
 
             %{--<table style="width: 95%;margin: auto" id="examVenueList">--}%
                 %{--<tr>--}%
