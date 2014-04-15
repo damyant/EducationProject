@@ -1,4 +1,40 @@
 
+function uploadImage(input,type){
+    $("#profile-image-upload").change(function ()
+    {
+      //  var iSize = ($("#profile-image-upload")[0].files[0].size / 1024);
+
+        if(iSize<=50){
+
+    }
+
+//        if (iSize / 1024 > 1)
+//        {
+//            if (((iSize / 1024) / 1024) > 1)
+//            {
+//                iSize = (Math.round(((iSize / 1024) / 1024) * 100) / 100);
+//               alert("Image size is "+iSize)
+//               // $("#lblSize").html( iSize + "Gb");
+//            }
+//            else
+//            {
+//                iSize = (Math.round((iSize / 1024) * 100) / 100)
+//                alert("Image size is "+iSize)
+//                //$("#lblSize").html( iSize + "Mb");
+//            }
+//        }
+//        else
+//        {
+//            iSize = (Math.round(iSize * 100) / 100)
+//            alert("Image size is "+iSize)
+//           // $("#lblSize").html( iSize  + "kb");
+//        }
+    });
+}
+
+
+
+
 function isNumber(evt) {
 
     evt = (evt) ? evt : window.event;
@@ -36,7 +72,10 @@ function readURL(input,type) {
                     .height(80);
             };
 
-
+//      if(input.files[0].si){
+//
+//      }
+//
         reader.readAsDataURL(input.files[0]);
     }
 }

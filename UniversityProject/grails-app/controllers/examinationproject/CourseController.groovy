@@ -2,7 +2,9 @@ package examinationproject
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import universityproject.CourseDetailService
+import java.io.File;
 
 @Secured("ROLE_ADMIN")
 class CourseController {
@@ -29,7 +31,9 @@ class CourseController {
 //        println("Inside View"+params)
 
         def courseDetails  = courseDetailService.getFullDetailOfCourse(params)
-        println("aaaaaaaaaaaaaaa"+courseDetails.course.courseMode.modeName)
+//        [courseDetails:courseDetails]
+        println("aaaaaaaaaaaaaaa   "+courseDetails.course.courseMode.modeName)
+        println("aaaaaaaaaaaaaa NAMe   "+courseDetails.course.courseType.courseTypeName)
 //
 //
 //
@@ -75,6 +79,47 @@ class CourseController {
     def deleteCourse(){
         courseDetailService.deleteCourse(params)
         redirect(action: "listOfCourses", params:['type':"update"])
+    }
+    def uploadSyllabus(){
+//        println("Upload \t"+ params)
+//        println("Upload \t"+ params.syllabusCourse)
+        try {
+            if (params.syllabusFile) {
+                String ext = "";
+                def fileToBeUploaded = request.getFile('syllabusFile')
+//                println(fileToBeUploaded)
+                String fileName = fileToBeUploaded.originalFilename
+                int i = fileName.lastIndexOf('.');
+                if (i > 0) {
+                    ext = fileName.substring(i+1);
+                }
+                def servletContext = ServletContextHolder.servletContext
+                def storagePath = servletContext.getRealPath( 'syllabus' )
+                def dir = new File(storagePath+System.getProperty("file.separator") +params.syllabusCourse+System.getProperty("file.separator")+params.syllabusOfSemester+System.getProperty("file.separator") +params.syllabusOfSubject+System.getProperty("file.separator"))
+                if ((dir.exists())){
+//                    println("Deleting Files")
+                    File[] listOfFiles = dir.listFiles();
+                    for (File file: listOfFiles){
+                    file.delete();
+                   }
+                }
+                else{
+                   dir.mkdirs()
+               }
+//                println(params.int('syllabusOfSubject'))
+                def subName = Subject.findAllById(params.int('syllabusOfSubject'))
+                fileToBeUploaded.transferTo(new File(dir, fileName))
+                println(subName.subjectName)
+                def fullPath = new File(storagePath+System.getProperty("file.separator") +params.syllabusCourse+System.getProperty("file.separator")+params.syllabusOfSemester+System.getProperty("file.separator") +params.syllabusOfSubject+System.getProperty("file.separator")+fileName)
+                def newFullPath = new File(storagePath+System.getProperty("file.separator") +params.syllabusCourse+System.getProperty("file.separator")+params.syllabusOfSemester+System.getProperty("file.separator") +params.syllabusOfSubject+System.getProperty("file.separator")+subName[0].subjectName+'.'+ext)
+//                println(fullPath)
+                fullPath.renameTo(newFullPath)
+            }
+        }
+        catch (Exception e){
+            flash.message = "There is some problem parsing Document file"
+        }
+
     }
 
 

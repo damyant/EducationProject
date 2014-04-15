@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'header.css')}" type="text/css">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'style.css')}" type="text/css">
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'style_popup.css')}" type='text/css'>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery-ui.css')}" type='text/css'>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'gu_stylesheet.css')}" type='text/css'>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.datepicker.css')}" type='text/css'>
     <g:javascript library='jquery'/>
@@ -40,6 +41,7 @@
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.core.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.dialog.js')}"></script>
  <g:layoutHead/>
 
 </head>

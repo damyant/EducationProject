@@ -193,7 +193,7 @@
 
                     <div class="university-size-2-3">
                         <g:submitButton name="create" class="save university-button" onclick="validate()"
-                                        value="${message(code: 'default.button.create.label', default: 'Create')}"/>
+                                        value='Submit'/>
                     </div>
                 </div>
             </g:form>
