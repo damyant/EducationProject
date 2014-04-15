@@ -55,7 +55,7 @@
 
             <tr>
                 <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
-                <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)" onblur="semesterList()" disabled/></td>
+                <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)" onblur="semesterList()" /></td>
             </tr>
             <tr>
                 <td><label>Course Code :<span class="university-obligatory">*</span></label></td>

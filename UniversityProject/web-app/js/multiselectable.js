@@ -222,8 +222,9 @@ function ConvertFormToJSON(form) {
 
 
             subList.push($(this).val() || '');
+            console.log(subList)
             semesterList["semester" + j] = subList;
-
+            console.log(semesterList)
         })
 
     }

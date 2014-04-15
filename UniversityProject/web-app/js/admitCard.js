@@ -99,7 +99,7 @@ $("#admitCardTab ").append('<tr><th>Roll Number</th><th>Name of the Student</th>
  $('#subjectTab').append('<tr><th>Subject</th><th>Subject-Code</th><th>Time Of Exam</th><th>Date Of Exam</th></tr>')
 }
 
-function showExamCentreList() {
+function showExamVenueList() {
     var data = $('#city').val();
     $.ajax({
         type: "post",

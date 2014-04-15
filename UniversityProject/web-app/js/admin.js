@@ -1,10 +1,11 @@
-/**
- * Created by shweta on 3/26/14.
- */
 
 
 var studentIdList = [];
+var subjectIdList=[];
 $(document).ready(function () {
+
+
+
 
     $(document).on('click', '#assignRollNo', function () {
 
@@ -24,6 +25,30 @@ $(document).ready(function () {
             alert("Select the student first.");
             return false;
         }
+    });
+
+
+    $(document).on('click', '#submitExamDate', function () {
+
+        $.ajax({
+            type: "post",
+            url: url('admin', 'saveExamDate', ''),
+            data: $('#assignDate').serialize()+'&subjectIdList=' + subjectIdList,
+            success: function (data) {
+                if(data.saveFlag==true){
+
+                    $("#subjectList tr").remove()
+                    $("#msgDiv").html("Examination Date is saved")
+
+                }
+                else{
+                    $("#msgDiv").html("")
+                }
+
+
+            }
+        });
+
     });
 
 
@@ -97,5 +122,74 @@ function appendTable(data) {
 }
 
 function getSemesterAndSubjectList(){
+
+    $.ajax({
+        type: "post",
+        url: url('admin', 'getSubjectList', ''),
+        data: {programId: $('#programList').val()},
+        success: function (data) {
+
+            if(data.noSubjects==true){
+
+                $("#subjectList tr").remove()
+                $("#msgDiv").html("The is no subjects associated with the program")
+            }
+            else{
+            appendSubjects(data)
+                $("#msgDiv").html("")
+            }
+
+
+        }
+    });
+
+}
+
+function appendSubjects(obj){
+
+    var count=1;
+    var counter=0;
+
+    for(var i=0;i<obj.allSubjects.length;i++){
+
+        $("#subjectList").append('<tr><th>'+"Term"+ count+" Subjects" +'</th><th>Examination Date</th><th>Examination Time</th></tr>' )
+        for(var j=0;j<obj.allSubjects[i].length;j++){
+            subjectIdList[counter]=obj.allSubjects[i][j].id
+
+            var d = $.datepicker.parseDate("mm/dd/yy", obj.dateList[counter].toString())
+            var datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
+
+            $("#subjectList").append('<tr><td>'+obj.allSubjects[i][j].subjectName+'</td><td><input type="text" name="examinationDate" class="datepicker university-size-1-2"  value='+datesInNewFormat+'></input></td><td><input type="text"  onchange="checkTimeFormat('+counter+')" name="examTime" id="examTime'+counter+'" ></td></tr>')
+           ++counter
+        }
+        count++;
+
+    }
+    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" value="Submit"></td></tr>' )
+
+    $(".datepicker").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy"
+    });
+
+
+}
+
+
+function checkTimeFormat(count){
+
+    re = /^\d{1,2}:\d{2}([ap]m)?$/;
+
+    var val =$('#examTime'+count).val() ;
+
+    if(val != '' && !val.match(re)) {
+        alert("Invalid time format: " + val);
+        form.timeVal.focus();
+        return false;
+    }
+
+//            alert("All input fields have been validated!");
+            return true;
 
 }
