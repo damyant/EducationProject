@@ -1,5 +1,7 @@
 package com.university
 
+import examinationproject.District
+import examinationproject.ExaminationCentre
 import examinationproject.FeeType
 import examinationproject.ProgramDetail
 import examinationproject.ProgramFee
@@ -67,13 +69,13 @@ class AdminController {
 
 
     def feeVoucher={
-        def feeType = FeeType.list()
+        def feeType = FeeType.list(sort:'type')
         [feeType:feeType]
     }
 
 
     def examFeeVoucher = {
-        def feeType = FeeType.list()
+        def feeType = FeeType.list(sort:'type')
 
         [feeType:feeType]
     }
@@ -119,12 +121,44 @@ class AdminController {
 
     }
     def assignExaminationDate={
-        def programList = ProgramDetail.list()
+        def programList = ProgramDetail.list(sort:'courseName')
         [programList: programList]
     }
     def assignExaminationVenue={
-        def programList = ProgramDetail.list()
-        [programList: programList]
+        def programList = ProgramDetail.list(sort:'courseName')
+        def examinationCenter=ExaminationCentre.list()*.city as Set
+        def finalExaminationCenterList= examinationCenter.sort{a,b->
+            a.cityName<=>b.cityName
+        }
+
+        [programList: programList,examinationCenterList:finalExaminationCenterList]
+    }
+
+    def getSubjectList={
+        def subMap=[:]
+       subMap= adminInfoService.subjectList(params)
+
+        if(subMap.allSubjects.size()<1){
+            subMap.noSubjects=true
+            render subMap as JSON
+        }
+        else{
+            render subMap as JSON
+        }
+    }
+
+    def saveExamDate={
+        def checkStatus=[:]
+        def status=adminInfoService.saveExamDate(params)
+
+        if(status.size()>1){
+            checkStatus.saveFlag=true
+        }
+        else{
+            checkStatus.saveFlag=false
+        }
+        render checkStatus as JSON
+
     }
 }
 

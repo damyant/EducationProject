@@ -120,6 +120,7 @@ function showExamCentreList() {
 
 function showExamVenueList()  {
     var data = $('#city').val();
+    $('#CentreForExamVenue').html($('#city option:selected').text());
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExamCentreList', ''),
@@ -128,7 +129,8 @@ function showExamVenueList()  {
             $("#examCenterList").empty().append('')
             for (var i = 0; i < data.name.length; i++) {
                 $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
-//                $("#examCenterList").multiselect();
+                $("#moveButton").css("visibility", 'visible');
+                $("#movetoSelect").css("visibility", 'visible');
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -137,13 +139,68 @@ function showExamVenueList()  {
 }
 
 function addVenue(param){
-    alert('kiii')
-    var venue=$(param).find(":selected").val()
-    var centre=$('city').find(":selected").val()
-    var course=$('programList').find(":selected").val()
-    $("#examVenueList").append('<tr><td></td><td>centre</td><td>venue</td></tr>');
+//    alert('kiii')
+    var venue=$(param).find(":selected").text()
+    var centre=$('#city option:selected').text()
+    var course=$('#programList option:selected').text()
+    $("#examVenueList").append('<tr><td>'+course+'</td><td>'+centre+'</td><td>'+venue+'</td></tr>');
 }
 
+function addExamCenterToList() {
+    var selectedValues = [];
+    var nonSelected = [];
+    var inList2;
+    $('#examCenterList :selected').each(function (l, list1Selected) {
+        selectedValues[l] = $(list1Selected).val();
+        inList2 = false;
+        $('#addExamCentre option').each(function (m, list2Selected) {
+            nonSelected[m] = $(list2Selected).val();
+            if (selectedValues[l] == nonSelected[m]) {
+                inList2 = true;
+            }
+        });
+
+        if (inList2 != true) {
+            $('#addExamCentre').append("<option value='" + selectedValues[l] + "'>" + $(list1Selected).text() + "</option>");
+
+            var text1 = $(list1Selected).val()
+//            alert(text1);
+//            $('#semester'+j+' option').filter(function() {
+//                //may want to use $.trim in here
+//                return $(this).val() == text1;
+//            }).attr('selected', true);
+            $('#examCenterList option:selected').each(function (n, allsubSelected) {
+                var text3 = $(allsubSelected).val()
+                $('#examCenterList option').filter(function () {
+                    return $(this).val() == text3;
+                }).attr('selected', false);
+            });
+        }
+
+    });
+}
+
+function removeExamCenterFromList() {
+    $('#addExamCentre option:selected').each(function () {
+        $(this).remove();
+        $('#addExamCentre option:not(selected)').each(function (k, semSelected) {
+            var text2 = $(semSelected).val()
+//        $('#semester'+j+' option').filter(function() {
+//            return $(this).val() == text2;
+//        }).attr('selected', true);
+            $('#examCenterList option:selected').each(function (n, allsubSelected) {
+                var text3 = $(allsubSelected).val()
+                $('#examCenterList option').filter(function () {
+                    return $(this).val() == text3;
+                }).attr('selected', false);
+            });
+        });
+    });
+}
+
+function setCourseLabel(t){
+    $('#courseForExamVenue').html($(t).find(":selected").text());
+}
 
 
 

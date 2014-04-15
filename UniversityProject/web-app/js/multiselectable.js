@@ -13,13 +13,7 @@ function semesterList() {
             '<td style="width:40%;"><select class="select-to" style="width: 50%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  />' +
             '<div id="upload-syllabus" style="width: 30%;float:right;">' +
             '<input type="button" style="float: right; margin-top:20%" id="Syllabus_link" value="Upload Syllabus" onclick="syllabusUpload(' + j + ')" /></div>' +
-//            '<form action="/UniversityProject/course/uploadSyllabus" method="post" name="syllabusUploadForm" id="syllabusUploadForm" >'+
-////            '<g:uploadForm id="syllabusUploadForm" name="syllabusUploadForm" action="uploadSyllabus" controller="course">'+
-//            '<input type="file" name="syllabusFile" id="syllabusFile" value="" style="visibility: hidden;">'+
-//            '<input type="hidden" name="syllabusCourse" id="syllabusCourse" value="">'+
-//            '<input type="hidden" name="syllabusOfSubject" id="syllabusOfSubject" value="">'+
-//            '<input type="hidden" name="syllabusOfSemester" id="syllabusOfSemester" value=="semester' + j + '">'+
-//            '</form>'+
+
             '<div id="error-select-' + j + '"></div></div></td></tr>')
 
         if ($('#modeName option:selected').text().toLowerCase() == "annual") {
@@ -228,8 +222,9 @@ function ConvertFormToJSON(form) {
 
 
             subList.push($(this).val() || '');
+            console.log(subList)
             semesterList["semester" + j] = subList;
-
+            console.log(semesterList)
         })
 
     }

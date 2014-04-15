@@ -52,7 +52,8 @@ class CourseDetailService {
 
                 params.semesterList.each {
                     i
-                    it."semester${i}".each { obj ->
+                  def subjectList=it."semester${i}".sort()
+                      subjectList.each { obj ->
                         CourseSubject.create existingCourseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj
                     }
                     status=true
@@ -66,13 +67,14 @@ class CourseDetailService {
             courseObj.save(failOnError: true)
            for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
                 semObj = new Semester()
-                println("????")
+
                 semObj.semesterNo = i
                 semObj.courseDetail = courseObj
                 semObj.save(failOnError: true)
                 params.semesterList.each {
                     i
-                    it."semester${i}".each { obj ->
+                    def subjectList=it."semester${i}".sort()
+                    subjectList.each { obj ->
                         CourseSubject.create courseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj
                     }
                    status=true
