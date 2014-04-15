@@ -48,5 +48,7 @@ class AdmitCardController {
             println("Error in getting Semester Number")
         }
     }
+    def printPreviewAdmitCard={
 
+    }
 }

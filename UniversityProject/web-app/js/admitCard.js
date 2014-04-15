@@ -185,11 +185,6 @@ function addExamCenterToList() {
             $('#addExamCentre').append("<option value='" + selectedValues[l] + "'>" + $(list1Selected).text() + "</option>");
 
             var text1 = $(list1Selected).val()
-//            alert(text1);
-//            $('#semester'+j+' option').filter(function() {
-//                //may want to use $.trim in here
-//                return $(this).val() == text1;
-//            }).attr('selected', true);
             $('#examCenterList option:selected').each(function (n, allsubSelected) {
                 var text3 = $(allsubSelected).val()
                 $('#examCenterList option').filter(function () {
@@ -206,9 +201,6 @@ function removeExamCenterFromList() {
         $(this).remove();
         $('#addExamCentre option:not(selected)').each(function (k, semSelected) {
             var text2 = $(semSelected).val()
-//        $('#semester'+j+' option').filter(function() {
-//            return $(this).val() == text2;
-//        }).attr('selected', true);
             $('#examCenterList option:selected').each(function (n, allsubSelected) {
                 var text3 = $(allsubSelected).val()
                 $('#examCenterList option').filter(function () {
@@ -220,7 +212,13 @@ function removeExamCenterFromList() {
 }
 
 function setCourseLabel(t){
+//    $('#assignExamVenue').reset();
     $('#courseForExamVenue').html($(t).find(":selected").text());
+    $('#CentreForExamVenue').html('');
+    $('#city').val('');
+    $('#examCenterList').empty();
+    $('#addExamCentre').empty();
+
 }
 
 
