@@ -81,13 +81,19 @@ function showExamVenueList1()  {
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExamCentreList', ''),
-        data: {data: data},
+        data: $('#assignExamVenue').serialize(),
         success: function (data) {
+
             $("#examCenterList").empty().append('')
             for (var i = 0; i < data.name.length; i++) {
                 $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
                 $("#moveButton").css("visibility", 'visible');
                 $("#movetoSelect").css("visibility", 'visible');
+            }
+
+            for(var j=0;j<data.assocaitedExamVenue.length;j++){
+
+                $("#addExamCentre").append('<option value="' + data.assocaitedExamVenue[j].id + '">' + data.assocaitedExamVenue[j].name + '</option>')
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
