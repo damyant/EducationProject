@@ -1,5 +1,27 @@
 
 
+
+
+$(document).ready(function () {
+    var cnt=0;
+    var maxCap=0;
+    maxCap = $("#capacity").val()
+    $("input[name='student']").change(function () {
+        var maxAllowed = 4;
+        cnt = $("input[name='student']:checked").length;
+        if(maxCap>0)
+        $("input[name='capacity']").val(maxCap-cnt);
+        if (cnt>maxAllowed) {
+            $("input[name='capacity']").val(cnt-1);
+            $(this).prop("checked", "");
+            $("input[name='capacity']").val(0);
+            alert('You can select maximum ' + maxAllowed + ' Students only!!');
+        }
+    });
+});
+
+
+
 function getSemester(){
     var data = $('#programList').val();
     $.ajax({
@@ -24,6 +46,9 @@ $("#admitCardTab ").append('<tr><th>Roll Number</th><th>Name of the Student</th>
 }
 
 function showExamVenueList() {
+
+
+    var data = $('#city').val();
 
     $.ajax({
         type: "post",

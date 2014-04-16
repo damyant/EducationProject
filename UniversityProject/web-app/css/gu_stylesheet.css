@@ -360,6 +360,33 @@ h1{
     text-shadow: 2px 2px 2px #000;
     text-transform: uppercase;
 }
+.University-Admit-Sub-Header{
+    font-family: Arial Black;
+    font-size: 30px;
+    font-style: normal;
+    font-weight:bolder;
+    color: #ffffff;
+    background-color: #000;
+    text-align: center;
+    /*margin: 4px auto;*/
+    padding: 2px 5px;
+    text-transform: uppercase;
+    border-radius: 2px;
+}
+.University-Admit-Student-Name{
+    font-family: Arial;
+    font-size: 22px;
+    font-weight:bold;
+    font-style: normal;
+    /*margin:  15px auto;*/
+    padding: 2px 5px;
+    text-transform: capitalize;
+}
+.admitCardView-font{
+    font-size: 19px;
+    margin-bottom: 5px;
+    line-height: 30px;
+}
 
 .radioInput {
 }
@@ -370,6 +397,14 @@ h1{
     padding: 25px 25px 10px;
     width: 1000px;
 }
+.university-font-style-italic{
+    font-style: italic;
+    font-weight: 500;
+}
+.university-text-align-centre{
+    text-align: center;
+}
+
 
 #info {
 

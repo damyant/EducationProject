@@ -1,9 +1,9 @@
 package universityproject
 
-
 import examinationproject.ExaminationCentre
 import examinationproject.ProgramDetail
 import examinationproject.Status
+import examinationproject.ProgramSession
 import examinationproject.StudyCenter
 import examinationproject.Student
 import grails.transaction.Transactional
@@ -20,6 +20,11 @@ class StudentRegistrationService {
    Student saveNewStudentRegistration(params, signature, photographe){
        Boolean studentRegistrationInsSaved = false;
 
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
+       String year = sdf.format(Calendar.getInstance().getTime());
+       def startYear= year
+       def endYear
+       def programSession
        def studentRegistration = new Student(params)
        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
        studentRegistration.dob=df.parse(params.d_o_b)
@@ -29,18 +34,23 @@ class StudentRegistrationService {
        studentRegistration.status= Status.findById(1)
        studentRegistration.studyCentre=studyCentre
        Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
+       endYear = (Integer.parseInt(year)+programDetail[0].noOfAcademicYears).toString()
+       programSession=(startYear+"-"+endYear)
+       def programSessionIns = ProgramSession.findBySessionOfProgram(programSession) ?: new ProgramSession(sessionOfProgram:  programSession,programDetail: programDetail).save(flush: true, failOnError: true)
+       println("Seesion Id is "+programSessionIns.id)
+      // Set<ProgramSession> sessionYear = ProgramSession.findAllById(programSessionIns.id)
+       studentRegistration.programSession = programSessionIns
        studentRegistration.programDetail=programDetail
+
        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examiNationCentre))
        studentRegistration.examinationCentre=examinationCentreList
        studentRegistration.studentImage=photographe.bytes
        studentRegistration.semester=1
 
         //RAJ CODE
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
-       String year = sdf.format(Calendar.getInstance().getTime());
-
        studentRegistration.registrationYear=Integer.parseInt(year)
        if(springSecurityService.isLoggedIn()){
+       studentRegistration.referenceNumber=0
        studentRegistration.rollNo=(Integer)getStudentRollNumber(params)
        studentRegistration.status= Status.findById(2)
        }else{
@@ -51,7 +61,7 @@ class StudentRegistrationService {
 
       //END RAJ CODE
 
-//       studentRegistration.studentSignature=signature.bytes
+      // studentRegistration.studentSignature=signature.bytes
        if(studentRegistration.save(flush:true,failOnError: true)){
            println('new student registered successfully')
            studentRegistrationInsSaved= true
@@ -162,7 +172,7 @@ class StudentRegistrationService {
             String symbols = "01234567899876543210";
             Random random = new SecureRandom();
             char[] buf;
-            buf = new char[6];
+            buf = new char[8];
             def bufLength = buf.length
             for (int idx = 0; idx < bufLength;idx++)
                 buf[idx] = symbols.charAt(random.nextInt(symbols.length()));

@@ -11,34 +11,6 @@
     <meta name="layout" content="main"/>
     <g:javascript src='dataEntry.js'/>
 
-    <script>
-        jQuery(function() {
-            jQuery( "#popupfeeDatails" ).dialog({
-                autoOpen: false,
-                height: 800,
-                width: 650,
-                modal: true,
-                buttons: {
-                    "Create an account": function() {
-                        var bValid = true;
-
-
-                    },
-                    Cancel: function() {
-                        jQuery( this ).dialog( "close" );
-                    }
-                },
-                close: function() {
-                    allFields.val( "" ).removeClass( "ui-state-error" );
-                }
-            });
-
-            $(document).on('click', '#fee', function () {
-                        jQuery( "#popupfeeDatails" ).dialog( "open" );
-                    });
-
-        });
-    </script>
 
 </head>
 
@@ -47,7 +19,7 @@
 <div>
     <fieldset class="form">
 
-        <form >
+        <g:form >
             %{--<g:hiddenField name="studentId" id="studentId"/>--}%
             %{--<g:hiddenField name="pageType" id="pageType" value="Registered RollNo"/>--}%
             <table class="inner" style="margin: auto;" id="fee-table">
@@ -114,16 +86,10 @@
                 <tbody></tbody>
             </table>
 
-            <div id="popupfeeDatails">
-                <table>
-                    <tr><td>fkfhfgf</td></tr>
-                    <tr><td>fkfhfgf</td></tr>
-                    <tr><td>fkfhfgf</td></tr><tr><td>fkfhfgf</td></tr><tr><td>fkfhfgf</td></tr><tr><td>fkfhfgf</td></tr>
-                </table>
 
             </div>
 
-        </form>
+        </g:form>
 
 
 
