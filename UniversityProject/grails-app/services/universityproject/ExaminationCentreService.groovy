@@ -70,7 +70,10 @@ class ExaminationCentreService {
 
     def associatedExamVenue(params) {
 
-        def examVenue = ProgramExamVenue.findAllByCourseDetail(ProgramDetail.findById(Long.parseLong(params.programList)))
+        def cityIns=City.findById(Long.parseLong(params.city))
+        def programIns=ProgramDetail.findById(Long.parseLong(params.programList))
+//        println("?????????"+cityIns)
+        def examVenue = ProgramExamVenue.findAllByCourseDetailAndCity(programIns,cityIns)
         return examVenue.examCenter
     }
 

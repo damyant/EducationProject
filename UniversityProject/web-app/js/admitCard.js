@@ -102,6 +102,7 @@ function getStudentsForAdmitCard(){
 
 
 function showExamVenueList1()  {
+    $('#addExamCentre').empty();
     var data = $('#city').val();
     $('#CentreForExamVenue').html($('#city option:selected').text());
     $.ajax({

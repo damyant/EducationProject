@@ -1,5 +1,6 @@
 package universityproject
 
+import examinationproject.City
 import examinationproject.CourseSubject
 import examinationproject.ExaminationCentre
 import examinationproject.ProgramDetail
@@ -105,10 +106,12 @@ def springSecurityService
     def saveExamVenue(params){
 
         def courseIns=ProgramDetail.findById(Long.parseLong(params.programList))
+        def cityIns=City.findById(Long.parseLong(params.city))
         def venueList=params.venueList.split(",")
         ProgramExamVenue.removeAll(courseIns)
+        ProgramExamVenue.removeAll(cityIns)
         venueList.each {it ->
-          ProgramExamVenue.create courseIns, ExaminationCentre.findById(Integer.parseInt(it.toString()))
+          ProgramExamVenue.create courseIns, ExaminationCentre.findById(Integer.parseInt(it.toString())),cityIns
 
         }
     }

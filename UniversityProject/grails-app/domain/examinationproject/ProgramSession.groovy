@@ -11,6 +11,6 @@ class ProgramSession {
     ]
 
     static mapping = {
-        sessionOfProgram column: "sessionOfProgram"
+        sessionOfProgram column: "SessionOfProgram"
     }
 }
