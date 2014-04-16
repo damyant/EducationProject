@@ -4,15 +4,16 @@
 $(document).ready(function () {
     var cnt=0;
     var maxCap=0;
+    maxCap = $("#capacity").val()
     $("input[name='student']").change(function () {
         var maxAllowed = 4;
         cnt = $("input[name='student']:checked").length;
-        maxCap = $("input[name='capacity']").val()
         if(maxCap>0)
         $("input[name='capacity']").val(maxCap-cnt);
         if (cnt>maxAllowed) {
             $("input[name='capacity']").val(cnt-1);
             $(this).prop("checked", "");
+            $("input[name='capacity']").val(0);
             alert('You can select maximum ' + maxAllowed + ' Students only!!');
         }
     });
@@ -120,7 +121,7 @@ $("#admitCardTab ").append('<tr><th>Roll Number</th><th>Name of the Student</th>
  $('#subjectTab').append('<tr><th>Subject</th><th>Subject-Code</th><th>Time Of Exam</th><th>Date Of Exam</th></tr>')
 }
 
-function showExamVenueList() {
+function showExamCentreList() {
     var data = $('#city').val();
     $.ajax({
         type: "post",

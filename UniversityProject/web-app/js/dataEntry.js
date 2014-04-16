@@ -4,27 +4,6 @@
 
 
 var studentIdList = [];
-$(document).ready(function () {
-
-    $(document).on('click', '#popup', function () {
-
-        alert("hello")
-        var NWin = window.open($(this).prop('href'), '', 'height=800,width=800');
-        if (window.focus)
-        {
-            NWin.focus();
-        }
-        return false;
-
-    });
-
-
-
-
-});
-
-
-
 
 function getStudentsList() {
 
@@ -49,24 +28,24 @@ function getStudentsList() {
 function appendDataTable(data) {
 
 
-    $('#studentListForFee thead tr').remove()
-    $('#studentListForFee tbody tr').remove()
+    $('#studentList thead tr').remove()
+    $('#studentList tbody tr').remove()
     if (data.stuList.length > 0) {
         $('#msg').html("")
-        document.getElementById("studentListForFee").style.visibility = "visible";
-        $('#studentListForFee thead').append('<tr><th><input type="checkbox" name="chkbox" onchange="toggleChecked(this.checked)"/> <label for="chkbox">Select All</label> </th><th>' + "Roll Number" + '</th><th>' + "Student Name" + '</th><th>' + "Fee Entry" + '</th></tr>')
+        document.getElementById("studentList").style.visibility = "visible";
+        $('#studentList thead').append('<tr><th><input type="checkbox" name="chkbox" onchange="toggleChecked(this.checked)"/> <label for="chkbox">Select All</label> </th><th>' + "Roll Number" + '</th><th>' + "Student Name" + '</th><th>' + "Fee Entry" + '</th></tr>')
         for (var i = 0; i < data.stuList.length; i++) {
 
-            $('#studentListForFee tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].rollNo + '</td><td>' + data.stuList[i].name
+            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].rollNo + '</td><td>' + data.stuList[i].name
                 + '</td><td><button id="fee">Fee Entry</button></td></tr>')
     }
     }
     else {
-        document.getElementById("studentListForFee").style.visibility = "hidden";
+        document.getElementById("studentList").style.visibility = "hidden";
         $('#msg').html("<div class='university-status-message'>No Students Found</div>")
     }
 
-
+}
 
 
 function enablecriteria(t) {
@@ -104,7 +83,7 @@ function enablecriteria(t) {
 }
 
 
-}
+
 function toggleChecked(status) {
     $(".checkbox").each(function () {
         $('input:checkbox:not(:disabled)').attr("checked", status)

@@ -83,8 +83,8 @@ class AdminController {
     def generateFeeVoucher={
 
         def student = Student.findByRollNo(params.rollNo)
-
-        if(!(student.studyCentre[0].centerCode=="11111")){
+       println(">>>>>>>>>>>>>>>>>"+student)
+        if(!(student.studyCentre.centerCode=="11111")){
         redirect(action: "feeVoucher",params:[error:"error"])
         }
         def studyCentreType
@@ -120,6 +120,8 @@ class AdminController {
         pdfRenderingService.render(args+[controller:this],response)
 
     }
+
+
     def assignExaminationDate={
         def programList = ProgramDetail.list(sort:'courseName')
         [programList: programList]

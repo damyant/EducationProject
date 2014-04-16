@@ -8,7 +8,7 @@
 
 <%@ page import="javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
-<head>registration
+<head>
     <title>Student Registration</title>
     <meta name="layout" content="main"/>
     <g:javascript src='validate.js'/>
