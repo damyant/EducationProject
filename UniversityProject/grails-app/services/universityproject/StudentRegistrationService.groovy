@@ -36,9 +36,9 @@ class StudentRegistrationService {
        Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
        endYear = (Integer.parseInt(year)+programDetail[0].noOfAcademicYears).toString()
        programSession=(startYear+"-"+endYear)
-       def programSessionIns = ProgramSession.findBySessionOfProgram(programSession) ?: new ProgramSession(sessionOfProgram:  programSession,programDetail: programDetail).save(flush: true, failOnError: true)
-       println("==================Seesion Id is "+programSessionIns.programDetail)
-      // Set<ProgramSession> sessionYear = ProgramSession.findAllById(programSessionIns.id)
+
+       def programSessionIns = ProgramSession.findBySessionOfProgram(programSession) ?: new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+
        studentRegistration.programSession = programSessionIns
        studentRegistration.programDetail=programDetail
 
