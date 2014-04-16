@@ -55,7 +55,8 @@
 
             <tr>
                 <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
-                <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)" onblur="semesterList()" /></td>
+                <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)" onblur="semesterList()" readonly/></td>
+
             </tr>
             <tr>
                 <td><label>Course Code :<span class="university-obligatory">*</span></label></td>
@@ -98,6 +99,12 @@
             </tr>
         </table>
     </g:form>
+        <g:uploadForm action="uploadSyllabus" controller="course" method="post" name="syllabusUploadForm" id="syllabusUploadForm">
+            <input type="file" name="syllabusFile" id="syllabusFile" style="visibility: hidden;">
+            <input type="hidden" name="syllabusCourse" id="syllabusCourse" value="">
+            <input type="hidden" name="syllabusOfSubject" id="syllabusOfSubject" value="">
+            <input type="hidden" name="syllabusOfSemester" id="syllabusOfSemester" value=="">
+        </g:uploadForm>
     </fieldset>
 </div>
 </body>

@@ -91,7 +91,9 @@ body {
 .university-float-right {
     float: right;
 }
-
+.university-clear-both{
+    clear: both;
+}
 .university-text-decoration-none {
     text-decoration: none;
     color: #000;
@@ -144,6 +146,13 @@ body {
 
 .university-left-margin {
     margin-left: 10px;
+}
+
+#viewAdmit{
+    padding: 40px;
+}
+.university-Admit-Width{
+    width: 100%;
 }
 
 /* For Validation*/
@@ -340,6 +349,44 @@ h3 {
     text-shadow: 1px 1px 2px #000;
     text-transform: uppercase;
 }
+h1{
+    font-family: Calibri;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: bolder;
+    color: black;
+    text-align: center;
+    margin: 5px auto;
+    text-shadow: 2px 2px 2px #000;
+    text-transform: uppercase;
+}
+.University-Admit-Sub-Header{
+    font-family: Arial Black;
+    font-size: 30px;
+    font-style: normal;
+    font-weight:bolder;
+    color: #ffffff;
+    background-color: #000;
+    text-align: center;
+    /*margin: 4px auto;*/
+    padding: 2px 5px;
+    text-transform: uppercase;
+    border-radius: 2px;
+}
+.University-Admit-Student-Name{
+    font-family: Arial;
+    font-size: 22px;
+    font-weight:bold;
+    font-style: normal;
+    /*margin:  15px auto;*/
+    padding: 2px 5px;
+    text-transform: capitalize;
+}
+.admitCardView-font{
+    font-size: 19px;
+    margin-bottom: 5px;
+    line-height: 30px;
+}
 
 .radioInput {
 }
@@ -350,6 +397,14 @@ h3 {
     padding: 25px 25px 10px;
     width: 1000px;
 }
+.university-font-style-italic{
+    font-style: italic;
+    font-weight: 500;
+}
+.university-text-align-centre{
+    text-align: center;
+}
+
 
 #info {
 

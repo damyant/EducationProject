@@ -1,5 +1,4 @@
 
-
 var studentIdList = [];
 var subjectIdList=[];
 $(document).ready(function () {
@@ -193,3 +192,32 @@ function checkTimeFormat(count){
             return true;
 
 }
+
+function saveExamVenue(){
+    var venueList=[]
+    $('#addExamCentre option').each(function () {
+        venueList.push($(this).val() || '');
+
+    });
+
+    $.ajax({
+        type: "post",
+        url: url('admin', 'saveExamVenue', ''),
+        data: $("#assignExamVenue").serialize()+"&venueList="+venueList,
+        success: function (data) {
+
+            if(data.noSubjects==true){
+                $("#subjectList tr").remove();
+                $("#msgDiv").html("The is no subjects associated with the program")
+            }
+            else{
+                appendSubjects(data);
+                $("#msgDiv").html("")
+            }
+
+
+        }
+    });
+
+}
+
