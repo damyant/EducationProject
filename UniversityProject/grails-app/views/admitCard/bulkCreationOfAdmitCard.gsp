@@ -62,7 +62,7 @@
                             <g:select name="examinationVenue" class="university-size-1-1" id="examCenterList" from="" onchange="showExamVenueCapacity()"
                                       noSelection="['': ' Select Examination Venue']"/>
                         </td>
-                        <td><label>Max Capacity</label><input type="text" id="totalCapacity" /></td>
+                        <td><label>Max Capacity</label><input type="text" id="totalCapacity"  value="6"/></td>
                         <td>
                             <input type="button" class="university-button university-float-right"
                                    value="Show Candidates" onclick="getStudentsForAdmitCard()"/>

@@ -77,7 +77,16 @@
       <file leaf-file-name="bulkCreationOfAdmitCard.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/admitCard/bulkCreationOfAdmitCard.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="87" column="28" selection-start="4169" selection-end="4169" vertical-scroll-proportion="-30.183674" vertical-offset="0" max-vertical-offset="2057">
+            <state line="85" column="64" selection-start="4096" selection-end="4103" vertical-scroll-proportion="-2.7837837" vertical-offset="1239" max-vertical-offset="2057">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="admitCard.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web-app/js/admitCard.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="43" selection-start="406" selection-end="406" vertical-scroll-proportion="0.47134936" vertical-offset="0" max-vertical-offset="3485">
               <folding />
             </state>
           </provider>
@@ -121,10 +130,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StudentRegistrationService.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="StudentRegistrationService.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="0" selection-start="2188" selection-end="2188" vertical-scroll-proportion="0.79532164" vertical-offset="374" max-vertical-offset="3196">
+            <state line="47" column="37" selection-start="2187" selection-end="2187" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3196">
               <folding />
             </state>
           </provider>
@@ -133,16 +142,7 @@
       <file leaf-file-name="ExaminationCenterController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/ExaminationCenterController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="122" column="5" selection-start="3946" selection-end="3946" vertical-scroll-proportion="-17.608696" vertical-offset="1652" max-vertical-offset="2516">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="denied.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/login/denied.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="15" selection-start="150" selection-end="553" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="425">
+            <state line="122" column="5" selection-start="3946" selection-end="3946" vertical-scroll-proportion="-38.695652" vertical-offset="1167" max-vertical-offset="2516">
               <folding />
             </state>
           </provider>
@@ -185,10 +185,11 @@
         <option value="$PROJECT_DIR$/web-app/js/validation.js" />
         <option value="$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy" />
         <option value="$PROJECT_DIR$/web-app/js/dataEntry.js" />
-        <option value="$PROJECT_DIR$/web-app/js/admitCard.js" />
         <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" />
         <option value="$PROJECT_DIR$/web-app/js/studyCenter.js" />
         <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/ExaminationCenterController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/admitCard/bulkCreationOfAdmitCard.gsp" />
+        <option value="$PROJECT_DIR$/web-app/js/admitCard.js" />
       </list>
     </option>
   </component>
@@ -820,16 +821,16 @@
       <workItem from="1396963739485" duration="750000" />
       <workItem from="1397019535567" duration="5084000" />
       <workItem from="1397547394191" duration="2856000" />
-      <workItem from="1397630222010" duration="2517000" />
+      <workItem from="1397630222010" duration="4607000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27452000" />
+    <option name="totallyTimeSpent" value="29542000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -845,8 +846,8 @@
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11858006" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3442088" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29984894" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.019575857" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1151,13 +1152,6 @@
         <state line="81" column="0" selection-start="3744" selection-end="3744" vertical-scroll-proportion="-1.2765957" vertical-offset="1155" max-vertical-offset="3135" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/login/denied.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="15" selection-start="150" selection-end="553" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="425">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/conf/DataSource.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="31" selection-start="704" selection-end="704" vertical-scroll-proportion="0.0" vertical-offset="646" max-vertical-offset="1050" />
@@ -1191,20 +1185,6 @@
         <state line="104" column="0" selection-start="2776" selection-end="2776" vertical-scroll-proportion="0.0" vertical-offset="1538" max-vertical-offset="2091" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/js/admitCard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="79" selection-start="564" selection-end="564" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3417">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/admitCard/bulkCreationOfAdmitCard.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="28" selection-start="4169" selection-end="4169" vertical-scroll-proportion="-30.183674" vertical-offset="0" max-vertical-offset="2057">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="37" column="39" selection-start="1140" selection-end="1141" vertical-scroll-proportion="-8.130435" vertical-offset="357" max-vertical-offset="1768">
@@ -1235,16 +1215,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/ExaminationCenterController.groovy">
+    <entry file="file://$PROJECT_DIR$/web-app/js/studyCenter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="5" selection-start="3946" selection-end="3946" vertical-scroll-proportion="-17.608696" vertical-offset="1652" max-vertical-offset="2516">
+        <state line="108" column="37" selection-start="3941" selection-end="3958" vertical-scroll-proportion="0.0" vertical-offset="1465" max-vertical-offset="2176">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/js/studyCenter.js">
+    <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="37" selection-start="3941" selection-end="3958" vertical-scroll-proportion="0.0" vertical-offset="1465" max-vertical-offset="2176">
+        <state line="47" column="37" selection-start="2187" selection-end="2187" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3196">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/login/denied.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="15" selection-start="150" selection-end="553" vertical-scroll-proportion="0.6056701" vertical-offset="37" max-vertical-offset="425">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/ExaminationCenterController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="122" column="5" selection-start="3946" selection-end="3946" vertical-scroll-proportion="-38.695652" vertical-offset="1167" max-vertical-offset="2516">
           <folding />
         </state>
       </provider>
@@ -1256,9 +1250,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/admitCard/bulkCreationOfAdmitCard.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="0" selection-start="2188" selection-end="2188" vertical-scroll-proportion="0.79532164" vertical-offset="374" max-vertical-offset="3196">
+        <state line="85" column="64" selection-start="4096" selection-end="4103" vertical-scroll-proportion="-2.7837837" vertical-offset="1239" max-vertical-offset="2057">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/js/admitCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="43" selection-start="406" selection-end="406" vertical-scroll-proportion="0.47134936" vertical-offset="0" max-vertical-offset="3485">
           <folding />
         </state>
       </provider>
