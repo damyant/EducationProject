@@ -71,5 +71,7 @@ class AdmitCardController {
 
 
     }
+    def printPreviewAdmitCard={
 
+    }
 }

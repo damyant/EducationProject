@@ -77,6 +77,8 @@
                                     code="default.mainMenu3.subMenu2.submenu3"/></a></li>
                             <li><a href="#" class="deleteAdmitCardPopup"><g:message
                                     code="default.mainMenu3.subMenu2.submenu4"/></a></li>
+                            <li><g:link controller="admitCard"
+                                        action="printPreviewAdmitCard">Admit Card Print Preview</g:link></li>
                             <li><a href="#"><g:message code="default.mainMenu3.subMenu2.submenu5"/></a>
                                 <ul>
                                     <li><a onclick="showNewAdmitCardPopup()"><g:message
