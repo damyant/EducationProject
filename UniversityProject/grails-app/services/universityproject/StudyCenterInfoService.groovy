@@ -30,7 +30,7 @@ class StudyCenterInfoService {
             studyCenter.nameOfHeadIns=params.nameOfHeadIns
             studyCenter.emailIdOfHeadIns=params.emailIdOfHeadIns
             studyCenter.asstEmail = params.asstEmail
-            studyCenter.asstCooirdinator = params.asstCooirdinator
+            studyCenter.asstCoordinator = params.asstCoordinator
             studyCenter.asstMobile = params.asstMobile
             if(studyCenter.save(flush: true,failOnError: true)){
                 saveStatus='updated'
