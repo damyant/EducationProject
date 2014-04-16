@@ -155,8 +155,11 @@ function appendSubjects(obj){
         for(var j=0;j<obj.allSubjects[i].length;j++){
             subjectIdList[counter]=obj.allSubjects[i][j].id
 
+            var datesInNewFormat=""
+            if(obj.dateList[counter]!=undefined){
             var d = $.datepicker.parseDate("mm/dd/yy", obj.dateList[counter].toString())
-            var datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
+            datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
+            }
 
             $("#subjectList").append('<tr><td>'+obj.allSubjects[i][j].subjectName+'</td><td><input type="text" name="examinationDate" class="datepicker university-size-1-2"  value='+datesInNewFormat+'></input></td><td><input type="text"  onchange="checkTimeFormat('+counter+')" name="examTime" id="examTime'+counter+'" ></td></tr>')
            ++counter

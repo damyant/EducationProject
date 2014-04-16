@@ -62,7 +62,6 @@ def springSecurityService
     }
 
     def subjectList(params){
-
         def subjectMap=[:]
         def subList=[],totalDateList=[]
         def dateList=[]
@@ -76,9 +75,12 @@ def springSecurityService
 
         for(def i=0;i<subList.examDate.size();i++){
 
+            if(dateList[0][0]!=null){
             for(def j=0;j<dateList[i].size();j++){
+
               totalDateList<<dateList[i][j].getDateString()
               ++count
+            }
             }
         }
 
