@@ -45,12 +45,15 @@ $("#admitCardTab ").append('<tr><th>Roll Number</th><th>Name of the Student</th>
  $('#subjectTab').append('<tr><th>Subject</th><th>Subject-Code</th><th>Time Of Exam</th><th>Date Of Exam</th></tr>')
 }
 
-function showExamCentreList() {
+function showExamVenueList() {
+
+
     var data = $('#city').val();
+
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExamCentreList', ''),
-        data: {data: data},
+        data: "city="+$('#city').val(),
         success: function (data) {
             $("#examCenterList").empty().append('data <option value="">Select Examination Venue</option>')
             for (var i = 0; i < data.name.length; i++) {

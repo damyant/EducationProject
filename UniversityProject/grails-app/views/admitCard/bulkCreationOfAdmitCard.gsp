@@ -26,9 +26,7 @@
                                       optionValue="cityName" from="${examinationCenterList}" noSelection="['': ' Select City']"
                                       onchange="showExamVenueList()"/>
                         </td>
-                        <td>Max Capacity</td>
-                        <td><g:textField name="capacity" id="capacity" value="4"></g:textField> </td>
-                    </tr>
+                     </tr>
                     <tr>
                         <td><label>Select a Course </label></td>
                         <td>
