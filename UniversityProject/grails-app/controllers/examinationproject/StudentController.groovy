@@ -35,7 +35,7 @@ class StudentController {
         }
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
-        [studyCentre: studyCentre, programList: programList,districtList:districtList]
+        [studyCentre: studyCentre, programList: programList,districtList:districtList,registered:params.registered,studentID:params.studentID]
 
 
     }
@@ -50,7 +50,7 @@ class StudentController {
         if (studentRegistration) {
             println("New Student Registered Successfully")
             flash.message = "${message(code: 'register.created.message')}"
-            redirect(action: "applicationPrintPreview", studentID: studentRegistration.id)
+            redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
         } else {
             println("Cannot Register new Student")
             flash.message = "${message(code: 'register.notCreated.message')}"

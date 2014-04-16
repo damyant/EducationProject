@@ -28,6 +28,7 @@ class Student {
     int referenceNumber
     byte[] studentImage
     ProgramSession programSession
+    Boolean admitCardGenerated
     Date admissionDate =new Date()
    // FeeDetails feeDetails
 
@@ -59,6 +60,7 @@ class Student {
         rollNo(nullable:true)
         status(nullable:true)
         feeStatus(nullable: true)
+        admitCardGenerated(nullable: true)
       //  feeDetails(nullable: true)
 
 
@@ -89,9 +91,11 @@ class Student {
         addressState column: "AddressState"
         addressPinCode column: "AddressPinCode"
         location column: "Location"
-        registrationYear column: "registrationYear"
-        referenceNumber column:"referenceNumber"
-        feeStatus column: "feeStatus"
+        registrationYear column: "RegistrationYear"
+        referenceNumber column:"ReferenceNumber"
+        feeStatus column: "FeeStatus"
+        programSession column: 'ProgramSession'
+        admitCardGenerated column: 'AdmitCardGenerated'
 
     }
 
