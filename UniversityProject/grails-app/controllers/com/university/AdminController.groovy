@@ -56,7 +56,6 @@ class AdminController {
          status=studentRegistrationService.getStudentRollNumber(params)
         }
 
-        println(status)
         if(status==true){
         stuList= adminInfoService.provisionalStudentList(params)
 
@@ -158,6 +157,12 @@ class AdminController {
             checkStatus.saveFlag=false
         }
         render checkStatus as JSON
+
+    }
+
+    def saveExamVenue={
+
+        def status=adminInfoService.saveExamVenue(params)
 
     }
 }

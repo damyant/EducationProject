@@ -12,10 +12,12 @@
     <meta name="layout" content="main"/>
     <title>Assign Examination Venue</title>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'admitCard.js')}"></script>
+    <g:javascript src='admin.js'/>
 </head>
 
 <body>
 <div id="main">
+    <form id="assignExamVenue">
     <fieldset class="form">
         <table class="inner" style="width: 95%;margin: auto">
             <tr>
@@ -33,7 +35,7 @@
                 <td class="university-size-1-4">
                     <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
                               optionValue="cityName" from="${examinationCenterList}" noSelection="['': ' Select City']"
-                              onchange="showExamVenueList()"/>
+                              onchange="showExamVenueList1()"/>
                 </td>
                 <td class="university-size-1-2"><label id="CentreForExamVenue" style="margin-left: 45%;"></label></td>
             </tr>
@@ -51,7 +53,7 @@
                             </div>
                         </td><td  class="university-size-1-3">
                             <div id="movetoSelect" style="visibility: hidden">
-                            <select class="select-to" style="width: 90%"  name="addExamCentre" id="addExamCentre"  multiple="true"/>
+                            <g:select class="select-to" style="width: 90%"  name="addExamCentre" id="addExamCentre"  optionKey="" optionValue="" from="" multiple="true"/>
                     <div id="error-select-' + j + '"></div>
                                 </div>
                         </td>
@@ -62,7 +64,7 @@
             <tr>
                 <td class="university-size-1-4"></td>
                 <td class="university-size-1-4">
-                    <input type="button" value="Submit" class="university-button">
+                    <input type="button" value="Submit"  class="university-button" onclick="saveExamVenue()">
                 </td>
                 <td class="university-size-1-2"></td>
             </tr>
@@ -77,6 +79,7 @@
                 %{--</tr>--}%
             %{--</table>--}%
     </fieldset>
+        </form>
 </div>
 <script>
     $(function() {

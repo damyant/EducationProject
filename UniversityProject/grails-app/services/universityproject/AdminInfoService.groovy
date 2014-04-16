@@ -1,7 +1,9 @@
 package universityproject
 
 import examinationproject.CourseSubject
+import examinationproject.ExaminationCentre
 import examinationproject.ProgramDetail
+import examinationproject.ProgramExamVenue
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
@@ -97,6 +99,17 @@ def springSecurityService
             subjectIns.examDate=f1.parse(params.examinationDate[count])
             subjectIns.save(failOnError: true)
             ++count;
+        }
+    }
+
+    def saveExamVenue(params){
+
+        def courseIns=ProgramDetail.findById(Long.parseLong(params.programList))
+        def venueList=params.venueList.split(",")
+        ProgramExamVenue.removeAll(courseIns)
+        venueList.each {it ->
+          ProgramExamVenue.create courseIns, ExaminationCentre.findById(Integer.parseInt(it.toString()))
+
         }
     }
 
