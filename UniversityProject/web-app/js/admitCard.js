@@ -1,14 +1,11 @@
 
 
 
-
+var maxCap=0;
 $(document).ready(function () {
     var cnt=0;
-    var maxCap=0;
-    maxCap = $("#totalCapacity").val()
-    alert(maxCap)
     $("input[name='student']").change(function () {
-        var maxAllowed = 6;
+        var maxAllowed = maxCap;
         cnt = $("input[name='student']:checked").length;
         if(maxCap>0)
             $("#totalCapacity").val(maxCap-cnt);
@@ -75,6 +72,7 @@ function showExamVenueCapacity(){
         success: function (data) {
         if(data.capacity){
             $('#totalCapacity').val(data.capacity)
+            maxCap=data.capacity
         }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
