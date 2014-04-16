@@ -14,7 +14,7 @@ class ProgramDetail {
     int totalCreditPoints
 
     static hasMany = [semester: Semester, student: Student,programSession:ProgramSession]
-    static belongsTo = [Student]
+    static belongsTo = [Student,ProgramSession]
     static mapping = {
         id column: "CourseId"
         courseName column: "CourseName"

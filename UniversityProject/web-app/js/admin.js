@@ -62,7 +62,7 @@ function getStudents() {
         data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(), pageType: $('#pageType').val()},
         success: function (data) {
             //document.location.reload();
-//           showStudyCenterList()
+//           getSemesterAndSubjectListStudyCenterList()
             appendTable(data)
 
 
@@ -208,19 +208,28 @@ function saveExamVenue(){
         url: url('admin', 'saveExamVenue', ''),
         data: $("#assignExamVenue").serialize()+"&venueList="+venueList,
         success: function (data) {
-
+            $('#assignExamVenue')[0].reset();
+            $('#courseForExamVenue').html('');
+            $('#CentreForExamVenue').html('');
+            $('#examCenterList').empty();
+            $('#addExamCentre').empty();
+            $('#successMessage').html('Successfully Assigned Examination Venue');
+            setTimeout(function(){  $('#successMessage').hide(); }, 8000);
             if(data.noSubjects==true){
                 $("#subjectList tr").remove();
                 $("#msgDiv").html("The is no subjects associated with the program")
+
             }
             else{
                 appendSubjects(data);
                 $("#msgDiv").html("")
+                alert(data)
             }
 
 
         }
     });
+
 
 }
 

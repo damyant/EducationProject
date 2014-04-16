@@ -91,11 +91,13 @@ class Student {
         addressState column: "AddressState"
         addressPinCode column: "AddressPinCode"
         location column: "Location"
+
         registrationYear column: "RegistrationYear"
         referenceNumber column:"ReferenceNumber"
         feeStatus column: "FeeStatus"
         programSession column: 'ProgramSession'
         admitCardGenerated column: 'AdmitCardGenerated'
+
 
     }
 

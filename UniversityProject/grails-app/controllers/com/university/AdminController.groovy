@@ -165,6 +165,13 @@ class AdminController {
     def saveExamVenue={
 
         def status=adminInfoService.saveExamVenue(params)
+        println("here is the status"+status)
+        if(status){
+            render status
+        }
+        else{
+            render "<h5>Error In Assigning Examination Venue</h5>"
+        }
 
     }
 }
