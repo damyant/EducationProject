@@ -92,6 +92,7 @@ class Student {
         registrationYear column: "registrationYear"
         referenceNumber column:"referenceNumber"
         feeStatus column: "feeStatus"
+        programSession column: "ProgramSession"
 
     }
 

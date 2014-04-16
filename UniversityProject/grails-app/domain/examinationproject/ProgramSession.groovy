@@ -9,7 +9,7 @@ class ProgramSession {
     static hasMany = [
             programDetail : ProgramDetail
     ]
-    static belongsTo = ProgramDetail
+
     static mapping = {
         sessionOfProgram column: "sessionOfProgram"
     }
