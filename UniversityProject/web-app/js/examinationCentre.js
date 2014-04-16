@@ -25,7 +25,7 @@ $(document).ready(function () {
         }
         else {
 
-//            $("#examinationCenterForm").submit()
+            $("#examinationCenterForm").submit()
         }
     })
 
@@ -82,7 +82,6 @@ function removeExaminationCentre(index) {
 
 
 function submitForm() {
-    alert("sub");
     var location = $("#location").val();
     if (location == 0) {
         alert("Please Select Location of examination centre");
@@ -146,7 +145,6 @@ function checkExamCenter(currentIndex) {
         success: function (data) {
 
             if (data.centerCode == "true") {
-                alert("hiiiii")
                 $('#errorMsg' + currentIndex).text("Center Code is already registered")
             }
             else {
@@ -188,30 +186,32 @@ function validateAndSubmitForm() {
             $("#centerNameMsg"+i).text("Please Enter Examination Centre Name")
             bool='false';
         }
-        if($('#examinationCentreCode'+i).val().length==0){
+        else if($('#examinationCentreCode'+i).val().length==0){
             $("#centerCodeMsg"+i).text("Please Enter Examination Centre Code")
             bool='false';
         }
-        if($('#examinationCentreCapacity'+i).val().length==0){
+        else if($('#examinationCentreCapacity'+i).val().length==0){
             $("#centerCapacityMsg"+i).text("Please Enter Examination Centre Capacity")
             bool='false';
         }
-        if($('#examinationCentreIncharge'+i).val().length==0){
+        else if($('#examinationCentreIncharge'+i).val().length==0){
             $("#centerInchargeMsg"+i).text("Please Enter Examination Centre Incharge Name")
             bool='false';
         }
-        if($('#examinationCentreContactNo'+i).val().length==0||$('#examinationCentreContactNo'+i).val().length<10){
+        else if($('#examinationCentreContactNo'+i).val().length==0||$('#examinationCentreContactNo'+i).val().length<10){
             $("#centerContactNoMsg"+i).text("Please Enter Exam Centre Contact Number(Min 10 Character Long)")
             bool='false';
         }
-        if($('#examinationCentreAddress'+i).val().length==0){
+        else if($('#examinationCentreAddress'+i).val().length==0){
             $("#centerAddressMsg"+i).text("Please Enter Examination Centre Address")
             bool='false';
+        }
+        else{
+            bool='true'
         }
 
     }
     if(bool=='true'){
-        alert(bool)
         submitForm();
     }
 

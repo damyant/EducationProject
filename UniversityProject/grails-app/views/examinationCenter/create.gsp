@@ -11,7 +11,6 @@
     <meta name="layout" content="main"/>
     <title>Create Examination Center</title>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'jquery/jquery.js')}'></script>
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'create.css')}" type="text/css">
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'examinationCentre.js')}"></script>
