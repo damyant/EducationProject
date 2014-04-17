@@ -2,23 +2,48 @@
 
 
 
-var maxCap=0;
+var maxCapacity=0;
 $(document).ready(function () {
-    var cnt=0;
 
-    $("input[name='student']").change(function () {
-        var maxAllowed = maxCap;
-        cnt = $("input[name='student']:checked").length;
-        if(maxCap>0)
-            $("#totalCapacity").val(maxCap-cnt);
-        if (cnt>maxAllowed) {
-            $("#totalCapacity").val(cnt-1);
+    var count=0;
+   // $("input[name='studentCheckbox']").change(function () {
+    $(document).on('change', "input[name='studentCheckbox']", function () {
+        var maxAllowed = maxCapacity;
+        count = $("input[name='studentCheckbox']:checked").length;
+        if(maxCapacity>0)
+
+            $("#totalCapacity").val(maxCapacity-count);
+        if (count>maxAllowed) {
+            $("#totalCapacity").val(count-1);
             $(this).prop("checked", "");
             $("#totalCapacity").val(0);
             alert('You can select maximum ' + maxAllowed + ' Students only!!');
         }
     });
+
+    $("#selectAll").click(function(){
+      $(".studentCheckbox").prop("checked",$("#selectAll").prop("checked"))
+        var selected = new Array();
+        $('input:checked').each(function() {
+            selected.push($(this).attr('id'));
+        });
+        var i ;
+        var b;
+        for(i=maxCapacity;i<selected.length-1;i++){
+            $("#"+selected[i]).prop('checked', false);//
+            b=i;
+        }
+        $("#totalCapacity").val(0);
+        if($("#selectAll").prop('checked')==false){
+          $("#totalCapacity").val(maxCapacity);
+        }else{
+            $("#totalCapacity").val(maxCapacity-selected.length+1);
+        }
+
+    })
 });
+
+
 
 
 
@@ -79,7 +104,7 @@ function showExamVenueCapacity(){
         success: function (data) {
         if(data.capacity){
             $('#totalCapacity').val(data.capacity)
-            maxCap=data.capacity
+            maxCapacity=data.capacity
         }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -99,7 +124,7 @@ function getStudentsForAdmitCard(){
               if(data.length!=undefined){
                   var count=1;
                  for(var i=0;i<data.length;i++){
-                       $('#admitCardTab').append('<tr><td><input name="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
+                       $('#admitCardTab').append('<tr><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
                     ++count;
                 }
             }
