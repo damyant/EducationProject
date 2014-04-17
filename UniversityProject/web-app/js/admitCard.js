@@ -103,7 +103,7 @@ function showExamVenueCapacity(){
         data: {examCenterId: $("#examCenterList").val()},
         success: function (data) {
         if(data.capacity){
-            $('#totalCapacity').val(data.capacity)
+            $('#totalCapacity').val("Maximum Capacity : "+data.capacity)
             maxCapacity=data.capacity
         }
         },
@@ -114,7 +114,9 @@ function showExamVenueCapacity(){
 
 
 function getStudentsForAdmitCard(){
-
+    $('#studentListTable').prop('hidden', false)
+    $('#studentListPrint').prop('hidden', false)
+    $('#studentListPrintButton').prop('hidden', false)
     $.ajax({
         type: "post",
         url: url('admitCard', 'getStudentsForAdmitCard', ''),
@@ -281,7 +283,14 @@ function studentsSelected(selectedStudentList){
         }
     });
 }
-
+function enableShowCandidate(){
+    if($('#city').val()==''||$('#programList').val()==''||$('#semesterList').val()==''||$('#SessionList').val()==''||$('#examCenterList').val()==''){
+        $('#showCandidates').prop('disabled', true)
+    }
+    else{
+        $('#showCandidates').prop('disabled', false)
+    }
+}
 
 
 
