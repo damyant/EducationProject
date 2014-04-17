@@ -3,6 +3,8 @@ package examinationproject
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
+import java.text.SimpleDateFormat
+
 @Secured("ROLE_ADMIN")
 
 class AdmitCardController {
@@ -88,22 +90,27 @@ class AdmitCardController {
 
     }
     def printAdmitCard={
-
-        println("params" + params)
-                def studentList=params.studentList.split(",")
-//        println("params" + studentList[1])
+        def studentList=params.studentList.split(",")
         def stuList = []
-//        def studentList=params.studentList.split(",")
-//
+        StringBuilder examDate = new StringBuilder()
+
         studentList.each{
         stuList << Student.findById(Integer.parseInt(it.toString()))
-
         }
-//        println("students are===="+stuList)
 
-        def args = [template: "printAdmitCard", model: [studentInstance: stuList]]
+        def list=CourseSubject.findAllByCourseDetail(stuList[0].programDetail)*.subject as Set
+        def finalList=list.sort{a,b->
+            a.examDate<=>b.examDate
+        }
+        finalList.each{
+            examDate.append(it.examDate.format("dd/MM/yyyy"))
+            examDate.append(", ")
+        }
+        println(stuList[0].examinationCentre.name)
+
+        def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate]]
         pdfRenderingService.render(args + [controller: this], response)
-//        println("Student Name is " + student.name)
+
     }
 
     def printPreviewAdmitCard={
