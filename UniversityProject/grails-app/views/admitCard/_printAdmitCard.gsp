@@ -14,18 +14,21 @@
     %{--<link rel='stylesheet' href="${resource(dir: 'css', file: 'gu_stylesheet.css')}" type='text/css'/>--}%
 </head>
 <body>
+<g:each in="${studentInstance}" var="student">
 <div id="main">
     <fieldset class="form">
-          <div id="viewAdmit">
+        <div id="viewAdmit">
             <div class="university-Admit-Width">
                 <div style="display: inline;width: 100%">
-                <label style="float: left" >Gauhati University Schedule Ex-111, Form No. 11</label>
-                <label style="float: right" >Serial No: </label>
+                    <label style="float: left" >Gauhati University Schedule Ex-111, Form No. 11</label>
+                    <label style="float: right" >Serial No: </label>
+
                 </div><br/><br/>
                 <div class="university-clear-both"></div>
                 <div style="width:100%;text-align: center;text-transform: uppercase;display: block;">
 
-                   <div> <r:img uri="../../web-app/images/gu-logo.jpg" style="width: 100px; margin: auto;" class="logo-image" /></div><br/>
+                  <div> <r:img uri="../../web-app/images/gu-logo.jpg" style="width: 100px; margin: auto;" class="logo-image" /></div><br/>
+
                     <div>
                         <span style="font-family: Calibri;font-size: 30px;font-style: normal;font-weight: bolder;text-align: center;margin-top: 15px; text-transform: uppercase;">
                             Gauhati University
@@ -35,9 +38,14 @@
                     text-align: center; padding: 2px 5px; text-transform: uppercase;">Admit</span>
                     <div style="margin-top: 10px;margin-bottom: 10px;">
                         <span style="font-family: Arial; font-size: 20px;  font-weight:bold; padding: 2px 5px; text-transform: capitalize">
-                            <label id="studentName">Chandan Saikia</label>
+                            <label id="studentName">${student.name}</label>
                         </span>
                     </div>
+                </div>
+                <div>
+                    <rendering:inlineJpeg bytes="${student?.getStudentImage()}"
+                                          class="university-registration-photo"
+                                          style="margin:auto; height: 150px;"/>
                 </div>
                 <div style="width: 100%;text-transform: capitalize;font-size: 17px;line-height: 30px;">
                     <table >
@@ -46,7 +54,7 @@
                                 <div style="width: 100%;display: inline;">
                                     <div style="width: 25%;float: left;"><b>Roll No.</b></div>
                                     <strong>
-                                        <div style="width: 70%;float: right;" id="rollNo">1212121</div>
+                                        <div style="width: 70%;float: right;" id="rollNo">${student.rollNo}</div>
                                     </strong>
                                 </div>
                             </td>
@@ -67,23 +75,24 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <div style="width: 100%;">in <b><label id="courseType" style="">Master Degree</label> <label id="course">English</label>(<label id="term">Semester 1</label>)</b> </div>
+                                <div style="width: 100%;">in <b><label id="courseType" style="">Degree</label> <label id="course"> ${student.programDetail.courseName[0]}</label>(<label id="term">Semester 1</label>)</b> </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
                                 <table style="margin: auto;width: 100%;">
                                     <tr>
-                                    <td> <i><b>To be held on</b></i></td>
-                                    <td> <b> <div id="examDates">19/13/5000, 19/13/5000, 19/13/5000, 19/13/5000</div></b></td>
-                                </tr></table>
+                                        <td> <i><b>To be held on</b></i></td>
+                                        <td> <b> <div id="examDates">${examDate}</div></b></td>
+                                    </tr></table>
+
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
                                 <table style="margin: auto;width: 100%;"><tr>
                                     <td style="width: 25%;">Examination Centre</td>
-                                    <td><label style="width: 75%;" id="examCentre">GU, Guwahati</label></td>
+                                    <td><label style="width: 75%;" id="examCentre">${studentInstance[0].examinationCentre.name[0]}</label></td>
                                 </tr></table>
                             </td>
                         </tr>
@@ -108,8 +117,8 @@
 
         </div>
     </fieldset>
-    <div style="height: 300px;width:100%"></div>
+    <div style="height: 320px;width:100%"></div>
 </div>
-
+</g:each>
 </body>
 </html>

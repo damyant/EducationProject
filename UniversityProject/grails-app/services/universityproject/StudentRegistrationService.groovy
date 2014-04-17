@@ -46,13 +46,14 @@ class StudentRegistrationService {
        studentRegistration.examinationCentre=examinationCentreList
        studentRegistration.studentImage=photographe.bytes
        studentRegistration.semester=1
-
+       studentRegistration.admitCardGenerated=0
         //RAJ CODE
        studentRegistration.registrationYear=Integer.parseInt(year)
        if(springSecurityService.isLoggedIn()){
        studentRegistration.referenceNumber=0
        studentRegistration.rollNo=(Integer)getStudentRollNumber(params)
        studentRegistration.status= Status.findById(2)
+
        }else{
            studentRegistration.referenceNumber=Integer.parseInt(getStudentReferenceNumber())
            studentRegistration.status= Status.findById(1)
