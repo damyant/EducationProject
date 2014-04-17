@@ -227,37 +227,37 @@ function validate() {
             feeType: {
                 required: true
             },
-            paymentMode:{
+            paymentMode: {
                 required: true
             },
             draftNumber: {
                 required: true,
                 number: true
             },
-            paymentDate:{
+            paymentDate: {
                 required: true
             },
             draftDate: {
                 required: true
             },
-            issuingBank:{
+            issuingBank: {
                 required: true
             },
-            issuingBranch:{
+            issuingBranch: {
                 required: true
             },
 
-             //Exam Centre
-            examinationCentreName:{required: true, textonly: true},
-            examinationCentreCode:{required: true,
+            //Exam Centre
+            examinationCentreName: {required: true, textonly: true},
+            examinationCentreCode: {required: true,
                 number: true},
-            examinationCentreCapacity:{required: true,
+            examinationCentreCapacity: {required: true,
                 number: true},
-            examinationCentreIncharge:{required: true,
+            examinationCentreIncharge: {required: true,
                 textonly: true},
-            examinationCentreContactNo:{required: true,
+            examinationCentreContactNo: {required: true,
                 number: true},
-            examinationCentreAddress:{required: true}
+            examinationCentreAddress: {required: true}
 
         },
         messages: {
@@ -317,15 +317,15 @@ function validate() {
             lateFeeAmount: "Please Enter Late Fee amount",
             examinationFee: "Please Enter Examination Fee amount",
             certificateFee: "Please Enter Certificate Fee amount",
-            paymentMode:"Please Enter Payment Mode",
+            paymentMode: "Please Enter Payment Mode",
             draftNumber: "Please Enter Draft Number",
-            paymentDate:"Please Enter Payment Date",
+            paymentDate: "Please Enter Payment Date",
             draftDate: "Please Enter Draft Date",
-            issuingBank:"Please Enter Issuing Bank Name",
-            issuingBranch:"Please Enter Issuing Branch Name",
-            examinationCentreIncharge:"Please Enter Examination Centre Name",
-            examinationCentreContactNo:"Please Enter Examination Centre Contact Number",
-            examinationCentreAddress:"Please Enter Examination Centre Address"
+            issuingBank: "Please Enter Issuing Bank Name",
+            issuingBranch: "Please Enter Issuing Branch Name",
+            examinationCentreIncharge: "Please Enter Examination Centre Name",
+            examinationCentreContactNo: "Please Enter Examination Centre Contact Number",
+            examinationCentreAddress: "Please Enter Examination Centre Address"
 
         },
         errorPlacement: function (error, element) {
@@ -405,29 +405,17 @@ function isAlphaNumeric(evt) {
 function isTime(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode == 58 ||charCode == 8 || (charCode > 47 && charCode < 58) || charCode ==65 || charCode == 97|| charCode == 77 || charCode == 109|| charCode == 80 || charCode ==112)) {
+    if ((charCode == 58 || charCode == 8 || charCode == 32 || ( charCode > 47 && charCode < 58) || charCode == 65 || charCode == 97 || charCode == 77 || charCode == 109 || charCode == 80 || charCode == 112)) {
         return true;
     }
     return false;
 }
 
-function onlyAlphabetsWithSplChar(e, t) {
-    try {
-        if (window.event) {
-            var charCode = window.event.keyCode;
-        }
-        else if (e) {
-            var charCode = e.which;
-        }
-        else {
-            return true;
-        }
-        if (charCode == 8 || charCode == 32 || charCode == 40 || charCode == 41 || ( charCode > 64 && charCode < 91 ) || ( charCode > 96 && charCode < 123 )|| ( charCode > 44 && charCode < 48 ))
-            return true;
-        else
-            return false;
-    }
-    catch (err) {
-        alert(err.Description);
-    }
+function onlyAlphabetsWithSplChar(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode == 8 || charCode == 32 || charCode == 40 || charCode == 41 || ( charCode > 64 && charCode < 91 ) || ( charCode > 96 && charCode < 123 ) ||  charCode == 45 || charCode == 46 || charCode == 47 )
+        return true;
+    else
+        return false;
 }

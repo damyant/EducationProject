@@ -28,7 +28,7 @@ $(document).ready(function () {
 
 
     $(document).on('click', '#submitExamDate', function () {
-
+        var course=$('#programList').val();
         $.ajax({
             type: "post",
             url: url('admin', 'saveExamDate', ''),
@@ -36,12 +36,15 @@ $(document).ready(function () {
             success: function (data) {
                 if(data.saveFlag==true){
 
-                    $("#subjectList tr").remove()
-                    $("#msgDiv").html("Examination Date is saved")
+//                    $("#subjectList tr").remove()
+                    $("#successMessage").html("Examination Date is saved")
+                    setTimeout(function(){  $('#successMessage').hide(); }, 8000);
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+
 
                 }
                 else{
-                    $("#msgDiv").html("")
+                    $("#successMessage").html("")
                 }
 
 
@@ -161,7 +164,7 @@ function appendSubjects(obj){
             datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
             }
 
-            $("#subjectList").append('<tr><td>'+obj.allSubjects[i][j].subjectName+'</td><td><input type="text" name="examinationDate" class="datepicker university-size-1-2"  value='+datesInNewFormat+'></input></td><td><input type="text"  onchange="checkTimeFormat('+counter+')" name="examTime" id="examTime'+counter+'" ></td></tr>')
+            $("#subjectList").append('<tr><td>'+obj.allSubjects[i][j].subjectName+'</td><td><input type="text" name="examinationDate" class="datepicker university-size-1-2"  value='+datesInNewFormat+'></input></td><td><input type="text" onkeypress="return isTime(event)"  onchange="checkTimeFormat('+counter+')" name="examTime" id="examTime'+counter+'" ></td></tr>')
            ++counter
         }
         count++;
@@ -215,21 +218,17 @@ function saveExamVenue(){
             $('#addExamCentre').empty();
             $('#successMessage').html('Successfully Assigned Examination Venue');
             setTimeout(function(){  $('#successMessage').hide(); }, 8000);
-            if(data.noSubjects==true){
-                $("#subjectList tr").remove();
-                $("#msgDiv").html("The is no subjects associated with the program")
-
-            }
-            else{
-                appendSubjects(data);
-                $("#msgDiv").html("")
-                alert(data)
-            }
-
-
+//            if(data.noSubjects==true){
+//                $("#subjectList tr").remove();
+//                $("#msgDiv").html("The is no subjects associated with the program")
+//
+//            }
+//            else{
+//                appendSubjects(data);
+//                $("#msgDiv").html("")
+//                alert(data)
+//            }
         }
     });
-
-
 }
 

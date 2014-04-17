@@ -16,7 +16,8 @@
 <div id="main">
     <fieldset>
         <h3>STUDENT ADMIT CARD</h3>
-        <form name="admitCardForm" id="admitCardForm">
+        <g:form name="admitCardForm" id="admitCardForm" controller="admitCard" action="printAdmitCard">
+            <g:hiddenField name="studentList" id="studentList" />
             <div>
                 <table class="university-table-1-3 inner" style="width: 60%;margin: auto;">
                     <tr>
@@ -47,12 +48,9 @@
                     </tr>
                     <tr><td><label>Select a Session</label></td>
                         <td>
-                            <select name="programSession" class="university-size-1-1" id="SessionList">
-                                <option value="">Select Session</option>
-                                <option value="">2012-2013</option>
-                                <option value="">2013-2014</option>
-                                <option value="">2014-2016</option>
-                            </select>
+                            <g:select name="programSession" from=""  class="university-size-1-1" id="SessionList"  noSelection="['': ' Select Session']" />
+
+
                         </td>
                         <td></td>
                     </tr>
@@ -62,15 +60,16 @@
                             <g:select name="examinationVenue" class="university-size-1-1" id="examCenterList" from="" onchange="showExamVenueCapacity()"
                                       noSelection="['': ' Select Examination Venue']"/>
                         </td>
-                        <td><label>Max Capacity</label><input type="text" id="totalCapacity"  alue=""/></td>
-                        <td>
+
+                        <td><label>Max Capacity</label><input type="text" id="totalCapacity"  /></td>
+
                             <input type="button" class="university-button university-float-right"
                                    value="Show Candidates" onclick="getStudentsForAdmitCard()"/>
                         </td>
                     </tr>
                 </table>
             </div>
-        </form>
+
         <div class="university-List-View university-scrollable-y">
             <table id="admitCardTab" class="university-table-1-5 inner" style="width:98%;margin: 1px">
                 <tr>
@@ -80,16 +79,20 @@
                     <th>Name</th>
                     <th>GU Registration No</th>
                 </tr>
-                <% def count = 12 %>
-                <g:each in="${(1..count).toList()}" var="c">
-                    <tr>
-                        <td><input type="checkbox" class="student" name="student" id="student${c}" /></td>
-                        <td>${c}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </g:each>
+%{--<<<<<<< HEAD--}%
+                %{--<% def count = 12 %>--}%
+                %{--<g:each in="${(1..count).toList()}" var="c">--}%
+                    %{--<tr>--}%
+                        %{--<td><input type="checkbox" class="student" name="student" id="student${c}" /></td>--}%
+                        %{--<td>${c}</td>--}%
+                        %{--<td></td>--}%
+                        %{--<td></td>--}%
+                        %{--<td></td>--}%
+                    %{--</tr>--}%
+                %{--</g:each>--}%
+%{--=======--}%
+
+%{-->>>>>>> 5f682d0d04746e079348f66d555177e37546a443--}%
             </table>
         </div>
 
@@ -108,8 +111,9 @@
         </div>
 
         <div style="margin: 10px auto;width:94%;text-align: center;">
-            <input type="button" value="Print" class="university-button">
+            <input type="button"  value="Print" onclick="generateAdmitCard()" class="university-button">
         </div>
+        </g:form>
     </fieldset>
 </div>
 </body>
