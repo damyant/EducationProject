@@ -4,7 +4,11 @@ import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 @Secured("ROLE_ADMIN")
+
 class AdmitCardController {
+
+    def admitCardService
+    def pdfRenderingService
 
     def index() {}
 
@@ -37,13 +41,14 @@ class AdmitCardController {
 
     def getSemesterList={
         try{
-        println("program is "+ params.data)
+
         def course=ProgramDetail.findById(params.data)
-            def semesterNo = [:]
+            def resultMap = [:]
             if(course!=null){
-                semesterNo.totalSem = course.noOfTerms
-                println("sem no" + semesterNo)
-                render semesterNo as JSON
+                resultMap.totalSem = course.noOfTerms
+                resultMap.session=course.programSession
+
+                render resultMap as JSON
             }
         else {
             render null
@@ -67,11 +72,43 @@ class AdmitCardController {
     }
 
     def getStudentsForAdmitCard={
-        println("??????????????"+params)
+
+     def studentList=admitCardService.getStudents(params)
+        println("list====="+studentList)
+      if(studentList){
+          render studentList as JSON
+      }
+      else{
+          def resultMap=[:]
+          resultMap.status=false
+          render resultMap as JSON
+      }
+
 
 
     }
+    def printAdmitCard={
+
+        println("params" + params)
+                def studentList=params.studentList.split(",")
+//        println("params" + studentList[1])
+        def stuList = []
+//        def studentList=params.studentList.split(",")
+//
+        studentList.each{
+        stuList << Student.findById(Integer.parseInt(it.toString()))
+
+        }
+//        println("students are===="+stuList)
+
+        def args = [template: "printAdmitCard", model: [studentInstance: stuList]]
+        pdfRenderingService.render(args + [controller: this], response)
+//        println("Student Name is " + student.name)
+    }
+
     def printPreviewAdmitCard={
 
     }
+
+
 }

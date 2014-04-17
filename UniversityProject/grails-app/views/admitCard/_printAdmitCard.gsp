@@ -12,7 +12,6 @@
     <title>Admit Card Print Privew</title>
 </head>
 <body>
-%{--<g:each in="${studentInstance}" var="student">--}%
 <div id="main">
     <fieldset class="form">
           <div id="viewAdmit">
@@ -97,6 +96,6 @@
     </fieldset>
     <div style="height: 300px">test div</div>
 </div>
-%{--</g:each>--}%
+
 </body>
 </html>

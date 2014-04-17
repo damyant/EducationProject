@@ -1,12 +1,10 @@
 
 
 
-
 $(document).ready(function () {
     var cnt=0;
     var maxCap=0;
     maxCap = $("#totalCapacity").val()
-    alert(maxCap)
     $("input[name='student']").change(function () {
         var maxAllowed = 6;
         cnt = $("input[name='student']:checked").length;
@@ -34,6 +32,11 @@ function getSemester(){
             for (var i = 1; i <= data.totalSem; i++) {
                 $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
             }
+            for (var i = 0; i < data.session.length; i++) {
+                $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
+            }
+
+
         }
 
     })
@@ -90,9 +93,17 @@ function getStudentsForAdmitCard(){
         url: url('admitCard', 'getStudentsForAdmitCard', ''),
         data: $("#admitCardForm").serialize(),
         success: function (data) {
-            if(data.capacity){
-                $('#totalCapacity').val(data.capacity)
+            $('#admitCardTab').find("tr:gt(0)").remove();
+              if(data.length!=undefined){
+                  var count=1;
+                 for(var i=0;i<data.length;i++){
+                       $('#admitCardTab').append('<tr><td><input name="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
+                    ++count;
+                }
             }
+            else{
+                  $('#admitCardTab').append('<tr><td colspan="4">No Students Found</td></tr>');
+              }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -188,6 +199,60 @@ function setCourseLabel(t){
     $('#examCenterList').empty();
     $('#addExamCentre').empty();
 
+}
+
+function generateAdmitCard(){
+
+    var selectedStudentList=[]
+    if ($("input[name=studentCheckbox]:checked").length != 0) {
+        $("input[name=studentCheckbox]:checked").each(function (i) {
+
+            if ($(this).attr("checked", true)) {
+                selectedStudentList[i] = $(this).attr("id");
+
+            }
+
+        })
+        $("#studentList").val(selectedStudentList)
+        $("#admitCardForm").submit();
+//        studentsSelected(selectedStudentList)
+        return true;
+
+    }
+    else {
+        alert("Select the student first.");
+        return false;
+    }
+
+
+
+
+}
+
+function studentsSelected(selectedStudentList){
+
+    alert("hi"+selectedStudentList)
+
+    $.ajax({
+        type: "post",
+        url: url('admitCard', 'printAdmitCard', ''),
+        data: "studentList="+selectedStudentList,
+        success: function (data) {
+            $('#admitCardTab').find("tr:gt(0)").remove();
+            if(data.length!=undefined){
+                var count=1;
+                for(var i=0;i<data.length;i++){
+                    $('#admitCardTab').append('<tr><td><input type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
+                    ++count;
+                }
+            }
+            else{
+                $('#admitCardTab').append('<tr><td colspan="4">No Students Found</td></tr>');
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
 }
 
 
