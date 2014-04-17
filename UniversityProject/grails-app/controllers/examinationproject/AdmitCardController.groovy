@@ -100,7 +100,7 @@ class AdmitCardController {
         stuList << Student.findById(Integer.parseInt(it.toString()))
         }
 
-        def list=CourseSubject.findAllByCourseDetail(stuList[0].programDetail)*.subject as Set
+        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findById(Long.parseLong(stuList[0].semester)))*.subject as Set
         def finalList=list.sort{a,b->
             a.examDate<=>b.examDate
         }
