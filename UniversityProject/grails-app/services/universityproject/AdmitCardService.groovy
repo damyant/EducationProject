@@ -16,8 +16,7 @@ class AdmitCardService {
 
 
     def getStudents(params){
-        println("in admit card service==="+params)
-
+    
         def obj=Student .createCriteria()
         def studentList= obj.list{
             programDetail{

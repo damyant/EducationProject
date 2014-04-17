@@ -33,7 +33,6 @@ class AdmitCardController {
     def bulkCreationOfAdmitCard ={
         def programList = ProgramDetail.list(sort:'courseName')
         def studyCentreList = StudyCenter.list()
-//        def examinationCentre = ExaminationCentre.list()
         def examinationCenter=ExaminationCentre.list()*.city as Set
         def finalExaminationCenterList= examinationCenter.sort{a,b->
             a.cityName<=>b.cityName
@@ -46,8 +45,7 @@ class AdmitCardController {
 
         def course=ProgramDetail.findById(params.data)
             def resultMap = [:]
-//            println("LLLLLLLLL==="+course.properties)
-//            println("+++++++++++++++++++=="+course.programSession)
+
             if(course!=null){
                 resultMap.totalSem = course.noOfTerms
                 resultMap.session=course.programSession
@@ -78,7 +76,6 @@ class AdmitCardController {
     def getStudentsForAdmitCard={
 
      def studentList=admitCardService.getStudents(params)
-        println("list====="+studentList)
       if(studentList){
           render studentList as JSON
       }
@@ -100,7 +97,7 @@ class AdmitCardController {
         stuList << Student.findById(Integer.parseInt(it.toString()))
         }
 
-        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findById(Long.parseLong(stuList[0].semester)))*.subject as Set
+        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findById(stuList[0].semester))*.subject as Set
         def finalList=list.sort{a,b->
             a.examDate<=>b.examDate
         }
@@ -108,7 +105,6 @@ class AdmitCardController {
             examDate.append(it.examDate.format("dd/MM/yyyy"))
             examDate.append(", ")
         }
-        println(stuList[0].examinationCentre.name)
 
         def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate]]
         pdfRenderingService.render(args + [controller: this], response)
