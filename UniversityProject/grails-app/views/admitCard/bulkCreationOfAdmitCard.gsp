@@ -72,6 +72,7 @@
                     </tr>
                 </table>
             </div>
+            <div class="university-status-message"><label id="showErrorMessage" hidden=""></label></div>
 
         <div id="studentListTable" class="university-List-View university-scrollable-y" hidden="">
             <table id="admitCardTab" class="inner" style="width:98%;margin: 1px" >

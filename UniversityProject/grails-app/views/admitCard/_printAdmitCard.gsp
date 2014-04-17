@@ -27,8 +27,8 @@
                     <div class="university-clear-both"></div>
                     <div style="width:100%;text-align: center;text-transform: uppercase;display: block;">
 
-                        <div> <r:img uri="../../web-app/images/gu-logo.jpg" style="width: 100px; margin: auto;" class="logo-image" /></div><br/>
-
+                        %{--<div> <r:img uri="../../web-app/images/gu-logo.jpg" style="width: 100px; margin: auto;" class="logo-image" /></div><br/>--}%
+                        <rendering:inlineJpeg bytes="${guLogo}" class="university-registration-photo" style="margin:auto; width: 110px;"/>
                         <div>
                             <span style="font-family: Calibri;font-size: 30px;font-style: normal;font-weight: bolder;text-align: center;margin-top: 15px; text-transform: uppercase;">
                                 Gauhati University
@@ -116,7 +116,7 @@
 
             </div>
         </fieldset>
-        <div style="height: 320px;width:100%"></div>
+        <div style="height: 240px;width:100%"></div>
     </div>
 </g:each>
 </body>
