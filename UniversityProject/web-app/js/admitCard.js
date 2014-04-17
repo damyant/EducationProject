@@ -114,16 +114,18 @@ function showExamVenueCapacity(){
 
 
 function getStudentsForAdmitCard(){
-    $('#studentListTable').prop('hidden', false)
-    $('#studentListPrint').prop('hidden', false)
-    $('#studentListPrintButton').prop('hidden', false)
+
     $.ajax({
         type: "post",
         url: url('admitCard', 'getStudentsForAdmitCard', ''),
         data: $("#admitCardForm").serialize(),
         success: function (data) {
+
             $('#admitCardTab').find("tr:gt(0)").remove();
               if(data.length!=undefined){
+                  $('#studentListTable').prop('hidden', false)
+                  $('#studentListPrint').prop('hidden', false)
+                  $('#studentListPrintButton').prop('hidden', false)
                   var count=1;
                  for(var i=0;i<data.length;i++){
                        $('#admitCardTab').append('<tr><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
@@ -131,7 +133,9 @@ function getStudentsForAdmitCard(){
                 }
             }
             else{
-                  $('#admitCardTab').append('<tr><td colspan="4">No Students Found</td></tr>');
+                  $('#showErrorMessage').prop('hidden', false)
+                  $('#showErrorMessage').text('No Students Found');
+                  setTimeout(function(){  $('#showErrorMessage').hide(); }, 8000);
               }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

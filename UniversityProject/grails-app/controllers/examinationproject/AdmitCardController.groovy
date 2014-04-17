@@ -92,7 +92,7 @@ class AdmitCardController {
         def studentList=params.studentList.split(",")
         def stuList = []
         StringBuilder examDate = new StringBuilder()
-
+        def byte [] logo= new File("web-app\\images\\gu-logo.jpg").bytes
         studentList.each{
         stuList << Student.findById(Integer.parseInt(it.toString()))
         }
@@ -106,7 +106,7 @@ class AdmitCardController {
             examDate.append(", ")
         }
 
-        def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate]]
+        def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate,guLogo:logo]]
         pdfRenderingService.render(args + [controller: this], response)
 
     }
