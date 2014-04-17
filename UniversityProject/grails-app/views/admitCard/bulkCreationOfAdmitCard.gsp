@@ -71,15 +71,28 @@
             </div>
 
         <div class="university-List-View university-scrollable-y">
-            <table id="admitCardTab" class="university-table-1-5 inner" style="width:98%;margin: 1px">
+            <table id="admitCardTab" class="inner" style="width:98%;margin: 1px">
                 <tr>
-                    <th>Select</th>
-                    <th>Sr. No.</th>
-                    <th>Roll No.</th>
-                    <th>Name</th>
-                    <th>GU Registration No</th>
+                    <th class="university-size-1-5">Select</th>
+                    <th class="university-size-1-5">Sr. No.</th>
+                    <th class="university-size-1-5">Roll No.</th>
+                    <th class="university-size-1-5">Name</th>
+                    <th class="university-size-1-5">GU Registration No</th>
                 </tr>
+%{--<<<<<<< HEAD--}%
+                %{--<% def count = 12 %>--}%
+                %{--<g:each in="${(1..count).toList()}" var="c">--}%
+                    %{--<tr>--}%
+                        %{--<td><input type="checkbox" class="student" name="student" id="student${c}" /></td>--}%
+                        %{--<td>${c}</td>--}%
+                        %{--<td></td>--}%
+                        %{--<td></td>--}%
+                        %{--<td></td>--}%
+                    %{--</tr>--}%
+                %{--</g:each>--}%
+%{--=======--}%
 
+%{-->>>>>>> 5f682d0d04746e079348f66d555177e37546a443--}%
             </table>
         </div>
 
@@ -94,7 +107,7 @@
                    onkeypress="return isNumber(event)">
             <label class="university-left-margin">OR</label>
             <label class="university-left-right-margin">All</label>
-            <input type="checkbox" id="ck" name="ck" onchange="toggleChecked(this.checked)"/>
+            <input type="checkbox" id="selectAll" name="selectAll"/>
         </div>
 
         <div style="margin: 10px auto;width:94%;text-align: center;">

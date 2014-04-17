@@ -21,11 +21,13 @@
                 <div style="display: inline;width: 100%">
                     <label style="float: left" >Gauhati University Schedule Ex-111, Form No. 11</label>
                     <label style="float: right" >Serial No: </label>
+
                 </div><br/><br/>
                 <div class="university-clear-both"></div>
                 <div style="width:100%;text-align: center;text-transform: uppercase;display: block;">
 
-                    <div> <r:img uri="../../web-app/images/gu-logo.jpg" style="width: 100px; margin: auto;" class="logo-image" /></div><br/>
+                  <div> <r:img uri="../../web-app/images/gu-logo.jpg" style="width: 100px; margin: auto;" class="logo-image" /></div><br/>
+
                     <div>
                         <span style="font-family: Calibri;font-size: 30px;font-style: normal;font-weight: bolder;text-align: center;margin-top: 15px; text-transform: uppercase;">
                             Gauhati University
@@ -77,6 +79,7 @@
                                         <td> <i><b>To be held on</b></i></td>
                                         <td> <b> <div id="examDates">19/13/5000, 19/13/5000, 19/13/5000, 19/13/5000</div></b></td>
                                     </tr></table>
+
                             </td>
                         </tr>
                         <tr>

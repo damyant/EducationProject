@@ -46,6 +46,8 @@ class AdmitCardController {
 
         def course=ProgramDetail.findById(params.data)
             def resultMap = [:]
+//            println("LLLLLLLLL==="+course.properties)
+//            println("+++++++++++++++++++=="+course.programSession)
             if(course!=null){
                 resultMap.totalSem = course.noOfTerms
                 resultMap.session=course.programSession

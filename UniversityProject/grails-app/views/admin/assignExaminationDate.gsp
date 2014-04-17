@@ -17,6 +17,7 @@
 
 <body>
 <div id="main">
+    <div class="university-status-message"><div id="successMessage">&nbsp;</div></div>
     <fieldset class="form">
         <form id="assignDate">
         <table class="inner" style="width: 95%;margin: auto">
@@ -32,10 +33,10 @@
             </tr>
         </table>
 
-            <table style="width: 95%;margin: auto" id="subjectList">
+            <table style="width: 95%;margin: auto" id="subjectList" class="inner">
 
             </table>
-            <div id="msgDiv"></div>
+            <div class="university-status-message"><h3><div id="msgDiv"></div></h3></div>
         </form>
     </fieldset>
 </div>
