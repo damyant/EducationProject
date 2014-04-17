@@ -19,13 +19,13 @@
         <g:form name="admitCardForm" id="admitCardForm" controller="admitCard" action="printAdmitCard">
             <g:hiddenField name="studentList" id="studentList" />
             <div>
-                <table class="university-table-1-3 inner" style="width: 60%;margin: auto;">
+                <table class="university-table-1-3 inner" style="width: 700px;margin: auto;">
                     <tr>
                         <td><label>Select an Examination Centre </label></td>
                         <td>
                             <g:select name="examinationCenter" id="city" optionKey="id" class="university-size-1-1"
-                                      optionValue="cityName" from="${examinationCenterList}" noSelection="['': ' Select City']"
-                                      onchange="showExamVenueList()"/>
+                                      optionValue="cityName" from="${examinationCenterList}" noSelection="['': ' Select Exam Centre']"
+                                      onchange="showExamVenueList(),enableShowCandidate()"/>
                         </td>
                      </tr>
                     <tr>
@@ -34,7 +34,7 @@
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
                                       from="${programList}" noSelection="['': ' Select Program']"
-                                      onchange="getSemester()"/>
+                                      onchange="getSemester(),enableShowCandidate()"/>
                         </td>
                         <td></td>
                     </tr>
@@ -48,7 +48,7 @@
                     </tr>
                     <tr><td><label>Select a Session</label></td>
                         <td>
-                            <g:select name="programSession" from=""  class="university-size-1-1" id="SessionList"  noSelection="['': ' Select Session']" />
+                            <g:select name="programSession" from=""  class="university-size-1-1" id="SessionList" onchange="enableShowCandidate()"  noSelection="['': ' Select Session']" />
 
 
                         </td>
@@ -57,21 +57,24 @@
                     <tr>
                         <td><label>Select Examination Venue </label></td>
                         <td>
-                            <g:select name="examinationVenue" class="university-size-1-1" id="examCenterList" from="" onchange="showExamVenueCapacity()"
-                                      noSelection="['': ' Select Examination Venue']"/>
+                            <g:select name="examinationVenue" class="university-size-1-1" id="examCenterList" from="" onchange="showExamVenueCapacity(),enableShowCandidate()"
+                                      noSelection="['': ' Select Exam Venue']"/>
                         </td>
 
-                        <td><label>Max Capacity</label><input type="text" id="totalCapacity"  /></td>
-
-                            <input type="button" class="university-button university-float-right"
-                                   value="Show Candidates" onclick="getStudentsForAdmitCard()"/>
+                        <td><input type="text" class="university-size-1-1" id="totalCapacity" readonly/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="button" class="university-button" id="showCandidates" value="Show Candidates" onclick="getStudentsForAdmitCard()" disabled/>
                         </td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
 
-        <div class="university-List-View university-scrollable-y">
-            <table id="admitCardTab" class="inner" style="width:98%;margin: 1px">
+        <div id="studentListTable" class="university-List-View university-scrollable-y" hidden="">
+            <table id="admitCardTab" class="inner" style="width:98%;margin: 1px" >
                 <tr>
                     <th class="university-size-1-5">Select</th>
                     <th class="university-size-1-5">Sr. No.</th>
@@ -96,8 +99,7 @@
             </table>
         </div>
 
-        <div class=""
-             style="margin: 10px auto;width:94%;text-align: center; border: 1px solid; padding: 0.5%;border-radius: 2px;">
+        <div id="studentListPrint" style="margin: 10px auto;width:94%;text-align: center; border: 1px solid; padding: 0.5%;border-radius: 2px;" hidden="">
 
             <label class="university-left-right-margin"><strong>Print</strong></label>
             <label class="university-left-margin">from</label>
@@ -110,7 +112,7 @@
             <input type="checkbox" id="selectAll" name="selectAll"/>
         </div>
 
-        <div style="margin: 10px auto;width:94%;text-align: center;">
+        <div id="studentListPrintButton" style="margin: 10px auto;width:94%;text-align: center;" hidden="">
             <input type="button"  value="Print" onclick="generateAdmitCard()" class="university-button">
         </div>
         </g:form>
