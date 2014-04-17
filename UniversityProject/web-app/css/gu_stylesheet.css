@@ -175,6 +175,7 @@ label.error1 {
 label.error2 {
     display:block;
     clear:both;
+    margin-left: 35%;
     color: #cd0a0a;
     text-transform: capitalize;
 }
@@ -361,32 +362,12 @@ h1{
     text-shadow: 2px 2px 2px #000;
     text-transform: uppercase;
 }
-.University-Admit-Sub-Header{
-    font-family: Arial Black;
-    font-size: 30px;
-    font-style: normal;
-    font-weight:bolder;
-    color: #ffffff;
-    background-color: #000;
-    text-align: center;
-    /*margin: 4px auto;*/
-    padding: 2px 5px;
-    text-transform: uppercase;
-    border-radius: 2px;
-}
+
 .University-Admit-Student-Name{
-    font-family: Arial;
-    font-size: 22px;
-    font-weight:bold;
-    font-style: normal;
-    /*margin:  15px auto;*/
-    padding: 2px 5px;
-    text-transform: capitalize;
+    font-family: Arial; font-size: 20px;  font-weight:bold; padding: 2px 5px; text-transform: capitalize;
 }
 .admitCardView-font{
-    font-size: 19px;
-    margin-bottom: 5px;
-    line-height: 30px;
+    font-size: 17px;line-height: 30px;
 }
 
 .radioInput {

@@ -71,13 +71,13 @@
             </div>
 
         <div class="university-List-View university-scrollable-y">
-            <table id="admitCardTab" class="university-table-1-5 inner" style="width:98%;margin: 1px">
+            <table id="admitCardTab" class="inner" style="width:98%;margin: 1px">
                 <tr>
-                    <th>Select</th>
-                    <th>Sr. No.</th>
-                    <th>Roll No.</th>
-                    <th>Name</th>
-                    <th>GU Registration No</th>
+                    <th class="university-size-1-5">Select</th>
+                    <th class="university-size-1-5">Sr. No.</th>
+                    <th class="university-size-1-5">Roll No.</th>
+                    <th class="university-size-1-5">Name</th>
+                    <th class="university-size-1-5">GU Registration No</th>
                 </tr>
 %{--<<<<<<< HEAD--}%
                 %{--<% def count = 12 %>--}%
