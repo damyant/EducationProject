@@ -83,7 +83,7 @@
                 <% def count = 12 %>
                 <g:each in="${(1..count).toList()}" var="c">
                     <tr>
-                        <td><input type="checkbox" name="student" id="student" /></td>
+                        <td><input type="checkbox" class="student" name="student" id="student${c}" /></td>
                         <td>${c}</td>
                         <td></td>
                         <td></td>
@@ -104,7 +104,7 @@
                    onkeypress="return isNumber(event)">
             <label class="university-left-margin">OR</label>
             <label class="university-left-right-margin">All</label>
-            <input type="checkbox" id="ck" name="ck" onchange="toggleChecked(this.checked)"/>
+            <input type="checkbox" id="selectAll" name="selectAll"/>
         </div>
 
         <div style="margin: 10px auto;width:94%;text-align: center;">

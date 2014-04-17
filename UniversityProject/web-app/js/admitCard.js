@@ -1,14 +1,15 @@
 
 
 
-var maxCap=0;
+var maxCapacity=0;
 $(document).ready(function () {
+
     var cnt=0;
     $("input[name='student']").change(function () {
-        var maxAllowed = maxCap;
+        var maxAllowed = maxCapacity;
         cnt = $("input[name='student']:checked").length;
-        if(maxCap>0)
-            $("#totalCapacity").val(maxCap-cnt);
+        if(maxCapacity>0)
+            $("#totalCapacity").val(maxCapacity-cnt);
         if (cnt>maxAllowed) {
             $("#totalCapacity").val(cnt-1);
             $(this).prop("checked", "");
@@ -16,7 +17,31 @@ $(document).ready(function () {
             alert('You can select maximum ' + maxAllowed + ' Students only!!');
         }
     });
+
+    $("#selectAll").click(function(){
+      $(".student").prop("checked",$("#selectAll").prop("checked"))
+
+        var selected = new Array();
+        $('input:checked').each(function() {
+            selected.push($(this).attr('id'));
+        });
+            var i ;
+            for(i=maxCapacity;i<selected.length-1;i++){
+
+                $("#"+selected[i]).prop('checked', false);//
+            }
+
+            $("#totalCapacity").val(0);
+            if($("#selectAll").prop('checked')==false){
+              $("#totalCapacity").val(maxCapacity);
+        }
+
+
+
+    })
 });
+
+
 
 
 
@@ -72,7 +97,7 @@ function showExamVenueCapacity(){
         success: function (data) {
         if(data.capacity){
             $('#totalCapacity').val(data.capacity)
-            maxCap=data.capacity
+            maxCapacity=data.capacity
         }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

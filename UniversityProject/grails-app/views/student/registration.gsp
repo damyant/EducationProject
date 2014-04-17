@@ -30,7 +30,21 @@
             if(flag=='registered'){
                 window.open('/UniversityProject/student/applicationPrintPreview/?studentID='+studentId);
             }
+            //a(studentId)
         })
+
+        function a(id){
+            $.ajax({
+                type: "post",
+                url: url('student', 'applicationPrintPreview', ''),
+                data: {studentId: id},
+                success: function (data) {
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
+            });
+        }
 
     </script>
 
