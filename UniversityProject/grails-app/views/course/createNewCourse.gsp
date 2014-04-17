@@ -42,7 +42,7 @@
         <table class="university-table inner" border="0">
             <tr>
                 <td style="width: 40%"><label>Course Name :<span class="university-obligatory">*</span></label></td>
-                <td style="width: 60%"><input type="text" id="courseName" name="courseName" maxlength="" class="university-size-1-2" onkeypress="return onlyAlphabets(event,this);"/></td>
+                <td style="width: 60%"><input type="text" id="courseName" name="courseName" maxlength="" class="university-size-1-2" onkeypress="return onlyAlphabetsWithSplChar(event,this);"/></td>
             </tr>
             <tr>
                 <td><label>Select Mode :<span class="university-obligatory">*</span></label></td>

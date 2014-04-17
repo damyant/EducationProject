@@ -188,8 +188,8 @@
         <tr>
             <td><label><g:message code="default.createStudy.nameOfAsstCoordinator"/> <span
                     class="university-obligatory">*</span></label></td>
-            <td><input type="text" name="asstCooirdinator" onkeypress="return onlyAlphabets(event, this);"
-                       value="${studyCentreInstance?.asstCooirdinator}"
+            <td><input type="text" name="asstCoordinator" onkeypress="return onlyAlphabets(event, this);"
+                       value="${studyCentreInstance?.asstCoordinator}"
                        class="university-size-1-3"/></td>
         </tr>
         <tr>

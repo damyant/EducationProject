@@ -50,7 +50,7 @@ function validate() {
                 minlength: 10,
                 number: true
             },
-            asstCooirdinator: {
+            asstCoordinator: {
                 required: true,
                 textonly: true
             },
@@ -271,7 +271,7 @@ function validate() {
             nameOfCoordinator: "Please enter Name of Coordinator",
             phoneNoOfCoordinator: "Please enter Phone No of Coordinator",
             emailIdOfCoordinator: "Please enter Email of Coordinator",
-            asstCooirdinator: "Please enter Name of Asst. Coordinator",
+            asstCoordinator: "Please enter Name of Asst. Coordinator",
             asstMobile: "Please enter Phone No of Asst. Coordinator",
             asstEmail: "Please enter Email of Asst. Coordinator",
             websiteUrl: "Please Enter Website URL",
@@ -409,4 +409,25 @@ function isTime(evt) {
         return true;
     }
     return false;
+}
+
+function onlyAlphabetsWithSplChar(e, t) {
+    try {
+        if (window.event) {
+            var charCode = window.event.keyCode;
+        }
+        else if (e) {
+            var charCode = e.which;
+        }
+        else {
+            return true;
+        }
+        if (charCode == 8 || charCode == 32 || charCode == 40 || charCode == 41 || ( charCode > 64 && charCode < 91 ) || ( charCode > 96 && charCode < 123 )|| ( charCode > 44 && charCode < 48 ))
+            return true;
+        else
+            return false;
+    }
+    catch (err) {
+        alert(err.Description);
+    }
 }
