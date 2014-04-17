@@ -95,12 +95,12 @@ class AdmitCardController {
         def studentList=params.studentList.split(",")
         def stuList = []
         StringBuilder examDate = new StringBuilder()
-        def byte [] logo= new File("web-app\\images\\gu-logo.jpg").bytes
+        def byte [] logo= new File("web-app/images/gu-logo.jpg").bytes
         studentList.each{
         stuList << Student.findById(Integer.parseInt(it.toString()))
         }
 
-        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findById(Long.parseLong(stuList[0].semester)))*.subject as Set
+        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findById(stuList[0].semester))*.subject as Set
         def finalList=list.sort{a,b->
             a.examDate<=>b.examDate
         }

@@ -58,6 +58,7 @@ function getSemester(){
             for (var i = 1; i <= data.totalSem; i++) {
                 $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
             }
+            $("#SessionList").empty().append('')
             for (var i = 0; i < data.session.length; i++) {
                 $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
             }
