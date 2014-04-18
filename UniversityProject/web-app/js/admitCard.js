@@ -58,10 +58,10 @@ function getSemester(){
         data: {data: data},
         success: function (data) {
             $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+            $("#SessionList").empty().append('data <option value="">Select Session</option>')
             for (var i = 1; i <= data.totalSem; i++) {
                 $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
             }
-            $("#SessionList").empty().append('<option value>Select Session</option>')
             for (var i = 0; i < data.session.length; i++) {
                 $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
             }
@@ -107,7 +107,9 @@ function showExamVenueCapacity(){
         data: {examCenterId: $("#examCenterList").val()},
         success: function (data) {
         if(data.capacity){
-            $('#totalCapacity').val(data.capacity)
+
+            $('#totalCapacity').val("Maximum Capacity : "+data.availabelCapacity)
+
             $('#maxCapacityBox').prop('hidden', false)
             maxCapacity=data.capacity
         }
@@ -254,6 +256,9 @@ function generateAdmitCard(){
         $("#studentList").val(selectedStudentList)
         $("#admitCardForm").submit();
 //        studentsSelected(selectedStudentList)
+
+        setTimeout(function(){ getStudentsForAdmitCard()},100);
+
         return true;
 
     }

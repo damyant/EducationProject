@@ -46,7 +46,7 @@ class StudentRegistrationService {
        studentRegistration.examinationCentre=examinationCentreList
        studentRegistration.studentImage=photographe.bytes
        studentRegistration.semester=1
-       studentRegistration.admitCardGenerated=0
+       studentRegistration.admitCardGenerated=false
         //RAJ CODE
        studentRegistration.registrationYear=Integer.parseInt(year)
        if(springSecurityService.isLoggedIn()){
