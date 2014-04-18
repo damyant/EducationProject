@@ -125,6 +125,7 @@ function showExamVenueCapacity(){
 
 
 function getStudentsForAdmitCard(){
+    alert("jo")
 
     $.ajax({
         type: "post",
@@ -301,9 +302,12 @@ function studentsSelected(selectedStudentList){
     });
 }
 function enableShowCandidate(){
+
+//    $('#studentListTable').prop('hidden', true)
+//    $('#studentListPrint').prop('hidden', true)
+//    $('#studentListPrintButton').prop('hidden', true)
     if($('#city').val()==''||$('#programList').val()==''||$('#semesterList').val()==''||$('#SessionList').val()==''||$('#examCenterList').val()==''){
-        $('#showCandidates').prop('disabled', true)
-    }
+        $('#showCandidates').prop('disabled', true)    }
     else{
         $('#showCandidates').prop('disabled', false)
     }

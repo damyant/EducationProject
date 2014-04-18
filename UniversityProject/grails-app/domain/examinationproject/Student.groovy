@@ -57,7 +57,6 @@ class Student {
         location(nullable: true)
         rollNo(nullable:true)
         status(nullable:true)
-        feeStatus(nullable: true)
         admitCardGenerated(nullable: true)
 
 
@@ -93,7 +92,9 @@ class Student {
         registrationYear column: "RegistrationYear"
         referenceNumber column:"ReferenceNumber"
 
+
         programSession column: 'ProgramSession'
+
         admitCardGenerated column: 'AdmitCardGenerated'
 
 

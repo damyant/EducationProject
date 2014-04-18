@@ -77,9 +77,10 @@ class AdmitCardController {
     }
 
     def getStudentsForAdmitCard={
-
+    println("innnnnnnnnnnnnnnnnnnnnnnnnnn")
      def studentList=admitCardService.getStudents(params)
       if(studentList){
+          println("????????"+studentList)
          render studentList as JSON
       }
       else{
