@@ -57,7 +57,9 @@
                                 </td>
                                 <td rowspan="3" style="width: 20%;">
                                     <div id="profile-image" style="float: right;">
+                                        <g:if test="${student?.studentImage}">
                                         <rendering:inlineJpeg bytes="${student?.getStudentImage()}" class="university-registration-photo" style="margin:auto; width: 110px;"/>
+                                        </g:if>
                                     </div>
                                 </td>
                             </tr>

@@ -37,10 +37,10 @@ class AdmitCardService {
             and{
                 eq('semester', Integer.parseInt(params.programTerm))
             }
-//            and{
-//                 eq('admitCardGenerated', Boolean.parseBoolean("0"))
-//
-//            }
+            and{
+                 eq('admitCardGenerated', false)
+
+            }
 
 
         }

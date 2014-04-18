@@ -37,6 +37,7 @@ class AdmitCardController {
         def finalExaminationCenterList= examinationCenter.sort{a,b->
             a.cityName<=>b.cityName
         }
+
         [programList: programList, studyCentreList: studyCentreList, examinationCenterList: finalExaminationCenterList]
     }
 
@@ -65,6 +66,8 @@ class AdmitCardController {
         def examCenterMap=[:]
         def examCenter=ExaminationCentre.findById(Long.parseLong(params.examCenterId))
         examCenterMap.capacity=examCenter.capacity
+        examCenterMap.availabelCapacity=examCenter.capacity-examCenter.student.size()
+
         render examCenterMap as JSON
         }
         catch (Exception e){
@@ -77,7 +80,7 @@ class AdmitCardController {
 
      def studentList=admitCardService.getStudents(params)
       if(studentList){
-          render studentList as JSON
+         render studentList as JSON
       }
       else{
           def resultMap=[:]
@@ -95,7 +98,7 @@ class AdmitCardController {
         def byte [] logo= new File("web-app/images/gu-logo.jpg").bytes
         studentList.each{
         stuList << Student.findById(Integer.parseInt(it.toString()))
-        }
+          }
 
         def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findById(stuList[0].semester))*.subject as Set
         def finalList=list.sort{a,b->
@@ -104,6 +107,10 @@ class AdmitCardController {
         finalList.each{
             examDate.append(it.examDate.format("dd/MM/yyyy"))
             examDate.append(", ")
+        }
+        stuList.each{
+            it.admitCardGenerated=true
+            it.save(failOnError: true)
         }
 
         def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate,guLogo:logo]]
