@@ -64,9 +64,22 @@ class AdmitCardController {
     def examVenueCapacity={
         try{
         def examCenterMap=[:]
-        def examCenter=ExaminationCentre.findById(Long.parseLong(params.examCenterId))
-        examCenterMap.capacity=examCenter.capacity
-        examCenterMap.availabelCapacity=examCenter.capacity-examCenter.student.size()
+
+            def examCenter=ExaminationCentre.findById(Long.parseLong(params.examCenterId))
+            examCenterMap.capacity=examCenter.capacity
+
+            def obj=Student .createCriteria()
+            def stuList= obj.list{
+                examinationCentre{
+                    eq('id', Long.parseLong(params.examCenterId))
+                }
+                and{
+                    eq('admitCardGenerated',true)
+                }
+
+            }
+ 
+        examCenterMap.availabelCapacity=examCenter.capacity-stuList.size()
 
         render examCenterMap as JSON
         }
@@ -77,10 +90,8 @@ class AdmitCardController {
     }
 
     def getStudentsForAdmitCard={
-    println("innnnnnnnnnnnnnnnnnnnnnnnnnn")
      def studentList=admitCardService.getStudents(params)
       if(studentList){
-          println("????????"+studentList)
          render studentList as JSON
       }
       else{

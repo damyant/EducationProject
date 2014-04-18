@@ -125,7 +125,6 @@ function showExamVenueCapacity(){
 
 
 function getStudentsForAdmitCard(){
-    alert("jo")
 
     $.ajax({
         type: "post",
