@@ -29,7 +29,6 @@ class Student {
     ProgramSession programSession
     Boolean admitCardGenerated
     Date admissionDate =new Date()
-   // FeeDetails feeDetails
 
 
     static hasMany = [examinationCentre : ExaminationCentre, studyCentre : StudyCenter,programDetail:ProgramDetail]
@@ -60,7 +59,7 @@ class Student {
         status(nullable:true)
         feeStatus(nullable: true)
         admitCardGenerated(nullable: true)
-      //  feeDetails(nullable: true)
+
 
 
 
@@ -93,7 +92,7 @@ class Student {
 
         registrationYear column: "RegistrationYear"
         referenceNumber column:"ReferenceNumber"
-        feeStatus column: "FeeStatus"
+
         programSession column: 'ProgramSession'
         admitCardGenerated column: 'AdmitCardGenerated'
 
