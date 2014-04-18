@@ -157,9 +157,9 @@
                 <li><g:link controller="admin"
                             action="feeVoucher"><g:message
                             code="default.mainMenu6.subMenu9"/></g:link></li>
-                <li><g:link controller="admin"
-                            action="examFeeVoucher"><g:message
-                            code="default.mainMenu6.subMenu8"/></g:link></li>
+                %{--<li><g:link controller="admin"--}%
+                            %{--action="examFeeVoucher"><g:message--}%
+                            %{--code="default.mainMenu6.subMenu8"/></g:link></li>--}%
 
 
             </ul>

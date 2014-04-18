@@ -2,7 +2,21 @@
 var studentIdList = [];
 var subjectIdList=[];
 $(document).ready(function () {
+        $("#submit").click(function(){
+            var rollNo = $("#rollNo").val()
+            var feeType = $("#type").val()
+            if(rollNo.length==0){
+                $("#rollNo").after('<label class="error">Please Enter Roll Number</label>')
+                return false
+            }
+            if(feeType.length==0){
+                $("#type").after('<label class="error">Please Select Fee Type</label>')
+                return false
+            }
 
+
+            window.open('/UniversityProject/admin/generateFeeVoucher/?rollNo='+rollNo+'&feeType='+feeType);
+        });
 
 
 

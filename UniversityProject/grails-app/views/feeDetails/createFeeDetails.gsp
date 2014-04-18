@@ -20,8 +20,6 @@
                     // async ajax request pass username entered as id parameter
                     $.getJSON(url, {rollNo: $(this).val()}, function (json) {
                         if (!json.available) {
-                            alert("data is" + json.id + "status" + json.feeStatus)
-                            // highlight field so user knows there's a problem
                             $("#feeType").prop('disabled', false);
                             $("#paymentMode").prop('disabled', false);
                             $("#draftNumber").prop('disabled', false);
