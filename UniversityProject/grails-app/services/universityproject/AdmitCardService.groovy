@@ -31,9 +31,9 @@ class AdmitCardService {
             and{
                 eq('status', Status.findById(3))
             }
-            and{
-                eq('feeStatus', Status.findById(5))
-            }
+//            and{
+//                eq('feeStatus', Status.findById(5))
+//            }
             and{
                 eq('semester', Integer.parseInt(params.programTerm))
             }
