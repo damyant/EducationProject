@@ -99,6 +99,8 @@ class CourseDetailService {
         def subList = []
         def courseObj = ProgramDetail.findById(params.courseId)
         courseDetail.course = courseObj
+        courseDetail.courseType=courseObj.courseType.courseTypeName
+        courseDetail.courseMode=courseObj.courseMode.modeName
         courseObj.semester.each {
             subMap[it.semesterNo] = CourseSubject.findAllByCourseDetailAndSemester(courseObj, it).subject
             subList = subMap
