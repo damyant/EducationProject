@@ -16,7 +16,7 @@ class AdmitCardService {
 
 
     def getStudents(params){
-    
+
         def obj=Student .createCriteria()
         def studentList= obj.list{
             programDetail{

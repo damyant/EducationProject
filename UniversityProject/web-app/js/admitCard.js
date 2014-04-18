@@ -264,7 +264,6 @@ function generateAdmitCard(){
 
 function studentsSelected(selectedStudentList){
 
-    alert("hi"+selectedStudentList)
 
     $.ajax({
         type: "post",

@@ -34,7 +34,7 @@
 
     <g:form  method="post" name="createCourse" id="createCourse">
         <g:hiddenField name="courseId" id="courseId" />
-        <table class="university-table">
+        <table class="inner">
             <tr>
                 <td style="width: 40%"><label>Course Name</label></td>
                 <td style="width: 60%"><label id="courseName"></label></td>
@@ -77,17 +77,16 @@
                 <td><label>Total Credit Points</label></td>
                 <td style="width: 60%"><label id="totalCreditPoints"> </label></td>
             </tr>
-            <tr id="Subjects">
-            </tr>
-            <tr>
-               <td style="text-align: center" colspan="2"><input type="button" value="Back" class="university-button"  onClick="history.go(-1);return true;" ></td>
-            </tr>
-        <tr>
-            <td>
-                <g:link controller="course" action="test"></g:link>
-            </td>
-        </tr>
-        </table>
+            </table>
+        <table id="multiSelectTab">
+            %{--<tr id="Subjects">--}%
+            %{--</tr>--}%
+            %{--<tr><td></td></tr>--}%
+
+            %{--<tr>--}%
+               %{--<td style="text-align: center" colspan="2"><input type="button" value="Back" class="university-button"  onClick="history.go(-1);return true;" ></td>--}%
+            %{--</tr>--}%
+         </table>
     </g:form>
 </div>
 </body>
