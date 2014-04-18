@@ -3,19 +3,20 @@
 
 
 var maxCapacity=0;
+var availableCapacity=0;
 $(document).ready(function () {
 
     var count=0;
    // $("input[name='studentCheckbox']").change(function () {
     $(document).on('change', "input[name='studentCheckbox']", function () {
         $('#remainingCapacityBox').prop('hidden', false);
-        var maxAllowed = maxCapacity;
+        var maxAllowed = availableCapacity;
         count = $("input[name='studentCheckbox']:checked").length;
-        if(maxCapacity>0)
+        if(availableCapacity>0)
 
-            $("#remainingCapacity").val(maxCapacity-count);
+            $("#remainingCapacity").val(availableCapacity-count);
 
-        if (count>maxAllowed) {
+        if (count>availableCapacity) {
             $("#remainingCapacity").val(count-1);
             $(this).prop("checked", "");
             $("#remainingCapacity").val(0);
@@ -32,15 +33,15 @@ $(document).ready(function () {
         });
         var i ;
         var b;
-        for(i=maxCapacity;i<selected.length-1;i++){
+        for(i=availableCapacity;i<selected.length-1;i++){
             $("#"+selected[i]).prop('checked', false);//
             b=i;
         }
         $("#remainingCapacity").val(0);
         if($("#selectAll").prop('checked')==false){
-          $("#remainingCapacity").val(maxCapacity);
+          $("#remainingCapacity").val(availableCapacity);
         }else{
-            $("#remainingCapacity").val(maxCapacity-selected.length+1);
+            $("#remainingCapacity").val(availableCapacity-selected.length+1);
         }
 
     })
@@ -108,10 +109,13 @@ function showExamVenueCapacity(){
         success: function (data) {
         if(data.capacity){
 
-            $('#totalCapacity').val("Maximum Capacity : "+data.availabelCapacity)
+            $('#totalCapacity').val(data.capacity)
+            $('#remainingCapacity').val(data.availabelCapacity)
 
             $('#maxCapacityBox').prop('hidden', false)
+            $('#remainingCapacityBox').prop('hidden', false)
             maxCapacity=data.capacity
+            availableCapacity=data.availabelCapacity
         }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

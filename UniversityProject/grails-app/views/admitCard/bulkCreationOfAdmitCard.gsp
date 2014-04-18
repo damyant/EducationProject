@@ -67,20 +67,20 @@
                     </tr>
                     <tr>
                         <td>
-                            <div id="remainingCapacityBox" hidden="">
-                                <label>Remaining Capacity </label><input type="text" class="university-size-1-2"
-                                                                        id="remainingCapacity" style="text-align: center;" readonly/>
-                            </div>
-                        </td>
-                        <td>
                             <div id="maxCapacityBox" hidden="">
-                                <label>Maximum Capacity </label><input type="text" class="university-size-1-2"
-                                                                      id="totalCapacity" style="text-align: center;" readonly/>
+                                <b><label>Maximum Capacity </label><input type="text" class="university-size-1-2"
+                                                                       id="totalCapacity" style="text-align: center;" readonly/></b>
                             </div>
                         </td>
                         <td>
                             <input type="button" class="university-button" id="showCandidates" value="Show Candidates"
                                    onclick="getStudentsForAdmitCard()" disabled/>
+                        </td>
+                        <td>
+                            <div id="remainingCapacityBox" hidden="">
+                                <b><label>Available Capacity </label><input type="text" class="university-size-1-2"
+                                                                         id="remainingCapacity" style="text-align: center;" readonly/></b>
+                            </div>
                         </td>
                     </tr>
                 </table>
