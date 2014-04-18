@@ -14,7 +14,7 @@ class ExaminationCentre {
     static belongsTo = Student
 
     static constraints = {
-       name(nullable: true)
+        name(nullable: true)
         inchargeName(nullable: true)
         capacity(nullable: true)
         contactNo(nullable: true)

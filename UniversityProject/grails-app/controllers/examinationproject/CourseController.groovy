@@ -25,25 +25,9 @@ class CourseController {
        [courseDetail:courseDetail as JSON ,subjList:subObj as JSON,updateFlag:updateFlag]
     }
 
-    /* ********* viewCourses Method Added By Digvijay ******** */
-    def viewCourses(){
-//        def courseIns= ProgramDetail.findById(params.courseId)
-//        println("Inside View"+params)
 
+    def viewCourses(){
         def courseDetails  = courseDetailService.getFullDetailOfCourse(params)
-//        [courseDetails:courseDetails]
-        println("aaaaaaaaaaaaaaa   "+courseDetails.course.courseMode.modeName)
-        println("aaaaaaaaaaaaaa NAMe   "+courseDetails.course.courseType.courseTypeName)
-//
-//
-//
-//        def semDetails = courseIns.semester
-//        for (int i=0; i<semDetails.size();i++){
-//            println("Semester Number  = "+semDetails[i].semesterNo)
-//            //if()
-//        }
-//
-//        println("SemDetails==========================================="+semDetails)
         [courseDetail:courseDetails as JSON]
 
     }

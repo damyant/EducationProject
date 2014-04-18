@@ -16,7 +16,6 @@ class AdmitCardService {
 
 
     def getStudents(params){
-        println("in admit card service==="+params)
 
         def obj=Student .createCriteria()
         def studentList= obj.list{
@@ -38,10 +37,10 @@ class AdmitCardService {
             and{
                 eq('semester', Integer.parseInt(params.programTerm))
             }
-//            and{
-//                 eq('admitCardGenerated', Boolean.parseBoolean("0"))
-//
-//            }
+            and{
+                 eq('admitCardGenerated', false)
+
+            }
 
 
         }

@@ -35,18 +35,10 @@ function semesterList() {
 
 
 function viewSemesterList() {
-    $('#multiSelectTab tbody tr').remove()
+    $('#multiSelectTab tr').remove()
     for (var j = 1; j <= $('#noOfTerms').html(); j++) {
-        $('#multiSelectTab tbody').append('<tr><td><label>Semester - ' + j + '</label>' +
-            '<td><select class="select-to" name="semester' + j + '" id="semester' + j + '"  multiple="true" /></td></tr>')
-
-//        if($('#modeName option:selected').text().toLowerCase()=="annual"){
-//            $("<div>Term"+j+"</div>").insertBefore($('#semester'+j))
-//        }
-//        else if(($('#modeName option:selected').text().toLowerCase()=="semester")){
-//            $("<div>Semester"+j+"</div>").insertBefore($('#semester'+j))
-//        }
-
+        $('#multiSelectTab').append('<tr><td><label>Term - ' + j + ' Subjects</label></td></tr>' +
+            '<tr></tr><td><select class="select-to" name="semester' + j + '" id="semester' + j + '"  multiple="true" /></td></tr>')
 
     }
 
@@ -163,11 +155,10 @@ function enableNoOfSem(t) {
 function viewCourseInfo(obj) {
 
     var courseDetailJson = jQuery.parseJSON(obj.replace(/&quot;/g, '"'))
-    console.log(courseDetailJson)
-    $('#courseName').html(courseDetailJson['course'].courseName)
+     $('#courseName').html(courseDetailJson['course'].courseName)
     //$('#modeName option[value='+courseDetailJson['course'].courseMode.id+']').attr("selected", "selected");
-    $('#modeName').html(courseDetailJson['course'].courseMode.id)
-    $('#courseTypeName').html(courseDetailJson['course'].courseType.id)
+    $('#modeName').html(courseDetailJson['courseMode'])
+    $('#courseTypeName').html(courseDetailJson['courseType'])
     $('#noOfTerms').html(courseDetailJson['course'].noOfTerms)
     $('#courseCode').html(courseDetailJson['course'].courseCode)
     $('#noOfAcademicYears').html(courseDetailJson['course'].noOfAcademicYears)
@@ -177,7 +168,7 @@ function viewCourseInfo(obj) {
     $('#noOfPapers').html(courseDetailJson['course'].noOfPapers)
     $('#courseId').html(courseDetailJson['course'].id)
     viewSemesterList()
-    for (var i = 1; i <= $('#noOfTerms').html(); i++) {
+    for (var i = 1; i <= courseDetailJson['course'].noOfTerms; i++) {
 
         for (var j = 0; j < courseDetailJson['semesterList'][i].length; j++) {
 
