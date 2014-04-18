@@ -59,36 +59,9 @@
                     </li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>
                         <ul>
-                            <li><a href="#"><g:message code="default.mainMenu3.subMenu2.submenu1"/></a>
-                                <ul>
-                                    <li><a href="#" class="newAdmitCardPopup"><g:message
-                                            code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
-                                    <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message
-                                            code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
-                                    </li>
-                                    <li><g:link controller="admitCard"
-                                                action="createAdmitCard"><g:message/>Create Admit Card</g:link></li>
-
-                                </ul>
-                            </li>
-                            <li><a href="#" class="viewAdmitCardPopup"><g:message
-                                    code="default.mainMenu3.subMenu2.submenu2"/></a></li>
-                            <li><a href="#" class="editAdmitCardPopup"><g:message
-                                    code="default.mainMenu3.subMenu2.submenu3"/></a></li>
-                            <li><a href="#" class="deleteAdmitCardPopup"><g:message
-                                    code="default.mainMenu3.subMenu2.submenu4"/></a></li>
-                            <li><g:link controller="admitCard"
-                                        action="printPreviewAdmitCard">Admit Card Print Preview</g:link></li>
-                            <li><a href="#"><g:message code="default.mainMenu3.subMenu2.submenu5"/></a>
-                                <ul>
-                                    <li><a onclick="showNewAdmitCardPopup()"><g:message
-                                            code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
-                                    <li><a href="#"><g:message
-                                            code="default.mainMenu3.subMenu2.submenu1.submenu2"/></a>
-                                    </li>
-                                </ul>
-
-                            </li>
+                             <li><a href="#" class="newAdmitCardPopup"><g:message code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
+                             <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
+                             </li>
                         </ul>
                     </li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>

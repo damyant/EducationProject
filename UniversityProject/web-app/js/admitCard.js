@@ -8,21 +8,24 @@ $(document).ready(function () {
     var count=0;
    // $("input[name='studentCheckbox']").change(function () {
     $(document).on('change', "input[name='studentCheckbox']", function () {
+        $('#remainingCapacityBox').prop('hidden', false);
         var maxAllowed = maxCapacity;
         count = $("input[name='studentCheckbox']:checked").length;
         if(maxCapacity>0)
 
-            $("#totalCapacity").val(maxCapacity-count);
+            $("#remainingCapacity").val(maxCapacity-count);
+
         if (count>maxAllowed) {
-            $("#totalCapacity").val(count-1);
+            $("#remainingCapacity").val(count-1);
             $(this).prop("checked", "");
-            $("#totalCapacity").val(0);
+            $("#remainingCapacity").val(0);
             alert('You can select maximum ' + maxAllowed + ' Students only!!');
         }
     });
 
     $("#selectAll").click(function(){
       $(".studentCheckbox").prop("checked",$("#selectAll").prop("checked"))
+        $('#remainingCapacityBox').prop('hidden', false);
         var selected = new Array();
         $('input:checked').each(function() {
             selected.push($(this).attr('id'));
@@ -33,11 +36,11 @@ $(document).ready(function () {
             $("#"+selected[i]).prop('checked', false);//
             b=i;
         }
-        $("#totalCapacity").val(0);
+        $("#remainingCapacity").val(0);
         if($("#selectAll").prop('checked')==false){
-          $("#totalCapacity").val(maxCapacity);
+          $("#remainingCapacity").val(maxCapacity);
         }else{
-            $("#totalCapacity").val(maxCapacity-selected.length+1);
+            $("#remainingCapacity").val(maxCapacity-selected.length+1);
         }
 
     })
@@ -59,7 +62,6 @@ function getSemester(){
             for (var i = 1; i <= data.totalSem; i++) {
                 $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
             }
-
             for (var i = 0; i < data.session.length; i++) {
                 $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
             }
@@ -105,7 +107,10 @@ function showExamVenueCapacity(){
         data: {examCenterId: $("#examCenterList").val()},
         success: function (data) {
         if(data.capacity){
+
             $('#totalCapacity').val("Maximum Capacity : "+data.availabelCapacity)
+
+            $('#maxCapacityBox').prop('hidden', false)
             maxCapacity=data.capacity
         }
         },
