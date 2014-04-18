@@ -48,7 +48,6 @@ class StudentController {
         def photographe = request.getFile("photograph")
         def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe)
         if (studentRegistration) {
-            println("New Student Registered Successfully")
             flash.message = "${message(code: 'register.created.message')}"
             redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
         } else {

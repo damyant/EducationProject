@@ -23,7 +23,6 @@ class Student {
     int rollNo
     int semester
     Status status
-    Status feeStatus
     int registrationYear
     int referenceNumber
     byte[] studentImage

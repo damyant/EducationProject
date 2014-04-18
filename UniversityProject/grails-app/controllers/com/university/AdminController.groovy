@@ -82,8 +82,8 @@ class AdminController {
     def generateFeeVoucher={
 
         def student = Student.findByRollNo(params.rollNo)
-       println(">>>>>>>>>>>>>>>>>"+student)
-        if(!(student.studyCentre.centerCode=="11111")){
+       println(">>>>>>>>>>>>>>>>>"+student+"ghfghdg"+student.studyCentre.centerCode)
+        if(!(student.studyCentre[0].centerCode=="11111")){
         redirect(action: "feeVoucher",params:[error:"error"])
         }
         def studyCentreType
@@ -100,7 +100,7 @@ class AdminController {
         def feeType = FeeType.findById(feeTypeId)
         def programFee = ProgramFee.findByProgramDetail(program)
         def programFeeAmount
-        if(role=="ROLE_IDOL_USER"){
+       // if(role=="ROLE_IDOL_USER"){
             switch(feeTypeId){
                 case 1:
                     programFeeAmount = programFee.feeAmountAtIDOL
@@ -113,7 +113,7 @@ class AdminController {
                     break;
             }
 
-        }
+        //}
 
         def args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
         pdfRenderingService.render(args+[controller:this],response)

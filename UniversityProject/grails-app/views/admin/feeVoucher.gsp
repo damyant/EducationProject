@@ -13,6 +13,10 @@
     <g:javascript src='admin.js'/>
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
+    <script type="text/javascript">
+
+
+    </script>
 </head>
 
 <body>
@@ -56,9 +60,9 @@
 
             </tr>
 
-            <tr><td colspan="2" style="text-align: center; "><g:submitButton name="submit" class="university-button"
-                                                                             value="Submit" onclick="validate()"
-                                                                             style="margin-top: 15px;"></g:submitButton></td>
+            <tr><td colspan="2" style="text-align: center; "><input type="button"  name="submit" id="submit" class="university-button"
+                                                                             value="Submit"
+                                                                             style="margin-top: 15px;"></button></td>
             </tr>
         </table>
         <table id="studentList" class="inner university-table-1-3">
