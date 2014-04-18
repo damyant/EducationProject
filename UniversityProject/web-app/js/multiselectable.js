@@ -37,8 +37,8 @@ function semesterList() {
 function viewSemesterList() {
     $('#multiSelectTab tr').remove()
     for (var j = 1; j <= $('#noOfTerms').html(); j++) {
-        $('#multiSelectTab').append('<tr><td><label>Term - ' + j + ' Subjects</label></td></tr>' +
-            '<tr></tr><td><select class="select-to" name="semester' + j + '" id="semester' + j + '"  multiple="true" /></td></tr>')
+        $('#multiSelectTab').append('<tr><td style="width: 40%"><label>Term - ' + j + ' Subjects</label></td>' +
+            '<td style="width: 60%"><select class="select-to university-size-2-3" readonly="readonly" style="width: 75%;border: 0px;margin: 0px" name="semester' + j + '" id="semester' + j + '"  multiple="true" /><input type="button" style="margin-left: 10px;" value="View Syllabus" id="viewSyllabus" onclick="viewSyllabus()" alt="Select a Subject and Click This Button"/></td></tr>')
 
     }
 
