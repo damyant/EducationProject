@@ -78,7 +78,7 @@ class AdmitCardController {
                 }
 
             }
- 
+
         examCenterMap.availabelCapacity=examCenter.capacity-stuList.size()
 
         render examCenterMap as JSON

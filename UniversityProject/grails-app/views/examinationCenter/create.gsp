@@ -24,7 +24,7 @@
         <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>
     <div id="msg"></div>
-
+    <form id="examinationCenterForm" name="examinationCenterForm">
 
         <div class="university-location-select">
             <div class="university-label-location-select">
@@ -42,7 +42,7 @@
                       from="${City.findAllByDistrict(District.get(studyCentreInstance?.city?.district?.id))}"
                       noSelection="['': ' Select City']"/>
         </div>
-    <form id="examinationCenterForm" name="examinationCenterForm">
+
         <div id="VenueDiv" class="middleDiv">
         </div>
         <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
