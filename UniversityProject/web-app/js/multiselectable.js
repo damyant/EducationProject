@@ -12,7 +12,7 @@ function semesterList() {
             '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList(' + j + ')" name="remove' + j + '"  id="remove' + j + '">Remove</button> </td>' +
             '<td style="width:40%;"><select class="select-to" style="width: 50%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  />' +
             '<div id="upload-syllabus" style="width: 30%;float:right;">' +
-            '<input type="button" style="float: right; margin-top:20%" id="Syllabus_link" value="Upload Syllabus" onclick="syllabusUpload(' + j + ')" /></div>' +
+            '<input type="button" style="float: right; margin-top:20%" id="Syllabus_link" value="Syllabus" onclick="syllabusUpload(' + j + ')" /></div>' +
 
             '<div id="error-select-' + j + '"></div></div></td></tr>')
 

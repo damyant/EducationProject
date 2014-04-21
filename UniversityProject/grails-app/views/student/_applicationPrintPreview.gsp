@@ -62,7 +62,7 @@
                             </div>
                         </g:else>
                     </div>
-                    <div style="margin: 3px auto;padding: 2px; font-size: 12px;border: 1px solid;"><label>Reference No :</label><label>${studentInstance?.referenceNumber}</label>
+                    <div style="margin: 3px auto;padding: 2px; font-size: 12px;border: 1px solid;"><label>Ref No : </label><label>${studentInstance?.referenceNumber}</label>
                     </div>
                 </td>
             </tr>
@@ -149,18 +149,20 @@
                     <label>${studentInstance?.examinationCentre?.name[0]}</label>
                 </td>
             </tr>
-            <tr>
-                <td style="vertical-align: top;">
-                    <label>Complete Mailing Address</label>
-                </td>
-                <td style="vertical-align: top;">
-                    <div>${studentInstance?.addressTown}</div>
+            <g:if test="${studentInstance?.addressTown}">
+                <tr>
+                    <td style="vertical-align: top;">
+                        <label>Complete Mailing Address</label>
+                    </td>
+                    <td style="vertical-align: top;">
+                        <div>${studentInstance?.addressTown}</div>
 
-                    <div>${studentInstance?.addressPO},${studentInstance?.addressDistrict}</div>
+                        <div>${studentInstance?.addressPO} ${studentInstance?.addressDistrict}</div>
 
-                    <div>${studentInstance?.addressState}, ${studentInstance?.addressPinCode}</div>
-                </td>
-            </tr>
+                        <div>${studentInstance?.addressState}  ${studentInstance?.addressPinCode}</div>
+                    </td>
+                </tr>
+            </g:if>
         </table>
     </div>
 </div>
