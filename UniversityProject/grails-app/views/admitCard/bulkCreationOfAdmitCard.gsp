@@ -124,10 +124,10 @@
                          style="width: 30px;vertical-align: bottom; margin: auto 20px;" class="logo-image"/>
                 </label>
                 <label class="university-left-margin" style="color: #000; font-size: 17px;"><b>From</b></label>
-                <input type="text" name="from" id="from" value="Enter RollNo" width="7" onclick="this.value = ''" onkeypress="return isNumber(event)"
+                <input type="text" name="from" id="from" placeholder="Enter SrNo" width="7" onclick="this.value = ''" onkeypress="return isNumber(event)"
                        style="width: 80px;margin: auto 20px;text-align: center;border-radius: 2px;">
                 <label class="university-left-right-margin" style="color: #000;font-size: 17px;"><b>To</b></label>
-                <input type="text" name="to" id="to" class="university-left-right-margin" value="Enter RollNo" width="7" onclick="this.value = ''"
+                <input type="text" name="to" id="to" class="university-left-right-margin" placeholder="Enter SrNo" width="7" onclick="this.value = ''"
                        onkeypress="return isNumber(event)"
                        style="width: 80px;margin: auto 20px;text-align: center;border-radius: 2px;">
 

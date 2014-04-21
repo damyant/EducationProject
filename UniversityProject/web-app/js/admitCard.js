@@ -5,11 +5,16 @@
 var maxCapacity=0;
 var availableCapacity=0;
 var i ;
+var selected = new Array();
+var updatedAvailable=0;
+var totalRows= 0;
 $(document).ready(function () {
 
     var count=0;
    // $("input[name='studentCheckbox']").change(function () {
     $(document).on('change', "input[name='studentCheckbox']", function () {
+        $("#from").val("");
+        $("#to").val("");
         $('#remainingCapacityBox').prop('hidden', false);
         var maxAllowed = availableCapacity;
         count = $("input[name='studentCheckbox']:checked").length;
@@ -25,67 +30,85 @@ $(document).ready(function () {
         }
     });
 
-    $("#selectAll").click(function(){
-      $(".studentCheckbox").prop("checked",$("#selectAll").prop("checked"))
-        $('#remainingCapacityBox').prop('hidden', false);
-        var selected = new Array();
+
+    $(document).on('change', "input[name='selectAll']", function () {
+        $("#from").val("")
+        $("#to").val("")
+        var updatedAvailable=availableCapacity;
+        for(i=0;i<updatedAvailable;i++)
+            $('#admitCardTab').find('#rowID'+i).find('input[type="checkbox"]').prop('checked',$("#selectAll").prop("checked"))
+
         $('input:checked').each(function() {
             selected.push($(this).attr('id'));
         });
+        var selectedRows=selected.length-1
 
-        var b;
-        for(i=availableCapacity;i<selected.length-1;i++){
-            $("#"+selected[i]).prop('checked', false);//
-            b=i;
-        }
-        $("#remainingCapacity").val(0);
         if($("#selectAll").prop('checked')==false){
-          $("#remainingCapacity").val(availableCapacity);
+          $("#remainingCapacity").val(updatedAvailable);
         }else{
-            $("#remainingCapacity").val(availableCapacity-selected.length+1);
+
+            $("#remainingCapacity").val(updatedAvailable-selectedRows);
+            selectedRows=0;
+            selected.length=0;
         }
 
     })
 
-//    $(document).on('change', "input[name='to']", function () {
-////        $('#remainingCapacityBox').prop('hidden', false);
-////        var maxAllowed = availableCapacity;
-////        count = $("input[name='studentCheckbox']:checked").length;
-////        if(availableCapacity>0)
-////
-////            $("#remainingCapacity").val(availableCapacity-count);
-////
-////        if (count>availableCapacity) {
-////            $("#remainingCapacity").val(count-1);
-////            $(this).prop("checked", "");
-////            $("#remainingCapacity").val(0);
-////            alert('You can select maximum ' + maxAllowed + ' Students only!!');
-////        }
-//         var from=$("#from").val()
-//         var to = $("#to").val()
-//         if(from.length==0){
-//             alert("Please Enter from Sr No.")
-//         }
-//        var selectedRange=0;
-//        if(to>from){
-//            selectedRange = to-from
-//        }else{
-//            return false
-//        }
-//        alert(selectedRange)
-//        for(i=0;i<selectedRange;i++){
-//            $("#rowID"'+i+" input:checkbox")[0].checked;
-//
-//        // $("#admitCardTab").find("tr:gt(i)")
-//        }
-//
-//
-//    });
+    $(document).on('change', "input[name='to']", function () {
+        if($("#from").val().length==0){
+            alert("Please enter range correctly")
+            return false
+        }else{
+           selectRows();
+        }
+
+    });
+    $(document).on('change', "input[name='from']", function () {
+
+        if($("#to").val().length==0 && $("#to").val()==""){
+            return false
+        }else{
+            selectRows();
+        }
+
+    });
 });
 
 
 
+function selectRows(){
+    var from=$("#from").val()
+    var to = $("#to").val()
+    $("#selectAll").prop('checked',false)
+    updatedAvailable=availableCapacity
 
+    if(from.length==0){
+        alert("Please Enter from Sr No.")
+    }
+    var selectedRange=0;
+    if(to>=from){
+        selectedRange = (to-from)
+    }else{
+        alert("Please enter range correctly")
+        return false
+    }
+
+    var rangeCount = parseInt(from)+selectedRange;
+    for(i=from-1;i<rangeCount;i++)
+        $('#admitCardTab').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', true)
+
+    for(i=to;i<totalRows;i++)
+        $('#admitCardTab').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
+    for(i=from-2;i>=0;i--)
+        $('#admitCardTab').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
+    $('input:checked').each(function() {
+        selected.push($(this).attr('id'));
+    });
+
+    var selectedRows=selected.length;
+    $("#remainingCapacity").val(updatedAvailable-selectedRows)
+    selected.length=0;
+}
 
 function getSemester(){
     var data = $('#programList').val();
@@ -177,6 +200,7 @@ function getStudentsForAdmitCard(){
                        $('#admitCardTab').append('<tr id="rowID'+i+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
                     ++count;
                 }
+                  totalRows=count;
             }
             else{
                   $('#showErrorMessage').prop('hidden', false)
