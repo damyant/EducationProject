@@ -151,6 +151,7 @@ function getSemesterAndSubjectList(){
                 $("#msgDiv").html("The is no subjects associated with the program")
             }
             else{
+
             appendSubjects(data)
                 $("#msgDiv").html("")
             }
@@ -166,15 +167,19 @@ function appendSubjects(obj){
     var count=1;
     var counter=0;
 
+
     for(var i=0;i<obj.allSubjects.length;i++){
 
         $("#subjectList").append('<tr><th>'+"Term"+ count+" Subjects" +'</th><th>Examination Date</th><th>Examination Time</th></tr>' )
         for(var j=0;j<obj.allSubjects[i].length;j++){
-            subjectIdList[counter]=obj.allSubjects[i][j].id
 
+            subjectIdList[counter]=obj.allSubjects[i][j].id
+            alert("===="+obj.dateList[counter])
             var datesInNewFormat=""
-            if(obj.dateList[counter]!=undefined){
+            if(obj.dateList[counter]!=undefined && obj.dateList[counter].toString()!='noo' ){
+
             var d = $.datepicker.parseDate("mm/dd/yy", obj.dateList[counter].toString())
+                alert("??"+d)
             datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
             }
 
