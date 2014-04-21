@@ -97,6 +97,11 @@ class StudentController {
     def applicationPreview() {
 
     }
+    def studentListView = {
+        def studyCenterList=StudyCenter.list(sort: 'name')
+        def programList=ProgramDetail.list(sort: 'courseName')
+        [studyCenterList:studyCenterList,programList:programList]
+    }
 
 
 }

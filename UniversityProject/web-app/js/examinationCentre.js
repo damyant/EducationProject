@@ -97,7 +97,7 @@ function submitForm() {
                         async: false,
                         data: $('#examinationCenterForm').serialize(),
                         success: function (response) {
-                            reset1()
+                            document.getElementById("examinationCenterForm").reset();
                             $('div#msg').html(response);
 
 
@@ -234,4 +234,25 @@ function validateAndSubmitForm() {
 function clearErrorMsg(t){
     $(t).next( "label" ).text( "" );
 
+}
+
+
+function showList() {
+
+    jQuery("#centreListTable").css({display: "block"});
+    $.ajax({
+        type: "post",
+        url: url('examinationCenter', 'getCentreList', ''),
+       data:"city="+$('#city').val(),
+//            contentType: "application/json; charset=utf-8",
+//            dataType: "json",
+        success: function (response) {
+            console.log("<><><><><><><><> " + response)
+            $("div#centreList").html(response)
+
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
 }

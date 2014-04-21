@@ -23,7 +23,7 @@
     <g:if test="${flash.message}">
         <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>
-    <div id="msg"></div>
+    <div id="msg" class="university-status-message"></div>
     <form id="examinationCenterForm" name="examinationCenterForm">
 
         <div class="university-location-select">
