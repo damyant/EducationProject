@@ -181,7 +181,7 @@ function appendSubjects(obj){
             $("#subjectList").append('<tr><td>'+obj.allSubjects[i][j].subjectName+'</td><td>'+
                 '<input type="text" name="examinationDate" class="datepicker university-size-1-2"  value='+datesInNewFormat+'></input></td>'+
 //                '<td><input type="text" onkeypress="return isTime(event)"  onchange="checkTimeFormat('+counter+')" name="timepicker" id="timepicker'+counter+'" ></td>'+
-                '<td> <input type="text" style="width: 70px;" class="timepicker_6" /></td>'+
+                '<td> <input type="text" name="examinationTime" style="width: 70px;" class="timepicker_6" value="'+obj.allSubjects[i][j].examTime+'" /></td>'+
                 '</tr>')
            ++counter
         }

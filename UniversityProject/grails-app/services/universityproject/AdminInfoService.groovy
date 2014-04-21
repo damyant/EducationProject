@@ -100,6 +100,7 @@ def springSecurityService
         subjectList.each{i ->
             def subjectIns=Subject.findById(Long.parseLong(i.toString()))
             subjectIns.examDate=f1.parse(params.examinationDate[count])
+            subjectIns.examTime=params.examinationTime[count]
             subjectIns.save(failOnError: true)
             ++count;
         }
