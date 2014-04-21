@@ -221,6 +221,12 @@ function checkTimeFormat(count){
 
 function saveExamVenue(){
     var venueList=[]
+    if($("#addExamCentre").html()==""){
+        alert("Please assign at least one venue");
+        return false
+    }
+
+
     $('#addExamCentre option').each(function () {
         venueList.push($(this).val() || '');
 
