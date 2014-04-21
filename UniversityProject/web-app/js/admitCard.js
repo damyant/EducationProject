@@ -4,6 +4,7 @@
 
 var maxCapacity=0;
 var availableCapacity=0;
+var i ;
 $(document).ready(function () {
 
     var count=0;
@@ -31,7 +32,7 @@ $(document).ready(function () {
         $('input:checked').each(function() {
             selected.push($(this).attr('id'));
         });
-        var i ;
+
         var b;
         for(i=availableCapacity;i<selected.length-1;i++){
             $("#"+selected[i]).prop('checked', false);//
@@ -45,6 +46,41 @@ $(document).ready(function () {
         }
 
     })
+
+//    $(document).on('change', "input[name='to']", function () {
+////        $('#remainingCapacityBox').prop('hidden', false);
+////        var maxAllowed = availableCapacity;
+////        count = $("input[name='studentCheckbox']:checked").length;
+////        if(availableCapacity>0)
+////
+////            $("#remainingCapacity").val(availableCapacity-count);
+////
+////        if (count>availableCapacity) {
+////            $("#remainingCapacity").val(count-1);
+////            $(this).prop("checked", "");
+////            $("#remainingCapacity").val(0);
+////            alert('You can select maximum ' + maxAllowed + ' Students only!!');
+////        }
+//         var from=$("#from").val()
+//         var to = $("#to").val()
+//         if(from.length==0){
+//             alert("Please Enter from Sr No.")
+//         }
+//        var selectedRange=0;
+//        if(to>from){
+//            selectedRange = to-from
+//        }else{
+//            return false
+//        }
+//        alert(selectedRange)
+//        for(i=0;i<selectedRange;i++){
+//            $("#rowID"'+i+" input:checkbox")[0].checked;
+//
+//        // $("#admitCardTab").find("tr:gt(i)")
+//        }
+//
+//
+//    });
 });
 
 
@@ -125,7 +161,6 @@ function showExamVenueCapacity(){
 
 
 function getStudentsForAdmitCard(){
-
     $.ajax({
         type: "post",
         url: url('admitCard', 'getStudentsForAdmitCard', ''),
@@ -139,7 +174,7 @@ function getStudentsForAdmitCard(){
                   $('#studentListPrintButton').prop('hidden', false)
                   var count=1;
                  for(var i=0;i<data.length;i++){
-                       $('#admitCardTab').append('<tr id="row'+(i+1)+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
+                       $('#admitCardTab').append('<tr id="rowID'+i+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
                     ++count;
                 }
             }
