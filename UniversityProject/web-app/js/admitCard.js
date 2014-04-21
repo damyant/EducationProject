@@ -276,8 +276,6 @@ function generateAdmitCard(){
 }
 
 function studentsSelected(selectedStudentList){
-
-
     $.ajax({
         type: "post",
         url: url('admitCard', 'printAdmitCard', ''),

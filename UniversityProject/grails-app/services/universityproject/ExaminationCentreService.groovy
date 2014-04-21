@@ -14,6 +14,7 @@ class ExaminationCentreService {
     }
 
     Boolean saveCentres(params) {
+
         Boolean examinationCentreInsSaved = false;
         def examinationCentreNameList = []
         examinationCentreNameList.addAll(params?.examinationCentreName)
@@ -29,7 +30,7 @@ class ExaminationCentreService {
         examinationCentreCodeList.addAll(params?.examinationCentreCode)
         for (int i = 0; i < examinationCentreNameList.size(); i++) {
             ExaminationCentre examinationCentreIns = new ExaminationCentre()
-            examinationCentreIns.city = City.findById(Integer.parseInt(params.city))
+            examinationCentreIns.city = City.findById(params.city)
             examinationCentreIns.address = examinationCentreAddressList[i].toString()
             examinationCentreIns.capacity = Integer.parseInt(examinationCentreCapacityList[i])
             examinationCentreIns.contactNo = examinationCentreContactNoList[i]
@@ -72,7 +73,6 @@ class ExaminationCentreService {
 
         def cityIns=City.findById(Long.parseLong(params.city))
         def programIns=ProgramDetail.findById(Long.parseLong(params.programList))
-//        println("?????????"+cityIns)
         def examVenue = ProgramExamVenue.findAllByCourseDetailAndCity(programIns,cityIns)
         return examVenue.examCenter
     }
