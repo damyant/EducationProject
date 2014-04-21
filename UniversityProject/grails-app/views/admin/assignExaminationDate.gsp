@@ -11,8 +11,14 @@
     <meta name="layout" content="main"/>
     <title>Assign Examination Date</title>
     <g:javascript src='admin.js'/>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.timepicker.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.ui.core.min.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.ui.tabs.min.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.ui.widget.min.js')}"></script>
+
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.timepicker.css')}" type='text/css'>
 </head>
 
 <body>
@@ -40,6 +46,10 @@
         </form>
     </fieldset>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
 
+    });
+</script>
 </body>
 </html>

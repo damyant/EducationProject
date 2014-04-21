@@ -312,8 +312,6 @@ function generateAdmitCard(){
 }
 
 function studentsSelected(selectedStudentList){
-
-
     $.ajax({
         type: "post",
         url: url('admitCard', 'printAdmitCard', ''),
@@ -337,9 +335,9 @@ function studentsSelected(selectedStudentList){
 }
 function enableShowCandidate(){
 
-//    $('#studentListTable').prop('hidden', true)
-//    $('#studentListPrint').prop('hidden', true)
-//    $('#studentListPrintButton').prop('hidden', true)
+    $('#studentListTable').prop('hidden', true)
+    $('#studentListPrint').prop('hidden', true)
+    $('#studentListPrintButton').prop('hidden', true)
     if($('#city').val()==''||$('#programList').val()==''||$('#semesterList').val()==''||$('#SessionList').val()==''||$('#examCenterList').val()==''){
         $('#showCandidates').prop('disabled', true)    }
     else{
