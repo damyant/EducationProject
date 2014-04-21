@@ -752,7 +752,9 @@ textarea:-moz-placeholder {
 #userListTable th {
     background-color: aliceblue;
 }
-
+.university-size-full-1-1{
+    width: 100%;
+}
 textarea {
     resize: none;
 }

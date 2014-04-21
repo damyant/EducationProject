@@ -97,7 +97,7 @@ function submitForm() {
                         async: false,
                         data: $('#examinationCenterForm').serialize(),
                         success: function (response) {
-                            reset1()
+                            document.getElementById("examinationCenterForm").reset();
                             $('div#msg').html(response);
 
 
