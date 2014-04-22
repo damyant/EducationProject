@@ -87,6 +87,7 @@ function getStudents() {
     });
 
 }
+
 function enableProgram(t) {
     var op = $(t).val();
     if (op != 'null') {
@@ -263,3 +264,35 @@ function saveExamVenue(){
     });
 }
 
+function generateStudentsList() {
+
+    $.ajax({
+        type: "post",
+        url: url('admin', 'generateStudentList', ''),
+        data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val()},
+        success: function (data) {
+            $('#studentList thead tr').remove()
+            $('#studentList tbody tr').remove()
+            if (data.length>0) {
+//                alert(data.length);
+                $('#msg').html("");
+                document.getElementById("studentList").style.visibility = "visible";
+                $('#studentList thead').append('<tr><th>' + "Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Roll Number" + '</th><th>' + "Mobile No" + '</th><th>&nbsp;</th></tr>')
+                for (var i = 0; i < data.length; i++) {
+                    $('#studentList tbody').append('<tr><td>' + data[i].name + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" value="View" onclick="viewStudent(' + data[i].id + ')"/></td></tr>')
+                }
+
+            }
+            else {
+                document.getElementById("studentList").style.visibility = "hidden";
+                $('#msg').html("<div class='university-status-message'>No Students Found</div>")
+            }
+
+        }
+    });
+
+}
+function viewStudent(studentId){
+    var data = studentId
+    window.location.href = '/UniversityProject/student/registration?studentId=' + data;
+}

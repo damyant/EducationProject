@@ -18,6 +18,7 @@
 <body>
 <div id="main">
     <div class="university-status-message"><div id="successMessage">&nbsp;</div></div>
+
     <form id="assignExamVenue">
         <fieldset class="form">
             <g:form method='post' enctype="multipart/form-data" id="assignExamVenue" name="assignExamVenue">

@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div id="centreList" style="text-align: center; width: 100%">
+        <div id="centreList" style="text-align: center; width: 100%;margin-top: 10px;">
         </div>
     </fieldset>
 </div>

@@ -33,9 +33,10 @@ class StudentController {
             studyCentre = StudyCenter.findByCenterCode('11111')
 
         }
+        def studInstance = Student.get(params.studentId)
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
-        [studyCentre: studyCentre, programList: programList,districtList:districtList,registered:params.registered,studentID:params.studentID]
+        [studyCentre: studyCentre,studInstance:studInstance, programList: programList,districtList:districtList,registered:params.registered,studentID:params.studentID]
 
 
     }
@@ -101,6 +102,13 @@ class StudentController {
         def studyCenterList=StudyCenter.list(sort: 'name')
         def programList=ProgramDetail.list(sort: 'courseName')
         [studyCenterList:studyCenterList,programList:programList]
+    }
+    def show = {
+        def id= Integer.parseInt(params.id)
+        def something = Student.get(id)
+        byte[] image = something.studentImage
+        response.setContentType(params.mime)
+        response.outputStream << image
     }
 
 

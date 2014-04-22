@@ -11,6 +11,9 @@
     <title>Students List</title>
     <meta name="layout" content="main"/>
     <g:javascript src='admin.js'/>
+    <script>
+
+    </script>
 </head>
 
 <body>
@@ -36,12 +39,12 @@
                     <td class="university-size-1-4">
                         <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}"
                                   optionKey="id" optionValue="courseName" noSelection="['null': ' Select Program']"
-                                  onchange="getStudents()" disabled="true"/>
+                                  onchange="generateStudentsList()" disabled="true"/>
                     </td>
                     <td class="university-size-1-2"></td>
                 </tr>
             </table>
-            <table id="studentList" class="inner university-table-1-3">
+            <table id="studentList" class="inner university-size-full-1-1 university-table-bg">
                 <thead></thead>
                 <tbody></tbody>
             </table>
