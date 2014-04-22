@@ -73,7 +73,7 @@ def springSecurityService
           subList<<CourseSubject.findAllByCourseDetailAndSemester(programIns,it).subject
           dateList=subList.examDate
         }
-      
+
         for(def i=0;i<subList.examDate.size();i++){
             println(dateList[i][0])
 
