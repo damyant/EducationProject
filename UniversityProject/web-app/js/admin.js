@@ -41,36 +41,39 @@ $(document).ready(function () {
     });
 
 
-    $(document).on('click', '#submitExamDate', function () {
-        var course=$('#programList').val();
-        $.ajax({
-            type: "post",
-            url: url('admin', 'saveExamDate', ''),
-            data: $('#assignDate').serialize()+'&subjectIdList=' + subjectIdList,
-            success: function (data) {
-                if(data.saveFlag==true){
-
-//                    $("#subjectList tr").remove()
-                    $("#successMessage").html("Examination Date is saved")
-                    setTimeout(function(){  $('#successMessage').hide(); }, 8000);
-                    $("html, body").animate({ scrollTop: 0 }, "slow");
 
 
-                }
-                else{
-                    $("#successMessage").html("")
-                }
-
-
-            }
-        });
-
-    });
 
 
 });
 
 
+function submitExamDate(){
+    alert("submit")
+    var course=$('#programList').val();
+    $.ajax({
+        type: "post",
+        url: url('admin', 'saveExamDate', ''),
+        data: $('#assignDate').serialize()+'&subjectIdList=' + subjectIdList,
+        success: function (data) {
+            if(data.saveFlag==true){
+
+//                    $("#subjectList tr").remove()
+                $("#successMessage").html("Examination Date is saved")
+                setTimeout(function(){  $('#successMessage').hide(); }, 8000);
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+
+
+            }
+            else{
+                $("#successMessage").html("")
+            }
+
+
+        }
+    });
+
+}
 function getStudents() {
 
     $.ajax({
@@ -174,26 +177,27 @@ function appendSubjects(obj){
         for(var j=0;j<obj.allSubjects[i].length;j++){
 
             subjectIdList[counter]=obj.allSubjects[i][j].id
-            alert("===="+obj.dateList[counter])
+
             var datesInNewFormat=""
             if(obj.dateList[counter]!=undefined && obj.dateList[counter].toString()!='noo' ){
 
             var d = $.datepicker.parseDate("mm/dd/yy", obj.dateList[counter].toString())
-                alert("??"+d)
+
             datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
             }
 
-            $("#subjectList").append('<tr><td>'+obj.allSubjects[i][j].subjectName+'</td><td>'+
-                '<input type="text" name="examinationDate" class="datepicker university-size-1-2"  value='+datesInNewFormat+'></input></td>'+
-//                '<td><input type="text" onkeypress="return isTime(event)"  onchange="checkTimeFormat('+counter+')" name="timepicker" id="timepicker'+counter+'" ></td>'+
-                '<td> <input type="text" name="examinationTime" style="width: 70px;" class="timepicker_6" value="'+obj.allSubjects[i][j].examTime+'" /></td>'+
+            $("#subjectList").append('<tr id="subjectRows'+j+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
+                '<input type="text" id="examDate'+j+'" name="examinationDate"  class="datepicker university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError" class="error3">&nbsp;</label></td>'+
+                '<td class="university-size-1-3"> <input type="text" id="examTime'+j+'" name="examinationTime" style="width: 70px;" class="timepicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError" class="error4">&nbsp;</label></td>'+
                 '</tr>')
            ++counter
         }
         count++;
 
     }
-    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" value="Submit"></td></tr>' )
+
+
+    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" value="Submit" onclick="validateFields('+counter+')"></td></tr>' )
 
     $(".datepicker").datepicker({
         changeMonth: true,
@@ -206,6 +210,34 @@ function appendSubjects(obj){
     });
 }
 
+function validateFields(counter){
+    var date=null;
+    var time = null;
+    var bool = false;
+    for(i=0;i<counter;i++){
+
+        date = $('#subjectList').find('#subjectRows'+i).find('#examDate'+i).val()
+        time = $('#subjectList').find('#subjectRows'+i).find('#examTime'+i).val()
+
+       if((date=="null" || date.length==0)) {
+            $('#subjectList').find('#subjectRows'+i).find('.error3').text("Please Select Examination Date")
+            bool= false;
+        }else{
+           bool=true
+       }
+       if((time=="null" || time=="")){
+          $('#subjectList').find('#subjectRows'+i).find('.error4').text("Please Select Examination Time")
+       }else{
+           bool=true
+       }
+
+    }
+    if(bool){
+        submitExamDate();
+
+    }
+        return bool;
+   }
 
 function checkTimeFormat(count){
 
