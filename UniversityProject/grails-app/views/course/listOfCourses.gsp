@@ -53,7 +53,12 @@
         </tbody>
     </table>
         <div class="paginateButtons">
-            <g:paginate  total="${courseInstanceTotal}" />
+            <g:if test="${params.type == 'update'}">
+                <g:paginate  total="${courseInstanceTotal}" params="['type':'update']" />
+            </g:if>
+            <g:else>
+                <g:paginate  total="${courseInstanceTotal}"/>
+            </g:else>
         </div>
     </div>
 

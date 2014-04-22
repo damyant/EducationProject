@@ -73,7 +73,7 @@ def springSecurityService
           subList<<CourseSubject.findAllByCourseDetailAndSemester(programIns,it).subject
           dateList=subList.examDate
         }
-      
+
         for(def i=0;i<subList.examDate.size();i++){
             println(dateList[i][0])
 
@@ -120,6 +120,29 @@ def springSecurityService
           ProgramExamVenue.create courseIns, ExaminationCentre.findById(Integer.parseInt(it.toString())),cityIns
 
         }
+    }
+    def updateStudentList(params){
+//        println("==========="+springSecurityService.principal.id)
+        def studyCenterId=0
+        def statusObj
+        if(params.studyCenterId){
+            studyCenterId=params.studyCenterId
+        }
+        else{
+            def currentUser=springSecurityService.getCurrentUser()
+
+            studyCenterId=currentUser.studyCentreId
+        }
+         def obj=Student .createCriteria()
+        def studList= obj.list{
+            programDetail{
+                eq('id', Long.parseLong(params.programId))
+            }
+            studyCentre {
+                eq('id', Long.parseLong(studyCenterId.toString()))
+            }
+        }
+        return  studList
     }
 
 }

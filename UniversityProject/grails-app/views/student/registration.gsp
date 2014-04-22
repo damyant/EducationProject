@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+<%@ page import="examinationproject.ExaminationCentre; javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Student Registration</title>
@@ -19,21 +19,26 @@
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
     <style type="text/css">
-   </style>
+    </style>
     <script type="text/javascript">
+        var gender = "${studInstance?.gender}"
+        var category = "${studInstance?.category}"
+        var nationality = "${studInstance?.nationality}"
 
-        $(window).bind("load",function(){
+        var state = "${studInstance?.state}"
+
+        $(window).bind("load", function () {
 
             var flag = "${registered}"
-            var studentId="${studentID}"
+            var studentId = "${studentID}"
 
-            if(flag=='registered'){
-                window.open('/UniversityProject/student/applicationPrintPreview/?studentID='+studentId);
+            if (flag == 'registered') {
+                window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId);
             }
             //a(studentId)
         })
 
-        function a(id){
+        function a(id) {
             $.ajax({
                 type: "post",
                 url: url('student', 'applicationPrintPreview', ''),
@@ -50,11 +55,16 @@
 
 </head>
 
-<body >
+<body>
 <div id="main">
 <g:if test="${flash.message}">
     <div class="message"><div class="university-status-message">${flash.message}</div></div>
 </g:if>
+<g:hasErrors bean="${studInstance}">
+    <div class="errors">
+        <g:renderErrors bean="${studInstance}" as="list"/>
+    </div>
+</g:hasErrors>
 
 
 <g:if test="${!studyCentre}">
@@ -74,13 +84,13 @@
 <g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data"
               id="studentRegister" name="studentRegister">
 <h3>STUDENT INFORMATION SHEET</h3>
-<label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
+<div style="margin-left: 10px"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;">
 <!----- First Name ---------------------------------------------------------->
 <tr>
     <td>Name of the applicant <span class="university-obligatory">*</span></td>
     <td><input type="text" name="name" style="text-transform:uppercase" onkeypress="return onlyAlphabets(event, this);"
-               maxlength="50" class="university-size-1-2"/>
+               maxlength="50" class="university-size-1-2" value="${studInstance?.name}"/>
 
     </td>
 </tr>
@@ -92,7 +102,8 @@
 
     <td>
         %{--<input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datePick"/>--}%
-        <input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datepicker">
+        <input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datepicker"
+               value="<g:formatDate format="MM/dd/yy" date="${studInstance?.dob}"/>">
 
     </td>
 </tr>
@@ -102,7 +113,7 @@
     <td>Program <span class="university-obligatory">*</span></td>
     %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
     <td>
-        <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
+        <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2" value="${studInstance?.programDetail?.id}"
                   optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"/>
 
     </td>
@@ -170,7 +181,7 @@
     <td>Mobile Number <span class="university-obligatory">*</span></td>
     <td>
         <input type="text" id="mobileNoCntryCode" name="mobileNoCntryCode" maxlength="3" value="+91" readonly> - <input
-            type="text" id="mobileNo" name="mobileNo" maxlength="10"
+            type="text" id="mobileNo" name="mobileNo" maxlength="10" value="${studInstance?.mobileNo}"
             onkeypress="return isNumber(event)"/>
     </td>
 </tr>
@@ -192,19 +203,39 @@
 
         <table id="examCenterSelect">
             <tr>
-                <td style="width: 50%"><g:select name="district" id="district" optionKey="id"
-                                                 class="university-size-1-1"
-                                                 onChange="showCityList()" optionValue="districtName"
-                                                 from="${districtList}"
-                                                 noSelection="['': ' Select District']"/>
+                <td style="width: 50%">
+
+                    <g:select name="district" id="district" optionKey="id"
+                              value="${studInstance?.examinationCentre?.city?.district?.id}" class="university-size-1-1"
+                              onChange="showCityList()" optionValue="districtName"
+                              from="${districtList}" noSelection="['': ' Select District']"/>
+
                 </td>
-                <td style="width: 50%"><g:select name="city" id="city" optionKey="id" class="university-size-1-1"
-                                                 optionValue="cityName"
-                                                 from="" onchange="showCentreList()"
-                                                 noSelection="['': ' Select City']"/></td>
+                <td style="width: 50%">
+                    <g:if test="${studInstance}">
+                        <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
+                                  optionValue="cityName" value="${studInstance?.examinationCentre?.city?.id}"
+                                  from="${City.findAllByDistrict(District.get(studInstance?.examinationCentre?.city?.district?.id))}"
+                                  onchange="showCentreList()"
+                                  noSelection="['': ' Select City']"/></g:if>
+                    <g:else>
+                        <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
+                                  optionValue="cityName"
+                                  from="" onchange="showCentreList()"
+                                  noSelection="['': ' Select City']"/>
+                    </g:else>
+                </td>
             </tr><tr>
-            <td><g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" from=" "
-                          noSelection="['': 'Select Examination Centre']"/>
+            <td>
+                <g:if test="${studInstance}">
+                    <g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1"
+                              from="${ExaminationCentre.findAllByCity(City.get(studInstance?.examinationCentre?.city?.id))}"
+                              noSelection="['': 'Select Examination Centre']"/>
+                </g:if>
+                <g:else>
+                    <g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" from=" "
+                              noSelection="['': 'Select Examination Centre']"/>
+                </g:else>
             </td><td></td>
         </tr>
         </table>
@@ -230,35 +261,40 @@
 
                 <td style="width: 30%;">Address:</td>
                 <td style="width: 70%;"><input type="text" name="addressStudentName" maxlength="30"
-                                               class="university-size-1-2"
+                                               class="university-size-1-2" value="${studInstance?.addressStudentName}"
                                                onkeypress="return isAlphaNumeric(event, this);"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">Village/Town:</td>
                 <td style="width: 70%;"><input type="text" name="addressTown" maxlength="30"
+                                               value="${studInstance?.addressTown}"
                                                class="university-size-1-2"/></td>
             </tr>
             <tr>
 
                 <td style="width: 30%;">Post Office:</td>
-                <td style="width: 70%;"><input type="text" name="addressPO" maxlength="30" class="university-size-1-2"/>
+                <td style="width: 70%;"><input type="text" name="addressPO" value="${studInstance?.addressPO}"
+                                               maxlength="30" class="university-size-1-2"/>
                 </td>
             </tr>
             <tr>
                 <td style="width: 30%;">District:</td>
 
-                <td style="width: 70%;"><input type="text" name="addressDistrict" maxlength="30"
+                <td style="width: 70%;"><input type="text" value="${studInstance?.addressDistrict}"
+                                               name="addressDistrict" maxlength="30"
                                                class="university-size-1-2"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">State:</td>
-                <td style="width: 70%;"><input type="text" name="addressState" maxlength="30"
+                <td style="width: 70%;"><input type="text" value="${studInstance?.addressState}" name="addressState"
+                                               maxlength="30"
                                                class="university-size-1-2"/>
                 </td>
             </tr>
             <tr>
                 <td style="width: 30%;">Pincode:</td>
-                <td style="width: 70%;"><input type="text" name="addressPinCode" maxlength="6"
+                <td style="width: 70%;"><input type="text" value="${studInstance?.addressPinCode}" name="addressPinCode"
+                                               maxlength="6"
                                                class="university-size-1-2"
                                                onkeypress="return isNumber(event)"/></td>
             </tr>
@@ -270,11 +306,20 @@
         Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 30KB )
     </td>
     <td>
-        %{--<input type='file' onchange="readURL(this);" />--}%
-        <div id="profile-image"><img id="picture" src="" alt="Space for Photograph "
-                                     class="university-registration-photo"/></div>
-        <input type='file' id="profile-image-upload" onchange="readURL(this, 'picture');" class="university-button"
-               name="photograph"/>
+    %{--<input type='file' onchange="readURL(this);" />--}%
+
+        <g:if test="${studInstance}">
+            <img src="${createLink(controller: 'student', action: 'show', id: studInstance?.id
+            , mime: 'image/jpeg')}" class="university-registration-photo" id="picture"/>
+
+        </g:if>
+        <g:else>
+            <div id="profile-image"><img src="" alt="Space for Photograph "
+                                         class="university-registration-photo"/></div>
+        </g:else>
+            <input type='file' id="profile-image-upload" onchange="readURL(this, 'picture');" class="university-button"
+                   name="photograph"/>
+
     </td>
 </tr>
 <tr>
