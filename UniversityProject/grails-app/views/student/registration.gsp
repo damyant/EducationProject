@@ -84,7 +84,7 @@
 <g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data"
               id="studentRegister" name="studentRegister">
 <h3>STUDENT INFORMATION SHEET</h3>
-<label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
+<div style="margin-left: 10px"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;">
 <!----- First Name ---------------------------------------------------------->
 <tr>
