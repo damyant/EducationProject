@@ -28,6 +28,7 @@ body {
 }
 
 .university-location-select {
+    padding-left: 10px;
 }
 
 .university-label-location-select, .university-location-select select {
@@ -501,8 +502,14 @@ table {
 table.inner {
     border: 0px;
     padding: 0px;
-    margin-left: -2%;
+    /*margin-left: -2%;*/
 
+}
+
+.university-table-bg{
+    background-color:  #F2F2F2;
+    border: 1px solid #f0f0f7;
+    border-radius: 5px;
 }
 
 .radioInput {

@@ -118,5 +118,28 @@ def springSecurityService
 
         }
     }
+    def updateStudentList(params){
+//        println("==========="+springSecurityService.principal.id)
+        def studyCenterId=0
+        def statusObj
+        if(params.studyCenterId){
+            studyCenterId=params.studyCenterId
+        }
+        else{
+            def currentUser=springSecurityService.getCurrentUser()
+
+            studyCenterId=currentUser.studyCentreId
+        }
+         def obj=Student .createCriteria()
+        def studList= obj.list{
+            programDetail{
+                eq('id', Long.parseLong(params.programId))
+            }
+            studyCentre {
+                eq('id', Long.parseLong(studyCenterId.toString()))
+            }
+        }
+        return  studList
+    }
 
 }

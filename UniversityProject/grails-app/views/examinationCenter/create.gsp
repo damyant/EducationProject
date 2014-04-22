@@ -20,6 +20,7 @@
 
 <body>
 <div id="main">
+    <fieldset class="form">
     <g:if test="${flash.message}">
         <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>
@@ -51,14 +52,15 @@
             <tr>
                 <td colspan="4">
 
-                    <input type="button" id="submitButton" value="Submit" onclick="validateAndSubmitForm()" class="${classs} buttonCss">
+                    <input type="button" id="submitButton" value="Submit" onclick="validateAndSubmitForm()" class="${classs} buttonCss ui-button">
 
-                    <input type="reset" value="Cancel" onclick="reset1()" class="${classs} buttonCss"/>
+                    <input type="reset" value="Cancel" onclick="reset1()" class="${classs} buttonCss ui-button"/>
                     <input type="hidden" id="totalIndex" value=""/>
                 </td>
             </tr>
         </table>
     </form>
+    </fieldset>
 </div>
 </body>
 </html>

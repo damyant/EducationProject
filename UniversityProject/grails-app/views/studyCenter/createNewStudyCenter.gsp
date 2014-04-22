@@ -122,13 +122,13 @@
             <td>
                 <g:if test="${params.type != 'edit'}">
                     <g:select name="city" id="city" optionKey="id" class="university-size-1-3"
-                              optionValue="cityName" from="" noSelection="['': ' Select City']"/>
+                              optionValue="cityName" from="" noSelection="['': ' Select City']" multiple="false"/>
                 </g:if>
                 <g:else>
                     <g:select name="city" id="city" optionKey="id" value="${studyCentreInstance?.city?.id}"
                               class="university-size-1-3" optionValue="cityName"
                               from="${City.findAllByDistrict(District.get(studyCentreInstance?.city?.district?.id))}"
-                              noSelection="['': ' Select City']"/>
+                              noSelection="['': ' Select City']" multiple="false"/>
                 </g:else>
             </td>
         </tr>
