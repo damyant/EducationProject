@@ -96,8 +96,8 @@ class StudentRegistrationService {
             int rollNumber = 0;
 
 //            def program = ProgramDetail.findById(courseId)
-            def student=Student.list()
-            if(student){
+            def student=Student.count()
+            if(student>0){
                 def obj=Student.createCriteria()
                 def studentByYearAndCourse= obj.list{
                     programDetail{
@@ -155,11 +155,13 @@ class StudentRegistrationService {
                         rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
                     }
 
-                    return rollNumber
+
 
                 }
+            }else{
+                rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
             }
-
+         return rollNumber
      }
 
 
