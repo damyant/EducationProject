@@ -23,11 +23,12 @@
             <g:form url="[resource: programFeeInstance, action: 'update']" method="PUT">
                 <g:hiddenField name="version" value="${programFeeInstance?.version}"/>
 				<fieldset class="form">
+                    <div style="margin-left: 5px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
                     <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} ">
                         <div class="university-size-1-3">
                             <label for="programDetail">
                                 <g:message code="programFee.programDetail.label" default="Program Detail"/>
-
+                                <span class="university-obligatory">*</span>
                         </label>
                         </div>
 
@@ -42,7 +43,7 @@
                         <div class="university-size-1-3">
                             <label for="feeAmountAtIDOL">
                             <g:message code="programFee.feeAmountAtIDOL.label" default="Fee Amount At IDOL" />
-                            <span class="required-indicator">*</span>
+                                <span class="university-obligatory">*</span>
                         </label>
                         </div>
 
@@ -56,7 +57,7 @@
                         <div class="university-size-1-3">
                             <label for="feeAmountAtSC">
                             <g:message code="programFee.feeAmountAtSC.label" default="Fee Amount At SC" />
-                            <span class="required-indicator">*</span>
+                                <span class="university-obligatory">*</span>
                         </label>
                         </div>
 
@@ -70,7 +71,7 @@
                         <div class="university-size-1-3">
                             <label for="lateFeeAmount">
                             <g:message code="programFee.lateFeeAmount.label" default="Late Fee Amount" />
-                            <span class="required-indicator">*</span>
+                                <span class="university-obligatory">*</span>
                         </label>
                         </div>
 
@@ -84,7 +85,7 @@
                         <div class="university-size-1-3">
                             <label for="examinationFee">
                                 <g:message code="programFee.examinationFee.label" default="Examination Fee"/>
-                                <span class="required-indicator">*</span>
+                                <span class="university-obligatory">*</span>
                             </label>
                         </div>
 
@@ -98,7 +99,7 @@
                         <div class="university-size-1-3">
                             <label for="certificateFee">
                                 <g:message code="programFee.certificateFee.label" default="Certificate Fee"/>
-                                <span class="required-indicator">*</span>
+                                <span class="university-obligatory">*</span>
                             </label>
                         </div>
 
