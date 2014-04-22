@@ -8,7 +8,7 @@ jQuery(function($) {
 
     $("a.statustopopup").click(function() {
 
-        alert("hi")
+//        alert("hi")
 
         loading(); // loading
         setTimeout(function(){ // then show popup, deley in .5 second
