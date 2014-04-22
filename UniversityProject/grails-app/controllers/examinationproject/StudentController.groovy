@@ -36,6 +36,7 @@ class StudentController {
         def studInstance = Student.get(params.studentId)
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
+//        println("sss"+studInstance.status)
         [studyCentre: studyCentre,studInstance:studInstance, programList: programList,districtList:districtList,registered:params.registered,studentID:params.studentID]
 
 

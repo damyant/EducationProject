@@ -49,6 +49,7 @@
                 <tbody></tbody>
             </table>
             <div id="msg"></div>
+            <div></div>
         </fieldset>
     </div>
 </body>
