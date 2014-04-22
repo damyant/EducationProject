@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="examinationproject.ExaminationCentre; javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.text.SimpleDateFormat; examinationproject.ExaminationCentre; javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Student Registration</title>
@@ -57,6 +57,7 @@
 
 <body>
 <div id="main">
+<% SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); %>
 <g:if test="${flash.message}">
     <div class="message"><div class="university-status-message">${flash.message}</div></div>
 </g:if>
@@ -84,6 +85,7 @@
 <g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data"
               id="studentRegister" name="studentRegister">
 <h3>STUDENT INFORMATION SHEET</h3>
+    <g:hiddenField name="studentId" value="${studInstance?.id}" />
 <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
 <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;">
 <!----- First Name ---------------------------------------------------------->
@@ -103,17 +105,18 @@
     <td>
         %{--<input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datePick"/>--}%
         <input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datepicker"
-               value="<g:formatDate format="MM/dd/yy" date="${studInstance?.dob}"/>">
+               value="<g:formatDate format="MM/dd/yyyy" date="${studInstance?.dob}"/>">
 
     </td>
 </tr>
 
 <!----- Last Name ---------------------------------------------------------->
 <tr>
-    <td>Program <span class="university-obligatory">*</span></td>
+    <td>Program<span class="university-obligatory">*</span></td>
     %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
     <td>
-        <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2" value="${studInstance?.programDetail?.id}"
+        
+        <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2" value="${studInstance?.programDetail?.id?.get(0)}"
                   optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"/>
 
     </td>
@@ -206,7 +209,7 @@
                 <td style="width: 50%">
 
                     <g:select name="district" id="district" optionKey="id"
-                              value="${studInstance?.examinationCentre?.city?.district?.id}" class="university-size-1-1"
+                              value="${studInstance?.examinationCentre?.city?.district?.id?.get(0)}" class="university-size-1-1"
                               onChange="showCityList()" optionValue="districtName"
                               from="${districtList}" noSelection="['': ' Select District']"/>
 
@@ -214,7 +217,7 @@
                 <td style="width: 50%">
                     <g:if test="${studInstance}">
                         <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
-                                  optionValue="cityName" value="${studInstance?.examinationCentre?.city?.id}"
+                                  optionValue="cityName" value="${studInstance?.examinationCentre?.city?.id?.get(0)}"
                                   from="${City.findAllByDistrict(District.get(studInstance?.examinationCentre?.city?.district?.id))}"
                                   onchange="showCentreList()"
                                   noSelection="['': ' Select City']"/></g:if>
@@ -228,8 +231,9 @@
             </tr><tr>
             <td>
                 <g:if test="${studInstance}">
-                    <g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1"
-                              from="${ExaminationCentre.findAllByCity(City.get(studInstance?.examinationCentre?.city?.id))}"
+                    <g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" optionKey="id" optionValue="name"
+                              from="${ExaminationCentre.findAllByCity(City.get(studInstance?.examinationCentre?.city?.id?.get(0)))}"
+                              value="${studInstance?.examinationCentre?.id?.get(0)}"
                               noSelection="['': 'Select Examination Centre']"/>
                 </g:if>
                 <g:else>

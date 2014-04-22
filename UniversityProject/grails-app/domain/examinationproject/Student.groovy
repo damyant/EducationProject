@@ -91,7 +91,7 @@ class Student {
 
         registrationYear column: "RegistrationYear"
         referenceNumber column:"ReferenceNumber"
-
+        status column: 'StatusId'
 
         programSession column: 'ProgramSession'
 

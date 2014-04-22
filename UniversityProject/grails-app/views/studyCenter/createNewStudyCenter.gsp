@@ -11,8 +11,8 @@
     <title>Create Study Center</title>
     <meta name="layout" content="main"/>
     <g:javascript src='studyCenter.js'/>
-    %{--<g:javascript src='validate.js'/>--}%
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>--}%
+    <g:javascript src='validate.js'/>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <title>Create Study Center</title>
 </head>
 
@@ -112,7 +112,7 @@
             <td>
                 <g:select name="district" id="district" optionKey="id"
                           value="${studyCentreInstance?.city?.district?.id}" class="university-size-1-3"
-                          onchange="showCityList()" optionValue="districtName" from="${District.findAll()}"
+                          onchange="showCityList()" optionValue="districtName" from="${districtIns}"
                           noSelection="['': ' Select District']"/>
             </td>
         </tr>
@@ -122,13 +122,13 @@
             <td>
                 <g:if test="${params.type != 'edit'}">
                     <g:select name="city" id="city" optionKey="id" class="university-size-1-3"
-                              optionValue="cityName" from="" noSelection="['': ' Select City']" multiple="false"/>
+                              optionValue="cityName" from="" noSelection="['': ' Select City']" />
                 </g:if>
                 <g:else>
                     <g:select name="city" id="city" optionKey="id" value="${studyCentreInstance?.city?.id}"
                               class="university-size-1-3" optionValue="cityName"
                               from="${City.findAllByDistrict(District.get(studyCentreInstance?.city?.district?.id))}"
-                              noSelection="['': ' Select City']" multiple="false"/>
+                              noSelection="['': ' Select City']" />
                 </g:else>
             </td>
         </tr>
