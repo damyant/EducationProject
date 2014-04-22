@@ -62,8 +62,8 @@ class ExaminationCenterController {
     @Secured("ROLE_ADMIN")
     def updateExaminationCentre= {
 
-        def districtList=District.list(sort:'districtName')
-        [districtList:districtList]
+//        def districtList=District.list(sort:'districtName')
+//        [districtList:districtList]
 
 
     }
