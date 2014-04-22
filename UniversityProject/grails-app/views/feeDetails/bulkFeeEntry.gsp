@@ -5,12 +5,14 @@
   Time: 5:53 PM
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Bulk Fee Entry</title>
     <meta name="layout" content="main"/>
     <g:javascript src='dataEntry.js'/>
+    <script>
 
+    </script>
 
 </head>
 
@@ -19,7 +21,7 @@
 <div>
     <fieldset class="form">
 
-        <g:form >
+        %{--<g:form >--}%
             %{--<g:hiddenField name="studentId" id="studentId"/>--}%
             %{--<g:hiddenField name="pageType" id="pageType" value="Registered RollNo"/>--}%
             <table class="inner" style="margin: auto;" id="fee-table">
@@ -81,25 +83,174 @@
                     <td style="width: 10%"></td>
                 </tr>
             </table>
-            <table id="studentListForFee" class="inner university-table-1-3">
+            <table id="studentList" class="inner university-table-1-3">
                 <thead></thead>
                 <tbody></tbody>
             </table>
 
 
-            </div>
 
-        </g:form>
+
+        %{--</g:form>--}%
 
 
 
         %{--<div id="statusofApp" style="display: none">--}%
 
-        </div>
 
-    </div> <!--your content end-->
-        <div id="msg"></div>
+
+ <!--your content end-->
+        %{--<div id="msg"></div>--}%
     </fieldset>
+    <div id="dialog" title="Basic dialog">
+        <form  id="createFeeDetail">
+            <div id="msg"></div>
+            <div class="university-size-1-1" style="margin-left: 4px;">
+                <label>
+                    <h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory</h6>
+                </label>
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'Roll Number', 'error')} required university-size-1-1">
+                <div class="university-size-1-3">
+                    <label for="feeType">
+                        <g:message code="feeDetails.rollno.label" default="Roll Number"/>
+                        <span class="university-obligatory">*</span>
+                    </label>
+                </div>
+
+                <div class="university-size-2-3">
+
+                    <g:textField id="rollNo" name="rollNo"  class="many-to-one university-size-1-2" value=""/>
+                    <g:hiddenField name="studentId" id="currentStudentId" />
+                    <g:hiddenField name="nextStudentId" id="nextStudentId" />
+                    <g:hiddenField name="previousStudentId" id="previousStudentId" />
+
+
+                </div>
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'feeType', 'error')} required">
+                <div class="university-size-1-3">
+                    <label for="feeType">
+                        <g:message code="feeDetails.feeType.label" default="Fee Type"/>
+                        <span class="university-obligatory">*</span>
+                    </label>
+                </div>
+
+                <div class="university-size-2-3">
+                    <g:select id="feeType" name="feeType" from="${examinationproject.FeeType.list()}"
+                              optionKey="id"
+                              optionValue="type"
+                              class="many-to-one university-size-1-2"/>
+                </div>
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'paymentMode', 'error')} ">
+                <div class="university-size-1-3">
+                    <label for="paymentMode">
+                        <g:message code="feeDetails.paymentMode.label" default="Payment Mode"/>
+                        <span class="university-obligatory">*</span>
+                    </label>
+                </div>
+
+                <div class="university-size-2-3">
+                    <g:textField name="paymentMode" value="${feeDetailsInstance?.paymentMode}"
+                                 class="university-size-1-2"/>
+                </div>
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'draftNumber', 'error')} ">
+                <div class="university-size-1-3">
+                    <label for="draftNumber">
+                        <g:message code="feeDetails.draftNumber.label" default="Draft Number"/>
+                        <span class="university-obligatory">*</span>
+                    </label>
+                </div>
+
+                <div class="university-size-2-3">
+                    <g:textField name="draftNumber" onkeypress="return isNumber(event)" value="${feeDetailsInstance?.draftNumber}"
+                                 class="university-size-1-2"/>
+                </div>
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'paymentDate', 'error')} required">
+                <div class="university-size-1-3">
+                    <label for="paymentDate">
+                        <g:message code="feeDetails.paymentDate.label" default="Payment Date"/>
+                        <span class="university-obligatory">*</span>
+                    </label>
+                </div>
+
+                <div class="university-size-2-3">
+                    <g:textField name="paymentDate" maxlength="10" id="datePick1" class="university-size-1-2" value=""
+                                />
+                </div>
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'draftDate', 'error')} required">
+                <div class="university-size-1-3">
+                    <label for="draftDate">
+                        <g:message code="feeDetails.draftDate.label" default="Draft Date"/>
+                        <span class="university-obligatory">*</span>
+                    </label>
+                </div>
+
+                <div class="university-size-2-3">
+                    <input type="text" name="draftDate" maxlength="10" id="datePick" class="university-size-1-2"
+                           />
+                </div>
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'issuingBank', 'error')} ">
+                <div class="university-size-1-3">
+                    <label for="issuingBank">
+                        <g:message code="feeDetails.issuingBank.label" default="Issuing Bank"/>
+                        <span class="university-obligatory">*</span>
+                    </label>
+                </div>
+
+                <div class="university-size-2-3">
+                    <g:textField name="issuingBank" id="issuingBank" value="${feeDetailsInstance?.issuingBank}"
+                                  class="university-size-1-2"/>
+                </div>
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'issuingBranch', 'error')} ">
+                <div class="university-size-1-3">
+                    <label for="issuingBranch">
+                        <g:message code="feeDetails.issuingBranch.label" default="Issuing Branch"/>
+                        <span class="university-obligatory">*</span>
+                    </label>
+                </div>
+
+                <div class="university-size-2-3">
+                    <g:textField name="issuingBranch" id="issuingBranch"
+                                 value="${feeDetailsInstance?.issuingBranch}"
+                                 class="university-size-1-2"/>
+                </div>
+            </div>
+
+            <div class="fieldcontain">
+                <div class="university-size-1-3">
+                    &nbsp;
+                </div>
+
+                <div class="university-size-2-3">
+                    <input type="button" name="create" class="save university-button" onclick="submitFeeDetail()"
+                                    value='Submit'  />
+
+
+        <input type="button" name="Next" id="next"  class="save university-button" value="Next" onclick="nextStudent()"/>
+        <input type="button" name="Back" id="back" class="save university-button" value='Back' onclick="previousStudent()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+
+    </div>
+
 </div>
 </body>
 </html>

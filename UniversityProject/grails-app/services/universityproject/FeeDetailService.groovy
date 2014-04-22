@@ -23,6 +23,7 @@ class FeeDetailService {
      * @return
      */
     def saveFeeDetails (params){
+        println('hello kuldeep '+ params)
         def feeDetailsInstance = new FeeDetails()
         def student = Student.findById(params.studentId)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -49,17 +50,20 @@ class FeeDetailService {
      * @return
      */
     def  provisionalStudentList(params){
+
+        println(" this is the id of studyCentre "+params)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
         def studyCenterId=0
         def statusObj
         Date date=null
         if(params.admissionDate){
+            println("now searching students for date")
              date = df.parse(params.admissionDate)
         }
-        if(params.studyCenterId){
+       if(params.studyCenterId){
             println("assign Study Centre1")
-            studyCenterId=params.studyCenterId
+            studyCenterId= params.studyCenterId
         }
         else{
             def currentUser=springSecurityService.getCurrentUser()
@@ -81,6 +85,7 @@ class FeeDetailService {
             }
         }
         } else if(params.studyCenterId!='null'){
+            println("finding student of this studyCentre "+ studyCenterId)
             stuList= obj.list{
                 studyCentre{
                     eq('id', Long.parseLong(studyCenterId))
@@ -91,10 +96,11 @@ class FeeDetailService {
             }
        }
         else if(params.admissionDate!='null'){
-
+            println("searching by date "+date)
             stuList = Student.findAllByAdmissionDateAndStatus(date,statusObj)
         }
 
+         println("this is the final list of students "+ stuList)
         return  stuList
     }
 }

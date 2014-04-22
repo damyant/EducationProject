@@ -45,6 +45,7 @@ class Student {
         state(nullable: true)
         mobileNo(nullable: true)
 //        studyCentre(nullable: true)
+
 //        preferenceOfExaminationCentre(nullable: true)
         registrationNo1(nullable: true)
         registrationNo2(nullable: true)
@@ -60,6 +61,7 @@ class Student {
         status(nullable:true)
         admitCardGenerated(nullable: true)
       //  feeDetails(nullable: true)
+
 
 
 

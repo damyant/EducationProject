@@ -93,7 +93,7 @@ function submitForm() {
                     $.ajax({
                         type: "post",
 
-                        url: url('examinationCenter', 'saveExaminationCentre', ''),
+                        url: url('feeDetails', '', ''),
                         async: false,
                         data: $('#examinationCenterForm').serialize(),
                         success: function (response) {

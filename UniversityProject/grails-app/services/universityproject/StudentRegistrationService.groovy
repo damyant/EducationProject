@@ -18,6 +18,7 @@ class StudentRegistrationService {
     def springSecurityService
 
    Student saveNewStudentRegistration(params, signature, photographe){
+       println("-------------------------------------------------"+params)
        Boolean studentRegistrationInsSaved = false;
 
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year

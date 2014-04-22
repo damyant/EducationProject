@@ -3,6 +3,7 @@
  */
 function validate() {
 
+
     $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
 
 
@@ -247,8 +248,9 @@ function validate() {
                 required: true
             },
 
+
             //Exam Centre
-            examinationCentreName: {required: true, textonly: true},
+//            examinationCentreName: {required: true, textonly: true},
             examinationCentreCode: {required: true,
                 number: true},
             examinationCentreCapacity: {required: true,
@@ -339,7 +341,7 @@ function validate() {
         }
 
 
-    })
+    });
 
     jQuery.validator.addMethod("textonly", function (value, element) {
             valid = false;
