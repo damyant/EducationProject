@@ -243,7 +243,7 @@ function showList() {
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getCentreList', ''),
-       data:"city="+$('#city').val(),
+       data: {city: $('#city').val(),edit:$('#edit').val()},
 //            contentType: "application/json; charset=utf-8",
 //            dataType: "json",
         success: function (response) {

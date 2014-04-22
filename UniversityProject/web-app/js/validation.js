@@ -2,10 +2,8 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-
+alert("dsksdkskds")
     $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
-
-
         rules: {
 
 //            Study Center

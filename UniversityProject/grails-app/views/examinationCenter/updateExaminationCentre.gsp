@@ -20,6 +20,7 @@
 <div id="main">
     <fieldset class="form">
         <div>
+
         <div class="university-location-select">
             <div class="university-label-location-select">
                 <label><g:message code="default.createStudy.district"/></label>
@@ -31,6 +32,7 @@
 
         <div class="university-location-select">
             <div class="university-label-location-select">
+                <g:hiddenField name="edit" id="edit" value=" ${edit}"></g:hiddenField>
                 <label><g:message code="default.createStudy.city"/></label>
             </div>
             <g:select name="city" id="city" optionKey="id" value="${studyCentreInstance?.city?.id}"

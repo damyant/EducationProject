@@ -21,6 +21,7 @@
 <body>
 <div id="main">
     <fieldset class="form">
+        <h3>Creation Of Examination Centre</h3>
     <g:if test="${flash.message}">
         <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>
@@ -46,7 +47,7 @@
 
         <div id="VenueDiv" class="middleDiv">
         </div>
-        <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
+       <div style="margin-left: 10px;"> <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
         <table style="border: none">
 
             <tr>

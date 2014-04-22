@@ -100,7 +100,7 @@ jQuery(function($) {
     });
 });
 
-$( document ).ready(function() {
+$( '#studentRegister' ).ready(function() {
 //    alert($("input.radioInput[name='nationality'][value="+nationality+"]").val())
     $("input[name='nationality'][value="+nationality+"]").attr('checked', 'checked');
     $("input.radioInput[name='category'][value="+category+"]").attr('checked', 'checked');
