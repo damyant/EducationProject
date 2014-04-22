@@ -47,7 +47,7 @@ class ExaminationCenterController {
         }
     }
     def getCentreList = {
-        println("in getCentreList "+ params)
+        println("in getCentreList "+ params.edit)
         def result= examinationCentreService.examVenueList(params)
 
        if(result){
@@ -63,7 +63,8 @@ class ExaminationCenterController {
     def updateExaminationCentre= {
 
         def districtList=District.list(sort:'districtName')
-        [districtList:districtList]
+        def edit= "edit"
+        [districtList:districtList,edit: edit]
 
 
     }
