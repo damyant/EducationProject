@@ -238,7 +238,7 @@ function clearErrorMsg(t){
 
 
 function showList() {
-  
+
     jQuery("#centreListTable").css({display: "block"});
     $.ajax({
         type: "post",
