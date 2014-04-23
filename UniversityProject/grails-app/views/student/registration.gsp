@@ -17,7 +17,6 @@
 
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
-    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'file-validator.js')}"></script>
     <style type="text/css">
     </style>
     <script type="text/javascript">
@@ -243,11 +242,11 @@
                     <g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" optionKey="id" optionValue="name"
                               from="${ExaminationCentre.findAllByCity(City.get(studInstance?.examinationCentre?.city?.id?.get(0)))}"
                               value="${studInstance?.examinationCentre?.id?.get(0)}"
-                              noSelection="['': 'Select Examination Centre']"/>
+                              noSelection="['': 'Select Examination Venue']"/>
                 </g:if>
                 <g:else>
                     <g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" from=" "
-                              noSelection="['': 'Select Examination Centre']"/>
+                              noSelection="['': 'Select Examination Venue']"/>
                 </g:else>
             </td><td></td>
         </tr>

@@ -104,6 +104,7 @@ class StudentController {
     def applicationPreview() {
 
     }
+    @Secured(["ROLE_ADMIN"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
         def programList=ProgramDetail.list(sort: 'courseName')
@@ -116,6 +117,9 @@ class StudentController {
         response.setContentType(params.mime)
         response.outputStream << image
     }
+    @Secured(["ROLE_IDOL_USER"])
+    def enrollmentAtIdol={
 
+    }
 
 }

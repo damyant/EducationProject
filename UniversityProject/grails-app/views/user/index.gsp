@@ -8,12 +8,18 @@
 
 <body>
 <div id="main">
-    <div class="nav" role="navigation">
-            <div class="university-Create-User"><g:link class="create" action="createUser"><img src="${resource(dir: 'images', file: 'Add-User.png')}" alt="Create User" /></image>Create User</g:link></div>
-            <div class="university-User-List"><g:link class="create" action="userList"><img src="${resource(dir: 'images', file: 'users-icon.png')}" alt="User List" />User List</g:link></div>
+    <fieldset class="form">
+        <div class="nav" role="navigation">
+            <div class="university-Create-User"><g:link class="create" action="createUser"><img
+                    src="${resource(dir: 'images', file: 'Add-User.png')}"
+                    alt="Create User"/></image>Create User</g:link>
+            </div>
 
+            <div class="university-User-List"><g:link class="create" action="userList"><img
+                    src="${resource(dir: 'images', file: 'users-icon.png')}" alt="User List"/>User List</g:link>
+            </div>
         </div>
-    </div>
+    </fieldset>
 </div>
 %{--<a href="#list-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <div class="nav" role="navigation">
