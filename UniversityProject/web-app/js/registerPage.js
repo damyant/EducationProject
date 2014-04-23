@@ -85,18 +85,21 @@ jQuery(function($) {
     $( "#datePick" ).datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: "mm/dd/yy"
+        dateFormat: "mm/dd/yy",
+        maxDate: 0
     });
 
     $( "#datePick1" ).datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: "mm/dd/yy"
+        dateFormat: "mm/dd/yy",
+        maxDate: 0
     });
     $( "#admissionDate" ).datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: "mm/dd/yy"
+        dateFormat: "mm/dd/yy",
+        maxDate: 0
     });
 });
 

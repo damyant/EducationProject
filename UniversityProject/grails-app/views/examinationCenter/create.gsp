@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Create Examination Center</title>
+    <title>Create Examination Venue</title>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'jquery/jquery.js')}'></script>
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
@@ -21,7 +21,7 @@
 <body>
 <div id="main">
     <fieldset class="form">
-        <h3>Creation Of Examination Centre</h3>
+        <h3>Creation Of Examination Venue</h3>
     <g:if test="${flash.message}">
         <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>

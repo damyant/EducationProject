@@ -11,7 +11,7 @@
     <th>City</th>
     %{--<th>Total Rooms</th>--}%
     <th>Contact No</th>
-    <th>Center Code</th>
+    <th>Venue Code</th>
     <th>Capacity</th>
     <g:if test="${edit}">
         <th></th>

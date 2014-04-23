@@ -210,7 +210,7 @@
 </tr>
 <tr>
     <!----- Preference of examination centre ---------------------------------------------------------->
-    <td>Select Preference of examination centre <span class="university-obligatory">*</span></td>
+    <td>Select Preference of examination Venue <span class="university-obligatory">*</span></td>
     <td>
 
         <table id="examCenterSelect">
@@ -323,15 +323,17 @@
 
         <g:if test="${studInstance}">
             <img src="${createLink(controller: 'student', action: 'show', id: studInstance?.id
-            , mime: 'image/jpeg')}" class="university-registration-photo" id="picture"/>
-
-        </g:if>
-        <g:else>
-            <div id="profile-image"><img src="" alt="Space for Photograph "
-                                         class="university-registration-photo"/></div>
-        </g:else>
+            , mime: 'image/jpeg')}" class="university-registration-photo"/>
             <input type='file' id="profile-image-upload" onchange="readURL(this, 'picture');" class="university-button"
                    name="photograph"/>
+        </g:if>
+        <g:else>
+            <div id="profile-image"><img src="" alt="Space for Photograph "  id="picture"
+                                         class="university-registration-photo"/></div>
+            <input type='file' id="profile-image-upload" onchange="readURL(this, 'picture');" class="university-button"
+                   name="photograph"/>
+        </g:else>
+
 
     </td>
 </tr>

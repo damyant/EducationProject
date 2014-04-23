@@ -79,7 +79,7 @@ class ExaminationCenterController {
             def examCentreIns =  ExaminationCentre.get(params.id)
            def isSaved= examinationCentreService.updateExaminationCentre(params)
             if(isSaved){
-                println("updated succesfully")
+//                println("updated succesfully")
                 flash.message = "${message(code: 'centre.updated.message', args: [message( default: 'ExaminationCentre'),   examCentreIns.id])}"
                 render(view: "editExaminationCentre" , model:[examinationCentreInstance:examCentreIns])
             }
@@ -100,11 +100,11 @@ class ExaminationCenterController {
             def examCentreInstance = ExaminationCentre.get(params.id)
             examCentreInstance.delete(flush: true)
             flash.message = "${message(code: 'centre.deleted.message')}"
-            redirect(action: "deleteExaminationCentre")
+            redirect(action: "updateExaminationCentre")
         }
       catch (Exception e){
           flash.message = "${message(code: 'centre.cannotDeleted.message')}"
-          redirect(action: "deleteExaminationCentre")
+          redirect(action: "updateExaminationCentre")
       }
 
 
@@ -117,7 +117,7 @@ class ExaminationCenterController {
             def centreList = null
             if (city != null) {
                 centreList = ExaminationCentre.findAllByCity(city,[sort:'name'])
-                println("<><><><><><><><>><<><>"+centreList)
+//                println("<><><><><><><><>><<><>"+centreList)
                 render centreList as JSON
             } else {
                 render null

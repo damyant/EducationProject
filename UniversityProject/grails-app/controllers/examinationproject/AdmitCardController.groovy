@@ -111,11 +111,15 @@ class AdmitCardController {
         studentList.each{
         stuList << Student.findById(Integer.parseInt(it.toString()))
           }
-
-        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findById(stuList[0].semester))*.subject as Set
+        println("???????===="+stuList[0].programDetail)
+        println("???????===="+Semester.findBySemesterNo(1))
+        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findBySemesterNo(1))*.subject as Set
+       println("list==="+list)
         def finalList=list.sort{a,b->
             a.examDate<=>b.examDate
         }
+        println("???????"+stuList)
+        println("???????"+finalList)
         finalList.each{
             examDate.append(it.examDate.format("dd/MM/yyyy"))
             examDate.append(", ")
