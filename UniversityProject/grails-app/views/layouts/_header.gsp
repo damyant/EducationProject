@@ -103,9 +103,9 @@
                     <li><g:link controller="admin" action="viewProvisionalStudents"><g:message
                             code="default.mainMenu6.subMenu1"/></g:link></li>
 
-                    <li><g:link controller="admin"
-                                action="viewApprovedStudents"><g:message
-                                code="default.mainMenu6.subMenu3"/></g:link></li>
+                    %{--<li><g:link controller="admin"--}%
+                                %{--action="viewApprovedStudents"><g:message--}%
+                                %{--code="default.mainMenu6.subMenu3"/></g:link></li>--}%
                     <li><g:link controller="admin"
                                 action="assignExaminationDate"><g:message
                                 code="default.mainMenu6.subMenu4"/></g:link></li>

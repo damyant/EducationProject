@@ -114,7 +114,7 @@
             <td>
                 <g:select name="district" id="district" optionKey="id"
 
-                          value="${studyCentreInstance?.city?.district?.id}" class="university-size-1-3"
+                          value="${studyCentreInstance?.city?.district?.id}" class="university-size-1-2"
                           onchange="showCityList()" optionValue="districtName" from="${districtIns}"
                           noSelection="['': ' Select District']"/>
             </td>
