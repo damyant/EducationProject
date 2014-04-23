@@ -108,7 +108,7 @@ class ExaminationCenterController {
         }
       catch (Exception e){
           flash.message = "${message(code: 'centre.cannotDeleted.message')}"
-          redirect(action: "deleteExaminationCentre")
+          redirect(action: "updateExaminationCentre")
       }
 
 
