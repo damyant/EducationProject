@@ -68,13 +68,15 @@ class StudentRegistrationService {
        endYear = (Integer.parseInt(year)+programDetail[0].noOfAcademicYears).toString()
        programSession=(startYear+"-"+endYear)
        def session = ProgramSession.count()
-       def programSessionIns =  new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
-       if(session>0){
+       def programSessionIns
+       if(session>0 && ProgramSession.findBySessionOfProgram(programSession)){
            programSessionIns= ProgramSession.findBySessionOfProgram(programSession)
-           programSessionIns.programDetail = programDetail
-           programSessionIns.save(flush: true,failOnError: true)
+           if(!(programSessionIns.programDetail==programDetail))
+               programSessionIns=new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
        }else{
+
            programSessionIns=new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+           println("Session new"+programSessionIns.sessionOfProgram)
        }
 
 

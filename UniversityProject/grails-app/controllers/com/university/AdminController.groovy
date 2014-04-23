@@ -79,28 +79,34 @@ class AdminController {
         [feeType:feeType]
     }
 
+
+    def checkFeeByRollNo = {
+        def student = Student.findByRollNo(params.rollNo)
+        def program= student.programDetail
+        def programName=program[0].courseName
+        boolean status
+        def programFee = ProgramFee.findByProgramDetail(program)
+        if(programFee)
+            status=true
+        else
+            status = false
+        def response =[id:student.id,feeStatus:status,program:programName]
+        render response as JSON
+    }
+
     def generateFeeVoucher={
 
         def student = Student.findByRollNo(params.rollNo)
-       println(">>>>>>>>>>>>>>>>>"+student+"ghfghdg"+student.studyCentre.centerCode)
         if(!(student.studyCentre[0].centerCode=="11111")){
-        redirect(action: "feeVoucher",params:[error:"error"])
+             redirect(action: "feeVoucher",params:[error:"error"])
         }
-        def studyCentreType
-        def semesterID = student.semester
-        def program= student.programDetail
-        def currentUser
-        def role
-        if(springSecurityService.isLoggedIn()){
-            currentUser= springSecurityService.currentUser
-            role = springSecurityService.getPrincipal().getAuthorities()[0]
-    }
 
+        def program= student.programDetail
         def feeTypeId =Integer.parseInt(params.feeType)
         def feeType = FeeType.findById(feeTypeId)
         def programFee = ProgramFee.findByProgramDetail(program)
         def programFeeAmount
-       // if(role=="ROLE_IDOL_USER"){
+
             switch(feeTypeId){
                 case 1:
                     programFeeAmount = programFee.feeAmountAtIDOL
@@ -112,9 +118,6 @@ class AdminController {
                     programFeeAmount = programFee.certificateFee
                     break;
             }
-
-        //}
-
         def args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
         pdfRenderingService.render(args+[controller:this],response)
 

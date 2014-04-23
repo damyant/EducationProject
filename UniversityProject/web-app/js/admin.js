@@ -4,12 +4,12 @@ var subjectIdList=[];
 $(document).ready(function () {
         $("#submit").click(function(){
             var rollNo = $("#rollNo").val()
-            var feeType = $("#type").val()
-            if(rollNo.length==0){
+            var feeType = $("#feeType").val()
+            if(rollNo.length==""){
                 $("#rollNo").after('<label class="error">Please Enter Roll Number</label>')
                 return false
             }
-            if(feeType.length==0){
+            if(feeType==""){
                 $("#type").after('<label class="error">Please Select Fee Type</label>')
                 return false
             }
