@@ -2,7 +2,8 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-alert("dsksdkskds")
+
+
     $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
         rules: {
 
@@ -11,6 +12,7 @@ alert("dsksdkskds")
                 required: true,
                 textonly: true
             },
+
             address: "required",
             district: "required",
             city: "required",
@@ -124,7 +126,8 @@ alert("dsksdkskds")
 //            },
 
 //            photograph:{
-//                required:true
+//                required:true,
+//                filesize: 51200
 //            },
             declaration: {
                 required: true
@@ -166,6 +169,7 @@ alert("dsksdkskds")
                 required: true,
                 number: true
             },
+
             d_o_b: {
                 required: true,
                 date: true
@@ -175,6 +179,7 @@ alert("dsksdkskds")
                 number: true,
                 minlength: 10
             },
+
             studyCentre: "required",
 
             examiNationCentre: "required",
@@ -245,8 +250,9 @@ alert("dsksdkskds")
                 required: true
             },
 
+
             //Exam Centre
-            examinationCentreName: {required: true, textonly: true},
+//            examinationCentreName: {required: true, textonly: true},
             examinationCentreCode: {required: true,
                 number: true},
             examinationCentreCapacity: {required: true,
@@ -259,6 +265,7 @@ alert("dsksdkskds")
 
         },
         messages: {
+            profileImage: "File must be JPG, GIF or PNG, less than 1MB",
             name: "Please enter study center name",
             address: "Please enter study center address",
             district: "Please select district of study center",
@@ -337,7 +344,7 @@ alert("dsksdkskds")
         }
 
 
-    })
+    });
 
     jQuery.validator.addMethod("textonly", function (value, element) {
             valid = false;
@@ -346,6 +353,17 @@ alert("dsksdkskds")
                 valid = true;
             return this.optional(element) || valid;
         },
+
+//        $.validator.addMethod('filesize', function(value, element, param) {
+//            // param = size (en bytes)
+//            // element = element to validate (<input>)
+//            // value = value of the element (file name)
+//            return this.optional(element) || (element.files[0].size <= 50)
+//        }),
+
+
+
+
         jQuery.format("Please only enter letters, spaces, periods, or hyphens.")
     );
     $.validator.addMethod('minStrict', function (value, element, param) {

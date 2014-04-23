@@ -33,14 +33,14 @@
         <g:form id="generateFeeVoucher" name="generateFeeVoucher" controller="admin" action="generateFeeVoucher">
         %{--<g:hiddenField name="studentId" id="studentId"/>--}%
         %{--<g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>--}%
-            <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
-            <table class="inner" style="margin: auto;text-align: center; width: 70%">
+            <div style="margin-left: 10px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
+            <table class="inner" style="margin: auto;text-align: center; width: 100%">
                 <tr>
                     <td class="university-size-1-3">
                         <p>Enter Roll Number:<span class="university-obligatory">*</span></p>
                     </td>
                     <td class="university-size-2-3">
-                        <g:textField name="rollNo" id="rollNo" class="university-size-1-2"
+                        <g:textField name="rollNo" id="rollNo" class="university-size-1-3"
                                      onkeypress="return isNumber(event)"/>
                     </td>
                 </tr>
@@ -54,7 +54,7 @@
                     <td>
                         <g:select id="type" name="feeType"
                                   from="${feeType}" optionKey="id"
-                                  optionValue="type" class="many-to-one university-size-1-2"
+                                  optionValue="type" class="many-to-one university-size-1-3"
                                   noSelection="['': 'Choose Type']"/>
                     </td>
 
@@ -63,7 +63,7 @@
                 <tr><td colspan="2" style="text-align: center; "><input type="button" name="submit" id="submit"
                                                                         class="university-button"
                                                                         value="Submit"
-                                                                        style="margin-top: 15px;"></button></td>
+                                                                        style="margin-top: 15px;"/></td>
                 </tr>
             </table>
             <table id="studentList" class="inner university-table-1-3">

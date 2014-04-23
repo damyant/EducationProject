@@ -51,6 +51,7 @@ class StudentController {
         println("============="+photographe)
         def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe)
         if (studentRegistration) {
+
             flash.message = "${message(code: 'register.created.message')}"
             redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
         } else {
@@ -58,6 +59,7 @@ class StudentController {
             flash.message = "${message(code: 'register.notCreated.message')}"
             redirect(action: "registration")
         }
+
     }
 
 

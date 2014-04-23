@@ -26,10 +26,12 @@
 
 <body>
 <div id="main">
-    <div class="university-status-message"><div id="successMessage">&nbsp;</div></div>
+
     <fieldset class="form">
+        <h3>Assign Examination Date & Time</h3>
+        <div class="university-status-message"><div id="successMessage">&nbsp;</div></div>
         <form id="assignDate">
-            <table class="inner" style="width: 95%;margin: auto">
+            <table class="inner" style="width: 100%;margin: auto">
                 <tr>
                     <td class="university-size-1-4"><label>Select a Course</label></td>
                     <td class="university-size-1-4">
@@ -42,7 +44,7 @@
                 </tr>
             </table>
 
-            <table style="width: 95%;margin: auto" id="subjectList" class="inner">
+            <table style="width: 100%;margin: auto" id="subjectList" class="inner">
 
             </table>
 
@@ -50,10 +52,5 @@
         </form>
     </fieldset>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-
-    });
-</script>
 </body>
 </html>

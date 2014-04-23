@@ -3,7 +3,7 @@ package examinationproject
 class ProgramDetail {
 
     String courseName
-    int courseCode
+    String courseCode
     CourseMode courseMode
     CourseType courseType
     int noOfTerms

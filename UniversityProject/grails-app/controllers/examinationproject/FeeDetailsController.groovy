@@ -23,6 +23,7 @@ class FeeDetailsController {
     @Transactional
     def saveFeeDetails(FeeDetails feeDetailsInstance) {
 
+
         if (feeDetailsInstance == null) {
            return
         }
@@ -64,7 +65,7 @@ class FeeDetailsController {
          def studyCentre = StudyCenter.list();
          filterType.add("By Program")
          filterType.add("By Study Centre")
-         filterType.add("By Admission Date")
+//         filterType.add("By Admission Date")
 
          [filterType:filterType,programList:programList,studyCentre:studyCentre]
      }
@@ -83,6 +84,20 @@ class FeeDetailsController {
         def student = Student.findByRollNo(params.rollNo)
         def response =[id:student.id,feeStatus:true]
         render response as JSON
+    }
+
+    def saveBulkFeeDetails ={
+        println("hello kuldeep now save your data" + params)
+        def feeDetailsInstance = feeDetailService.saveFeeDetails(params)
+
+        if (feeDetailsInstance.hasErrors()) {
+            render "<h5>Fee Details for this student cannot be saved</h5>"
+        }
+
+        if(feeDetailsInstance){
+            render "<h5>Fee Details saved</h5>"
+        }
+
     }
 
 

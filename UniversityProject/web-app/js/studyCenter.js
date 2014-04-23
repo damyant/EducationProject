@@ -98,7 +98,6 @@ function viewStudyCenter(studyCenterId) {
 function showCentreList() {
 
     var data = $('#city').val();
-    debugger;
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExaminationCentreList', ''),
@@ -115,8 +114,5 @@ function showCentreList() {
 
 }
 
-function checkWebsiteUrl(t) {
-    alert(this.val())
 
-}
 

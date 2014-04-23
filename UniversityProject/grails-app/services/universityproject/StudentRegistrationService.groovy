@@ -104,6 +104,7 @@ class StudentRegistrationService {
      * @return
      */
      def getStudentRollNumber(params){
+         println("?????"+params)
             def status=false
             Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
@@ -112,15 +113,17 @@ class StudentRegistrationService {
             String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
             int rollNo= 1001
             String rollStr = Integer.toString(rollNo)
-
+        println("<<<"+courseCodeStr)
+         println("?????"+yearCode)
                 if(courseCodeStr.length()>2){
                     courseCodeStr= courseCodeStr.substring(0,2)
                 }
             int rollNumber = 0;
 
 //            def program = ProgramDetail.findById(courseId)
-            def student=Student.list()
-            if(student){
+            def student=Student.count()
+         println("<<<<<<<"+student)
+            if(student>0){
                 def obj=Student.createCriteria()
                 def studentByYearAndCourse= obj.list{
                     programDetail{
@@ -178,11 +181,13 @@ class StudentRegistrationService {
                         rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
                     }
 
-                    return rollNumber
+
 
                 }
+            }else{
+                rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
             }
-
+         return rollNumber
      }
 
 

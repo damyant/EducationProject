@@ -51,7 +51,7 @@ $(document).ready(function () {
 
 
 function submitExamDate(){
-    alert("submit")
+//    alert("submit")
     var course=$('#programList').val();
     $.ajax({
         type: "post",
@@ -61,6 +61,7 @@ function submitExamDate(){
             if(data.saveFlag==true){
 
 //                    $("#subjectList tr").remove()
+                $('#assignDate')[0].reset();
                 $("#successMessage").html("Examination Date is saved")
                 setTimeout(function(){  $('#successMessage').hide(); }, 8000);
                 $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -200,7 +201,7 @@ function appendSubjects(obj){
     }
 
 
-    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" value="Submit" onclick="validateFields('+counter+')"></td></tr>' )
+    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" class="ui-button" value="Submit" onclick="validateFields('+counter+')"></td></tr>' )
 
     $(".datepicker").datepicker({
         changeMonth: true,
