@@ -2,6 +2,8 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
+
+
     $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
         rules: {
 
@@ -10,6 +12,7 @@ function validate() {
                 required: true,
                 textonly: true
             },
+
             address: "required",
             district: "required",
             city: "required",
@@ -123,7 +126,8 @@ function validate() {
 //            },
 
 //            photograph:{
-//                required:true
+//                required:true,
+//                filesize: 51200
 //            },
             declaration: {
                 required: true
@@ -165,6 +169,7 @@ function validate() {
                 required: true,
                 number: true
             },
+
             d_o_b: {
                 required: true,
                 date: true
@@ -174,6 +179,7 @@ function validate() {
                 number: true,
                 minlength: 10
             },
+
             studyCentre: "required",
 
             examiNationCentre: "required",
@@ -244,8 +250,9 @@ function validate() {
                 required: true
             },
 
+
             //Exam Centre
-            examinationCentreName: {required: true, textonly: true},
+//            examinationCentreName: {required: true, textonly: true},
             examinationCentreCode: {required: true,
                 number: true},
             examinationCentreCapacity: {required: true,
@@ -258,6 +265,7 @@ function validate() {
 
         },
         messages: {
+            profileImage: "File must be JPG, GIF or PNG, less than 1MB",
             name: "Please enter study center name",
             address: "Please enter study center address",
             district: "Please select district of study center",
@@ -336,7 +344,7 @@ function validate() {
         }
 
 
-    })
+    });
 
     jQuery.validator.addMethod("textonly", function (value, element) {
             valid = false;
@@ -345,6 +353,17 @@ function validate() {
                 valid = true;
             return this.optional(element) || valid;
         },
+
+//        $.validator.addMethod('filesize', function(value, element, param) {
+//            // param = size (en bytes)
+//            // element = element to validate (<input>)
+//            // value = value of the element (file name)
+//            return this.optional(element) || (element.files[0].size <= 50)
+//        }),
+
+
+
+
         jQuery.format("Please only enter letters, spaces, periods, or hyphens.")
     );
     $.validator.addMethod('minStrict', function (value, element, param) {

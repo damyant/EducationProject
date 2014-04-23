@@ -17,7 +17,7 @@
 
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
+    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'file-validator.js')}"></script>
     <style type="text/css">
     </style>
     <script type="text/javascript">
@@ -323,16 +323,16 @@
 
         <g:if test="${studInstance}">
             <img src="${createLink(controller: 'student', action: 'show', id: studInstance?.id
-            , mime: 'image/jpeg')}" class="university-registration-photo"/>
-            <input type='file' id="profile-image-upload" onchange="readURL(this, 'picture');" class="university-button"
-                   name="photograph"/>
+            , mime: 'image/jpeg')}" class="university-registration-photo" id="picture1"/>
+
         </g:if>
         <g:else>
-            <div id="profile-image"><img src="" alt="Space for Photograph "  id="picture"
-                                         class="university-registration-photo"/></div>
-            <input type='file' id="profile-image-upload" onchange="readURL(this, 'picture');" class="university-button"
-                   name="photograph"/>
+            <div id="profile-image"><img src="" alt="Space for Photograph "
+                                         class="university-registration-photo" id="picture"/></div>
+
         </g:else>
+            <input type='file' id="profileImage" onchange="readURL(this, 'picture');" class="university-button"
+                   name="photograph"/>
 
 
     </td>
@@ -379,22 +379,14 @@
         $("#signature").attr('src', '#')
         $("#picture").attr('src', '#')
     }
-    //    function checkDeclaration(){
-    //        if($("$declaration").is(':checked')){
-    //            alert("in if true statement")
-    //            return true
-    //        }
-    //        else{
-    //            alert("in else statement")
-    //            return false
-    //        }
-    //}
+
     $(function () {
         $(function () {
             $("#datepicker").datepicker({
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: "mm/dd/yy"
+                dateFormat: "mm/dd/yy",
+                maxDate: 0
             });
         });
     });

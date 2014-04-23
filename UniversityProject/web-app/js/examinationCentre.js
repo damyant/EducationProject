@@ -81,18 +81,17 @@ function removeExaminationCentre(index) {
 }
 
 
-function   submitForm() {
+
+function submitForm() {
     var location = $("#location").val();
-    if (location == 0) {
-        alert("Please Select Location of examination centre");
-    }
-    else {
+
 //        jQuery("#submitButton").validationEngine('attach', {
 //            onValidationComplete: function (form, status) {
 //                if (status == true) {
+                    debugger;
                     $.ajax({
-                        type: "post",
 
+                        type: "post",
                         url: url('examinationCenter', 'saveExaminationCentre', ''),
                         async: false,
                         data: $('#examinationCenterForm').serialize(),
@@ -100,12 +99,11 @@ function   submitForm() {
                             document.getElementById("examinationCenterForm").reset();
                             $('div#msg').html(response);
 
-
                         }, error: function (XMLHttpRequest, textStatus, errorThrown) {
                             console.log("response in error")
                         }
                     });
-                }
+
 //            }
 //        });
 //    }

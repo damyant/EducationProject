@@ -12,7 +12,8 @@ class ExaminationCenterController {
     @Secured("ROLE_ADMIN")
     def createNewCentre(){
     }
-    def saveExaminationCentre ={
+    def saveExaminationCentre = {
+        println("hello kuldeep in examination centre")
         Boolean flag = examinationCentreService.saveCentres(params)
         if(flag){
             render   "${message(code: 'centre.created.message')}"
@@ -97,7 +98,10 @@ class ExaminationCenterController {
     def deleteCentre={
         try {
             println('in delete Centre')
+            def tmp=[]
             def examCentreInstance = ExaminationCentre.get(params.id)
+            examCentreInstance.student.each { tmp << it }
+            tmp.each { examCentreInstance.removeFromStudent(it) }
             examCentreInstance.delete(flush: true)
             flash.message = "${message(code: 'centre.deleted.message')}"
             redirect(action: "updateExaminationCentre")

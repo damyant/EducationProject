@@ -111,10 +111,22 @@ class AdmitCardController {
         studentList.each{
         stuList << Student.findById(Integer.parseInt(it.toString()))
           }
-        println("???????===="+stuList[0].programDetail)
-        println("???????===="+Semester.findBySemesterNo(1))
+//
+//        println("???????===="+stuList[0].programDetail)
+//        println("???????===="+Semester.findBySemesterNo(1))
+//        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findBySemesterNo(1))*.subject as Set
+//       println("list==="+list)
+//
+
+        println(stuList[0].programDetail)
+        println(Semester.findBySemesterNo(1))
+        def ab=CourseSubject.findAllByCourseDetail(stuList[0].programDetail)
+        def ab1=CourseSubject.findAllByCourseDetail(Semester.findById(stuList[0].semester))
+        println("??????"+ab)
+        println("??????"+ab1)
         def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findBySemesterNo(1))*.subject as Set
-       println("list==="+list)
+       println(list)
+
         def finalList=list.sort{a,b->
             a.examDate<=>b.examDate
         }
@@ -128,8 +140,8 @@ class AdmitCardController {
             it.admitCardGenerated=true
             it.save(failOnError: true)
         }
-
-        def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate,guLogo:logo]]
+        def fileName=stuList[0].courseName
+        def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate,guLogo:logo],filename:fileName]
         pdfRenderingService.render(args + [controller: this], response)
 
     }

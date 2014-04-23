@@ -18,7 +18,7 @@ class StudentRegistrationService {
     def springSecurityService
 
    Student saveNewStudentRegistration(params, signature, photographe){
-
+       println("********"+params)
        Boolean studentRegistrationInsSaved = false;
 
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
@@ -84,6 +84,7 @@ class StudentRegistrationService {
 
        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examiNationCentre))
        studentRegistration.examinationCentre=examinationCentreList
+       println("????????????"+photographe.bytes)
        studentRegistration.studentImage=photographe.bytes
        studentRegistration.semester=1
        studentRegistration.admitCardGenerated=false
