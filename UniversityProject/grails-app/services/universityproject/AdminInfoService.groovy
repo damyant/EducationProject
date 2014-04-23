@@ -8,6 +8,7 @@ import examinationproject.ProgramExamVenue
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
+import examinationproject.StudyCenter
 import examinationproject.Subject
 import grails.transaction.Transactional
 
@@ -133,8 +134,9 @@ def springSecurityService
 
             studyCenterId=currentUser.studyCentreId
         }
+
          def obj=Student .createCriteria()
-        def studList= obj.list{
+         def studList= obj.list{
             programDetail{
                 eq('id', Long.parseLong(params.programId))
             }

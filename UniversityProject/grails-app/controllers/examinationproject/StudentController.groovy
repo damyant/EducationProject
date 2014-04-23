@@ -36,6 +36,7 @@ class StudentController {
         def studInstance = Student.get(params.studentId)
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
+//        println("sss"+studInstance.status)
         [studyCentre: studyCentre,studInstance:studInstance, programList: programList,districtList:districtList,registered:params.registered,studentID:params.studentID]
 
 
@@ -49,8 +50,15 @@ class StudentController {
         def photographe = request.getFile("photograph")
         def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe)
         if (studentRegistration) {
+
+            if(springSecurityService.isLoggedIn()){
+
             flash.message = "${message(code: 'register.created.message')}"
-            redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+            redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
+            }else{
+                flash.message = "${message(code: 'register.created.message')}"
+                redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+            }
         } else {
             println("Cannot Register new Student")
             flash.message = "${message(code: 'register.notCreated.message')}"

@@ -18,6 +18,7 @@ class StudentRegistrationService {
     def springSecurityService
 
    Student saveNewStudentRegistration(params, signature, photographe){
+
        Boolean studentRegistrationInsSaved = false;
 
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
@@ -25,8 +26,38 @@ class StudentRegistrationService {
        def startYear= year
        def endYear
        def programSession
-       def studentRegistration = new Student(params)
+       def studentRegistration
        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+       if(params.studentId){
+           studentRegistration=Student.findById(Long.parseLong(params.studentId))
+           studentRegistration.name=params.name
+           studentRegistration.gender=params.gender
+           studentRegistration.state=params.state
+           studentRegistration.category=params.category
+           studentRegistration.nationality=params.nationality
+           studentRegistration.mobileNo=Long.parseLong(params.mobileNo)
+           studentRegistration.addressState=params.addressState
+           studentRegistration.addressPinCode=params.addressPinCode
+           studentRegistration.addressPO=params.addressPO
+           studentRegistration.addressTown=params.addressTown
+           studentRegistration.addressStudentName=params.addressStudentName
+           studentRegistration.addressDistrict=params.addressDistrict
+//           studentRegistration.status
+
+       }
+       else{
+           studentRegistration = new Student(params)
+           studentRegistration.registrationYear=Integer.parseInt(year)
+           if(springSecurityService.isLoggedIn()){
+               studentRegistration.referenceNumber=0
+               studentRegistration.rollNo=(Integer)getStudentRollNumber(params)
+               studentRegistration.status= Status.findById(2)
+
+           }else{
+               studentRegistration.referenceNumber=Integer.parseInt(getStudentReferenceNumber())
+               studentRegistration.status= Status.findById(1)
+           }
+       }
        studentRegistration.dob=df.parse(params.d_o_b)
 
 
@@ -36,8 +67,16 @@ class StudentRegistrationService {
        Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
        endYear = (Integer.parseInt(year)+programDetail[0].noOfAcademicYears).toString()
        programSession=(startYear+"-"+endYear)
-
+       def session = ProgramSession.count()
        def programSessionIns =  new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+       if(session>0){
+           programSessionIns= ProgramSession.findBySessionOfProgram(programSession)
+           programSessionIns.programDetail = programDetail
+           programSessionIns.save(flush: true,failOnError: true)
+       }else{
+           programSessionIns=new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+       }
+
 
        studentRegistration.programSession = programSessionIns
        studentRegistration.programDetail=   programDetail
@@ -48,16 +87,7 @@ class StudentRegistrationService {
        studentRegistration.semester=1
        studentRegistration.admitCardGenerated=false
         //RAJ CODE
-       studentRegistration.registrationYear=Integer.parseInt(year)
-       if(springSecurityService.isLoggedIn()){
-       studentRegistration.referenceNumber=0
-       studentRegistration.rollNo=(Integer)getStudentRollNumber(params)
-       studentRegistration.status= Status.findById(2)
 
-       }else{
-           studentRegistration.referenceNumber=Integer.parseInt(getStudentReferenceNumber())
-           studentRegistration.status= Status.findById(1)
-       }
 
 
       //END RAJ CODE
@@ -81,6 +111,7 @@ class StudentRegistrationService {
      * @return
      */
      def getStudentRollNumber(params){
+         println("?????"+params)
             def status=false
             Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
@@ -89,7 +120,8 @@ class StudentRegistrationService {
             String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
             int rollNo= 1001
             String rollStr = Integer.toString(rollNo)
-
+        println("<<<"+courseCodeStr)
+         println("?????"+yearCode)
                 if(courseCodeStr.length()>2){
                     courseCodeStr= courseCodeStr.substring(0,2)
                 }
@@ -97,6 +129,7 @@ class StudentRegistrationService {
 
 //            def program = ProgramDetail.findById(courseId)
             def student=Student.count()
+
             if(student>0){
                 def obj=Student.createCriteria()
                 def studentByYearAndCourse= obj.list{

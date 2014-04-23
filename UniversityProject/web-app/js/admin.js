@@ -49,7 +49,7 @@ $(document).ready(function () {
 
 
 function submitExamDate(){
-    alert("submit")
+//    alert("submit")
     var course=$('#programList').val();
     $.ajax({
         type: "post",
@@ -59,6 +59,7 @@ function submitExamDate(){
             if(data.saveFlag==true){
 
 //                    $("#subjectList tr").remove()
+                $('#assignDate')[0].reset();
                 $("#successMessage").html("Examination Date is saved")
                 setTimeout(function(){  $('#successMessage').hide(); }, 8000);
                 $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -205,6 +206,7 @@ function appendSubjects(obj){
     }
 
 
+
     $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" value="Submit" onclick="validateFields('+validateCountB+','+validateCountA+')"></td></tr>' )
 
     $(".datepicker").datepicker({
@@ -229,9 +231,9 @@ function validateFields(counter,count){
 
     for( i=0;i<count-2;i++){
 
-    console.log("i="+i)
+
     for(j=0;j<counter;j++){
-    console.log("J="+j)
+
 
         date = $('#subjectList').find('#subjectRows'+i+j).find('#examDate'+i+j).val()
         time = $('#subjectList').find('#subjectRows'+i+j).find('#examTime'+i+j).val()
@@ -241,15 +243,15 @@ function validateFields(counter,count){
             $('#subjectList').find('#subjectRows'+i+j).find('.error3').text("Please Select Examination Date")
             bool= false;
         }else{
-           alert("Date Validated")
+
            bool=true
        }
        if((time=="null" || time=="")){
-           alert("time check"+i)
+
           $('#subjectList').find('#subjectRows'+i+j).find('.error4').text("Please Select Examination Time")
            bool= false;
        }else{
-           alert("Time Validated")
+
            bool=true
        }
 
@@ -259,7 +261,7 @@ function validateFields(counter,count){
     if(bool){
         submitExamDate();
     }
-//        return bool;
+       return bool;
    }
 
 function checkTimeFormat(count){

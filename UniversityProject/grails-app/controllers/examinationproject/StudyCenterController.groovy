@@ -35,8 +35,10 @@ class StudyCenterController {
 //                rememberMeParameter: config.rememberMe.parameter]
 //        }
         try {
-            studyCenterInfoService.studyCenterDetailInfo(params)
+         def studyCentreInstance=   studyCenterInfoService.studyCenterDetailInfo(params)
+            def districtIns=District.list(sort:'districtName' )
 //            return [view: "examinationCenter/createNewStudyCenter"]
+            [studyCentreInstance:studyCentreInstance,districtIns:districtIns]
         }
         catch (Exception e) {
             println("<<<<<<<<<<<There is some problem in saving new study center" + e)

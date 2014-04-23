@@ -27,8 +27,7 @@
                 <ul>
                     <li><g:link controller="student" action="registration"><g:message
                             code="default.mainMenu2.subMenu1"/></g:link></li>
-                    <li><g:link controller="student" action="studentListView"><g:message
-                            code="default.mainMenu2.subMenu6"/></g:link></li>
+
                     <li><a class="viewResulttopopup"><g:message code="default.mainMenu2.subMenu2"/></a></li>
                     <li><a href="#"><g:message code="default.mainMenu2.subMenu3"/></a></li>
                     <li><a href="#"><g:message code="default.mainMenu2.subMenu4"/></a></li>
@@ -104,16 +103,17 @@
                     <li><g:link controller="admin" action="viewProvisionalStudents"><g:message
                             code="default.mainMenu6.subMenu1"/></g:link></li>
 
-                    <li><g:link controller="admin"
-                                action="viewApprovedStudents"><g:message
-                                code="default.mainMenu6.subMenu3"/></g:link></li>
+                    %{--<li><g:link controller="admin"--}%
+                                %{--action="viewApprovedStudents"><g:message--}%
+                                %{--code="default.mainMenu6.subMenu3"/></g:link></li>--}%
                     <li><g:link controller="admin"
                                 action="assignExaminationDate"><g:message
                                 code="default.mainMenu6.subMenu4"/></g:link></li>
                     <li><g:link controller="admin"
                                 action="assignExaminationVenue"><g:message
                                 code="default.mainMenu6.subMenu5"/></g:link></li>
-
+                    <li><g:link controller="student" action="studentListView"><g:message
+                            code="default.mainMenu2.subMenu6"/></g:link></li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu7"/></a>
                         <ul>
                             <li><g:link controller="programFee" action="createNewFeeType"><g:message

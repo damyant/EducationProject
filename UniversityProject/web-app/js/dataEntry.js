@@ -8,7 +8,7 @@ var studentIdList = [];
 function getStudentsList() {
 
     var date = $('#admissionDate').val()
-    alert(date)
+//    alert(date)
     $.ajax({
         type: "post",
         url: url('feeDetails', 'getStudentList', ''),
@@ -52,7 +52,7 @@ function enablecriteria(t) {
     $('#studentList thead tr').remove()
     $('#studentList tbody tr').remove();
     var op = $(t).val();
-    alert(">>>>>>>>option"+op)
+//    alert(">>>>>>>>option"+op)
 
     if (op == 'By Program') {
         //  $('#programId').prop('disabled', false);
