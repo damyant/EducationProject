@@ -11,6 +11,7 @@
     <meta name="layout" content="main"/>
     <title>Create Examination Center</title>
     <g:javascript src='studyCenter.js'/>
+    <g:javascript src='examinationCentre.js'/>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'jquery/jquery.min.js')}'></script>
 
 </head>
@@ -19,17 +20,19 @@
 <div id="main">
     <fieldset class="form">
         <div>
+
         <div class="university-location-select">
             <div class="university-label-location-select">
                 <label><g:message code="default.createStudy.district"/></label>
             </div>
             <g:select name="district" id="district" optionKey="id" value="${studyCentreInstance?.city?.district?.id}"
                       class="university-size-1-3" onchange="showCityList()" optionValue="districtName"
-                      from="${District.findAll()}" noSelection="['': ' Select District']"/>
+                      from="${districtList}" noSelection="['': ' Select District']"/>
         </div>
 
         <div class="university-location-select">
             <div class="university-label-location-select">
+                <g:hiddenField name="edit" id="edit" value=" ${edit}"></g:hiddenField>
                 <label><g:message code="default.createStudy.city"/></label>
             </div>
             <g:select name="city" id="city" optionKey="id" value="${studyCentreInstance?.city?.id}"
@@ -44,24 +47,6 @@
     </div>
     </fieldset>
 </div>
-<script>
-    function showList() {
-        var data = $('#city').val();
-        jQuery("#centreListTable").css({display: "block"});
-        $.ajax({
-            type: "post",
-            url: '${createLink(controller: 'examinationCenter', action: 'getCentreList')}',
 
-            data: {data: data, edit: 'edit'},
-            success: function (response) {   //
-
-                $("div#centreList").html(response)
-
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-            }
-        });
-    }
-</script>
 </body>
 </html>

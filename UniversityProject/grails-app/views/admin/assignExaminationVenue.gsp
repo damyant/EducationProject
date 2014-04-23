@@ -17,14 +17,16 @@
 
 <body>
 <div id="main">
-    <div class="university-status-message"><div id="successMessage">&nbsp;</div></div>
+    <fieldset class="form">
     <form id="assignExamVenue">
-        <fieldset class="form">
+        <h3>Assign Examination Venue</h3>
+        <div class="university-status-message"><div id="successMessage">&nbsp;</div></div>
+
             <g:form method='post' enctype="multipart/form-data" id="assignExamVenue" name="assignExamVenue">
                 <table class="inner" style="width: 95%;margin: auto">
                     <tr>
                         <td class="university-size-1-4"><label>Select a Course</label></td>
-                        <td class="university-size-1-4">
+                        <td class="university-size-1-4" style="padding-left: 20px;">
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
                                       from="${programList}" noSelection="['': ' Select Program']"
@@ -35,7 +37,7 @@
                     </tr>
                     <tr>
                         <td class="university-size-1-4"><label>Select an Examination Centre</label></td>
-                        <td class="university-size-1-4">
+                        <td class="university-size-1-4" style="padding-left: 20px;">
                             <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
                                       optionValue="cityName" from="${examinationCenterList}"
                                       noSelection="['': ' Select City']"

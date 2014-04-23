@@ -11,6 +11,7 @@
 <head>
     <meta name="layout" content="main"/>
     <g:javascript src='studyCenter.js'/>
+    <g:javascript src='examinationCentre.js'/>
     <title>Create Examination Center</title>
 </head>
 
@@ -38,30 +39,12 @@
             </div>
         </div>
 
-        <div id="centreList" style="text-align: center; width: 100%">
+        <div id="centreList" style="text-align: center; width: 100%;margin-top: 10px;">
         </div>
     </fieldset>
 </div>
 <script>
-    function showList() {
-        var data = $('#city').val();
-        jQuery("#centreListTable").css({display: "block"});
-        $.ajax({
-            type: "post",
-            url: '${createLink(controller: 'examinationCenter', action: 'getCentreList')}',
-            data: {data: data},
-//            contentType: "application/json; charset=utf-8",
-//            dataType: "json",
-            success: function (response) {
-                console.log("<><><><><><><><> " + response)
-                $("div#centreList").html(response)
 
-
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-            }
-        });
-    }
 </script>
 </body>
 </html>

@@ -73,7 +73,7 @@ class StudyCenterInfoService {
         if(params){
         def studyCenter = StudyCenter.get(params.studyCenterId)
 //            println(studyCenter.name)
-            return [studyCentreInstance:studyCenter]
+//            return [studyCentreInstance:studyCenter]
         }
     }
 }

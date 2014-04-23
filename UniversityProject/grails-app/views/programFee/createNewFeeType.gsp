@@ -25,7 +25,7 @@
                 </ul>
             </g:hasErrors>
             <g:form url="[resource: programFeeInstance, action: 'save']" id="createNewFee" name="createNewFee">
-                <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
+                <div style="margin-left: 5px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 
                 <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} university-size-1-1">
                     <div class="university-size-1-3"><label for="programDetail">

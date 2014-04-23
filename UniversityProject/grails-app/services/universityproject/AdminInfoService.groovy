@@ -8,6 +8,7 @@ import examinationproject.ProgramExamVenue
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
+import examinationproject.StudyCenter
 import examinationproject.Subject
 import grails.transaction.Transactional
 
@@ -75,13 +76,16 @@ def springSecurityService
         }
 
         for(def i=0;i<subList.examDate.size();i++){
+            println(dateList[i][0])
 
-            if(dateList[0][0]!=null){
             for(def j=0;j<dateList[i].size();j++){
-
+                if(dateList[i][j]!=null){
               totalDateList<<dateList[i][j].getDateString()
               ++count
             }
+                else{
+                    totalDateList<<'noo'
+                }
             }
         }
 
@@ -100,6 +104,7 @@ def springSecurityService
         subjectList.each{i ->
             def subjectIns=Subject.findById(Long.parseLong(i.toString()))
             subjectIns.examDate=f1.parse(params.examinationDate[count])
+            subjectIns.examTime=params.examinationTime[count]
             subjectIns.save(failOnError: true)
             ++count;
         }
@@ -116,6 +121,30 @@ def springSecurityService
           ProgramExamVenue.create courseIns, ExaminationCentre.findById(Integer.parseInt(it.toString())),cityIns
 
         }
+    }
+    def updateStudentList(params){
+//        println("==========="+springSecurityService.principal.id)
+        def studyCenterId=0
+        def statusObj
+        if(params.studyCenterId){
+            studyCenterId=params.studyCenterId
+        }
+        else{
+            def currentUser=springSecurityService.getCurrentUser()
+
+            studyCenterId=currentUser.studyCentreId
+        }
+
+         def obj=Student .createCriteria()
+         def studList= obj.list{
+            programDetail{
+                eq('id', Long.parseLong(params.programId))
+            }
+            studyCentre {
+                eq('id', Long.parseLong(studyCenterId.toString()))
+            }
+        }
+        return  studList
     }
 
 }

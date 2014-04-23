@@ -20,14 +20,10 @@
 <div id="main">
 <div>
     <fieldset class="form">
-
-        %{--<g:form >--}%
-            %{--<g:hiddenField name="studentId" id="studentId"/>--}%
-            %{--<g:hiddenField name="pageType" id="pageType" value="Registered RollNo"/>--}%
-            <table class="inner" style="margin: auto;" id="fee-table">
+        <table class="inner" style="margin: auto;" id="fee-table">
                 <tr>
-                    <td style="min-width: 12%">
-                        <label for="filterType">Select Criteria</label>
+                    <td style="width: 18%">
+                        <label for="filterType">Select Criteria:</label>
                     </td>
                     <td style="width: 18%">
                         <g:select name="filter" class="university-size-1-1" id="filterType"
@@ -35,13 +31,13 @@
                                   noSelection="['null': ' Select filter']" onchange="enablecriteria(this)"/>
                     </td>
 
-                    <td style="min-width: 10%">
+                    <td style="min-width: 18%">
                         <div id="programl" hidden="true">
-                        <label for="programId">Select Program</label>
+                        <label for="programId">Select Program:</label>
                         </div>
                     </td>
 
-                    <td style="width: 20%">
+                    <td style="width: 18%">
                         <div id="programv" hidden="true">
                         <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}"
                                   optionKey="id" optionValue="courseName" noSelection="['null': ' Select Program']"
@@ -49,13 +45,13 @@
                    </div>
                     </td>
 
-                    <td style="min-width: 10%">
+                    <td style="min-width: 18%">
                         <div id="studyCentrel" hidden="true">
-                            <label for="studyCentre">Select Study Centre</label>
+                            <label for="studyCentre">Select Study Centre:</label>
                         </div>
                     </td>
 
-                    <td style="width: 20%">
+                    <td style="width: 18%">
                         <div id="studyCentrev" hidden="true">
                             <g:select name="studyCentre" id="studyCentre" class="university-size-1-1" from="${studyCentre}"
                                       optionKey="id" optionValue="name" noSelection="['null': ' Select Study Centre']"
@@ -100,11 +96,11 @@
 
 
  <!--your content end-->
-        %{--<div id="msg"></div>--}%
+        <div id="msg"></div>
     </fieldset>
     <div id="dialog" title="Basic dialog">
         <form  id="createFeeDetail">
-            <div id="msg"></div>
+            <div id="responseMessage" class="university-status-message"></div>
             <div class="university-size-1-1" style="margin-left: 4px;">
                 <label>
                     <h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory</h6>

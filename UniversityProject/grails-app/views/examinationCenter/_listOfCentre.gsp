@@ -1,8 +1,8 @@
 <g:if test="${edit}">
-    <table id="centreListTable" class="inner university-table-1-7" style="width: 98%;margin: 3px auto;">
+    <table id="centreListTable" class="inner university-table-1-7 university-size-full-1-1" style="margin: 3px auto;">
 </g:if>
 <g:else>
-    <table id="centreListTable" class="inner university-table-1-6" style="width: 98%;margin: 3px auto;">
+    <table id="centreListTable" class="inner university-table-1-6 university-size-full-1-1" style="margin: 3px auto;">
 </g:else>
 <thead class='thclass'>
 <tr>

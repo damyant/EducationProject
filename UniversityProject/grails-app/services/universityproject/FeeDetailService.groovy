@@ -61,7 +61,7 @@ class FeeDetailService {
             println("now searching students for date")
              date = df.parse(params.admissionDate)
         }
-       if(params.studyCenterId){
+       if(params.studyCenterId!='null'){
             println("assign Study Centre1")
             studyCenterId= params.studyCenterId
         }
@@ -73,9 +73,10 @@ class FeeDetailService {
         statusObj=Status.findById(2)
 
 
-        def obj=Student .createCriteria()
+        def obj=Student.createCriteria()
         def stuList
         if(params.programId!='null'){
+            println("getting students of program id"+ params.programId)
         stuList= obj.list{
             programDetail{
                 eq('id', Long.parseLong(params.programId))

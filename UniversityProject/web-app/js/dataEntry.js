@@ -84,6 +84,7 @@ function enablecriteria(t) {
     $('#studentList tbody tr').remove();
     var op = $(t).val();
 
+
     if (op == 'By Program') {
         //  $('#programId').prop('disabled', false);
         $('#programl').show();
@@ -162,7 +163,7 @@ function submitFeeDetail(){
         async: false,
         data: $('#createFeeDetail').serialize(),
         success: function (response) {
-            $('div#msg').html(response);
+            $('div#responseMessage').html(response);
             var current = $('#currentStudentId').val()
 
              delete studentList[current-1]
@@ -180,14 +181,14 @@ function submitFeeDetail(){
 
 
         }, error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $('div#msg').html(response);
+            $('div#responseMessage').html(textStatus);
             console.log("response in error")
         }
 
     });
     }
     else{
-        return false
+        return false;
     }
 
 

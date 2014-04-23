@@ -82,30 +82,28 @@ function removeExaminationCentre(index) {
 
 
 function submitForm() {
+    alert("in submit form ajax")
     var location = $("#location").val();
-    if (location == 0) {
-        alert("Please Select Location of examination centre");
-    }
-    else {
+
 //        jQuery("#submitButton").validationEngine('attach', {
 //            onValidationComplete: function (form, status) {
 //                if (status == true) {
+                    debugger;
                     $.ajax({
-                        type: "post",
 
-                        url: url('feeDetails', '', ''),
+                        type: "post",
+                        url: url('examinationCenter', 'saveExaminationCentre', ''),
                         async: false,
                         data: $('#examinationCenterForm').serialize(),
                         success: function (response) {
-                            reset1()
+                            document.getElementById("examinationCenterForm").reset();
                             $('div#msg').html(response);
-
 
                         }, error: function (XMLHttpRequest, textStatus, errorThrown) {
                             console.log("response in error")
                         }
                     });
-                }
+
 //            }
 //        });
 //    }
@@ -234,4 +232,25 @@ function validateAndSubmitForm() {
 function clearErrorMsg(t){
     $(t).next( "label" ).text( "" );
 
+}
+
+
+function showList() {
+
+    jQuery("#centreListTable").css({display: "block"});
+    $.ajax({
+        type: "post",
+        url: url('examinationCenter', 'getCentreList', ''),
+       data: {city: $('#city').val(),edit:$('#edit').val()},
+//            contentType: "application/json; charset=utf-8",
+//            dataType: "json",
+        success: function (response) {
+            console.log("<><><><><><><><> " + response)
+            $("div#centreList").html(response)
+
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
 }

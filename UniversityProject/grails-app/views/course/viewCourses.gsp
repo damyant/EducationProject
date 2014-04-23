@@ -28,6 +28,7 @@
     <body>
         <div id="main">
             <fieldset class="form">
+                <h3>Course Details</h3><br/>
                 <g:if test="${flash.message}">
                     <div class="message"><div class="university-status-message">${flash.message}</div></div>
                 </g:if>
