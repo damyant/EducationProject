@@ -2,6 +2,7 @@
 var studentIdList = [];
 var subjectIdList=[];
 $(document).ready(function () {
+
         $("#submit").click(function(){
             var rollNo = $("#rollNo").val()
             var feeType = $("#type").val()
@@ -21,7 +22,7 @@ $(document).ready(function () {
 
 
     $(document).on('click', '#assignRollNo', function () {
-
+        alert("hi")
         if ($("input[name=rollno_checkbox]:checked").length != 0) {
             $("input[name=rollno_checkbox]:checked").each(function (i) {
 
@@ -31,6 +32,7 @@ $(document).ready(function () {
                 }
 
             })
+
             generateRollNo(this.value)
 //            document.forms["generateRollNo"].submit();
         }
@@ -106,7 +108,7 @@ function toggleChecked(status) {
 }
 
 function generateRollNo(value) {
-
+alert("hi")
     $.ajax({
         type: "post",
         url: url('admin', 'generateRollNo', ''),

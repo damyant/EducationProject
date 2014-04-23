@@ -321,7 +321,7 @@
         </g:if>
         <g:else>
             <div id="profile-image"><img src="" alt="Space for Photograph "
-                                         class="university-registration-photo"/></div>
+                                         class="university-registration-photo" id="picture"/></div>
         </g:else>
             <input type='file' id="profile-image-upload" onchange="readURL(this, 'picture');" class="university-button"
                    name="photograph"/>

@@ -48,6 +48,7 @@ class StudentController {
         println("in submit Registration " + params)
         def signature = request.getFile('signature')
         def photographe = request.getFile("photograph")
+        println("============="+photographe)
         def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe)
         if (studentRegistration) {
             flash.message = "${message(code: 'register.created.message')}"
@@ -66,6 +67,8 @@ class StudentController {
         def student = Student.findById(params.studentID)
 
         def args = [template: "applicationPrintPreview", model: [studentInstance: student]]
+
+
         pdfRenderingService.render(args + [controller: this], response)
         println("Student Name is " + student.name)
 
