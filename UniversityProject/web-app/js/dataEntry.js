@@ -6,7 +6,8 @@
 var studentList = [];
 // document ready function............................................
 $(function() {
-    $("#dialog").dialog({  autoOpen: false,
+    $("#dialog").dialog({
+        autoOpen: false,
 //        maxWidth:600,
 //        maxHeight: 500,
         width: 1000,

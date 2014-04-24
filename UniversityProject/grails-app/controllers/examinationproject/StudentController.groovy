@@ -52,8 +52,14 @@ class StudentController {
         def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe)
         if (studentRegistration) {
 
+            if(springSecurityService.isLoggedIn()){
+
             flash.message = "${message(code: 'register.created.message')}"
-            redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+            redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
+            }else{
+                flash.message = "${message(code: 'register.created.message')}"
+                redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+            }
         } else {
             println("Cannot Register new Student")
             flash.message = "${message(code: 'register.notCreated.message')}"
@@ -104,6 +110,7 @@ class StudentController {
     def applicationPreview() {
 
     }
+    @Secured(["ROLE_ADMIN"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
         def programList=ProgramDetail.list(sort: 'courseName')
@@ -115,6 +122,13 @@ class StudentController {
         byte[] image = something.studentImage
         response.setContentType(params.mime)
         response.outputStream << image
+    }
+    @Secured(["ROLE_IDOL_USER"])
+    def enrollmentAtIdol={
+        def programList = ProgramDetail.list(sort: 'courseName')
+        def districtList=District.list(sort: 'districtName')
+//        println("sss"+studInstance.status)
+        [ programList: programList,districtList:districtList]
     }
 
     def downloadAdmitCard={

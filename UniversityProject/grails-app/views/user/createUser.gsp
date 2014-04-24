@@ -120,6 +120,7 @@
     </ul>
 </div>--}%
 <div id="main">
+    <fieldset class="form">
     <div id="create-user" class="content scaffold-create" role="main">
         <h3><g:message code="default.create.label" args="[entityName]"/></h3>
         <g:if test="${flash.message}">
@@ -133,7 +134,7 @@
                 </g:eachError>
             </ul>
         </g:hasErrors>
-        <g:form url="[resource: userInstance, action: 'saveUser']">
+        <g:form url="[resource: userInstance, action: 'save']">
             <fieldset class="form">
                 <div class="myclass"><%@ page import="com.university.Role; com.university.UserRole; com.university.User" %>
 
@@ -166,14 +167,14 @@
 
                     </div>
 
-                    <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
+                    %{--<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">--}%
 
-                        <div><label for="role">
-                            <g:message code="user.role.label" default="Role"/></label>
-                            <span class="required-indicator">*</span></div>
-                        <div class="university-size-1-3"> <g:select from="${Role.list()}" class="university-size-2-3" optionKey="authority" optionValue="authority" value="" name="userRole"  noSelection="['':'-Choose role-']"/></div>
+                        %{--<div><label for="role">--}%
+                            %{--<g:message code="user.role.label" default="Role"/></label>--}%
+                            %{--<span class="required-indicator">*</span></div>--}%
+                        %{--<div class="university-size-1-3"> <g:select from="${Role.list()}" class="university-size-2-3" optionKey="authority" optionValue="authority" value="" name="userRole"  noSelection="['':'-Choose role-']"/></div>--}%
 
-                    </div>
+                    %{--</div>--}%
 
                     <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'accountExpired', 'error')} ">
                         <div class="university-size-1-4"><label for="accountExpired">
@@ -209,6 +210,33 @@
 
                 </div>
             </fieldset>
+            <fieldset class='roleFieldSet'>
+                       <legend>
+                        Please Select Roles
+                       </legend>
+                           %{--<table class='rolesTable'>--}%
+                               %{--<tbody>--}%
+            <g:each in="${roles}" status="i" var='roleInstance'>
+
+                %{--<tr class="prop">--}%
+
+                    %{--<td valign="middle" class="name">--}%
+                        %{--<label> ${fieldValue(bean: roleInstance, field: "authority")} </label>--}%
+                    %{--</td>--}%
+                    %{--<td valign="middle">--}%
+                        %{--<g:checkBox name="myCheckbox" value="${roleInstance.id}" checked=""/>--}%
+                    %{--</td>--}%
+
+                %{--</tr>--}%
+                <div class="fieldcontain ${hasErrors(bean: roleInstance, field: 'authority', 'error')} ">
+                    <div class="university-size-1-4">
+                        <label> ${fieldValue(bean: roleInstance, field: "authority")} </label>
+                    </div>
+                    <div class="university-size-1-3"><g:checkBox name="myCheckbox" value="${roleInstance.id}" checked="" /></div>
+                </div>
+            </g:each>
+            %{--</tbody>--}%
+           %{--</table>--}%
             <fieldset class="buttons">
                 <div class="university-size-1-3">  </div>
                 <div class="university-size-1-3"><g:submitButton name="create" class="save university-button"
@@ -219,6 +247,7 @@
             </fieldset>
         </g:form>
     </div>
+        </fieldset>
 </div>
 </body>
 

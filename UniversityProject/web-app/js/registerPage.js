@@ -56,7 +56,7 @@ function readURL(input,type) {
         var FileUploadPath = $("#profileImage").val()
         var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
         var imgkbytes = Math.round(parseInt(input.files[0].size)/1024)
-        if(imgkbytes<=50 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg")){
+        if(imgkbytes<=50 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg"|| Extension == "jpg")){
        var reader = new FileReader();
         if(type=='picture')
             reader.onload = function (e) {
@@ -107,7 +107,10 @@ jQuery(function($) {
 });
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1a6324c5addb2454551b33030f90b8a002bc0662
 
 
 

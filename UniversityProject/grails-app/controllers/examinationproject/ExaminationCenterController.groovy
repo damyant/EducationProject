@@ -102,6 +102,10 @@ class ExaminationCenterController {
             def examCentreInstance = ExaminationCentre.get(params.id)
             examCentreInstance.student.each { tmp << it }
             tmp.each { examCentreInstance.removeFromStudent(it) }
+            def programExamVenue = ProgramExamVenue.findAllByExamCenter(examCentreInstance)
+            programExamVenue.each {
+                it.delete(flush: true)
+            }
             examCentreInstance.delete(flush: true)
             flash.message = "${message(code: 'centre.deleted.message')}"
             redirect(action: "updateExaminationCentre")
