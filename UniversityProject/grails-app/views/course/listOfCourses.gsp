@@ -8,17 +8,18 @@
 
     <body>
     <div id="main">
+        <fieldset class="form">
         <g:if test="${params.type == 'update'}">
-            <table id="courseTab" class="university-table-1-4 university-table-text-left">
+            <table id="courseTab" class="university-size-full-1-1 university-table-1-4 university-table-text-left ">
         </g:if>
         <g:else>
-            <table id="courseTab" class="university-table-1-3 university-table-text-left">
+            <table id="courseTab" class="university-size-full-1-1 university-table-1-3 university-table-text-left " style="border: 1px solid #f2f5f7">
         </g:else>
         <thead>
         <tr>
-            <th>Course Name</th>
-            <th>Course Type</th>
-            <th>Course Mode</th>
+            <th>Program Name</th>
+            <th>Program Type</th>
+            <th>Program Mode</th>
             <th>&nbsp;</th>
         </tr>
         </thead>
@@ -60,6 +61,7 @@
                 <g:paginate  total="${courseInstanceTotal}"/>
             </g:else>
         </div>
+        </fieldset>
     </div>
 
     </body>
