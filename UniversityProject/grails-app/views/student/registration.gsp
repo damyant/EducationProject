@@ -118,7 +118,7 @@
     </td>
 </tr>
 
-<!----- Last Name ---------------------------------------------------------->
+<!----- Program Name ---------------------------------------------------------->
 <tr>
     <td>Program<span class="university-obligatory">*</span></td>
     %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%

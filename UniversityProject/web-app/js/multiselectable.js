@@ -7,7 +7,7 @@
 function semesterList() {
     $('#multiSelectTab tbody tr').remove()
     for (var j = 1; j <= $('#noOfTerms').val(); j++) {
-        $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Subjects <span class="university-obligatory">*</span></label><select style="width: 60%" name="allsubjectList' + j + '" id="allsubjectList' + j + '"  multiple="true"  /></td>' +
+        $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Course <span class="university-obligatory">*</span></label><select style="width: 60%" name="allsubjectList' + j + '" id="allsubjectList' + j + '"  multiple="true"  /></td>' +
             ' <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList(' + j + ')" name="add' + j + '"  id="add' + j + '">Add</button>' +
             '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList(' + j + ')" name="remove' + j + '"  id="remove' + j + '">Remove</button> </td>' +
             '<td style="width:40%;"><select class="select-to" style="width: 50%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  />' +
@@ -37,7 +37,7 @@ function semesterList() {
 function viewSemesterList() {
     $('#multiSelectTab tr').remove()
     for (var j = 1; j <= $('#noOfTerms').html(); j++) {
-        $('#multiSelectTab').append('<tr><td style="width: 40%"><label>Term - ' + j + ' Subjects</label></td>' +
+        $('#multiSelectTab').append('<tr><td style="width: 40%"><label>Term - ' + j + ' Course</label></td>' +
             '<td style="width: 60%"><select class="select-to university-size-2-3" readonly="readonly" style="width: 75%;border: 0px;margin: 0px" name="semester' + j + '" id="semester' + j + '"  multiple="true" /><input type="button" style="margin-left: 10px;" value="View Syllabus" id="viewSyllabus" onclick="viewSyllabus()" alt="Select a Subject and Click This Button"/></td></tr>')
 
     }

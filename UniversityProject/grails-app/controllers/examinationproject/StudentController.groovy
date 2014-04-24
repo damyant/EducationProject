@@ -125,6 +125,10 @@ class StudentController {
     }
     @Secured(["ROLE_IDOL_USER"])
     def enrollmentAtIdol={
+        def programList = ProgramDetail.list(sort: 'courseName')
+        def districtList=District.list(sort: 'districtName')
+//        println("sss"+studInstance.status)
+        [ programList: programList,districtList:districtList]
 
     }
 

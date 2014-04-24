@@ -769,6 +769,7 @@ textarea:-moz-placeholder {
 }
 .university-size-full-1-1{
     width: 100%;
+    margin: auto;
 }
 textarea {
     resize: none;
