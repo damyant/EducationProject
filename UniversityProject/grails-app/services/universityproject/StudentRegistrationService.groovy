@@ -28,11 +28,9 @@ class StudentRegistrationService {
        def programSession
        def studentRegistration
        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-       for(int i=0;i<50;i++){
-           def name = params.name+""+i
        if(params.studentId){
            studentRegistration=Student.findById(Long.parseLong(params.studentId))
-           studentRegistration.name=name
+           studentRegistration.name=params.name
            studentRegistration.gender=params.gender
            studentRegistration.state=params.state
            studentRegistration.category=params.category
@@ -106,12 +104,12 @@ class StudentRegistrationService {
        studentRegistration.admitCardGenerated=false
         //RAJ CODE
 
-           studentRegistration.save(flush:true,failOnError: true)
-       }
+
+
       //END RAJ CODE
 
       // studentRegistration.studentSignature=signature.bytes
-       if(studentRegistration){
+       if(studentRegistration.save(flush:true,failOnError: true)){
            println('new student registered successfully')
            studentRegistrationInsSaved= true
            return studentRegistration
