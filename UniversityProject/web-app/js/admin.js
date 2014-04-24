@@ -5,12 +5,12 @@ $(document).ready(function () {
 
         $("#submit").click(function(){
             var rollNo = $("#rollNo").val()
-            var feeType = $("#type").val()
-            if(rollNo.length==0){
+            var feeType = $("#feeType").val()
+            if(rollNo.length==""){
                 $("#rollNo").after('<label class="error">Please Enter Roll Number</label>')
                 return false
             }
-            if(feeType.length==0){
+            if(feeType==""){
                 $("#type").after('<label class="error">Please Select Fee Type</label>')
                 return false
             }
@@ -178,7 +178,9 @@ function appendSubjects(obj){
     var counter=0;
 
 
+
     for(var i=0;i<obj.allSubjects.length;i++){
+
 
         $("#subjectList").append('<tr><th>'+"Term"+ count+" Subjects" +'</th><th>Examination Date</th><th>Examination Time</th></tr>' )
         for(var j=0;j<obj.allSubjects[i].length;j++){
@@ -193,18 +195,24 @@ function appendSubjects(obj){
             datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
             }
 
+
             $("#subjectList").append('<tr id="subjectRows'+j+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
                 '<input type="text"  name="examinationDate"  class="datepicker university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError" class="error3">&nbsp;</label></td>'+
                 '<td class="university-size-1-3"> <input type="text"  name="examinationTime" style="width: 70px;" class="timepicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError" class="error4">&nbsp;</label></td>'+
+
                 '</tr>')
-           ++counter
+            ++counter;
+
         }
+
         count++;
+
 
     }
 
 
-    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" class="ui-button" value="Submit" onclick="validateFields('+counter+')"></td></tr>' )
+
+    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" value="Submit" onclick="validateFields('+validateCountB+','+validateCountA+')"></td></tr>' )
 
     $(".datepicker").datepicker({
         changeMonth: true,
@@ -216,6 +224,7 @@ function appendSubjects(obj){
         showLeadingZero: true
     });
 }
+
 
 function validateFields(counter){
 //    var date=null;
@@ -244,6 +253,7 @@ function validateFields(counter){
 //
 //    }
 //        return bool;
+
    }
 
 function checkTimeFormat(count){

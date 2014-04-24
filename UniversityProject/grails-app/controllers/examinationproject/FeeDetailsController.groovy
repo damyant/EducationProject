@@ -1,6 +1,7 @@
 package examinationproject
 
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -15,7 +16,7 @@ class FeeDetailsController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 
-
+    @Secured("ROLE_ADMIN")
     def createFeeDetails() {
         respond new FeeDetails(params)
     }
@@ -57,7 +58,7 @@ class FeeDetailsController {
             redirect(action: "createFeeDetails")
         }
     }
-
+    @Secured("ROLE_ADMIN")
      def bulkFeeEntry   = {
 
          def filterType = []
@@ -69,7 +70,7 @@ class FeeDetailsController {
 
          [filterType:filterType,programList:programList,studyCentre:studyCentre]
      }
-
+    @Secured("ROLE_ADMIN")
     def getStudentList(){
         def responseMap=[:]
         def stuList= feeDetailService.provisionalStudentList(params)

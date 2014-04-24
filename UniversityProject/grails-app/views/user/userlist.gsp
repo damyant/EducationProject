@@ -15,12 +15,13 @@
     </ul>
 </div>--}%
 <div id="main">
+    <fieldset class="form">
     <div id="list-user" class="content scaffold-list" role="main">
         <h3><g:message code="default.list.label" args="[entityName]"/></h3>
         <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
         </g:if>
-        <table class="university-table-1-7" id="userListTable">
+        <table class="university-table-1-7 inner" id="userListTable">
             <thead>
             <tr>
 
@@ -74,6 +75,7 @@
         <g:paginate total="${userInstanceCount ?: 0}" />
 
     </div>
+    </fieldset>
 </div>
 </body>
 </html>
