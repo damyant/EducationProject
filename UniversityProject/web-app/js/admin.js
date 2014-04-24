@@ -176,16 +176,15 @@ function appendSubjects(obj){
 
     var count=1;
     var counter=0;
-    var validateCountA=0;
-    var validateCountB=0;
+
 
 
     for(var i=0;i<obj.allSubjects.length;i++){
-       alert("All Subject"+obj.allSubjects.length)
+
 
         $("#subjectList").append('<tr><th>'+"Term"+ count+" Subjects" +'</th><th>Examination Date</th><th>Examination Time</th></tr>' )
         for(var j=0;j<obj.allSubjects[i].length;j++){
-            alert("subjectList"+obj.allSubjects[i].length)
+
             subjectIdList[counter]=obj.allSubjects[i][j].id
 
             var datesInNewFormat=""
@@ -203,13 +202,12 @@ function appendSubjects(obj){
 
                 '</tr>')
             ++counter;
-            validateCountB=validateCountB+j;
+
         }
-        alert("B"+validateCountB);
-       // b =b+1;
+
         count++;
-        validateCountA= validateCountA+i;
-        alert("A"+validateCountA)
+
+
     }
 
 
