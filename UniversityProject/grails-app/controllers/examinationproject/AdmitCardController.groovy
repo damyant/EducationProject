@@ -3,9 +3,10 @@ package examinationproject
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 
-@Secured("ROLE_ADMIN")
+//@Secured("ROLE_ADMIN")
 
 class AdmitCardController {
 
@@ -104,34 +105,30 @@ class AdmitCardController {
 
     }
     def printAdmitCard={
-        def studentList=params.studentList.split(",")
+        println("?????????????????/"+params)
         def stuList = []
         StringBuilder examDate = new StringBuilder()
         def byte [] logo= new File("web-app/images/gu-logo.jpg").bytes
-        studentList.each{
-        stuList << Student.findById(Integer.parseInt(it.toString()))
-          }
-//
-//        println("???????===="+stuList[0].programDetail)
-//        println("???????===="+Semester.findBySemesterNo(1))
-//        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findBySemesterNo(1))*.subject as Set
-//       println("list==="+list)
-//
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        if(params.rollNumber){
 
-        println(stuList[0].programDetail)
-        println(Semester.findBySemesterNo(1))
-        def ab=CourseSubject.findAllByCourseDetail(stuList[0].programDetail)
-        def ab1=CourseSubject.findAllByCourseDetail(Semester.findById(stuList[0].semester))
-        println("??????"+ab)
-        println("??????"+ab1)
-        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findBySemesterNo(1))*.subject as Set
-       println(list)
+         stuList=   Student.findAllByRollNoAndDobAndAdmitCardGenerated(Integer.parseInt(params.rollNumber.trim()),df.parse(params.dob),true)
+            println("???????????????"+stuList)
 
+        }else{
+
+            def studentList=params.studentList.split(",")
+            studentList.each{
+                stuList << Student.findById(Integer.parseInt(it.toString()))
+            }
+        }
+        if(stuList[0]){
+
+        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findBySemesterNoAndCourseDetail(stuList[0].semester,stuList[0].programDetail))*.subject as Set
         def finalList=list.sort{a,b->
             a.examDate<=>b.examDate
         }
-        println("???????"+stuList)
-        println("???????"+finalList)
+
         finalList.each{
             examDate.append(it.examDate.format("dd/MM/yyyy"))
             examDate.append(", ")
@@ -140,9 +137,23 @@ class AdmitCardController {
             it.admitCardGenerated=true
             it.save(failOnError: true)
         }
-        def fileName=stuList[0].courseName
+        def month=""
+        if(stuList[0].semester%2==0){
+            month="July"
+        }
+        else{
+            month="December"
+        }
+
+        def session=stuList[0].programSession.sessionOfProgram.split("-")
+        def fileName=stuList[0].programDetail[0].courseName+" "+month+" "+session[0]
         def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate,guLogo:logo],filename:fileName]
         pdfRenderingService.render(args + [controller: this], response)
+        }
+        else{
+            flash.message="Admit Card Not Generated yet"
+            redirect(controller:'student', action: 'downloadAdmitCard')
+        }
 
     }
 

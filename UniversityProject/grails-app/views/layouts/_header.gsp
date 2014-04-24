@@ -29,7 +29,9 @@
                             code="default.mainMenu2.subMenu1"/></g:link></li>
 
                     <li><a class="viewResulttopopup"><g:message code="default.mainMenu2.subMenu2"/></a></li>
-                    <li><a href="#"><g:message code="default.mainMenu2.subMenu3"/></a></li>
+                    %{--<li><a class="admitCardPopup" href="#"><g:message code="default.mainMenu2.subMenu3"/></a></li>--}%
+                    <li><g:link controller="student" action="downloadAdmitCard"><g:message
+                        code="default.mainMenu2.subMenu3"/></g:link></li>
                     <li><a href="#"><g:message code="default.mainMenu2.subMenu4"/></a></li>
                     <li><a class="statustopopup" href="#"><g:message code="default.mainMenu2.subMenu5"/></a></li>
                 </ul>

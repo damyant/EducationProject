@@ -8,7 +8,10 @@ var i ;
 var selected = new Array();
 var updatedAvailable=0;
 var totalRows= 0;
+
+
 $(document).ready(function () {
+
 
     var count=0;
    // $("input[name='studentCheckbox']").change(function () {
@@ -184,6 +187,7 @@ function showExamVenueCapacity(){
 
 
 function getStudentsForAdmitCard(){
+
     $.ajax({
         type: "post",
         url: url('admitCard', 'getStudentsForAdmitCard', ''),
@@ -320,7 +324,7 @@ function generateAdmitCard(){
         $("#admitCardForm").submit();
 //        studentsSelected(selectedStudentList)
 
-        setTimeout(function(){ getStudentsForAdmitCard()},100);
+        setTimeout(function(){ getStudentsForAdmitCard()},300);
 
         return true;
 
@@ -367,6 +371,40 @@ function enableShowCandidate(){
     else{
         $('#showCandidates').prop('disabled', false)
     }
+}
+
+
+function downloadAdmitCard(){
+    alert("kk")
+    debugger;
+$("#abc1").submit();
+//    $("#abc").submit(function() {
+//        alert("THIS IS WORKING!!!!!!");
+//    });
+
+//    document.studentAdmitCardForm.submit();
+    alert("done")
+
+//    $.ajax({
+//        type: "post",
+//        url: url('admitCard', 'printAdmitCard', ''),
+//        data: "rollNumber="+$('#rollNo').val()+'&dob='+$('#dob').val(),
+//        success: function (data) {
+////            alert(data.response2)
+//            if(data.response1){
+//                document.getElementById("statusofApp").style.display = "block";
+//                if(data.response2!=0){
+//                    $('#statusofApp').append('<div>Status of Application is '+data.response1 +' with Roll Number '+ data.response2+'</div>')
+//                }else{
+//                    $('#statusofApp').append('<div>Status of Application is '+data.response1 +' whose Roll Number not Generated yet </div>')
+//                }
+//            }            else{
+//                document.getElementById("statusofApp").style.display = "block";
+//                $('#statusofApp').append('<div>You have Entered Wrong Reference Number</div>')
+//            }
+//        }
+//
+//    });
 }
 
 

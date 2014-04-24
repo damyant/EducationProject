@@ -117,5 +117,9 @@ class StudentController {
         response.outputStream << image
     }
 
+    def downloadAdmitCard={
+
+    }
+
 
 }
