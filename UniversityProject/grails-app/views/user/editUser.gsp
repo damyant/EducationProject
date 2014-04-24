@@ -28,8 +28,9 @@
                 </g:eachError>
             </ul>
         </g:hasErrors>
-        <g:form url="[resource: userInstance, action: 'update']" method="PUT">
-            <g:hiddenField name="version" value="${userInstance?.version}"/>
+    <g:form name="edit" action='updateUser'>
+        <g:hiddenField name="version" value="${userInstance?.version}"/>
+            <g:hiddenField name="id" value="${userInstance?.id}"/>
             <fieldset class="form">
 
                 <%@ page import="com.university.Role; com.university.UserRole; com.university.User" %>
@@ -68,25 +69,25 @@
 
                 </div>
 
-                <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
+                %{--<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">--}%
 
-                    <div><label for="role">
-                        <g:message code="user.role.label" default="Role"/></label>
-                        <span class="required-indicator">*</span></div>
-                <div>
-                    <g:if test="${UserRole.findByUser(userInstance) != null}">
+                    %{--<div><label for="role">--}%
+                        %{--<g:message code="user.role.label" default="Role"/></label>--}%
+                        %{--<span class="required-indicator">*</span></div>--}%
+                %{--<div>--}%
+                    %{--<g:if test="${UserRole.findByUser(userInstance) != null}">--}%
 
-                        <g:select from="${Role.list()}" optionKey="authority" optionValue="authority"
-                                  value="${role.authority}" name="userRole" class="university-size-2-3"/>
+                        %{--<g:select from="${Role.list()}" optionKey="authority" optionValue="authority"--}%
+                                  %{--value="${role.authority}" name="userRole" class="university-size-2-3"/>--}%
 
-                    </g:if>
-                    <g:else>
-                        <g:select from="${Role.list()}" optionKey="authority" optionValue="authority" value=""
-                                  name="userRole" class="university-size-2-3" noSelection="['': '-Choose role-']"/>
+                    %{--</g:if>--}%
+                    %{--<g:else>--}%
+                        %{--<g:select from="${Role.list()}" optionKey="authority" optionValue="authority" value=""--}%
+                                  %{--name="userRole" class="university-size-2-3" noSelection="['': '-Choose role-']"/>--}%
 
-                    </g:else>
+                    %{--</g:else>--}%
 
-                    </div>
+                    %{--</div>--}%
 
                     <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'accountExpired', 'error')} ">
                         <div><label for="accountExpired">
@@ -130,9 +131,36 @@
                                          value="${userInstance?.passwordExpired}"/></div>
                     </div>
             </fieldset>
+            <fieldset class='editRoleFieldSet'>
+                <legend>
+                    Please Select Roles
+                </legend>
+                <table style='border:0px'>
+                    <tbody>
+                    <g:each in="${roles}" status="i" var='roleInstance'>
+
+                        <tr>
+                            <td class='name'>
+                                <label> ${fieldValue(bean: roleInstance, field: "authority")} </label>
+                            </td>
+                            <td class='value'>
+                                <g:set var="userRoleIds" value="${userRoles.id}"/>
+                                <g:if test="${userRoleIds.contains(roleInstance.id)}">
+                                    <g:checkBox name="myCheckbox" value="${roleInstance.id}" checked="true"/>
+                                </g:if>
+                                <g:else>
+                                    <g:checkBox name="myCheckbox" value="${roleInstance.id}" checked="false"/>
+                                </g:else>
+                            </td>
+
+                        </tr>
+
+                    </g:each>
+                    </tbody>
+                </table>
+            </fieldset>
             <fieldset class="buttons">
-                <g:actionSubmit class="save university-button" action="update"
-                                value="${message(code: 'default.button.update.label', default: 'Update')}"/>
+               <input type="SUBMIT" class="university-button" value="Update" id="updateUser"/>
                 <g:link controller="user" action="index"><input type="button" name="create"
                                                                 class="save university-button"
                                                                 value="${message(code: 'default.button.cancel', default: 'Cancel')}"/></g:link>

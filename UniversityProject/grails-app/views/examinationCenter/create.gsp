@@ -44,10 +44,10 @@
                       from="${City.findAllByDistrict(District.get(studyCentreInstance?.city?.district?.id))}"
                       noSelection="['': ' Select City']"/>
         </div>
+        <div style="margin-left: 10px; margin-top: 10px"> <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 
         <div id="VenueDiv" class="middleDiv">
         </div>
-       <div style="margin-left: 10px;"> <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
         <table style="border: none">
 
             <tr>
