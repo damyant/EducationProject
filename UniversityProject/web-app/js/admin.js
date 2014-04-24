@@ -2,6 +2,7 @@
 var studentIdList = [];
 var subjectIdList=[];
 $(document).ready(function () {
+
         $("#submit").click(function(){
             var rollNo = $("#rollNo").val()
             var feeType = $("#feeType").val()
@@ -21,7 +22,7 @@ $(document).ready(function () {
 
 
     $(document).on('click', '#assignRollNo', function () {
-
+        alert("hi")
         if ($("input[name=rollno_checkbox]:checked").length != 0) {
             $("input[name=rollno_checkbox]:checked").each(function (i) {
 
@@ -31,6 +32,7 @@ $(document).ready(function () {
                 }
 
             })
+
             generateRollNo(this.value)
 //            document.forms["generateRollNo"].submit();
         }
@@ -57,11 +59,14 @@ function submitExamDate(){
         data: $('#assignDate').serialize()+'&subjectIdList=' + subjectIdList,
         success: function (data) {
             if(data.saveFlag==true){
-
+                location.reload();
 //                    $("#subjectList tr").remove()
-                $('#assignDate')[0].reset();
+//                document.getElementById("assignDate").reset();
+////                $('#assignDate').reset();
+//                $('.datepicker').val('');
+//                $('.timepicker_6').val('');
                 $("#successMessage").html("Examination Date is saved")
-                setTimeout(function(){  $('#successMessage').hide(); }, 8000);
+//                setTimeout(function(){  $('#successMessage').hide(); }, 8000);
                 $("html, body").animate({ scrollTop: 0 }, "slow");
 
 
@@ -107,7 +112,7 @@ function toggleChecked(status) {
 }
 
 function generateRollNo(value) {
-
+alert("hi")
     $.ajax({
         type: "post",
         url: url('admin', 'generateRollNo', ''),
@@ -191,9 +196,11 @@ function appendSubjects(obj){
             datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
             }
 
-            $("#subjectList").append('<tr id="subjectRows'+i+j+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
-                '<input type="text" id="examDate'+i+j+'" name="examinationDate"  class="datepicker university-size-1-2 "  value='+datesInNewFormat+'></input><label  class="error3 id="dateError'+i+j+'" >&nbsp;</label></td>'+
-                '<td class="university-size-1-3"> <input type="text" id="examTime'+i+j+'" name="examinationTime" style="width: 70px;" class="timepicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label class="error4" id="timeError'+i+j+'" >&nbsp;</label></td>'+
+
+            $("#subjectList").append('<tr id="subjectRows'+j+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
+                '<input type="text"  name="examinationDate"  class="datepicker university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError" class="error3">&nbsp;</label></td>'+
+                '<td class="university-size-1-3"> <input type="text"  name="examinationTime" style="width: 70px;" class="timepicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError" class="error4">&nbsp;</label></td>'+
+
                 '</tr>')
             ++counter;
             validateCountB=validateCountB+j;
@@ -220,48 +227,35 @@ function appendSubjects(obj){
     });
 }
 
-function validateFields(counter,count){
-    var date=null;
-    var time = null;
-    var bool = false;
-    var j=0;
 
-//    alert(counter)
-//    alert("count"+count)
-
-    for( i=0;i<count-2;i++){
-
-
-    for(j=0;j<counter;j++){
-
-
-        date = $('#subjectList').find('#subjectRows'+i+j).find('#examDate'+i+j).val()
-        time = $('#subjectList').find('#subjectRows'+i+j).find('#examTime'+i+j).val()
-
-       if((date=="null" || date=="")) {
-//           alert("date check"+i)
-            $('#subjectList').find('#subjectRows'+i+j).find('.error3').text("Please Select Examination Date")
-            bool= false;
-        }else{
-
-           bool=true
-       }
-       if((time=="null" || time=="")){
-
-          $('#subjectList').find('#subjectRows'+i+j).find('.error4').text("Please Select Examination Time")
-           bool= false;
-       }else{
-
-           bool=true
-       }
-
-    }
-
-    }
-    if(bool){
+function validateFields(counter){
+//    var date=null;
+//    var time = null;
+//    var bool = false;
+//    for(i=0;i<counter;i++){
+//
+//        date = $('#subjectList').find('#subjectRows'+i).find('#examDate'+i).val()
+//        time = $('#subjectList').find('#subjectRows'+i).find('#examTime'+i).val()
+//
+//       if((date=="null" || date.length==0)) {
+//            $('#subjectList').find('#subjectRows'+i).find('.error3').text("Please Select Examination Date")
+//            bool= false;
+//        }else{
+//           bool=true
+//       }
+//       if((time=="null" || time=="")){
+//          $('#subjectList').find('#subjectRows'+i).find('.error4').text("Please Select Examination Time")
+//       }else{
+//           bool=true
+//       }
+//
+//    }
+//    if(bool){
         submitExamDate();
-    }
-       return bool;
+//
+//    }
+//        return bool;
+
    }
 
 function checkTimeFormat(count){

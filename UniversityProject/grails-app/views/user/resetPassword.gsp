@@ -40,7 +40,8 @@
 
 <body>
 <div id="main">
-    <div class="mainContent" style="height: 300px">
+    %{--<fieldset class="form">--}%
+    <div class="mainContent1" style="height: 300px">
         <div class="university-reset-pass-header">
             <h2 style="padding:10px;margin-left:10px;color: #ffffff;font-weight: bold;text-transform: uppercase;">
                 <span style="float: left">
@@ -86,6 +87,7 @@
             </div>
         </div>
     </div>
+    %{--</fieldset>--}%
 </div>
 </body>
 </html>

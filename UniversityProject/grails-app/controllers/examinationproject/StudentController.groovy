@@ -48,6 +48,7 @@ class StudentController {
         println("in submit Registration " + params)
         def signature = request.getFile('signature')
         def photographe = request.getFile("photograph")
+        println("============="+photographe)
         def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe)
         if (studentRegistration) {
 
@@ -64,6 +65,7 @@ class StudentController {
             flash.message = "${message(code: 'register.notCreated.message')}"
             redirect(action: "registration")
         }
+
     }
 
 
@@ -73,6 +75,8 @@ class StudentController {
         def student = Student.findById(params.studentID)
 
         def args = [template: "applicationPrintPreview", model: [studentInstance: student]]
+
+
         pdfRenderingService.render(args + [controller: this], response)
         println("Student Name is " + student.name)
 
@@ -106,6 +110,7 @@ class StudentController {
     def applicationPreview() {
 
     }
+    @Secured(["ROLE_ADMIN"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
         def programList=ProgramDetail.list(sort: 'courseName')
@@ -118,6 +123,9 @@ class StudentController {
         response.setContentType(params.mime)
         response.outputStream << image
     }
+    @Secured(["ROLE_IDOL_USER"])
+    def enrollmentAtIdol={
 
+    }
 
 }

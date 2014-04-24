@@ -43,7 +43,7 @@ class AdminController {
         render responseMap as JSON
 
     }
-
+    @Secured("ROLE_ADMIN")
     def generateRollNo(){
   
         def stuList=[]
@@ -66,7 +66,7 @@ class AdminController {
         render stuList as JSON
     }
 
-
+    @Secured("ROLE_ADMIN")
     def feeVoucher={
         def feeType = FeeType.list(sort:'type')
         [feeType:feeType]
@@ -78,6 +78,7 @@ class AdminController {
 
         [feeType:feeType]
     }
+
 
 
     def checkFeeByRollNo = {
@@ -93,6 +94,9 @@ class AdminController {
         def response =[id:student.id,feeStatus:status,program:programName]
         render response as JSON
     }
+
+
+    @Secured("ROLE_ADMIN")
 
     def generateFeeVoucher={
 
@@ -123,11 +127,12 @@ class AdminController {
 
     }
 
-
+    @Secured("ROLE_ADMIN")
     def assignExaminationDate={
         def programList = ProgramDetail.list(sort:'courseName')
         [programList: programList]
     }
+    @Secured("ROLE_ADMIN")
     def assignExaminationVenue={
         def programList = ProgramDetail.list(sort:'courseName')
         def examinationCenter=ExaminationCentre.list()*.city as Set

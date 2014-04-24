@@ -52,11 +52,12 @@ $('#profile-image').on('click', function() {
 
 
 function readURL(input,type) {
-
-
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
+        var FileUploadPath = $("#profileImage").val()
+        var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+        var imgkbytes = Math.round(parseInt(input.files[0].size)/1024)
+        if(imgkbytes<=50 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg")){
+       var reader = new FileReader();
         if(type=='picture')
             reader.onload = function (e) {
                 $('#picture')
@@ -71,11 +72,13 @@ function readURL(input,type) {
                     .width(250)
                     .height(80);
             };
+        }
+        else{
+            $("#profileImage").val('')
+            $("#picture").attr('src', ' ')
+            alert("Please upload an image of size less then 50kb and in allowed format")
+        }
 
-//      if(input.files[0].si){
-//
-//      }
-//
         reader.readAsDataURL(input.files[0]);
     }
 }
@@ -85,19 +88,31 @@ jQuery(function($) {
     $( "#datePick" ).datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: "mm/dd/yy"
+        dateFormat: "mm/dd/yy",
+        maxDate: 0
     });
 
     $( "#datePick1" ).datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: "mm/dd/yy"
+        dateFormat: "mm/dd/yy",
+        maxDate: 0
     });
     $( "#admissionDate" ).datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: "mm/dd/yy"
+        dateFormat: "mm/dd/yy",
+        maxDate: 0
     });
+});
+
+
+$('#studentRegister' ).ready(function() {
+//    alert($("input.radioInput[name='nationality'][value="+nationality+"]").val())
+    $("input[name='nationality'][value="+nationality+"]").attr('checked', 'checked');
+    $("input.radioInput[name='category'][value="+category+"]").attr('checked', 'checked');
+    $(".radioInput[name='gender'][value="+gender+"]").attr('checked', 'checked');
+    $(".radioInput[name='state'][value="+state+"]").attr('checked', 'checked');
 });
 
 

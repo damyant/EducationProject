@@ -120,6 +120,7 @@
     </ul>
 </div>--}%
 <div id="main">
+    <fieldset class="form">
     <div id="create-user" class="content scaffold-create" role="main">
         <h3><g:message code="default.create.label" args="[entityName]"/></h3>
         <g:if test="${flash.message}">
@@ -219,6 +220,7 @@
             </fieldset>
         </g:form>
     </div>
+        </fieldset>
 </div>
 </body>
 

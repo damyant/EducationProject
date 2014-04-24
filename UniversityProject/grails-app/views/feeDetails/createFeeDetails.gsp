@@ -6,6 +6,8 @@
     <title><g:message code="default.create.label" args="[entityName]"/></title>
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.js')}"></script>--}%
 
     <script type="text/javascript">

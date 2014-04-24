@@ -18,7 +18,7 @@ class StudentRegistrationService {
     def springSecurityService
 
    Student saveNewStudentRegistration(params, signature, photographe){
-
+       println("********"+params)
        Boolean studentRegistrationInsSaved = false;
 
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
@@ -67,6 +67,7 @@ class StudentRegistrationService {
        Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
        endYear = (Integer.parseInt(year)+programDetail[0].noOfAcademicYears).toString()
        programSession=(startYear+"-"+endYear)
+
        def session = ProgramSession.count()
        def programSessionIns
        if(session>0 && ProgramSession.findBySessionOfProgram(programSession)){
@@ -78,6 +79,18 @@ class StudentRegistrationService {
            programSessionIns=new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
            println("Session new"+programSessionIns.sessionOfProgram)
        }
+//=======
+//         def session = ProgramSession.count()
+//       def programSessionIns
+//       if(session>0){
+//           programSessionIns = ProgramSession.findBySessionOfProgram(programSession)
+//           programSessionIns.programDetail = programDetail
+//           programSessionIns.save(flush: true)
+//       }else{
+//           programSessionIns = new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+//       }
+////       def programSessionIns = ProgramSession.findBySessionOfProgram(programSession) ?: new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+//>>>>>>> e3fef702805e73b6e0eb274a1fa9ace0b38edc40
 
 
        studentRegistration.programSession = programSessionIns
@@ -85,6 +98,7 @@ class StudentRegistrationService {
 
        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examiNationCentre))
        studentRegistration.examinationCentre=examinationCentreList
+       println("????????????"+photographe.bytes)
        studentRegistration.studentImage=photographe.bytes
        studentRegistration.semester=1
        studentRegistration.admitCardGenerated=false

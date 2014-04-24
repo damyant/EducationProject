@@ -528,6 +528,7 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab {
 #resetPasswordContainer {
     border-width: 0px;
     width: 100%;
+    /*margin-bottom: 15px;*/
 }
 
 /*Login Page*/
@@ -700,12 +701,13 @@ textarea:-moz-placeholder {
     height: 12px;
 }
 
-.mainContent {
+.mainContent1 {
     border: 1px solid #000000;
     height: 450px;
     width: 50%;
     margin-left: 20%;
     margin-top: 40px;
+    margin-bottom: 40px;
     border-radius: 4px;
 }
 

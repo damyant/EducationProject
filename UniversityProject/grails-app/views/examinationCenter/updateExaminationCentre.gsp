@@ -18,9 +18,14 @@
 
 <body>
 <div id="main">
+    <g:if test="${flash.message}">
+        <div class="message"><div class="university-status-message">${flash.message}</div></div>
+    </g:if>
     <fieldset class="form">
         <div>
-
+            <g:if test="${flash.message}">
+                <div class="message"><div class="university-status-message">${flash.message}</div></div>
+            </g:if>
         <div class="university-location-select">
             <div class="university-label-location-select">
                 <label><g:message code="default.createStudy.district"/></label>

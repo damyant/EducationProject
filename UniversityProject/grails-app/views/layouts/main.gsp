@@ -20,9 +20,12 @@
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery-ui.css')}" type='text/css'>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'gu_stylesheet.css')}" type='text/css'>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.datepicker.css')}" type='text/css'>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'newjquery-ui.css')}" type='text/css'>
     <g:javascript library='jquery'/>
     <g:javascript library="application"/>
     <r:layoutResources/>
+    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js/jquery', file: 'newjquery-1.9.1.js')}'></script>
+    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js/jquery', file: 'newjquery-ui.js')}'></script>
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'validate.js')}"></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'viewResult.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'admitCard.js')}'></script>
@@ -32,16 +35,22 @@
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'status.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'base.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'validation.js')}'></script>
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js/jquery', file: 'jquery.js')}'></script>
+
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-en.js')}"></script>--}%
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-engine.js')}"></script>--}%
-    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery-1.10.2.js')}"></script>
+    %{--<script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery-1.10.2.js')}"></script>--}%
+
+    %{--<script type='text/javascript' charset='utf-8' src='${resource(dir: 'js/jquery', file: 'jquery.js')}'></script>--}%
+    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-en.js')}"></script>--}%
+    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-engine.js')}"></script>--}%
+    %{--<script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery-1.10.2.js')}"></script>--}%
+
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.datepicker.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.widget.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.core.js')}"></script>
+    %{--<script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.widget.js')}"></script>--}%
+    %{--<script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.core.js')}"></script>--}%
     <script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.dialog.js')}"></script>
+    %{--<script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.dialog.js')}"></script>--}%
 
  <g:layoutHead/>
 

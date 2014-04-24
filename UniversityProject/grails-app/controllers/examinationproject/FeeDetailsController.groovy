@@ -1,6 +1,7 @@
 package examinationproject
 
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -15,13 +16,14 @@ class FeeDetailsController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 
-
+    @Secured("ROLE_ADMIN")
     def createFeeDetails() {
         respond new FeeDetails(params)
     }
 
     @Transactional
     def saveFeeDetails(FeeDetails feeDetailsInstance) {
+
 
         if (feeDetailsInstance == null) {
            return
@@ -56,7 +58,7 @@ class FeeDetailsController {
             redirect(action: "createFeeDetails")
         }
     }
-
+    @Secured("ROLE_ADMIN")
      def bulkFeeEntry   = {
 
          def filterType = []
@@ -64,11 +66,11 @@ class FeeDetailsController {
          def studyCentre = StudyCenter.list();
          filterType.add("By Program")
          filterType.add("By Study Centre")
-         filterType.add("By Admission Date")
+//         filterType.add("By Admission Date")
 
          [filterType:filterType,programList:programList,studyCentre:studyCentre]
      }
-
+    @Secured("ROLE_ADMIN")
     def getStudentList(){
         def responseMap=[:]
         def stuList= feeDetailService.provisionalStudentList(params)
@@ -83,6 +85,20 @@ class FeeDetailsController {
         def student = Student.findByRollNo(params.rollNo)
         def response =[id:student.id,feeStatus:true]
         render response as JSON
+    }
+
+    def saveBulkFeeDetails ={
+        println("hello kuldeep now save your data" + params)
+        def feeDetailsInstance = feeDetailService.saveFeeDetails(params)
+
+        if (feeDetailsInstance.hasErrors()) {
+            render "<h5>Fee Details for this student cannot be saved</h5>"
+        }
+
+        if(feeDetailsInstance){
+            render "<h5>Fee Details saved</h5>"
+        }
+
     }
 
 

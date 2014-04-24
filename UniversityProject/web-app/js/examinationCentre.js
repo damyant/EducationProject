@@ -39,9 +39,9 @@ function examinationCenterDiv() {
 
     $('#VenueDiv' + index).append(
             '<div class="Venue">' +
-            '<label class="Venue-label">Name <span class="university-obligatory">*</span></label>' +
+            '<label class="Venue-label">Venue Name <span class="university-obligatory">*</span></label>' +
             '<input type="text" style="" class="" onkeypress="return onlyAlphabets(event,this)"  onkeyup="clearErrorMsg(this)" style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/><label id="centerNameMsg'+index+'" class="error2" ></label></div>' +
-            '<div class="Venue"><label class="Venue-label">Centre Code <span class="university-obligatory">*</span></label>' +
+            '<div class="Venue"><label class="Venue-label">Venue Code <span class="university-obligatory">*</span></label>' +
             '<input type="text"  type="text" style="" onchange="checkExamCenter(index)" onkeypress="return isNumber(event)" onkeyup="clearErrorMsg(this)" class=""  name="examinationCentreCode" id="examinationCentreCode' + index + '" /><label id="centerCodeMsg'+index+'" class="error2" ></label>' +
             '<label class="error1" id="errorMsg' + index + '"></label></div>');
     $('#VenueDiv' + index).append(
@@ -81,18 +81,17 @@ function removeExaminationCentre(index) {
 }
 
 
+
 function submitForm() {
     var location = $("#location").val();
-    if (location == 0) {
-        alert("Please Select Location of examination centre");
-    }
-    else {
+
 //        jQuery("#submitButton").validationEngine('attach', {
 //            onValidationComplete: function (form, status) {
 //                if (status == true) {
+                    debugger;
                     $.ajax({
-                        type: "post",
 
+                        type: "post",
                         url: url('examinationCenter', 'saveExaminationCentre', ''),
                         async: false,
                         data: $('#examinationCenterForm').serialize(),
@@ -100,12 +99,11 @@ function submitForm() {
                             document.getElementById("examinationCenterForm").reset();
                             $('div#msg').html(response);
 
-
                         }, error: function (XMLHttpRequest, textStatus, errorThrown) {
                             console.log("response in error")
                         }
                     });
-                }
+
 //            }
 //        });
 //    }

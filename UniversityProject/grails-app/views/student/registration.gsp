@@ -17,7 +17,6 @@
 
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>--}%
     <style type="text/css">
     </style>
     <script type="text/javascript">
@@ -210,7 +209,7 @@
 </tr>
 <tr>
     <!----- Preference of examination centre ---------------------------------------------------------->
-    <td>Select Preference of examination centre <span class="university-obligatory">*</span></td>
+    <td>Select Preference of examination Venue <span class="university-obligatory">*</span></td>
     <td>
 
         <table id="examCenterSelect">
@@ -243,11 +242,11 @@
                     <g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" optionKey="id" optionValue="name"
                               from="${ExaminationCentre.findAllByCity(City.get(studInstance?.examinationCentre?.city?.id?.get(0)))}"
                               value="${studInstance?.examinationCentre?.id?.get(0)}"
-                              noSelection="['': 'Select Examination Centre']"/>
+                              noSelection="['': 'Select Examination Venue']"/>
                 </g:if>
                 <g:else>
                     <g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" from=" "
-                              noSelection="['': 'Select Examination Centre']"/>
+                              noSelection="['': 'Select Examination Venue']"/>
                 </g:else>
             </td><td></td>
         </tr>
@@ -323,15 +322,17 @@
 
         <g:if test="${studInstance}">
             <img src="${createLink(controller: 'student', action: 'show', id: studInstance?.id
-            , mime: 'image/jpeg')}" class="university-registration-photo" id="picture"/>
+            , mime: 'image/jpeg')}" class="university-registration-photo" id="picture1"/>
 
         </g:if>
         <g:else>
             <div id="profile-image"><img src="" alt="Space for Photograph "
-                                         class="university-registration-photo"/></div>
+                                         class="university-registration-photo" id="picture"/></div>
+
         </g:else>
-            <input type='file' id="profile-image-upload" onchange="readURL(this, 'picture');" class="university-button"
+            <input type='file' id="profileImage" onchange="readURL(this, 'picture');" class="university-button"
                    name="photograph"/>
+
 
     </td>
 </tr>
@@ -377,22 +378,14 @@
         $("#signature").attr('src', '#')
         $("#picture").attr('src', '#')
     }
-    //    function checkDeclaration(){
-    //        if($("$declaration").is(':checked')){
-    //            alert("in if true statement")
-    //            return true
-    //        }
-    //        else{
-    //            alert("in else statement")
-    //            return false
-    //        }
-    //}
+
     $(function () {
         $(function () {
             $("#datepicker").datepicker({
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: "mm/dd/yy"
+                dateFormat: "mm/dd/yy",
+                maxDate: 0
             });
         });
     });
