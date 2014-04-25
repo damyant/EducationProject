@@ -1,12 +1,10 @@
+function uploadImage(input, type) {
+    $("#profile-image-upload").change(function () {
+        //  var iSize = ($("#profile-image-upload")[0].files[0].size / 1024);
 
-function uploadImage(input,type){
-    $("#profile-image-upload").change(function ()
-    {
-      //  var iSize = ($("#profile-image-upload")[0].files[0].size / 1024);
+        if (iSize <= 50) {
 
-        if(iSize<=50){
-
-    }
+        }
 
 //        if (iSize / 1024 > 1)
 //        {
@@ -33,47 +31,45 @@ function uploadImage(input,type){
 }
 
 
-
-
 function isNumber(evt) {
 
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-    return false;
+        return false;
     }
-return true;
+    return true;
 }
 
-$('#profile-image').on('click', function() {
+$('#profile-image').on('click', function () {
 //    alert("click")
     $('#profile-image-upload').click();
 });
 
 
-function readURL(input,type) {
+function readURL(input, type) {
     if (input.files && input.files[0]) {
         var FileUploadPath = $("#profileImage").val()
         var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-        var imgkbytes = Math.round(parseInt(input.files[0].size)/1024)
-        if(imgkbytes<=50 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg"|| Extension == "jpg")){
-       var reader = new FileReader();
-        if(type=='picture')
-            reader.onload = function (e) {
-                $('#picture')
-                    .attr('src', e.target.result)
-                    .width(150)
-                    .height(200);
-            };
-        if(type=='signature')
-            reader.onload = function (e) {
-                $('#signature')
-                    .attr('src', e.target.result)
-                    .width(250)
-                    .height(80);
-            };
+        var imgkbytes = Math.round(parseInt(input.files[0].size) / 1024)
+        if (imgkbytes <= 50 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg")) {
+            var reader = new FileReader();
+            if (type == 'picture')
+                reader.onload = function (e) {
+                    $('#picture')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
+            if (type == 'signature')
+                reader.onload = function (e) {
+                    $('#signature')
+                        .attr('src', e.target.result)
+                        .width(250)
+                        .height(80);
+                };
         }
-        else{
+        else {
             $("#profileImage").val('')
             $("#picture").attr('src', ' ')
             alert("Please upload an image of size less then 50kb and in allowed format")
@@ -84,28 +80,27 @@ function readURL(input,type) {
 }
 
 
-jQuery(function($) {
-    $( "#datePick" ).datepicker({
+jQuery(function ($) {
+    $("#datePick").datepicker({
         changeMonth: true,
         changeYear: true,
         dateFormat: "mm/dd/yy",
         maxDate: 0
     });
 
-    $( "#datePick1" ).datepicker({
+    $("#datePick1").datepicker({
         changeMonth: true,
         changeYear: true,
         dateFormat: "mm/dd/yy",
         maxDate: 0
     });
-    $( "#admissionDate" ).datepicker({
+    $("#admissionDate").datepicker({
         changeMonth: true,
         changeYear: true,
         dateFormat: "mm/dd/yy",
         maxDate: 0
     });
 });
-<<<<<<< HEAD
 function checkApplicationNumber(t) {
 
     var data = $(t).val();
@@ -127,10 +122,10 @@ function checkApplicationNumber(t) {
         }
     });
 }
-function submitTempRegistration(){
+function submitTempRegistration() {
     validate();
-    var result= $('#tempEnrollment').valid()
-    if(result) {
+    var result = $('#tempEnrollment').valid()
+    if (result) {
         $.ajax({
             type: "post",
             url: url('student', 'tempRegistration', ''),
@@ -143,30 +138,17 @@ function submitTempRegistration(){
         });
     }
 }
-//jQuery(function($) {
-    function confirmGenerateChallan(rollno) {
+function confirmGenerateChallan(rollno) {
 
-            var result=confirm("Do you want to Generate Challan for Roll No "+rollno+" ?");
-            if (result==true)
-            {
+    var result = confirm("Do you want to Generate Challan for Roll No " + rollno + " ?");
+    if (result == true) {
 //              window.open('/UniversityProject/admin/generateFeeVoucher/?rollNo='+rollNo+'&feeType='+1);
-                window.location.href = '/UniversityProject/admin/feeVoucher?rollNo=' + rollno;
-            }
-            else
-            {
-
-                window.location.href = '/UniversityProject/student/enrollmentAtIdol';
-                $("#errorMessage").text('Student Registered Successfully & Roll No is '+rollno)
-            }
+        window.location.href = '/UniversityProject/admin/feeVoucher?rollNo=' + rollno;
     }
-=======
+    else {
 
+        window.location.href = '/UniversityProject/student/enrollmentAtIdol';
+        $("#errorMessage").text('Student Registered Successfully & Roll No is ' + rollno)
+    }
+}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1a6324c5addb2454551b33030f90b8a002bc0662
-
-
-
->>>>>>> ac8c36f577e9041e428ac23b1a2e881aaad9733d
