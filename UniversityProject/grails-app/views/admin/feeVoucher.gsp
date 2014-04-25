@@ -97,11 +97,14 @@
 
                 </tr>
 
-                <tr><td colspan="2" style="text-align: center; "><input type="button" name="submit" id="submit"
-                                                                        class="university-button"
-                                                                        value="Submit"
-                                                                        disabled="disabled"
-                                                                        style="margin-top: 15px;"/></td>
+                <tr><td colspan="2" style="text-align: center; ">
+                    <g:if test="${params.rollNo}">
+                        <input type="button" name="submit" id="submit"  class="university-button"  value="Submit"   style="margin-top: 15px;"/>
+                    </g:if>
+                    <g:else>
+                        <input type="button" name="submit" id="submit"  class="university-button"  value="Submit"  disabled="disabled" style="margin-top: 15px;"/>
+                    </g:else>
+                    </td>
                 </tr>
             </table>
 
