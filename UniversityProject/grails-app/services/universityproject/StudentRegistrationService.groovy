@@ -30,12 +30,12 @@ class StudentRegistrationService {
        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
        if(params.studentId){
            studentRegistration=Student.findById(Long.parseLong(params.studentId))
-           studentRegistration.name=params.name
+           studentRegistration.studentName=params.studentName
            studentRegistration.gender=params.gender
-           studentRegistration.state=params.state
            studentRegistration.category=params.category
-           studentRegistration.nationality=params.nationality
            studentRegistration.mobileNo=Long.parseLong(params.mobileNo)
+           studentRegistration.nationality=params.nationality
+           studentRegistration.state=params.state
            studentRegistration.addressState=params.addressState
            studentRegistration.addressPinCode=params.addressPinCode
            studentRegistration.addressPO=params.addressPO
@@ -59,7 +59,6 @@ class StudentRegistrationService {
            }
        }
        studentRegistration.dob=df.parse(params.d_o_b)
-
 
        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
        studentRegistration.status= Status.findById(1)
@@ -96,10 +95,15 @@ class StudentRegistrationService {
        studentRegistration.programSession = programSessionIns
        studentRegistration.programDetail=   programDetail
 
-       Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examiNationCentre))
+       Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examinationCentre))
        studentRegistration.examinationCentre=examinationCentreList
-       println("????????????"+photographe.bytes)
+//       println("????????????"+photographe.bytes)
+       if(!params.appNo){
        studentRegistration.studentImage=photographe.bytes
+       }
+       else{
+           studentRegistration.applicationNo=params.applicationNo
+       }
        studentRegistration.semester=1
        studentRegistration.admitCardGenerated=false
         //RAJ CODE
@@ -107,7 +111,6 @@ class StudentRegistrationService {
 
 
       //END RAJ CODE
-
       // studentRegistration.studentSignature=signature.bytes
        if(studentRegistration.save(flush:true,failOnError: true)){
            println('new student registered successfully')

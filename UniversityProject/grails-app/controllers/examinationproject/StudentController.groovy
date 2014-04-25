@@ -46,13 +46,17 @@ class StudentController {
     }
     def submitRegistration = {
         println("in submit Registration " + params)
-        def signature = request.getFile('signature')
-        def photographe = request.getFile("photograph")
-        println("============="+photographe)
-        def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe)
+        def studentRegistration
+            def signature = request.getFile('signature')
+            def photographe = request.getFile("photograph")
+            println("=============" + photographe)
+            studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe )
+
+
         if (studentRegistration) {
 
             if(springSecurityService.isLoggedIn()){
+
 
             flash.message = "${message(code: 'register.created.message')}"
             redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
@@ -61,9 +65,9 @@ class StudentController {
                 redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
             }
         } else {
-            println("Cannot Register new Student")
-            flash.message = "${message(code: 'register.notCreated.message')}"
-            redirect(action: "registration")
+                println("Cannot Register new Student")
+                flash.message = "${message(code: 'register.notCreated.message')}"
+                redirect(action: "registration")
         }
 
     }
@@ -78,7 +82,6 @@ class StudentController {
 
 
         pdfRenderingService.render(args + [controller: this], response)
-        println("Student Name is " + student.name)
 
 
     }
@@ -125,14 +128,53 @@ class StudentController {
     }
     @Secured(["ROLE_IDOL_USER"])
     def enrollmentAtIdol={
+        def studyCentre
+
+        if (springSecurityService.isLoggedIn()) {
+
+
+            def currentUser = springSecurityService.currentUser.username
+            if (springSecurityService.currentUser.studyCentreId != 0) {
+                studyCentre = StudyCenter.findByEmailIdOfHeadIns(currentUser)
+            } else {
+                studyCentre = StudyCenter.findByCenterCode('11111')
+            }
+
+        } else {
+            studyCentre = StudyCenter.findByCenterCode('11111')
+
+        }
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
-//        println("sss"+studInstance.status)
-        [ programList: programList,districtList:districtList]
+        def centreList =  ExaminationCentre.list()
+        println("sss--->>>>>> "+centreList.city)
+        [ programList: programList,studyCentre:studyCentre,centreList:centreList]
     }
 
     def downloadAdmitCard={
 
+    }
+    def checkApplicationNo(){
+        def status=[:]
+        def applicationNoIns=Student.findByApplicationNo(params.applicationNo)
+        println(applicationNoIns)
+        if(applicationNoIns){
+            status.applicationNo='true'
+        }
+        else{
+            status.applicationNo='false'
+        }
+        render status as JSON
+
+    }
+    def tempRegistration() {
+       def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, "", "")
+        if (studentRegistration) {
+            render studentRegistration as JSON
+        } else {
+            flash.message = "${message(code: 'register.notCreated.message')}"
+            redirect(action: "enrollmentAtIdol")
+        }
     }
 
 

@@ -2,11 +2,11 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-
-
-    $("#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
+    $("#tempEnrollment,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
         rules: {
-
+//              tempEnroll
+            examCentre:"required",
+            examVenue:"required",
 //            Study Center
             name: {
                 required: true,
@@ -16,6 +16,9 @@ function validate() {
             address: "required",
             district: "required",
             city: "required",
+            examDistrict:"required",
+            examCity:"required",
+            examinationCentre:"required",
             centerCode: {
                 required: true,
                 alphanumeric: true
@@ -103,37 +106,11 @@ function validate() {
                 textonly: true
             },
 
-//            location:{
-//                required:true
-//            },
-//            studentName:{
-//                required:true
-//            },
-//            town:{
-//                required:true
-//            },
-//            po:{
-//                required:true
-//            },
-//            districtOfCandidate:{
-//                required:true
-//            },
-//            stateOfCandidate:{
-//                required:true
-//            },
-//            pinCode:{
-//                required:true
-//            },
-
-//            photograph:{
-//                required:true,
-//                filesize: 51200
-//            },
+//
             declaration: {
                 required: true
             }, courseName: {
-                required: true,
-//                textonly: true
+                required: true
             },
             courseMode: {
                 required: true
@@ -183,13 +160,6 @@ function validate() {
             studyCentre: "required",
 
             examiNationCentre: "required",
-//            addressStudentName: "required",
-//            addressTown: "required",
-//            addressPO: "required",
-//            addressDistrict: "required",
-//            addressState: "required",
-//            addressPinCode: "required"
-
 
 //              Student Enroll End
 
@@ -198,6 +168,7 @@ function validate() {
                 required: true,
                 textonly: true
             },
+            applicationNo:"required",
 
 
 //            CreateNewFeeType
@@ -249,7 +220,15 @@ function validate() {
             issuingBranch: {
                 required: true
             },
-
+//              Download Admit Card
+            rollNumber:{
+                required:true,
+                minlength: 8
+            },
+            dob:{
+                required:true,
+                date: true
+            },
 
             //Exam Centre
 //            examinationCentreName: {required: true, textonly: true},
@@ -265,6 +244,17 @@ function validate() {
 
         },
         messages: {
+            rollNumber:{
+                required:"Please Enter Roll Number",
+                minlength:"Please Enter 8 digit Roll Number"
+            },
+            dob:{
+                required:"Please Enter Date Of Birth",
+                date: "Please Enter Date Of Birth in Correct Date Format"
+            },
+            applicationNo:"Please Enter Application Number",
+            examCentre: "Please Select Examination Centre",
+            examVenue: "Please Select Examination Venue",
             profileImage: "File must be JPG, GIF or PNG, less than 1MB",
             name: "Please enter study center name",
             address: "Please enter study center address",
@@ -272,14 +262,26 @@ function validate() {
             city: "Please select city of study center",
             nameOfHeadIns: "Please enter name of the Principal",
             phoneNoOfHeadIns: "Please enter Contact No of Principal",
-            emailIdOfHeadIns: "Please enter email of Principal",
+            emailIdOfHeadIns:{
+                required: "Please enter email of Principal",
+                email: "Please Enter Valid Email"
+            },
             nameOfCoordinator: "Please enter Name of Coordinator",
             phoneNoOfCoordinator: "Please enter Phone No of Coordinator",
-            emailIdOfCoordinator: "Please enter Email of Coordinator",
+            emailIdOfCoordinator:{
+                required: "Please enter Email of Coordinator",
+                email: "Please Enter Valid Email"
+            },
             asstCoordinator: "Please enter Name of Asst. Coordinator",
             asstMobile: "Please enter Phone No of Asst. Coordinator",
-            asstEmail: "Please enter Email of Asst. Coordinator",
-            websiteUrl: "Please Enter Website URL",
+            asstEmail:{
+                required:"Please enter Email of Asst. Coordinator",
+                email: "Please Enter Valid Email"
+            },
+            websiteUrl:{
+                required: "Please Enter Website URL",
+                url: "Please Enter Valid website Url(eg:http://www.idolgu.in)‎"
+            },
             nameOfApplicant: "Please enter Name of an Applicant",
             date_of_birth: "Please Enter Date of birth",
             centerCode: "Please Enter Center Code",
@@ -298,8 +300,11 @@ function validate() {
             declaration: "Please declare before you proceed",
             courseName: "Please Enter your Name",
             studyCentre: "Please Enter your Study Center Name",
-            examiNationCentre: "Please Enter your Examination Center Name",
+            examinationCentre: "Please Select Examination Venue",
+            examDistrict:"Please Select Examination Center District",
+            examCity:"Please Select Examination Center City",
             addressStudentName: "Please enter Student Name",
+            studentName: "Please enter Student Name",
             addressTown: "Please Enter your town",
             addressPO: "Please enter your Post Office",
             addressDistrict: "Please enter your District",

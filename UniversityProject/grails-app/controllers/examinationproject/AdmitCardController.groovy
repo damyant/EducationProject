@@ -162,7 +162,7 @@ class AdmitCardController {
 
         def session=stuList[0].programSession.sessionOfProgram.split("-")
         def fileName=stuList[0].programDetail[0].courseName+" "+month+" "+session[0]
-        def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate,guLogo:logo],filename:fileName]
+        def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate,guLogo:logo],filename:fileName+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
         }
         else{

@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 
 class Student {
 
-    String name
+    String studentName
     Date dob
     String category
     String gender
@@ -20,6 +20,7 @@ class Student {
     String addressState
     String addressPinCode
     String location
+    String applicationNo
     int rollNo
     int semester
     Status status
@@ -35,7 +36,7 @@ class Student {
 
     static constraints = {
         referenceNumber(nullable:true)
-        name(nullable: true)
+        studentName(nullable: true)
         dob(nullable: true)
         //programDetail(nullable: false)
         category(nullable: true)
@@ -56,6 +57,7 @@ class Student {
         addressPinCode(nullable:true)
         studentImage(nullable: true)
         location(nullable: true)
+        applicationNo(nullable: true)
         rollNo(nullable:true)
         status(nullable:true)
         admitCardGenerated(nullable: true)
@@ -72,9 +74,10 @@ class Student {
         studyCentre cascade:'none'
         programDetail cascade: 'none'
         examinationCentre cascade:'none'
-        name column: "Name"
+        studentName column: "studentName"
         dob column: "Dob",index: 'Dob_Index'
         rollNo column: "RollNo",index: 'RollNo_Index'
+
         category column: "Category"
         gender column: "Gender"
         nationality column: "Nationality"
@@ -91,6 +94,7 @@ class Student {
         addressState column: "AddressState"
         addressPinCode column: "AddressPinCode"
         location column: "Location"
+        applicationNo column: "applicationNo"
 
         registrationYear column: "RegistrationYear"
         referenceNumber column:"ReferenceNumber"
