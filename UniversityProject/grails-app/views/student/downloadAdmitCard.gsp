@@ -10,6 +10,8 @@
 <head>
     <title></title>
     <meta name="layout" content="main"/>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
 </head>
 
 <body>
@@ -19,15 +21,15 @@
 <g:if test="${flash.message}">
     <div class="error">${flash.message}</div>
 </g:if>
-<g:form name="abc1" id="abc1" controller="admitCard" action="printAdmitCard">
+<g:form name="individualDownloadAdmitCard" id="individualDownloadAdmitCard" controller="admitCard" action="printAdmitCard">
     <div class="">
     <p><bold>Please fill the information to download the Admit Card</bold></p>
 
     <div class="input university-bottom-margin">
-        <label for="rollNo" class="university-right-margin">Enter Roll Number</label><input type="text" name="rollNumber" id="rollNo" class="university-size-1-3"  placeholder="Roll Number"/><label id="rollMsg" class="error"></label>
+        <label for="rollNo" class="university-right-margin">Enter Roll Number</label><input type="text" maxlength="8" name="rollNumber" id="rollNo" class="university-size-1-3" onkeypress="return isNumber(event)" placeholder="Roll Number"/><label id="rollMsg" class="error"></label>
     </div>
     <div class="input university-bottom-margin">
-        <label for="dob" class="university-right-margin">Enter Date of Birth</label><input type="text" class="university-size-1-3" name="dob" id="dob" placeholder="Date of Birth" /><label id="dobMsg"></label>
+        <label for="dob" class="university-right-margin">Enter Date of Birth</label><input type="text" maxlength="10" class="university-size-1-3" name="dob" id="dob"  placeholder="Date of Birth" /><label id="dobMsg"></label>
     </div>
     <input type="button"  value="Submit" class="ui-button" onclick="downloadAdmitCard();" />
     </div>

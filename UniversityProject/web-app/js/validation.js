@@ -2,7 +2,7 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-    $("#tempEnrollment,#createStudyCenter,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
+    $("#tempEnrollment,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
         rules: {
 //              tempEnroll
             examCentre:"required",
@@ -106,37 +106,11 @@ function validate() {
                 textonly: true
             },
 
-//            location:{
-//                required:true
-//            },
-//            studentName:{
-//                required:true
-//            },
-//            town:{
-//                required:true
-//            },
-//            po:{
-//                required:true
-//            },
-//            districtOfCandidate:{
-//                required:true
-//            },
-//            stateOfCandidate:{
-//                required:true
-//            },
-//            pinCode:{
-//                required:true
-//            },
-
-//            photograph:{
-//                required:true,
-//                filesize: 51200
-//            },
+//
             declaration: {
                 required: true
             }, courseName: {
-                required: true,
-//                textonly: true
+                required: true
             },
             courseMode: {
                 required: true
@@ -186,13 +160,6 @@ function validate() {
             studyCentre: "required",
 
             examiNationCentre: "required",
-//            addressStudentName: "required",
-//            addressTown: "required",
-//            addressPO: "required",
-//            addressDistrict: "required",
-//            addressState: "required",
-//            addressPinCode: "required"
-
 
 //              Student Enroll End
 
@@ -253,7 +220,15 @@ function validate() {
             issuingBranch: {
                 required: true
             },
-
+//              Download Admit Card
+            rollNumber:{
+                required:true,
+                minlength: 8
+            },
+            dob:{
+                required:true,
+                date: true
+            },
 
             //Exam Centre
 //            examinationCentreName: {required: true, textonly: true},
@@ -269,6 +244,14 @@ function validate() {
 
         },
         messages: {
+            rollNumber:{
+                required:"Please Enter Roll Number",
+                minlength:"Please Enter 8 digit Roll Number"
+            },
+            dob:{
+                required:"Please Enter Date Of Birth",
+                date: "Please Enter Date Of Birth in Correct Date Format"
+            },
             applicationNo:"Please Enter Application Number",
             examCentre: "Please Select Examination Centre",
             examVenue: "Please Select Examination Venue",

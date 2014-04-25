@@ -375,15 +375,16 @@ function enableShowCandidate(){
 
 
 function downloadAdmitCard(){
-    alert("kk")
-    debugger;
-$("#abc1").submit();
+    validate()
+    var result = $('#individualDownloadAdmitCard').valid()
+    if(result) {
+        $("#abc1").submit();
 //    $("#abc").submit(function() {
 //        alert("THIS IS WORKING!!!!!!");
 //    });
 
 //    document.studentAdmitCardForm.submit();
-    alert("done")
+        alert("done")
 
 //    $.ajax({
 //        type: "post",
@@ -405,6 +406,7 @@ $("#abc1").submit();
 //        }
 //
 //    });
+    }
 }
 
 
