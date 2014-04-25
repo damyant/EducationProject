@@ -18,7 +18,7 @@
     </p>
         <div style="clear: both; margin-bottom: 10px;"></div>
         <table width="100%" class="university-table-1-2">
-            <tr><td><lable>Name:</lable></td><td><label>${student?.name}</label></td></tr>
+            <tr><td><lable>Name:</lable></td><td><label>${student?.studentName}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
             <tr><td>Type Of Fee:</td><td>${programFee?.programDetail?.courseName} ${feeType?.type}</td></tr>
             <tr><td><lable>Amount:</lable></td><td><label>${programFeeAmount}</label></td></tr>
@@ -48,7 +48,7 @@
     </p>
         <div style="clear: both; margin-bottom: 10px;"></div>
         <table width="100%" class="university-table-1-2">
-            <tr><td><lable>Name:</lable></td><td><label>${student?.name}</label></td></tr>
+            <tr><td><lable>Name:</lable></td><td><label>${student?.studentName}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
             <tr><td>Type Of Fee:</td><td>${programFee?.programDetail?.courseName} ${feeType?.type}</td></tr>
             <tr><td><lable>Amount:</lable></td><td><label>${programFeeAmount}</label></td></tr>
@@ -78,7 +78,7 @@
     </p>
         <div style="clear: both; margin-bottom: 10px;"></div>
         <table width="100%" class="university-table-1-2">
-            <tr><td><lable>Name:</lable></td><td><label>${student?.name}</label></td></tr>
+            <tr><td><lable>Name:</lable></td><td><label>${student?.studentName}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
             <tr><td>Type Of Fee:</td><td>${programFee?.programDetail?.courseName} ${feeType?.type}</td></tr>
             <tr><td><lable>Amount:</lable></td><td><label>${programFeeAmount}</label></td></tr>

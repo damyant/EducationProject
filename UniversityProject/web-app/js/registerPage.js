@@ -105,16 +105,56 @@ jQuery(function($) {
         maxDate: 0
     });
 });
+function checkApplicationNumber(t) {
 
+    var data = $(t).val();
+    $.ajax({
+        type: "post",
+        url: url('student', 'checkApplicationNo', ''),
+        data: {applicationNo: data},
+        success: function (data) {
 
-$('#studentRegister' ).ready(function() {
-//    alert($("input.radioInput[name='nationality'][value="+nationality+"]").val())
-    $("input[name='nationality'][value="+nationality+"]").attr('checked', 'checked');
-    $("input.radioInput[name='category'][value="+category+"]").attr('checked', 'checked');
-    $(".radioInput[name='gender'][value="+gender+"]").attr('checked', 'checked');
-    $(".radioInput[name='state'][value="+state+"]").attr('checked', 'checked');
-});
+            if (data.applicationNo == "true") {
+                $('#errorMsg').text("Application Number already Exist")
+            }
+            else {
+                $('#errorMsg').text("")
+            }
 
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}
+function submitTempRegistration(){
+    validate();
+    var result= $('#tempEnrollment').valid()
+    if(result) {
+        $.ajax({
+            type: "post",
+            url: url('student', 'tempRegistration', ''),
+            data: $("#tempEnrollment").serialize(),
+            success: function (data) {
+//                alert(data.rollNo)
+                document.getElementById("tempEnrollment").reset();
+                confirmGenerateChallan(data.rollNo);
+            }
+        });
+    }
+}
+//jQuery(function($) {
+    function confirmGenerateChallan(rollno) {
 
+            var result=confirm("Do you want to Generate Challan for Roll No "+rollno+" ?");
+            if (result==true)
+            {
+//              window.open('/UniversityProject/admin/generateFeeVoucher/?rollNo='+rollNo+'&feeType='+1);
+                window.location.href = '/UniversityProject/admin/feeVoucher?rollNo=' + rollno;
+            }
+            else
+            {
 
-
+                window.location.href = '/UniversityProject/student/enrollmentAtIdol';
+                $("#errorMessage").text('Student Registered Successfully & Roll No is '+rollno)
+            }
+    }

@@ -621,8 +621,9 @@ textarea:-moz-placeholder {
 }
 
 .radio_options {
-    display: inline;
-    width: 90%;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 6px;
 }
 
 .radio_options label {

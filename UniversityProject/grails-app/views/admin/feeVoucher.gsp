@@ -40,8 +40,14 @@
                         <p>Enter Roll Number:<span class="university-obligatory">*</span></p>
                     </td>
                     <td class="university-size-2-3">
-                        <g:textField name="rollNo" id="rollNo" class="university-size-1-3"
+                        <g:if test="${params.rollNo}">
+                            <g:textField name="rollNo" id="rollNo" class="university-size-1-3" value="${params.rollNo}"
+                                         onkeypress="return isNumber(event)" readonly="readonly"/>
+                        </g:if>
+                        <g:else>
+                             <g:textField name="rollNo" id="rollNo" class="university-size-1-3"
                                      onkeypress="return isNumber(event)"/>
+                        </g:else>
                     </td>
                 </tr>
 
@@ -52,10 +58,19 @@
                     </label></p>
                 </td>
                     <td>
-                        <g:select id="type" name="feeType"
-                                  from="${feeType}" optionKey="id"
-                                  optionValue="type" class="many-to-one university-size-1-3"
-                                  noSelection="['': 'Choose Type']"/>
+                        <g:if test="${params.rollNo}">
+                            <g:select id="type" name="feeType"
+                                      from="${selectFeeType}" optionKey="id"
+                                      optionValue="type" class="many-to-one university-size-1-3"
+                                      readonly=""/>
+                        </g:if>
+                        <g:else>
+                            <g:select id="type" name="feeType"
+                                      from="${feeType}" optionKey="id"
+                                      optionValue="type" class="many-to-one university-size-1-3"
+                                      noSelection="['': 'Choose Type']"/>
+                        </g:else>
+
                     </td>
 
                 </tr>

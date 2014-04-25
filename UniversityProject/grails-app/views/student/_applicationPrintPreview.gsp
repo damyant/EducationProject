@@ -74,7 +74,7 @@
                     <label>Name</label>
                 </td>
                 <td>
-                    <label>${studentInstance?.name}</label>
+                    <label>${studentInstance?.studentName}</label>
                 </td>
             </tr>
             <tr>
