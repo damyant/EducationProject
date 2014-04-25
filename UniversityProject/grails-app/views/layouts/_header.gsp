@@ -30,7 +30,9 @@
                     <li><g:link controller="student" action="enrollmentAtIdol"><g:message
                             code="default.mainMenu2.enrollAtIdol"/></g:link></li>
                     <li><a class="viewResulttopopup"><g:message code="default.mainMenu2.subMenu2"/></a></li>
-                    <li><a href="#"><g:message code="default.mainMenu2.subMenu3"/></a></li>
+                    %{--<li><a class="admitCardPopup" href="#"><g:message code="default.mainMenu2.subMenu3"/></a></li>--}%
+                    <li><g:link controller="student" action="downloadAdmitCard"><g:message
+                        code="default.mainMenu2.subMenu3"/></g:link></li>
                     <li><a href="#"><g:message code="default.mainMenu2.subMenu4"/></a></li>
                     <li><a class="statustopopup" href="#"><g:message code="default.mainMenu2.subMenu5"/></a></li>
                 </ul>
@@ -61,8 +63,14 @@
                     </li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>
                         <ul>
+                               <sec:ifAnyGranted roles="ROLE_ADMIN">
                              <li><a href="#" class="newAdmitCardPopup"><g:message code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
                              <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
+                             </sec:ifAnyGranted>
+                            <sec:ifAnyGranted roles="ROLE_STUDYCENTRE">
+                                <li><a href="#" class="newAdmitCardPopup"><g:message code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
+                                <li><g:link controller="admitCard" action="studyCenterAdmitCard"><g:message code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
+                            </sec:ifAnyGranted>
                              </li>
                         </ul>
                     </li>

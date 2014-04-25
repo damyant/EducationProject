@@ -66,10 +66,11 @@ class AdminController {
         render stuList as JSON
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_IDOL_USER"])
     def feeVoucher={
         def feeType = FeeType.list(sort:'type')
-        [feeType:feeType]
+        def selectFeeType=FeeType.findAllById(1)
+        [feeType:feeType,selectFeeType:selectFeeType]
     }
 
 
@@ -78,8 +79,6 @@ class AdminController {
 
         [feeType:feeType]
     }
-
-
 
     def checkFeeByRollNo = {
         def student = Student.findByRollNo(params.rollNo)
@@ -95,11 +94,8 @@ class AdminController {
         render response as JSON
     }
 
-
-    @Secured("ROLE_ADMIN")
-
+    @Secured(["ROLE_ADMIN","ROLE_IDOL_USER"])
     def generateFeeVoucher={
-
         def student = Student.findByRollNo(params.rollNo)
         if(!(student.studyCentre[0].centerCode=="11111")){
              redirect(action: "feeVoucher",params:[error:"error"])

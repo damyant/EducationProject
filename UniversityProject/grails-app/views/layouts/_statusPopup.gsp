@@ -20,6 +20,10 @@
 
 </div> <!--toPopup end-->
 
+
 <div class="loader"></div>
 <div class="backgroundPopup" id="statusBackgroundPopup"></div>
+
+<div class="loader"></div>
+<div class="backgroundPopup1" id="statusBackgroundPopup1"></div>
 

@@ -84,7 +84,15 @@ body {
 .university-size-2-5 {
     width: 38%;
 }
-
+.university-bottom-margin{
+    margin-bottom: 10px;
+}
+.university-right-margin{
+    margin-right: 100px;
+}
+.university-left-100-margin{
+    margin-left: 150px;
+}
 .university-float-left {
     float: left;
 }
@@ -621,8 +629,9 @@ textarea:-moz-placeholder {
 }
 
 .radio_options {
-    display: inline;
-    width: 90%;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 6px;
 }
 
 .radio_options label {

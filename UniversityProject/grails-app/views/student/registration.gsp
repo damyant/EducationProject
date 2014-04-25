@@ -93,8 +93,8 @@
 <!----- First Name ---------------------------------------------------------->
 <tr>
     <td>Name of the applicant <span class="university-obligatory">*</span></td>
-    <td><input type="text" name="name" style="text-transform:uppercase" onkeypress="return onlyAlphabets(event, this);"
-               maxlength="50" class="university-size-1-2" value="${studInstance?.name}"/>
+    <td><input type="text" name="studentName" style="text-transform:uppercase" onkeypress="return onlyAlphabets(event, this);"
+               maxlength="50" class="university-size-1-2" value="${studInstance?.studentName}"/>
 
     </td>
 </tr>
@@ -196,9 +196,6 @@
     <td>Study centre <span class="university-obligatory">*</span></td>
     <td>
         <input type="text" name="studyCentre" class="university-size-1-2" value="${studyCentre?.name}" readonly/>
-
-
-    </select>
     </td>
 </tr>
 <tr>
@@ -210,7 +207,7 @@
             <tr>
                 <td style="width: 50%">
 
-                    <g:select name="district" id="district" optionKey="id"
+                    <g:select name="examDistrict" id="district" optionKey="id"
                               value="${studInstance?.examinationCentre?.city?.district?.id?.get(0)}" class="university-size-1-1"
                               onChange="showCityList()" optionValue="districtName"
                               from="${districtList}" noSelection="['': ' Select District']"/>
@@ -218,15 +215,15 @@
                 </td>
                 <td style="width: 50%">
                     <g:if test="${studInstance}">
-                        <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
+                        <g:select name="examCity" id="city" optionKey="id" class="university-size-1-1"
                                   optionValue="cityName" value="${studInstance?.examinationCentre?.city?.id?.get(0)}"
                                   from="${City.findAllByDistrict(District.get(studInstance?.examinationCentre?.city?.district?.id))}"
                                   onchange="showCentreList()"
                                   noSelection="['': ' Select City']"/></g:if>
                     <g:else>
-                        <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
+                        <g:select name="examCity" id="city" optionKey="id" class="university-size-1-1"
                                   optionValue="cityName"
-                                  from="" onchange="showCentreList()"
+                                  from="" onchange="showCentreList(this)"
                                   noSelection="['': ' Select City']"/>
                     </g:else>
                 </td>
@@ -239,7 +236,7 @@
                               noSelection="['': 'Select Examination Venue']"/>
                 </g:if>
                 <g:else>
-                    <g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" from=" "
+                    <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-1" from=" "
                               noSelection="['': 'Select Examination Venue']"/>
                 </g:else>
             </td><td></td>

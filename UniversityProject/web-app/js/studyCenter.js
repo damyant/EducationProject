@@ -95,9 +95,9 @@ function viewStudyCenter(studyCenterId) {
     window.location.href = '/UniversityProject/studyCenter/createNewStudyCenter?studyCenterId=' + data + '&type=view';
 
 }
-function showCentreList() {
+function showCentreList(t) {
 
-    var data = $('#city').val();
+    var data = $(t).val();
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExaminationCentreList', ''),
