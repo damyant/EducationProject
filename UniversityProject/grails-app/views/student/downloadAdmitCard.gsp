@@ -19,7 +19,7 @@
     <fieldset class="form">
         <h3>Download Admit Card</h3>
 <g:if test="${flash.message}">
-    <div class="error">${flash.message}</div>
+    <div class="university-status-message"> <label class="error">${flash.message}</label></div>
 </g:if>
 <g:form name="individualDownloadAdmitCard" id="individualDownloadAdmitCard" controller="admitCard" action="printAdmitCard">
     <div class="">

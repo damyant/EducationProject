@@ -201,7 +201,7 @@ function getStudentsForAdmitCard(){
                   $('#studentListPrintButton').prop('hidden', false)
                   var count=1;
                  for(var i=0;i<data.length;i++){
-                       $('#admitCardTab').append('<tr id="rowID'+i+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
+                       $('#admitCardTab').append('<tr id="rowID'+i+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].studentName+'</td></tr>')
                     ++count;
                 }
                   totalRows=count;
@@ -378,34 +378,7 @@ function downloadAdmitCard(){
     validate()
     var result = $('#individualDownloadAdmitCard').valid()
     if(result) {
-        $("#abc1").submit();
-//    $("#abc").submit(function() {
-//        alert("THIS IS WORKING!!!!!!");
-//    });
-
-//    document.studentAdmitCardForm.submit();
-        alert("done")
-
-//    $.ajax({
-//        type: "post",
-//        url: url('admitCard', 'printAdmitCard', ''),
-//        data: "rollNumber="+$('#rollNo').val()+'&dob='+$('#dob').val(),
-//        success: function (data) {
-////            alert(data.response2)
-//            if(data.response1){
-//                document.getElementById("statusofApp").style.display = "block";
-//                if(data.response2!=0){
-//                    $('#statusofApp').append('<div>Status of Application is '+data.response1 +' with Roll Number '+ data.response2+'</div>')
-//                }else{
-//                    $('#statusofApp').append('<div>Status of Application is '+data.response1 +' whose Roll Number not Generated yet </div>')
-//                }
-//            }            else{
-//                document.getElementById("statusofApp").style.display = "block";
-//                $('#statusofApp').append('<div>You have Entered Wrong Reference Number</div>')
-//            }
-//        }
-//
-//    });
+        $("#individualDownloadAdmitCard").submit();
     }
 }
 
