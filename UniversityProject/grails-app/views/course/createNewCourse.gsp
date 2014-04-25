@@ -44,6 +44,7 @@
             <tr>
                 <td style="width: 40%"><label>Program Name :<span class="university-obligatory">*</span></label></td>
                 <td style="width: 60%"><input type="text" id="courseName" name="courseName" maxlength="" class="university-size-1-2" onkeypress="return onlyAlphabetsWithSplChar(event);"/></td>
+
             </tr>
             <tr>
                 <td><label>Select Mode :<span class="university-obligatory">*</span></label></td>

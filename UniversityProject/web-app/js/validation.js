@@ -136,7 +136,7 @@ function validate() {
                 required: true
             }, courseName: {
                 required: true,
-                textonly: true
+//                textonly: true
             },
             courseMode: {
                 required: true

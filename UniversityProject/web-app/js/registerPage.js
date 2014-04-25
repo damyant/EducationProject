@@ -56,7 +56,7 @@ function readURL(input,type) {
         var FileUploadPath = $("#profileImage").val()
         var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
         var imgkbytes = Math.round(parseInt(input.files[0].size)/1024)
-        if(imgkbytes<=50 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg")){
+        if(imgkbytes<=50 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg"|| Extension == "jpg")){
        var reader = new FileReader();
         if(type=='picture')
             reader.onload = function (e) {
@@ -105,6 +105,7 @@ jQuery(function($) {
         maxDate: 0
     });
 });
+<<<<<<< HEAD
 function checkApplicationNumber(t) {
 
     var data = $(t).val();
@@ -158,3 +159,14 @@ function submitTempRegistration(){
                 $("#errorMessage").text('Student Registered Successfully & Roll No is '+rollno)
             }
     }
+=======
+
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1a6324c5addb2454551b33030f90b8a002bc0662
+
+
+
+>>>>>>> ac8c36f577e9041e428ac23b1a2e881aaad9733d

@@ -66,20 +66,34 @@ class StudentRegistrationService {
        Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
        endYear = (Integer.parseInt(year)+programDetail[0].noOfAcademicYears).toString()
        programSession=(startYear+"-"+endYear)
-         def session = ProgramSession.count()
+
+       def session = ProgramSession.count()
        def programSessionIns
-       if(session>0){
-           programSessionIns = ProgramSession.findBySessionOfProgram(programSession)
-           programSessionIns.programDetail = programDetail
-           programSessionIns.save(flush: true)
+       if(session>0 && ProgramSession.findBySessionOfProgram(programSession)){
+           programSessionIns= ProgramSession.findBySessionOfProgram(programSession)
+           if(!(programSessionIns.programDetail==programDetail))
+               programSessionIns=new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
        }else{
-           programSessionIns = new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+
+           programSessionIns=new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+           println("Session new"+programSessionIns.sessionOfProgram)
        }
-//       def programSessionIns = ProgramSession.findBySessionOfProgram(programSession) ?: new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+//=======
+//         def session = ProgramSession.count()
+//       def programSessionIns
+//       if(session>0){
+//           programSessionIns = ProgramSession.findBySessionOfProgram(programSession)
+//           programSessionIns.programDetail = programDetail
+//           programSessionIns.save(flush: true)
+//       }else{
+//           programSessionIns = new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+//       }
+////       def programSessionIns = ProgramSession.findBySessionOfProgram(programSession) ?: new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+//>>>>>>> e3fef702805e73b6e0eb274a1fa9ace0b38edc40
 
 
        studentRegistration.programSession = programSessionIns
-       studentRegistration.programDetail=programDetail
+       studentRegistration.programDetail=   programDetail
 
        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examinationCentre))
        studentRegistration.examinationCentre=examinationCentreList
@@ -134,7 +148,7 @@ class StudentRegistrationService {
 
 //            def program = ProgramDetail.findById(courseId)
             def student=Student.count()
-         println("<<<<<<<"+student)
+
             if(student>0){
                 def obj=Student.createCriteria()
                 def studentByYearAndCourse= obj.list{

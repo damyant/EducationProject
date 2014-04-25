@@ -11,6 +11,16 @@
 	top:0px;  
 	left:0px;
 }
+.backgroundPopup1 {
+    z-index:1;
+    position: fixed;
+    display:none;
+    height:100%;
+    width:100%;
+    background:#000000;
+    top:0px;
+    left:0px;
+}
 .toPopup {
 	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
     background: none repeat scroll 0 0 #FFFFFF;
@@ -37,7 +47,7 @@ div.loader {
 	position: absolute;
 	margin-left: -10px;
 }
-div.close {
+div.closeAdmitCard, div.close {
     background: url("../images/closebox.png") no-repeat scroll 0 0 transparent;
     bottom: 24px;
     cursor: pointer;
@@ -47,7 +57,8 @@ div.close {
     position: relative;
     width: 30px;
 }
-span.ecs_tooltip {
+
+span.ecs_tooltip, span.ecs_tooltip1 {
     background: none repeat scroll 0 0 #000000;
     border-radius: 2px 2px 2px 2px;
     color: #FFFFFF;

@@ -53,10 +53,17 @@ class StudentController {
             studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe )
 
 
-
         if (studentRegistration) {
+
+            if(springSecurityService.isLoggedIn()){
+
+
             flash.message = "${message(code: 'register.created.message')}"
-            redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+            redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
+            }else{
+                flash.message = "${message(code: 'register.created.message')}"
+                redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+            }
         } else {
                 println("Cannot Register new Student")
                 flash.message = "${message(code: 'register.notCreated.message')}"
@@ -142,6 +149,9 @@ class StudentController {
         def centreList =  ExaminationCentre.list()
         println("sss--->>>>>> "+centreList.city)
         [ programList: programList,studyCentre:studyCentre,centreList:centreList]
+    }
+
+    def downloadAdmitCard={
 
     }
     def checkApplicationNo(){
@@ -166,5 +176,6 @@ class StudentController {
             redirect(action: "enrollmentAtIdol")
         }
     }
+
 
 }

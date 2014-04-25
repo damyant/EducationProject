@@ -16,6 +16,25 @@
     <script type="text/javascript">
 
     </script>
+
+    <script type="text/javascript">
+         $(function () {
+            $("#rollNo").blur(function () {
+                if ($(this).length > 0) {
+                    var url = "${createLink(controller:'admin', action:'checkFeeByRollNo')}"
+                    $.getJSON(url, {rollNo: $(this).val()}, function (json) {
+                            if (json.feeStatus) {
+                            $("#submit").prop('disabled', false);
+                            $("#feeType").prop('disabled', false);
+                        }else{
+                          $("#feeError").html("Fee of program "+json.program+" not yet created");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
 </head>
 
 <body>
@@ -30,6 +49,8 @@
         <g:if test="${params.error == "error"}">
             <div class="university-status-message">Roll Number does not belongs to IDOL</div>
         </g:if>
+
+
         <g:form id="generateFeeVoucher" name="generateFeeVoucher" controller="admin" action="generateFeeVoucher">
         %{--<g:hiddenField name="studentId" id="studentId"/>--}%
         %{--<g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>--}%
@@ -46,8 +67,9 @@
                         </g:if>
                         <g:else>
                              <g:textField name="rollNo" id="rollNo" class="university-size-1-3"
-                                     onkeypress="return isNumber(event)"/>
+                                     onkeypress="return isNumber(event)"/><label id="feeError" class="error"></label>
                         </g:else>
+
                     </td>
                 </tr>
 
@@ -66,7 +88,7 @@
                         </g:if>
                         <g:else>
                             <g:select id="type" name="feeType"
-                                      from="${feeType}" optionKey="id"
+                                      from="${feeType}" optionKey="id" disabled="disabled"
                                       optionValue="type" class="many-to-one university-size-1-3"
                                       noSelection="['': 'Choose Type']"/>
                         </g:else>
@@ -78,13 +100,11 @@
                 <tr><td colspan="2" style="text-align: center; "><input type="button" name="submit" id="submit"
                                                                         class="university-button"
                                                                         value="Submit"
+                                                                        disabled="disabled"
                                                                         style="margin-top: 15px;"/></td>
                 </tr>
             </table>
-            <table id="studentList" class="inner university-table-1-3">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
+
         </g:form>
     </fieldset>
 </div>

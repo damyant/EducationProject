@@ -18,6 +18,24 @@ jQuery(function($) {
     });
 
 
+    $("#dob").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "mm/dd/yy",
+        maxDate: 0
+    });
+
+    $("a.admitCardPopup").click(function() {
+
+//        alert("hi")
+
+        loading(); // loading
+        setTimeout(function(){ // then show popup, deley in .5 second
+            loadAdmitCardPopup(); // function show popup
+        }, 500); // .5 second
+        return false;
+    });
+
 
 
     /* event for close the popup */
@@ -33,17 +51,38 @@ jQuery(function($) {
 
     $("div.close").click(function() {
         disablePopup();  // function close pop up
+
     });
+
+    $("div.closeAdmitCard").click(function() {
+        disableAdmitCardPopup();
+    });
+
+
+//    $(this).keyup(function(event) {
+//        if (event.which == 27) { // 27 is 'Ecs' in the keyboard
+//            disablePopup();  // function close pop up
+////            disableAdmitCardPopup();
+//
+//        }
+//    });
 
     $(this).keyup(function(event) {
         if (event.which == 27) { // 27 is 'Ecs' in the keyboard
             disablePopup();  // function close pop up
+           disableAdmitCardPopup();
+
         }
     });
 
     $("div#statusBackgroundPopup").click(function() {
         disablePopup();  // function close pop up
     });
+
+    $("div#statusBackgroundPopup1").click(function() {
+            disableAdmitCardPopup();
+    });
+
 
     $('a.livebox').click(function() {
 //        alert('Hello World!');
@@ -60,7 +99,7 @@ jQuery(function($) {
         $("div.loader").fadeOut('normal');
     }
 
-    var popupStatus = 0; // set value
+    var popupStatus = 0,admitPopupStatus=0 // set value
 
     function loadPopup() {
 
@@ -73,11 +112,30 @@ jQuery(function($) {
         }
     }
 
+    function loadAdmitCardPopup() {
+
+        if(admitPopupStatus == 0) { // if value is 0, show popup
+            closeloading(); // fadeout loading
+            $("#admitCardPopup").fadeIn(0500); // fadein popup div
+            $("#statusBackgroundPopup1").css("opacity", "0.7"); // css opacity, supports IE7, IE8
+            $("#statusBackgroundPopup1").fadeIn(0001);
+            admitPopupStatus = 1; // and set value to 1
+        }
+    }
+
     function disablePopup() {
         if(popupStatus == 1) { // if value is 1, close popup
             $("#statusToPopup").fadeOut("normal");
             $("#statusBackgroundPopup").fadeOut("normal");
             popupStatus = 0;  // and set value to 0
+        }
+    }
+
+    function disableAdmitCardPopup() {
+        if(admitPopupStatus == 1) { // if value is 1, close popup
+            $("#admitCardPopup").fadeOut("normal");
+            $("#statusBackgroundPopup1").fadeOut("normal");
+            admitPopupStatus = 0;  // and set value to 0
         }
     }
     /************** end: functions. **************/
