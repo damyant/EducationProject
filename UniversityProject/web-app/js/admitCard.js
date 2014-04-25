@@ -209,7 +209,7 @@ function getStudentsForAdmitCard(){
             else{
                   $('#showErrorMessage').prop('hidden', false)
                   $('#showErrorMessage').text('No Students Found');
-                  setTimeout(function(){  $('#showErrorMessage').hide(); }, 8000);
+//                  setTimeout(function(){  $('#showErrorMessage').hide(); }, 8000);
               }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

@@ -68,14 +68,10 @@ function submitExamDate(){
                 $("#successMessage").html("Examination Date is saved")
 //                setTimeout(function(){  $('#successMessage').hide(); }, 8000);
                 $("html, body").animate({ scrollTop: 0 }, "slow");
-
-
             }
             else{
                 $("#successMessage").html("")
             }
-
-
         }
     });
 
@@ -87,14 +83,9 @@ function getStudents() {
         url: url('admin', 'getStudentList', ''),
         data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(), pageType: $('#pageType').val()},
         success: function (data) {
-            //document.location.reload();
-//           getSemesterAndSubjectListStudyCenterList()
             appendTable(data)
-
-
         }
     });
-
 }
 
 function enableProgram(t) {
@@ -297,7 +288,7 @@ function saveExamVenue(){
             $('#examCenterList').empty();
             $('#addExamCentre').empty();
             $('#successMessage').html('Successfully Assigned Examination Venue');
-            setTimeout(function(){  $('#successMessage').hide(); }, 8000);
+//            setTimeout(function(){  $('#successMessage').hide(); }, 8000);
 //            if(data.noSubjects==true){
 //                $("#subjectList tr").remove();
 //                $("#msgDiv").html("The is no subjects associated with the program")
