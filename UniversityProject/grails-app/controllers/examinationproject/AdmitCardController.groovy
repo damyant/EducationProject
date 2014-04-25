@@ -12,6 +12,7 @@ class AdmitCardController {
 
     def admitCardService
     def pdfRenderingService
+    def springSecurityService
 
     def index() {}
 
@@ -105,17 +106,31 @@ class AdmitCardController {
 
     }
     def printAdmitCard={
-        println("?????????????????/"+params)
+        println("?????????????????========"+params)
+        println("user===="+springSecurityService.currentUser)
         def stuList = []
         StringBuilder examDate = new StringBuilder()
         def byte [] logo= new File("web-app/images/gu-logo.jpg").bytes
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         if(params.rollNumber){
-
          stuList=   Student.findAllByRollNoAndDobAndAdmitCardGenerated(Integer.parseInt(params.rollNumber.trim()),df.parse(params.dob),true)
-            println("???????????????"+stuList)
 
-        }else{
+        }
+        if(params.studyCenterId){
+            def user=springSecurityService.currentUser
+              def obj=Student .createCriteria()
+            stuList= obj.list{
+                studyCentre{
+                    eq('id', Long.parseLong(user.studyCentreId.toString()))
+                }
+                and{
+                    eq('admitCardGenerated', true)
+
+                }
+
+            }
+        }
+        else{
 
             def studentList=params.studentList.split(",")
             studentList.each{
@@ -158,6 +173,18 @@ class AdmitCardController {
     }
 
     def printPreviewAdmitCard={
+
+    }
+
+    def studyCenterAdmitCard={
+        def programList = ProgramDetail.list(sort:'courseName')
+        def studyCentreList = StudyCenter.list()
+        def examinationCenter=ExaminationCentre.list()*.city as Set
+        def finalExaminationCenterList= examinationCenter.sort{a,b->
+            a.cityName<=>b.cityName
+        }
+
+        [programList: programList, studyCentreList: studyCentreList, examinationCenterList: finalExaminationCenterList]
 
     }
 

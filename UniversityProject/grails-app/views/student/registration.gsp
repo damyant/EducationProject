@@ -37,25 +37,19 @@
 
             var flag = "${registered}"
             var studentId = "${studentID}"
-
             if (flag == 'registered') {
-                window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId);
+                //a(studentId)
+                //var url = window.location.href;
+                url="http://localhost:9093/UniversityProject/student/registration"
+                window.location.href = url;
+                flag="do not open"
+               window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId);
+
             }
-            //a(studentId)
+
         })
 
-        function a(id) {
-            $.ajax({
-                type: "post",
-                url: url('student', 'applicationPrintPreview', ''),
-                data: {studentId: id},
-                success: function (data) {
 
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                }
-            });
-        }
 
     </script>
 

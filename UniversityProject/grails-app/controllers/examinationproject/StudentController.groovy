@@ -12,6 +12,7 @@ import java.security.SecureRandom
 class StudentController {
     def studentRegistrationService
     def pdfRenderingService
+
     def springSecurityService
 //    @Secured('ROLE_STUDYCENTRE')
 

@@ -17,6 +17,7 @@
         </div>
 
     </div> <!--your content end-->
+<<<<<<< HEAD
 
 </div> <!--toPopup end-->
 %{--<html>--}%
@@ -45,6 +46,8 @@
         %{--</div>--}%
 %{--</g:form>--}%
     %{--</div> <!--your content end-->--}%
+=======
+>>>>>>> 6fbb56f98fe8b7829294f288c1558ddf895906dc
 
 %{--</div> <!--toPopup end-->--}%
 
@@ -55,5 +58,8 @@
 %{--<div class="loader"></div>--}%
 %{--<div class="backgroundPopup1" id="statusBackgroundPopup1"></div>--}%
 
+<<<<<<< HEAD
 %{--</body>--}%
 %{--</html>--}%
+=======
+>>>>>>> 6fbb56f98fe8b7829294f288c1558ddf895906dc

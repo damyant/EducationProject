@@ -75,7 +75,9 @@ class Student {
         programDetail cascade: 'none'
         examinationCentre cascade:'none'
         studentName column: "studentName"
-        dob column: "Dob"
+        dob column: "Dob",index: 'Dob_Index'
+        rollNo column: "RollNo",index: 'RollNo_Index'
+
         category column: "Category"
         gender column: "Gender"
         nationality column: "Nationality"

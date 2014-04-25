@@ -50,6 +50,10 @@ $(document).ready(function () {
 });
 
 
+function a(id) {
+    window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' +id);
+}
+
 function submitExamDate(){
 //    alert("submit")
     var course=$('#programList').val();
