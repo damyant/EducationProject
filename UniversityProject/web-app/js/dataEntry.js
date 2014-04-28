@@ -68,7 +68,7 @@ function appendDataTable(data) {
         for (var i = 0; i < data.stuList.length; i++) {
             studentList[i]= data.stuList[i]
             var ide= data.stuList[i].id
-            $('#studentList tbody').append('<tr></td><td>' + data.stuList[i].rollNo + '</td><td>' + data.stuList[i].name
+            $('#studentList tbody').append('<tr></td><td>' + data.stuList[i].rollNo + '</td><td>' + data.stuList[i].studentName
                 + '</td><td><button id="fee" onclick="openPopUp('+ data.stuList[i].id +')">Fee Entry</button></td></tr>')
     }
     }

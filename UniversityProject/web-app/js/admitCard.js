@@ -349,7 +349,7 @@ function studentsSelected(selectedStudentList){
             if(data.length!=undefined){
                 var count=1;
                 for(var i=0;i<data.length;i++){
-                    $('#admitCardTab').append('<tr><td><input type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
+                    $('#admitCardTab').append('<tr><td><input type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].studentName+'</td></tr>')
                     ++count;
                 }
             }

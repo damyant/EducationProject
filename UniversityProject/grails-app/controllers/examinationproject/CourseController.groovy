@@ -105,8 +105,16 @@ class CourseController {
         }
 
     }
+    def checkCourseCode(){
+        def status=[:]
+        def courseCodeIns=ProgramDetail.findAllByCourseCode(params.courseCode)
+        if(courseCodeIns){
+            status.courseCode='true'
+        }
+        else{
+            status.courseCode='false'
+        }
+        render status as JSON
 
-
-
-
+    }
 }

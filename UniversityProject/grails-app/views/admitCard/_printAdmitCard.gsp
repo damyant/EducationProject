@@ -21,7 +21,7 @@
                 <div class="university-Admit-Width">
                     <div style="display: inline;width: 100%; ">
                         <label style="float: left" >Gauhati University Schedule Ex-111, Form No. 11</label>
-                        <label style="float: right" >Serial No: </label>
+                        <label style="float: right;margin-right: 100px;" >Serial No: </label>
 
                     </div><br/><br/>
                     <div class="university-clear-both"></div>

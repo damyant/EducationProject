@@ -81,14 +81,14 @@
                 </td>
                     <td>
                         <g:if test="${params.rollNo}">
-                            <g:select id="type" name="feeType"
+                            <g:select id="feeType" name="feeType"
                                       from="${selectFeeType}" optionKey="id"
                                       optionValue="type" class="many-to-one university-size-1-3"
                                       readonly=""/>
                         </g:if>
                         <g:else>
-                            <g:select id="type" name="feeType"
-                                      from="${feeType}" optionKey="id" disabled="disabled"
+                            <g:select id="feeType" name="feeType"
+                                      from="${feeType}" optionKey="id"
                                       optionValue="type" class="many-to-one university-size-1-3"
                                       noSelection="['': 'Choose Type']"/>
                         </g:else>

@@ -19,7 +19,7 @@ class AdminController {
     def pdfRenderingService
     def studentRegistrationService
     def springSecurityService
-    @Secured(["ROLE_ADMIN","ROLE_STUDYCENTRE","ROLE_IDOL_USER"])
+    @Secured(["ROLE_ADMIN","ROLE_STUDY_CENTRE","ROLE_IDOL_USER"])
     def viewProvisionalStudents() {
 
         def studyCenterList=StudyCenter.list(sort: 'name')
@@ -96,6 +96,7 @@ class AdminController {
 
     @Secured(["ROLE_ADMIN","ROLE_IDOL_USER"])
     def generateFeeVoucher={
+        println(">>>>>>>>????????>>"+params)
         def student = Student.findByRollNo(params.rollNo)
         if(!(student.studyCentre[0].centerCode=="11111")){
              redirect(action: "feeVoucher",params:[error:"error"])

@@ -47,7 +47,7 @@ class StudyCenterInfoService {
                             studyCentreId:studyCenterObj.id,
                                     enabled: true).save(failOnError: true)
 
-                    def studyCentreRole = Role.findByAuthority('ROLE_STUDYCENTRE')
+                    def studyCentreRole = Role.findByAuthority('ROLE_STUDY_CENTRE')
                     if (!studyCentreUser.authorities.contains(studyCentreRole)) {
                         UserRole.create studyCentreUser, studyCentreRole
                     }

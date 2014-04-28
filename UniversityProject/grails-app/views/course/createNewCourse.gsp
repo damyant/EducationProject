@@ -30,12 +30,25 @@
 <body>
 <div id="main">
     <fieldset class="form">
-        <h3>Add New Program</h3>
+        <g:if test="${params.courseId}">
+            <h3>Update Program</h3>
+        </g:if>
+        <g:else>
+            <h3>Add New Program</h3>
+        </g:else>
+
         <g:if test="${flash.message}">
         <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>
 
-    <div id="statusMessage" style="display:none;" class="university-status-message"><g:message code="course.create.message"/></div>
+    <div id="statusMessage" style="display:none;" class="university-status-message">
+        <g:if test="${params.courseId}">
+            <g:message code="course.updated.message"/>
+        </g:if>
+        <g:else>
+            <g:message code="course.create.message"/>
+        </g:else>
+    </div>
 
     <g:form  method="post" name="createCourse" id="createCourse">
         <g:hiddenField name="courseId" id="courseId" />
@@ -62,7 +75,9 @@
             </tr>
             <tr>
                 <td><label>Program Code :<span class="university-obligatory">*</span></label></td>
-                <td><input type="text" id="courseCode" name="courseCode" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
+                <td><input type="text" id="courseCode" name="courseCode" maxlength="" onchange="checkCourseCode()" class="university-size-1-2" onkeypress="return isNumber(event)"/>
+                    <label id="errorMsg" class="error1"></label>
+                </td>
             </tr>
             <tr>
                 <td><label>Number of maximum available academic year :<span class="university-obligatory">*</span>
