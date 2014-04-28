@@ -196,7 +196,8 @@ function validate() {
 //            fee voucher
             rollNo: {
                 required: true,
-                number: true
+                number: true,
+                minlength: 10
             },
             feeType: {
                 required: true
@@ -320,7 +321,9 @@ function validate() {
             marksPerPaper: "Please Enter Passing Marks",
             totalCreditPoints: "Please Enter total Credit Points",
             examinationCentreName: "Please Enter examination Centre Name",
-            rollNo: "Please Enter a Roll Number",
+            rollNo:{ required:"Please Enter a Roll Number",
+                minlength:"Please Enter 8 digit Roll Number"
+            },
             feeType: "Please Select Fee type",
             feeAmountAtIDOL: "Please Enter Fee amount at IDOL",
             feeAmountAtSC: "Please Enter Fee amount at Study Centre",

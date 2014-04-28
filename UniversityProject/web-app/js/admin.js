@@ -6,6 +6,7 @@ $(document).ready(function () {
         $("#submit").click(function(){
             var rollNo = $("#rollNo").val()
             var feeType = $("#feeType").val()
+            alert(feeType)
             if(rollNo.length==""){
                 $("#rollNo").after('<label class="error">Please Enter Roll Number</label>')
                 return false
@@ -63,12 +64,13 @@ function submitExamDate(){
         data: $('#assignDate').serialize()+'&subjectIdList=' + subjectIdList,
         success: function (data) {
             if(data.saveFlag==true){
-                location.reload();
+//                location.reload();
 //                    $("#subjectList tr").remove()
 //                document.getElementById("assignDate").reset();
 ////                $('#assignDate').reset();
 //                $('.datepicker').val('');
 //                $('.timepicker_6').val('');
+                $('#assignDate')[0].reset();
                 $("#successMessage").html("Examination Date is saved")
 //                setTimeout(function(){  $('#successMessage').hide(); }, 8000);
                 $("html, body").animate({ scrollTop: 0 }, "slow");

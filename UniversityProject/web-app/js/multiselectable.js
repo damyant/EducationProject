@@ -234,21 +234,14 @@ function clearField() {
     $('#createCourse').each(function () {
         this.reset();
     });
-
-
+//    $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 function save() {
-//    alert(fireMultiValidate());
     validate();
     var status = $("#createCourse").valid();
     if (!fireMultiValidate()) {
-//        alert(fireMultiValidate());
         return;
     }
-//    validate();
-//    var status = $("#createCourse").valid();
-
-
     if (status) {
         var formObj = $("#createCourse");
         var data = ConvertFormToJSON(formObj);
@@ -264,8 +257,8 @@ function save() {
                 if (data.response1) {
                     document.getElementById("statusMessage").style.display = "block";
                 }
-                clearField();
-
+//                clearField();
+                $("html, body").animate({ scrollTop: 0 }, "slow");
             }
         });
     }

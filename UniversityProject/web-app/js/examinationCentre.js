@@ -98,6 +98,7 @@ function submitForm() {
                         success: function (response) {
                             document.getElementById("examinationCenterForm").reset();
                             $('div#msg').html(response);
+                            $("html, body").animate({ scrollTop: 0 }, "slow");
 
                         }, error: function (XMLHttpRequest, textStatus, errorThrown) {
                             console.log("response in error")
