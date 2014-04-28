@@ -16,6 +16,9 @@
 <div id="main">
     <fieldset>
         <h3>STUDENT ADMIT CARD</h3>
+        <g:if test="${flash.message}">
+            <div class="university-status-message"> <label class="error">${flash.message}</label></div>
+        </g:if>
         <g:form name="admitCardForm" id="admitCardForm" controller="admitCard" action="printAdmitCard">
             <g:hiddenField name="studyCenterId" id="studyCenterId" value="true"/>
             <div>

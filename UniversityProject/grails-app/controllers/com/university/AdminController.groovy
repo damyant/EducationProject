@@ -19,7 +19,7 @@ class AdminController {
     def pdfRenderingService
     def studentRegistrationService
     def springSecurityService
-    @Secured(["ROLE_ADMIN","ROLE_STUDYCENTRE","ROLE_IDOL_USER"])
+    @Secured(["ROLE_ADMIN","ROLE_STUDY_CENTRE","ROLE_IDOL_USER"])
     def viewProvisionalStudents() {
 
         def studyCenterList=StudyCenter.list(sort: 'name')

@@ -78,7 +78,7 @@
 
                     <td style="width: 10%"></td>
                 </tr>
-            </table>
+            </table><br/>
             <table id="studentList" class="inner university-table-1-3">
                 <thead></thead>
                 <tbody></tbody>

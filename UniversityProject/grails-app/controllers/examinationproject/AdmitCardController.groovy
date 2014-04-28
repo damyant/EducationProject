@@ -184,6 +184,10 @@ class AdmitCardController {
         def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate,guLogo:logo],filename:fileName+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
         }
+        else if (params.studyCenterId){
+            flash.message="Admit Card Not Generated yet"
+            redirect(controller:'admitCard', action: 'studyCenterAdmitCard')
+        }
         else{
             flash.message="Admit Card Not Generated yet"
             redirect(controller:'student', action: 'downloadAdmitCard')

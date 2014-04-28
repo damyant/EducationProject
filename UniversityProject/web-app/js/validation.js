@@ -197,7 +197,7 @@ function validate() {
             rollNo: {
                 required: true,
                 number: true,
-                minlength: 10
+                minlength: 8
             },
             feeType: {
                 required: true
