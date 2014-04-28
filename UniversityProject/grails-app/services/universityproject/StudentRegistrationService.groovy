@@ -61,7 +61,7 @@ class StudentRegistrationService {
        studentRegistration.dob=df.parse(params.d_o_b)
 
        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
-       studentRegistration.status= Status.findById(1)
+
        studentRegistration.studyCentre=studyCentre
        Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
        endYear = (Integer.parseInt(year)+programDetail[0].noOfAcademicYears).toString()
