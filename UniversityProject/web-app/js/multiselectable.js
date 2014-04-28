@@ -38,7 +38,7 @@ function viewSemesterList() {
     $('#multiSelectTab tr').remove()
     for (var j = 1; j <= $('#noOfTerms').html(); j++) {
         $('#multiSelectTab').append('<tr><td style="width: 40%"><label>Term - ' + j + ' Course</label></td>' +
-            '<td style="width: 60%"><select class="select-to university-size-2-3" readonly="readonly" style="width: 75%;border: 0px;margin: 0px" name="semester' + j + '" id="semester' + j + '"  multiple="true" /><input type="button" style="margin-left: 10px;" value="View Syllabus" id="viewSyllabus" onclick="viewSyllabus()" alt="Select a Subject and Click This Button"/></td></tr>')
+            '<td style="width: 60%"><select class="select-to university-size-2-3" readonly="readonly" style="width: 75%;border: 0px;margin: 0px" name="semester' + j + '" id="semester' + j + '"  multiple="true" /><input type="button" style="margin-left: 10px;" value="View Syllabus" id="viewSyllabus" onclick="viewSyllabus()" alt="Select a Course and Click This Button"/></td></tr>')
 
     }
 
@@ -106,7 +106,7 @@ function validateLength(j) {
     var validate;
     var length = document.getElementById('semester' + j).options.length;
     if (length == 0) {
-        $('#error-select-' + j).html("<label style='margin-left: 4px; color: #cd0a0a; '>Please choose subjects for semesters</label>");
+        $('#error-select-' + j).html("<label style='margin-left: 4px; color: #cd0a0a; '>Please choose course for semesters</label>");
         validate = false;
     } else {
         $('#error-select-' + j).html("");
@@ -253,11 +253,13 @@ function save() {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
-//                alert(data.response1)
-                if (data.response1) {
+                if (data.response1=='updated') {
                     document.getElementById("statusMessage").style.display = "block";
                 }
-//                clearField();
+                else if(data.response1=='Created'){
+                    document.getElementById("statusMessage").style.display = "block";
+                    clearField()
+                }
                 $("html, body").animate({ scrollTop: 0 }, "slow");
             }
         });
@@ -271,17 +273,16 @@ function syllabusUpload(index) {
                 $('#syllabusFile').on('change', function () {
                     myfile= $( this ).val();
                     var ext = myfile.split('.').pop();
-//                    if(ext=="pdf" || ext=="docx" || ext=="doc") {
+                    if(ext=="pdf" || ext=="docx" || ext=="doc") {
                         $('#syllabusOfSubject').val($('#semester' + index).find(":selected").val());
                         $('#syllabusCourse').val($('#courseName').val());
-                        $('#syllabusOfSemester').val('Semester'+ index);
+                        $('#syllabusOfSemester').val('Semester' + index);
                         $('#syllabusUploadForm').submit();
-//                    $.ajax({
-//                        type: "post",
-//                        url: url('course', 'uploadSyllabus'),
-//                        data: {syllabusSubject: subject, syllabusCourse: course, syllabusSemester: index}
-//                    });
-//                    }
+                    }
+                    else{
+                        alert("Invalid File Type.")
+                        $( this ).val('');
+                    }
                 });
             }
             else {
@@ -289,11 +290,11 @@ function syllabusUpload(index) {
             }
         }
         else {
-            alert("Select a Subject to Add Syllabus.");
+            alert("Select a Course to Add Syllabus.");
         }
     }
     else {
-        alert("Enter The Course Name First.");
+        alert("Enter The Program Name First.");
     }
 }
 
