@@ -9,6 +9,7 @@ import examinationproject.Semester
 import examinationproject.Student
 import examinationproject.StudyCenter
 import grails.converters.JSON
+import javax.activation.MimetypesFileTypeMap
 import grails.plugins.springsecurity.Secured
 
 
@@ -19,7 +20,8 @@ class AdminController {
     def pdfRenderingService
     def studentRegistrationService
     def springSecurityService
-    @Secured(["ROLE_ADMIN","ROLE_STUDYCENTRE","ROLE_IDOL_USER"])
+    def attendanceService
+    @Secured(["ROLE_GENERATE_ROLL_NO"])
     def viewProvisionalStudents() {
 
         def studyCenterList=StudyCenter.list(sort: 'name')
@@ -185,6 +187,37 @@ class AdminController {
     def generateStudentList={
         def studList= adminInfoService.updateStudentList(params)
         render studList as JSON
+    }
+
+
+    def downloadAttendanceSheet = {
+        if(params.programSession){
+            def webRootDir = servletContext.getRealPath("/")
+            def userDir = new File(webRootDir,'/Attendance')
+            userDir.mkdirs()
+        def excelPath = servletContext.getRealPath("/")+'Attendance'+System.getProperty('file.separator')+'Output'+'.xls'
+         println('this is the real path '+excelPath)
+         def status= attendanceService.getStudentList(params,excelPath)
+
+            if(status){
+                println("hello kuldeep u r back in controller "+ status)
+
+                File myFile = new File(servletContext.getRealPath("/")+'Attendance'+System.getProperty('file.separator')+'Output'+'.xls')
+                response.setHeader "Content-disposition", "attachment; filename="+'Output'+".xls"
+                response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
+                response.outputStream << myFile .bytes
+                response.outputStream.flush()
+                myFile.delete()
+            }
+            else{
+
+            }
+        }
+
+        else{
+            println("there is no parameters")
+        }
+
     }
 }
 

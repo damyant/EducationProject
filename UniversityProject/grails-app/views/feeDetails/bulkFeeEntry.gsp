@@ -121,6 +121,7 @@
                     <g:hiddenField name="studentId" id="currentStudentId" />
                     <g:hiddenField name="nextStudentId" id="nextStudentId" />
                     <g:hiddenField name="previousStudentId" id="previousStudentId" />
+                    <g:hiddenField name="currentStudent" id="currentStudent"/>
 
 
                 </div>
@@ -234,11 +235,11 @@
 
                 <div class="university-size-2-3">
                     <input type="button" name="create" class="save university-button" onclick="submitFeeDetail()"
-                                    value='Submit'  />
+                                    value='Save & Next'  />
 
 
-        <input type="button" name="Next" id="next"  class="save university-button" value="Next" onclick="nextStudent()"/>
-        <input type="button" name="Back" id="back" class="save university-button" value='Back' onclick="previousStudent()"/>
+        <input type="button" name="Next" id="next" style="display: none" class="save university-button" value="Next" onclick="nextStudent()"/>
+        <input type="button" name="Back" id="back" style="display: none" class="save university-button" value='Back' onclick="previousStudent()"/>
                 </div>
             </div>
         </form>

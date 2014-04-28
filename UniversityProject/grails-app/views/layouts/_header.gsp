@@ -125,6 +125,10 @@
 
                         </ul>
                     </li>
+                    <li><g:link controller="admin"
+                                action="downloadAttendanceSheet"><g:message
+                                code="default.mainMenu6.subMenu6"/></g:link></li>
+
                 </ul>
 
             </li>

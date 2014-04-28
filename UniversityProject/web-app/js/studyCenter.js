@@ -114,5 +114,31 @@ function showCentreList() {
 
 }
 
+function showProgrammeList(){
+    var data= $('#examinationCentre').val()
+
+    $.ajax({
+        type:'post',
+        url:url('examinationCenter','getProgrammeList',''),
+        data:{data:data},
+        success:function(data){
+            alert("this is the response"+data)
+            if(data.length>0){
+                $('#submit').css('display','inline')
+            }
+            $("#programList").empty().append('<option value=""> Select Programme</option>')
+            for (var i = 0; i < data.length; i++) {
+                $("#programList").append('<option value="' + data[i].id + '">' + data[i].courseName + '</option>')
+            }
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+
+        }
+    });
+
+}
+
+
+
 
 

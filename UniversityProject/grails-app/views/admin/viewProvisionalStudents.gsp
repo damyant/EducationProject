@@ -26,7 +26,7 @@
             <g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>
             <table class="inner" style="margin: auto;">
                 <tr>
-                    <sec:ifAnyGranted roles="ROLE_ADMIN">
+                    <sec:ifAnyGranted roles="ROLE_GENERATE_ROLL_NO">
                         <g:hiddenField name="roleType" id="roleType" value="admin"/>
                         <td style="min-width: 12%">
                             <label for="studyCenter">Select Study Center</label>
@@ -46,17 +46,17 @@
                         </td>
                         <td style="width: 10%"></td>
                     </sec:ifAnyGranted>
-                    <sec:ifAnyGranted roles="ROLE_STUDYCENTRE,ROLE_IDOL_USER">
-                        <td style="min-width: 10%">
-                            <label for="programId">Select Program</label>
-                        </td>
-                        <td style="width: 33%">
-                            <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}"
-                                      optionKey="id" optionValue="courseName" noSelection="['null': ' Select Program']"
-                                      onchange="getStudents()"/>
-                        </td>
-                        <td style="width:50%"></td>
-                    </sec:ifAnyGranted>
+                    %{--<sec:ifAnyGranted roles="ROLE_STUDYCENTRE,ROLE_IDOL_USER">--}%
+                        %{--<td style="min-width: 10%">--}%
+                            %{--<label for="programId">Select Program</label>--}%
+                        %{--</td>--}%
+                        %{--<td style="width: 33%">--}%
+                            %{--<g:select name="programId" id="programId" class="university-size-1-1" from="${programList}"--}%
+                                      %{--optionKey="id" optionValue="courseName" noSelection="['null': ' Select Program']"--}%
+                                      %{--onchange="getStudents()"/>--}%
+                        %{--</td>--}%
+                        %{--<td style="width:50%"></td>--}%
+                    %{--</sec:ifAnyGranted>--}%
 
                 </tr>
             </table>

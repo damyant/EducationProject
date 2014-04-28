@@ -118,14 +118,13 @@ class ExaminationCenterController {
 
     }
     def getExaminationCentreList(){
-
         try{
             City city = City.get(params.int('data'));
 
             def centreList = null
             if (city != null) {
                 centreList = ExaminationCentre.findAllByCity(city,[sort:'name'])
-//                println("<><><><><><><><>><<><>"+centreList)
+                println("<><><><><><><><>><<><>"+centreList)
                 render centreList as JSON
             } else {
                 render null
@@ -135,6 +134,27 @@ class ExaminationCenterController {
             println("<<<<<<<<<<<Problem in getting city list" + e)
         }
     }
+
+    def getProgrammeList() {
+        println("this is the id of venue" +params.int('data'))
+        try{
+            ExaminationCentre examinationCentre = ExaminationCentre.get(params.int('data'));
+
+            def programmeList = null
+            if (examinationCentre != null) {
+                programmeList = ProgramExamVenue.findAllByExamCenter(examinationCentre).courseDetail
+                println("list of programs"+programmeList)
+                render programmeList as JSON
+            } else {
+                render null
+            }
+        }
+        catch (Exception e){
+            println("<<<<<<<<<<<Problem in getting city list" + e)
+        }
+
+    }
+
     @Secured("ROLE_ADMIN")
     def create={
         def districtList=District.list(sort:'districtName')
@@ -154,4 +174,6 @@ class ExaminationCenterController {
         render status as JSON
 
     }
+
+
 }

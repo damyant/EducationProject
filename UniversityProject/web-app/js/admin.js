@@ -212,7 +212,7 @@ function appendSubjects(obj){
 
 
 
-    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" value="Submit" onclick="validateFields('+validateCountB+','+validateCountA+')"></td></tr>' )
+    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" value="Submit" onclick="validateFields()"></td></tr>' )
 
     $(".datepicker").datepicker({
         changeMonth: true,
