@@ -50,7 +50,7 @@ class StudentRegistrationService {
            studentRegistration.registrationYear=Integer.parseInt(year)
            if(springSecurityService.isLoggedIn()){
                studentRegistration.referenceNumber=0
-               studentRegistration.rollNo=(Integer)getStudentRollNumber(params)
+               studentRegistration.rollNo=getStudentRollNumber(params)
                studentRegistration.status= Status.findById(2)
 
            }else{
@@ -61,7 +61,7 @@ class StudentRegistrationService {
        studentRegistration.dob=df.parse(params.d_o_b)
 
        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
-       studentRegistration.status= Status.findById(1)
+
        studentRegistration.studyCentre=studyCentre
        Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
        endYear = (Integer.parseInt(year)+programDetail[0].noOfAcademicYears).toString()
@@ -69,27 +69,17 @@ class StudentRegistrationService {
 
        def session = ProgramSession.count()
        def programSessionIns
-       if(session>0 && ProgramSession.findBySessionOfProgram(programSession)){
-           programSessionIns= ProgramSession.findBySessionOfProgram(programSession)
-           if(!(programSessionIns.programDetail==programDetail))
+       if(session>0 ){
+           if(programDetail[0].programSession.id){
+               programSessionIns= ProgramSession.findById(programDetail[0].programSession.id)
+           }else{
                programSessionIns=new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
+           }
        }else{
-
            programSessionIns=new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
            println("Session new"+programSessionIns.sessionOfProgram)
        }
-//=======
-//         def session = ProgramSession.count()
-//       def programSessionIns
-//       if(session>0){
-//           programSessionIns = ProgramSession.findBySessionOfProgram(programSession)
-//           programSessionIns.programDetail = programDetail
-//           programSessionIns.save(flush: true)
-//       }else{
-//           programSessionIns = new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
-//       }
-////       def programSessionIns = ProgramSession.findBySessionOfProgram(programSession) ?: new ProgramSession(sessionOfProgram:  programSession,programDetail:programDetail).save(flush: true, failOnError: true)
-//>>>>>>> e3fef702805e73b6e0eb274a1fa9ace0b38edc40
+
 
 
        studentRegistration.programSession = programSessionIns
@@ -97,7 +87,6 @@ class StudentRegistrationService {
 
        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examinationCentre))
        studentRegistration.examinationCentre=examinationCentreList
-//       println("????????????"+photographe.bytes)
        if(!params.appNo){
        studentRegistration.studentImage=photographe.bytes
        }
@@ -138,13 +127,17 @@ class StudentRegistrationService {
             String courseCodeStr= course[0].courseCode.toString()
             String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2,4)
             int rollNo= 1001
+            String rollTemp=null
+         String rollTemp1
             String rollStr = Integer.toString(rollNo)
         println("<<<"+courseCodeStr)
          println("?????"+yearCode)
                 if(courseCodeStr.length()>2){
-                    courseCodeStr= courseCodeStr.substring(0,2)
+                    println("lenth of course"+courseCodeStr.length())
+                    courseCodeStr= courseCodeStr.substring(courseCodeStr.length()-2,courseCodeStr.length())
+                    println(courseCodeStr)
                 }
-            int rollNumber = 0;
+            String rollNumber = null;
 
 //            def program = ProgramDetail.findById(courseId)
             def student=Student.count()
@@ -168,50 +161,57 @@ class StudentRegistrationService {
                  def stuObj=Student.findById(Long.parseLong(i.toString()))
 
                 if(studentByYearAndCourse){
-                    if(studentByYearAndCourse[0].rollNo>0){
-                        if(rollNumber==0){
-                        rollNumber = studentByYearAndCourse[0].rollNo+1
-                        }
-                        else{
-                            rollNumber=++rollNumber
+                    println("Hi generation the roll number"+(studentByYearAndCourse[0].rollNo==null))
+
+                    if(!(studentByYearAndCourse[0].rollNo==null)){
+                        if(rollTemp==null){
+                        rollTemp = studentByYearAndCourse[0].rollNo.substring(4,8)
+                        rollTemp1 = Integer.parseInt(rollTemp)+1
+                        rollNumber = studentByYearAndCourse[0].rollNo.replace(rollTemp,rollTemp1)
+                        }else{
+                            ++rollTemp1
+                            rollNumber = studentByYearAndCourse[0].rollNo.replace(rollTemp,rollTemp1)
                         }
                     }
                     else{
-                        rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                        rollNumber= courseCodeStr+yearCode+rollStr
                     }
                 }
                 else{
-                 rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                 rollNumber= courseCodeStr+yearCode+rollStr
                  }
                     stuObj.rollNo=rollNumber
                     stuObj.status=Status.findById(Long.parseLong("2"))
                     stuObj.save(failOnError: true)
-                }
+              }
                 return status=true
             }else{
 
                     if(studentByYearAndCourse){
-                        if(studentByYearAndCourse[0].rollNo>0){
-                            if(rollNumber==0){
-                                rollNumber = studentByYearAndCourse[0].rollNo+1
-                            }
-                            else{
-                                rollNumber=++rollNumber
+                        if(studentByYearAndCourse[0].rollNo==null){
+                            if(rollNumber==null){
+                                rollTemp = studentByYearAndCourse[0].rollNo.substring(4,8)
+                                rollTemp1 = Integer.parseInt(rollTemp)+1
+                                rollNumber = studentByYearAndCourse[0].rollNo.replace(rollTemp,rollTemp1)
+                          }
+                          else{
+                                ++rollTemp1
+                                rollNumber = studentByYearAndCourse[0].rollNo.replace(rollTemp,rollTemp1)
                             }
                         }
                         else{
-                            rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                            rollNumber= courseCodeStr+yearCode+rollStr
                         }
                     }
                     else{
-                        rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                        rollNumber= courseCodeStr+yearCode+rollStr
                     }
 
 
 
                 }
             }else{
-                rollNumber= Integer.parseInt(courseCodeStr+yearCode+rollStr)
+                rollNumber= courseCodeStr+yearCode+rollStr
             }
          return rollNumber
      }
