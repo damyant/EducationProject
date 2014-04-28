@@ -106,17 +106,36 @@ class AdmitCardController {
 
     }
     def printAdmitCard={
-        println("?????????????????========"+params)
-        println("user===="+springSecurityService.currentUser)
+//        println("?????????????????========"+params)
+//        println("user===="+springSecurityService.currentUser)
         def stuList = []
         StringBuilder examDate = new StringBuilder()
         def byte [] logo= new File("web-app/images/gu-logo.jpg").bytes
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        if(params.rollNumber){
+        if(params.rollNumber && springSecurityService.currentUser){
+//            println("*********")
+            def user=springSecurityService.currentUser
+            def obj=Student .createCriteria()
+            stuList= obj.list{
+                studyCentre{
+                    eq('id', Long.parseLong(user.studyCentreId.toString()))
+                }
+                and{
+                    eq('admitCardGenerated', true)
+
+                }
+                and{
+                    eq('rollNo',Integer.parseInt(params.rollNumber.trim()))
+                }
+
+            }
+
+        }
+        else if(params.rollNumber){
          stuList=   Student.findAllByRollNoAndDobAndAdmitCardGenerated(Integer.parseInt(params.rollNumber.trim()),df.parse(params.dob),true)
 
         }
-        if(params.studyCenterId){
+        else if(params.studyCenterId){
             def user=springSecurityService.currentUser
               def obj=Student .createCriteria()
             stuList= obj.list{

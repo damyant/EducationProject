@@ -68,7 +68,9 @@
                              <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
                              </sec:ifAnyGranted>
                             <sec:ifAnyGranted roles="ROLE_STUDYCENTRE">
-                                <li><a href="#" class="newAdmitCardPopup"><g:message code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
+                               <li><g:link controller="student" action="downloadAdmitCard"><g:message
+                                        code="default.mainMenu3.subMenu2.submenu1.submemu1"/></g:link></li>
+                                %{--<li><a href="#" class="newAdmitCardPopup"><g:message code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>--}%
                                 <li><g:link controller="admitCard" action="studyCenterAdmitCard"><g:message code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
                             </sec:ifAnyGranted>
                              </li>

@@ -72,14 +72,10 @@ function submitExamDate(){
                 $("#successMessage").html("Examination Date is saved")
 //                setTimeout(function(){  $('#successMessage').hide(); }, 8000);
                 $("html, body").animate({ scrollTop: 0 }, "slow");
-
-
             }
             else{
                 $("#successMessage").html("")
             }
-
-
         }
     });
 
@@ -91,14 +87,9 @@ function getStudents() {
         url: url('admin', 'getStudentList', ''),
         data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(), pageType: $('#pageType').val()},
         success: function (data) {
-            //document.location.reload();
-//           getSemesterAndSubjectListStudyCenterList()
             appendTable(data)
-
-
         }
     });
-
 }
 
 function enableProgram(t) {
@@ -140,7 +131,7 @@ function appendTable(data) {
         document.getElementById("studentList").style.visibility = "visible";
         $('#studentList thead').append('<tr><th><input type="checkbox" name="chkbox" onchange="toggleChecked(this.checked)"/> <label for="chkbox">Select All</label> </th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th></tr>')
         for (var i = 0; i < data.stuList.length; i++) {
-            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].name + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
+            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].studentName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
         }
         $('#studentList tbody').append('<tr><td colspan="3"><input type="button" value="' + data.label + '" id="assignRollNo"></td></tr>')
 
@@ -301,7 +292,7 @@ function saveExamVenue(){
             $('#examCenterList').empty();
             $('#addExamCentre').empty();
             $('#successMessage').html('Successfully Assigned Examination Venue');
-            setTimeout(function(){  $('#successMessage').hide(); }, 8000);
+//            setTimeout(function(){  $('#successMessage').hide(); }, 8000);
 //            if(data.noSubjects==true){
 //                $("#subjectList tr").remove();
 //                $("#msgDiv").html("The is no subjects associated with the program")
