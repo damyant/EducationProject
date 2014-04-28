@@ -306,7 +306,7 @@ function checkCourseCode() {
         data: {courseCode: data},
         success: function (data) {
             if (data.courseCode == "true") {
-                $('#errorMsg').text("CourseCode Code is already registered")
+                $('#errorMsg').text("Program Code is already registered")
                 $('#errorMsg').attr('display', true)
             }
             else {
