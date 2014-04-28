@@ -6,7 +6,7 @@ $(document).ready(function () {
         $("#submit").click(function(){
             var rollNo = $("#rollNo").val()
             var feeType = $("#feeType").val()
-            alert(feeType)
+//            alert(feeType)
             if(rollNo.length==""){
                 $("#rollNo").after('<label class="error">Please Enter Roll Number</label>')
                 return false
@@ -23,7 +23,7 @@ $(document).ready(function () {
 
 
     $(document).on('click', '#assignRollNo', function () {
-        alert("hi")
+//        alert("hi")
         if ($("input[name=rollno_checkbox]:checked").length != 0) {
             $("input[name=rollno_checkbox]:checked").each(function (i) {
 
@@ -109,7 +109,7 @@ function toggleChecked(status) {
 }
 
 function generateRollNo(value) {
-alert("hi")
+//alert("hi")
     $.ajax({
         type: "post",
         url: url('admin', 'generateRollNo', ''),

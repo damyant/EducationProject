@@ -29,6 +29,7 @@ body {
 
 .university-location-select {
     padding-left: 10px;
+    margin-bottom: 10px;
 }
 
 .university-label-location-select, .university-location-select select {
@@ -195,7 +196,12 @@ label.error3,label.error4 {
     color: #cd0a0a;
     text-transform: capitalize;
 }
-
+label.error5 {
+    /*display:block;*/
+    clear:both;
+    color: #cd0a0a;
+    text-transform: capitalize;
+}
 /*Status Message*/
 
 .university-status-message {
