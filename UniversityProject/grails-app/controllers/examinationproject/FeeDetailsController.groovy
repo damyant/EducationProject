@@ -37,6 +37,7 @@ class FeeDetailsController {
         }
 
         if(feeDetailsInstance){
+            flash.message = "Fee Details Entered Successfully."
             redirect(action: "createFeeDetails")
         }
     }
