@@ -6,7 +6,7 @@ $(document).ready(function () {
         $("#submit").click(function(){
             var rollNo = $("#rollNo").val()
             var feeType = $("#feeType").val()
-            alert(feeType)
+//            alert(feeType)
             if(rollNo.length==""){
                 $("#rollNo").after('<label class="error">Please Enter Roll Number</label>')
                 return false
@@ -23,7 +23,7 @@ $(document).ready(function () {
 
 
     $(document).on('click', '#assignRollNo', function () {
-        alert("hi")
+//        alert("hi")
         if ($("input[name=rollno_checkbox]:checked").length != 0) {
             $("input[name=rollno_checkbox]:checked").each(function (i) {
 
@@ -109,7 +109,7 @@ function toggleChecked(status) {
 }
 
 function generateRollNo(value) {
-alert("hi")
+//alert("hi")
     $.ajax({
         type: "post",
         url: url('admin', 'generateRollNo', ''),
@@ -194,8 +194,13 @@ function appendSubjects(obj){
 
 
             $("#subjectList").append('<tr id="subjectRows'+j+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
+//<<<<<<< HEAD
+//                '<input type="text"  name="examinationDate"  class="datepicker university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError" class="error3">&nbsp;</label></td>'+
+//                '<td class="university-size-1-3"> <input type="text"  name="examinationTime" style="width: 70px;" class="timepicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError" class="error4">&nbsp;</label></td>'+
+//=======
                 '<input type="text"  name="examinationDate"  class="datePickers university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError" class="error3">&nbsp;</label></td>'+
                 '<td class="university-size-1-3"> <input type="text"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError" class="error4">&nbsp;</label></td>'+
+
 
                 '</tr>')
             ++counter;
@@ -206,7 +211,6 @@ function appendSubjects(obj){
 
 
     }
-
 
 
     $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" value="Submit" onclick="validateFields()"></td></tr>' )

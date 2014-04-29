@@ -26,29 +26,30 @@
         <div class="message"><div class="university-status-message">${flash.message}</div></div>
     </g:if>
     <div id="msg" class="university-status-message"></div>
-    <form id="examinationCenterForm" name="examinationCenterForm">
+        <div style="margin-left: 10px; margin-bottom: 10px"> <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
+
+        <form id="examinationCenterForm" name="examinationCenterForm">
 
         <div class="university-location-select">
             <div class="university-label-location-select">
-                <label><g:message code="default.createStudy.district"/></label></div>
-            <g:select name="district" id="district" optionKey="id" value="${studyCentreInstance?.city?.district?.id}"
-                      class="university-size-1-3" onchange="showCityList()" optionValue="districtName"
-                      from="${districtList}" noSelection="['': ' Select District']"/>
+                <label><g:message code="default.createStudy.district"/><span class="university-obligatory">*</span></label></div>
+            <g:select name="district" id="district" onselect="" optionKey="id" value="${studyCentreInstance?.city?.district?.id}"
+                      class="university-size-1-3" onchange="showCityList(),clearErrorMsg(this)" optionValue="districtName"
+                      from="${districtList}" noSelection="['': ' Select District']"/><label id="districtError" class="error5" >&nbsp;</label>
         </div>
 
         <div id="cityList" class="university-location-select">
             <div class="university-label-location-select">
-                <label><g:message code="default.createStudy.city"/></label></div>
+                <label><g:message code="default.createStudy.city"/><span class="university-obligatory">*</span></label></div>
             <g:select name="city" id="city" optionKey="id" value="${studyCentreInstance?.city?.id}"
-                      class="university-size-1-3" optionValue="cityName"
+                      class="university-size-1-3" optionValue="cityName" onchange="clearErrorMsg(this)"
                       from="${City.findAllByDistrict(District.get(studyCentreInstance?.city?.district?.id))}"
-                      noSelection="['': ' Select City']"/>
+                      noSelection="['': ' Select City']"/><label id="cityError" class="error5" >&nbsp;</label>
         </div>
-        <div style="margin-left: 10px; margin-top: 10px"> <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 
         <div id="VenueDiv" class="middleDiv">
         </div>
-        <table style="border: none">
+        <table style="border: none" id="examButton">
 
             <tr>
                 <td colspan="4">

@@ -88,7 +88,7 @@ def springSecurityService
                 }
             }
         }
-
+            println("to=="+totalDateList)
         subjectMap.allSubjects=subList
         subjectMap.dateList=totalDateList
 
@@ -102,11 +102,13 @@ def springSecurityService
         def subjectList=params.subjectIdList.split(",")
         def count=0
         subjectList.each{i ->
+            if(params.examinationDate[count]!=""){
             def subjectIns=Subject.findById(Long.parseLong(i.toString()))
             subjectIns.examDate=f1.parse(params.examinationDate[count])
             subjectIns.examTime=params.examinationTime[count]
             subjectIns.save(failOnError: true)
             ++count;
+            }
         }
     }
 
@@ -115,10 +117,13 @@ def springSecurityService
         def courseIns=ProgramDetail.findById(Long.parseLong(params.programList))
         def cityIns=City.findById(Long.parseLong(params.city))
         def venueList=params.venueList.split(",")
-        ProgramExamVenue.removeAll(courseIns)
-        ProgramExamVenue.removeAll(cityIns)
+//        ProgramExamVenue.removeAll(courseIns)
+//        ProgramExamVenue.removeAll(cityIns)
         venueList.each {it ->
-          ProgramExamVenue.create courseIns, ExaminationCentre.findById(Integer.parseInt(it.toString())),cityIns
+          def resultObj=  ProgramExamVenue.findByExamCenter(ExaminationCentre.findById(Integer.parseInt(it.toString())))
+          if(!resultObj){
+                ProgramExamVenue.create courseIns, ExaminationCentre.findById(Integer.parseInt(it.toString())),cityIns
+            }
 
         }
     }

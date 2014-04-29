@@ -40,23 +40,23 @@ function examinationCenterDiv() {
     $('#VenueDiv' + index).append(
             '<div class="Venue">' +
             '<label class="Venue-label">Venue Name <span class="university-obligatory">*</span></label>' +
-            '<input type="text" style="" class="" onkeypress="return onlyAlphabets(event,this)"  onkeyup="clearErrorMsg(this)" style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/><label id="centerNameMsg'+index+'" class="error2" ></label></div>' +
+            '<input type="text" style="" class="" onkeypress="return onlyAlphabets(event,this)"  onkeyup="clearErrorMsg(this)" style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/><label id="centerNameMsg' + index + '" class="error2" ></label></div>' +
             '<div class="Venue"><label class="Venue-label">Venue Code <span class="university-obligatory">*</span></label>' +
-            '<input type="text"  type="text" style="" onchange="checkExamCenter(index)" onkeypress="return isNumber(event)" onkeyup="clearErrorMsg(this)" class=""  name="examinationCentreCode" id="examinationCentreCode' + index + '" /><label id="centerCodeMsg'+index+'" class="error2" ></label>' +
+            '<input type="text"  type="text" style="" onchange="checkExamCenter(index)" onkeypress="return isNumber(event)" onkeyup="clearErrorMsg(this)" class=""  name="examinationCentreCode" id="examinationCentreCode' + index + '" /><label id="centerCodeMsg' + index + '" class="error2" ></label>' +
             '<label class="error1" id="errorMsg' + index + '"></label></div>');
     $('#VenueDiv' + index).append(
             '<div class="Venue">' +
             '<label class="Venue-label">Capacity <span class="university-obligatory">*</span></label>' +
-            '<input type="text" style="" onkeypress="return isNumber(event) clearErrorMsg(this)" class=""   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/><label id="centerCapacityMsg'+index+'" class="error2" ></label></div>' +
+            '<input type="text" style="" onkeypress="return isNumber(event) clearErrorMsg(this)" class=""   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/><label id="centerCapacityMsg' + index + '" class="error2" ></label></div>' +
             '<div class="Venue"><label class="Venue-label">Incharge Name <span class="university-obligatory">*</span></label>' +
-            '<input type="text" style="" class="" onkeypress="return onlyAlphabets(event,this)" onkeyup="clearErrorMsg(this)"  style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/><label id="centerInchargeMsg'+index+'" class="error2" ></label>' +
+            '<input type="text" style="" class="" onkeypress="return onlyAlphabets(event,this)" onkeyup="clearErrorMsg(this)"  style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/><label id="centerInchargeMsg' + index + '" class="error2" ></label>' +
             '</div>');
     $('#VenueDiv' + index).append(
             '<div class="Venue">' +
             '<label class="Venue-label">Contact No <span class="university-obligatory">*</span></label>' +
-            '<input type="text"  onkeypress="return isNumber(event))" onkeyup="clearErrorMsg(this)" style="" class="" maxlength="10" name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /><label id="centerContactNoMsg'+index+'" class="error2" ></label></div>' +
+            '<input type="text"  onkeypress="return isNumber(event))" onkeyup="clearErrorMsg(this)" style="" class="" maxlength="10" name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /><label id="centerContactNoMsg' + index + '" class="error2" ></label></div>' +
             '<div class="Venue"><label style="vertical-align: top"  class="Venue-label">Address <span class="university-obligatory">*</span></label>' +
-            '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" class=""   style="" name="examinationCentreAddress" onkeyup="clearErrorMsg(this)" id="examinationCentreAddress' + index + '" "/><label id="centerAddressMsg'+index+'" class="error2" ></label>' +
+            '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" class=""   style="" name="examinationCentreAddress" onkeyup="clearErrorMsg(this)" id="examinationCentreAddress' + index + '" "/><label id="centerAddressMsg' + index + '" class="error2" ></label>' +
             '</div>');
 
 //        $('#accountHeadId' + index).html('');
@@ -81,34 +81,24 @@ function removeExaminationCentre(index) {
 }
 
 
-
 function submitForm() {
     var location = $("#location").val();
+    debugger;
+    $.ajax({
 
-//        jQuery("#submitButton").validationEngine('attach', {
-//            onValidationComplete: function (form, status) {
-//                if (status == true) {
-                    debugger;
-                    $.ajax({
+        type: "post",
+        url: url('examinationCenter', 'saveExaminationCentre', ''),
+        async: false,
+        data: $('#examinationCenterForm').serialize(),
+        success: function (response) {
+            document.getElementById("examinationCenterForm").reset();
+            $('div#msg').html(response);
+            $("html, body").animate({ scrollTop: 0 }, "slow");
 
-                        type: "post",
-                        url: url('examinationCenter', 'saveExaminationCentre', ''),
-                        async: false,
-                        data: $('#examinationCenterForm').serialize(),
-                        success: function (response) {
-                            document.getElementById("examinationCenterForm").reset();
-                            $('div#msg').html(response);
-                            $("html, body").animate({ scrollTop: 0 }, "slow");
-
-                        }, error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            console.log("response in error")
-                        }
-                    });
-
-//            }
-//        });
-//    }
-
+        }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log("response in error")
+        }
+    });
 }
 function checkLocation() {
     var location = $("#location").val();
@@ -119,11 +109,7 @@ function checkLocation() {
     else {
         return true;
     }
-
-
 }
-
-
 function isNumber(evt) {
 
     evt = (evt) ? evt : window.event;
@@ -135,7 +121,6 @@ function isNumber(evt) {
 }
 
 function checkExamCenter(currentIndex) {
-
     var data = $('#examinationCentreCode' + index).val();
     $.ajax({
         type: "post",
@@ -149,89 +134,81 @@ function checkExamCenter(currentIndex) {
             else {
                 $('#errorMsg' + currentIndex).text("")
             }
-
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
-//
-
 }
 function validateAndSubmitForm() {
     var index = $('#totalIndex').val();
-    var bool='true';
-//   $("#examinationCenterForm").validate();
-//    for (i = 1; i <= index; i++) {
-//        $('#examinationCentreName' + i).rules("add", {
-//            required: true,
-//            textonly: true,
-//            messages: {
-//                required: "Please Enter Examination Centre Name",
-//                textonly: "only Accepts Text"
-//            }
-//        });
-//        $("#examinationCentreCode" + i).rules("add", {
-//            required: true,
-//            number: true,
-//            messages: {
-//                required: "Please Enter Examination Centre Name",
-//                number: "only Accepts Number"
-//            }
-//        });
-//    }
-    for( var i=1;i<=index;i++){
-//        alert($('#examinationCentreName'+i).val().length)
-        if($('#examinationCentreName'+i).val().length==0){
-            $("#centerNameMsg"+i).text("Please Enter Examination Centre Name")
-            bool='false';
+    var bool = 'true';
+    if ($('#district').val().length == 0) {
+        $("#districtError").text("Please Select District")
+        bool = 'false';
+    }
+    else {
+        bool = 'true'
+    }
+    if ($('#city').val().length == 0) {
+        $("#cityError").text("Please Select City")
+        bool = 'false';
+    }
+    else {
+        bool = 'true'
+    }
+
+    for (var i = 1; i <= index; i++) {
+        if ($('#examinationCentreName' + i).val().length == 0) {
+            $("#centerNameMsg" + i).text("Please Enter Examination Centre Name")
+            bool = 'false';
         }
-        else{
-            bool='true'
+        else {
+            bool = 'true'
         }
-        if($('#examinationCentreCode'+i).val().length==0){
-            $("#centerCodeMsg"+i).text("Please Enter Examination Centre Code")
-            bool='false';
+        if ($('#examinationCentreCode' + i).val().length == 0) {
+            $("#centerCodeMsg" + i).text("Please Enter Examination Centre Code")
+            bool = 'false';
         }
-        else{
-            bool='true'
+        else {
+            bool = 'true'
         }
-        if($('#examinationCentreCapacity'+i).val().length==0){
-            $("#centerCapacityMsg"+i).text("Please Enter Examination Centre Capacity")
-            bool='false';
+        if ($('#examinationCentreCapacity' + i).val().length == 0) {
+            $("#centerCapacityMsg" + i).text("Please Enter Examination Centre Capacity")
+            bool = 'false';
         }
-        else{
-            bool='true'
+        else {
+            bool = 'true'
         }
-        if($('#examinationCentreIncharge'+i).val().length==0){
-            $("#centerInchargeMsg"+i).text("Please Enter Examination Centre Incharge Name")
-            bool='false';
+        if ($('#examinationCentreIncharge' + i).val().length == 0) {
+            $("#centerInchargeMsg" + i).text("Please Enter Examination Centre Incharge Name")
+            bool = 'false';
         }
-        else{
-            bool='true'
+        else {
+            bool = 'true'
         }
-        if($('#examinationCentreContactNo'+i).val().length==0||$('#examinationCentreContactNo'+i).val().length<10){
-            $("#centerContactNoMsg"+i).text("Please Enter Exam Centre Contact Number(Min 10 Character Long)")
-            bool='false';
+        if ($('#examinationCentreContactNo' + i).val().length == 0 || $('#examinationCentreContactNo' + i).val().length < 10) {
+            $("#centerContactNoMsg" + i).text("Please Enter Exam Centre Contact Number(Min 10 Character Long)")
+            bool = 'false';
         }
-        else{
-            bool='true'
+        else {
+            bool = 'true'
         }
-        if($('#examinationCentreAddress'+i).val().length==0){
-            $("#centerAddressMsg"+i).text("Please Enter Examination Centre Address")
-            bool='false';
+        if ($('#examinationCentreAddress' + i).val().length == 0) {
+            $("#centerAddressMsg" + i).text("Please Enter Examination Centre Address")
+            bool = 'false';
         }
-        else{
-            bool='true'
+        else {
+            bool = 'true'
         }
 
     }
-    if(bool=='true'){
+    if (bool == 'true') {
         submitForm();
     }
 
 }
-function clearErrorMsg(t){
-    $(t).next( "label" ).text( "" );
+function clearErrorMsg(t) {
+    $(t).next("label").text("");
 
 }
 
@@ -242,7 +219,7 @@ function showList() {
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getCentreList', ''),
-       data: {city: $('#city').val(),edit:$('#edit').val()},
+        data: {city: $('#city').val(), edit: $('#edit').val()},
 //            contentType: "application/json; charset=utf-8",
 //            dataType: "json",
         success: function (response) {
