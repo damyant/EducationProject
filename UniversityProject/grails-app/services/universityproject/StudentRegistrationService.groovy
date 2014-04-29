@@ -163,7 +163,7 @@ class StudentRegistrationService {
                 if(studentByYearAndCourse){
                     println("Hi generation the roll number"+(studentByYearAndCourse[0].rollNo==null))
 
-                    if(!(studentByYearAndCourse[0].rollNo==null)){
+                    if(!(studentByYearAndCourse[0].rollNo)){
                         if(rollTemp==null){
                         rollTemp = studentByYearAndCourse[0].rollNo.substring(4,8)
                         rollTemp1 = Integer.parseInt(rollTemp)+1
@@ -188,7 +188,7 @@ class StudentRegistrationService {
             }else{
 
                     if(studentByYearAndCourse){
-                        if(studentByYearAndCourse[0].rollNo==null){
+                        if(studentByYearAndCourse[0].rollNo){
                             if(rollNumber==null){
                                 rollTemp = studentByYearAndCourse[0].rollNo.substring(4,8)
                                 rollTemp1 = Integer.parseInt(rollTemp)+1
