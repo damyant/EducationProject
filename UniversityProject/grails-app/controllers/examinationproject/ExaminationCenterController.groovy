@@ -188,6 +188,5 @@ class ExaminationCenterController {
             flash.message =  "Examination Centre Not Saved"
         }
         redirect(action: "createExamCentre")
-    }
->>>>>>> 58bf6ed42e12f00351475a6ebb498df604972e00
+    } 
 }

@@ -215,5 +215,10 @@ class AdminController {
         }
 
     }
+    def uploadInternalMarks={
+        def studyCentreList = StudyCenter.list(sort:'name')
+        def programList = ProgramDetail.list(sort:'courseName')
+        [programList: programList, studyCentreList: studyCentreList]
+    }
 }
 
