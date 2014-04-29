@@ -16,16 +16,16 @@ class CourseDetailService {
     }
 
     def saveCourseInfo(params) {
-        def status=""
+        def status = ""
         def semObj
         def existingCourseObj
         println(params.courseId)
-        if(params.courseId){
-        existingCourseObj = ProgramDetail.findById(Integer.parseInt(params.courseId))
+        if (params.courseId) {
+            existingCourseObj = ProgramDetail.findById(Integer.parseInt(params.courseId))
         }
 
         if (existingCourseObj) {
-            println("innnn"+ params)
+            println("innnn" + params)
             existingCourseObj.courseName = params.courseName
             existingCourseObj.courseCode = Integer.parseInt(params.courseCode)
             existingCourseObj.courseMode = CourseMode.findById(params.courseMode)
@@ -52,11 +52,11 @@ class CourseDetailService {
 
                 params.semesterList.each {
                     i
-                  def subjectList=it."semester${i}".sort()
-                      subjectList.each { obj ->
+                    def subjectList = it."semester${i}".sort()
+                    subjectList.each { obj ->
                         CourseSubject.create existingCourseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj
                     }
-                    status='updated'
+                    status = 'updated'
                 }
 
             }
@@ -65,7 +65,7 @@ class CourseDetailService {
 
             def courseObj = new ProgramDetail(params)
             courseObj.save(failOnError: true)
-           for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
+            for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
                 semObj = new Semester()
 
                 semObj.semesterNo = i
@@ -73,11 +73,11 @@ class CourseDetailService {
                 semObj.save(failOnError: true)
                 params.semesterList.each {
                     i
-                    def subjectList=it."semester${i}".sort()
+                    def subjectList = it."semester${i}".sort()
                     subjectList.each { obj ->
                         CourseSubject.create courseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj
                     }
-                   status='Created'
+                    status = 'Created'
                 }
 
             }
@@ -99,8 +99,8 @@ class CourseDetailService {
         def subList = []
         def courseObj = ProgramDetail.findById(params.courseId)
         courseDetail.course = courseObj
-        courseDetail.courseType=courseObj.courseType.courseTypeName
-        courseDetail.courseMode=courseObj.courseMode.modeName
+        courseDetail.courseType = courseObj.courseType.courseTypeName
+        courseDetail.courseMode = courseObj.courseMode.modeName
         courseObj.semester.each {
             subMap[it.semesterNo] = CourseSubject.findAllByCourseDetailAndSemester(courseObj, it).subject
             subList = subMap

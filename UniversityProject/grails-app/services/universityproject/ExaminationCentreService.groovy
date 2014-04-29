@@ -72,16 +72,17 @@ class ExaminationCentreService {
 
     def associatedExamVenue(params) {
 
-        def cityIns=City.findById(Long.parseLong(params.city))
-        def programIns=ProgramDetail.findById(Long.parseLong(params.programList))
-        def examVenue = ProgramExamVenue.findAllByCourseDetailAndCity(programIns,cityIns)
+        def cityIns = City.findById(Long.parseLong(params.city))
+        def programIns = ProgramDetail.findById(Long.parseLong(params.programList))
+        def examVenue = ProgramExamVenue.findAllByCourseDetailAndCity(programIns, cityIns)
         return examVenue.examCenter
     }
-    Boolean saveExamCentres (params) {
+
+    Boolean saveExamCentres(params) {
         Boolean isSaved = false;
         City cityIns = new City()
-        cityIns.cityName=params.examCentreName
-        cityIns.district=District.findById(Integer.parseInt(params.district))
+        cityIns.cityName = params.examCentreName
+        cityIns.district = District.findById(Integer.parseInt(params.district))
         if (cityIns.save(flush: true)) {
             isSaved = true
         }

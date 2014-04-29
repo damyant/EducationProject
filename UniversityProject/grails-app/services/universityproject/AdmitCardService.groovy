@@ -15,36 +15,35 @@ class AdmitCardService {
     }
 
 
-    def getStudents(params){
+    def getStudents(params) {
 
-        def obj=Student .createCriteria()
-        def studentList= obj.list{
-            programDetail{
+        def obj = Student.createCriteria()
+        def studentList = obj.list {
+            programDetail {
                 eq('id', Long.parseLong(params.programList))
             }
             examinationCentre {
                 eq('id', Long.parseLong(params.examinationVenue))
             }
-            and{
+            and {
                 eq('programSession', ProgramSession.findById(Integer.parseInt(params.programSession)))
             }
-            and{
+            and {
                 eq('status', Status.findById(3))
             }
 
-            and{
+            and {
                 eq('semester', Integer.parseInt(params.programTerm))
             }
-            and{
-                 eq('admitCardGenerated', false)
+            and {
+                eq('admitCardGenerated', false)
 
             }
 
 
         }
 
-        return  studentList
-
+        return studentList
 
 
     }
