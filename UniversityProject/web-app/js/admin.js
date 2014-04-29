@@ -6,6 +6,7 @@ $(document).ready(function () {
         $("#submit").click(function(){
             var rollNo = $("#rollNo").val()
             var feeType = $("#feeType").val()
+            alert(feeType)
             if(rollNo.length==""){
                 $("#rollNo").after('<label class="error">Please Enter Roll Number</label>')
                 return false
@@ -50,6 +51,10 @@ $(document).ready(function () {
 });
 
 
+function a(id) {
+    window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' +id);
+}
+
 function submitExamDate(){
 //    alert("submit")
     var course=$('#programList').val();
@@ -59,23 +64,20 @@ function submitExamDate(){
         data: $('#assignDate').serialize()+'&subjectIdList=' + subjectIdList,
         success: function (data) {
             if(data.saveFlag==true){
-                location.reload();
+//                location.reload();
 //                    $("#subjectList tr").remove()
 //                document.getElementById("assignDate").reset();
 ////                $('#assignDate').reset();
 //                $('.datepicker').val('');
 //                $('.timepicker_6').val('');
+                $('#assignDate')[0].reset();
                 $("#successMessage").html("Examination Date is saved")
 //                setTimeout(function(){  $('#successMessage').hide(); }, 8000);
                 $("html, body").animate({ scrollTop: 0 }, "slow");
-
-
             }
             else{
                 $("#successMessage").html("")
             }
-
-
         }
     });
 
@@ -87,14 +89,9 @@ function getStudents() {
         url: url('admin', 'getStudentList', ''),
         data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(), pageType: $('#pageType').val()},
         success: function (data) {
-            //document.location.reload();
-//           getSemesterAndSubjectListStudyCenterList()
             appendTable(data)
-
-
         }
     });
-
 }
 
 function enableProgram(t) {
@@ -136,7 +133,7 @@ function appendTable(data) {
         document.getElementById("studentList").style.visibility = "visible";
         $('#studentList thead').append('<tr><th><input type="checkbox" name="chkbox" onchange="toggleChecked(this.checked)"/> <label for="chkbox">Select All</label> </th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th></tr>')
         for (var i = 0; i < data.stuList.length; i++) {
-            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].name + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
+            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].studentName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
         }
         $('#studentList tbody').append('<tr><td colspan="3"><input type="button" value="' + data.label + '" id="assignRollNo"></td></tr>')
 
@@ -197,8 +194,8 @@ function appendSubjects(obj){
 
 
             $("#subjectList").append('<tr id="subjectRows'+j+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
-                '<input type="text"  name="examinationDate"  class="datepicker university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError" class="error3">&nbsp;</label></td>'+
-                '<td class="university-size-1-3"> <input type="text"  name="examinationTime" style="width: 70px;" class="timepicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError" class="error4">&nbsp;</label></td>'+
+                '<input type="text"  name="examinationDate"  class="datePickers university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError" class="error3">&nbsp;</label></td>'+
+                '<td class="university-size-1-3"> <input type="text"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError" class="error4">&nbsp;</label></td>'+
 
                 '</tr>')
             ++counter;
@@ -214,19 +211,20 @@ function appendSubjects(obj){
 
     $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" value="Submit" onclick="validateFields()"></td></tr>' )
 
-    $(".datepicker").datepicker({
+    $(".datePickers").datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: "dd/mm/yy"
+        dateFormat: "dd/mm/yy",
+        minDate: 0
     });
-    $('.timepicker_6').timepicker({
+    $('.timePicker_6').timepicker({
         showPeriod: true,
         showLeadingZero: true
     });
 }
 
 
-function validateFields(counter){
+function validateFields(){
 //    var date=null;
 //    var time = null;
 //    var bool = false;
@@ -297,7 +295,7 @@ function saveExamVenue(){
             $('#examCenterList').empty();
             $('#addExamCentre').empty();
             $('#successMessage').html('Successfully Assigned Examination Venue');
-            setTimeout(function(){  $('#successMessage').hide(); }, 8000);
+//            setTimeout(function(){  $('#successMessage').hide(); }, 8000);
 //            if(data.noSubjects==true){
 //                $("#subjectList tr").remove();
 //                $("#msgDiv").html("The is no subjects associated with the program")
@@ -327,7 +325,7 @@ function generateStudentsList() {
                 document.getElementById("studentList").style.visibility = "visible";
                 $('#studentList thead').append('<tr><th>' + "Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Roll Number" + '</th><th>' + "Mobile No" + '</th><th>&nbsp;</th></tr>')
                 for (var i = 0; i < data.length; i++) {
-                    $('#studentList tbody').append('<tr><td>' + data[i].name + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" value="View" onclick="viewStudent(' + data[i].id + ')"/></td></tr>')
+                    $('#studentList tbody').append('<tr><td>' + data[i].studentName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" value="View" onclick="viewStudent(' + data[i].id + ')"/></td></tr>')
                 }
 
             }

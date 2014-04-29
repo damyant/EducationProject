@@ -46,6 +46,7 @@
                         </td>
                         <td style="width: 10%"></td>
                     </sec:ifAnyGranted>
+
                     %{--<sec:ifAnyGranted roles="ROLE_STUDYCENTRE,ROLE_IDOL_USER">--}%
                         %{--<td style="min-width: 10%">--}%
                             %{--<label for="programId">Select Program</label>--}%
@@ -57,7 +58,6 @@
                         %{--</td>--}%
                         %{--<td style="width:50%"></td>--}%
                     %{--</sec:ifAnyGranted>--}%
-
                 </tr>
             </table>
 

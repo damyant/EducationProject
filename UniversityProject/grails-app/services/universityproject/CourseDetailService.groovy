@@ -16,7 +16,7 @@ class CourseDetailService {
     }
 
     def saveCourseInfo(params) {
-        def status=false
+        def status=""
         def semObj
         def existingCourseObj
         println(params.courseId)
@@ -56,7 +56,7 @@ class CourseDetailService {
                       subjectList.each { obj ->
                         CourseSubject.create existingCourseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj
                     }
-                    status=true
+                    status='updated'
                 }
 
             }
@@ -77,7 +77,7 @@ class CourseDetailService {
                     subjectList.each { obj ->
                         CourseSubject.create courseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj
                     }
-                   status=true
+                   status='Created'
                 }
 
             }

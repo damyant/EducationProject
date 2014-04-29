@@ -95,9 +95,9 @@ function viewStudyCenter(studyCenterId) {
     window.location.href = '/UniversityProject/studyCenter/createNewStudyCenter?studyCenterId=' + data + '&type=view';
 
 }
-function showCentreList() {
+function showCentreList(t) {
 
-    var data = $('#city').val();
+    var data = $(t).val();
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExaminationCentreList', ''),
@@ -113,6 +113,7 @@ function showCentreList() {
     });
 
 }
+
 
 function showProgrammeList(){
     var data= $('#examinationCentre').val()
@@ -138,6 +139,32 @@ function showProgrammeList(){
 
 }
 
+
+
+
+function checkStudyCenter() {
+
+    var data = $('#centerCode').val();
+    $.ajax({
+        type: "post",
+        url: url('studyCenter', 'checkCenterCode', ''),
+        data: {centerCode: data},
+        success: function (data) {
+
+            if (data.centerCode == "true") {
+                $('#errorMsg').text("Center Code is already registered")
+            }
+            else {
+                $('#errorMsg').text("")
+            }
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+//
+
+}
 
 
 

@@ -31,7 +31,6 @@
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'admitCard.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'viewAdmitCard.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'editAdmitCard.js')}'></script>
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'deleteAdmitCard.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'status.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'base.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'validation.js')}'></script>

@@ -8,7 +8,10 @@ var i ;
 var selected = new Array();
 var updatedAvailable=0;
 var totalRows= 0;
+
+
 $(document).ready(function () {
+
 
     var count=0;
    // $("input[name='studentCheckbox']").change(function () {
@@ -184,6 +187,7 @@ function showExamVenueCapacity(){
 
 
 function getStudentsForAdmitCard(){
+
     $.ajax({
         type: "post",
         url: url('admitCard', 'getStudentsForAdmitCard', ''),
@@ -197,7 +201,7 @@ function getStudentsForAdmitCard(){
                   $('#studentListPrintButton').prop('hidden', false)
                   var count=1;
                  for(var i=0;i<data.length;i++){
-                       $('#admitCardTab').append('<tr id="rowID'+i+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
+                       $('#admitCardTab').append('<tr id="rowID'+i+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].studentName+'</td></tr>')
                     ++count;
                 }
                   totalRows=count;
@@ -205,7 +209,7 @@ function getStudentsForAdmitCard(){
             else{
                   $('#showErrorMessage').prop('hidden', false)
                   $('#showErrorMessage').text('No Students Found');
-                  setTimeout(function(){  $('#showErrorMessage').hide(); }, 8000);
+//                  setTimeout(function(){  $('#showErrorMessage').hide(); }, 8000);
               }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -320,7 +324,7 @@ function generateAdmitCard(){
         $("#admitCardForm").submit();
 //        studentsSelected(selectedStudentList)
 
-        setTimeout(function(){ getStudentsForAdmitCard()},100);
+        setTimeout(function(){ getStudentsForAdmitCard()},300);
 
         return true;
 
@@ -345,7 +349,7 @@ function studentsSelected(selectedStudentList){
             if(data.length!=undefined){
                 var count=1;
                 for(var i=0;i<data.length;i++){
-                    $('#admitCardTab').append('<tr><td><input type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].name+'</td></tr>')
+                    $('#admitCardTab').append('<tr><td><input type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].studentName+'</td></tr>')
                     ++count;
                 }
             }
@@ -366,6 +370,15 @@ function enableShowCandidate(){
         $('#showCandidates').prop('disabled', true)    }
     else{
         $('#showCandidates').prop('disabled', false)
+    }
+}
+
+
+function downloadAdmitCard(){
+    validate()
+    var result = $('#individualDownloadAdmitCard').valid()
+    if(result) {
+        $("#individualDownloadAdmitCard").submit();
     }
 }
 

@@ -61,8 +61,15 @@
                         <p>Enter Roll Number:<span class="university-obligatory">*</span></p>
                     </td>
                     <td class="university-size-2-3">
-                        <g:textField name="rollNo" id="rollNo" class="university-size-1-3"
+                        <g:if test="${params.rollNo}">
+                            <g:textField name="rollNo" id="rollNo" class="university-size-1-3" value="${params.rollNo}"
+                                         onkeypress="return isNumber(event)" readonly="readonly"/>
+                        </g:if>
+                        <g:else>
+                             <g:textField name="rollNo" id="rollNo" class="university-size-1-3"
                                      onkeypress="return isNumber(event)"/><label id="feeError" class="error"></label>
+                        </g:else>
+
                     </td>
                 </tr>
 
@@ -73,19 +80,31 @@
                     </label></p>
                 </td>
                     <td>
-                        <g:select id="feeType" name="feeType"
-                                  from="${feeType}" optionKey="id" disabled="disabled"
-                                  optionValue="type" class="many-to-one university-size-1-3"
-                                  noSelection="['': 'Choose Type']"/>
+                        <g:if test="${params.rollNo}">
+                            <g:select id="feeType" name="feeType"
+                                      from="${selectFeeType}" optionKey="id"
+                                      optionValue="type" class="many-to-one university-size-1-3"
+                                      readonly=""/>
+                        </g:if>
+                        <g:else>
+                            <g:select id="feeType" name="feeType"
+                                      from="${feeType}" optionKey="id"
+                                      optionValue="type" class="many-to-one university-size-1-3"
+                                      noSelection="['': 'Choose Type']"/>
+                        </g:else>
+
                     </td>
 
                 </tr>
 
-                <tr><td colspan="2" style="text-align: center; "><input type="button" name="submit" id="submit"
-                                                                        class="university-button"
-                                                                        value="Submit"
-                                                                        disabled="disabled"
-                                                                        style="margin-top: 15px;"/></td>
+                <tr><td colspan="2" style="text-align: center; ">
+                    <g:if test="${params.rollNo}">
+                        <input type="button" name="submit" id="submit"  class="university-button"  value="Submit"   style="margin-top: 15px;"/>
+                    </g:if>
+                    <g:else>
+                        <input type="button" name="submit" id="submit"  class="university-button"  value="Submit"  disabled="disabled" style="margin-top: 15px;"/>
+                    </g:else>
+                    </td>
                 </tr>
             </table>
 
