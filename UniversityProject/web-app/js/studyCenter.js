@@ -123,7 +123,7 @@ function showProgrammeList(){
         url:url('examinationCenter','getProgrammeList',''),
         data:{data:data},
         success:function(data){
-            alert("this is the response"+data)
+
             if(data.length>0){
                 $('#submit').css('display','inline')
             }
