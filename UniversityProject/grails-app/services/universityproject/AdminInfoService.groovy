@@ -117,13 +117,10 @@ def springSecurityService
         def courseIns=ProgramDetail.findById(Long.parseLong(params.programList))
         def cityIns=City.findById(Long.parseLong(params.city))
         def venueList=params.venueList.split(",")
-//        ProgramExamVenue.removeAll(courseIns)
-//        ProgramExamVenue.removeAll(cityIns)
+        ProgramExamVenue.removeAll(cityIns)
+
         venueList.each {it ->
-          def resultObj=  ProgramExamVenue.findByExamCenter(ExaminationCentre.findById(Integer.parseInt(it.toString())))
-          if(!resultObj){
-                ProgramExamVenue.create courseIns, ExaminationCentre.findById(Integer.parseInt(it.toString())),cityIns
-            }
+            ProgramExamVenue.create courseIns, ExaminationCentre.findById(Integer.parseInt(it.toString())),cityIns
 
         }
     }
