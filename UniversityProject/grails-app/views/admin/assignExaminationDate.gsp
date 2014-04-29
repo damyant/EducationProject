@@ -48,7 +48,7 @@
 
             </table>
 
-            <div class="university-status-message"><h3><div id="msgDiv"></div></h3></div>
+            <div class="university-status-message"><h5><div id="msgDiv"></div></h5></div>
         </form>
     </fieldset>
 </div>

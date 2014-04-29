@@ -2,7 +2,7 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-    $("#tempEnrollment,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
+    $("#tempEnrollment,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
         rules: {
 //              tempEnroll
             examCentre:"required",
@@ -241,7 +241,9 @@ function validate() {
                 textonly: true},
             examinationCentreContactNo: {required: true,
                 number: true},
-            examinationCentreAddress: {required: true}
+            examinationCentreAddress: {required: true},
+            examCentreName: {required: true,
+                textonly: true}
 
         },
         messages: {
@@ -253,14 +255,16 @@ function validate() {
                 required:"Please Enter Date Of Birth",
                 date: "Please Enter Date Of Birth in Correct Date Format"
             },
+            examCentreName: {required: "Please Enter Centre Name",
+                textonly: "Please Enter Alphabets Only"},
             applicationNo:"Please Enter Application Number",
             examCentre: "Please Select Examination Centre",
             examVenue: "Please Select Examination Venue",
             profileImage: "File must be JPG, GIF or PNG, less than 1MB",
             name: "Please enter study center name",
             address: "Please enter study center address",
-            district: "Please select district of study center",
-            city: "Please select city of study center",
+            district: "Please select district",
+            city: "Please select city",
             nameOfHeadIns: "Please enter name of the Principal",
             phoneNoOfHeadIns: "Please enter Contact No of Principal",
             emailIdOfHeadIns:{

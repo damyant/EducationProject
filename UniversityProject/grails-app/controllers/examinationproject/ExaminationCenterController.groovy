@@ -174,6 +174,20 @@ class ExaminationCenterController {
         render status as JSON
 
     }
-
-
+    @Secured("ROLE_ADMIN")
+    def createExamCentre={
+        def districtList=District.list(sort:'districtName')
+        [districtList:districtList]
+    }
+    def saveExamCentre={
+        Boolean flag = examinationCentreService.saveExamCentres(params)
+        if(flag){
+            flash.message =  "Examination Centre Saved Succesfully"
+        }
+        else{
+            flash.message =  "Examination Centre Not Saved"
+        }
+        redirect(action: "createExamCentre")
+    }
+>>>>>>> 58bf6ed42e12f00351475a6ebb498df604972e00
 }
