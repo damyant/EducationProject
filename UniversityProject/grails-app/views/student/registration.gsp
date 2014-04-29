@@ -265,7 +265,7 @@
                 <td style="width: 30%;">Address:</td>
                 <td style="width: 70%;"><input type="text" name="addressStudentName" maxlength="30"
                                                class="university-size-1-2" value="${studInstance?.addressStudentName}"
-                                               onkeypress="return isAlphaNumeric(event, this);"/></td>
+                                               /></td>
             </tr>
             <tr>
                 <td style="width: 30%;">Village/Town:</td>

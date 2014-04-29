@@ -27,10 +27,7 @@
         <g:renderErrors bean="${studyCentreInstance}" as="list"/>
     </div>
 </g:hasErrors>
-<g:if test="${params.status == 'created'}"><div class="university-status-message"><g:message
-        code="studyCenter.create.message"/></div></g:if>
-<g:elseif test="${params.status == 'updated'}"><div class="university-status-message"><g:message
-        code="studyCenter.update.message"/></div></g:elseif>
+
 <g:form controller="studyCenter" action="saveStudyCenter" method="post" name="createStudyCenter"
         id="createStudyCenter">
 
@@ -91,7 +88,16 @@
 %{--for  Create new Study Center--}%
 
     <g:else>
-        <h3>Creation of Study Centre</h3>
+        <g:if test="${params.studyCenterId}">
+            <h3>Update Study Centre</h3>
+        </g:if>
+        <g:else>
+            <h3>Creation of Study Centre</h3>
+        </g:else>
+        <g:if test="${params.status == 'created'}"><div class="university-status-message"><g:message
+                code="studyCenter.create.message"/></div></g:if>
+        <g:elseif test="${params.status == 'updated'}"><div class="university-status-message"><g:message
+                code="studyCenter.update.message"/></div></g:elseif>
         <div style="margin-left: 10px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
         <table class="inner" style="width: 100%; margin: auto;">
         <tr>
@@ -140,9 +146,10 @@
         <tr>
             <td><label><g:message code="default.createStudy.centerCode"/> <span
                     class="university-obligatory">*</span></label></td>
-            <td><input type="text" name="centerCode" onkeypress="return isAlphaNumeric(event)"
-                       value="${studyCentreInstance?.centerCode}" maxlength=""
-                       class="university-size-1-2"/></td>
+            <td><input type="text" id="centerCode" name="centerCode" onkeypress="return isAlphaNumeric(event)"
+                       value="${studyCentreInstance?.centerCode}" maxlength="" onchange="checkStudyCenter()"
+                       class="university-size-1-2"/><label id="errorMsg" class="error1"></label>
+            </td>
         </tr>
         <tr>
             <td><label><g:message code="default.createStudy.websiteUrl"/> <span

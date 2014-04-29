@@ -114,5 +114,29 @@ function showCentreList(t) {
 
 }
 
+function checkStudyCenter() {
+
+    var data = $('#centerCode').val();
+    $.ajax({
+        type: "post",
+        url: url('studyCenter', 'checkCenterCode', ''),
+        data: {centerCode: data},
+        success: function (data) {
+
+            if (data.centerCode == "true") {
+                $('#errorMsg').text("Center Code is already registered")
+            }
+            else {
+                $('#errorMsg').text("")
+            }
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+//
+
+}
+
 
 

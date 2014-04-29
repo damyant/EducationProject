@@ -21,7 +21,7 @@ class Student {
     String addressPinCode
     String location
     String applicationNo
-    int rollNo
+    String rollNo
     int semester
     Status status
     int registrationYear
