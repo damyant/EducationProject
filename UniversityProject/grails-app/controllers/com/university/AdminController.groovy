@@ -174,7 +174,6 @@ class AdminController {
     def saveExamVenue={
 
         def status=adminInfoService.saveExamVenue(params)
-        println("here is the status"+status)
         if(status){
             render status
         }

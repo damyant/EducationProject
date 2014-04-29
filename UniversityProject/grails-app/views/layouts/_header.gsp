@@ -49,6 +49,13 @@
                                     code="default.mainMenu3.subMenu3.subMenu3"/></g:link></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#"><g:message code="Examination Centre"/></a>
+                        <ul>
+                           <li><g:link controller="examinationCenter" action="createExamCentre"><g:message
+                           code="Create"/></g:link> </li>
+                        </ul>
+                    </li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu1"/></a>
                         <ul>
                             <li><g:link controller="examinationCenter" action="create"><g:message
