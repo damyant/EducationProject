@@ -20,7 +20,7 @@
             <div class="message"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
         <div style="margin-left: 10px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
-        <form id="uploadInternalMarks" name="uploadInternalMarks">
+        <form controller="admin" action="uploadInternalMarks" method='post' enctype="multipart/form-data" id="uploadInternalMarks" name="uploadInternalMarks">
         <table class="inner university-size-full-1-1">
             <tr>
                 <td class="university-size-1-4">
@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <td class="university-size-1-4">
-                    <label>Select Course<span class="university-obligatory">*</span></label>
+                    <label>Select Program<span class="university-obligatory">*</span></label>
                 </td>
                 <td class="university-size-3-4">
                     <g:select name="programList" class="university-size-1-3" optionKey="id"
