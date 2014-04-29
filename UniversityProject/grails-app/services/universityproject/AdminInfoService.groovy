@@ -71,12 +71,14 @@ def springSecurityService
         def semesterList=Semester.findAllByCourseDetail(programIns)
         def count=0
         semesterList.each{
+
           subList<<CourseSubject.findAllByCourseDetailAndSemester(programIns,it).subject
+       
           dateList=subList.examDate
         }
 
+
         for(def i=0;i<subList.examDate.size();i++){
-            println(dateList[i][0])
 
             for(def j=0;j<dateList[i].size();j++){
                 if(dateList[i][j]!=null){
@@ -88,7 +90,7 @@ def springSecurityService
                 }
             }
         }
-            println("to=="+totalDateList)
+
         subjectMap.allSubjects=subList
         subjectMap.dateList=totalDateList
 

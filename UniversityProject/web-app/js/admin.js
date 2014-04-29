@@ -187,24 +187,17 @@ function appendSubjects(obj){
             var datesInNewFormat=""
             if(obj.dateList[counter]!=undefined && obj.dateList[counter].toString()!='noo' ){
 
-            var d = $.datepicker.parseDate("mm/dd/yy", obj.dateList[counter].toString())
+            var d = $.datepicker.parseDate("dd/mm/yy", obj.dateList[counter].toString());
+
 
             datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
             }
 
-
-            $("#subjectList").append('<tr id="subjectRows'+j+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
-//<<<<<<< HEAD
-//                '<input type="text"  name="examinationDate"  class="datepicker university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError" class="error3">&nbsp;</label></td>'+
-//                '<td class="university-size-1-3"> <input type="text"  name="examinationTime" style="width: 70px;" class="timepicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError" class="error4">&nbsp;</label></td>'+
-//=======
-                '<input type="text"  name="examinationDate"  class="datePickers university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError" class="error3">&nbsp;</label></td>'+
-                '<td class="university-size-1-3"> <input type="text"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError" class="error4">&nbsp;</label></td>'+
-
-
+            $("#subjectList").append('<tr id="subjectRows'+counter+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
+                '<input type="text"  name="examinationDate" id="examDate'+counter+'"  onchange="clearError(this)" class="datePickers university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError'+counter+'" class="error3">&nbsp;</label></td>'+
+                '<td class="university-size-1-3"> <input type="text" id="examTime'+counter+'"  onchange="clearError(this)"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError'+counter+'" class="error4">&nbsp;</label></td>'+
                 '</tr>')
             ++counter;
-
         }
 
         count++;

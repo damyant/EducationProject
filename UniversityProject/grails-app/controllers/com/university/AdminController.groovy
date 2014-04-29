@@ -193,13 +193,11 @@ class AdminController {
             def webRootDir = servletContext.getRealPath("/")
             def userDir = new File(webRootDir,'/Attendance')
             userDir.mkdirs()
-        def excelPath = servletContext.getRealPath("/")+'Attendance'+System.getProperty('file.separator')+'Output'+'.xls'
-         println('this is the real path '+excelPath)
-         def status= attendanceService.getStudentList(params,excelPath)
-
+            def excelPath = servletContext.getRealPath("/")+'Attendance'+System.getProperty('file.separator')+'Output'+'.xls'
+            println('this is the real path '+excelPath)
+            def status= attendanceService.getStudentList(params,excelPath)
             if(status){
                 println("hello kuldeep u r back in controller "+ status)
-
                 File myFile = new File(servletContext.getRealPath("/")+'Attendance'+System.getProperty('file.separator')+'Output'+'.xls')
                 response.setHeader "Content-disposition", "attachment; filename="+'Output'+".xls"
                 response.contentType = new MimetypesFileTypeMap().getContentType(myFile )

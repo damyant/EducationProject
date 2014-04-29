@@ -127,7 +127,7 @@ class AttendanceService {
        col = 3;
        widthInChars = 12;
        sheet.setColumnView(col, widthInChars);
-       col = 6;
+       col = courseSubject.size+4;
        widthInChars = 20;
        sheet.setColumnView(col, widthInChars);
         cv.setAutosize(true);
