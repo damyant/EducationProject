@@ -189,17 +189,17 @@ class AttendanceService {
          // Write a few number
         for (int i = 0; i < finalList.size(); i++)
         {
-            addNumber(sheet, i, i+3, i+1 );
-            addNumber(sheet, i+1, i+3, finalList[i].registrationYear);
-            addNumber(sheet, i+2, i+3, finalList[i].rollNo);
-            addLabel(sheet, i+3, i+3, finalList[i].name);
+            int j=0
+            addNumber(sheet, j, i+3, i+1 );
+            addNumber(sheet, j+1, i+3,   finalList[i].registrationYear);
+            addNumber(sheet, j+2, i+3, Integer.parseInt(finalList[i].rollNo));
+            addLabel(sheet, j+3, i+3, finalList[i].studentName);
         }
 
     }
 
 
-     void addNumber(WritableSheet sheet, int column, int row,
-                           Integer integer) throws WriteException, RowsExceededException {
+     void addNumber(WritableSheet sheet, int column, int row, Integer integer) throws WriteException, RowsExceededException {
         Number number;
         number = new Number(column, row, integer, times);
         sheet.addCell(number);

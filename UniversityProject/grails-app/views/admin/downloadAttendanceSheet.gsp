@@ -32,7 +32,7 @@
                     <td style="width: 50%">
                         <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
                               optionValue="cityName"
-                              from="" onchange="showCentreList()"
+                              from="" onchange="showCentreList(this)"
                               noSelection="['': ' Select City']"/>
                     </td>
                 </tr>
