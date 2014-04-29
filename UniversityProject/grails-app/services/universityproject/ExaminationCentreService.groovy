@@ -1,6 +1,7 @@
 package universityproject
 
 import examinationproject.City
+import examinationproject.District
 import examinationproject.ExaminationCentre
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
@@ -75,6 +76,15 @@ class ExaminationCentreService {
         def programIns=ProgramDetail.findById(Long.parseLong(params.programList))
         def examVenue = ProgramExamVenue.findAllByCourseDetailAndCity(programIns,cityIns)
         return examVenue.examCenter
+    }
+    Boolean saveExamCentres (params) {
+        Boolean isSaved = false;
+        City cityIns = new City()
+        cityIns.cityName=params.examCentreName
+        cityIns.district=District.findById(Integer.parseInt(params.district))
+        if (cityIns.save(flush: true)) {
+            isSaved = true
+        }
     }
 
 }
