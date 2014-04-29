@@ -64,13 +64,7 @@ function submitExamDate(){
         data: $('#assignDate').serialize()+'&subjectIdList=' + subjectIdList,
         success: function (data) {
             if(data.saveFlag==true){
-//                location.reload();
-//                    $("#subjectList tr").remove()
-//                document.getElementById("assignDate").reset();
-////                $('#assignDate').reset();
-//                $('.datepicker').val('');
-//                $('.timepicker_6').val('');
-                $('#assignDate')[0].reset();
+               $('#assignDate')[0].reset();
                 $("#successMessage").html("Examination Date is saved")
 //                setTimeout(function(){  $('#successMessage').hide(); }, 8000);
                 $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -155,12 +149,11 @@ function getSemesterAndSubjectList(){
             if(data.noSubjects==true){
 
                 $("#subjectList tr").remove()
-                $("#msgDiv").html("The is no subjects associated with the program")
+                $("#msgDiv").html("There is no subject associated with the program")
             }
             else{
-
-            appendSubjects(data)
                 $("#msgDiv").html("")
+                appendSubjects(data)
             }
 
 
@@ -173,48 +166,29 @@ function appendSubjects(obj){
 
     var count=1;
     var counter=0;
-
-
+    $("#subjectList").empty();
 
     for(var i=0;i<obj.allSubjects.length;i++){
 
 
         $("#subjectList").append('<tr><th>'+"Term"+ count+" Subjects" +'</th><th>Examination Date</th><th>Examination Time</th></tr>' )
         for(var j=0;j<obj.allSubjects[i].length;j++){
-
             subjectIdList[counter]=obj.allSubjects[i][j].id
-
             var datesInNewFormat=""
             if(obj.dateList[counter]!=undefined && obj.dateList[counter].toString()!='noo' ){
-
             var d = $.datepicker.parseDate("mm/dd/yy", obj.dateList[counter].toString())
-
             datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
             }
-
-
-            $("#subjectList").append('<tr id="subjectRows'+j+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
-//<<<<<<< HEAD
-//                '<input type="text"  name="examinationDate"  class="datepicker university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError" class="error3">&nbsp;</label></td>'+
-//                '<td class="university-size-1-3"> <input type="text"  name="examinationTime" style="width: 70px;" class="timepicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError" class="error4">&nbsp;</label></td>'+
-//=======
-                '<input type="text"  name="examinationDate"  class="datePickers university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError" class="error3">&nbsp;</label></td>'+
-                '<td class="university-size-1-3"> <input type="text"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError" class="error4">&nbsp;</label></td>'+
-
-
+            $("#subjectList").append('<tr id="subjectRows'+counter+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
+                '<input type="text"  name="examinationDate" id="examDate'+counter+'"  onchange="clearError(this)" class="datePickers university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError'+counter+'" class="error3">&nbsp;</label></td>'+
+                '<td class="university-size-1-3"> <input type="text" id="examTime'+counter+'"  onchange="clearError(this)"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError'+counter+'" class="error4">&nbsp;</label></td>'+
                 '</tr>')
             ++counter;
-
         }
-
         count++;
-
-
     }
-
-
-    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" value="Submit" onclick="validateFields()"></td></tr>' )
-
+    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" class="university-button" value="Submit" onclick="validateFields('+counter+')"/></td></tr>' )
+    alert (counter)
     $(".datePickers").datepicker({
         changeMonth: true,
         changeYear: true,
@@ -228,26 +202,27 @@ function appendSubjects(obj){
 }
 
 
-function validateFields(){
+function validateFields(counter){
 //    var date=null;
 //    var time = null;
 //    var bool = false;
-//    for(i=0;i<counter;i++){
+//    alert($('#examDate0').val())
+//    for(var i=0;i<counter;i++){
 //
-//        date = $('#subjectList').find('#subjectRows'+i).find('#examDate'+i).val()
-//        time = $('#subjectList').find('#subjectRows'+i).find('#examTime'+i).val()
-//
-//       if((date=="null" || date.length==0)) {
-//            $('#subjectList').find('#subjectRows'+i).find('.error3').text("Please Select Examination Date")
-//            bool= false;
-//        }else{
-//           bool=true
-//       }
-//       if((time=="null" || time=="")){
-//          $('#subjectList').find('#subjectRows'+i).find('.error4').text("Please Select Examination Time")
-//       }else{
-//           bool=true
-//       }
+//            date = $('#examDate'+counter).val();
+//            time = $('#examTime'+counter).val()
+//                alert($('#examDate'+counter).val())
+//            if ((date == "null" || date.length == 0)) {
+//                $('#dateError'+counter).text("Please Select Examination Date")
+//                bool = false;
+//            } else {
+//                bool = true
+//            }
+//            if ((time == "null" || time == "")) {
+//                $('#timeError'+counter).text("Please Select Examination Time")
+//            } else {
+//                bool = true
+//            }
 //
 //    }
 //    if(bool){
@@ -269,8 +244,6 @@ function checkTimeFormat(count){
         form.timeVal.focus();
         return false;
     }
-
-//            alert("All input fields have been validated!");
             return true;
 
 }
@@ -345,4 +318,8 @@ function generateStudentsList() {
 function viewStudent(studentId){
     var data = studentId
     window.location.href = '/UniversityProject/student/registration?studentId=' + data;
+}
+function clearError(t) {
+    $(t).next("label").text("");
+
 }
