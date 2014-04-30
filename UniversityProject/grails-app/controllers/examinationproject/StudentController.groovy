@@ -177,6 +177,4 @@ class StudentController {
             redirect(action: "enrollmentAtIdol")
         }
     }
-
-
 }

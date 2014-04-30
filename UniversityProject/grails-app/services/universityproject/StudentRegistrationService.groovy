@@ -123,7 +123,7 @@ class StudentRegistrationService {
         String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2, 4)
         int rollNo = 1001
         String rollTemp = null
-        String rollTemp1
+        String rollTemp1= null
         String rollStr = Integer.toString(rollNo)
         println("<<<" + courseCodeStr)
         println("?????" + yearCode)
@@ -232,4 +232,6 @@ class StudentRegistrationService {
 
 
     }
-}
+
+    }
+
