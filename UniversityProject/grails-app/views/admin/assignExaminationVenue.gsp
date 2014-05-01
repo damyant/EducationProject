@@ -25,7 +25,7 @@
             <g:form method='post' enctype="multipart/form-data" id="assignExamVenue" name="assignExamVenue">
                 <table class="inner" style="width: 95%;margin: auto">
                     <tr>
-                        <td class="university-size-1-4"><label>Select a Course</label></td>
+                        <td class="university-size-1-4"><label>Select a Program</label></td>
                         <td class="university-size-1-4" style="padding-left: 20px;">
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"

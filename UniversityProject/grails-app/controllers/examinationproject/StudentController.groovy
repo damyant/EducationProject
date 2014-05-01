@@ -147,7 +147,7 @@ class StudentController {
         }
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
-        def centreList =  ExaminationCentre.list()
+        def centreList =  ExaminationCentre.list(sort: 'name')
         println("sss--->>>>>> "+centreList.city)
         [ programList: programList,studyCentre:studyCentre,centreList:centreList]
     }

@@ -61,6 +61,13 @@ function readURL(input, type) {
                         .width(150)
                         .height(200);
                 };
+            if (type == 'picture1')
+                reader.onload = function (e) {
+                    $('#picture1')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
             if (type == 'signature')
                 reader.onload = function (e) {
                     $('#signature')

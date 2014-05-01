@@ -200,48 +200,52 @@
 </tr>
 <tr>
     <!----- Preference of examination centre ---------------------------------------------------------->
-    <td>Select Preference of examination Venue <span class="university-obligatory">*</span></td>
+    <td>Select Preference of examination Centre<span class="university-obligatory">*</span></td>
     <td>
+        <g:select name="examinationCentre" id="examinationCentre" optionKey="id" class="university-size-1-1"
+                  optionValue="cityName"
+                  from="${centreList.city}"
+                  onchange="showCentreList(this)"
+                  noSelection="['': ' Select Examination Centre']"/>
+        %{--<table id="examCenterSelect">--}%
+            %{--<tr>--}%
+                %{--<td style="width: 50%">--}%
 
-        <table id="examCenterSelect">
-            <tr>
-                <td style="width: 50%">
+                    %{--<g:select name="examDistrict" id="district" optionKey="id"--}%
+                              %{--value="${studInstance?.examinationCentre?.city?.district?.id?.get(0)}" class="university-size-1-1"--}%
+                              %{--onChange="showCityList()" optionValue="districtName"--}%
+                              %{--from="${districtList}" noSelection="['': ' Select District']"/>--}%
 
-                    <g:select name="examDistrict" id="district" optionKey="id"
-                              value="${studInstance?.examinationCentre?.city?.district?.id?.get(0)}" class="university-size-1-1"
-                              onChange="showCityList()" optionValue="districtName"
-                              from="${districtList}" noSelection="['': ' Select District']"/>
-
-                </td>
-                <td style="width: 50%">
-                    <g:if test="${studInstance}">
-                        <g:select name="examCity" id="city" optionKey="id" class="university-size-1-1"
-                                  optionValue="cityName" value="${studInstance?.examinationCentre?.city?.id?.get(0)}"
-                                  from="${City.findAllByDistrict(District.get(studInstance?.examinationCentre?.city?.district?.id))}"
-                                  onchange="showCentreList()"
-                                  noSelection="['': ' Select City']"/></g:if>
-                    <g:else>
-                        <g:select name="examCity" id="city" optionKey="id" class="university-size-1-1"
-                                  optionValue="cityName"
-                                  from="" onchange="showCentreList(this)"
-                                  noSelection="['': ' Select City']"/>
-                    </g:else>
-                </td>
-            </tr><tr>
-            <td>
-                <g:if test="${studInstance}">
-                    <g:select name="examiNationCentre" id="examinationCentre" class="university-size-1-1" optionKey="id" optionValue="name"
-                              from="${ExaminationCentre.findAllByCity(City.get(studInstance?.examinationCentre?.city?.id?.get(0)))}"
-                              value="${studInstance?.examinationCentre?.id?.get(0)}"
-                              noSelection="['': 'Select Examination Venue']"/>
-                </g:if>
-                <g:else>
-                    <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-1" from=" "
-                              noSelection="['': 'Select Examination Venue']"/>
-                </g:else>
-            </td><td></td>
-        </tr>
-        </table>
+                %{--</td>--}%
+                %{--<td style="width: 50%">--}%
+                    %{--<g:if test="${studInstance}">--}%
+                        %{--<g:select name="examCity" id="city" optionKey="id" class="university-size-1-1"--}%
+                                  %{--optionValue="cityName" value="${studInstance?.examinationCentre?.city?.id?.get(0)}"--}%
+                                  %{--from="${City.findAllByDistrict(District.get(studInstance?.examinationCentre?.city?.district?.id))}"--}%
+                                  %{--onchange="showCentreList()"--}%
+                                  %{--noSelection="['': ' Select City']"/></g:if>--}%
+                    %{--<g:else>--}%
+                        %{--<g:select name="examCity" id="city" optionKey="id" class="university-size-1-1"--}%
+                                  %{--optionValue="cityName"--}%
+                                  %{--from="" onchange="showCentreList(this)"--}%
+                                  %{--noSelection="['': ' Select City']"/>--}%
+                    %{--</g:else>--}%
+                %{--</td>--}%
+            %{--</tr><tr>--}%
+            %{--<td>--}%
+                %{--<g:if test="${studInstance}">--}%
+                    %{--<g:select name="   " id="examinationCentre" class="university-size-1-1" optionKey="id" optionValue="name"--}%
+                              %{--from="${ExaminationCentre.findAllByCity(City.get(studInstance?.examinationCentre?.city?.id?.get(0)))}"--}%
+                              %{--value="${studInstance?.examinationCentre?.id?.get(0)}"--}%
+                              %{--noSelection="['': 'Select Examination Venue']"/>--}%
+                %{--</g:if>--}%
+                %{--<g:else>--}%
+                    %{--<g:select name="examinationCentre" id="examinationCentre" class="university-size-1-1" from=" "--}%
+                              %{--noSelection="['': 'Select Examination Venue']"/>--}%
+                %{--</g:else>--}%
+            %{--</td><td></td>--}%
+        %{--</tr>--}%
+        %{--</table>--}%
     </td>
 </tr>
 %{--<tr>--}%
@@ -306,7 +310,7 @@
 </tr>
 <tr>
     <td>
-        Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 30KB )
+        Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 50KB )
     </td>
     <td>
     %{--<input type='file' onchange="readURL(this);" />--}%
@@ -314,15 +318,15 @@
         <g:if test="${studInstance}">
             <img src="${createLink(controller: 'student', action: 'show', id: studInstance?.id
             , mime: 'image/jpeg')}" class="university-registration-photo" id="picture1"/>
-
+            <input type='file' id="profileImage" onchange="readURL(this, 'picture1');" class="university-button"
+                   name="photograph"/>
         </g:if>
         <g:else>
             <div id="profile-image"><img src="" alt="Space for Photograph "
                                          class="university-registration-photo" id="picture"/></div>
-
-        </g:else>
             <input type='file' id="profileImage" onchange="readURL(this, 'picture');" class="university-button"
                    name="photograph"/>
+        </g:else>
 
 
     </td>

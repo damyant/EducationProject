@@ -106,7 +106,7 @@ class AdmitCardController {
 
     }
     def printAdmitCard={
-//        println("?????????????????========"+params)
+        println("?????????????????========"+params)
 //        println("user===="+springSecurityService.currentUser)
         def stuList = []
         StringBuilder examDate = new StringBuilder()
@@ -125,14 +125,17 @@ class AdmitCardController {
 
                 }
                 and{
-                    eq('rollNo',Integer.parseInt(params.rollNumber.trim()))
+                    eq('rollNo',params.rollNumber.trim())
                 }
 
             }
 
+
         }
         else if(params.rollNumber){
-         stuList=   Student.findAllByRollNoAndDobAndAdmitCardGenerated(Integer.parseInt(params.rollNumber.trim()),df.parse(params.dob),true)
+//            println("??????"+Student.findByDobAndRollNo)
+         stuList=   Student.findAllByRollNoAndDobAndAdmitCardGenerated(params.rollNumber.trim(),df.parse(params.dob),true)
+//         stuList=   Student.findAllByRollNoAndDobAndAdmitCardGenerated(Integer.parseInt(params.rollNumber.trim()),df.parse(params.dob),true)
 
         }
         else if(params.studyCenterId){
