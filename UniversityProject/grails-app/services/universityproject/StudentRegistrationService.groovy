@@ -83,7 +83,7 @@ class StudentRegistrationService {
 
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
-
+    println("*********"+params.examinationCentre)
         Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examinationCentre))
         studentRegistration.examinationCentre = examinationCentreList
         if (!params.appNo) {

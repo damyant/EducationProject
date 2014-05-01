@@ -15,8 +15,10 @@ function validate() {
 
             address: "required",
             programList: "required",
-            internalMarks: {required:true,
-                accept:'xls|xlsx|cvs'},
+            internalMarks: {
+                required:true,
+                accept:'xls|xlsx|cvs'
+            },
             district: "required",
             city: "required",
             semesterList: "required",

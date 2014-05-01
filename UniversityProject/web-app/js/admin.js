@@ -155,7 +155,7 @@ function getSemesterAndSubjectList(){
             if(data.noSubjects==true){
 
                 $("#subjectList tr").remove()
-                $("#msgDiv").html("There is no subject associated with the program")
+                $("#msgDiv").html("There is no Course associated with the program")
             }
             else{
                 $("#msgDiv").html("")
@@ -170,7 +170,7 @@ function appendSubjects(obj){
     var counter=0;
     $("#subjectList").empty();
     for(var i=0;i<obj.allSubjects.length;i++){
-        $("#subjectList").append('<tr><th>'+"Term"+ count+" Subjects" +'</th><th>Examination Date</th><th>Examination Time</th></tr>' )
+        $("#subjectList").append('<tr><th>'+"Term"+ count+" Courses" +'</th><th>Examination Date</th><th>Examination Time</th></tr>' )
         for(var j=0;j<obj.allSubjects[i].length;j++){
             subjectIdList[counter]=obj.allSubjects[i][j].id
             var datesInNewFormat=""
