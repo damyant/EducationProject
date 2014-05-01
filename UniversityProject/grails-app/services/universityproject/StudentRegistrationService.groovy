@@ -114,7 +114,6 @@ class StudentRegistrationService {
      * @return
      */
     def getStudentRollNumber(params) {
-        println("?????" + params)
         def status = false
         Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
@@ -123,20 +122,15 @@ class StudentRegistrationService {
         String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2, 4)
         int rollNo = 1001
         String rollTemp = null
-        String rollTemp1= null
+        int rollTemp1= 0
         String rollStr = Integer.toString(rollNo)
-        println("<<<" + courseCodeStr)
-        println("?????" + yearCode)
+
         if (courseCodeStr.length() > 2) {
-            println("lenth of course" + courseCodeStr.length())
             courseCodeStr = courseCodeStr.substring(courseCodeStr.length() - 2, courseCodeStr.length())
             println(courseCodeStr)
         }
         String rollNumber = null;
-
-//            def program = ProgramDetail.findById(courseId)
         def student = Student.count()
-
         if (student > 0) {
             def obj = Student.createCriteria()
             def studentByYearAndCourse = obj.list {
@@ -154,24 +148,29 @@ class StudentRegistrationService {
                 def studentIdList = params.studentList.split(",")
                 studentIdList.each { i ->
                     def stuObj = Student.findById(Long.parseLong(i.toString()))
-
-                    if (studentByYearAndCourse) {
-                        println("Hi generation the roll number" + (studentByYearAndCourse[0].rollNo == null))
-
-                        if ((studentByYearAndCourse[0].rollNo)) {
-                            if (rollTemp == null) {
-                                rollTemp = studentByYearAndCourse[0].rollNo.substring(4, 8)
-                                rollTemp1 = Integer.parseInt(rollTemp) + 1
-                                rollNumber = studentByYearAndCourse[0].rollNo.replace(rollTemp, rollTemp1)
-                            } else {
-                                ++rollTemp1
-                                rollNumber = studentByYearAndCourse[0].rollNo.replace(rollTemp, rollTemp1)
-                            }
-                        } else {
-                            rollNumber = courseCodeStr + yearCode + rollStr
+                    def obj1 = Student.createCriteria()
+                    studentByYearAndCourse = obj1.list {
+                        programDetail {
+                            eq('id', Long.parseLong(params.programId))
                         }
+                        and {
+                            eq('registrationYear', year)
+                        }
+                        maxResults(1)
+                        order("rollNo", "desc")
+                    }
+
+                    if (studentByYearAndCourse[0].rollNo=="") {
+                            rollNumber = courseCodeStr + yearCode + rollStr
                     } else {
-                        rollNumber = courseCodeStr + yearCode + rollStr
+                        if (rollTemp == null) {
+                            rollTemp = studentByYearAndCourse[0].rollNo.substring(4, 8)
+                            rollTemp1 = Integer.parseInt(rollTemp) + 1
+                            rollNumber = courseCodeStr + yearCode + rollTemp1
+                        } else {
+                            ++rollTemp1
+                            rollNumber = courseCodeStr + yearCode + rollTemp1
+                        }
                     }
                     stuObj.rollNo = rollNumber
                     stuObj.status = Status.findById(Long.parseLong("2"))
@@ -185,10 +184,10 @@ class StudentRegistrationService {
                         if (rollNumber == null) {
                             rollTemp = studentByYearAndCourse[0].rollNo.substring(4, 8)
                             rollTemp1 = Integer.parseInt(rollTemp) + 1
-                            rollNumber = studentByYearAndCourse[0].rollNo.replace(rollTemp, rollTemp1)
+                            rollNumber = courseCodeStr + yearCode + rollTemp1
                         } else {
                             ++rollTemp1
-                            rollNumber = studentByYearAndCourse[0].rollNo.replace(rollTemp, rollTemp1)
+                            rollNumber = courseCodeStr + yearCode + rollTemp1
                         }
                     } else {
                         rollNumber = courseCodeStr + yearCode + rollStr
@@ -196,8 +195,6 @@ class StudentRegistrationService {
                 } else {
                     rollNumber = courseCodeStr + yearCode + rollStr
                 }
-
-
             }
         } else {
             rollNumber = courseCodeStr + yearCode + rollStr
@@ -212,7 +209,7 @@ class StudentRegistrationService {
      */
     def getStudentReferenceNumber() {
         /* Assign a string that contains the set of characters you allow. */
-        String symbols = "01234567899876543210";
+        String symbols = "123456789987654321";
         Random random = new SecureRandom();
         char[] buf;
         buf = new char[8];
@@ -231,6 +228,35 @@ class StudentRegistrationService {
         }
 
 
+    }
+
+    def seedStudent(){
+        def students
+        Set<ExaminationCentre> examinationCentre = ExaminationCentre.findAllById(1)
+        Set<StudyCenter> studyCenters = StudyCenter.findAllById(125)
+        Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)
+        def programSession = ProgramSession.findById(1)
+
+
+        for(int i=0;i<100;i++){
+        students = new Student()
+        println("Seeded user"+i)
+        students.studentName = "Student"+i
+        students.gender = "Male"
+        students.category = "GEN"
+        students.mobileNo = Long.parseLong("9898787998")
+        students.nationality = "Indian"
+        students.state = "Assam"
+        students.status=Status.findById(1)
+        students.examinationCentre=examinationCentre
+        students.studyCentre =studyCenters
+        students.admitCardGenerated = false
+        students.programDetail=programDetails
+        students.programSession = programSession
+
+         students.save(flush: true)
+
+        }
     }
 
     }
