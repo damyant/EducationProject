@@ -4,6 +4,7 @@ import grails.plugins.springsecurity.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+
 @Secured("ROLE_ADMIN")
 @Transactional
 class ProgramFeeController {
@@ -63,8 +64,9 @@ class ProgramFeeController {
 
     }
 
-    @Transactional
+//    @Transactional
     def deleteFeeType(ProgramFee programFeeInstance) {
+        println("ffffffff****************")
 
         if (programFeeInstance == null) {
             notFound()
@@ -83,6 +85,51 @@ class ProgramFeeController {
                 redirect action: "listOfFeeType", method: "GET"
             }
             '*' { render status: NOT_FOUND }
+        }
+    }
+    def addFeeType = {
+        def feeInstance = FeeType.get(params?.feeTypeId);
+        [feeInstance: feeInstance]
+    }
+    def saveNewFee = {
+        println(params?.feeId)
+        def feeTypeInst
+        if (params?.feeId) {
+            feeTypeInst = FeeType.findById(Long.parseLong(params.feeId))
+            println(feeTypeInst.type);
+            feeTypeInst.type = params?.type
+            println("hiiiiiii");
+        } else {
+            feeTypeInst = new FeeType()
+            feeTypeInst.type = params?.type
+            println("hoooooo");
+        }
+        Boolean flag = false
+        if (feeTypeInst.save(flush: true)) {
+            flag = true
+        }
+        if (flag) {
+            flash.message = "New Fee Type Added Successfully";
+        } else {
+            flash.message = "Unable to Add New Fee Type.";
+        }
+        redirect(action: "addFeeType")
+    }
+    def viewExistingFeeType = {
+        def feeTypeList = FeeType.list(sort: 'type');
+        [feeTypeList: feeTypeList]
+    }
+    @Secured("ROLE_ADMIN")
+    def deleteFeesType = {
+        try {
+            println("*&&&&&&&&&"+params.int('data'));
+            FeeType feeType = FeeType.get(params.int('data'))
+            feeType.delete(flush: true)
+            flash.message = "Deleted Successfully"
+            redirect(action: "viewExistingFeeType")
+        }
+        catch (Exception e) {
+            println("<<<<<<<<<<<Problem in deleting study center" + e)
         }
     }
 }

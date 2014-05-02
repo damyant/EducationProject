@@ -232,7 +232,7 @@ class StudentRegistrationService {
 
     def seedStudent(){
         def students
-        Set<ExaminationCentre> examinationCentre = ExaminationCentre.findAllById(1)
+//        Set<ExaminationVenue> examinationCentre = ExaminationVenue.findAllById(1)
         Set<StudyCenter> studyCenters = StudyCenter.findAllById(125)
         Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)
         def programSession = ProgramSession.findById(1)
