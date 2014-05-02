@@ -176,4 +176,10 @@ class StudentController {
             redirect(action: "enrollmentAtIdol")
         }
     }
+
+
+    def seedBulkStudents={
+        studentRegistrationService.seedStudent()
+        render "done"
+    }
 }

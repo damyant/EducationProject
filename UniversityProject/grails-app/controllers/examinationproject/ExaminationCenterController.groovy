@@ -189,7 +189,7 @@ class ExaminationCenterController {
     def saveExamCentre={
         Boolean flag = examinationCentreService.saveExamCentres(params)
         if(flag){
-            flash.message =  "Examination Centre Saved Succesfully"
+            flash.message =  "Examination Centre Saved Successfully"
         }
         else{
             flash.message =  "Examination Centre Not Saved"
