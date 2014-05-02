@@ -106,10 +106,11 @@
                     <tr>
                         <td>Select Preference of examination Centre <span class="university-obligatory">*</span></td>
                         <td>
-                                            <g:select name="examCentre" id="examCentre" optionKey="id" class="university-size-1-2"
-                                                      optionValue="cityName"
-                                                      from="${centreList.city}"
-                                                      noSelection="['': ' Select Examination Centre']"/>
+                            <g:select name="examDistrict" id="district" optionKey="id"
+                                      value=""
+                                      class="university-size-1-2"
+                                      onChange="showExamCenterList()" optionValue="districtName"
+                                      from="${districtList}" noSelection="['': ' Select District']"/>
                         </td>
                     </tr>
                     <tr>

@@ -3,12 +3,12 @@ package universityproject
 import examinationproject.City
 import examinationproject.CourseSubject
 import examinationproject.ExaminationCentre
+import examinationproject.ExaminationVenue
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
-import examinationproject.StudyCenter
 import examinationproject.Subject
 import grails.transaction.Transactional
 
@@ -117,12 +117,12 @@ def springSecurityService
     def saveExamVenue(params){
 
         def courseIns=ProgramDetail.findById(Long.parseLong(params.programList))
-        def cityIns=City.findById(Long.parseLong(params.city))
+        def examCentreIns=ExaminationCentre.findById(Long.parseLong(params.examinationCentre))
         def venueList=params.venueList.split(",")
-        ProgramExamVenue.removeAll(cityIns)
+        ProgramExamVenue.removeAll(examCentreIns)
 
         venueList.each {it ->
-            ProgramExamVenue.create courseIns, ExaminationCentre.findById(Integer.parseInt(it.toString())),cityIns
+            ProgramExamVenue.create courseIns,examCentreIns, ExaminationVenue.findById(Integer.parseInt(it.toString()))
 
         }
     }

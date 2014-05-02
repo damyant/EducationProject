@@ -4,8 +4,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 
 class ProgramExamVenue implements Serializable  {
     ProgramDetail courseDetail
+    ExaminationVenue examVenue
     ExaminationCentre examCenter
-    City city
 
 
     boolean equals(other) {
@@ -15,7 +15,7 @@ class ProgramExamVenue implements Serializable  {
 
         other.courseDetail?.id == courseDetail?.id &&
         other.examCenter?.id == examCenter?.id &&
-        other.city?.id==city?.id
+        other.examVenue?.id==examVenue?.id
 
     }
 
@@ -23,23 +23,23 @@ class ProgramExamVenue implements Serializable  {
         def builder = new HashCodeBuilder()
         if (courseDetail) builder.append(courseDetail.id)
         if (examCenter) builder.append(examCenter.id)
-        if (city) builder.append(city.id)
+        if (examVenue) builder.append(examVenue.id)
         builder.toHashCode()
     }
 
 
-    static CourseSubject get(long courseId, long examCenterId, long city) {
-        find 'from ProgramExamVenue where courseDetail.id=:courseId and examCenter.id=:examCenterId and city.id=:city',
-                [courseId: courseId, examCenterId: examCenterId, city: city]
+    static CourseSubject get(long courseId, long examCenterId, long examVenue) {
+        find 'from ProgramExamVenue where courseDetail.id=:courseId and examCenter.id=:examCenterId and examVenue.id=:examVenue',
+                [courseId: courseId, examCenterId: examCenterId, examVenue: examVenue]
     }
 
-    static ProgramExamVenue create(ProgramDetail courseDetail, ExaminationCentre examCenter,City city,boolean flush = false) {
+    static ProgramExamVenue create(ProgramDetail courseDetail,ExaminationCentre examCenter,ExaminationVenue examVenue,boolean flush = false) {
 
-        new ProgramExamVenue(courseDetail: courseDetail, examCenter: examCenter, city:city).save()
+        new ProgramExamVenue(courseDetail: courseDetail, examCenter: examCenter, examVenue:examVenue).save()
     }
 
-    static boolean remove(ProgramDetail courseDetail, ExaminationCentre examCenter,City city, boolean flush = false) {
-        ProgramExamVenue instance = ProgramExamVenue.findByCourseDetailAndExamCenterAndCity(courseDetail, examCenter, city)
+    static boolean remove(ProgramDetail courseDetail, ExaminationCentre examCenter,ExaminationVenue examVenue, boolean flush = false) {
+        ProgramExamVenue instance = ProgramExamVenue.findByCourseDetailAndExamCenterAndExamVenue(courseDetail, examCenter, examVenue)
 //        ProgramExamVenue instance = ProgramExamVenue.findByCourseDetailAndCity(courseDetail, city)
         if (!instance) {
             return false
@@ -57,12 +57,12 @@ class ProgramExamVenue implements Serializable  {
         executeUpdate 'DELETE FROM ProgramExamVenue WHERE examCenter=:examCenter', [examCenter: examCenter]
     }
 
-    static void removeAll(City city) {
-        executeUpdate 'DELETE FROM ProgramExamVenue WHERE city=:city', [city: city]
+    static void removeAll(ExaminationVenue examVenue) {
+        executeUpdate 'DELETE FROM ProgramExamVenue WHERE examVenue=:examVenue', [examVenue: examVenue]
     }
 
     static mapping = {
-        id composite: ['courseDetail', 'examCenter', 'city']
+        id composite: ['courseDetail', 'examCenter', 'examVenue']
         version false
     }
 

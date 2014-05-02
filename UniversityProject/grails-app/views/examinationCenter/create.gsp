@@ -33,18 +33,18 @@
         <div class="university-location-select">
             <div class="university-label-location-select">
                 <label><g:message code="default.createStudy.district"/><span class="university-obligatory">*</span></label></div>
-            <g:select name="district" id="district" onselect="" optionKey="id" value="${studyCentreInstance?.city?.district?.id}"
-                      class="university-size-1-3" onchange="showCityList(),clearErrorMsg(this)" optionValue="districtName"
+            <g:select name="district" id="district" onselect="" optionKey="id" value=""
+                      class="university-size-1-3" onchange="showExamCenterList(),clearErrorMsg(this)" optionValue="districtName"
                       from="${districtList}" noSelection="['': ' Select District']"/><label id="districtError" class="error5" >&nbsp;</label>
         </div>
 
         <div id="cityList" class="university-location-select">
             <div class="university-label-location-select">
-                <label><g:message code="default.createStudy.city"/><span class="university-obligatory">*</span></label></div>
-            <g:select name="city" id="city" optionKey="id" value="${studyCentreInstance?.city?.id}"
+                <label><g:message code="default.createExamVenue.centre"/><span class="university-obligatory">*</span></label></div>
+            <g:select name="examinationCentre" id="examinationCentre" optionKey="id" value=""
                       class="university-size-1-3" optionValue="cityName" onchange="clearErrorMsg(this)"
-                      from="${City.findAllByDistrict(District.get(studyCentreInstance?.city?.district?.id))}"
-                      noSelection="['': ' Select City']"/><label id="cityError" class="error5" >&nbsp;</label>
+                      from=""
+                      noSelection="['': ' Select Examination Centre']"/><label id="cityError" class="error5" >&nbsp;</label>
         </div>
 
         <div id="VenueDiv" class="middleDiv">

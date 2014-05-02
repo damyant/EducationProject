@@ -47,7 +47,7 @@ function examinationCenterDiv() {
     $('#VenueDiv' + index).append(
             '<div class="Venue">' +
             '<label class="Venue-label">Capacity <span class="university-obligatory">*</span></label>' +
-            '<input type="text" style="" onkeypress="return isNumber(event) clearErrorMsg(this)" class=""   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/><label id="centerCapacityMsg' + index + '" class="error2" ></label></div>' +
+            '<input type="text" style="" onkeypress="return isNumber(event)"  onkeyup="clearErrorMsg(this)" class=""   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/><label id="centerCapacityMsg' + index + '" class="error2" ></label></div>' +
             '<div class="Venue"><label class="Venue-label">Incharge Name <span class="university-obligatory">*</span></label>' +
             '<input type="text" style="" class="" onkeypress="return onlyAlphabets(event,this)" onkeyup="clearErrorMsg(this)"  style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/><label id="centerInchargeMsg' + index + '" class="error2" ></label>' +
             '</div>');
@@ -149,8 +149,8 @@ function validateAndSubmitForm() {
     else {
         bool = 'true'
     }
-    if ($('#city').val().length == 0) {
-        $("#cityError").text("Please Select City")
+    if ($('#examinationCentre').val().length == 0) {
+        $("#cityError").text("Please Select Examination Centre")
         bool = 'false';
     }
     else {
@@ -219,7 +219,7 @@ function showList() {
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getCentreList', ''),
-        data: {city: $('#city').val(), edit: $('#edit').val()},
+        data: {examinationCentre: $('#examinationCentre').val(), edit: $('#edit').val()},
 //            contentType: "application/json; charset=utf-8",
 //            dataType: "json",
         success: function (response) {

@@ -1,7 +1,6 @@
 package examinationproject
 
 import grails.converters.JSON
-import grails.plugins.springsecurity.Secured
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -28,19 +27,20 @@ class AdmitCardController {
     def createAdmitCard ={
         def programList = ProgramDetail.list()
         def studyCentreList = StudyCenter.list()
-        def examinationCentre = ExaminationCentre.list()
+        def examinationCentre = ExaminationVenue.list()
         [programList: programList, studyCentreList: studyCentreList, examinationCentre: examinationCentre]
 
     }
     def bulkCreationOfAdmitCard ={
         def programList = ProgramDetail.list(sort:'courseName')
         def studyCentreList = StudyCenter.list()
-        def examinationCenter=ExaminationCentre.list()*.city as Set
-        def finalExaminationCenterList= examinationCenter.sort{a,b->
-            a.cityName<=>b.cityName
-        }
+        def examinationCenter=ExaminationCentre.list(sort:'examinationCentreName')
+//        def examinationCenter=ExaminationVenue.list()*.city as Set
+//        def finalExaminationCenterList= examinationCenter.sort{a,b->
+//            a.cityName<=>b.cityName
+//        }
 
-        [programList: programList, studyCentreList: studyCentreList, examinationCenterList: finalExaminationCenterList]
+        [programList: programList, studyCentreList: studyCentreList, examinationCenterList: examinationCenter]
     }
 
     def getSemesterList={
@@ -67,7 +67,7 @@ class AdmitCardController {
         try{
         def examCenterMap=[:]
 
-            def examCenter=ExaminationCentre.findById(Long.parseLong(params.examCenterId))
+            def examCenter=ExaminationVenue.findById(Long.parseLong(params.examCenterId))
             examCenterMap.capacity=examCenter.capacity
 
             def obj=Student .createCriteria()
@@ -205,7 +205,7 @@ class AdmitCardController {
     def studyCenterAdmitCard={
         def programList = ProgramDetail.list(sort:'courseName')
         def studyCentreList = StudyCenter.list()
-        def examinationCenter=ExaminationCentre.list()*.city as Set
+        def examinationCenter=ExaminationVenue.list()*.city as Set
         def finalExaminationCenterList= examinationCenter.sort{a,b->
             a.cityName<=>b.cityName
         }

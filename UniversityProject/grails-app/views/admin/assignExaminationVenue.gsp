@@ -38,8 +38,8 @@
                     <tr>
                         <td class="university-size-1-4"><label>Select an Examination Centre</label></td>
                         <td class="university-size-1-4" style="padding-left: 20px;">
-                            <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
-                                      optionValue="cityName" from="${examinationCenterList}"
+                            <g:select name="examinationCentre" id="examinationCentre" optionKey="id" class="university-size-1-1"
+                                      optionValue="examinationCentreName" from="${examinationCenterList}"
                                       noSelection="['': ' Select City']"
                                       onchange="showExamVenueList1()"/>
                         </td>
@@ -51,7 +51,7 @@
                         <td colspan="2">
                             <table class="university-size-1-1 inner">
                                 <tr><td class="university-size-1-3">
-                                    <g:select name="examinationCenter" class="university-size-1-1" id="examCenterList"
+                                    <g:select name="examinationVenue" class="university-size-1-1" id="examCenterList"
                                               from="" style="width: 90%"
                                               noSelection="['': ' Select Examination Venue']" multiple="true"/>
                                 </td><td style="width: 12.5%">

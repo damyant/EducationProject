@@ -1,7 +1,5 @@
 package universityproject
 
-import examinationproject.ExaminationCentre
-import examinationproject.ProgramDetail
 import examinationproject.ProgramSession
 import examinationproject.Status
 import examinationproject.Student

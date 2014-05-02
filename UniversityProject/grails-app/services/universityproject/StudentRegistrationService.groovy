@@ -1,6 +1,6 @@
 package universityproject
 
-import examinationproject.ExaminationCentre
+import examinationproject.ExaminationVenue
 import examinationproject.ProgramDetail
 import examinationproject.Status
 import examinationproject.ProgramSession
@@ -84,7 +84,7 @@ class StudentRegistrationService {
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
     println("*********"+params.examinationCentre)
-        Set<ExaminationCentre> examinationCentreList = ExaminationCentre.findAllById(Integer.parseInt(params.examinationCentre))
+        Set<ExaminationVenue> examinationCentreList = ExaminationVenue.findAllById(Integer.parseInt(params.examinationCentre))
         studentRegistration.examinationCentre = examinationCentreList
         if (!params.appNo) {
             studentRegistration.studentImage = photographe.bytes

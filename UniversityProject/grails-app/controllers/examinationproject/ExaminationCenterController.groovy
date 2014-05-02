@@ -31,7 +31,7 @@ class ExaminationCenterController {
     }
 
     def getExamCentreList = {
-       def result = examinationCentreService.examVenueList(params)
+        def result = examinationCentreService.examVenueList(params)
         def associatedExamVenue
         if(params.programList){
         associatedExamVenue= examinationCentreService.associatedExamVenue(params)
@@ -48,9 +48,9 @@ class ExaminationCenterController {
         }
     }
     def getCentreList = {
-        println("in getCentreList "+ params.edit)
+        println("in getCentreList "+ params)
         def result= examinationCentreService.examVenueList(params)
-
+        println("in result "+ result)
        if(result){
         render(template: "listOfCentre", model: [centreList: result, edit:params.edit, delete:params.delete])
         }
@@ -71,21 +71,24 @@ class ExaminationCenterController {
 
     @Secured("ROLE_ADMIN")
     def editExaminationCentre ={
-        println(params.id)
-        def examinationCentreInstance = ExaminationCentre.findById(params.id)
-        println("location of examination centre is "+ examinationCentreInstance.city.district.districtName)
-        return [examinationCentreInstance: examinationCentreInstance]
+        println("========="+params.id)
+        def examinationVenueInstance = ExaminationVenue.findById(params.id)
+
+        println(examinationVenueInstance.properties)
+//        println("location of examination centre is "+ examinationCentreInstance.city.district.districtName)
+        return [examinationVenueInstance: examinationVenueInstance]
     }
     def updateCentre ={
-            def examCentreIns =  ExaminationCentre.get(params.id)
+        println("?????????/"+params)
+            def examCentreIns =  ExaminationVenue.get(params.id)
            def isSaved= examinationCentreService.updateExaminationCentre(params)
             if(isSaved){
 //                println("updated succesfully")
-                flash.message = "${message(code: 'centre.updated.message', args: [message( default: 'ExaminationCentre'),   examCentreIns.id])}"
+                flash.message = "${message(code: 'centre.updated.message', args: [message( default: 'ExaminationVenue'),   examCentreIns.id])}"
                 render(view: "editExaminationCentre" , model:[examinationCentreInstance:examCentreIns])
             }
         else{
-                flash.message = "${message(code: 'centre.notUpdated.message', args: [message( default: 'ExaminationCentre'),   examCentreIns.id])}"
+                flash.message = "${message(code: 'centre.notUpdated.message', args: [message( default: 'ExaminationVenue'),   examCentreIns.id])}"
                 render(view: "editExaminationCentre" , model:[examinationCentreInstance:examCentreIns])
             }
 
@@ -99,7 +102,7 @@ class ExaminationCenterController {
         try {
             println('in delete Centre')
             def tmp=[]
-            def examCentreInstance = ExaminationCentre.get(params.id)
+            def examCentreInstance = ExaminationVenue.get(params.id)
             examCentreInstance.student.each { tmp << it }
             tmp.each { examCentreInstance.removeFromStudent(it) }
             def programExamVenue = ProgramExamVenue.findAllByExamCenter(examCentreInstance)
@@ -123,7 +126,7 @@ class ExaminationCenterController {
 
             def centreList = null
             if (city != null) {
-                centreList = ExaminationCentre.findAllByCity(city,[sort:'name'])
+                centreList = ExaminationVenue.findAllByCity(city,[sort:'name'])
                 println("<><><><><><><><>><<><>"+centreList)
                 render centreList as JSON
             } else {
@@ -138,7 +141,7 @@ class ExaminationCenterController {
     def getProgrammeList() {
         println("this is the id of venue" +params.int('data'))
         try{
-            ExaminationCentre examinationCentre = ExaminationCentre.get(params.int('data'));
+            ExaminationVenue examinationCentre = ExaminationVenue.get(params.int('data'));
 
             def programmeList = null
             if (examinationCentre != null) {
@@ -157,14 +160,17 @@ class ExaminationCenterController {
 
     @Secured("ROLE_ADMIN")
     def create={
-        def districtList=District.list(sort:'districtName')
-        [districtList:districtList]
+        def districtList=ExaminationCentre.list()*.district as Set
+        def finalDistrictList= districtList.sort{a,b->
+            a.districtName<=>b.districtName
+        }
+        [districtList:finalDistrictList]
 
     }
 
     def checkCenterCode(){
         def status=[:]
-        def centerCodeIns=ExaminationCentre.findByCentreCode(Integer.parseInt(params.centerCode))
+        def centerCodeIns=ExaminationVenue.findByCentreCode(Integer.parseInt(params.centerCode))
         if(centerCodeIns){
             status.centerCode='true'
         }
@@ -177,6 +183,7 @@ class ExaminationCenterController {
     @Secured("ROLE_ADMIN")
     def createExamCentre={
         def districtList=District.list(sort:'districtName')
+
         [districtList:districtList]
     }
     def saveExamCentre={
@@ -188,5 +195,22 @@ class ExaminationCenterController {
             flash.message =  "Examination Centre Not Saved"
         }
         redirect(action: "createExamCentre")
-    } 
+    }
+
+    def getExamCenterList() {
+
+        try{
+            District district = District.get(params.int('data'));
+            def examCenterList = null
+            if (district != null) {
+                examCenterList = ExaminationCentre.findAllByDistrict(district,[sort:'examinationCentreName'])
+                render examCenterList as JSON
+            } else {
+                render null
+            }
+        }
+        catch (Exception e){
+            println("<<<<<<<<<<<Problem in getting exam Center List list" + e)
+        }
+    }
 }

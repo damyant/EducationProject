@@ -1,48 +1,24 @@
 package examinationproject
 
+import examinationproject.District
+
 class ExaminationCentre {
-    String name
-    String inchargeName
-    String address
-    int capacity
-    int centreCode
-    String contactNo
-    City city
+    String examinationCentreName
+    District district
+
     static hasMany = [
-            student : Student
+            student : Student,
+            examVenue:ExaminationVenue
     ]
     static belongsTo = Student
 
     static constraints = {
-        name(nullable: true)
-        inchargeName(nullable: true)
-        capacity(nullable: true)
-        contactNo(nullable: true)
-        centreCode(nullable:true,unique: true)
-        city(nullable:true)
+        examinationCentreName(nullable: false)
     }
+
     static mapping = {
-        student cascade:'none'
-        name column: "Name"
-        inchargeName column: "InchargeName"
-        address column: "Address"
-        capacity column: "Capacity"
-        centreCode column: "CentreCode"
-        contactNo column: "ContactNo"
+        id column: 'examinationCentreId'
+        district column: 'DistrictId'
+        examinationCentreName column: 'examinationCentreName'
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
