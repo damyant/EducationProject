@@ -15,9 +15,7 @@ class FeeDetails {
         studentId(nullable: false)
         feeType(nullable: false)
         paymentMode(nullable: false)
-        //paymentDate(nullable: true)
         draftNumber(nullable: false,unique: true)
-       // draftDate(nullable: true)
         issuingBank(nullable: false)
         issuingBranch(nullable: false)
     }

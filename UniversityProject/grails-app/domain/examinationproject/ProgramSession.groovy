@@ -6,9 +6,7 @@ class ProgramSession {
         sessionOfProgram(nullable: true)
     }
 
-    static hasMany = [
-            programDetail : ProgramDetail
-    ]
+    static hasMany = [programDetail : ProgramDetail]
 
     static mapping = {
         sessionOfProgram column: "SessionOfProgram"

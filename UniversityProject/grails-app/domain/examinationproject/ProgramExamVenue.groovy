@@ -6,8 +6,6 @@ class ProgramExamVenue implements Serializable  {
     ProgramDetail courseDetail
     ExaminationCentre examCenter
     City city
-
-
     boolean equals(other) {
         if (!(other instanceof ProgramExamVenue)) {
             return false
@@ -16,7 +14,6 @@ class ProgramExamVenue implements Serializable  {
         other.courseDetail?.id == courseDetail?.id &&
         other.examCenter?.id == examCenter?.id &&
         other.city?.id==city?.id
-
     }
 
     int hashCode() {
@@ -40,7 +37,6 @@ class ProgramExamVenue implements Serializable  {
 
     static boolean remove(ProgramDetail courseDetail, ExaminationCentre examCenter,City city, boolean flush = false) {
         ProgramExamVenue instance = ProgramExamVenue.findByCourseDetailAndExamCenterAndCity(courseDetail, examCenter, city)
-//        ProgramExamVenue instance = ProgramExamVenue.findByCourseDetailAndCity(courseDetail, city)
         if (!instance) {
             return false
         }
@@ -66,11 +62,8 @@ class ProgramExamVenue implements Serializable  {
         version false
     }
 
-
-
     static constraints = {
     }
-
 
 }
 

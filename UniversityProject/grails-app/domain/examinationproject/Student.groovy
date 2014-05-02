@@ -1,6 +1,5 @@
 package examinationproject
 
-import java.text.SimpleDateFormat
 
 class Student {
 
@@ -38,15 +37,11 @@ class Student {
         referenceNumber(nullable:true)
         studentName(nullable: true)
         dob(nullable: true)
-        //programDetail(nullable: false)
         category(nullable: true)
         gender(nullable: true)
         nationality(nullable: true)
         state(nullable: true)
         mobileNo(nullable: true)
-//        studyCentre(nullable: true)
-
-//        preferenceOfExaminationCentre(nullable: true)
         registrationNo1(nullable: true)
         registrationNo2(nullable: true)
         addressStudentName(nullable: true)
@@ -61,16 +56,10 @@ class Student {
         rollNo(nullable:true)
         status(nullable:true)
         admitCardGenerated(nullable: true)
-
-
-
-
-
-//        studentSignature(nullable: true)
     }
+
     static mapping ={
         studentImage column: "studentImage", sqlType: "blob"
-//        studentSignature column: "studentSignature", sqlType: "blob"
         studyCentre cascade:'none'
         programDetail cascade: 'none'
         examinationCentre cascade:'none'
@@ -84,7 +73,6 @@ class Student {
         state column: "State"
         mobileNo column : "MobileNo"
         studyCentre column: "StudyCentre"
-//        preferenceOfExaminationCentre column: "PreferenceOfExaminationCentre"
         registrationNo1 column: "RegistrationNo1"
         registrationNo2 column: "RegistrationNo2"
         addressStudentName column: "AddressStudentName"
@@ -95,16 +83,11 @@ class Student {
         addressPinCode column: "AddressPinCode"
         location column: "Location"
         applicationNo column: "applicationNo"
-
         registrationYear column: "RegistrationYear"
         referenceNumber column:"ReferenceNumber"
         status column: 'StatusId'
-
         programSession column: 'ProgramSession'
-
         admitCardGenerated column: 'AdmitCardGenerated'
-
-
     }
 
 }

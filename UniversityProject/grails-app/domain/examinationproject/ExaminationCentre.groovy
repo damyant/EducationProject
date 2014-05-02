@@ -8,9 +8,7 @@ class ExaminationCentre {
     int centreCode
     String contactNo
     City city
-    static hasMany = [
-            student : Student
-    ]
+    static hasMany = [student : Student]
     static belongsTo = Student
 
     static constraints = {
