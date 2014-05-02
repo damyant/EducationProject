@@ -1,21 +1,19 @@
 package universityproject
 
 import examinationproject.CourseSubject
-import examinationproject.ExaminationCentre
+import examinationproject.ExaminationVenue
 import examinationproject.ProgramDetail
 import examinationproject.ProgramSession
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
-import examinationproject.Subject
 import grails.transaction.Transactional
 import jxl.CellView;
 import jxl.Workbook;
 import jxl.WorkbookSettings
 import jxl.format.Colour;
 import jxl.format.UnderlineStyle
-import jxl.write.Alignment;
-import jxl.write.Formula;
+import jxl.write.Alignment
 import jxl.write.Label;
 import jxl.write.Number
 import jxl.write.WritableCell;
@@ -23,11 +21,9 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
-import jxl.HeaderFooter;
+import jxl.write.WriteException
 import jxl.write.biff.RowsExceededException
 
-import java.awt.Window
 import java.text.SimpleDateFormat;
 
 @Transactional
@@ -58,7 +54,7 @@ class AttendanceService {
                 eq('semester', Integer.parseInt(params.programTerm))
             }
         }
-        def examinationCentre = ExaminationCentre.findById(Long.parseLong(params.examinationCentre))
+        def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
         def programDetail = ProgramDetail.findById(Long.parseLong(params.programList))
         def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, Integer.parseInt(params.programTerm))
         println("programDetail is " + programDetail + " semester " + semester)
@@ -70,7 +66,7 @@ class AttendanceService {
 
     }
 
-    boolean writeAttendanceSheet(studentList, params, semester, courseSubject, String fileName, ExaminationCentre examinationCentre) {
+    boolean writeAttendanceSheet(studentList, params, semester, courseSubject, String fileName, ExaminationVenue examinationCentre) {
         try {
             File file = new File(fileName);
             WorkbookSettings wbSettings = new WorkbookSettings();

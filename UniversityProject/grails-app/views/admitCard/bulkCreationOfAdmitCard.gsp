@@ -23,10 +23,10 @@
                     <tr>
                         <td><label>Select an Examination Centre</label></td>
                         <td>
-                            <g:select name="examinationCenter" id="city" optionKey="id" class="university-size-1-1"
-                                      optionValue="cityName" from="${examinationCenterList}"
+                            <g:select name="examinationCentre" id="examinationCentre" optionKey="id" class="university-size-1-1"
+                                      optionValue="examinationCentreName" from="${examinationCenterList}"
                                       noSelection="['': ' Select Exam Centre']"
-                                      onchange="showExamVenueList(),enableShowCandidate()"/>
+                                      onchange="enableShowCandidate()"/>
                         </td>
                     </tr>
                     <tr>
@@ -35,7 +35,7 @@
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
                                       from="${programList}" noSelection="['': ' Select Program']"
-                                      onchange="getSemester(),enableShowCandidate()"/>
+                                      onchange="showExamVenueList(),getSemester(),enableShowCandidate()"/>
                         </td>
                         <td></td>
                     </tr>

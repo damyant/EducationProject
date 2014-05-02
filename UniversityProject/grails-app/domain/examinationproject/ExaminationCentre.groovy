@@ -1,5 +1,7 @@
 package examinationproject
 
+import examinationproject.District
+
 class ExaminationCentre {
     String name
     String inchargeName
@@ -8,39 +10,19 @@ class ExaminationCentre {
     int centreCode
     String contactNo
     City city
-    static hasMany = [student : Student]
+    static hasMany = [student : Student,examVenue:ExaminationVenue]
+    String examinationCentreName
+    District district
+
     static belongsTo = Student
 
     static constraints = {
-        name(nullable: true)
-        inchargeName(nullable: true)
-        capacity(nullable: true)
-        contactNo(nullable: true)
-        centreCode(nullable:true,unique: true)
-        city(nullable:true)
+        examinationCentreName(nullable: false)
     }
+
     static mapping = {
-        student cascade:'none'
-        name column: "Name"
-        inchargeName column: "InchargeName"
-        address column: "Address"
-        capacity column: "Capacity"
-        centreCode column: "CentreCode"
-        contactNo column: "ContactNo"
+        id column: 'examinationCentreId'
+        district column: 'DistrictId'
+        examinationCentreName column: 'examinationCentreName'
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

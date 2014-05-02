@@ -28,6 +28,24 @@ function showCityList() {
     });
 
 }
+function showExamCenterList() {
+    var data = $('#district').val();
+
+    $.ajax({
+        type: "post",
+        url: url('examinationCenter', 'getExamCenterList', ''),
+        data: {data: data},
+        success: function (data) {
+            $("#examinationCentre").empty().append('<option value="">Select Examination Centre</option>')
+            for (var i = 0; i < data.length; i++) {
+                $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].examinationCentreName + '</option>')
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+
+}
 
 function showStudyCenterList() {
 

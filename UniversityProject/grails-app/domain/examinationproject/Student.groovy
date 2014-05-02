@@ -28,6 +28,7 @@ class Student {
     byte[] studentImage
     ProgramSession programSession
     Boolean admitCardGenerated
+    ExaminationVenue examinationVenue
     Date admissionDate =new Date()
 
 
@@ -56,6 +57,8 @@ class Student {
         rollNo(nullable:true)
         status(nullable:true)
         admitCardGenerated(nullable: true)
+        examinationVenue(nullable: true)
+
     }
 
     static mapping ={
@@ -66,7 +69,6 @@ class Student {
         studentName column: "studentName"
         dob column: "Dob",index: 'Dob_Index'
         rollNo column: "RollNo",index: 'RollNo_Index'
-
         category column: "Category"
         gender column: "Gender"
         nationality column: "Nationality"
@@ -88,6 +90,7 @@ class Student {
         status column: 'StatusId'
         programSession column: 'ProgramSession'
         admitCardGenerated column: 'AdmitCardGenerated'
+        examinationVenue column: 'examinationVenue'
     }
 
 }

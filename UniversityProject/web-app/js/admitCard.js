@@ -145,16 +145,18 @@ $("#admitCardTab ").append('<tr><th>Roll Number</th><th>Name of the Student</th>
 function showExamVenueList() {
 
 
-    var data = $('#city').val();
+    var data = $('#examinationCentre').val();
 
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExamCentreList', ''),
-        data: "city="+$('#city').val(),
+        data: "examinationCentre="+$('#examinationCentre').val()+"&programList="+$('#programList').val(),
         success: function (data) {
             $("#examCenterList").empty().append('data <option value="">Select Examination Venue</option>')
-            for (var i = 0; i < data.name.length; i++) {
-               $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
+
+            for(var i=0;i<data.assocaitedExamVenue.length;i++){
+
+                $("#examCenterList").append('<option value="' + data.assocaitedExamVenue[i].id + '">' + data.assocaitedExamVenue[i].name + '</option>')
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -167,7 +169,7 @@ function showExamVenueCapacity(){
     $.ajax({
         type: "post",
         url: url('admitCard', 'examVenueCapacity', ''),
-        data: {examCenterId: $("#examCenterList").val()},
+        data: {examVenueId: $("#examCenterList").val()},
         success: function (data) {
         if(data.capacity){
 
@@ -221,8 +223,8 @@ function getStudentsForAdmitCard(){
 
 function showExamVenueList1()  {
     $('#addExamCentre').empty();
-    var data = $('#city').val();
-    $('#CentreForExamVenue').html($('#city option:selected').text());
+    var data = $('#examinationCentre').val();
+    $('#CentreForExamVenue').html($('#examinationCentre option:selected').text());
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExamCentreList', ''),
@@ -235,7 +237,7 @@ function showExamVenueList1()  {
                 $("#moveButton").css("visibility", 'visible');
                 $("#movetoSelect").css("visibility", 'visible');
             }
-
+                alert(data.assocaitedExamVenue)
             for(var j=0;j<data.assocaitedExamVenue.length;j++){
 
                 $("#addExamCentre").append('<option value="' + data.assocaitedExamVenue[j].id + '">' + data.assocaitedExamVenue[j].name + '</option>')
@@ -366,7 +368,7 @@ function enableShowCandidate(){
     $('#studentListTable').prop('hidden', true)
     $('#studentListPrint').prop('hidden', true)
     $('#studentListPrintButton').prop('hidden', true)
-    if($('#city').val()==''||$('#programList').val()==''||$('#semesterList').val()==''||$('#SessionList').val()==''||$('#examCenterList').val()==''){
+    if($('#examinationCentre').val()==''||$('#programList').val()==''||$('#semesterList').val()==''||$('#SessionList').val()==''||$('#examCenterList').val()==''){
         $('#showCandidates').prop('disabled', true)    }
     else{
         $('#showCandidates').prop('disabled', false)
