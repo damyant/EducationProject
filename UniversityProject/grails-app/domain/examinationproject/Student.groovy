@@ -1,7 +1,5 @@
 package examinationproject
 
-import java.text.SimpleDateFormat
-
 class Student {
 
     String studentName

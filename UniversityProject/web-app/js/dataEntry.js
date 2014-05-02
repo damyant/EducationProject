@@ -63,13 +63,17 @@ function appendDataTable(data) {
     $('#studentList tbody tr').remove()
     if (data.stuList.length > 0) {
         $('#msg').html("")
+        $('#responseMessage').html("")
+
         document.getElementById("studentList").style.visibility = "visible";
         $('#studentList thead').append('<tr><th>' + "Roll Number" + '</th><th>' + "Student Name" + '</th><th>' + "Fee Entry" + '</th></tr>')
         for (var i = 0; i < data.stuList.length; i++) {
             studentList[i]= data.stuList[i]
             var ide= data.stuList[i].id
+
             $('#studentList tbody').append('<tr></td><td>' + data.stuList[i].rollNo + '</td><td>' + data.stuList[i].studentName
-                + '</td><td><button id="fee" onclick="openPopUp('+ data.stuList[i].id +')">Fee Entry</button></td></tr>')
+                + '</td><td><button id="fee" onclick="openPopUp('+ data.stuList[i].id+')">Fee Entry</button></td></tr>')
+
     }
     }
     else {
@@ -90,6 +94,7 @@ function enablecriteria(t) {
         //  $('#programId').prop('disabled', false);
         $('#programl').show();
         $('#programv').show();
+//        $('#studyCentre').val('')
     }else{
         $('#programl').hide();
         $('#programv').hide();
@@ -98,6 +103,7 @@ function enablecriteria(t) {
     if(op=="By Study Centre"){
         $('#studyCentrel').show();
         $('#studyCentrev').show();
+//        $('#programId').val('')
     }else{
         $('#studyCentrel').hide();
         $('#studyCentrev').hide();
@@ -126,33 +132,33 @@ function openPopUp(studentId){
 
 
     $( "#dialog" ).dialog('open');
-  for(var i=0 ; i<studentList.length;i++){
-      if(studentList[i]){
-      if(studentList[i].id==studentId){
-          $('#rollNo').val(studentList[i].rollNo)
-          $('#currentStudentId').attr('value', studentList[i].id)
-          if(i+1<studentList.length){
+    for(var i=0 ; i<studentList.length;i++){
+        if(studentList[i]){
+            if(studentList[i].id==studentId){
+                $('#rollNo').val(studentList[i].rollNo)
+                $('#currentStudentId').val( studentList[i].id)
+                if(i+1<studentList.length){
 
-          $('#nextStudentId').attr('value', studentList[i+1].id)
-          }
-          else{
+                    $('#nextStudentId').val(studentList[i+1].id)
+                }
+                else{
 //              alert('in first else'+i)
-              $('#nextStudentId').attr('value', studentList[0].id)
-          }
-          if(i-1>=0){
+                    $('#nextStudentId').val(studentList[0].id)
+                }
+                if(i-1>=0){
 //              alert('in second if'+i)
-          $('#previousStudentId').attr('value', studentList[i-1].id)
-          }
-          else{
+                    $('#previousStudentId').val( studentList[i-1].id)
+                }
+                else{
 //              alert('in second else'+i)
-              $('#previousStudentId').attr('value', studentList[studentList.length-1].id)
-          }
-          break;
-      }
-      }
-
-  }
+                    $('#previousStudentId').val( studentList[studentList.length-1].id)
+                }
+                break;
+            }
+        }
+    }
 }
+
 
 function submitFeeDetail(){
    validate();
@@ -166,23 +172,33 @@ function submitFeeDetail(){
         success: function (response) {
             $('div#responseMessage').html(response);
             var current = $('#currentStudentId').val()
+//            alert("value of current is "+current)
+            for(var i=0; i< studentList.length; i++){
+                if(studentList[i]){
+                if(studentList[i].id==current){
+                    delete studentList[i]
+                    break;
+                }
+              }
+            }
 
-             delete studentList[current-1]
+
 
             console.log("---------------------------------------"+studentList)
             for(var i=0; i< studentList.length; i++){
-            if(studentList[i]){
-            $('#createFeeDetail').trigger("reset");
-                $( "#next" ).click();
-                break;
-            }
+                if(studentList[i]){
+                    $('#createFeeDetail').trigger("reset");
+//                    alert("Fill Fee Details For Next Student")
+                    $( "#next" ).click();
+                    break;
+                }
 
             }
             $( "#dialog" ).dialog('close');
 
 
         }, error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $('div#responseMessage').html(textStatus);
+            $('div#responseMessage').html("Fee details cannot be saved ");
             console.log("response in error")
         }
 
@@ -192,8 +208,8 @@ function submitFeeDetail(){
         return false;
     }
 
-
 }
+
 
 
 

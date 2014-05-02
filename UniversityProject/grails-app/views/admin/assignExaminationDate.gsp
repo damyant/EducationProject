@@ -33,7 +33,7 @@
         <form id="assignDate">
             <table class="inner" style="width: 100%;margin: auto">
                 <tr>
-                    <td class="university-size-1-4"><label>Select a Course</label></td>
+                    <td class="university-size-1-4"><label>Select a Program</label></td>
                     <td class="university-size-1-4">
                         <g:select name="programList" id="programList" class="university-size-1-1" optionKey="id"
                                   optionValue="courseName"
@@ -48,7 +48,7 @@
 
             </table>
 
-            <div class="university-status-message"><h3><div id="msgDiv"></div></h3></div>
+            <div class="university-status-message"><h5><div id="msgDiv"></div></h5></div>
         </form>
     </fieldset>
 </div>

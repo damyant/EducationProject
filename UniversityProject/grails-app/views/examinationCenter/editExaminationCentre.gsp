@@ -5,7 +5,7 @@
   Time: 10:37 AM
 --%>
 
-<%@ page import="javax.validation.constraints.Null; examinationproject.City; examinationproject.District" contentType="text/html;charset=UTF-8" %>
+<%@ page import="examinationproject.ExaminationVenue; examinationproject.ExaminationCentre; javax.validation.constraints.Null; examinationproject.City; examinationproject.District" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -21,42 +21,42 @@
         <g:if test="${flash.message}">
             <div class="message"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
-        <g:hasErrors bean="${examinationCentreInstance}">
+        <g:hasErrors bean="${examinationVenueInstance}">
             <div class="errors">
-                <g:renderErrors bean="${examinationCentreInstance}" as="list"/>
+                <g:renderErrors bean="${examinationVenueInstance}" as="list"/>
             </div>
         </g:hasErrors>
         <g:form controller="examinationCenter" action="updateCentre" method="post">
-            <g:hiddenField name="id" value="${examinationCentreInstance?.id}"/>
+            <g:hiddenField name="id" value="${examinationVenueInstance?.id}"/>
             <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
             <table class="inner">
 
-                <tr>
-                    <td><label><g:message code="default.createStudy.district"/> <span
-                            class="university-obligatory">*</span>
-                    </label></td>
-                    <td>
-                        <g:select name="district" id="district" optionKey="id"
-                                  value="${examinationCentreInstance?.city?.district?.id}" class="university-size-1-3"
-                                  onchange="showCityList()" optionValue="districtName" from="${District.findAll()}"
-                                  noSelection="['': ' Select District']"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label><g:message code="default.createStudy.city"/><span class="university-obligatory">*</span>
-                    </label></td>
-                    <td id="city-box">
-                        <g:select name="city" id="city" optionKey="id" value="${examinationCentreInstance?.city?.id}"
-                                  class="university-size-1-3" optionValue="cityName"
-                                  from="${City.findAllByDistrict(District.get(examinationCentreInstance?.city?.district?.id))}"
-                                  noSelection="['': ' Select City']"/>
-                    </td>
-                </tr>
+                %{--<tr>--}%
+                    %{--<td><label><g:message code="default.createStudy.district"/> <span--}%
+                            %{--class="university-obligatory">*</span>--}%
+                    %{--</label></td>--}%
+                    %{--<td>--}%
+                        %{--<g:select name="district" id="district" optionKey="id"--}%
+                                  %{--value="${District?.findById(ExaminationCentre?.findAllByDistrict(examinationVenueInstance?.id))}" class="university-size-1-3"--}%
+                                  %{--onchange="showCityList()" optionValue="districtName" from="${District.findAll()}"--}%
+                                  %{--noSelection="['': ' Select District']"/>--}%
+                    %{--</td>--}%
+                %{--</tr>--}%
+                %{--<tr>--}%
+                    %{--<td><label><g:message code="default.createStudy.city"/><span class="university-obligatory">*</span>--}%
+                    %{--</label></td>--}%
+                    %{--<td id="city-box">--}%
+                        %{--<g:select name="city" id="city" optionKey="id" value="${examinationCentreInstance?.city?.id}"--}%
+                                  %{--class="university-size-1-3" optionValue="cityName"--}%
+                                  %{--from="${City.findAllByDistrict(District.get(examinationCentreInstance?.city?.district?.id))}"--}%
+                                  %{--noSelection="['': ' Select City']"/>--}%
+                    %{--</td>--}%
+                %{--</tr>--}%
 
                 <tr>
-                    <td><label><g:message code="default.createExam.nameOfCenter"/><span
+                    <td class="university-size-1-3"><label><g:message code="default.createExam.nameOfCenter"/><span
                             class="university-obligatory">*</span></label></td>
-                    <td><input type="text" name="centreName" value="${examinationCentreInstance?.name}"
+                    <td class="university-size-2-3"><input type="text" name="centreName" value="${examinationCentreInstance?.name}"
                                class="university-size-1-3"/></td>
                 </tr>
 

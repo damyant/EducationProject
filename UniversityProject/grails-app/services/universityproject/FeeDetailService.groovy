@@ -22,23 +22,23 @@ class FeeDetailService {
      * @param params
      * @return
      */
-    def saveFeeDetails (params){
-        println('hello kuldeep '+ params)
+    def saveFeeDetails(params) {
+        println('hello kuldeep ' + params)
         def feeDetailsInstance = new FeeDetails()
         def student = Student.findById(params.studentId)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         feeDetailsInstance.studentId = student
-        feeDetailsInstance.draftDate=df.parse(params.draftDate)
-        feeDetailsInstance.paymentDate=df.parse(params.paymentDate)
-        feeDetailsInstance.draftNumber= params.draftNumber
+        feeDetailsInstance.draftDate = df.parse(params.draftDate)
+        feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
+        feeDetailsInstance.draftNumber = params.draftNumber
         feeDetailsInstance.feeType = FeeType.findById(params.feeType)
         feeDetailsInstance.issuingBank = params.issuingBank
         feeDetailsInstance.issuingBranch = params.issuingBranch
         feeDetailsInstance.paymentMode = params.paymentMode
 
-        if(feeDetailsInstance.save(flush: true,failOnError: true)){
+        if (feeDetailsInstance.save(flush: true, failOnError: true)) {
             student.status = Status.findById(3)
-            student.save(flush: true,failOnError: true)
+            student.save(flush: true, failOnError: true)
         }
 
         return feeDetailsInstance
@@ -49,59 +49,57 @@ class FeeDetailService {
      * @param params
      * @return
      */
-    def  provisionalStudentList(params){
+    def provisionalStudentList(params) {
 
-        println(" this is the id of studyCentre "+params)
+        println(" this is the id of studyCentre " + params)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
-        def studyCenterId=0
+        def studyCenterId = 0
         def statusObj
-        Date date=null
-        if(params.admissionDate){
+        Date date = null
+        if (params.admissionDate) {
             println("now searching students for date")
-             date = df.parse(params.admissionDate)
+            date = df.parse(params.admissionDate)
         }
-       if(params.studyCenterId!='null'){
+        if (params.studyCenterId != 'null') {
             println("assign Study Centre1")
-            studyCenterId= params.studyCenterId
-        }
-        else{
-            def currentUser=springSecurityService.getCurrentUser()
+            studyCenterId = params.studyCenterId
+        } else {
+            def currentUser = springSecurityService.getCurrentUser()
             println("assign Study Centre2")
-            studyCenterId=currentUser.studyCentreId
+            studyCenterId = currentUser.studyCentreId
         }
-        statusObj=Status.findById(2)
+        statusObj = Status.findById(2)
 
 
-        def obj=Student.createCriteria()
+        def obj = Student.createCriteria()
         def stuList
-        if(params.programId!='null'){
-            println("getting students of program id"+ params.programId)
-        stuList= obj.list{
-            programDetail{
-                eq('id', Long.parseLong(params.programId))
+        if (params.programId != 'null') {
+            println("getting students of program id" + params.programId)
+            stuList = obj.list {
+                programDetail {
+                    eq('id', Long.parseLong(params.programId))
+                }
+                and {
+                    eq('status', statusObj)
+                }
             }
-            and{
-                eq('status',statusObj)
-            }
-        }
-        } else if(params.studyCenterId!='null'){
-            println("finding student of this studyCentre "+ studyCenterId)
-            stuList= obj.list{
-                studyCentre{
+        } else if (params.studyCenterId != 'null') {
+            println("finding student of this studyCentre " + studyCenterId)
+            stuList = obj.list {
+                studyCentre {
                     eq('id', Long.parseLong(studyCenterId))
                 }
-                and{
-                    eq('status',statusObj)
+                and {
+                    eq('status', statusObj)
                 }
             }
-       }
-        else if(params.admissionDate!='null'){
-            println("searching by date "+date)
-            stuList = Student.findAllByAdmissionDateAndStatus(date,statusObj)
+        } else if (params.admissionDate != 'null') {
+            println("searching by date " + date)
+            stuList = Student.findAllByAdmissionDateAndStatus(date, statusObj)
         }
 
-         println("this is the final list of students "+ stuList)
-        return  stuList
+        println("this is the final list of students " + stuList)
+        return stuList
     }
 }

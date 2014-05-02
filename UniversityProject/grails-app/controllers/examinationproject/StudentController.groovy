@@ -2,11 +2,6 @@ package examinationproject
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
-import universityproject.StudentRegistrationService
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
-
-import java.security.SecureRandom
-
 
 //@Secured("ROLE_STUDYCENTRE")
 class StudentController {
@@ -37,8 +32,9 @@ class StudentController {
         def studInstance = Student.get(params.studentId)
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
+        def centreList =  ExaminationCentre.list(sort: 'examinationCentreName')
 //        println("sss"+studInstance.status)
-        [studyCentre: studyCentre,studInstance:studInstance, programList: programList,districtList:districtList,registered:params.registered,studentID:params.studentID]
+        [studyCentre: studyCentre,studInstance:studInstance, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID]
 
 
     }
@@ -146,10 +142,13 @@ class StudentController {
 
         }
         def programList = ProgramDetail.list(sort: 'courseName')
-        def districtList=District.list(sort: 'districtName')
-        def centreList =  ExaminationCentre.list()
-        println("sss--->>>>>> "+centreList.city)
-        [ programList: programList,studyCentre:studyCentre,centreList:centreList]
+//        def districtList=District.list(sort: 'districtName')
+        def districtList=ExaminationCentre.list()*.district as Set
+        def finalDistrictList= districtList.sort{a,b->
+            a.districtName<=>b.districtName
+        }
+//        println("sss--->>>>>> "+districtList.size())
+        [ programList: programList,studyCentre:studyCentre,districtList:finalDistrictList]
     }
 
     def downloadAdmitCard={
@@ -179,4 +178,8 @@ class StudentController {
     }
 
 
+    def seedBulkStudents={
+        studentRegistrationService.seedStudent()
+        render "done"
+    }
 }

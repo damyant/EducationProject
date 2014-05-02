@@ -1,14 +1,14 @@
 <g:if test="${edit}">
-    <table id="centreListTable" class="inner university-table-1-7 university-size-full-1-1" style="margin: 3px auto;">
+    <table id="centreListTable" class="inner university-table-1-6 university-size-full-1-1" style="margin: 3px auto;">
 </g:if>
 <g:else>
-    <table id="centreListTable" class="inner university-table-1-6 university-size-full-1-1" style="margin: 3px auto;">
+    <table id="centreListTable" class="inner university-table-1-5 university-size-full-1-1" style="margin: 3px auto;">
 </g:else>
 <thead class='thclass'>
 <tr>
     <th>Name</th>
     <th>Address</th>
-    <th>City</th>
+    %{--<th>City</th>--}%
     %{--<th>Total Rooms</th>--}%
     <th>Contact No</th>
     <th>Venue Code</th>
@@ -19,28 +19,29 @@
 </tr>
 </thead>
 <tbody class='tdclass'>
-<g:each in="${centreList}" status="i" var="examCentreListInstance">
+%{--${centreList.examVenue[0].name}--}%
+<g:each in="${centreList}" status="i" var="examVenue">
+    %{--${examVenue.name}--}%
     <tr class="${(i % 2) == 0 ? 'odd' : 'even'}" style="cursor: pointer;">
+        <td>${fieldValue(bean: examVenue, field: "name")}</td>
 
-        <td>${fieldValue(bean: examCentreListInstance, field: "name")}</td>
+        <td>${fieldValue(bean: examVenue, field: "address")}</td>
 
-        <td>${fieldValue(bean: examCentreListInstance, field: "address")}</td>
-
-        <td>${fieldValue(bean: examCentreListInstance, field: "city.cityName")}</td>
+        %{--<td>${fieldValue(bean: examVenue, field: "examinationCentre")}${examVenue.}</td>--}%
         %{--<td>${fieldValue(bean: examCentreListInstance, field: "rooms")}</td>--}%
 
-        <td>${fieldValue(bean: examCentreListInstance, field: "contactNo")}</td>
+        <td>${fieldValue(bean: examVenue, field: "contactNo")}</td>
 
-        <td>${fieldValue(bean: examCentreListInstance, field: "centreCode")}</td>
-        <td>${fieldValue(bean: examCentreListInstance, field: "capacity")}</td>
+        <td>${fieldValue(bean: examVenue, field: "centreCode")}</td>
+        <td>${fieldValue(bean: examVenue, field: "capacity")}</td>
         <g:if test="${edit}">
             <td class='buttonCenter'>
 
                 <g:link controller="examinationCenter" action="editExaminationCentre"
-                        params="[id: examCentreListInstance.id]"><button value='update'
+                        params="[id: examVenue.id]"><button value='update'
                                                                          class="university-button-small actionButton">Update</button></g:link>
                 <g:link controller="examinationCenter" action="deleteCentre"
-                        params="[id: examCentreListInstance.id]"><button value='Edit'
+                        params="[id: examVenue.id]"><button value='Edit'
                                                                          class="university-button-small actionButton"
                                                                          onclick="return confirm('Are you sure you would like to delete this User?')">Delete</button></g:link>
 
