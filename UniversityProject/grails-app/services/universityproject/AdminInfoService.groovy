@@ -54,9 +54,13 @@ def springSecurityService
             }
             and{
                 eq('status',statusObj)
+                count()
             }
 
+
         }
+
+
         return  stuList
 
 
@@ -87,7 +91,7 @@ def springSecurityService
                 }
             }
         }
-//            println("to=="+totalDateList)
+            println("to=="+totalDateList)
         subjectMap.allSubjects=subList
         subjectMap.dateList=totalDateList
 
