@@ -169,7 +169,7 @@ function showExamVenueCapacity(){
     $.ajax({
         type: "post",
         url: url('admitCard', 'examVenueCapacity', ''),
-        data: {examCenterId: $("#examCenterList").val()},
+        data: {examVenueId: $("#examCenterList").val()},
         success: function (data) {
         if(data.capacity){
 

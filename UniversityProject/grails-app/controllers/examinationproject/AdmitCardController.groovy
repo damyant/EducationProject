@@ -65,25 +65,14 @@ class AdmitCardController {
 
     def examVenueCapacity={
         try{
-        def examCenterMap=[:]
+        def examVenueMap=[:]
 
-            def examCenter=ExaminationVenue.findById(Long.parseLong(params.examCenterId))
-            examCenterMap.capacity=examCenter.capacity
+            def examVenue=ExaminationVenue.findById(Long.parseLong(params.examVenueId))
+            examVenueMap.capacity=examVenue.capacity
+            def studentAllocated=Student.findAllByExaminationVenue(examVenue).size()
+            examVenueMap.availabelCapacity=examVenue.capacity-studentAllocated
 
-            def obj=Student .createCriteria()
-            def stuList= obj.list{
-                examinationCentre{
-                    eq('id', Long.parseLong(params.examCenterId))
-                }
-                and{
-                    eq('admitCardGenerated',true)
-                }
-
-            }
-
-        examCenterMap.availabelCapacity=examCenter.capacity-stuList.size()
-
-        render examCenterMap as JSON
+        render examVenueMap as JSON
         }
         catch (Exception e){
             println("Error in getting Examination Center capacity"+e)
@@ -106,58 +95,30 @@ class AdmitCardController {
 
     }
     def printAdmitCard={
-        println("?????????????????========"+params)
-//        println("user===="+springSecurityService.currentUser)
+//        println("?????????????????========"+params)
+
         def stuList = []
+        def status
+        def user=springSecurityService.currentUser
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         StringBuilder examDate = new StringBuilder()
         def byte [] logo= new File("web-app/images/gu-logo.jpg").bytes
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+
         if(params.rollNumber && springSecurityService.currentUser){
-//            println("*********")
-            def user=springSecurityService.currentUser
-            def obj=Student .createCriteria()
-            stuList= obj.list{
-                studyCentre{
-                    eq('id', Long.parseLong(user.studyCentreId.toString()))
-                }
-                and{
-                    eq('admitCardGenerated', true)
-
-                }
-                and{
-                    eq('rollNo',params.rollNumber.trim())
-                }
-
-            }
-
-
+        stuList=admitCardService.getStudentByRollNo(user,params)
         }
         else if(params.rollNumber){
-//            println("??????"+Student.findByDobAndRollNo)
          stuList=   Student.findAllByRollNoAndDobAndAdmitCardGenerated(params.rollNumber.trim(),df.parse(params.dob),true)
-//         stuList=   Student.findAllByRollNoAndDobAndAdmitCardGenerated(Integer.parseInt(params.rollNumber.trim()),df.parse(params.dob),true)
-
         }
         else if(params.studyCenterId){
-            def user=springSecurityService.currentUser
-              def obj=Student .createCriteria()
-            stuList= obj.list{
-                studyCentre{
-                    eq('id', Long.parseLong(user.studyCentreId.toString()))
-                }
-                and{
-                    eq('admitCardGenerated', true)
-
-                }
-
-            }
+           stuList=admitCardService.getStudentByStudyCenter(user)
         }
         else{
-
             def studentList=params.studentList.split(",")
             studentList.each{
                 stuList << Student.findById(Integer.parseInt(it.toString()))
             }
+          status=  admitCardService.updateStudentRecord(stuList,params.examinationVenue)
         }
         if(stuList[0]){
 
@@ -170,10 +131,9 @@ class AdmitCardController {
             examDate.append(it.examDate.format("dd/MM/yyyy"))
             examDate.append(", ")
         }
-        stuList.each{
-            it.admitCardGenerated=true
-            it.save(failOnError: true)
-        }
+
+        println("status==="+status)
+
         def month=""
         if(stuList[0].semester%2==0){
             month="July"

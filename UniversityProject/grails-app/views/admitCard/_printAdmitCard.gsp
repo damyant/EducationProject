@@ -92,8 +92,8 @@
                             <tr>
                                 <td colspan="2">
                                     <table style="margin: auto;width: 100%;"><tr>
-                                        <td style="width: 25%;">Examination Centre</td>
-                                        <td><label style="width: 75%;" id="examCentre">${studentInstance[0].examinationCentre.name[0]}</label></td>
+                                        <td style="width: 25%;">Examination Venue</td>
+                                        <td><label style="width: 75%;" id="examCentre">${studentInstance[0].examinationVenue.name}</label></td>
                                     </tr></table>
                                 </td>
                             </tr>
