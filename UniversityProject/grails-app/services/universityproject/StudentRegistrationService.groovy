@@ -1,5 +1,6 @@
 package universityproject
 
+import examinationproject.ExaminationCentre
 import examinationproject.ExaminationVenue
 import examinationproject.ProgramDetail
 import examinationproject.Status
@@ -18,9 +19,7 @@ class StudentRegistrationService {
     def springSecurityService
 
     Student saveNewStudentRegistration(params, signature, photographe) {
-        println("********" + params)
         Boolean studentRegistrationInsSaved = false;
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         String year = sdf.format(Calendar.getInstance().getTime());
         def startYear = year
@@ -83,7 +82,6 @@ class StudentRegistrationService {
 
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
-    println("*********"+params.examinationCentre)
         Set<ExaminationVenue> examinationCentreList = ExaminationVenue.findAllById(Integer.parseInt(params.examinationCentre))
         studentRegistration.examinationCentre = examinationCentreList
         if (!params.appNo) {
@@ -122,7 +120,7 @@ class StudentRegistrationService {
         String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2, 4)
         int rollNo = 1001
         String rollTemp = null
-        int rollTemp1= 0
+        int rollTemp1 = 0
         String rollStr = Integer.toString(rollNo)
 
         if (courseCodeStr.length() > 2) {
@@ -160,8 +158,8 @@ class StudentRegistrationService {
                         order("rollNo", "desc")
                     }
 
-                    if (studentByYearAndCourse[0].rollNo=="") {
-                            rollNumber = courseCodeStr + yearCode + rollStr
+                    if (studentByYearAndCourse[0].rollNo == "") {
+                        rollNumber = courseCodeStr + yearCode + rollStr
                     } else {
                         if (rollTemp == null) {
                             rollTemp = studentByYearAndCourse[0].rollNo.substring(4, 8)
@@ -230,7 +228,7 @@ class StudentRegistrationService {
 
     }
 
-    def seedStudent(){
+    def seedStudent() {
         def students
 //        Set<ExaminationVenue> examinationCentre = ExaminationVenue.findAllById(1)
         Set<StudyCenter> studyCenters = StudyCenter.findAllById(125)
@@ -238,26 +236,26 @@ class StudentRegistrationService {
         def programSession = ProgramSession.findById(1)
 
 
-        for(int i=0;i<100;i++){
-        students = new Student()
-        println("Seeded user"+i)
-        students.studentName = "Student"+i
-        students.gender = "Male"
-        students.category = "GEN"
-        students.mobileNo = Long.parseLong("9898787998")
-        students.nationality = "Indian"
-        students.state = "Assam"
-        students.status=Status.findById(1)
-        students.examinationCentre=examinationCentre
-        students.studyCentre =studyCenters
-        students.admitCardGenerated = false
-        students.programDetail=programDetails
-        students.programSession = programSession
+        for (int i = 0; i < 100; i++) {
+            students = new Student()
+            println("Seeded user" + i)
+            students.studentName = "Student" + i
+            students.gender = "Male"
+            students.category = "GEN"
+            students.mobileNo = Long.parseLong("9898787998")
+            students.nationality = "Indian"
+            students.state = "Assam"
+            students.status = Status.findById(1)
+            students.examinationCentre = examinationCentre
+            students.studyCentre = studyCenters
+            students.admitCardGenerated = false
+            students.programDetail = programDetails
+            students.programSession = programSession
 
-         students.save(flush: true)
+            students.save(flush: true)
 
         }
     }
 
-    }
+}
 

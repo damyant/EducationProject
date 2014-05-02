@@ -54,9 +54,13 @@ def springSecurityService
             }
             and{
                 eq('status',statusObj)
+                count()
             }
 
+
         }
+
+
         return  stuList
 
 
