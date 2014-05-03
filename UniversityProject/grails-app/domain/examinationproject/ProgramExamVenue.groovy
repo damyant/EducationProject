@@ -6,7 +6,7 @@ class ProgramExamVenue implements Serializable  {
     ProgramDetail courseDetail
     ExaminationVenue examVenue
     ExaminationCentre examCenter
-    City city
+
 
     boolean equals(other) {
         if (!(other instanceof ProgramExamVenue)) {
@@ -14,9 +14,9 @@ class ProgramExamVenue implements Serializable  {
         }
 
         other.courseDetail?.id == courseDetail?.id &&
-        other.examCenter?.id == examCenter?.id &&
-        other.city?.id==city?.id
-        other.examVenue?.id==examVenue?.id
+                other.examCenter?.id == examCenter?.id &&
+                other.examVenue?.id==examVenue?.id
+
     }
 
     int hashCode() {
@@ -38,12 +38,9 @@ class ProgramExamVenue implements Serializable  {
         new ProgramExamVenue(courseDetail: courseDetail, examCenter: examCenter, examVenue:examVenue).save()
     }
 
-
-
-
     static boolean remove(ProgramDetail courseDetail, ExaminationCentre examCenter,ExaminationVenue examVenue, boolean flush = false) {
         ProgramExamVenue instance = ProgramExamVenue.findByCourseDetailAndExamCenterAndExamVenue(courseDetail, examCenter, examVenue)
-
+//        ProgramExamVenue instance = ProgramExamVenue.findByCourseDetailAndCity(courseDetail, city)
         if (!instance) {
             return false
         }
@@ -69,13 +66,10 @@ class ProgramExamVenue implements Serializable  {
         version false
     }
 
+
+
     static constraints = {
     }
 
+
 }
-
-
-
-
-
-

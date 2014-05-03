@@ -27,7 +27,7 @@
                        <g:select name="district" id="district" optionKey="id"
                           value="${studInstance?.examinationCentre?.city?.district?.id?.get(0)}" class="university-size-1-1"
                           onChange="showCityList()" optionValue="districtName"
-                          from="${District.list()}" noSelection="['': ' Select District']"/>
+                          from="${District.list(sort:'districtName')}" noSelection="['': ' Select District']"/>
                     </td>
                     <td style="width: 50%">
                         <g:select name="city" id="city" optionKey="id" class="university-size-1-1"

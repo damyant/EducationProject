@@ -140,12 +140,24 @@ function submitTempRegistration() {
             success: function (data) {
 //                alert(data.rollNo)
                 document.getElementById("tempEnrollment").reset();
-                confirmGenerateChallan(data.rollNo);
+                if (data.rollNo.length > 0) {
+                    var url = "${createLink(controller:'admin', action:'checkFeeByRollNo')}"
+                    $.getJSON(url, {rollNo: data.rollNo}, function (json) {
+                        if (json.feeStatus) {
+                            confirmGenerateChallan(data.rollNo);
+                        }else{
+                            window.location.href = '/UniversityProject/student/enrollmentAtIdol';
+                            $("#errorMessage").text('Fees For this Course Not Created Yet')
+                        }
+                    });
+                }
+
             }
         });
     }
 }
 function confirmGenerateChallan(rollno) {
+
 
     var result = confirm("Do you want to Generate Challan for Roll No " + rollno + " ?");
     if (result == true) {

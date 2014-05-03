@@ -145,7 +145,7 @@ class ExaminationCenterController {
 
             def programmeList = null
             if (examinationCentre != null) {
-                programmeList = ProgramExamVenue.findAllByExamCenter(examinationCentre).courseDetail
+                programmeList = ProgramExamVenue.findAllByExamVenue(examinationCentre).courseDetail
                 println("list of programs"+programmeList)
                 render programmeList as JSON
             } else {

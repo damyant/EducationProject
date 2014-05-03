@@ -18,7 +18,7 @@ function showCityList() {
         url: url('studyCenter', 'getCityList', ''),
         data: {data: data},
         success: function (data) {
-            $("#city").empty().append('<option value="">Select City</option>')
+            $("#city").empty().append('<option value="">Select Examination Venue</option>')
             for (var i = 0; i < data.length; i++) {
                 $("#city").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>')
             }

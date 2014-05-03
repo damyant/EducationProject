@@ -219,11 +219,11 @@
                                   optionValue="examinationCentreName"
                                   from="${ExaminationCentre.findAllByDistrict(District.get(studInstance?.examinationCentre?.district?.id?.get(0)))}"
                                   value="${studInstance?.examinationCentre?.id?.get(0)}"
-                                  noSelection="['': 'Select Examination Centre']"/>
+                                  noSelection="['': 'Select District']"/>
                     </g:if>
                     <g:else>
                         <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-1" from=" "
-                                  noSelection="['': 'Select Examination Venue']"/>
+                                  noSelection="['': 'Select Examination Centre']"/>
                     </g:else>
                 </td>
             </tr>
