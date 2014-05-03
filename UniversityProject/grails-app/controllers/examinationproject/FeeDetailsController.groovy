@@ -18,6 +18,7 @@ class FeeDetailsController {
 
     @Secured("ROLE_ADMIN")
     def createFeeDetails() {
+        def paymentModeList = PaymentMode.list(sort:'paymentModeName')
         respond new FeeDetails(params)
     }
 
