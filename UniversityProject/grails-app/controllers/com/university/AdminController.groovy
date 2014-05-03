@@ -6,6 +6,7 @@ import examinationproject.FeeType
 import examinationproject.ProgramDetail
 import examinationproject.ProgramFee
 import examinationproject.Student
+import examinationproject.Status
 import examinationproject.StudyCenter
 import grails.converters.JSON
 import javax.activation.MimetypesFileTypeMap
@@ -48,7 +49,8 @@ class AdminController {
     }
     @Secured("ROLE_ADMIN")
     def generateRollNo(){
-  
+        String rollNumber=null
+        def stuObj
         def stuList=[]
         def responseMap=[:]
         def status
@@ -56,12 +58,18 @@ class AdminController {
             status= studentRegistrationService.approvedStudents(params)
         }
         else{
-         status=studentRegistrationService.getStudentRollNumber(params)
+            def studentIdList = params.studentList.split(",")
+            studentIdList.each { i ->
+                rollNumber =studentRegistrationService.getStudentRollNumber(params)
+                 stuObj = Student.findById(i)
+                 stuObj.rollNo = rollNumber
+                 stuObj.status = Status.findById(Long.parseLong("2"))
+                 stuObj.save(flush: true,failOnError: true)
+            }
         }
 
-        if(status==true){
+        if(stuObj){
         stuList= adminInfoService.provisionalStudentList(params)
-
         }
         responseMap.status='rollNo'
         responseMap.stuList=stuList
