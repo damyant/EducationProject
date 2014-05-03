@@ -33,7 +33,7 @@
                         <g:select name="city" id="city" optionKey="id" class="university-size-1-1"
                               optionValue="cityName"
                               from="" onchange="showCentreList(this)"
-                              noSelection="['': ' Select City']"/>
+                              noSelection="['': ' Select Examination Centre']"/>
                     </td>
                 </tr>
                 <tr>

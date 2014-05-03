@@ -3,6 +3,7 @@ package examinationproject
 import examinationproject.District
 
 class ExaminationCentre {
+
     String examinationCentreName
     District district
 
@@ -10,6 +11,7 @@ class ExaminationCentre {
             student : Student,
             examVenue:ExaminationVenue
     ]
+
     static belongsTo = Student
 
     static constraints = {

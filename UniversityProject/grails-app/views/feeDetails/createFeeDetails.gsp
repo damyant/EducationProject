@@ -110,8 +110,10 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField name="paymentMode" value="${feeDetailsInstance?.paymentMode}" disabled="disabled"
-                                     class="university-size-1-2"/>
+                        <g:select id="paymentMode" name="paymentMode" from="${paymentModeList}"
+                                  optionKey="id"
+                                  disabled="disabled" optionValue="paymentModeName"
+                                  class="many-to-one university-size-1-2"/>
                     </div>
                 </div>
 

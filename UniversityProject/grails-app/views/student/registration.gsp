@@ -38,11 +38,9 @@
             var flag = "${registered}"
             var studentId = "${studentID}"
             if (flag == 'registered') {
-                //a(studentId)
-                //var url = window.location.href;
+                alert(flag+""+studentId)
                 url = "http://localhost:9093/UniversityProject/student/registration"
                 window.location.href = url;
-                flag = "do not open"
                 window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId);
 
             }

@@ -9,8 +9,6 @@ class Semester {
         id column :"SemesterId"
         semesterNo column: "SemesterNo"
         courseDetail column: "CourseDetailId"
-
-
     }
 
     static constraints = {

@@ -118,7 +118,7 @@ function showCentreList(t) {
     var data = $(t).val();
     $.ajax({
         type: "post",
-        url: url('examinationCenter', 'getExaminationCentreList', ''),
+        url: url('examinationCenter', 'getExaminationVenueList', ''),
         data: {data: data},
         success: function (data) {
 
