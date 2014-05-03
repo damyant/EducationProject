@@ -17,10 +17,6 @@ $(function() {
         close: function(ev, ui) { getStudentsList()}
 
     });
-
-
-
-
 });
 
 function nextStudent(){

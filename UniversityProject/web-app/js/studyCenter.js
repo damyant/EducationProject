@@ -96,15 +96,17 @@ function viewStudyCenter(studyCenterId) {
 
 }
 function showCentreList(t) {
-
+//    alert('now getting centres'+ t)
     var data = $(t).val();
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExaminationCentreList', ''),
         data: {data: data},
         success: function (data) {
+
             $("#examinationCentre").empty().append('<option value=""> Select Examination Venue</option>')
             for (var i = 0; i < data.length; i++) {
+                alert("--------------"+data[i].name)
                 $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
             }
         },
