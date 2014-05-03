@@ -195,6 +195,7 @@ class StudentRegistrationService {
 
     def seedStudent() {
         def students
+
         Set<ExaminationCentre> examinationCentre = ExaminationCentre.findAllById(1)
         Set<StudyCenter> studyCenters = StudyCenter.findAllById(8)
         Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)

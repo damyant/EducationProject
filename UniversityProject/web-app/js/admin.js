@@ -311,3 +311,26 @@ function clearError(t) {
     $(t).next("label").text("");
 
 }
+function updateFeeType(feeTypeId) {
+//    alert(feeTypeId)
+    var data = feeTypeId
+    window.location.href = '/UniversityProject/programFee/addFeeType?feeTypeId=' + data;
+
+}
+function deleteFeeType(feeTypeId) {
+    var result = confirm("Are you sure you want to delete this item?", "Confirm Delete");
+
+    if (result == true) {
+        var data = feeTypeId;
+        alert(result)
+        $.ajax({
+            type: "post",
+            url: url('programFee', 'deleteFeesType', ''),
+            data: {data: data},
+            success: function (data) {
+                //document.location.reload();
+                window.location.href = '/UniversityProject/programFee/viewExistingFeeType';
+            }
+        });
+    }
+}

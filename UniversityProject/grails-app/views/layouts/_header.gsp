@@ -148,6 +148,13 @@
                             code="default.mainMenu2.subMenu6"/></g:link></li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu7"/></a>
                         <ul>
+                            <li><g:link controller="programFee"
+                                        action="addFeeType"><g:message
+                                        code="default.mainMenu3.subMenu7.subMenu4"/></g:link></li>
+                            <li><g:link controller="programFee"
+                                        action="viewExistingFeeType"><g:message
+                                        code="default.mainMenu3.subMenu7.subMenu5"/></g:link></li>
+
                             <li><g:link controller="programFee" action="createNewFeeType"><g:message
                                     code="default.mainMenu3.subMenu7.subMenu1"/></g:link></li>
                             <li><g:link controller="programFee"
