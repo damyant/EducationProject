@@ -103,14 +103,14 @@
 
                 <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'paymentMode', 'error')} ">
                     <div class="university-size-1-3">
-                        <label for="paymentMode">
+                        <label>
                             <g:message code="feeDetails.paymentMode.label" default="Payment Mode"/>
                             <span class="university-obligatory">*</span>
                         </label>
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:select id="paymentMode" name="paymentMode" from="${paymentModeList}"
+                        <g:select  name="paymentMode" from="${paymentModeList}"
                                   optionKey="id"
                                   disabled="disabled" optionValue="paymentModeName"
                                   class="many-to-one university-size-1-2"/>
