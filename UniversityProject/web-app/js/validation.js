@@ -2,7 +2,7 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-    $("#tempEnrollment,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
+    $("#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
         rules: {
 //              tempEnroll
             examCentre:"required",
@@ -14,8 +14,14 @@ function validate() {
             },
 
             address: "required",
+            programList: "required",
+            internalMarks: {
+                required:true,
+                accept:'xls|xlsx|cvs'
+            },
             district: "required",
             city: "required",
+            semesterList: "required",
             examDistrict:"required",
             examCity:"required",
             examinationCentre:"required",
@@ -243,10 +249,18 @@ function validate() {
                 number: true},
             examinationCentreAddress: {required: true},
             examCentreName: {required: true,
-                textonly: true}
+                textonly: true},
+            type:{
+                required: true,
+                textonly: true
+            }
 
         },
         messages: {
+            type:{
+                required: "Please Entre Fee Type Name",
+                textonly: "Only accepts Characters"
+            },
             rollNumber:{
                 required:"Please Enter Roll Number",
                 minlength:"Please Enter 8 digit Roll Number"
@@ -259,6 +273,10 @@ function validate() {
                 textonly: "Please Enter Alphabets Only"},
             applicationNo:"Please Enter Application Number",
             examCentre: "Please Select Examination Centre",
+            programList: "Please Select Program Name",
+            semesterList: "Please Select Term",
+            internalMarks:{ required:"Please Upload Internal Marks Sheet",
+                accept:'Accepts only Excel and CVS file'},
             examVenue: "Please Select Examination Venue",
             profileImage: "File must be JPG, GIF or PNG, less than 1MB",
             name: "Please enter study center name",

@@ -7,6 +7,7 @@ import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsHttpSession
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
 import org.springframework.web.context.request.RequestContextHolder
+
 /*import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils*/
 
 @Transactional
@@ -21,62 +22,64 @@ class UserService {
 
     }
 
-    def iUserLoggedInAction(params){
-        def c=User.createCriteria()
-        def userInstance=c.list {
-            eq('username',params.username)
-            eq('password',springSecurityService.encodePassword(params.password))
-            eq('enabled',true)
-            eq('accountExpired',false)
-            eq('accountLocked',false)
-            eq('passwordExpired',false)
+    def iUserLoggedInAction(params) {
+        def c = User.createCriteria()
+        def userInstance = c.list {
+            eq('username', params.username)
+            eq('password', springSecurityService.encodePassword(params.password))
+            eq('enabled', true)
+            eq('accountExpired', false)
+            eq('accountLocked', false)
+            eq('passwordExpired', false)
         }[0]
         //def userInstance=User.findByUsernameAndPassword(params.username,springSecurityService.encodePassword(params.password))
-        def role=Role.findByAuthority('ROLE_USER')
-        def userRole=UserRole.findByUserAndRoleNotEqual(userInstance,role)
-        if(userInstance && userRole){
+        def role = Role.findByAuthority('ROLE_USER')
+        def userRole = UserRole.findByUserAndRoleNotEqual(userInstance, role)
+        if (userInstance && userRole) {
             return userInstance
-        }else{
+        } else {
             return false
         }
     }
 
-    def iUserLoggedIn(){
+    def iUserLoggedIn() {
         try {
             GrailsWebRequest request = RequestContextHolder.currentRequestAttributes()
             GrailsHttpSession session = request.session
-            if(session.user){
+            if (session.user) {
                 return session.user
-            }else{ return false}
+            } else {
+                return false
+            }
         }
         catch (IllegalStateException ise) {
-            log.warn ("No WebRequest available!")
+            log.warn("No WebRequest available!")
             return false
         }
     }
 
-    def iUserLogOut(){
+    def iUserLogOut() {
         try {
             GrailsWebRequest request = RequestContextHolder.currentRequestAttributes()
             GrailsHttpSession session = request.session
-            session.user=""
+            session.user = ""
 
         }
         catch (IllegalStateException ise) {
-            log.warn ("No WebRequest available!")
+            log.warn("No WebRequest available!")
         }
     }
 
-    def updateUserRole(user,role){
+    def updateUserRole(user, role) {
         //UserRole.create userInstance, role
-        def uRole= UserRole.findAllByUser(user)
-        uRole.each{ur->
-            ur.delete(flush:true)
+        def uRole = UserRole.findAllByUser(user)
+        uRole.each { ur ->
+            ur.delete(flush: true)
         }
         UserRole.create user, role
     }
 
-    def newPwd(Integer len=10){
+    def newPwd(Integer len = 10) {
         def AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
         Random rnd = new Random();
         StringBuilder sb = new StringBuilder(len);
@@ -88,10 +91,11 @@ class UserService {
     /*
     * Return role list below the current role.
     * */
+
     def getRoleList() {
         /* def role=springSecurityService.getPrincipal().authorities*.authority[0]*/
-        def rolesGrated=[]
-        def rolesList =Role.list()
+        def rolesGrated = []
+        def rolesList = Role.list()
         println(rolesList)
         /* rolesList.each {r ->
              if(SpringSecurityUtils.ifAnyGranted(r.authority) && r.authority!=role){
@@ -99,22 +103,23 @@ class UserService {
              }
          }*/
 
-        println("Role List from User Service"+rolesList)
+        println("Role List from User Service" + rolesList)
         return rolesList
     }
 
     /*
     * Return user list below the current user role.
     * */
-    def getUsersList(){
-        def roleList=getRoleList()
-        def userList=[]
-        User.list().each{u->
-            def flag=true
-            roleList.each{r->
-                if(r.authority==u.getAuthorities().authority[0])flag=false
+
+    def getUsersList() {
+        def roleList = getRoleList()
+        def userList = []
+        User.list().each { u ->
+            def flag = true
+            roleList.each { r ->
+                if (r.authority == u.getAuthorities().authority[0]) flag = false
             }
-            if(!flag)userList.add(u)
+            if (!flag) userList.add(u)
         }
         return userList
     }

@@ -1,11 +1,10 @@
 package com.university
 
-import examinationproject.District
 import examinationproject.ExaminationCentre
+import examinationproject.ExaminationVenue
 import examinationproject.FeeType
 import examinationproject.ProgramDetail
 import examinationproject.ProgramFee
-import examinationproject.Semester
 import examinationproject.Student
 import examinationproject.StudyCenter
 import grails.converters.JSON
@@ -136,12 +135,9 @@ class AdminController {
     @Secured("ROLE_ADMIN")
     def assignExaminationVenue={
         def programList = ProgramDetail.list(sort:'courseName')
-        def examinationCenter=ExaminationCentre.list()*.city as Set
-        def finalExaminationCenterList= examinationCenter.sort{a,b->
-            a.cityName<=>b.cityName
-        }
+        def examinationCenter=ExaminationCentre.list(sort:'examinationCentreName')
 
-        [programList: programList,examinationCenterList:finalExaminationCenterList]
+        [programList: programList,examinationCenterList:examinationCenter]
     }
 
     def getSubjectList={
@@ -214,6 +210,11 @@ class AdminController {
             println("there is no parameters")
         }
 
+    }
+    def uploadInternalMarks={
+        def studyCentreList = StudyCenter.list(sort:'name')
+        def programList = ProgramDetail.list(sort:'courseName')
+        [programList: programList, studyCentreList: studyCentreList]
     }
 }
 

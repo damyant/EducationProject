@@ -13,7 +13,6 @@
     <g:javascript src='studyCenter.js'/>
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
-    <title>Create Study Center</title>
 </head>
 
 <body>

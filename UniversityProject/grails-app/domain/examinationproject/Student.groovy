@@ -1,7 +1,5 @@
 package examinationproject
 
-import java.text.SimpleDateFormat
-
 class Student {
 
     String studentName
@@ -29,6 +27,7 @@ class Student {
     byte[] studentImage
     ProgramSession programSession
     Boolean admitCardGenerated
+    ExaminationVenue examinationVenue
     Date admissionDate =new Date()
 
 
@@ -45,7 +44,6 @@ class Student {
         state(nullable: true)
         mobileNo(nullable: true)
 //        studyCentre(nullable: true)
-
 //        preferenceOfExaminationCentre(nullable: true)
         registrationNo1(nullable: true)
         registrationNo2(nullable: true)
@@ -61,6 +59,7 @@ class Student {
         rollNo(nullable:true)
         status(nullable:true)
         admitCardGenerated(nullable: true)
+        examinationVenue(nullable: true)
 
 
 
@@ -77,7 +76,6 @@ class Student {
         studentName column: "studentName"
         dob column: "Dob",index: 'Dob_Index'
         rollNo column: "RollNo",index: 'RollNo_Index'
-
         category column: "Category"
         gender column: "Gender"
         nationality column: "Nationality"
@@ -95,15 +93,12 @@ class Student {
         addressPinCode column: "AddressPinCode"
         location column: "Location"
         applicationNo column: "applicationNo"
-
         registrationYear column: "RegistrationYear"
         referenceNumber column:"ReferenceNumber"
         status column: 'StatusId'
-
         programSession column: 'ProgramSession'
-
         admitCardGenerated column: 'AdmitCardGenerated'
-
+        examinationVenue column: 'examinationVenue'
 
     }
 

@@ -33,7 +33,7 @@ body {
 }
 
 .university-label-location-select, .university-location-select select {
-    width: 150px;
+    width: 200px;
     display: inline-block;
 }
 
@@ -85,6 +85,7 @@ body {
 .university-size-2-5 {
     width: 38%;
 }
+
 .university-bottom-margin{
     margin-bottom: 10px;
 }

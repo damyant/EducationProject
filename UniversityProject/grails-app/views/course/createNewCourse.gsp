@@ -14,6 +14,7 @@
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'multiselectable.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'fileUpload.js')}"></script>
      <script type="text/javascript">
 
         makeJson("${subjList}")
@@ -116,12 +117,22 @@
             </tr>
         </table>
     </g:form>
-        <g:uploadForm action="uploadSyllabus" controller="course" method="post" name="syllabusUploadForm" id="syllabusUploadForm">
+        %{--<script type="text/javascript">--}%
+            %{--$(function() {--}%
+                %{--$("#dropbox, #multiple").html5Uploader({--}%
+                    %{--name: "foo",--}%
+                    %{--postUrl: "bar.aspx"--}%
+                %{--});--}%
+            %{--});--}%
+        %{--</script>--}%
+       <g:uploadForm controller="course" action="uploadSyllabus" method="post" enctype="multipart/form-data" name="syllabusUploadForm" id="syllabusUploadForm">
             <input type="file" name="syllabusFile" id="syllabusFile" style="visibility: hidden;">
             <input type="hidden" name="syllabusCourse" id="syllabusCourse" value="">
             <input type="hidden" name="syllabusOfSubject" id="syllabusOfSubject" value="">
             <input type="hidden" name="syllabusOfSemester" id="syllabusOfSemester" value=="">
         </g:uploadForm>
+        %{--<input class="multi" accept="pdf"/>--}%
+
     </fieldset>
 </div>
 </body>

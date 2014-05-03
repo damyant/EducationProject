@@ -15,19 +15,19 @@ class ProgramFeeService {
  * @param programFeeInstance
  * @return
  */
-    def saveProgramFeeType(ProgramFee programFeeInstance){
+    def saveProgramFeeType(ProgramFee programFeeInstance) {
         programFeeInstance.save(flush: true)
     }
 /**
  * Service to delete a particular fee type
  * @param programFeeInstance
  */
- boolean deleteFeeType(ProgramFee programFeeInstance) {
-     boolean isDeleted=false
-        if(programFeeInstance.delete(flush: true)){
-            isDeleted=true
-        }else{
-            isDeleted=false
+    boolean deleteFeeType(ProgramFee programFeeInstance) {
+        boolean isDeleted = false
+        if (programFeeInstance.delete(flush: true)) {
+            isDeleted = true
+        } else {
+            isDeleted = false
         }
 
     }

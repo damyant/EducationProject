@@ -96,6 +96,20 @@
                                         code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
                         </ul>
                     </li>
+                    <li><a href="#"><g:message code="default.mainMenu3.subMenu8"/></a>
+
+                        <ul>
+                            <li><g:link controller="admin" action="uploadInternalMarks"><g:message
+                                    code="default.mainMenu3.subMenu8.subMenu1"/></g:link>
+                            </li>
+                            %{--<li><g:link controller="course"--}%
+                                        %{--action="listOfCourses"><g:message--}%
+                                        %{--code="default.mainMenu3.subMenu8.subMenu2"/></g:link></li>--}%
+                            %{--<li><g:link controller="course"--}%
+                                        %{--action="updateCourses"><g:message--}%
+                                        %{--code="default.mainMenu3.subMenu8.subMenu3"/></g:link></li>--}%
+                        </ul>
+                    </li>
                     %{--<!----}%
                     %{--<li>--}%
                     %{--<ul>--}%
@@ -134,6 +148,13 @@
                             code="default.mainMenu2.subMenu6"/></g:link></li>
                     <li><a href="#"><g:message code="default.mainMenu3.subMenu7"/></a>
                         <ul>
+                            <li><g:link controller="programFee"
+                                        action="addFeeType"><g:message
+                                        code="default.mainMenu3.subMenu7.subMenu4"/></g:link></li>
+                            <li><g:link controller="programFee"
+                                        action="viewExistingFeeType"><g:message
+                                        code="default.mainMenu3.subMenu7.subMenu5"/></g:link></li>
+
                             <li><g:link controller="programFee" action="createNewFeeType"><g:message
                                     code="default.mainMenu3.subMenu7.subMenu1"/></g:link></li>
                             <li><g:link controller="programFee"

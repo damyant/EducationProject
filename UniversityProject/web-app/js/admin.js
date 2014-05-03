@@ -65,8 +65,14 @@ function submitExamDate(){
         success: function (data) {
             if(data.saveFlag==true){
                $('#assignDate')[0].reset();
+                $('#assignDate').find(':input').each(function() {
+                    switch(this.type) {
+                        case 'text':
+                            $(this).val('');
+                            break;
+                    }
+                });
                 $("#successMessage").html("Examination Date is saved")
-//                setTimeout(function(){  $('#successMessage').hide(); }, 8000);
                 $("html, body").animate({ scrollTop: 0 }, "slow");
             }
             else{
@@ -149,46 +155,39 @@ function getSemesterAndSubjectList(){
             if(data.noSubjects==true){
 
                 $("#subjectList tr").remove()
-                $("#msgDiv").html("There is no subject associated with the program")
+                $("#msgDiv").html("There is no Course associated with the program")
             }
             else{
                 $("#msgDiv").html("")
                 appendSubjects(data)
             }
-
-
         }
     });
-
 }
 
 function appendSubjects(obj){
-
     var count=1;
     var counter=0;
     $("#subjectList").empty();
-
     for(var i=0;i<obj.allSubjects.length;i++){
-
-
-        $("#subjectList").append('<tr><th>'+"Term"+ count+" Subjects" +'</th><th>Examination Date</th><th>Examination Time</th></tr>' )
+        $("#subjectList").append('<tr><th>'+"Term"+ count+" Courses" +'</th><th>Examination Date</th><th>Examination Time</th></tr>' )
         for(var j=0;j<obj.allSubjects[i].length;j++){
             subjectIdList[counter]=obj.allSubjects[i][j].id
             var datesInNewFormat=""
+//            alert(obj.dateList[counter])
             if(obj.dateList[counter]!=undefined && obj.dateList[counter].toString()!='noo' ){
-            var d = $.datepicker.parseDate("dd/mm/yy", obj.dateList[counter].toString());
+            var d = $.datepicker.parseDate("mm/dd/yy", obj.dateList[counter].toString());
             datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
             }
             $("#subjectList").append('<tr id="subjectRows'+counter+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
                 '<input type="text"  name="examinationDate" id="examDate'+counter+'"  onchange="clearError(this)" class="datePickers university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError'+counter+'" class="error3">&nbsp;</label></td>'+
-                '<td class="university-size-1-3"> <input type="text" id="examTime'+counter+'"  onchange="clearError(this)"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError'+counter+'" class="error4">&nbsp;</label></td>'+
+                '<td class="university-size-1-3"><input type="text" id="examTime'+counter+'"  onchange="clearError(this)"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+obj.allSubjects[i][j].examTime+'" /><label id="timeError'+counter+'" class="error4">&nbsp;</label></td>'+
                 '</tr>')
             ++counter;
         }
         count++;
     }
     $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" class="university-button" value="Submit" onclick="validateFields('+counter+')"/></td></tr>' )
-    alert (counter)
     $(".datePickers").datepicker({
         changeMonth: true,
         changeYear: true,
@@ -200,38 +199,27 @@ function appendSubjects(obj){
         showLeadingZero: true
     });
 }
-
-
 function validateFields(counter){
-//    var date=null;
-//    var time = null;
-//    var bool = false;
-//    alert($('#examDate0').val())
-//    for(var i=0;i<counter;i++){
-//
-//            date = $('#examDate'+counter).val();
-//            time = $('#examTime'+counter).val()
-//                alert($('#examDate'+counter).val())
-//            if ((date == "null" || date.length == 0)) {
-//                $('#dateError'+counter).text("Please Select Examination Date")
-//                bool = false;
-//            } else {
-//                bool = true
-//            }
-//            if ((time == "null" || time == "")) {
-//                $('#timeError'+counter).text("Please Select Examination Time")
-//            } else {
-//                bool = true
-//            }
-//
-//    }
-//    if(bool){
+    var date=null;
+    var time = null;
+    var bool = true;
+    for(var i=0;i<counter;i++){
+            date = $('#examDate'+i).val();
+            time = $('#examTime'+i).val()
+            if ((date == "null" || date.length == 0)) {
+                $('#dateError'+i).text("Please Select Examination Date")
+                bool=false
+            }
+            if ((time == "null" || time == "")) {
+                $('#timeError'+i).text("Please Select Examination Time")
+                bool=false
+            }
+    }
+    if(bool){
         submitExamDate();
-//
-//    }
-//        return bool;
-
-   }
+    }
+    return bool;
+}
 
 function checkTimeFormat(count){
 
@@ -322,4 +310,27 @@ function viewStudent(studentId){
 function clearError(t) {
     $(t).next("label").text("");
 
+}
+function updateFeeType(feeTypeId) {
+//    alert(feeTypeId)
+    var data = feeTypeId
+    window.location.href = '/UniversityProject/programFee/addFeeType?feeTypeId=' + data;
+
+}
+function deleteFeeType(feeTypeId) {
+    var result = confirm("Are you sure you want to delete this item?", "Confirm Delete");
+
+    if (result == true) {
+        var data = feeTypeId;
+        alert(result)
+        $.ajax({
+            type: "post",
+            url: url('programFee', 'deleteFeesType', ''),
+            data: {data: data},
+            success: function (data) {
+                //document.location.reload();
+                window.location.href = '/UniversityProject/programFee/viewExistingFeeType';
+            }
+        });
+    }
 }

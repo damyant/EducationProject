@@ -1,7 +1,6 @@
 package examinationproject
 
 import grails.converters.JSON
-import grails.plugins.springsecurity.Secured
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -28,19 +27,20 @@ class AdmitCardController {
     def createAdmitCard ={
         def programList = ProgramDetail.list()
         def studyCentreList = StudyCenter.list()
-        def examinationCentre = ExaminationCentre.list()
+        def examinationCentre = ExaminationVenue.list()
         [programList: programList, studyCentreList: studyCentreList, examinationCentre: examinationCentre]
 
     }
     def bulkCreationOfAdmitCard ={
         def programList = ProgramDetail.list(sort:'courseName')
         def studyCentreList = StudyCenter.list()
-        def examinationCenter=ExaminationCentre.list()*.city as Set
-        def finalExaminationCenterList= examinationCenter.sort{a,b->
-            a.cityName<=>b.cityName
-        }
+        def examinationCenter=ExaminationCentre.list(sort:'examinationCentreName')
+//        def examinationCenter=ExaminationVenue.list()*.city as Set
+//        def finalExaminationCenterList= examinationCenter.sort{a,b->
+//            a.cityName<=>b.cityName
+//        }
 
-        [programList: programList, studyCentreList: studyCentreList, examinationCenterList: finalExaminationCenterList]
+        [programList: programList, studyCentreList: studyCentreList, examinationCenterList: examinationCenter]
     }
 
     def getSemesterList={
@@ -65,25 +65,14 @@ class AdmitCardController {
 
     def examVenueCapacity={
         try{
-        def examCenterMap=[:]
+        def examVenueMap=[:]
 
-            def examCenter=ExaminationCentre.findById(Long.parseLong(params.examCenterId))
-            examCenterMap.capacity=examCenter.capacity
+            def examVenue=ExaminationVenue.findById(Long.parseLong(params.examVenueId))
+            examVenueMap.capacity=examVenue.capacity
+            def studentAllocated=Student.findAllByExaminationVenue(examVenue).size()
+            examVenueMap.availabelCapacity=examVenue.capacity-studentAllocated
 
-            def obj=Student .createCriteria()
-            def stuList= obj.list{
-                examinationCentre{
-                    eq('id', Long.parseLong(params.examCenterId))
-                }
-                and{
-                    eq('admitCardGenerated',true)
-                }
-
-            }
-
-        examCenterMap.availabelCapacity=examCenter.capacity-stuList.size()
-
-        render examCenterMap as JSON
+        render examVenueMap as JSON
         }
         catch (Exception e){
             println("Error in getting Examination Center capacity"+e)
@@ -107,54 +96,29 @@ class AdmitCardController {
     }
     def printAdmitCard={
 //        println("?????????????????========"+params)
-//        println("user===="+springSecurityService.currentUser)
+
         def stuList = []
+        def status
+        def user=springSecurityService.currentUser
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         StringBuilder examDate = new StringBuilder()
         def byte [] logo= new File("web-app/images/gu-logo.jpg").bytes
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+
         if(params.rollNumber && springSecurityService.currentUser){
-//            println("*********")
-            def user=springSecurityService.currentUser
-            def obj=Student .createCriteria()
-            stuList= obj.list{
-                studyCentre{
-                    eq('id', Long.parseLong(user.studyCentreId.toString()))
-                }
-                and{
-                    eq('admitCardGenerated', true)
-
-                }
-                and{
-                    eq('rollNo',Integer.parseInt(params.rollNumber.trim()))
-                }
-
-            }
-
+        stuList=admitCardService.getStudentByRollNo(user,params)
         }
         else if(params.rollNumber){
-         stuList=   Student.findAllByRollNoAndDobAndAdmitCardGenerated(Integer.parseInt(params.rollNumber.trim()),df.parse(params.dob),true)
-
+         stuList=   Student.findAllByRollNoAndDobAndAdmitCardGenerated(params.rollNumber.trim(),df.parse(params.dob),true)
         }
         else if(params.studyCenterId){
-            def user=springSecurityService.currentUser
-              def obj=Student .createCriteria()
-            stuList= obj.list{
-                studyCentre{
-                    eq('id', Long.parseLong(user.studyCentreId.toString()))
-                }
-                and{
-                    eq('admitCardGenerated', true)
-
-                }
-
-            }
+           stuList=admitCardService.getStudentByStudyCenter(user)
         }
         else{
-
             def studentList=params.studentList.split(",")
             studentList.each{
                 stuList << Student.findById(Integer.parseInt(it.toString()))
             }
+          status=  admitCardService.updateStudentRecord(stuList,params.examinationVenue)
         }
         if(stuList[0]){
 
@@ -167,10 +131,9 @@ class AdmitCardController {
             examDate.append(it.examDate.format("dd/MM/yyyy"))
             examDate.append(", ")
         }
-        stuList.each{
-            it.admitCardGenerated=true
-            it.save(failOnError: true)
-        }
+
+        println("status==="+status)
+
         def month=""
         if(stuList[0].semester%2==0){
             month="July"
@@ -202,7 +165,7 @@ class AdmitCardController {
     def studyCenterAdmitCard={
         def programList = ProgramDetail.list(sort:'courseName')
         def studyCentreList = StudyCenter.list()
-        def examinationCenter=ExaminationCentre.list()*.city as Set
+        def examinationCenter=ExaminationVenue.list()*.city as Set
         def finalExaminationCenterList= examinationCenter.sort{a,b->
             a.cityName<=>b.cityName
         }

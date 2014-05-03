@@ -3,6 +3,7 @@ package universityproject
 import examinationproject.City
 import examinationproject.District
 import examinationproject.ExaminationCentre
+import examinationproject.ExaminationVenue
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
 import grails.transaction.Transactional
@@ -16,7 +17,7 @@ class ExaminationCentreService {
 
     Boolean saveCentres(params) {
 
-        Boolean examinationCentreInsSaved = false;
+        Boolean examinationVenueInsSaved = false;
         def examinationCentreNameList = []
         examinationCentreNameList.addAll(params?.examinationCentreName)
         def examinationCentreAddressList = []
@@ -30,26 +31,36 @@ class ExaminationCentreService {
         def examinationCentreCodeList = []
         examinationCentreCodeList.addAll(params?.examinationCentreCode)
         for (int i = 0; i < examinationCentreNameList.size(); i++) {
-            ExaminationCentre examinationCentreIns = new ExaminationCentre()
-            examinationCentreIns.city = City.findById(params.city)
-            examinationCentreIns.address = examinationCentreAddressList[i].toString()
-            examinationCentreIns.capacity = Integer.parseInt(examinationCentreCapacityList[i])
-            examinationCentreIns.contactNo = examinationCentreContactNoList[i]
-            examinationCentreIns.inchargeName = examinationCentreInchargeList[i].toString()
-            examinationCentreIns.name = examinationCentreNameList[i].toString()
-            examinationCentreIns.centreCode = Integer.parseInt(examinationCentreCodeList[i])
-            if (examinationCentreIns.save(flush: true, failOnError: true)) {
-                examinationCentreInsSaved = true;
+            ExaminationVenue examinationVenueIns = new ExaminationVenue()
+//            examinationVenueIns.city = City.findById(params.city)
+            examinationVenueIns.address = examinationCentreAddressList[i].toString()
+            examinationVenueIns.capacity = Integer.parseInt(examinationCentreCapacityList[i])
+            examinationVenueIns.contactNo = examinationCentreContactNoList[i]
+            examinationVenueIns.inchargeName = examinationCentreInchargeList[i].toString()
+            examinationVenueIns.name = examinationCentreNameList[i].toString()
+            examinationVenueIns.centreCode = Integer.parseInt(examinationCentreCodeList[i])
+            def examIns = ExaminationCentre.findById(Integer.parseInt(params.examinationCentre))
+            examIns.addToExamVenue(examinationVenueIns)
+
+//            examinationVenueIns. = examinationCentreList
+            if (examinationVenueIns.save(flush: true, failOnError: true)) {
+                examinationVenueInsSaved = true;
             }
         }
-        return examinationCentreInsSaved;
+        return examinationVenueInsSaved;
     }
 
 
     def examVenueList(params) {
-
+        println("jjjjjjjjjjjjj"+params);
         if (params) {
-            ExaminationCentre.findAllByCity(City.findById(params.city))
+            def list=ExaminationCentre.findAllById(Integer.parseInt(params.examinationCentre))
+//            println("<<<"+list.examVenue)
+//            def obj=ExaminationVenue.createCriteria();
+//            def examVenueList=obj.list{
+//                ex
+//            }
+            return list.examVenue[0];
 
         }
 
@@ -57,7 +68,7 @@ class ExaminationCentreService {
 
     Boolean updateExaminationCentre(params) {
         Boolean isSaved = false
-        def examCentreIns = ExaminationCentre.get(params.id)
+        def examCentreIns = ExaminationVenue.get(params.id)
         examCentreIns.city = City.findById(Integer.parseInt(params.city))
         examCentreIns.capacity = Integer.parseInt(params.capacity)
         examCentreIns.name = params.centreName
@@ -72,17 +83,18 @@ class ExaminationCentreService {
 
     def associatedExamVenue(params) {
 
-        def cityIns=City.findById(Long.parseLong(params.city))
-        def programIns=ProgramDetail.findById(Long.parseLong(params.programList))
-        def examVenue = ProgramExamVenue.findAllByCourseDetailAndCity(programIns,cityIns)
-        return examVenue.examCenter
+        def examinationCentre = ExaminationCentre.findById(Long.parseLong(params.examinationCentre))
+        def programIns = ProgramDetail.findById(Long.parseLong(params.programList))
+        def examVenue = ProgramExamVenue.findAllByCourseDetailAndExamCenter(programIns, examinationCentre)
+         return examVenue.examVenue
     }
-    Boolean saveExamCentres (params) {
+
+    Boolean saveExamCentres(params) {
         Boolean isSaved = false;
-        City cityIns = new City()
-        cityIns.cityName=params.examCentreName
-        cityIns.district=District.findById(Integer.parseInt(params.district))
-        if (cityIns.save(flush: true)) {
+        ExaminationCentre examCentreIns = new ExaminationCentre()
+        examCentreIns.examinationCentreName= params.examCentreName
+        examCentreIns.district = District.findById(Integer.parseInt(params.district))
+        if (examCentreIns.save(flush: true)) {
             isSaved = true
         }
     }
