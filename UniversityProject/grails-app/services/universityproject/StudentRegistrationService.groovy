@@ -186,7 +186,13 @@ class StudentRegistrationService {
         def bufLength = buf.length
         for (int idx = 0; idx < bufLength; idx++)
             buf[idx] = symbols.charAt(random.nextInt(symbols.length()));
-        return new String(buf);
+        if(Student.count()>0){
+            if(!Student.findByReferenceNumber(Integer.parseInt(new String(buf)))){
+                return new String(buf);
+            }else{
+                getStudentReferenceNumber()
+            }
+        }
     }
 
     def approvedStudents(params) {
@@ -234,9 +240,9 @@ class StudentRegistrationService {
         String challanNo = getStudentReferenceNumber()
         if(Student.count()>0){
             if(!Student.findByChallanNo(challanNo)){
-            return challanNo
+               return challanNo
             }else{
-                getChallanNumber()
+               getChallanNumber()
             }
         }
     }
