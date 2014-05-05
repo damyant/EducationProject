@@ -6,6 +6,7 @@ import examinationproject.ExaminationCentre
 import examinationproject.ExaminationVenue
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
+import examinationproject.Student
 import grails.transaction.Transactional
 
 @Transactional
@@ -52,7 +53,7 @@ class ExaminationCentreService {
 
 
     def examVenueList(params) {
-        println("jjjjjjjjjjjjj"+params);
+
         if (params) {
             def list=ExaminationCentre.findAllById(Integer.parseInt(params.examinationCentre))
 //            println("<<<"+list.examVenue)
@@ -69,7 +70,7 @@ class ExaminationCentreService {
     Boolean updateExaminationCentre(params) {
         Boolean isSaved = false
         def examCentreIns = ExaminationVenue.get(params.id)
-        examCentreIns.city = City.findById(Integer.parseInt(params.city))
+//        examCentreIns.city = City.findById(Integer.parseInt(params.city))
         examCentreIns.capacity = Integer.parseInt(params.capacity)
         examCentreIns.name = params.centreName
         examCentreIns.contactNo = params.contactNo
@@ -98,5 +99,22 @@ class ExaminationCentreService {
             isSaved = true
         }
     }
+
+    def deletionExamVenue(params){
+        def examVenueInstance = ExaminationVenue.get(params.id)
+        Student.findAllByExaminationVenue(examVenueInstance).removeAll()
+        def obj = ExaminationCentre.createCriteria()
+
+        def examList = obj.list{
+            examVenue {
+                eq('id',Long.parseLong(params.id))
+            }
+        }
+        examList.each{itr->
+            itr.removeFromExamVenue(examVenueInstance)
+            itr.save(flush:true)
+        }
+    }
+
 
 }

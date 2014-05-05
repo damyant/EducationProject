@@ -40,7 +40,7 @@ class AdminController {
 
     def getStudentList(){
         def responseMap=[:]
-       def stuList= adminInfoService.provisionalStudentList(params)
+        def stuList= adminInfoService.provisionalStudentList(params)
         responseMap.status="referenceNo"
         responseMap.label=params.pageType
         responseMap.stuList=stuList
