@@ -205,20 +205,72 @@ function submitFeeDetail(){
     }
 
 }
-function populateStudents(t){
-    var program=$(t).val();
-    if(program) {
+function populateStudents(object){
+    var programId=$(object).val();
+    if(programId) {
         $.ajax({
             type: "post",
             url: url('feeDetails', 'populateStudents', ''),
-            data: {program:program},
-            success: function (response) {
+            data: {programId:programId},
+            success: function (data) {
+                 for( var i=0;i<data.studentList.length;i++){
+
+                $("#studyCenterFeeEntryTable tbody").append('<tr><td><input type="text" class="university-size-1-1" name="rollNo" id="rollNo'+i+'" value="'+data.studentList[i].rollNo+'" readonly></td><td>Education fee</td><td></td>' +
+                    '<td><select id="paymentMode'+i+'" name="paymentMode"  class="many-to-one university-size-1-2" /></td><td></td><td><select onchange="getBankBranch('+i+')" id="bankName'+i+'" name="bankName" o class="many-to-one university-size-1-2" /></td>' +
+                    '<td><select id="branch'+i+'" name="branch" class="many-to-one university-size-1-2" /></td><td><input type="button" value="save" onclick="saveFeeData('+i+')"></td></tr>');
+
+                $("#bankName"+i).empty().append('<option value="">Select Bank Name</option>')
+                $("#paymentMode"+i).empty().append('<option value="">Select Payment Mode</option>')
+                for(var j=0;j<data.bankName.length;j++){
+                    $("#bankName"+i).append('<option value="' + data.bankName[j].id + '">' +data.bankName[j].bankName + '</option>')
+                }
+                for(var k=0;k<data.paymentMode.length;k++){
+                    $("#paymentMode"+i).append('<option value="' + data.paymentMode[k].id + '">' +data.paymentMode[k].paymentModeName + '</option>')
+                }
+                }
 
             }
+//
+
         });
     }
 }
 
+
+function getBankBranch(index){
+
+         $.ajax({
+            type: "post",
+            url: url('feeDetails', 'getBankBranch', ''),
+            data: {bankId:$('#bankName'+index).val(),bankId:$('#bankName'+index).val(),bankId:$('#bankName'+index).val()},
+            success: function (data) {
+                $("#branch"+index).empty().append('<option value="">Select Payment Mode</option>')
+                for(var i=0;i<data.length;i++){
+                    $("#branch"+index).append('<option value="' + data[i].id + '">' +data[i].branchLocation + '</option>')
+                }
+            }
+
+        })
+
+}
+
+
+function saveFeeData(index){
+alert("hu")
+    $.ajax({
+        type: "post",
+        url: url('feeDetails', 'saveFeeData', ''),
+        data: {rollNo:$('#rollNo'+index).val(),bankId:$('#bankName'+index).val(),paymentModeId:$('#paymentMode'+index).val(),branchId:$('#branch'+index).val()},
+        success: function (data) {
+            $("#branch"+index).empty().append('<option value="">Select Payment Mode</option>')
+            for(var i=0;i<data.length;i++){
+                $("#branch"+index).append('<option value="' + data[i].id + '">' +data[i].branchLocation + '</option>')
+            }
+        }
+
+    })
+
+}
 
 
 

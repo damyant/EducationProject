@@ -105,19 +105,14 @@ class FeeDetailService {
 
     def StudentList(programId){
         def obj = Student.createCriteria()
-        def stuList
-        statusObj = Status.findById(2)
-        if (programId != 'null') {
-            println("getting students of program id" + programId)
-            stuList = obj.list {
+        def stuList = obj.list {
                 programDetail {
                     eq('id', Long.parseLong(programId))
                 }
                 and {
-                    eq('status', statusObj)
+                    eq('status', Status.findById(2))
                 }
             }
-        }
         println("this is the final list of students " + stuList)
         return stuList
     }

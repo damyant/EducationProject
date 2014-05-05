@@ -111,7 +111,26 @@ class FeeDetailsController {
     }
     def populateStudents={
         println("asaaa        "+params)
-        def stuList= feeDetailService.StudentList(params.program)
+        def resultMap=[:]
+        def stuList= feeDetailService.StudentList(params.programId)
+        def bankName=Bank.list(sort:'bankName')
+        def paymentMode=PaymentMode.list(sort:'paymentModeName')
+        resultMap.studentList=stuList
+        resultMap.bankName=bankName
+        resultMap.paymentMode=paymentMode
+        render resultMap as JSON
+    }
+
+    def getBankBranch={
+
+        def bankIns=Bank.findById(Long.parseLong(params.bankId))
+        def branchName=bankIns.branch
+        render branchName as JSON
+
+    }
+    def saveFeeData={
+        println("*********"+params)
+
     }
 
 }
