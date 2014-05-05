@@ -28,8 +28,7 @@
             </tr>
         </table>
         <br/><br/>
-        <table class="inner university-size-full-1-1" style="margin: auto" id="studyCenterFeeEntryTable">
-            <thead>
+        <table id="studyCenterFeeEntryTable" class="inner university-size-full-1-1" style="margin: auto">
             <tr>
                 <th class="university-size-1-8">Roll No</th>
                 <th class="university-size-1-8">Type of Fees</th>

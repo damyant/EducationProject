@@ -8,6 +8,7 @@ import examinationproject.ProgramSession
 import examinationproject.StudyCenter
 import examinationproject.Student
 import grails.transaction.Transactional
+import jxl.CellReferenceHelper
 
 import java.security.SecureRandom
 import java.text.DateFormat;
@@ -41,6 +42,8 @@ class StudentRegistrationService {
             studentRegistration.addressTown = params.addressTown
             studentRegistration.addressStudentName = params.addressStudentName
             studentRegistration.addressDistrict = params.addressDistrict
+            if(params.idol=="idol")
+             studentRegistration.challanNo = getChallanNumber()
 
         } else {
             studentRegistration = new Student(params)
@@ -81,6 +84,8 @@ class StudentRegistrationService {
 
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
+        if(params.idol=="idol")
+            studentRegistration.challanNo = getChallanNumber()
         Set<ExaminationVenue> examinationCentreList = ExaminationVenue.findAllById(Integer.parseInt(params.examinationCentre))
         studentRegistration.examinationCentre = examinationCentreList
         if (!params.appNo) {
@@ -222,6 +227,17 @@ class StudentRegistrationService {
             students.registrationYear = year
             students.save(flush: true)
 
+        }
+    }
+
+    def getChallanNumber(){
+        String challanNo = getStudentReferenceNumber()
+        if(Student.count()>0){
+            if(!Student.findByChallanNo(challanNo)){
+            return challanNo
+            }else{
+                getChallanNumber()
+            }
         }
     }
 

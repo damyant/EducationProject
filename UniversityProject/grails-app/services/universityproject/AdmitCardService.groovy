@@ -27,7 +27,7 @@ class AdmitCardService {
                 eq('programSession', ProgramSession.findById(Integer.parseInt(params.programSession)))
             }
             and {
-                eq('status', Status.findById(3))
+                eq('status', Status.findById(4))
             }
 
             and {
