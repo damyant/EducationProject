@@ -34,13 +34,13 @@ class AttendanceService {
 
 
     Boolean getStudentList(params, excelPath) {
-
+         println("hello kuldeep "+ params)
         def obj = Student.createCriteria()
         def studentList = obj.list {
             programDetail {
                 eq('id', Long.parseLong(params.programList))
             }
-            examinationCentre {
+            examinationVenue {
                 eq('id', Long.parseLong(params.examinationCentre))
             }
             and {

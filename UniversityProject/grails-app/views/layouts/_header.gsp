@@ -205,7 +205,7 @@
 
             </ul>
         </li>
-
+        <li><g:link controller="report" action="reportIndex"><g:message code="default.mainMenu9"/></g:link></li>
 
         </ul>
     </div>
