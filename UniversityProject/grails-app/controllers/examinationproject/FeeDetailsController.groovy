@@ -102,6 +102,16 @@ class FeeDetailsController {
         }
 
     }
+    def studyCentreAdmissionFee={
+        def programList = ProgramDetail.list(sort:'courseName')
+        [programList:programList]
+    }
+    def studyCentrePostAdmissionFee={
 
+    }
+    def populateStudents={
+        println("asaaa        "+params)
+        def stuList= feeDetailService.StudentList(params.program)
+    }
 
 }

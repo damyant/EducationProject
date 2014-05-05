@@ -170,11 +170,10 @@
                 </ul>
 
             </li>
-        <li><a href="#"><g:message code="default.mainMenu7"/></a>
+        <li><a href="#">Pay-in-Slip</a>
             <ul>
                 <li><g:link controller="admin"
-                            action="feeVoucher"><g:message
-                            code="default.mainMenu6.subMenu9"/></g:link></li>
+                            action="feeVoucher">Generate Pay-in-Slip</g:link></li>
                 %{--<li><g:link controller="admin"--}%
                             %{--action="examFeeVoucher"><g:message--}%
                             %{--code="default.mainMenu6.subMenu8"/></g:link></li>--}%
@@ -191,6 +190,17 @@
                 <li><g:link controller="feeDetails"
                             action="bulkFeeEntry"><g:message
                             code="default.mainMenu8.subMenu2"/></g:link></li>
+                <li><a href="#"><g:message
+                            code="default.mainMenu8.subMenu3"/></a>
+                    <ul>
+                        <li><g:link controller="feeDetails"
+                                    action="studyCentreAdmissionFee"><g:message
+                                    code="default.mainMenu8.subMenu3.subMenu1"/></g:link></li>
+                        <li><g:link controller="feeDetails"
+                                    action="studyCentrePostAdmissionFee"><g:message
+                                    code="default.mainMenu8.subMenu3.subMenu2"/></g:link></li>
+                    </ul>
+                </li>
 
 
             </ul>

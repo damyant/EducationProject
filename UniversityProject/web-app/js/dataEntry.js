@@ -209,7 +209,19 @@ function submitFeeDetail(){
     }
 
 }
+function populateStudents(t){
+    var program=$(t).val();
+    if(program) {
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'populateStudents', ''),
+            data: {program:program},
+            success: function (response) {
 
+            }
+        });
+    }
+}
 
 
 
