@@ -41,7 +41,6 @@ class StudentRegistrationService {
             studentRegistration.addressTown = params.addressTown
             studentRegistration.addressStudentName = params.addressStudentName
             studentRegistration.addressDistrict = params.addressDistrict
-//           studentRegistration.status
 
         } else {
             studentRegistration = new Student(params)
@@ -108,7 +107,7 @@ class StudentRegistrationService {
 
     /**
      * Service to generate the roll no.
-     * @param courseId
+     * @param params
      * @return
      */
     def getStudentRollNumber(params) {
@@ -130,6 +129,7 @@ class StudentRegistrationService {
         String rollNumber = null;
         def student = Student.count()
         if (student > 0) {
+
             def obj = Student.createCriteria()
             def studentByYearAndCourse = obj.list {
                 programDetail {
@@ -142,50 +142,17 @@ class StudentRegistrationService {
                 order("rollNo", "desc")
             }
 
-            if (params.studentList) {
-                def studentIdList = params.studentList.split(",")
-                studentIdList.each { i ->
-                    def stuObj = Student.findById(Long.parseLong(i.toString()))
-                    def obj1 = Student.createCriteria()
-                    studentByYearAndCourse = obj1.list {
-                        programDetail {
-                            eq('id', Long.parseLong(params.programId))
-                        }
-                        and {
-                            eq('registrationYear', year)
-                        }
-                        maxResults(1)
-                        order("rollNo", "desc")
-                    }
+            println("List Size"+studentByYearAndCourse)
+                if (studentByYearAndCourse.size()>0) {
+                    if (studentByYearAndCourse.get(0).rollNo) {
 
-                    if (studentByYearAndCourse[0].rollNo == "") {
-                        rollNumber = courseCodeStr + yearCode + rollStr
-                    } else {
-                        if (rollTemp == null) {
-                            rollTemp = studentByYearAndCourse[0].rollNo.substring(4, 8)
-                            rollTemp1 = Integer.parseInt(rollTemp) + 1
-                            rollNumber = courseCodeStr + yearCode + rollTemp1
-                        } else {
-                            ++rollTemp1
-                            rollNumber = courseCodeStr + yearCode + rollTemp1
-                        }
-                    }
-                    stuObj.rollNo = rollNumber
-                    stuObj.status = Status.findById(Long.parseLong("2"))
-                    stuObj.save(failOnError: true)
-                }
-                return status = true
-            } else {
-
-                if (studentByYearAndCourse) {
-                    if (studentByYearAndCourse[0].rollNo) {
                         if (rollNumber == null) {
-                            rollTemp = studentByYearAndCourse[0].rollNo.substring(4, 8)
+                            rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
                             rollTemp1 = Integer.parseInt(rollTemp) + 1
-                            rollNumber = courseCodeStr + yearCode + rollTemp1
+                            rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
                         } else {
                             ++rollTemp1
-                            rollNumber = courseCodeStr + yearCode + rollTemp1
+                            rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
                         }
                     } else {
                         rollNumber = courseCodeStr + yearCode + rollStr
@@ -193,7 +160,7 @@ class StudentRegistrationService {
                 } else {
                     rollNumber = courseCodeStr + yearCode + rollStr
                 }
-            }
+
         } else {
             rollNumber = courseCodeStr + yearCode + rollStr
         }
@@ -210,7 +177,7 @@ class StudentRegistrationService {
         String symbols = "123456789987654321";
         Random random = new SecureRandom();
         char[] buf;
-        buf = new char[8];
+        buf = new char[6];
         def bufLength = buf.length
         for (int idx = 0; idx < bufLength; idx++)
             buf[idx] = symbols.charAt(random.nextInt(symbols.length()));
@@ -224,17 +191,17 @@ class StudentRegistrationService {
             stuObj.status = Status.findById(Long.parseLong("3"))
             stuObj.save(failOnError: true)
         }
-
-
     }
 
     def seedStudent() {
         def students
-//        Set<ExaminationVenue> examinationCentre = ExaminationVenue.findAllById(1)
-        Set<StudyCenter> studyCenters = StudyCenter.findAllById(125)
+
+        Set<ExaminationCentre> examinationCentre = ExaminationCentre.findAllById(1)
+        Set<StudyCenter> studyCenters = StudyCenter.findAllById(8)
         Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)
         def programSession = ProgramSession.findById(1)
-
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
+        int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 
         for (int i = 0; i < 100; i++) {
             students = new Student()
@@ -242,6 +209,7 @@ class StudentRegistrationService {
             students.studentName = "Student" + i
             students.gender = "Male"
             students.category = "GEN"
+            students.referenceNumber = Integer.parseInt(getStudentReferenceNumber())
             students.mobileNo = Long.parseLong("9898787998")
             students.nationality = "Indian"
             students.state = "Assam"
@@ -251,7 +219,7 @@ class StudentRegistrationService {
             students.admitCardGenerated = false
             students.programDetail = programDetails
             students.programSession = programSession
-
+            students.registrationYear = year
             students.save(flush: true)
 
         }

@@ -16,9 +16,7 @@ class StudyCenter {
     String asstEmail
 
     City city
-    static hasMany = [
-            student : Student
-    ]
+    static hasMany = [student : Student]
     static belongsTo = Student
 
     static mapping = {
@@ -55,10 +53,8 @@ class StudyCenter {
             asstCoordinator(nullable: true)
             asstMobile (nullable: true)
             asstEmail(nullable: true)
-
-
-
     }
+
     def beforeDelete = {
         this.student.each {
             it.removeFromStudyCentre(this)

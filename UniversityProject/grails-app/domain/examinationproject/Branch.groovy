@@ -3,7 +3,8 @@ package examinationproject
 class Branch {
 
     String branchLocation
-    Bank bank
+
+    static belongsTo = Bank
 
     static constraints = {
         branchLocation(nullable: false)
@@ -12,7 +13,6 @@ class Branch {
 
     static mapping = {
         id column: 'branchId'
-        bankId column: 'bankId'
         branchLocation column: 'branchLocation'
 
     }

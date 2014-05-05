@@ -146,16 +146,28 @@ function submitTempRegistration() {
     }
 }
 function confirmGenerateChallan(rollno) {
-
-    var result = confirm("Do you want to Generate Challan for Roll No " + rollno + " ?");
-    if (result == true) {
+    $.ajax({
+        type: "post",
+        url: url('admin', 'checkFeeByRollNo', ''),
+        data: {rollNo: rollno},
+        success: function (data) {
+            if (data.feeStatus) {
+                var result = confirm("Do you want to Generate Challan for Roll No " + rollno + " ?");
+                if (result == true) {
 //              window.open('/UniversityProject/admin/generateFeeVoucher/?rollNo='+rollNo+'&feeType='+1);
-        window.location.href = '/UniversityProject/admin/feeVoucher?rollNo=' + rollno;
-    }
-    else {
+                    window.location.href = '/UniversityProject/admin/feeVoucher?rollNo=' + rollno;
+                }
+                else {
 
-        window.location.href = '/UniversityProject/student/enrollmentAtIdol';
-        $("#errorMessage").text('Student Registered Successfully & Roll No is ' + rollno)
-    }
+//                    window.location.href = '/UniversityProject/student/enrollmentAtIdol';
+                    alert('Student Registered Successfully & Roll No is ' + rollno);
+                }
+
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            $("#errorMessage").text('Fees Not Yet Entered For the Program and Roll No is ' + rollno)
+        }
+    });
 }
 

@@ -19,7 +19,7 @@
     <div id="list-user" class="content scaffold-list" role="main">
         <h3><g:message code="default.list.label" args="[entityName]"/></h3>
         <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
+            <div class="message" role="status"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
         <table class="university-table-1-7 inner" id="userListTable">
             <thead>

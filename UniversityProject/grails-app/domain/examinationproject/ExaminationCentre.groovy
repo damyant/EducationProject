@@ -3,6 +3,7 @@ package examinationproject
 import examinationproject.District
 
 class ExaminationCentre {
+
     String examinationCentreName
     District district
 

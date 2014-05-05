@@ -42,11 +42,11 @@ class StudentController {
 
     }
     def submitRegistration = {
-        println("in submit Registration " + params)
+
         def studentRegistration
             def signature = request.getFile('signature')
             def photographe = request.getFile("photograph")
-            println("=============" + photographe)
+
             studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe )
 
 
@@ -74,10 +74,7 @@ class StudentController {
 
         println("params" + params)
         def student = Student.findById(params.studentID)
-
         def args = [template: "applicationPrintPreview", model: [studentInstance: student]]
-
-
         pdfRenderingService.render(args + [controller: this], response)
 
 

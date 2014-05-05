@@ -38,11 +38,9 @@
             var flag = "${registered}"
             var studentId = "${studentID}"
             if (flag == 'registered') {
-                //a(studentId)
-                //var url = window.location.href;
+                alert(flag+""+studentId)
                 url = "http://localhost:9093/UniversityProject/student/registration"
                 window.location.href = url;
-                flag = "do not open"
                 window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId);
 
             }
@@ -221,11 +219,11 @@
                                   optionValue="examinationCentreName"
                                   from="${ExaminationCentre.findAllByDistrict(District.get(studInstance?.examinationCentre?.district?.id?.get(0)))}"
                                   value="${studInstance?.examinationCentre?.id?.get(0)}"
-                                  noSelection="['': 'Select Examination Centre']"/>
+                                  noSelection="['': 'Select District']"/>
                     </g:if>
                     <g:else>
                         <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-1" from=" "
-                                  noSelection="['': 'Select Examination Venue']"/>
+                                  noSelection="['': 'Select Examination Centre']"/>
                     </g:else>
                 </td>
             </tr>

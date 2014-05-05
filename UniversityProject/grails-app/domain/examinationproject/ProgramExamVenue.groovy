@@ -14,8 +14,8 @@ class ProgramExamVenue implements Serializable  {
         }
 
         other.courseDetail?.id == courseDetail?.id &&
-        other.examCenter?.id == examCenter?.id &&
-        other.examVenue?.id==examVenue?.id
+                other.examCenter?.id == examCenter?.id &&
+                other.examVenue?.id==examVenue?.id
 
     }
 
@@ -73,9 +73,3 @@ class ProgramExamVenue implements Serializable  {
 
 
 }
-
-
-
-
-
-

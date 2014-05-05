@@ -104,7 +104,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Select Preference of examination Centre <span class="university-obligatory">*</span></td>
+                        <td>Select District<span class="university-obligatory">*</span></td>
                         <td>
                             <g:select name="examDistrict" id="district" optionKey="id"
                                       value=""
@@ -114,9 +114,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Select Preference of examination Venue <span class="university-obligatory">*</span></td>
+                        <td>Select Preference of examination Centre <span class="university-obligatory">*</span></td>
                         <td>
-                            <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-2" from=" " noSelection="['': 'Select Examination Venue']"/>
+                            <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-2" from=" " noSelection="['': 'Select Examination Centre']"/>
                         </td>
                     </tr>
                     <tr>

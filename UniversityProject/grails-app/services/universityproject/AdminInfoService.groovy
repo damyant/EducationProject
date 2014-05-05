@@ -94,7 +94,6 @@ def springSecurityService
                 }
             }
         }
-
         subjectMap.allSubjects=subList
         subjectMap.dateList=totalDateList
 

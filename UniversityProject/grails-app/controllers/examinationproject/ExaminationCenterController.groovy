@@ -111,16 +111,14 @@ class ExaminationCenterController {
 
     }
 
-
-    def getExaminationCentreList(){
+    def getExaminationVenueList(){
         try{
-            City city = City.get(params.int('data'));
+            ExaminationCentre examinationCentre = ExaminationCentre.get(params.int('data'));
 
-            def centreList = null
-            if (city != null) {
-                centreList = ExaminationVenue.findAllByCity(city,[sort:'name'])
-                println("<><><><><><><><>><<><>"+centreList)
-                render centreList as JSON
+            def venueList = null
+            if (examinationCentre != null) {
+                venueList= examinationCentre.examVenue
+                render venueList as JSON
             } else {
                 render null
             }
@@ -137,7 +135,7 @@ class ExaminationCenterController {
 
             def programmeList = null
             if (examinationCentre != null) {
-                programmeList = ProgramExamVenue.findAllByExamCenter(examinationCentre).courseDetail
+                programmeList = ProgramExamVenue.findAllByExamVenue(examinationCentre).courseDetail
                 println("list of programs"+programmeList)
                 render programmeList as JSON
             } else {
@@ -189,6 +187,7 @@ class ExaminationCenterController {
         redirect(action: "createExamCentre")
     }
 
+
     def getExamCenterList() {
 
         try{
@@ -205,4 +204,5 @@ class ExaminationCenterController {
             println("<<<<<<<<<<<Problem in getting exam Center List list" + e)
         }
     }
+
 }
