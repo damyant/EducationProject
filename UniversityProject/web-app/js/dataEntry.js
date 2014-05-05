@@ -5,7 +5,7 @@
 
 var studentList = [];
 // document ready function............................................
-$(function() {
+$(function () {
     $("#dialog").dialog({
         autoOpen: false,
 //        maxWidth:600,
@@ -13,24 +13,25 @@ $(function() {
         width: 1000,
         height: 650,
         modal: true,
-        title:'Enter Fee Details',
-        close: function(ev, ui) { getStudentsList()}
+        title: 'Enter Fee Details',
+        close: function (ev, ui) {
+            getStudentsList()
+        }
 
     });
 });
 
-function nextStudent(){
+function nextStudent() {
 
     var nextValue = $('#nextStudentId').val()
 //    alert("Next button clicked-----------"+nextValue)
     openPopUp(nextValue)
 }
-function previousStudent(){
+function previousStudent() {
     var previousValue = $('#previousStudentId').val()
 //    alert("hello------------------------------"+previousValue)
     openPopUp(previousValue)
 }
-
 
 
 function getStudentsList() {
@@ -40,7 +41,7 @@ function getStudentsList() {
     $.ajax({
         type: "post",
         url: url('feeDetails', 'getStudentList', ''),
-        data: {studyCenterId: $('#studyCentre').val(), programId: $('#programId').val(), admissionDate: $('#admissionDate').val(),pageType: $('#pageType').val()},
+        data: {studyCenterId: $('#studyCentre').val(), programId: $('#programId').val(), admissionDate: $('#admissionDate').val(), pageType: $('#pageType').val()},
 
         success: function (data) {
 
@@ -64,13 +65,13 @@ function appendDataTable(data) {
         document.getElementById("studentList").style.visibility = "visible";
         $('#studentList thead').append('<tr><th>' + "Roll Number" + '</th><th>' + "Student Name" + '</th><th>' + "Fee Entry" + '</th></tr>')
         for (var i = 0; i < data.stuList.length; i++) {
-            studentList[i]= data.stuList[i]
-            var ide= data.stuList[i].id
+            studentList[i] = data.stuList[i]
+            var ide = data.stuList[i].id
 
             $('#studentList tbody').append('<tr></td><td>' + data.stuList[i].rollNo + '</td><td>' + data.stuList[i].studentName
-                + '</td><td><button id="fee" onclick="openPopUp('+ data.stuList[i].id+')">Fee Entry</button></td></tr>')
+                + '</td><td><button id="fee" onclick="openPopUp(' + data.stuList[i].id + ')">Fee Entry</button></td></tr>')
 
-    }
+        }
     }
     else {
         document.getElementById("studentList").style.visibility = "hidden";
@@ -91,24 +92,24 @@ function enablecriteria(t) {
         $('#programl').show();
         $('#programv').show();
 //        $('#studyCentre').val('')
-    }else{
+    } else {
         $('#programl').hide();
         $('#programv').hide();
     }
 
-    if(op=="By Study Centre"){
+    if (op == "By Study Centre") {
         $('#studyCentrel').show();
         $('#studyCentrev').show();
 //        $('#programId').val('')
-    }else{
+    } else {
         $('#studyCentrel').hide();
         $('#studyCentrev').hide();
     }
 
-    if(op=="By Admission Date"){
+    if (op == "By Admission Date") {
         $('#admissionDatel').show();
         $('#admissionDatev').show();
-    }else{
+    } else {
         $('#admissionDatel').hide();
         $('#admissionDatev').hide();
     }
@@ -117,37 +118,36 @@ function enablecriteria(t) {
 }
 
 
-
 function toggleChecked(status) {
     $(".checkbox").each(function () {
         $('input:checkbox:not(:disabled)').attr("checked", status)
     })
 }
 
-function openPopUp(studentId){
+function openPopUp(studentId) {
 
 
-    $( "#dialog" ).dialog('open');
-    for(var i=0 ; i<studentList.length;i++){
-        if(studentList[i]){
-            if(studentList[i].id==studentId){
+    $("#dialog").dialog('open');
+    for (var i = 0; i < studentList.length; i++) {
+        if (studentList[i]) {
+            if (studentList[i].id == studentId) {
                 $('#rollNo').val(studentList[i].rollNo)
-                $('#currentStudentId').val( studentList[i].id)
-                if(i+1<studentList.length){
+                $('#currentStudentId').val(studentList[i].id)
+                if (i + 1 < studentList.length) {
 
-                    $('#nextStudentId').val(studentList[i+1].id)
+                    $('#nextStudentId').val(studentList[i + 1].id)
                 }
-                else{
+                else {
 //              alert('in first else'+i)
                     $('#nextStudentId').val(studentList[0].id)
                 }
-                if(i-1>=0){
+                if (i - 1 >= 0) {
 //              alert('in second if'+i)
-                    $('#previousStudentId').val( studentList[i-1].id)
+                    $('#previousStudentId').val(studentList[i - 1].id)
                 }
-                else{
+                else {
 //              alert('in second else'+i)
-                    $('#previousStudentId').val( studentList[studentList.length-1].id)
+                    $('#previousStudentId').val(studentList[studentList.length - 1].id)
                 }
                 break;
             }
@@ -156,55 +156,53 @@ function openPopUp(studentId){
 }
 
 
-function submitFeeDetail(){
-   validate();
-    var result= $('#createFeeDetail').valid()
-    if(result){
-    $.ajax({
-        type: "post",
-        url: url('feeDetails', 'saveBulkFeeDetails', ''),
-        async: false,
-        data: $('#createFeeDetail').serialize(),
-        success: function (response) {
-            $('div#responseMessage').html(response);
-            var current = $('#currentStudentId').val()
+function submitFeeDetail() {
+    validate();
+    var result = $('#createFeeDetail').valid()
+    if (result) {
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'saveBulkFeeDetails', ''),
+            async: false,
+            data: $('#createFeeDetail').serialize(),
+            success: function (response) {
+                $('div#responseMessage').html(response);
+                var current = $('#currentStudentId').val()
 //            alert("value of current is "+current)
-            for(var i=0; i< studentList.length; i++){
-                if(studentList[i]){
-                if(studentList[i].id==current){
-                    delete studentList[i]
-                    break;
+                for (var i = 0; i < studentList.length; i++) {
+                    if (studentList[i]) {
+                        if (studentList[i].id == current) {
+                            delete studentList[i]
+                            break;
+                        }
+                    }
                 }
-              }
-            }
-
-
-
-            console.log("---------------------------------------"+studentList)
-            for(var i=0; i< studentList.length; i++){
-                if(studentList[i]){
-                    $('#createFeeDetail').trigger("reset");
+                console.log("---------------------------------------" + studentList)
+                for (var i = 0; i < studentList.length; i++) {
+                    if (studentList[i]) {
+                        $('#createFeeDetail').trigger("reset");
 //                    alert("Fill Fee Details For Next Student")
-                    $( "#next" ).click();
-                    break;
+                        $("#next").click();
+                        break;
+                    }
+
                 }
+                $("#dialog").dialog('close');
 
+
+            }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $('div#responseMessage').html("Fee details cannot be saved ");
+                console.log("response in error")
             }
-            $( "#dialog" ).dialog('close');
 
-
-        }, error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $('div#responseMessage').html("Fee details cannot be saved ");
-            console.log("response in error")
-        }
-
-    });
+        });
     }
-    else{
+    else {
         return false;
     }
 
 }
+
 function populateStudents(object){
     var programId=$(object).val();
     if(programId) {
@@ -228,7 +226,6 @@ function populateStudents(object){
                     $("#paymentMode"+i).append('<option value="' + data.paymentMode[k].id + '">' +data.paymentMode[k].paymentModeName + '</option>')
                 }
                 }
-
             }
 //
 

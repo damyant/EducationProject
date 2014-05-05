@@ -15,11 +15,19 @@
 <body>
 <div id="main">
     <fieldset class="form">
-        <h3>Study Centre Admission Fee Entry</h3>
+        <h3>Study Centre Admission Fee Approval</h3>
         <table class="inner university-size-full-1-1" style="margin: auto">
             <tr>
-                <td class="university-size-1-3"><label>Select a Program</label></td>
-                <td class="university-size-2-3" style="padding-left: 20px;">
+                <td class="university-size-1-4"><label>Select a Study Centre</label></td>
+                <td class="university-size-3-4" style="padding-left: 20px;">
+                    <g:select name="studyCenter" class="university-size-1-2" id="studyCenter"
+                              from="${studyCenterList}" optionKey="id" optionValue="name"
+                              noSelection="['null': ' Select Study Center']"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="university-size-1-4"><label>Select a Program</label></td>
+                <td class="university-size-3-4" style="padding-left: 20px;">
                     <g:select name="programList" class="university-size-1-2" optionKey="id"
                               optionValue="courseName"
                               from="${programList}" noSelection="['': ' Select Program']"
@@ -28,7 +36,8 @@
             </tr>
         </table>
         <br/><br/>
-        <table id="studyCenterFeeEntryTable" class="inner university-size-full-1-1" style="margin: auto">
+        <table class="inner university-size-full-1-1" style="margin: auto" id="studyCenterFeeEntryTable">
+            <thead>
             <tr>
                 <th class="university-size-1-8">Roll No</th>
                 <th class="university-size-1-8">Type of Fees</th>

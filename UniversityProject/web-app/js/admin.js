@@ -322,7 +322,7 @@ function deleteFeeType(feeTypeId) {
 
     if (result == true) {
         var data = feeTypeId;
-        alert(result)
+//        alert(result)
         $.ajax({
             type: "post",
             url: url('programFee', 'deleteFeesType', ''),
@@ -330,6 +330,25 @@ function deleteFeeType(feeTypeId) {
             success: function (data) {
                 //document.location.reload();
                 window.location.href = '/UniversityProject/programFee/viewExistingFeeType';
+            }
+        });
+    }
+}
+function loadBranch(t){
+    var bank=$(t).val();
+//    alert(bank)
+    if(bank){
+        $.ajax({
+            type: "post",
+            url: url('admin', 'getBranchList', ''),
+            data: {bank: bank},
+            success: function (data) {
+                //document.location.reload();
+                $("#branchLocation").empty().append('');
+                $("#branchLocation").append('Select Branch');
+                for (var i = 0; i < data.length; i++) {
+                    $("#branchLocation").append('<option value="' + data[i].id + '">' + data[i].branchLocation + '</option>')
+                }
             }
         });
     }
