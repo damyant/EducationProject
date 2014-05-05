@@ -16,7 +16,7 @@
 <div id="main">
     <fieldset>
         <h3>STUDENT ADMIT CARD</h3>
-        <g:form name="admitCardForm" id="admitCardForm" controller="admitCard" action="printAdmitCard">
+    <g:form name="admitCardForm" id="admitCardForm" >
             <g:hiddenField name="studentList" id="studentList"/>
             <div>
                 <table class="university-table-1-3 inner" style="width: 80%;margin-left: 20px;">
