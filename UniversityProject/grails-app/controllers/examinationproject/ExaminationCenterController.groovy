@@ -95,22 +95,12 @@ class ExaminationCenterController {
         }
 
     @Secured("ROLE_ADMIN")
-    def deleteExaminationCentre={
 
-    }
     def deleteCentre={
         try {
-            println('in delete Centre')
-            def tmp=[]
-            def examCentreInstance = ExaminationVenue.get(params.id)
-            examCentreInstance.student.each { tmp << it }
-            tmp.each { examCentreInstance.removeFromStudent(it) }
-            def programExamVenue = ProgramExamVenue.findAllByExamCenter(examCentreInstance)
-            programExamVenue.each {
-                it.delete(flush: true)
-            }
-            examCentreInstance.delete(flush: true)
-            flash.message = "${message(code: 'centre.deleted.message')}"
+
+           examinationCentreService.deletionExamVenue(params)
+           flash.message = "${message(code: 'centre.deleted.message')}"
             redirect(action: "updateExaminationCentre")
         }
       catch (Exception e){
@@ -120,6 +110,8 @@ class ExaminationCenterController {
 
 
     }
+
+
     def getExaminationCentreList(){
         try{
             City city = City.get(params.int('data'));
