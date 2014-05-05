@@ -17,6 +17,7 @@
         <div>GAUHATI UNIVERSITY</div>
     </p>
         <div style="clear: both; margin-bottom: 10px;"></div>
+        <div><label >${student?.challanNo}</label></div>
         <table width="100%" class="university-table-1-2">
             <tr><td><lable>Name:</lable></td><td><label>${student?.studentName}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
@@ -47,6 +48,7 @@
         <div>GAUHATI UNIVERSITY</div>
     </p>
         <div style="clear: both; margin-bottom: 10px;"></div>
+        <div><label >${student?.challanNo}</label></div>
         <table width="100%" class="university-table-1-2">
             <tr><td><lable>Name:</lable></td><td><label>${student?.studentName}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
@@ -77,6 +79,7 @@
         <div>GAUHATI UNIVERSITY</div>
     </p>
         <div style="clear: both; margin-bottom: 10px;"></div>
+        <div><label >${student?.challanNo}</label></div>
         <table width="100%" class="university-table-1-2">
             <tr><td><lable>Name:</lable></td><td><label>${student?.studentName}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
