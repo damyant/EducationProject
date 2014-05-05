@@ -323,7 +323,10 @@ function generateAdmitCard(){
 
         })
         $("#studentList").val(selectedStudentList)
-        $("#admitCardForm").submit();
+        var studentList =$("#studentList").val()
+        var venue =$("#examCenterList").val()
+        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue);
+        //$("#admitCardForm").submit();
 //        studentsSelected(selectedStudentList)
 
         setTimeout(function(){ getStudentsForAdmitCard()},300);
