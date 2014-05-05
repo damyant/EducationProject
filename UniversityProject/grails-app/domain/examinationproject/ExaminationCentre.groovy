@@ -10,6 +10,7 @@ class ExaminationCentre {
             student : Student,
             examVenue:ExaminationVenue
     ]
+
     static belongsTo = Student
 
     static constraints = {
@@ -20,5 +21,6 @@ class ExaminationCentre {
         id column: 'examinationCentreId'
         district column: 'DistrictId'
         examinationCentreName column: 'examinationCentreName'
+        examVenue cascade:'all-delete-orphan'
     }
 }
