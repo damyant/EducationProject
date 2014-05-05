@@ -95,22 +95,12 @@ class ExaminationCenterController {
         }
 
     @Secured("ROLE_ADMIN")
-    def deleteExaminationCentre={
 
-    }
     def deleteCentre={
         try {
-            println('in delete Centre')
-            def tmp=[]
-            def examCentreInstance = ExaminationVenue.get(params.id)
-            examCentreInstance.student.each { tmp << it }
-            tmp.each { examCentreInstance.removeFromStudent(it) }
-            def programExamVenue = ProgramExamVenue.findAllByExamCenter(examCentreInstance)
-            programExamVenue.each {
-                it.delete(flush: true)
-            }
-            examCentreInstance.delete(flush: true)
-            flash.message = "${message(code: 'centre.deleted.message')}"
+
+           examinationCentreService.deletionExamVenue(params)
+           flash.message = "${message(code: 'centre.deleted.message')}"
             redirect(action: "updateExaminationCentre")
         }
       catch (Exception e){
@@ -120,15 +110,15 @@ class ExaminationCenterController {
 
 
     }
-    def getExaminationCentreList(){
-        try{
-            City city = City.get(params.int('data'));
 
-            def centreList = null
-            if (city != null) {
-                centreList = ExaminationVenue.findAllByCity(city,[sort:'name'])
-                println("<><><><><><><><>><<><>"+centreList)
-                render centreList as JSON
+    def getExaminationVenueList(){
+        try{
+            ExaminationCentre examinationCentre = ExaminationCentre.get(params.int('data'));
+
+            def venueList = null
+            if (examinationCentre != null) {
+                venueList= examinationCentre.examVenue
+                render venueList as JSON
             } else {
                 render null
             }
@@ -145,7 +135,7 @@ class ExaminationCenterController {
 
             def programmeList = null
             if (examinationCentre != null) {
-                programmeList = ProgramExamVenue.findAllByExamCenter(examinationCentre).courseDetail
+                programmeList = ProgramExamVenue.findAllByExamVenue(examinationCentre).courseDetail
                 println("list of programs"+programmeList)
                 render programmeList as JSON
             } else {
@@ -197,6 +187,7 @@ class ExaminationCenterController {
         redirect(action: "createExamCentre")
     }
 
+
     def getExamCenterList() {
 
         try{
@@ -213,4 +204,5 @@ class ExaminationCenterController {
             println("<<<<<<<<<<<Problem in getting exam Center List list" + e)
         }
     }
+
 }

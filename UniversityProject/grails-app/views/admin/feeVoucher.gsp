@@ -40,7 +40,7 @@
 <body>
 <div id="main">
     <fieldset>
-        <h3>Generate Fee Challan</h3>
+        <h3>Generate Pay-In-Slip</h3>
         <g:if test="${params.rollNo == 'generated'}">
             <div class="message"><div class="university-status-message"><g:message
                     code="rollNo.Generated.message"/></div>

@@ -85,7 +85,9 @@ body {
 .university-size-2-5 {
     width: 38%;
 }
-
+.university-size-1-8 {
+    width: 12.5%;
+}
 .university-bottom-margin{
     margin-bottom: 10px;
 }

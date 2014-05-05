@@ -313,6 +313,32 @@
     </td>
 </tr>
 <tr>
+
+  <td colspan="2">
+    <fieldset>
+        <legend>Fee Details</legend>
+        <table class="inner">
+            <tr>
+                <td>Bank Name</td>
+                <td> <g:select name="bankName" from=""/></td>
+            </tr>
+            <tr>
+                <td>Branch Name</td>
+                <td> <g:select name="bankName" from=""/></td>
+            </tr>
+            <tr>
+                <td>Payment Mode</td>
+                <td> <g:select name="bankName" from=""/></td>
+            </tr>
+            <tr>
+                <td>Reference Number</td>
+                <td> <input type="text"/></td>
+            </tr>
+        </table>
+    </fieldset>
+  </td>
+</tr>
+<tr>
     <td colspan="2">
         <label id="declaration-label"><input type="checkbox" id="declaration" name="declaration"/>
             I hereby declare that the information as indicated above is true to the best of my knowledge. <span
