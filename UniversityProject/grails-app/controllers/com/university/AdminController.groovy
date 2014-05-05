@@ -235,5 +235,10 @@ class AdminController {
         println("))))))))@@@@@@@@@@@@@@@@@@"+list.branch[0].branchLocation)
         render list.branch[0] as JSON
     }
+    def studyCentreFeeApproval={
+        def studyCenterList=StudyCenter.list(sort: 'name');
+        def programList = ProgramDetail.list(sort:'courseName')
+        [studyCenterList:studyCenterList,programList:programList]
+    }
 }
 

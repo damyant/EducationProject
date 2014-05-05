@@ -161,6 +161,9 @@
                         <li><g:link controller="programFee"
                                     action="listOfFeeType"><g:message
                                     code="default.mainMenu3.subMenu7.subMenu2"/></g:link></li>
+                        <li><g:link controller="admin"
+                                    action="studyCentreFeeApproval"><g:message
+                                    code="default.mainMenu3.subMenu7.subMenu6"/></g:link></li>
 
                     </ul>
                 </li>
