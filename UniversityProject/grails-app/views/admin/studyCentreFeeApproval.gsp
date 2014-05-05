@@ -18,6 +18,14 @@
         <h3>Study Centre Admission Fee Entry</h3>
         <table class="inner university-size-full-1-1" style="margin: auto">
             <tr>
+                <td class="university-size-1-3"><label>Select a Study Centre</label></td>
+                <td class="university-size-2-3" style="padding-left: 20px;">
+                    <g:select name="studyCenter" class="university-size-1-1" id="studyCenter"
+                              from="${studyCenterList}" optionKey="id" optionValue="name"
+                              noSelection="['null': ' Select Study Center']" onchange="enableProgram(this)"/>
+                </td>
+            </tr>
+            <tr>
                 <td class="university-size-1-3"><label>Select a Program</label></td>
                 <td class="university-size-2-3" style="padding-left: 20px;">
                     <g:select name="programList" class="university-size-1-2" optionKey="id"

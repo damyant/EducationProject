@@ -237,7 +237,7 @@ function showExamVenueList1()  {
                 $("#moveButton").css("visibility", 'visible');
                 $("#movetoSelect").css("visibility", 'visible');
             }
-                alert(data.assocaitedExamVenue)
+//                alert(data.assocaitedExamVenue)
             for(var j=0;j<data.assocaitedExamVenue.length;j++){
 
                 $("#addExamCentre").append('<option value="' + data.assocaitedExamVenue[j].id + '">' + data.assocaitedExamVenue[j].name + '</option>')

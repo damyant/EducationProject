@@ -104,13 +104,14 @@ class FeeDetailsController {
     }
     def studyCentreAdmissionFee={
         def programList = ProgramDetail.list(sort:'courseName')
-        [programList:programList]
+        def paymentModeList = PaymentMode.list(sort:'payment_mode_name')
+        def bankList = Bank.list(sort:'bankName')
+        [programList:programList, paymentModeList:paymentModeList, bankList:bankList]
     }
     def studyCentrePostAdmissionFee={
 
     }
     def populateStudents={
-        println("asaaa        "+params)
         def stuList= feeDetailService.StudentList(params.program)
     }
 

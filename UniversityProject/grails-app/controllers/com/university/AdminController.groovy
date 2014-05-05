@@ -1,5 +1,7 @@
 package com.university
 
+import examinationproject.Bank
+import examinationproject.Branch
 import examinationproject.ExaminationCentre
 import examinationproject.ExaminationVenue
 import examinationproject.FeeType
@@ -223,6 +225,15 @@ class AdminController {
         def studyCentreList = StudyCenter.list(sort:'name')
         def programList = ProgramDetail.list(sort:'courseName')
         [programList: programList, studyCentreList: studyCentreList]
+    }
+    def approvePayInSlip={
+        def bankList= Bank.list(sort:'bankName');
+        [bankList:bankList]
+    }
+    def getBranchList={
+        def list=Bank.findAllById(Integer.parseInt(params.bank));
+        println("))))))))@@@@@@@@@@@@@@@@@@"+list.branch[0].branchLocation)
+        render list.branch[0] as JSON
     }
 }
 
