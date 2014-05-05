@@ -104,9 +104,10 @@ class FeeDetailsController {
     }
     def studyCentreAdmissionFee={
         def programList = ProgramDetail.list(sort:'courseName')
-        def paymentModeList = PaymentMode.list(sort:'payment_mode_name')
-        def bankList = Bank.list(sort:'bankName')
-        [programList:programList, paymentModeList:paymentModeList, bankList:bankList]
+//        def paymentModeList = PaymentMode.list(sort:'paymentModeName')
+//        def bankList = Bank.list(sort:'bankName')
+        [programList:programList]
+//        [programList:programList, paymentModeList:paymentModeList, bankList:bankList]
     }
     def studyCentrePostAdmissionFee={
 
@@ -116,9 +117,12 @@ class FeeDetailsController {
         def stuList= feeDetailService.StudentList(params.programId)
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
+        def programDetail=ProgramDetail.findAllById(params.programId)
+        def feeAmount=ProgramFee.findAllByProgramDetail(programDetail)
         resultMap.studentList=stuList
         resultMap.bankName=bankName
         resultMap.paymentMode=paymentMode
+        resultMap.feeAmount=feeAmount.feeAmountAtSC
         render resultMap as JSON
     }
 
