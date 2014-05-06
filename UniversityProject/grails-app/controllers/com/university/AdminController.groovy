@@ -116,6 +116,7 @@ class AdminController {
         }
 
         def program= student.programDetail
+        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
         def feeTypeId =Integer.parseInt(params.feeType)
         def feeType = FeeType.findById(feeTypeId)
         def programFee = ProgramFee.findByProgramDetail(program)
@@ -132,6 +133,7 @@ class AdminController {
                     programFeeAmount = programFee.certificateFee
                     break;
             }
+        println("feeTypeId    "+feeTypeId+"********"+programFee.feeAmountAtIDOL)
         def args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
         pdfRenderingService.render(args+[controller:this],response)
 
