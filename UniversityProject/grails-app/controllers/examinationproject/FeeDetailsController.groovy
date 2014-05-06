@@ -134,7 +134,7 @@ class FeeDetailsController {
 
     }
     def saveFeeData={
-        println("*********"+params)
+        println("****In save method*****"+params)
     }
 
 }

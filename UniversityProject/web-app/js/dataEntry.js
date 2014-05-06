@@ -215,7 +215,7 @@ function populateStudents(object) {
                 for (var i = 0; i < data.studentList.length; i++) {
 
                     $("#studyCenterFeeEntryTable tbody").append('<tr><td><input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td><td>Education fee</td><td><input type="text" id="feeAmount" nmae="feeAmount" readonly value="' + data.feeAmount + '" /></td>' +
-                        '<td><select id="paymentMode' + i + '" name="paymentMode"  class="many-to-one university-size-1-1" /></td><td><input type="text" class="datePickers university-size-1-1" id="datePick' + i + '" name="paymentDate"/> </td><td><select onchange="getBankBranch(' + i + ')" id="bankName' + i + '" name="bankName" o class="many-to-one university-size-1-1" /></td>' +
+                        '<td><select id="paymentMode' + i + '" name="paymentMode"  class="many-to-one university-size-1-1" /></td><td><input type="text" id="paymentDate' + i + '" class="datePickers university-size-1-1" id="datePick' + i + '" name="paymentDate"/> </td><td><select onchange="getBankBranch(' + i + ')" id="bankName' + i + '" name="bankName" o class="many-to-one university-size-1-1" /></td>' +
                         '<td><select id="branch' + i + '" name="branch" class="many-to-one university-size-1-1" /></td><td><input type="button" value="save" class="ui-button university-size-3-4" onclick="saveFeeData(' + i + ')"></td></tr>');
 
                     $("#bankName" + i).empty().append('<option value="">Select Bank Name</option>')
@@ -261,28 +261,9 @@ function getBankBranch(index) {
 
 
 function saveFeeData(index) {
-    alert("hu")
-    var blankFields = ""
-    var bool = ture
-   if($('#paymentMode' + index).val()==null){
-       blankFields = "PaymentMode"
-       bool = false
-   }
-   if($('#bankName' + index).val()==null){
-       blankFields+","+"Bank Name"
-       bool = false
-   }
-   if($('#branch' + index).val()== null){
-       blankFields+","+"Branch"
-       bool = false
-   }
-   if(!bool){
-       alert("Please Fill "+blankFields)
-       return bool
-   }
-
-
-
+    var bool= admissionFeeValidation(index)
+    if(bool){
+    alert("passed")
     $.ajax({
         type: "post",
         url: url('feeDetails', 'saveFeeData', ''),
@@ -295,6 +276,9 @@ function saveFeeData(index) {
         }
 
     })
+    }else{
+        return bool
+    }
 
 }
 

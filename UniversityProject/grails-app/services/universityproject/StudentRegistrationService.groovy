@@ -2,6 +2,7 @@ package universityproject
 
 import examinationproject.ExaminationCentre
 import examinationproject.ExaminationVenue
+import examinationproject.FeeDetails
 import examinationproject.ProgramDetail
 import examinationproject.Status
 import examinationproject.ProgramSession
@@ -100,8 +101,12 @@ class StudentRegistrationService {
         //END RAJ CODE
         // studentRegistration.studentSignature=signature.bytes
         if (studentRegistration.save(flush: true, failOnError: true)) {
-            println('new student registered successfully')
-            studentRegistrationInsSaved = true
+            def feeDetails = new FeeDetails()
+            feeDetails.issuingBank= params.bankName
+            feeDetails.issuingBranch = params.branchName
+            feeDetails.paymentMode = params.paymentMode
+            
+            feeDetails.studentId= studentRegistration
             return studentRegistration
         } else {
             return null
