@@ -39,7 +39,7 @@
             var flag = "${registered}"
             var studentId = "${studentID}"
             if (flag == 'registered') {
-                alert(flag+""+studentId)
+
                 url = "http://localhost:9093/UniversityProject/student/registration"
                 window.location.href = url;
                 window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId);
@@ -313,6 +313,7 @@
 
     </td>
 </tr>
+<sec:ifNotLoggedIn>
 <tr>
 
   <td colspan="2">
@@ -342,16 +343,17 @@
             </tr>
             <tr>
                 <td>Reference Number</td>
-                <td> <input type="text" name="feeReferenceNumber" id="feeReferenceNumber"/></td>
+                <td> <input type="text" name="feeReferenceNumber" class="university-size-1-2" id="feeReferenceNumber"/></td>
             </tr>
             <tr>
                 <td>Payment Date</td>
-                <td> <input type="text" name="paymentDate" id="paymentDate"/></td>
+                <td> <input type="text" name="paymentDate" class="university-size-1-2" id="paymentDate"/></td>
             </tr>
         </table>
     </fieldset>
   </td>
 </tr>
+</sec:ifNotLoggedIn>
 <tr>
     <td colspan="2">
         <label id="declaration-label"><input type="checkbox" id="declaration" name="declaration"/>

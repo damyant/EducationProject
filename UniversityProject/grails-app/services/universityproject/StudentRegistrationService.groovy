@@ -105,6 +105,7 @@ class StudentRegistrationService {
         //END RAJ CODE
         // studentRegistration.studentSignature=signature.bytes
         if (studentRegistration.save(flush: true, failOnError: true)) {
+            if (!springSecurityService.isLoggedIn()) {
             def feeDetails = new FeeDetails()
 
             feeDetails.bankId= Bank.findById(Integer.parseInt(params.bankName))
@@ -115,6 +116,7 @@ class StudentRegistrationService {
             feeDetails.studentId= studentRegistration
             feeDetails.paymentDate = df.parse(params.paymentDate)
             feeDetails.save(flush: true,failOnError: true)
+            }
             return studentRegistration
         } else {
             return null
