@@ -262,6 +262,27 @@ function getBankBranch(index) {
 
 function saveFeeData(index) {
     alert("hu")
+    var blankFields = ""
+    var bool = ture
+   if($('#paymentMode' + index).val()==null){
+       blankFields = "PaymentMode"
+       bool = false
+   }
+   if($('#bankName' + index).val()==null){
+       blankFields+","+"Bank Name"
+       bool = false
+   }
+   if($('#branch' + index).val()== null){
+       blankFields+","+"Branch"
+       bool = false
+   }
+   if(!bool){
+       alert("Please Fill "+blankFields)
+       return bool
+   }
+
+
+
     $.ajax({
         type: "post",
         url: url('feeDetails', 'saveFeeData', ''),
