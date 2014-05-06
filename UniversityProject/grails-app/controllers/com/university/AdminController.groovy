@@ -232,7 +232,8 @@ class AdminController {
     }
     def approvePayInSlip={
         def bankList= Bank.list(sort:'bankName');
-        [bankList:bankList]
+        def feeTypeList = FeeType.list(sort: 'type');
+        [bankList:bankList,feeTypeList:feeTypeList]
     }
     def getBranchList={
         def list=Bank.findAllById(Integer.parseInt(params.bank));
@@ -243,6 +244,16 @@ class AdminController {
         def studyCenterList=StudyCenter.list(sort: 'name');
         def programList = ProgramDetail.list(sort:'courseName')
         [studyCenterList:studyCenterList,programList:programList]
+    }
+    def getChallanDetails={
+        def resultMap=[:]
+        def studentInst=Student.findAllByChallanNo(params.challanNo);
+        def feeAmount=ProgramFee.findAllByProgramDetail(studentInst.programDetail);
+        resultMap.studentInst=studentInst;
+        resultMap.feeAmount=feeAmount.feeAmountAtSC;
+        println("%%%%%%%%%%%%"+resultMap.studentInst[0].rollNo);
+        println("###########"+resultMap.feeAmount[0]);
+        render resultMap as JSON
     }
 }
 
