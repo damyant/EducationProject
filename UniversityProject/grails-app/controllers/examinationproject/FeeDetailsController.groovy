@@ -102,6 +102,7 @@ class FeeDetailsController {
         }
 
     }
+    @Secured("ROLE_STUDY_CENTRE")
     def studyCentreAdmissionFee={
         def programList = ProgramDetail.list(sort:'courseName')
 //        def paymentModeList = PaymentMode.list(sort:'paymentModeName')

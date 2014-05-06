@@ -18,7 +18,7 @@
     <fieldset class="form">
         <h3>Approve Pay-In-Slip</h3>
         <g:if test="${flash.message}">
-            <div class="message"><div class="university-status-message">${flash.message}</div></div>
+            <div class="message"><div class="university-status-message">${flash.message}<label  id="statusMessage"></label></div></div>
         </g:if>
         <form id="approvePayInSlip">
         <table class="inner university-size-full-1-1">

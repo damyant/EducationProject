@@ -1,11 +1,14 @@
 package universityproject
 
+import examinationproject.Bank
+import examinationproject.Branch
 import examinationproject.City
 import examinationproject.CourseSubject
 import examinationproject.ExaminationCentre
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.FeeType
+import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
 import examinationproject.Semester
@@ -157,23 +160,23 @@ def springSecurityService
         return  studList
     }
     def savePayInSlip(params){
-        println("dsffffffff  "+params.rollNo);
+        Boolean status=false;
         def feeDetailsInstance = new FeeDetails();
-        println("sty%%%%%%%%^^^^^^^^^^^^^^^^^^^^^6");
         def student = Student.findByRollNo(params.rollNo);
-        println("sty%%%%%%%%"+student);
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         feeDetailsInstance.studentId = student
         feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
         feeDetailsInstance.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber);
         feeDetailsInstance.feeTypeId = FeeType.findById(params.feeTypeId)
-        feeDetailsInstance.bankId = Long.parseLong(params.bankId)
-        feeDetailsInstance.branchId = Long.parseLong(params.branchId)
-        feeDetailsInstance.paymentModeId = Long.parseLong(params.paymentModeId)
+        feeDetailsInstance.bankId = Bank.findById(Long.parseLong(params.bankId))
+        feeDetailsInstance.branchId = Branch.findById(Long.parseLong(params.branchId))
+        feeDetailsInstance.paymentModeId =PaymentMode.findById(Long.parseLong(params.paymentModeId))
         if (feeDetailsInstance.save(flush: true, failOnError: true)) {
             student.status = Status.findById(3)
             student.save(flush: true, failOnError: true)
+            status=true;
         }
+        return status
     }
 
 }

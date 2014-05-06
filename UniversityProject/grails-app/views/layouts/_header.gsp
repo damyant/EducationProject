@@ -205,7 +205,7 @@
                                     code="default.mainMenu8.subMenu3.subMenu1"/></g:link></li>
 
                         <li><g:link controller="feeDetails"
-                                    action="studyCentrePostAdmissionFee"><g:message
+                                    action="studyCentreAdmissionFee" params="[type:'postAdmission']"><g:message
                                     code="default.mainMenu8.subMenu3.subMenu2"/></g:link></li>
                     </ul>
                 </li>

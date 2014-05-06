@@ -257,7 +257,11 @@ class AdminController {
     }
     def saveApprovePayInSlip={
         println("saving  "+params);
-        adminInfoService.savePayInSlip(params);
+        def returnMap=[:]
+        Boolean result=adminInfoService.savePayInSlip(params);
+        returnMap.flag=result
+        println(result);
+        render returnMap as JSON
     }
 }
 

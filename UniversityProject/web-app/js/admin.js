@@ -355,7 +355,6 @@ function loadBranch(t){
 }
 function populateChallanDetail(t){
     var challanNo=$(t).val();
-    alert(challanNo)
     $.ajax({
         type: "post",
         url: url('admin', 'getChallanDetails', ''),
@@ -377,7 +376,13 @@ function approvePayInSlip(){
         data: {rollNo:$('#rollNo').val(),bankId: 10,paymentModeId: 5, branchId: 21,
             paymentDate:$('#datePick').val(),paymentReferenceNumber:$('#payInSlipNo').val(),feeTypeId:1},
         success: function (data) {
-
+                if(data.flag){
+                    $('#rollNo').val('');
+                    $('#payInSlipNo').val('');
+                    $('#datePick').val('');
+                    $('#approvePayInSlip')[0].reset();
+                    $('#statusMessage').html("Approved Succesfully")
+                }
         }
 
     })
