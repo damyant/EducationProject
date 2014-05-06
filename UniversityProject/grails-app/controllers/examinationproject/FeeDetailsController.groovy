@@ -12,7 +12,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class FeeDetailsController {
     def feeDetailService
-    def adminInfoService
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 
@@ -114,15 +114,7 @@ class FeeDetailsController {
     }
     def populateStudents={
         def resultMap=[:]
-        def stuList= feeDetailService.StudentList(params.programId)
-        def bankName=Bank.list(sort:'bankName')
-        def paymentMode=PaymentMode.list(sort:'paymentModeName')
-        def programDetail=ProgramDetail.findAllById(params.programId)
-        def feeAmount=ProgramFee.findAllByProgramDetail(programDetail)
-        resultMap.studentList=stuList
-        resultMap.bankName=bankName
-        resultMap.paymentMode=paymentMode
-        resultMap.feeAmount=feeAmount.feeAmountAtSC
+        resultMap= feeDetailService.StudentList(params)
         render resultMap as JSON
     }
 
@@ -134,7 +126,10 @@ class FeeDetailsController {
 
     }
     def saveFeeData={
-        println("*********"+params)
+         feeDetailService.saveFeeDetails(params)
+        def resultMap=[:]
+        resultMap= feeDetailService.StudentList(params)
+        render resultMap as JSON
     }
 
 }
