@@ -353,3 +353,19 @@ function loadBranch(t){
         });
     }
 }
+function populateChallanDetail(t){
+    var challanNo=$(t).val();
+    alert(challanNo)
+    $.ajax({
+        type: "post",
+        url: url('admin', 'getChallanDetails', ''),
+        data: {challanNo: challanNo},
+
+        success: function (data) {
+            console.log("dsfddsdds"+data.studentInst.rollNo);
+            $('#rollNo').val(data.studentInst[0].rollNo);
+            $('#feeAmount').val(data.feeAmount[0]);
+
+        }
+    });
+}
