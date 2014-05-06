@@ -253,5 +253,9 @@ class AdminController {
         println("###########"+resultMap.feeAmount[0]);
         render resultMap as JSON
     }
+    def saveApprovePayInSlip={
+        println("saving  "+params);
+        adminInfoService.savePayInSlip(params);
+    }
 }
 

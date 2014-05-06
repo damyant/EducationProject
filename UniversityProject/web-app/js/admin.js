@@ -369,3 +369,16 @@ function populateChallanDetail(t){
         }
     });
 }
+
+function approvePayInSlip(){
+    $.ajax({
+        type: "post",
+        url: url('admin', 'saveApprovePayInSlip', ''),
+        data: {rollNo:$('#rollNo').val(),bankId: 10,paymentModeId: 5, branchId: 21,
+            paymentDate:$('#datePick').val(),paymentReferenceNumber:$('#payInSlipNo').val(),feeTypeId:1},
+        success: function (data) {
+
+        }
+
+    })
+}
