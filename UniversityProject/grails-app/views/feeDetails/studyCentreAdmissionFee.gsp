@@ -40,23 +40,7 @@
                 <th class="university-size-1-8">Action</th>
             </tr>
             </thead>
-            <tbody></tbody>
-            <tr>
-                <td><input type="text" class="university-size-1-1" name="rollNo" value="" readonly></td>
-                <td>
-                    <g:select id="feeType" name="feeType" from="${examinationproject.FeeType.list()}"
-                              optionKey="id"
-                              disabled="disabled" optionValue="type" value="${examinationproject.FeeType.findById(1)}"
-                              class="many-to-one university-size-1-2" readonly=""/>
-
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            %{--<tbody></tbody>--}%
         </table>
     </fieldset>
 </div>

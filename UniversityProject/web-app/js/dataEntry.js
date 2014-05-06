@@ -203,29 +203,37 @@ function submitFeeDetail() {
 
 }
 
-function populateStudents(object){
-    var programId=$(object).val();
-    if(programId) {
+function populateStudents(object) {
+    var programId = $(object).val();
+    if (programId) {
         $.ajax({
             type: "post",
             url: url('feeDetails', 'populateStudents', ''),
-            data: {programId:programId},
+            data: {programId: programId},
             success: function (data) {
-                 for( var i=0;i<data.studentList.length;i++){
+                alert(data.studentList.length)
+                for (var i = 0; i < data.studentList.length; i++) {
 
-                $("#studyCenterFeeEntryTable tbody").append('<tr><td><input type="text" class="university-size-1-1" name="rollNo" id="rollNo'+i+'" value="'+data.studentList[i].rollNo+'" readonly></td><td>Education fee</td><td></td>' +
-                    '<td><select id="paymentMode'+i+'" name="paymentMode"  class="many-to-one university-size-1-2" /></td><td></td><td><select onchange="getBankBranch('+i+')" id="bankName'+i+'" name="bankName" o class="many-to-one university-size-1-2" /></td>' +
-                    '<td><select id="branch'+i+'" name="branch" class="many-to-one university-size-1-2" /></td><td><input type="button" value="save" onclick="saveFeeData('+i+')"></td></tr>');
+                    $("#studyCenterFeeEntryTable tbody").append('<tr><td><input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td><td>Education fee</td><td><input type="text" id="feeAmount" nmae="feeAmount" readonly value="' + data.feeAmount + '" /></td>' +
+                        '<td><select id="paymentMode' + i + '" name="paymentMode"  class="many-to-one university-size-1-1" /></td><td><input type="text" class="datePickers university-size-1-1" id="datePick' + i + '" name="paymentDate"/> </td><td><select onchange="getBankBranch(' + i + ')" id="bankName' + i + '" name="bankName" o class="many-to-one university-size-1-1" /></td>' +
+                        '<td><select id="branch' + i + '" name="branch" class="many-to-one university-size-1-1" /></td><td><input type="button" value="save" class="ui-button university-size-3-4" onclick="saveFeeData(' + i + ')"></td></tr>');
 
-                $("#bankName"+i).empty().append('<option value="">Select Bank Name</option>')
-                $("#paymentMode"+i).empty().append('<option value="">Select Payment Mode</option>')
-                for(var j=0;j<data.bankName.length;j++){
-                    $("#bankName"+i).append('<option value="' + data.bankName[j].id + '">' +data.bankName[j].bankName + '</option>')
+                    $("#bankName" + i).empty().append('<option value="">Select Bank Name</option>')
+                    $("#paymentMode" + i).empty().append('<option value="">Select Payment Mode</option>')
+                    $("#branch" + i).empty().append('<option value="">Select Branch</option>')
+                    for (var j = 0; j < data.bankName.length; j++) {
+                        $("#bankName" + i).append('<option value="' + data.bankName[j].id + '">' + data.bankName[j].bankName + '</option>')
+                    }
+                    for (var k = 0; k < data.paymentMode.length; k++) {
+                        $("#paymentMode" + i).append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
+                    }
                 }
-                for(var k=0;k<data.paymentMode.length;k++){
-                    $("#paymentMode"+i).append('<option value="' + data.paymentMode[k].id + '">' +data.paymentMode[k].paymentModeName + '</option>')
-                }
-                }
+                $(".datePickers").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "dd/mm/yy",
+                    maxDate: 0
+                });
             }
 //
 
@@ -234,34 +242,34 @@ function populateStudents(object){
 }
 
 
-function getBankBranch(index){
+function getBankBranch(index) {
 
-         $.ajax({
-            type: "post",
-            url: url('feeDetails', 'getBankBranch', ''),
-            data: {bankId:$('#bankName'+index).val(),bankId:$('#bankName'+index).val(),bankId:$('#bankName'+index).val()},
-            success: function (data) {
-                $("#branch"+index).empty().append('<option value="">Select Payment Mode</option>')
-                for(var i=0;i<data.length;i++){
-                    $("#branch"+index).append('<option value="' + data[i].id + '">' +data[i].branchLocation + '</option>')
-                }
+    $.ajax({
+        type: "post",
+        url: url('feeDetails', 'getBankBranch', ''),
+        data: {bankId: $('#bankName' + index).val(), bankId: $('#bankName' + index).val(), bankId: $('#bankName' + index).val()},
+        success: function (data) {
+            $("#branch" + index).empty().append('<option value="">Select Branch</option>')
+            for (var i = 0; i < data.length; i++) {
+                $("#branch" + index).append('<option value="' + data[i].id + '">' + data[i].branchLocation + '</option>')
             }
+        }
 
-        })
+    })
 
 }
 
 
-function saveFeeData(index){
-alert("hu")
+function saveFeeData(index) {
+    alert("hu")
     $.ajax({
         type: "post",
         url: url('feeDetails', 'saveFeeData', ''),
-        data: {rollNo:$('#rollNo'+index).val(),bankId:$('#bankName'+index).val(),paymentModeId:$('#paymentMode'+index).val(),branchId:$('#branch'+index).val()},
+        data: {rollNo: $('#rollNo' + index).val(), bankId: $('#bankName' + index).val(), paymentModeId: $('#paymentMode' + index).val(), branchId: $('#branch' + index).val()},
         success: function (data) {
-            $("#branch"+index).empty().append('<option value="">Select Payment Mode</option>')
-            for(var i=0;i<data.length;i++){
-                $("#branch"+index).append('<option value="' + data[i].id + '">' +data[i].branchLocation + '</option>')
+            $("#branch" + index).empty().append('<option value="">Select Branch</option>')
+            for (var i = 0; i < data.length; i++) {
+                $("#branch" + index).append('<option value="' + data[i].id + '">' + data[i].branchLocation + '</option>')
             }
         }
 
