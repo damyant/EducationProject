@@ -1,9 +1,14 @@
 package universityproject
 
+import examinationproject.Bank
 import examinationproject.FeeDetails
 import examinationproject.FeeType
+import examinationproject.PaymentMode
+import examinationproject.ProgramDetail
+import examinationproject.ProgramFee
 import examinationproject.Status
 import examinationproject.Student
+import grails.converters.JSON
 import grails.transaction.Transactional
 
 import java.text.DateFormat
@@ -23,22 +28,12 @@ class FeeDetailService {
      * @return
      */
     def saveFeeDetails(params) {
-        println('hello kuldeep ' + params)
-        def feeDetailsInstance = new FeeDetails()
-        def student = Student.findById(params.studentId)
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        feeDetailsInstance.studentId = student
-        feeDetailsInstance.draftDate = df.parse(params.draftDate)
-        feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
-        feeDetailsInstance.draftNumber = params.draftNumber
-        feeDetailsInstance.feeType = FeeType.findById(params.feeType)
-        feeDetailsInstance.issuingBank = params.issuingBank
-        feeDetailsInstance.issuingBranch = params.issuingBranch
-        feeDetailsInstance.paymentMode = params.paymentMode
 
+        def feeDetailsInstance = new FeeDetails(params)
+          def studentIns=Student.findById(Long.parseLong(params.studentId))
         if (feeDetailsInstance.save(flush: true, failOnError: true)) {
-            student.status = Status.findById(3)
-            student.save(flush: true, failOnError: true)
+            studentIns.status = Status.findById(3)
+            studentIns.save(flush: true, failOnError: true)
         }
 
         return feeDetailsInstance
@@ -103,18 +98,30 @@ class FeeDetailService {
         return stuList
     }
 
-    def StudentList(programId){
+    def StudentList(params){
+        def resultMap=[:]
         def obj = Student.createCriteria()
+        def currentUser=springSecurityService.getCurrentUser()
         def stuList = obj.list {
                 programDetail {
-                    eq('id', Long.parseLong(programId))
+                    eq('id', Long.parseLong(params.programId))
                 }
+            studyCentre {
+                eq('id',Long.parseLong(currentUser.studyCentreId.toString()))
+            }
                 and {
                     eq('status', Status.findById(2))
                 }
             }
-        println("this is the final list of students " + stuList)
-        return stuList
+        def bankName=Bank.list(sort:'bankName')
+        def paymentMode=PaymentMode.list(sort:'paymentModeName')
+        def programDetail=ProgramDetail.findAllById(params.programId)
+        def feeAmount=ProgramFee.findAllByProgramDetail(programDetail)
+        resultMap.studentList=stuList
+        resultMap.bankName=bankName
+        resultMap.paymentMode=paymentMode
+        resultMap.feeAmount=feeAmount.feeAmountAtSC
+        return resultMap
     }
 }
 
