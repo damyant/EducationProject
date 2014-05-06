@@ -465,3 +465,36 @@ function onlyAlphabetsWithSplChar(evt) {
     else
         return false;
 }
+
+function admissionFeeValidation(index){
+
+    alert("hu")
+    var paymentMode = "",bankName="" ,branch="", paymentdate=""
+    var bool = true
+    if($('#paymentMode' + index).val()==""){
+        paymentMode = "PaymentMode"
+        bool = false
+
+    }
+    if($('#bankName' + index).val()==""){
+        bankName="Bank Name"
+        bool = false
+    }
+    if($('#branch' + index).val()== ""){
+        branch ="Branch"
+        bool = false
+    }
+    if($('#paymentDate' + index).val()== ""){
+        paymentdate ="Payment Date"
+        bool = false
+    }
+    if(!bool){
+        alert("Please Fill "+paymentMode+","+paymentdate+","+bankName+","+branch)
+        return false
+    }else{
+
+        return true
+    }
+
+}
+
