@@ -105,7 +105,7 @@ class StudentRegistrationService {
             feeDetails.issuingBank= params.bankName
             feeDetails.issuingBranch = params.branchName
             feeDetails.paymentMode = params.paymentMode
-            
+
             feeDetails.studentId= studentRegistration
             return studentRegistration
         } else {

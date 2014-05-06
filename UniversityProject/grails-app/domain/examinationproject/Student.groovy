@@ -36,7 +36,7 @@ class Student {
     static hasMany = [examinationCentre : ExaminationCentre, studyCentre : StudyCenter,programDetail:ProgramDetail]
 
     static constraints = {
-        referenceNumber(nullable:true,unique: true)
+        referenceNumber(nullable:true)
         studentName(nullable: true)
         dob(nullable: true)
         category(nullable: true)
@@ -59,7 +59,7 @@ class Student {
         status(nullable:true)
         admitCardGenerated(nullable: true)
         examinationVenue(nullable: true)
-        challanNo(nullable: true,unique: true)
+        challanNo(nullable: true)
 
 
     }
