@@ -468,8 +468,7 @@ function onlyAlphabetsWithSplChar(evt) {
 
 function admissionFeeValidation(index){
 
-    alert("hu")
-    var paymentMode = "",bankName="" ,branch="", paymentdate=""
+    var paymentMode = "",bankName="" ,branch="", paymentDate=""
     var bool = true
     if($('#paymentMode' + index).val()==""){
         paymentMode = "PaymentMode"
@@ -489,7 +488,7 @@ function admissionFeeValidation(index){
         bool = false
     }
     if(!bool){
-        alert("Please Fill "+paymentMode+","+paymentdate+","+bankName+","+branch)
+        alert("Please Fill "+paymentMode+","+paymentDate+","+bankName+","+branch)
         return false
     }else{
 

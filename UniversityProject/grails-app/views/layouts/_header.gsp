@@ -25,8 +25,11 @@
         <li><a href="#"><g:message code="default.mainMenu1"/></a></li>
         <li><a href="#"><g:message code="default.mainMenu2"/></a>
             <ul>
+
+                <sec:ifNotGranted roles="ROLE_ADMIN">
                 <li><g:link controller="student" action="registration"><g:message
                         code="default.mainMenu2.subMenu1"/></g:link></li>
+                </sec:ifNotGranted>
                 <li><g:link controller="student" action="enrollmentAtIdol"><g:message
                         code="default.mainMenu2.enrollAtIdol"/></g:link></li>
                 <li><a class="viewResulttopopup"><g:message code="default.mainMenu2.subMenu2"/></a></li>
