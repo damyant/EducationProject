@@ -10,6 +10,7 @@
 <head>
     <meta name="layout" content="main"/>
     <title></title>
+    <g:javascript src='admin.js'/>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
             <tr>
                 <td class="university-size-1-3"><label>Select a Program</label></td>
                 <td class="university-size-2-3" style="padding-left: 20px;">
-                    <g:select name="programList" class="university-size-1-2" optionKey="id"
+                    <g:select name="programList" class="university-size-1-2" id="programId" optionKey="id"
                               optionValue="courseName"
                               from="${programList}" noSelection="['': ' Select Program']"
                               onchange="populateStudents(this)"/>
@@ -29,18 +30,20 @@
         </table>
         <br/><br/>
         <table id="studyCenterFeeEntryTable" class="inner university-size-full-1-1" style="margin: auto">
+            <thead>
             <tr>
                 <th class="university-size-1-8">Roll No</th>
                 <th class="university-size-1-8">Type of Fees</th>
                 <th class="university-size-1-8">Amount</th>
                 <th class="university-size-1-8">Payment Mode</th>
+                <th class="university-size-1-8">Draft/ Reference Number</th>
                 <th class="university-size-1-8">Payment Date</th>
                 <th class="university-size-1-8">Bank</th>
                 <th class="university-size-1-8">Branch</th>
                 <th class="university-size-1-8">Action</th>
             </tr>
             </thead>
-            %{--<tbody></tbody>--}%
+            <tbody></tbody>
         </table>
     </fieldset>
 </div>

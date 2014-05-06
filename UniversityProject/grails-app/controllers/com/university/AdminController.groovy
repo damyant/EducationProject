@@ -115,6 +115,8 @@ class AdminController {
              redirect(action: "feeVoucher",params:[error:"error"])
         }
 
+
+
         def program= student.programDetail
         println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
         def feeTypeId =Integer.parseInt(params.feeType)

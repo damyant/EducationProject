@@ -126,10 +126,12 @@ class FeeDetailsController {
 
     }
     def saveFeeData={
+
          feeDetailService.saveFeeDetails(params)
         def resultMap=[:]
         resultMap= feeDetailService.StudentList(params)
         render resultMap as JSON
+
     }
 
 }

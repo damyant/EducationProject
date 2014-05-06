@@ -212,8 +212,8 @@ function populateStudents(object) {
             data: {programId: programId},
             success: function (data) {
 
-                appendStudentList(data)
 
+                appendStudentList(data)
 
             }
 //
@@ -243,7 +243,9 @@ function getBankBranch(index) {
 
 function saveFeeData(index) {
 
-    $.ajax({
+    var bool= admissionFeeValidation(index)
+    if(bool){
+     $.ajax({
         type: "post",
         url: url('feeDetails', 'saveFeeData', ''),
         data: {programId:$('#programId').val(),bankId: $('#bankName' + index).val(),paymentModeId: $('#paymentMode' + index).val(), branchId: $('#branch' + index).val(),
@@ -254,6 +256,9 @@ function saveFeeData(index) {
         }
 
     })
+    }else{
+        return bool
+    }
 
 }
 
