@@ -242,7 +242,7 @@ function getBankBranch(index) {
 
 
 function saveFeeData(index) {
-    programId
+
     $.ajax({
         type: "post",
         url: url('feeDetails', 'saveFeeData', ''),

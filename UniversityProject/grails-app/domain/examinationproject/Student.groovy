@@ -59,7 +59,7 @@ class Student {
         status(nullable:true)
         admitCardGenerated(nullable: true)
         examinationVenue(nullable: true)
-        challanNo(nullable: true,unique: true)
+        challanNo(nullable: true)
 
 
     }
