@@ -344,6 +344,10 @@
                 <td>Reference Number</td>
                 <td> <input type="text" name="feeReferenceNumber" id="feeReferenceNumber"/></td>
             </tr>
+            <tr>
+                <td>Payment Date</td>
+                <td> <input type="text" name="paymentDate" id="paymentDate"/></td>
+            </tr>
         </table>
     </fieldset>
   </td>
@@ -394,6 +398,13 @@
     $(function () {
         $(function () {
             $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm/dd/yy",
+                maxDate: 0
+            });
+
+            $("#paymentDate").datepicker({
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: "mm/dd/yy",

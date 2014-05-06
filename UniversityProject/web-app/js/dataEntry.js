@@ -242,14 +242,10 @@ function getBankBranch(index) {
 
 
 function saveFeeData(index) {
-<<<<<<< HEAD
+
     var bool= admissionFeeValidation(index)
     if(bool){
-    alert("passed")
-=======
-
->>>>>>> 73b48b388191876501b2059425ba38d38f5ec921
-    $.ajax({
+     $.ajax({
         type: "post",
         url: url('feeDetails', 'saveFeeData', ''),
         data: {programId:$('#programId').val(),bankId: $('#bankName' + index).val(),paymentModeId: $('#paymentMode' + index).val(), branchId: $('#branch' + index).val(),

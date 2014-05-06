@@ -1,8 +1,12 @@
 package universityproject
 
+import examinationproject.Bank
+import examinationproject.Branch
 import examinationproject.ExaminationCentre
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
+import examinationproject.FeeType
+import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.Status
 import examinationproject.ProgramSession
@@ -102,11 +106,15 @@ class StudentRegistrationService {
         // studentRegistration.studentSignature=signature.bytes
         if (studentRegistration.save(flush: true, failOnError: true)) {
             def feeDetails = new FeeDetails()
-            feeDetails.issuingBank= params.bankName
-            feeDetails.issuingBranch = params.branchName
-            feeDetails.paymentMode = params.paymentMode
 
+            feeDetails.bankId= Bank.findById(Integer.parseInt(params.bankName))
+            feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
+            feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
+            feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
+            feeDetails.feeTypeId = FeeType.findById(1)
             feeDetails.studentId= studentRegistration
+            feeDetails.paymentDate = df.parse(params.paymentDate)
+            feeDetails.save(flush: true,failOnError: true)
             return studentRegistration
         } else {
             return null
