@@ -203,10 +203,12 @@ class StudentRegistrationService {
             buf[idx] = symbols.charAt(random.nextInt(symbols.length()));
         if(Student.count()>0){
             if(!Student.findByReferenceNumber(Integer.parseInt(new String(buf)))){
-                return new String(buf);
+                return new String(buf)
             }else{
                 getStudentReferenceNumber()
             }
+        }else{
+            return new String(buf)
         }
     }
 
@@ -259,6 +261,8 @@ class StudentRegistrationService {
             }else{
                getChallanNumber()
             }
+        }else{
+            return challanNo
         }
     }
 
