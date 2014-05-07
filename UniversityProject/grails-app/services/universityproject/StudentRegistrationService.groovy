@@ -59,7 +59,7 @@ class StudentRegistrationService {
                 studentRegistration.status = Status.findById(2)
 
             } else {
-                studentRegistration.referenceNumber = Integer.parseInt(getStudentReferenceNumber())
+                studentRegistration.referenceNumber = getStudentReferenceNumber()
                 studentRegistration.status = Status.findById(1)
             }
         }
@@ -202,12 +202,16 @@ class StudentRegistrationService {
         for (int idx = 0; idx < bufLength; idx++)
             buf[idx] = symbols.charAt(random.nextInt(symbols.length()));
         if(Student.count()>0){
-            if(!Student.findByReferenceNumber(Integer.parseInt(new String(buf)))){
+            if(!Student.findByReferenceNumber(new String(buf))){
                 return new String(buf);
+
             }else{
                 getStudentReferenceNumber()
             }
-        }
+             }else{
+            return new String(buf)
+          }
+
     }
 
     def approvedStudents(params) {
@@ -235,7 +239,7 @@ class StudentRegistrationService {
             students.studentName = "Student" + i
             students.gender = "Male"
             students.category = "GEN"
-            students.referenceNumber = Integer.parseInt(getStudentReferenceNumber())
+            students.referenceNumber = getStudentReferenceNumber()
             students.mobileNo = Long.parseLong("9898787998")
             students.nationality = "Indian"
             students.state = "Assam"
@@ -259,6 +263,8 @@ class StudentRegistrationService {
             }else{
                getChallanNumber()
             }
+        }else{
+            return challanNo
         }
     }
 
