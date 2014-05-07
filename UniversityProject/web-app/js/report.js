@@ -16,33 +16,49 @@ $(function() {
 
 
     $('#session').on('click', function(){
-        alert("clicked")
+//        alert("clicked")
         openPopUp(1)
     })
     $('#sessions').on('click', function(){
-        alert("clicked")
+//        alert("clicked")
         openPopUp(2)
     })
     $('#course').on('click', function(){
-        alert("clicked")
+//        alert("clicked")
         openPopUp(3)
     })
     $('#studyCentre').on('click', function(){
-        alert("clicked")
+//        alert("clicked")
         openPopUp(4)
     })
     $('#examinationCentreDiv').on('click', function(){
-        alert("clicked")
+//        alert("clicked")
         openPopUp(5)
+    })
+    $('#categoryDiv').on('click', function(){
+//        alert("clicked")
+        openPopUp(6)
+    })
+    $('#categoryGenderDiv').on('click', function(){
+//        alert("clicked")
+        openPopUp(7)
+    })
+    $('#admissionReportUnapproved').on('click', function(){
+//        alert("clicked")
+        openPopUp(8)
+    })
+    $('#admissionReportSelfRegister').on('click', function(){
+//        alert("clicked")
+        openPopUp(9)
     })
 });
 
 
 
 function openPopUp(value){
-    alert(value)
+//    alert(value)
     if(value==1){
-        alert("condition is true")
+//        alert("condition is true")
         $('#flagValue').val('session')
         $('tr').hide()
         $("#bySession").show()
@@ -50,7 +66,7 @@ function openPopUp(value){
         $('#sessionDialog').dialog('open')
     }
    else if(value==2){
-        alert("condition is true")
+//        alert("condition is true")
         $('#flagValue').val('sessions')
         $('tr').hide()
         $("#bySessions").show()
@@ -59,14 +75,14 @@ function openPopUp(value){
     }
     else if(value==3){
         $('#flagValue').val('course')
-        alert("condition is true")
+//        alert("condition is true")
         $('tr').hide()
         $("#byCourse").show()
         $("#submitButton").show()
         $('#sessionDialog').dialog('open')
     }
     else if(value==4){
-        alert("condition is true")
+//        alert("condition is true")
         $('#flagValue').val('studyCentre')
         $('tr').hide()
         $("#byStudyCentre").show()
@@ -79,7 +95,39 @@ function openPopUp(value){
         $("#byExaminationCentre").show()
         $("#examCenterSelect tr").show()
         $("#submitButton").show()
-        alert("condition is true")
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+    else if(value==6){
+        $('tr').hide()
+        $('#flagValue').val('category')
+        $("#byCategory").show()
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+    else if(value==7){
+        $('tr').hide()
+        $('#flagValue').val('categoryGender')
+        $("#byCategoryGender").show()
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+    else if(value==8){
+        $('tr').hide()
+        $('#flagValue').val('admissionUnapproved')
+        $("#byAdmissionUnapprovedReport").show()
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+    else if(value==9){
+        $('tr').hide()
+        $('#flagValue').val('categoryGender')
+        $("#byCategoryGender").show()
+        $("#submitButton").show()
+//        alert("condition is true")
         $('#sessionDialog').dialog('open')
     }
 }

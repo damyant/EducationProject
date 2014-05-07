@@ -24,6 +24,30 @@
                 <div id="studyCentre"> <a href="#"> <li>By Study Centre</li></a></div>
                 <div id="comparativeReport"> <a href="#">   <li>Comparative Enrolment Report</li></a></div>
                 <div id="examinationCentreDiv"> <a href="#"> <li>By Examination Centre</li></a></div>
+                %{--<div id="categoryDiv"> <a href="#"> <li>By Category</li></a></div>--}%
+                %{--<div id="categoryGenderDiv"> <a href="#"> <li>By Category And Gender</li></a></div>--}%
+                <div >
+                    <a href="#">
+                        <li >By Category</li>
+                        <ul>
+                            <li id="categoryDiv">Course wise </li>
+
+                            <li id="categoryGenderDiv"> Course wise with Gender Break-up
+                            </li>
+                        </ul>
+                    </a>
+                </div>
+                <div id="admissionReports">
+                  <a href="#">
+                    <li>Admission Reports</li>
+                       <ul>
+                           <li id="admissionReportUnapproved">Unapproved Roll Nos</li>
+
+                           <li id="admissionReportSelfRegister"> List of all Self Registrations</li>
+                       </ul>
+                  </a>
+                </div>
+
             </ul>
 
     </div>
@@ -88,6 +112,58 @@
                    </td>
 
                </tr>
+               <tr id="byCategory">
+                   <td style="width: 18%">
+                       <label for="filterType">Select Session:</label>
+                   </td>
+                   %{--<td style="width: 18%" >--}%
+                       %{--<g:select name="course" class="university-size-1-1" id="filterType"--}%
+                                 %{--from="${ProgramDetail.list([sort: 'courseName'])}" optionKey="id" optionValue="courseName"--}%
+                                 %{--noSelection="['null': ' Select Course']" />--}%
+                   %{--</td>--}%
+                   <td style="width: 18%" >
+                       <g:select name="categorySession" class="university-size-1-1 allSession" id="categorySession"
+                                 from="${filterType}" optionKey="" optionValue=""
+                                 noSelection="['null': ' Select Session']" />
+                   </td>
+               </tr>
+
+
+               <tr id="byAdmissionUnapprovedReport">
+                   <td style="width: 18%">
+                       <label for="filterType">Select Study Centre:</label>
+                   </td>
+                   <td style="width: 18%" >
+                       <g:select name="admissionUnapprovedStudyCentre" class="university-size-1-1" id="filterType"
+                                 from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
+                                 noSelection="['null': ' Select Study Centre']" />
+                   </td>
+                   <td style="width: 18%" >
+                       <g:select name="admissionUnapprovedSession" class="university-size-1-1 allSession" id="admissionUnapprovedSession"
+                                 from="${filterType}" optionKey="" optionValue=""
+                                 noSelection="['null': ' Select Session']" />
+                   </td>
+
+               </tr>
+
+
+               <tr id="byCategoryGender">
+                   <td style="width: 18%">
+                       <label for="filterType">Select Session:</label>
+                   </td>
+                   %{--<td style="width: 18%" >--}%
+                   %{--<g:select name="course" class="university-size-1-1" id="filterType"--}%
+                   %{--from="${ProgramDetail.list([sort: 'courseName'])}" optionKey="id" optionValue="courseName"--}%
+                   %{--noSelection="['null': ' Select Course']" />--}%
+                   %{--</td>--}%
+                   <td style="width: 18%" >
+                       <g:select name="categoryGenderSession" class="university-size-1-1 allSession" id="categoryGenderSession"
+                                 from="${filterType}" optionKey="" optionValue=""
+                                 noSelection="['null': ' Select Session']" />
+                   </td>
+               </tr>
+
+
                <tr id="byExaminationCentre">
 
                    <table id="examCenterSelect" style="border: 0px solid black">
@@ -106,7 +182,7 @@
                                    <g:select name="examCity" id="city" optionKey="id" class="university-size-1-1"
                                              optionValue="cityName"
                                              from="" onchange="showCentreList(this)"
-                                             noSelection="['': 'Select City']"/>
+                                             noSelection="['': 'Select Examination Centre']"/>
 
                            </td>
                        </tr>
@@ -124,20 +200,8 @@
                    </tr>
                    </table>
 
-                   %{--<td style="width: 18%">--}%
-                       %{--<label for="filterType">Select Examination Centre:</label>--}%
-                   %{--</td>--}%
-                   %{--<td style="width: 18%" >--}%
-                       %{--<g:select name="examinationCentre" class="university-size-1-1" id="examinationCentre"--}%
-                                 %{--from="${filterType}" optionKey="" optionValue=""--}%
-                                 %{--noSelection="['null': ' Select Examination Centre']" />--}%
-                   %{--</td>--}%
-                   %{--<td style="width: 18%" >--}%
-                       %{--<g:select name="examinationCentreSession" class="university-size-1-1 allSession" id="examinationCentreSession"--}%
-                                 %{--from="${filterType}" optionKey="" optionValue=""--}%
-                                 %{--noSelection="['null': ' Select Session']" />--}%
-                   %{--</td>--}%
                </tr>
+
                <tr id="submitButton">
                    <td>
                        <g:hiddenField name="value" id="flagValue" value=""/>
@@ -147,6 +211,7 @@
                           value='Submit'  />
                    </td>
                </tr>
+
         </table>
        </g:form>
    </div>
