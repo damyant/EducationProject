@@ -24,7 +24,7 @@ class Student {
     int semester
     Status status
     int registrationYear
-    int referenceNumber
+    String referenceNumber
     byte[] studentImage
     ProgramSession programSession
     Boolean admitCardGenerated
