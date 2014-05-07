@@ -124,7 +124,7 @@ function showCentreList(t) {
 
             $("#examinationCentre").empty().append('<option value=""> Select Examination Venue</option>')
             for (var i = 0; i < data.length; i++) {
-                alert("--------------"+data[i].name)
+//                alert("--------------"+data[i].name)
                 $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
             }
         },

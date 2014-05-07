@@ -66,7 +66,7 @@ class ProgramFeeController {
 
 //    @Transactional
     def deleteFeeType(ProgramFee programFeeInstance) {
-        println("ffffffff****************")
+//        println("ffffffff****************")
 
         if (programFeeInstance == null) {
             notFound()

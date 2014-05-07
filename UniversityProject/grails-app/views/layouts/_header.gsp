@@ -26,7 +26,7 @@
         <li><a href="#"><g:message code="default.mainMenu2"/></a>
             <ul>
 
-                <sec:ifNotGranted roles="ROLE_ADMIN">
+                <sec:ifNotGranted roles="ROLE_ADMIN,ROLE_IDOL_USER">
                 <li><g:link controller="student" action="registration"><g:message
                         code="default.mainMenu2.subMenu1"/></g:link></li>
                 </sec:ifNotGranted>

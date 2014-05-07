@@ -15,12 +15,12 @@ class CourseController {
         boolean updateFlag=false
         def courseDetail=[:]
         def subObj = Subject.findAll()
-        println("create"+ params)
+//        println("create"+ params)
         if(params.courseId){
         courseDetail= courseDetailService.getFullDetailOfCourse(params)
             updateFlag=true
         }
-        println(updateFlag)
+//        println(updateFlag)
 
        [courseDetail:courseDetail as JSON ,subjList:subObj as JSON,updateFlag:updateFlag]
     }
@@ -35,10 +35,10 @@ class CourseController {
     def saveCourse() {
         def response=[:]
         def data = request.JSON
-        println(data)
+//        println(data)
         def status=courseDetailService.saveCourseInfo(data)
         response.response1=status
-        println(response)
+//        println(response)
         render response as JSON
 
     }
@@ -65,7 +65,7 @@ class CourseController {
         redirect(action: "listOfCourses", params:['type':"update"])
     }
     def uploadSyllabus(){
-        println("params>>>>>>>>>>>>"+params.syllabusFile)
+//        println("params>>>>>>>>>>>>"+params.syllabusFile)
         try {
             if (params.syllabusFile) {
                 String ext = "";
@@ -89,7 +89,7 @@ class CourseController {
                }
                 def subName = Subject.findAllById(params.int('syllabusOfSubject'))
                 fileToBeUploaded.transferTo(new File(dir, fileName))
-                println(subName.subjectName)
+//                println(subName.subjectName)
                 def fullPath = new File(storagePath+System.getProperty("file.separator") +params.syllabusCourse+System.getProperty("file.separator")+params.syllabusOfSemester+System.getProperty("file.separator") +params.syllabusOfSubject+System.getProperty("file.separator")+fileName)
                 def newFullPath = new File(storagePath+System.getProperty("file.separator") +params.syllabusCourse+System.getProperty("file.separator")+params.syllabusOfSemester+System.getProperty("file.separator") +params.syllabusOfSubject+System.getProperty("file.separator")+subName[0].subjectName+'.'+ext)
                 fullPath.renameTo(newFullPath)

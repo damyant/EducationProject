@@ -115,10 +115,16 @@
     <td>Program<span class="university-obligatory">*</span></td>
     %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
     <td>
-
+    <sec:ifNotLoggedIn>
+        <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
+                  value="${studInstance?.programDetail?.id?.get(0)}"
+                  optionValue="courseName" onchange="loadProgramFeeAmount(this)" from="${programList}" noSelection="['': ' Select Program']"/>
+    </sec:ifNotLoggedIn>
+    <sec:ifLoggedIn>
         <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                   value="${studInstance?.programDetail?.id?.get(0)}"
                   optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"/>
+    </sec:ifLoggedIn>
 
     </td>
 </tr>
@@ -316,6 +322,7 @@
 <sec:ifNotLoggedIn>
 <tr>
 
+
   <td colspan="2">
     <fieldset>
         <legend>Fee Details</legend>
@@ -333,6 +340,10 @@
                                optionValue="" id="branchLocation"
                                from="" noSelection="['': ' Select Branch']"
                 /></td>
+            </tr>
+            <tr>
+                <td>Admission Fee Amount</td>
+                <td><input type="text" name="admissionFeeAmount" class="university-size-1-2" id="admissionFeeAmount" readonly/></td>
             </tr>
             <tr>
                 <td>Payment Mode</td>

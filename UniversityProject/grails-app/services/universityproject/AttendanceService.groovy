@@ -34,7 +34,7 @@ class AttendanceService {
 
 
     Boolean getStudentList(params, excelPath) {
-         println("hello kuldeep "+ params)
+//         println("hello kuldeep "+ params)
         def obj = Student.createCriteria()
         def studentList = obj.list {
             programDetail {
@@ -57,11 +57,11 @@ class AttendanceService {
         def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
         def programDetail = ProgramDetail.findById(Long.parseLong(params.programList))
         def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, Integer.parseInt(params.programTerm))
-        println("programDetail is " + programDetail + " semester " + semester)
+//        println("programDetail is " + programDetail + " semester " + semester)
         def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
         boolean status = writeAttendanceSheet(studentList, params, semester, courseSubject, excelPath, examinationCentre)
 
-        println("this is the status after file handling " + status)
+//        println("this is the status after file handling " + status)
         return status
 
     }
@@ -85,7 +85,7 @@ class AttendanceService {
         }
         catch (Exception e) {
 
-            println("this is the exception " + e)
+//            println("this is the exception " + e)
             return false
         }
         return false
@@ -156,10 +156,10 @@ class AttendanceService {
         int i = 4;
         courseSubject.each {
             String date = it.subject.examDate.getDateString()
-            println("hello " + i + " date " + date.getClass())
+//            println("hello " + i + " date " + date.getClass())
             SimpleDateFormat sdfDestination = new SimpleDateFormat("dd/MM/yyyy");
             Date date1 = sdfDestination.parse(date);
-            println("----------------" + date1)
+//            println("----------------" + date1)
             addCaption(sheet, i, 2, " " + date);
             i++;
         }

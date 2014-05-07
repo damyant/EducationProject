@@ -109,7 +109,7 @@ class AdminController {
 
     @Secured(["ROLE_ADMIN","ROLE_IDOL_USER"])
     def generateFeeVoucher={
-        println(">>>>>>>>????????>>"+params)
+//        println(">>>>>>>>????????>>"+params)
         def student = Student.findByRollNo(params.rollNo)
         if(!(student.studyCentre[0].centerCode=="11111")){
              redirect(action: "feeVoucher",params:[error:"error"])
@@ -118,7 +118,7 @@ class AdminController {
 
 
         def program= student.programDetail
-        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
+//        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
         def feeTypeId =Integer.parseInt(params.feeType)
         def feeType = FeeType.findById(feeTypeId)
         def programFee = ProgramFee.findByProgramDetail(program)
@@ -135,7 +135,7 @@ class AdminController {
                     programFeeAmount = programFee.certificateFee
                     break;
             }
-        println("feeTypeId    "+feeTypeId+"********"+programFee.feeAmountAtIDOL)
+//        println("feeTypeId    "+feeTypeId+"********"+programFee.feeAmountAtIDOL)
         def args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
         pdfRenderingService.render(args+[controller:this],response)
 
@@ -204,10 +204,10 @@ class AdminController {
             def userDir = new File(webRootDir,'/Attendance')
             userDir.mkdirs()
             def excelPath = servletContext.getRealPath("/")+'Attendance'+System.getProperty('file.separator')+'Output'+'.xls'
-            println('this is the real path '+excelPath)
+//            println('this is the real path '+excelPath)
             def status= attendanceService.getStudentList(params,excelPath)
             if(status){
-                println("hello kuldeep u r back in controller "+ status)
+//                println("hello kuldeep u r back in controller "+ status)
                 File myFile = new File(servletContext.getRealPath("/")+'Attendance'+System.getProperty('file.separator')+'Output'+'.xls')
                 response.setHeader "Content-disposition", "attachment; filename="+'Output'+".xls"
                 response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
@@ -221,7 +221,7 @@ class AdminController {
         }
 
         else{
-            println("there is no parameters")
+//            println("there is no parameters")
         }
 
     }
@@ -237,7 +237,7 @@ class AdminController {
     }
     def getBranchList={
         def list=Bank.findAllById(Integer.parseInt(params.bank));
-        println("))))))))@@@@@@@@@@@@@@@@@@"+list.branch[0].branchLocation)
+//        println("))))))))@@@@@@@@@@@@@@@@@@"+list.branch[0].branchLocation)
         render list.branch[0] as JSON
     }
     def studyCentreFeeApproval={
@@ -251,17 +251,25 @@ class AdminController {
         def feeAmount=ProgramFee.findAllByProgramDetail(studentInst.programDetail);
         resultMap.studentInst=studentInst;
         resultMap.feeAmount=feeAmount.feeAmountAtSC;
-        println("%%%%%%%%%%%%"+resultMap.studentInst[0].rollNo);
-        println("###########"+resultMap.feeAmount[0]);
+//        println("%%%%%%%%%%%%"+resultMap.studentInst[0].rollNo);
+//        println("###########"+resultMap.feeAmount[0]);
         render resultMap as JSON
     }
     def saveApprovePayInSlip={
-        println("saving  "+params);
+//        println("saving  "+params);
         def returnMap=[:]
         Boolean result=adminInfoService.savePayInSlip(params);
         returnMap.flag=result
-        println(result);
+//        println(result);
         render returnMap as JSON
+    }
+    def getFeeAmount={
+        def resultMap=[:]
+//        println(params)
+        def feeAmount=ProgramFee.findAllById(params.program);
+        resultMap.feeAmount=feeAmount.feeAmountAtIDOL;
+//        println(resultMap);
+        render resultMap as JSON
     }
 }
 

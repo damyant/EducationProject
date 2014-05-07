@@ -96,14 +96,14 @@ class UserService {
         /* def role=springSecurityService.getPrincipal().authorities*.authority[0]*/
         def rolesGrated = []
         def rolesList = Role.list()
-        println(rolesList)
+//        println(rolesList)
         /* rolesList.each {r ->
              if(SpringSecurityUtils.ifAnyGranted(r.authority) && r.authority!=role){
                  rolesGrated.add(r)
              }
          }*/
 
-        println("Role List from User Service" + rolesList)
+//        println("Role List from User Service" + rolesList)
         return rolesList
     }
 

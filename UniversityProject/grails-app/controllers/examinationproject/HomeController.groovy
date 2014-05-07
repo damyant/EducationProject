@@ -7,7 +7,7 @@ class HomeController {
 
 
 def showResults={
-    println "here.. "+params
+//    println "here.. "+params
    render(view: "viewResult")
 }
 

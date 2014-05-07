@@ -45,6 +45,9 @@ function validate() {
                 required: true,
                 email: true
             },
+            bankName:{
+                required: true
+            },
             websiteUrl: {
                 required: true,
                 url: true
@@ -211,6 +214,10 @@ function validate() {
             paymentMode: {
                 required: true
             },
+            feeReferenceNumber:{
+                required: true,
+                number: true
+            },
             draftNumber: {
                 required: true,
                 number: true
@@ -231,6 +238,9 @@ function validate() {
             rollNumber:{
                 required:true,
                 minlength: 8
+            },
+            branchName:{
+                required:true
             },
             dob:{
                 required:true,
@@ -257,10 +267,18 @@ function validate() {
 
         },
         messages: {
+            feeReferenceNumber:{
+                required: "Please Enter Reference Number",
+                number: "Only accepts Numbers"
+            },
             type:{
                 required: "Please Entre Fee Type Name",
                 textonly: "Only accepts Characters"
             },
+            bankName:{
+                required: "Please Enter Bank Name"
+            },
+            branchName:"Please Enter Branch Name",
             rollNumber:{
                 required:"Please Enter Roll Number",
                 minlength:"Please Enter 8 digit Roll Number"

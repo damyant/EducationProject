@@ -68,7 +68,7 @@ class StudyCenterController {
     @Secured("ROLE_ADMIN")
     def deleteStudyCenter() {
         try{
-            println('in delete Centre')
+//            println('in delete Centre')
             StudyCenter studyCenter = StudyCenter.get(params.int('data'))
             def tmp=[]
             studyCenter.student.each { tmp << it }

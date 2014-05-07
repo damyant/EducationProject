@@ -33,7 +33,7 @@ $(document).ready(function () {
                 }
 
             })
-            alert(this.value)
+//            alert(this.value)
             generateRollNo(this.value)
 //            document.forms["generateRollNo"].submit();
         }

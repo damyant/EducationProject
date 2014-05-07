@@ -13,7 +13,7 @@ class ExaminationCenterController {
     def createNewCentre(){
     }
     def saveExaminationCentre = {
-        println("hello kuldeep in examination centre")
+//        println("hello kuldeep in examination centre")
         Boolean flag = examinationCentreService.saveCentres(params)
         if(flag){
             render   "${message(code: 'centre.created.message')}"
@@ -48,9 +48,9 @@ class ExaminationCenterController {
         }
     }
     def getCentreList = {
-        println("in getCentreList "+ params)
+//        println("in getCentreList "+ params)
         def result= examinationCentreService.examVenueList(params)
-        println("in result "+ result)
+//        println("in result "+ result)
        if(result){
         render(template: "listOfCentre", model: [centreList: result, edit:params.edit, delete:params.delete])
         }
@@ -71,7 +71,7 @@ class ExaminationCenterController {
 
     @Secured("ROLE_ADMIN")
     def editExaminationCentre ={
-        println("========="+params.id)
+//        println("========="+params.id)
         def examinationVenueInstance = ExaminationVenue.findById(params.id)
 
         println(examinationVenueInstance.properties)
@@ -79,7 +79,7 @@ class ExaminationCenterController {
         return [examinationVenueInstance: examinationVenueInstance]
     }
     def updateCentre ={
-        println("?????????/"+params)
+//        println("?????????/"+params)
             def examCentreIns =  ExaminationVenue.get(params.id)
            def isSaved= examinationCentreService.updateExaminationCentre(params)
             if(isSaved){
@@ -129,14 +129,14 @@ class ExaminationCenterController {
     }
 
     def getProgrammeList() {
-        println("this is the id of venue" +params.int('data'))
+//        println("this is the id of venue" +params.int('data'))
         try{
             ExaminationVenue examinationCentre = ExaminationVenue.get(params.int('data'));
 
             def programmeList = null
             if (examinationCentre != null) {
                 programmeList = ProgramExamVenue.findAllByExamVenue(examinationCentre).courseDetail
-                println("list of programs"+programmeList)
+//                println("list of programs"+programmeList)
                 render programmeList as JSON
             } else {
                 render null

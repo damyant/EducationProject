@@ -85,8 +85,17 @@ body {
 .university-size-2-5 {
     width: 38%;
 }
+.university-size-1-7 {
+    width: 15%;
+}
 .university-size-1-8 {
     width: 12.5%;
+}
+.university-size-1-9 {
+    width: 11%;
+}
+.university-size-1-11 {
+    width: 9%;
 }
 .university-bottom-margin{
     margin-bottom: 10px;
@@ -111,7 +120,9 @@ body {
     text-decoration: none;
     color: #000;
 }
-
+.university-display-inline{
+    display: inline-block;
+}
 /*button*/
 .university-button {
     border-radius: 0;

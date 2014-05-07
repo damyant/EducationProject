@@ -16,7 +16,7 @@ class AdmitCardController {
     def index() {}
 
     def viewAdmitCard = {
-        println "here.. "+params
+//        println "here.. "+params
         render(view: "viewAdmitCard")
     }
 
@@ -132,7 +132,7 @@ class AdmitCardController {
             examDate.append(", ")
         }
 
-        println("status==="+status)
+//        println("status==="+status)
 
         def month=""
         if(stuList[0].semester%2==0){

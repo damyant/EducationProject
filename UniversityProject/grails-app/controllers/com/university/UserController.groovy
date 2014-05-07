@@ -28,7 +28,7 @@ class UserController {
 
     @Transactional
     def updatePwd(){
-        println("?????????????????????"+params)
+//        println("?????????????????????"+params)
         def userInstance=User.findById(params.id)
         userInstance.password=params.newPwd
         userInstance.save(flush: true)
@@ -111,8 +111,8 @@ class UserController {
         else {
 
             def roles=Role.getAll()
-            println(roles.id)
-            println(userRoles)
+//            println(roles.id)
+//            println(userRoles)
             return [userInstance: userInstance,roles:roles, userRoles:userRoles, compare:compare]
         }
     }
@@ -149,7 +149,7 @@ class UserController {
 
 
     def updateUser = {
-        println("hello kuldeeppppppppppppppppppppppppppp")
+//        println("hello kuldeeppppppppppppppppppppppppppp")
         def UserInstance = User.get(params.id)
         if (UserInstance) {
             if (params.version) {

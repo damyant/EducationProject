@@ -64,7 +64,7 @@ class StudentController {
                 redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
             }
         } else {
-                println("Cannot Register new Student")
+//                println("Cannot Register new Student")
                 flash.message = "${message(code: 'register.notCreated.message')}"
                 redirect(action: "registration")
         }
@@ -74,7 +74,7 @@ class StudentController {
 
     def applicationPrintPreview = {
 
-        println("params" + params)
+//        println("params" + params)
         def student = Student.findById(params.studentID)
         def args = [template: "applicationPrintPreview", model: [studentInstance: student]]
         pdfRenderingService.render(args + [controller: this], response)
@@ -102,7 +102,7 @@ class StudentController {
                 render response as JSON
             }
         } catch (Exception e) {
-            println("***problem in showing Status of Application***")
+//            println("***problem in showing Status of Application***")
         }
     }
 
@@ -156,7 +156,7 @@ class StudentController {
     def checkApplicationNo(){
         def status=[:]
         def applicationNoIns=Student.findByApplicationNo(params.applicationNo)
-        println(applicationNoIns)
+//        println(applicationNoIns)
         if(applicationNoIns){
             status.applicationNo='true'
         }

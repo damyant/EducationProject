@@ -82,7 +82,7 @@ class StudentRegistrationService {
             }
         } else {
             programSessionIns = new ProgramSession(sessionOfProgram: programSession, programDetail: programDetail).save(flush: true, failOnError: true)
-            println("Session new" + programSessionIns.sessionOfProgram)
+//            println("Session new" + programSessionIns.sessionOfProgram)
         }
 
 
@@ -144,7 +144,7 @@ class StudentRegistrationService {
 
         if (courseCodeStr.length() > 2) {
             courseCodeStr = courseCodeStr.substring(courseCodeStr.length() - 2, courseCodeStr.length())
-            println(courseCodeStr)
+//            println(courseCodeStr)
         }
         String rollNumber = null;
         def student = Student.count()
@@ -162,7 +162,7 @@ class StudentRegistrationService {
                 order("rollNo", "desc")
             }
 
-            println("List Size"+studentByYearAndCourse)
+//            println("List Size"+studentByYearAndCourse)
                 if (studentByYearAndCourse.size()>0) {
                     if (studentByYearAndCourse.get(0).rollNo) {
 
@@ -231,7 +231,7 @@ class StudentRegistrationService {
 
         for (int i = 0; i < 100; i++) {
             students = new Student()
-            println("Seeded user" + i)
+//            println("Seeded user" + i)
             students.studentName = "Student" + i
             students.gender = "Male"
             students.category = "GEN"
