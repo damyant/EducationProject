@@ -13,6 +13,7 @@
     <meta name="layout" content="main"/>
     <g:javascript src='validate.js'/>
     <g:javascript src='studyCenter.js'/>
+    <g:javascript src='admin.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
 
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>
@@ -38,7 +39,7 @@
             var flag = "${registered}"
             var studentId = "${studentID}"
             if (flag == 'registered') {
-                alert(flag+""+studentId)
+
                 url = "http://localhost:9093/UniversityProject/student/registration"
                 window.location.href = url;
                 window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId);
@@ -312,6 +313,47 @@
 
     </td>
 </tr>
+<sec:ifNotLoggedIn>
+<tr>
+
+  <td colspan="2">
+    <fieldset>
+        <legend>Fee Details</legend>
+        <table class="inner">
+            <tr>
+                <td>Bank Name</td>
+                <td> <g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
+                               optionValue="bankName"
+                               from="${bankName}" noSelection="['': ' Select Bank']"
+                               onchange="loadBranch(this)"/></td>
+            </tr>
+            <tr>
+                <td>Branch Name</td>
+                <td> <g:select name="branchName" class="university-size-1-2" optionKey=""
+                               optionValue="" id="branchLocation"
+                               from="" noSelection="['': ' Select Branch']"
+                /></td>
+            </tr>
+            <tr>
+                <td>Payment Mode</td>
+                <td> <g:select name="paymentMode" class="university-size-1-2" optionKey="id"
+                               optionValue="paymentModeName" id="paymentMode"
+                               from="${paymentMode}" noSelection="['': ' Select PaymentMode']"
+                /></td>
+            </tr>
+            <tr>
+                <td>Reference Number</td>
+                <td> <input type="text" name="feeReferenceNumber" class="university-size-1-2" id="feeReferenceNumber"/></td>
+            </tr>
+            <tr>
+                <td>Payment Date</td>
+                <td> <input type="text" name="paymentDate" class="university-size-1-2" id="paymentDate"/></td>
+            </tr>
+        </table>
+    </fieldset>
+  </td>
+</tr>
+</sec:ifNotLoggedIn>
 <tr>
     <td colspan="2">
         <label id="declaration-label"><input type="checkbox" id="declaration" name="declaration"/>
@@ -358,6 +400,13 @@
     $(function () {
         $(function () {
             $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm/dd/yy",
+                maxDate: 0
+            });
+
+            $("#paymentDate").datepicker({
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: "mm/dd/yy",

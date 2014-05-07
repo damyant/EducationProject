@@ -237,7 +237,7 @@ function showExamVenueList1()  {
                 $("#moveButton").css("visibility", 'visible');
                 $("#movetoSelect").css("visibility", 'visible');
             }
-                alert(data.assocaitedExamVenue)
+//                alert(data.assocaitedExamVenue)
             for(var j=0;j<data.assocaitedExamVenue.length;j++){
 
                 $("#addExamCentre").append('<option value="' + data.assocaitedExamVenue[j].id + '">' + data.assocaitedExamVenue[j].name + '</option>')
@@ -323,7 +323,10 @@ function generateAdmitCard(){
 
         })
         $("#studentList").val(selectedStudentList)
-        $("#admitCardForm").submit();
+        var studentList =$("#studentList").val()
+        var venue =$("#examCenterList").val()
+        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue);
+        //$("#admitCardForm").submit();
 //        studentsSelected(selectedStudentList)
 
         setTimeout(function(){ getStudentsForAdmitCard()},300);

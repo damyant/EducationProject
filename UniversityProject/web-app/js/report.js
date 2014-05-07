@@ -51,6 +51,10 @@ $(function() {
 //        alert("clicked")
         openPopUp(9)
     })
+    $('#feePaidStudyCentre').on('click', function(){
+//        alert("clicked")
+        openPopUp(10)
+    })
 });
 
 
@@ -126,6 +130,14 @@ function openPopUp(value){
         $('tr').hide()
         $('#flagValue').val('categoryGender')
         $("#byCategoryGender").show()
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+    else if(value==10){
+        $('tr').hide()
+        $('#flagValue').val('studyCentreFeePaid')
+        $("#byStudyCentreFeePaid").show()
         $("#submitButton").show()
 //        alert("condition is true")
         $('#sessionDialog').dialog('open')

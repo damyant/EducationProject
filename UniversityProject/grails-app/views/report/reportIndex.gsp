@@ -47,6 +47,19 @@
                        </ul>
                   </a>
                 </div>
+                <div id="feePaidReports">
+                    <a href="#">
+                        <li>Admission Reports</li>
+                        <ul>
+                            <li id="feePaidStudyCentre"> Study Centre Wise Fee Paid Statement
+                            </li>
+                            <li id="dailyFeeReport">Daily Fees Report
+                            </li>
+
+
+                        </ul>
+                    </a>
+                </div>
 
             </ul>
 
@@ -112,6 +125,26 @@
                    </td>
 
                </tr>
+
+               <tr id="byStudyCentreFeePaid">
+                   <td style="width: 18%">
+                       <label for="filterType">Select Study Centre:</label>
+                   </td>
+                   <td style="width: 18%" >
+                       <g:select name="feePaidStudyCentre" class="university-size-1-1" id="feePaidStudyCentre"
+                                 from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
+                                 noSelection="['null': ' Select Study Centre']" />
+                   </td>
+                   <td style="width: 18%" >
+                       <g:select name="studyCentreFeePaidSession" class="university-size-1-1 allSession" id="studyCentreFeePaidSession"
+                                 from="${filterType}" optionKey="" optionValue=""
+                                 noSelection="['null': ' Select Session']" />
+                   </td>
+
+               </tr>
+
+
+
                <tr id="byCategory">
                    <td style="width: 18%">
                        <label for="filterType">Select Session:</label>

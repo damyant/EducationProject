@@ -322,7 +322,7 @@ function deleteFeeType(feeTypeId) {
 
     if (result == true) {
         var data = feeTypeId;
-        alert(result)
+//        alert(result)
         $.ajax({
             type: "post",
             url: url('programFee', 'deleteFeesType', ''),
@@ -333,4 +333,39 @@ function deleteFeeType(feeTypeId) {
             }
         });
     }
+}
+function loadBranch(t){
+    var bank=$(t).val();
+//    alert(bank)
+    if(bank){
+        $.ajax({
+            type: "post",
+            url: url('admin', 'getBranchList', ''),
+            data: {bank: bank},
+            success: function (data) {
+                //document.location.reload();
+                $("#branchLocation").empty().append('');
+                $("#branchLocation").append('Select Branch');
+                for (var i = 0; i < data.length; i++) {
+                    $("#branchLocation").append('<option value="' + data[i].id + '">' + data[i].branchLocation + '</option>')
+                }
+            }
+        });
+    }
+}
+function populateChallanDetail(t){
+    var challanNo=$(t).val();
+    alert(challanNo)
+    $.ajax({
+        type: "post",
+        url: url('admin', 'getChallanDetails', ''),
+        data: {challanNo: challanNo},
+
+        success: function (data) {
+            console.log("dsfddsdds"+data.studentInst.rollNo);
+            $('#rollNo').val(data.studentInst[0].rollNo);
+            $('#feeAmount').val(data.feeAmount[0]);
+
+        }
+    });
 }

@@ -2,7 +2,9 @@
     <div style="width: 100%; margin: 6px auto; display: inline-block;text-align: center;">----------------------------------------BANK COPY----------------------------------------</div>
 
     <div style="border: 1px solid; padding: 10px;">
-        %{--<div style="float: right"><lable>Sr. No.</lable><label>${student?.referenceNumber}</label></div>--}%
+       <div class="university-size-full-1-1" style="margin-bottom: 25px;"> <div style="float: right"><lable>Challan. No. </lable><label >${student?.challanNo}</label></div>
+       <div class="university-clear-both"></div>
+       </div>
 
         <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
 
@@ -32,7 +34,9 @@
     <div style="width: 100%; margin: 6px auto; display: inline-block;text-align: center;">-----------------------------------UNIVERSITY COPY-----------------------------------</div>
 
     <div style="border: 1px solid; padding: 10px;">
-        %{--<div style="float: right"><lable>Sr. No.</lable><label>${student?.referenceNumber}</label></div>--}%
+        <div class="university-size-full-1-1" style="margin-bottom: 25px;"> <div style="float: right"><lable>Challan. No. </lable><label >${student?.challanNo}</label></div>
+            <div class="university-clear-both"></div>
+        </div>
 
         <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
 
@@ -62,8 +66,9 @@
     <div style="width: 100%; margin: 6px auto; display: inline-block;text-align: center;">--------------------------------------STUDENT COPY--------------------------------------</div>
 
     <div style="border: 1px solid; padding: 10px;">
-        %{--<div style="float: right"><lable>Sr. No.</lable><label>${student?.referenceNumber}</label></div>--}%
-
+        <div class="university-size-full-1-1" style="margin-bottom: 25px;"> <div style="float: right"><lable>Challan. No. </lable><label >${student?.challanNo}</label></div>
+            <div class="university-clear-both"></div>
+        </div>
         <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
 
         <div>State Bank of India</div>

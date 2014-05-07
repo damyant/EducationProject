@@ -1,13 +1,19 @@
 package universityproject
 
+import examinationproject.Bank
+import examinationproject.Branch
 import examinationproject.ExaminationCentre
 import examinationproject.ExaminationVenue
+import examinationproject.FeeDetails
+import examinationproject.FeeType
+import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.Status
 import examinationproject.ProgramSession
 import examinationproject.StudyCenter
 import examinationproject.Student
 import grails.transaction.Transactional
+import jxl.CellReferenceHelper
 
 import java.security.SecureRandom
 import java.text.DateFormat;
@@ -41,6 +47,8 @@ class StudentRegistrationService {
             studentRegistration.addressTown = params.addressTown
             studentRegistration.addressStudentName = params.addressStudentName
             studentRegistration.addressDistrict = params.addressDistrict
+            if(params.idol=="idol")
+             studentRegistration.challanNo = getChallanNumber()
 
         } else {
             studentRegistration = new Student(params)
@@ -51,7 +59,7 @@ class StudentRegistrationService {
                 studentRegistration.status = Status.findById(2)
 
             } else {
-                studentRegistration.referenceNumber = Integer.parseInt(getStudentReferenceNumber())
+                studentRegistration.referenceNumber = getStudentReferenceNumber()
                 studentRegistration.status = Status.findById(1)
             }
         }
@@ -81,6 +89,8 @@ class StudentRegistrationService {
 
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
+        if(params.idol=="idol")
+            studentRegistration.challanNo = getChallanNumber()
         Set<ExaminationVenue> examinationCentreList = ExaminationVenue.findAllById(Integer.parseInt(params.examinationCentre))
         studentRegistration.examinationCentre = examinationCentreList
         if (!params.appNo) {
@@ -95,8 +105,18 @@ class StudentRegistrationService {
         //END RAJ CODE
         // studentRegistration.studentSignature=signature.bytes
         if (studentRegistration.save(flush: true, failOnError: true)) {
-            println('new student registered successfully')
-            studentRegistrationInsSaved = true
+            if (!springSecurityService.isLoggedIn()) {
+            def feeDetails = new FeeDetails()
+
+            feeDetails.bankId= Bank.findById(Integer.parseInt(params.bankName))
+            feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
+            feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
+            feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
+            feeDetails.feeTypeId = FeeType.findById(1)
+            feeDetails.studentId= studentRegistration
+            feeDetails.paymentDate = df.parse(params.paymentDate)
+            feeDetails.save(flush: true,failOnError: true)
+            }
             return studentRegistration
         } else {
             return null
@@ -181,7 +201,16 @@ class StudentRegistrationService {
         def bufLength = buf.length
         for (int idx = 0; idx < bufLength; idx++)
             buf[idx] = symbols.charAt(random.nextInt(symbols.length()));
-        return new String(buf);
+        if(Student.count()>0){
+            if(!Student.findByReferenceNumber(new String(buf))){
+                return new String(buf);
+            }else{
+                getStudentReferenceNumber()
+            }
+        }
+        else{
+            return new String(buf);
+        }
     }
 
     def approvedStudents(params) {
@@ -222,6 +251,17 @@ class StudentRegistrationService {
             students.registrationYear = year
             students.save(flush: true)
 
+        }
+    }
+
+    def getChallanNumber(){
+        String challanNo = getStudentReferenceNumber()
+        if(Student.count()>0){
+            if(!Student.findByChallanNo(challanNo)){
+               return challanNo
+            }else{
+               getChallanNumber()
+            }
         }
     }
 

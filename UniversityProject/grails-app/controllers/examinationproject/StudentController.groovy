@@ -32,9 +32,11 @@ class StudentController {
         def studInstance = Student.get(params.studentId)
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
+        def bankName=Bank.list(sort:'bankName')
+        def paymentMode=PaymentMode.list(sort:'paymentModeName')
         def centreList =  ExaminationCentre.list(sort: 'examinationCentreName')
 //        println("sss"+studInstance.status)
-        [studyCentre: studyCentre,studInstance:studInstance, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID]
+        [studyCentre: studyCentre,studInstance:studInstance, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode]
 
 
     }

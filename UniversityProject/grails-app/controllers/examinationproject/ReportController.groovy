@@ -79,6 +79,13 @@ class ReportController {
            pdfRenderingService.render(args + [controller: this], response)
            redirect(action: 'reportIndex')
        }
+       else if(params.value=='studyCentreFeePaid' && params.studyCentreFeePaidSession){
+           println("this function is called")
+           def totalList = reportService.getReportDataStudyCentreFeePaid(params)
+           def args = [template: "generate", model: [totalListByAdmissionUnapproved :totalList, admissionUnapprovedSession:params.admissionUnapprovedSession],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           pdfRenderingService.render(args + [controller: this], response)
+           redirect(action: 'reportIndex')
+       }
    }
 
 }

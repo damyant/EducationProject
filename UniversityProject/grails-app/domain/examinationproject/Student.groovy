@@ -24,12 +24,13 @@ class Student {
     int semester
     Status status
     int registrationYear
-    int referenceNumber
+    String referenceNumber
     byte[] studentImage
     ProgramSession programSession
     Boolean admitCardGenerated
     ExaminationVenue examinationVenue
     Date admissionDate =new Date()
+    String challanNo
 
 
     static hasMany = [examinationCentre : ExaminationCentre, studyCentre : StudyCenter,programDetail:ProgramDetail]
@@ -54,10 +55,12 @@ class Student {
         studentImage(nullable: true)
         location(nullable: true)
         applicationNo(nullable: true)
-        rollNo(nullable:true)
+        rollNo(nullable:true,unique: true)
         status(nullable:true)
         admitCardGenerated(nullable: true)
         examinationVenue(nullable: true)
+        challanNo(nullable: true)
+
 
     }
 
@@ -91,6 +94,7 @@ class Student {
         programSession column: 'ProgramSession'
         admitCardGenerated column: 'AdmitCardGenerated'
         examinationVenue column: 'examinationVenue'
+        challanNo column: 'ChallanNo'
     }
 
 }

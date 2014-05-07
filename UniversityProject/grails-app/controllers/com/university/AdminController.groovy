@@ -1,5 +1,7 @@
 package com.university
 
+import examinationproject.Bank
+import examinationproject.Branch
 import examinationproject.ExaminationCentre
 import examinationproject.ExaminationVenue
 import examinationproject.FeeType
@@ -40,7 +42,7 @@ class AdminController {
 
     def getStudentList(){
         def responseMap=[:]
-       def stuList= adminInfoService.provisionalStudentList(params)
+        def stuList= adminInfoService.provisionalStudentList(params)
         responseMap.status="referenceNo"
         responseMap.label=params.pageType
         responseMap.stuList=stuList
@@ -113,7 +115,10 @@ class AdminController {
              redirect(action: "feeVoucher",params:[error:"error"])
         }
 
+
+
         def program= student.programDetail
+        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
         def feeTypeId =Integer.parseInt(params.feeType)
         def feeType = FeeType.findById(feeTypeId)
         def programFee = ProgramFee.findByProgramDetail(program)
@@ -130,6 +135,7 @@ class AdminController {
                     programFeeAmount = programFee.certificateFee
                     break;
             }
+        println("feeTypeId    "+feeTypeId+"********"+programFee.feeAmountAtIDOL)
         def args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
         pdfRenderingService.render(args+[controller:this],response)
 
@@ -223,6 +229,31 @@ class AdminController {
         def studyCentreList = StudyCenter.list(sort:'name')
         def programList = ProgramDetail.list(sort:'courseName')
         [programList: programList, studyCentreList: studyCentreList]
+    }
+    def approvePayInSlip={
+        def bankList= Bank.list(sort:'bankName');
+        def feeTypeList = FeeType.list(sort: 'type');
+        [bankList:bankList,feeTypeList:feeTypeList]
+    }
+    def getBranchList={
+        def list=Bank.findAllById(Integer.parseInt(params.bank));
+        println("))))))))@@@@@@@@@@@@@@@@@@"+list.branch[0].branchLocation)
+        render list.branch[0] as JSON
+    }
+    def studyCentreFeeApproval={
+        def studyCenterList=StudyCenter.list(sort: 'name');
+        def programList = ProgramDetail.list(sort:'courseName')
+        [studyCenterList:studyCenterList,programList:programList]
+    }
+    def getChallanDetails={
+        def resultMap=[:]
+        def studentInst=Student.findAllByChallanNo(params.challanNo);
+        def feeAmount=ProgramFee.findAllByProgramDetail(studentInst.programDetail);
+        resultMap.studentInst=studentInst;
+        resultMap.feeAmount=feeAmount.feeAmountAtSC;
+        println("%%%%%%%%%%%%"+resultMap.studentInst[0].rollNo);
+        println("###########"+resultMap.feeAmount[0]);
+        render resultMap as JSON
     }
 }
 

@@ -255,10 +255,12 @@ class ReportService {
                 order('programDetail', 'asc')
             }
 
-  println("this is the result of query "+ studentList)
-
-
+       println("this is the result of query "+ studentList)
         return studentList
+    }
+
+    def getReportDataStudyCentreFeePaid(params){
+
     }
 
 }

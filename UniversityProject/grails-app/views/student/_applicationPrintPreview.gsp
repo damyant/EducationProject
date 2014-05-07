@@ -47,6 +47,7 @@
                         <div>Fax: (0361) 2573887</div>
 
                         <div>Email: idol.gauhatiuniversity@gmail.com</div>
+
                     </div>
                 </td>
                 <td style="width: 80%;">
