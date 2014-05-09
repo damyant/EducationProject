@@ -73,8 +73,8 @@ class ExaminationCenterController {
     def editExaminationCentre ={
 //        println("========="+params.id)
         def examinationVenueInstance = ExaminationVenue.findById(params.id)
-
-        println(examinationVenueInstance.properties)
+//        println("========="+examinationVenueInstance)
+//        println(examinationVenueInstance.properties)
 //        println("location of examination centre is "+ examinationCentreInstance.city.district.districtName)
         return [examinationVenueInstance: examinationVenueInstance]
     }

@@ -56,7 +56,7 @@
                 <tr>
                     <td class="university-size-1-3"><label><g:message code="default.createExam.nameOfCenter"/><span
                             class="university-obligatory">*</span></label></td>
-                    <td class="university-size-2-3"><input type="text" name="centreName" value="${examinationCentreInstance?.name}"
+                    <td class="university-size-2-3"><input type="text" name="centreName" value="${examinationVenueInstance?.name}"
                                class="university-size-1-3"/></td>
                 </tr>
 
@@ -64,15 +64,15 @@
                     <td><label><g:message code="default.createExam.contactNo"/> <span
                             class="university-obligatory">*</span>
                     </label></td>
-                    <td><input type="text" class="university-size-1-3" name="contactNo" maxlength=""
-                               value="${examinationCentreInstance?.contactNo}"/></td>
+                    <td><input type="text" class="university-size-1-3" name="contactNo" maxlength="10"
+                               value="${examinationVenueInstance?.contactNo}" onkeypress="return isNumber(event)"/></td>
                 </tr>
                 <tr>
                     <td><label><g:message code="default.createExam.address"/><span
                             class="university-obligatory">*</span>
                     </label></td>
-                    <td><input type="text" class="university-size-1-3" name="address" maxlength=""
-                               value="${examinationCentreInstance?.address}"/></td>
+                    <td><input type="text" class="university-size-1-3" name="address" maxlength="100"
+                               value="${examinationVenueInstance?.address}"/></td>
                 </tr>
 
 
@@ -86,7 +86,7 @@
                     <td><label><g:message code="default.createExam.studentCapacity"/><span
                             class="university-obligatory">*</span></label></td>
                     <td><input type="text" class="university-size-1-3" name="capacity"
-                               value="${examinationCentreInstance?.capacity}"/></td>
+                               value="${examinationVenueInstance?.capacity}" onkeypress="return isNumber(event)"/></td>
                 </tr>
 
                 <tr>

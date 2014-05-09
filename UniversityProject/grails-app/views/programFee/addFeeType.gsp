@@ -27,12 +27,28 @@
         </g:if>
         <g:form controller="programFee" action="saveNewFee" method='post' enctype="multipart/form-data"
                 id="addNewFeeType" name="addNewFeeType">
-        <table class="university-size-full-1-1 inner" style="margin-top: 50px;">
+            <div style="margin-left: 10px;margin-top: 20px;""><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
+            <table class="university-size-full-1-1 inner">
             <tr>
-                <td class="university-size-1-3"><label for="feeType">Add Fee Type Name</label></td>
+                <td class="university-size-1-3"><label for="feeType">Add Fee Type Name <span class="university-obligatory">*</span></label></td>
                 <td class="university-size-2-3 ">
                     <input type="text" class="university-size-1-2" value="${feeInstance?.type}" name="type" id="feeType"/>
                     <input type="hidden" value="${feeInstance?.id}" name="feeId"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="university-size-1-3"><label for="programList">Select Program <span class="university-obligatory">*</span></label></td>
+                <td class="university-size-2-3 ">
+                    <g:select name="programList" id="programList" class="university-size-1-2" optionKey="id"
+                              optionValue="courseName"
+                              from="${programList}" noSelection="['': ' Select Program']"
+                              onchange=""/>
+                </td>
+            </tr>
+            <tr>
+                <td class="university-size-1-3"><label for="feeAmount">Fee Amount <b>[&#8377;]</b><span class="university-obligatory"> *</span></label></td>
+                <td class="university-size-2-3 ">
+                    <input type="text" class="university-size-1-2" value="" name="type" id="feeAmount"/>
                 </td>
             </tr>
             <tr>

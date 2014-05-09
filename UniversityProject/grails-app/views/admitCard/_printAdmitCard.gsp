@@ -38,7 +38,7 @@
                         text-align: center; padding: 2px 5px; text-transform: uppercase;">Admit</span>
                         <div style="margin-top: 10px;margin-bottom: 10px;">
                             <span style="font-family: Arial; font-size: 20px;  font-weight:bold; padding: 2px 5px; text-transform: capitalize">
-                                <label id="studentName">${student.studentName}</label>
+                                <label id="studentName">${student?.firstName} ${student?.lastName} ${student?.middleName}</label>
                             </span>
                         </div>
                     </div>

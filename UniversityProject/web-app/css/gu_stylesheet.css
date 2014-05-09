@@ -408,7 +408,7 @@ h1{
 
 .radioInput {
 }
-#studentListPrint{
+#studentListPrint, #rangeRadioButtons{
     background-image: -webkit-gradient(
         linear,
         right bottom,

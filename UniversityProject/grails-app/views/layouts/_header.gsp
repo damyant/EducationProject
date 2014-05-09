@@ -194,9 +194,9 @@
 
         <li><a href="#"><g:message code="default.mainMenu8"/></a>
             <ul>
-                <li><g:link controller="feeDetails"
-                            action="createFeeDetails"><g:message
-                            code="default.mainMenu8.subMenu1"/></g:link></li>
+                %{--<li><g:link controller="feeDetails"--}%
+                            %{--action="createFeeDetails"><g:message--}%
+                            %{--code="default.mainMenu8.subMenu1"/></g:link></li>--}%
                 <li><g:link controller="feeDetails"
                             action="bulkFeeEntry"><g:message
                             code="default.mainMenu8.subMenu2"/></g:link></li>

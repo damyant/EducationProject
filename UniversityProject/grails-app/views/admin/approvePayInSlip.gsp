@@ -47,7 +47,7 @@
                                                            onchange=""/></td>
             </tr>
             <tr>
-                <td class="university-size-1-3">Amount</td>
+                <td class="university-size-1-3">Amount <b>[&#8377;]</b></td>
                 <td class="university-size-1-3"><input type="text" class="university-size-1-1" name="feeAmount" id="feeAmount" disabled></td>
             </tr>
             <tr>

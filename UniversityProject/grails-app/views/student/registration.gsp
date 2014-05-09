@@ -16,8 +16,8 @@
     <g:javascript src='admin.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
 
-    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>
-    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>
+    %{--<link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>--}%
+    %{--<link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>--}%
     <style type="text/css">
     </style>
     <script type="text/javascript">
@@ -90,9 +90,26 @@
 <!----- First Name ---------------------------------------------------------->
 <tr>
     <td>Name of the applicant <span class="university-obligatory">*</span></td>
-    <td><input type="text" name="studentName" style="text-transform:uppercase"
-               onkeypress="return onlyAlphabets(event, this);"
-               maxlength="50" class="university-size-1-2" value="${studInstance?.studentName}"/>
+    <td>
+        <table class="inner university-table-1-3 university-size-1-1" style="vertical-align: top;">
+            <tr>
+                <td>
+                    <input type="text" placeholder="First Name" name="firstName" style="margin-left: -10px;text-transform: capitalize;"
+                           onkeypress="return onlyAlphabets(event, this);"
+                           maxlength="50" class="university-size-1-1" value="${studInstance?.firstName}"/>
+                </td>
+                <td style="vertical-align: top;">
+                    <input type="text" placeholder="Middle Name" name="middleName" style="margin-left: -10px;text-transform: capitalize;"
+                           onkeypress="return onlyAlphabets(event, this);"
+                           maxlength="50" class="university-size-1-1" value="${studInstance?.middleName}"/>
+                </td>
+                <td>
+                    <input type="text" placeholder="Last Name" name="lastName" style="margin-left: -10px;text-transform: capitalize;"
+                           onkeypress="return onlyAlphabets(event, this);"
+                           maxlength="50" class="university-size-1-1" value="${studInstance?.lastName}"/>
+                </td>
+            </tr>
+        </table>
 
     </td>
 </tr>
@@ -115,16 +132,17 @@
     <td>Program<span class="university-obligatory">*</span></td>
     %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
     <td>
-    <sec:ifNotLoggedIn>
-        <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
-                  value="${studInstance?.programDetail?.id?.get(0)}"
-                  optionValue="courseName" onchange="loadProgramFeeAmount(this)" from="${programList}" noSelection="['': ' Select Program']"/>
-    </sec:ifNotLoggedIn>
-    <sec:ifLoggedIn>
-        <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
-                  value="${studInstance?.programDetail?.id?.get(0)}"
-                  optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"/>
-    </sec:ifLoggedIn>
+        <sec:ifNotLoggedIn>
+            <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
+                      value="${studInstance?.programDetail?.id?.get(0)}"
+                      optionValue="courseName" onchange="loadProgramFeeAmount(this)" from="${programList}"
+                      noSelection="['': ' Select Program']"/>
+        </sec:ifNotLoggedIn>
+        <sec:ifLoggedIn>
+            <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
+                      value="${studInstance?.programDetail?.id?.get(0)}"
+                      optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"/>
+        </sec:ifLoggedIn>
 
     </td>
 </tr>
@@ -214,7 +232,7 @@
 
                     <g:select name="examDistrict" id="district" optionKey="id"
                               value="${studInstance?.examinationCentre?.district?.id?.get(0)}"
-                              class="university-size-1-1"
+                              class="university-size-1-2"
                               onChange="showExamCenterList()" optionValue="districtName"
                               from="${districtList}" noSelection="['': ' Select District']"/>
                 </td>
@@ -222,14 +240,15 @@
             <tr>
                 <td>
                     <g:if test="${studInstance}">
-                        <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-1" optionKey="id"
+                        <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-2"
+                                  optionKey="id"
                                   optionValue="examinationCentreName"
                                   from="${ExaminationCentre.findAllByDistrict(District.get(studInstance?.examinationCentre?.district?.id?.get(0)))}"
                                   value="${studInstance?.examinationCentre?.id?.get(0)}"
                                   noSelection="['': 'Select District']"/>
                     </g:if>
                     <g:else>
-                        <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-1" from=" "
+                        <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-2" from=" "
                                   noSelection="['': 'Select Examination Centre']"/>
                     </g:else>
                 </td>
@@ -250,14 +269,22 @@
 
 <!----- Address ---------------------------------------------------------->
 <tr>
+    <!----- Mobile Number ---------------------------------------------------------->
+    <td>Parent's Name</td>
+    <td><input type="text" id="parentsName" class="university-size-1-2" name="parentsName" maxlength="100"
+               value="${studInstance?.parentsName}"
+               onkeypress="return onlyAlphabets(event, this);"/>
+    </td>
+</tr>
+<tr>
     <td>Complete Mailing Address of Candidate<br/><br/><br/></td>
     <td>
         <table style="width: 100%" id="examCenterAddress">
             <tr>
 
                 <td style="width: 30%;">Address:</td>
-                <td style="width: 70%;"><input type="text" name="addressStudentName" maxlength="30"
-                                               class="university-size-1-2" value="${studInstance?.addressStudentName}"/>
+                <td style="width: 70%;"><input type="text" name="address" maxlength="30"
+                                               class="university-size-1-2" value="${studInstance?.address}"/>
                 </td>
             </tr>
             <tr>
@@ -320,50 +347,49 @@
     </td>
 </tr>
 <sec:ifNotLoggedIn>
-<tr>
+    <tr>
 
-
-  <td colspan="2">
-    <fieldset>
-        <legend>Fee Details</legend>
-        <table class="inner">
-            <tr>
-                <td>Bank Name</td>
-                <td> <g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
-                               optionValue="bankName"
-                               from="${bankName}" noSelection="['': ' Select Bank']"
-                               onchange="loadBranch(this)"/></td>
-            </tr>
-            <tr>
-                <td>Branch Name</td>
-                <td> <g:select name="branchName" class="university-size-1-2" optionKey=""
-                               optionValue="" id="branchLocation"
-                               from="" noSelection="['': ' Select Branch']"
-                /></td>
-            </tr>
-            <tr>
-                <td>Admission Fee Amount</td>
-                <td><input type="text" name="admissionFeeAmount" class="university-size-1-2" id="admissionFeeAmount" readonly/></td>
-            </tr>
-            <tr>
-                <td>Payment Mode</td>
-                <td> <g:select name="paymentMode" class="university-size-1-2" optionKey="id"
-                               optionValue="paymentModeName" id="paymentMode"
-                               from="${paymentMode}" noSelection="['': ' Select PaymentMode']"
-                /></td>
-            </tr>
-            <tr>
-                <td>Reference Number</td>
-                <td> <input type="text" name="feeReferenceNumber" class="university-size-1-2" id="feeReferenceNumber"/></td>
-            </tr>
-            <tr>
-                <td>Payment Date</td>
-                <td> <input type="text" name="paymentDate" class="university-size-1-2" id="paymentDate"/></td>
-            </tr>
-        </table>
-    </fieldset>
-  </td>
-</tr>
+        <td colspan="2">
+            <fieldset>
+                <legend>Fee Details</legend>
+                <table class="inner">
+                    <tr>
+                        <td>Bank Name</td>
+                        <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
+                                      optionValue="bankName"
+                                      from="${bankName}" noSelection="['': ' Select Bank']"
+                                      onchange="loadBranch(this)"/></td>
+                    </tr>
+                    <tr>
+                        <td>Branch Name</td>
+                        <td><g:select name="branchName" class="university-size-1-2" optionKey=""
+                                      optionValue="" id="branchLocation"
+                                      from="" noSelection="['': ' Select Branch']"/></td>
+                    </tr>
+                    <tr>
+                        <td>Admission Fee Amount</td>
+                        <td><input type="text" name="admissionFeeAmount" class="university-size-1-2"
+                                   id="admissionFeeAmount" readonly/></td>
+                    </tr>
+                    <tr>
+                        <td>Payment Mode</td>
+                        <td><g:select name="paymentMode" class="university-size-1-2" optionKey="id"
+                                      optionValue="paymentModeName" id="paymentMode"
+                                      from="${paymentMode}" noSelection="['': ' Select PaymentMode']"/></td>
+                    </tr>
+                    <tr>
+                        <td>Reference Number</td>
+                        <td><input type="text" name="feeReferenceNumber" class="university-size-1-2"
+                                   id="feeReferenceNumber"/></td>
+                    </tr>
+                    <tr>
+                        <td>Payment Date</td>
+                        <td><input type="text" name="paymentDate" class="university-size-1-2" id="paymentDate"/></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </td>
+    </tr>
 </sec:ifNotLoggedIn>
 <tr>
     <td colspan="2">

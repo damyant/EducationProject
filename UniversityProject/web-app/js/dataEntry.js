@@ -68,7 +68,7 @@ function appendDataTable(data) {
             studentList[i] = data.stuList[i]
             var ide = data.stuList[i].id
 
-            $('#studentList tbody').append('<tr></td><td>' + data.stuList[i].rollNo + '</td><td>' + data.stuList[i].studentName
+            $('#studentList tbody').append('<tr></td><td>' + data.stuList[i].rollNo + '</td><td>' + data.stuList[i].firstName+' '+data.stuList[i].lastName
                 + '</td><td><button id="fee" onclick="openPopUp(' + data.stuList[i].id + ')">Fee Entry</button></td></tr>')
 
         }
@@ -224,7 +224,7 @@ function populateStudents(object) {
 
 
 function getBankBranch(index) {
-
+//alert("jdfjdjf"+index)
     $.ajax({
         type: "post",
         url: url('feeDetails', 'getBankBranch', ''),
@@ -267,9 +267,11 @@ function appendStudentList(data) {
     $('#studyCenterFeeEntryTable').attr('hidden', false);
     $('#rangeRadioButtons').attr('hidden', false);
     $("#studyCenterFeeEntryTable tbody tr").remove()
+    var count=1
     for (var i = 0; i < data.studentList.length; i++) {
 
-        $("#studyCenterFeeEntryTable tbody").append('<tr><td><input type="text" hidden="hidden" id="studentId' + i + '" value="' + data.studentList[i].id + '" >' +
+        $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID'+i+'"><td><input type="checkbox" name="check' + i + '" id="check' + i + '"></td><td>' + count + '</td>'+
+            '<td><input type="text" hidden="hidden" id="studentId' + i + '" value="' + data.studentList[i].id + '" >' +
             '<input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td>' +
             '<td><select id="feeType' + i + '" name="feeType" onchange=" putAmount(' + data.studentList[i].id + ',' + i + ')" class="many-to-one university-size-1-1"  disabled=""/></td><td><input type="text" id="feeAmount' + i + '" name="feeAmount" readonly/></td>' +
 //            '<td><select id="paymentMode' + i + '" name="paymentMode"  class="many-to-one university-size-1-1" /></td>' +
@@ -298,6 +300,7 @@ function appendStudentList(data) {
 //        for (var k = 0; k < data.paymentMode.length; k++) {
 //            $("#paymentMode" + i).append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
 //        }
+        count++;
     }
     $(".datePickers").datepicker({
         changeMonth: true,
@@ -335,27 +338,28 @@ $(document).ready(function () {
                     $('#paymentDetails').attr('hidden', false);
 
                     if ($('#rangeEntry').is(':checked')) {
-                        $("#paymentDetails").append('<tr><th class="university-size-1-4">Range</th>'+
-                            '<th class="university-size-1-7">Payment Mode</th>'+
-                            '<th class="university-size-1-7">Refrence No</th>'+
-                            '<th class="university-size-1-7">Payment Date</th>'+
-                            '<th class="university-size-1-7">Bank</th><th class="university-size-1-7">Branch</th></tr>');
-                        for (var i = 0; i < data.studentList.length; i++) {
-                            $("#paymentDetails").append('<tr><td><input type="text" class="university-size-1-3"  name="rollNoFrom' + i + '"> - <input type="text" class="university-size-1-3" name="rollNoTo' + i + '"></td>'+
-                                '<td><select id="paymentMode' + i + '" name="paymentMode"  class="many-to-one university-size-1-1" /></td>' +
-                                '<td><input type="text" id="referenceNumber' + i + '" name="referenceNumber"></td>'+
-                                '<td><input type="text" class="datePickers university-size-1-1" id="datePick' + i + '" name="paymentDate"/> </td>' +
-                                '<td><select onchange="getBankBranch(' + i + ')" id="bankName' + i + '" name="bankName" o class="many-to-one university-size-1-1" /></td>' +
-                                '<td><select id="branch' + i + '" name="branch" class="many-to-one university-size-1-1" /></td></tr>');
+                        $("#paymentDetails").append('<tr><th class="university-size-1-4">Roll No</th>'+
+                            '<th class="university-size-1-8">Total Amount <b>[&#8377;]</b></th>'+
+                            '<th class="university-size-1-8">Payment Mode</th>'+
+                            '<th class="university-size-1-8">Refrence No</th>'+
+                            '<th class="university-size-1-8">Payment Date</th>'+
+                            '<th class="university-size-1-8">Bank</th><th class="university-size-1-8">Branch</th></tr>');
+                            $("#paymentDetails").append('<tr><td><input type="text" class="university-size-1-3"  name="rollNoFrom"> - <input type="text" class="university-size-1-3" name="rollNoTo"></td>'+
+                                '<td><input type="text" id="totalAmount" name="totalAmount"></td>'+
+                                '<td><select id="paymentMode" name="paymentMode"  class="many-to-one university-size-1-1" /></td>' +
+                                '<td><input type="text" id="referenceNumber" name="referenceNumber"></td>'+
+                                '<td><input type="text" class="datePickers university-size-1-1" id="datePick" name="paymentDate"/> </td>' +
+                                '<td><select onchange="getBankBranch(0)" id="bankName0" name="bankName" class="many-to-one university-size-1-1" /></td>' +
+                                '<td><select id="branch0" name="branch" class="many-to-one university-size-1-1" /></td></tr>');
 
-                            $("#bankName" + i).empty().append('<option value="">Select Bank Name</option>')
-                            $("#paymentMode" + i).empty().append('<option value="">Select Payment Mode</option>')
-                            $("#branch" + i).empty().append('<option value="">Select Branch</option>')
+                            $("#bankName0").empty().append('<option value="">Select Bank Name</option>')
+                            $("#paymentMode").empty().append('<option value="">Select Payment Mode</option>')
+                            $("#branch0").empty().append('<option value="">Select Branch</option>')
                             for (var j = 0; j < data.bankName.length; j++) {
-                                $("#bankName" + i).append('<option value="' + data.bankName[j].id + '">' + data.bankName[j].bankName + '</option>')
+                                $("#bankName0").append('<option value="' + data.bankName[j].id + '">' + data.bankName[j].bankName + '</option>')
                             }
                             for (var k = 0; k < data.paymentMode.length; k++) {
-                                $("#paymentMode" + i).append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
+                                $("#paymentMode").append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
                             }
                         }
                         $(".datePickers").datepicker({
@@ -364,32 +368,30 @@ $(document).ready(function () {
                             dateFormat: "dd/mm/yy",
                             maxDate: 0
                         });
-
-                    }
                     if ($('#individualEntry').is(':checked')) {
                         $("#paymentDetails").append('<tr><th class="university-size-1-4">Roll No</th>'+
-                            '<th class="university-size-1-7">Payment Mode</th>'+
-                            '<th class="university-size-1-7">Refrence No</th>'+
-                            '<th class="university-size-1-7">Payment Date</th>'+
-                            '<th class="university-size-1-7">Bank</th><th class="university-size-1-7">Branch</th></tr>');
-                        for (var i = 0; i < data.studentList.length; i++) {
+                            '<th class="university-size-1-8">Total Amount <b>[&#8377;]</b></th>'+
+                            '<th class="university-size-1-8">Payment Mode</th>'+
+                            '<th class="university-size-1-8">Refrence No</th>'+
+                            '<th class="university-size-1-8">Payment Date</th>'+
+                            '<th class="university-size-1-8">Bank</th><th class="university-size-1-8">Branch</th></tr>');
                             $("#paymentDetails").append('<tr><td><input type="text" class="university-size-1-1" name="rollNo' + i + '" id="rollNo' + i + '"></td>'+
-                                '<td><select id="paymentMode' + i + '" name="paymentMode"  class="many-to-one university-size-1-1" /></td>' +
-                                '<td><input type="text" id="referenceNumber' + i + '" name="referenceNumber"></td>'+
-                                '<td><input type="text" class="datePickers university-size-1-1" id="datePick' + i + '" name="paymentDate"/> </td>' +
-                                '<td><select onchange="getBankBranch(' + i + ')" id="bankName' + i + '" name="bankName" o class="many-to-one university-size-1-1" /></td>' +
-                                '<td><select id="branch' + i + '" name="branch" class="many-to-one university-size-1-1" /></td></tr>');
+                                '<td><input type="text" id="totalAmount" name="totalAmount"></td>'+
+                                '<td><select id="paymentMode" name="paymentMode"  class="many-to-one university-size-1-1" /></td>' +
+                                '<td><input type="text" id="referenceNumber" name="referenceNumber"></td>'+
+                                '<td><input type="text" class="datePickers university-size-1-1" id="datePick" name="paymentDate"/> </td>' +
+                                '<td><select onchange="getBankBranch(' + 0 + ')" id="bankName0" name="bankName" class="many-to-one university-size-1-1" /></td>' +
+                                '<td><select id="branch0" name="branch" class="many-to-one university-size-1-1" /></td></tr>');
 
-                            $("#bankName" + i).empty().append('<option value="">Select Bank Name</option>')
-                            $("#paymentMode" + i).empty().append('<option value="">Select Payment Mode</option>')
-                            $("#branch" + i).empty().append('<option value="">Select Branch</option>')
+                            $("#bankName0").empty().append('<option value="">Select Bank Name</option>')
+                            $("#paymentMode").empty().append('<option value="">Select Payment Mode</option>')
+                            $("#branch0").empty().append('<option value="">Select Branch</option>')
                             for (var j = 0; j < data.bankName.length; j++) {
-                                $("#bankName" + i).append('<option value="' + data.bankName[j].id + '">' + data.bankName[j].bankName + '</option>')
+                                $("#bankName0").append('<option value="' + data.bankName[j].id + '">' + data.bankName[j].bankName + '</option>')
                             }
                             for (var k = 0; k < data.paymentMode.length; k++) {
-                                $("#paymentMode" + i).append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
+                                $("#paymentMode").append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
                             }
-                        }
                         $(".datePickers").datepicker({
                             changeMonth: true,
                             changeYear: true,

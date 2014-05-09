@@ -117,19 +117,19 @@
                     </div>
                 </div>
 
-                <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'draftNumber', 'error')} ">
-                    <div class="university-size-1-3">
-                        <label for="draftNumber">
-                            <g:message code="feeDetails.draftNumber.label" default="Draft Number"/>
-                            <span class="university-obligatory">*</span>
-                        </label>
-                    </div>
+                %{--<div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'draftNumber', 'error')} ">--}%
+                    %{--<div class="university-size-1-3">--}%
+                        %{--<label for="draftNumber">--}%
+                            %{--<g:message code="feeDetails.draftNumber.label" default="Draft Number"/>--}%
+                            %{--<span class="university-obligatory">*</span>--}%
+                        %{--</label>--}%
+                    %{--</div>--}%
 
-                    <div class="university-size-2-3">
-                        <g:textField name="draftNumber" onkeypress="return isNumber(event)" value="${feeDetailsInstance?.draftNumber}" disabled="disabled"
-                                     class="university-size-1-2"/>
-                    </div>
-                </div>
+                    %{--<div class="university-size-2-3">--}%
+                        %{--<g:textField name="draftNumber" onkeypress="return isNumber(event)" value="${feeDetailsInstance?.draftNumber}" disabled="disabled"--}%
+                                     %{--class="university-size-1-2"/>--}%
+                    %{--</div>--}%
+                %{--</div>--}%
 
                 <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'paymentDate', 'error')} required">
                     <div class="university-size-1-3">
@@ -159,7 +159,7 @@
                     </div>
                 </div>
 
-                <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'issuingBank', 'error')} ">
+                <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'Bank', 'error')} ">
                     <div class="university-size-1-3">
                         <label for="issuingBank">
                             <g:message code="feeDetails.issuingBank.label" default="Issuing Bank"/>
@@ -168,12 +168,12 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField name="issuingBank" id="issuingBank" value="${feeDetailsInstance?.issuingBank}"
+                        <g:textField name="issuingBank" id="issuingBank" value="${feeDetailsInstance?.Bank}"
                                      disabled="disabled" class="university-size-1-2"/>
                     </div>
                 </div>
 
-                <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'issuingBranch', 'error')} ">
+                <div class="fieldcontain ${hasErrors(bean: feeDetailsInstance, field: 'Branch', 'error')} ">
                     <div class="university-size-1-3">
                         <label for="issuingBranch">
                             <g:message code="feeDetails.issuingBranch.label" default="Issuing Branch"/>
@@ -182,8 +182,8 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField name="issuingBranch" id="issuingBranch"
-                                     value="${feeDetailsInstance?.issuingBranch}"
+                        <g:textField name="issuingBranch" id="Branch"
+                                     value="${feeDetailsInstance?.Branch}"
                                      disabled="disabled" class="university-size-1-2"/>
                     </div>
                 </div>

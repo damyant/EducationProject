@@ -35,7 +35,9 @@ class StudentRegistrationService {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         if (params.studentId) {
             studentRegistration = Student.findById(Long.parseLong(params.studentId))
-            studentRegistration.studentName = params.studentName
+            studentRegistration.firstName = params.firstName
+            studentRegistration.middleName = params.middleName
+            studentRegistration.lastName = params.lastName
             studentRegistration.gender = params.gender
             studentRegistration.category = params.category
             studentRegistration.mobileNo = Long.parseLong(params.mobileNo)
@@ -45,7 +47,7 @@ class StudentRegistrationService {
             studentRegistration.addressPinCode = params.addressPinCode
             studentRegistration.addressPO = params.addressPO
             studentRegistration.addressTown = params.addressTown
-            studentRegistration.addressStudentName = params.addressStudentName
+            studentRegistration.address = params.address
             studentRegistration.addressDistrict = params.addressDistrict
             if(params.idol=="idol")
              studentRegistration.challanNo = getChallanNumber()
@@ -236,7 +238,8 @@ class StudentRegistrationService {
         for (int i = 0; i < 100; i++) {
             students = new Student()
 //            println("Seeded user" + i)
-            students.studentName = "Student" + i
+            students.firstName = "first" + i
+            students.lastName = "last" + i
             students.gender = "Male"
             students.category = "GEN"
             students.referenceNumber = getStudentReferenceNumber()

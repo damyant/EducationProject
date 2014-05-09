@@ -89,7 +89,8 @@ class ProgramFeeController {
     }
     def addFeeType = {
         def feeInstance = FeeType.get(params?.feeTypeId);
-        [feeInstance: feeInstance]
+        def programList = ProgramDetail.list(sort:'courseName')
+        [feeInstance: feeInstance,programList: programList]
     }
     def saveNewFee = {
         println(params?.feeId)

@@ -64,7 +64,7 @@
                    <g:each in="${totalListByCourse}" var="student">
                         <tr >
                             <td >${student.rollNo}</td>
-                            <td >${student.studentName}</td>
+                            <td >${student?.firstName} ${student?.lastName} ${student?.middleName}</td>
                             <td >${student.studyCentre[0].name}</td>
                             <td >${student.examinationCentre[0].examinationCentreName}</td>
                             <td >+91 ${student.mobileNo}</td>
@@ -176,7 +176,7 @@
             <g:each in="${totalListByAdmissionUnapproved}" var="student">
                 <tr >
                     <td >${student.rollNo}</td>
-                    <td >${student.studentName}</td>
+                    <td >${student?.firstName} ${student?.lastName} ${student?.middleName}</td>
                     <td >${student.programDetail[0].courseCode}</td>
                     <td >${student.examinationCentre[0].examinationCentreName}</td>
                     <td >+91 ${student.mobileNo}</td>

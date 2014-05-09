@@ -12,7 +12,9 @@ function validate() {
                 required: true,
                 textonly: true
             },
-
+            uploadSyllabus: {
+                extension: "doc|pdf|docx"
+            },
             address: "required",
             programList: "required",
             internalMarks: {
@@ -110,7 +112,11 @@ function validate() {
             location: {
                 required: true
             },
-            studentName: {
+            firstName: {
+                required: true,
+                textonly: true
+            },
+            lastName: {
                 required: true,
                 textonly: true
             },
@@ -283,6 +289,9 @@ function validate() {
                 required:"Please Enter Roll Number",
                 minlength:"Please Enter 8 digit Roll Number"
             },
+            uploadSyllabus: {
+                extension: "Please enter a value with a valid extension"
+            },
             dob:{
                 required:"Please Enter Date Of Birth",
                 date: "Please Enter Date Of Birth in Correct Date Format"
@@ -344,8 +353,9 @@ function validate() {
             examinationCentre: "Please Select Examination Venue",
             examDistrict:"Please Select Examination Center District",
             examCity:"Please Select Examination Center City",
-            addressStudentName: "Please enter Student Name",
-            studentName: "Please enter Student Name",
+            address: "Please enter Student Name",
+            firstName: "Please enter First Name",
+            lastName:"Please enter Last Name",
             addressTown: "Please Enter your town",
             addressPO: "Please enter your Post Office",
             addressDistrict: "Please enter your District",
@@ -424,6 +434,10 @@ function validate() {
     }, "Username must contain only letters, numbers, or dashes.");
 
 
+    jQuery.validator.addMethod("extension", function(value, element, param) {
+        param = typeof param === "string" ? param.replace(/,/g, '|') : "png|jpe?g|gif";
+        return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i"));
+    }, jQuery.format("Please enter a value with a valid extension."));
 }
 
 

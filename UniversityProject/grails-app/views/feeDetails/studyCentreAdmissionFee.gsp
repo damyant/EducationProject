@@ -34,30 +34,34 @@
                 </td>
             </tr>
         </table>
-        <br/><br/>
+        <br/>
         <table id="studyCenterFeeEntryTable" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd; " hidden="hidden">
             <thead>
             <tr>
-                <th class="university-size-1-3">Roll No</th>
-                <th class="university-size-1-3">Type of Fees</th>
-                <th class="university-size-1-3">Amount</th>
+                <th style="width: 10%;padding-left: 10px;"><input type="checkbox" name="selectAll" id="selectAll"><label for="selectAll">Select All</label></th>
+                <th  style="width: 10%;">Serial No</th>
+                <th style="width: 26.6%;">Roll No</th>
+                <th style="width: 26.6%;">Type of Fees</th>
+                <th style="width: 26.6%;">Amount <b>[&#x20B9;]</b> </th>
 
             </tr>
             </thead>
             <tbody></tbody>
         </table>
-
-        <div class="university-size-1-2" style="margin: auto;padding: 10px;" id="rangeRadioButtons" hidden="hidden">
+        <br/>
+        <div class="university-size-1-2"  style="margin: 5px auto;width:98%;text-align: center;vertical-align: middle; border: 1px solid #BDBDBD; padding: 0.5%;border-radius: 4px;" id="rangeRadioButtons" hidden="hidden">
             <div class="university-size-1-3 university-display-inline"><input type="radio" id="rangeEntry" name="entry" value="Range"> <label for="rangeEntry">Enter Fee By Range</label> </div>
             <div class="university-size-1-3 university-display-inline"><input type="radio" id="individualEntry" name="entry" value="Range"> <label for="individualEntry">Enter Fee Individually</label></div>
         </div>
-
-        <table id="paymentDetails" hidden="hidden">
+        <br/>
+        <table id="paymentDetails" hidden="hidden" style="margin: auto;border:1px solid #dddddd; " >
 
         </table>
-
-        <input type="button" class="university-size-1-4 ui-button" id="feeSubmitButton" value="Submit" style="display: none;margin: 10px"/>
-    </fieldset>
+        <br/>
+        <div style="margin-top: 10px;">
+            <input type="button" class="university-size-1-4 ui-button" id="feeSubmitButton" value="Submit" style="display: none;margin: auto"/>
+        </div>
+        </fieldset>
 </div>
 </body>
 </html>

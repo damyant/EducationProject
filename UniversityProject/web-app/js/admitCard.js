@@ -203,7 +203,7 @@ function getStudentsForAdmitCard(){
                   $('#studentListPrintButton').prop('hidden', false)
                   var count=1;
                  for(var i=0;i<data.length;i++){
-                       $('#admitCardTab').append('<tr id="rowID'+i+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].studentName+'</td></tr>')
+                       $('#admitCardTab').append('<tr id="rowID'+i+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data.stuList[i].firstName+' '+data.stuList[i].lastName+'</td></tr>')
                     ++count;
                 }
                   totalRows=count;
