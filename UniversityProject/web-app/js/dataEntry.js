@@ -381,6 +381,7 @@ function populateStudentList(){
 }
 function loadProgram(t){
     var type= $(t).val();
+//    alert(type)
     $.ajax({
         type: "post",
         url: url('feeDetails', 'loadProgram', ''),
@@ -394,5 +395,23 @@ function loadProgram(t){
         }
     });
 }
+function loadStudents(t){
+    var challanNo=$(t).value();
+    alert(challanNo)
+    $.ajax({
+        type: "post",
+        url: url('feeDetails', 'populateStudentsByChallan', ''),
+        data: {challanNo: challanNo},
+        success: function (data) {
+            $("#studyCenterFeeEntryTable tbody tr").remove()
+            for (var i = 0; i < data.studList.length; i++) {
+                $("#studyCenterFeeEntryTable tbody").append('<tr><td>'+data.studList[i].firstName+' '+data.studList[i].lastName+'</td>'+
+                    '<td>'+data.studList[i].rollNo+'</td>'+
+                    '<td>'+data.studList[i].rollNo+'</td>'+
+                    '</tr>')
+            }
 
+        }
+    });
+}
 

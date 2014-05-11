@@ -11,45 +11,74 @@
     <meta name="layout" content="main"/>
     <title></title>
     <g:javascript src='admin.js'/>
+    <g:javascript src='admitCard.js'/>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
 </head>
 
 <body>
 <div id="main">
+
     <fieldset class="form">
-        <g:if test="${params?.type}">
-            <h3>Study Centre Payment Fee Entry</h3>
-        </g:if>
-        <g:else>
-            <h3>Study Centre Payment Fee Entry</h3>
-        </g:else>
-        <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
+        <h3>Pay Admission Fee Entry</h3>
+        <g:form controller="feeDetails" action="payChallanForStudyCenterStu" name="paychallanForStudyCenter" id="paychallanForStudyCenter">
         <table class="inner university-size-full-1-1" id="scStudnetList" style="margin: auto">
             <thead>
-
             <tr>
-                <td>Enter Challan Number</td>
-             <td> <input type="text" name="searchChallanNo"id="searchChallanNo"   value=""/></td>
-                <td><input type="button" value="Show Students" onclick="showStudents()"/> </td>
+                <td class="university-size-1-4">Enter Challan Number</td>
+                <td class="university-size-1-4"> <input type="text" name="searchChallanNo"id="searchChallanNo"   value=""/></td>
+                <td class="university-size-1-4"><input type="button" value="Show Students" onclick="showStudents()"/> </td>
+                <td class="university-size-1-4"></td>
             </tr>
             </thead>
             <tbody></tbody>
         </table>
-        <br/>
-        <div class="university-size-1-2"  style="margin: 5px auto;width:98%;text-align: center;vertical-align: middle; border: 1px solid #BDBDBD; padding: 0.5%;border-radius: 4px;" id="rangeRadioButtons" hidden="hidden">
-            <div class="university-size-1-3 university-display-inline"><input type="radio" id="rangeEntry" name="entry" value="Range"> <label for="rangeEntry">Enter Fee By Range</label> </div>
-            <div class="university-size-1-3 university-display-inline"><input type="radio" id="individualEntry" name="entry" value="Range"> <label for="individualEntry">Enter Fee Individually</label></div>
-        </div>
-        <br/>
-        <table id="paymentDetails" hidden="hidden" style="margin: auto;border:1px solid #dddddd; " >
 
-        </table>
-        <br/>
-        <div style="width:50%;margin:auto;">
-                <input type="button" class="university-size-1-3 ui-button" id="generateFeeChallan" value="Generate Fee Challan" style="display: none; float: left;"/>
-                <input type="button" class="university-size-1-3 ui-button" id="PayByChallan" value="Pay" style="display: none;float:  right;"/>
-
-        </div>
-        </fieldset>
+            <table>
+                <tr>
+                    <td class="university-size-1-3">Payment Mode</td>
+                    <td  class="university-size-2-3"><g:select name="paymentMode" class="university-size-1-2" id="paymentMode" optionKey="id"
+                                  optionValue="paymentModeName"
+                                  from="${paymentMode}" noSelection="['': ' Select Payment Mode']"
+                                  onchange=""/></td>
+                </tr>
+                <tr>
+                    <td  class="university-size-1-3">Payment Date</td>
+                    <td  class="university-size-2-3"> <input type="text" name="paymentDate" maxlength="10" class="university-size-1-2" id="datepicker"
+                                                             value=""></td>
+                </tr>
+                <tr>
+                    <td>Bank</td>
+                    <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
+                                  optionValue="bankName"
+                                  from="${bankName}" noSelection="['': ' Select Bank']"
+                                  onchange="loadBranch(this)"/></td>
+                </tr>
+                <tr>
+                    <td>Bank</td>
+                    <td><g:select name="branchLocation" class="university-size-1-2" id="branchLocation" optionKey=""
+                                  optionValue=""
+                                  from="" noSelection="['': ' Select Branch']"
+                                  onchange=""/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" class="ui-button university-size-1-3" value="Pay"/> </td>
+                </tr>
+            </table>
+        </g:form>
+    </fieldset>
 </div>
+<script>
+    $(function () {
+        $(function () {
+            $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm/dd/yy",
+                maxDate: 0
+            });
+        });
+    });
+</script>
 </body>
 </html>

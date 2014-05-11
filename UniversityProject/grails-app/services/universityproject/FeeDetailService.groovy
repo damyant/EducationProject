@@ -158,7 +158,7 @@ class FeeDetailService {
         def feeList = FeeType.list(sort:'type')
         def feeAmountList=[]
         for (int i=0;i<stuList.size();i++){
-            def amount=AdmissionFee.findAllByProgramDetail(stuList.programDetail)
+            def amount=AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
             feeAmountList.add(amount.feeAmountAtSC)
         }
         resultMap.studentList=stuList
@@ -197,6 +197,7 @@ class FeeDetailService {
         return resultMap
     }
 
+
     def studentDetailByChallanNumber(params){
         def returnMap=[:]
         def courseNameList=[],courseFee=[]
@@ -211,6 +212,19 @@ class FeeDetailService {
         returnMap.courseNameList=courseNameList
         returnMap.courseFee=courseFee
         return returnMap
+//=======
+//        def StudentListByChallan={
+//            def resultMap=[:]
+//            def studList=Student.findAllByChallanNo(params.challanNo)
+//            def feeAmountList=[]
+//            for (int i=0;i<stuList.size();i++){
+//                def amount=AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
+//                feeAmountList.add(amount.feeAmountAtSC)
+//            }
+//            resultMap.studList=studList
+//            resultMap.feeAmountList=feeAmountList
+//            return resultMap
+//            >>>>>>> 6dde9414035ea88164f9f1e9b7c2f804c236d5a1
     }
 }
 

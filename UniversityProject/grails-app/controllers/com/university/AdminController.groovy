@@ -277,13 +277,12 @@ class AdminController {
         def resultMap=[:]
         println(params)
         def feeAmount=AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
-
         resultMap.feeAmount=feeAmount.feeAmountAtIDOL;
-       println(resultMap);
         render resultMap as JSON
     }
 
     def searchByChallanNo(){
+
 
         def returnMap = [:]
         println("???????/"+params)

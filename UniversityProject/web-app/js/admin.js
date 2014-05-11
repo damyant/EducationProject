@@ -497,7 +497,7 @@ function showStudents(){
 //            alert(data[0].programDetail.id)
             $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
             for(var i=0;i<data.stuList.length;i++){
-            $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td>'+data.stuList[i].rollNo+'</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
+            $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
             }
         }
 

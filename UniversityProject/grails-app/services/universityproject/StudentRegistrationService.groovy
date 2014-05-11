@@ -32,7 +32,7 @@ class StudentRegistrationService {
         def endYear
         def programSession
         def studentRegistration
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
         if (params.studentId) {
             studentRegistration = Student.findById(Long.parseLong(params.studentId))
             studentRegistration.studentName = params.studentName
