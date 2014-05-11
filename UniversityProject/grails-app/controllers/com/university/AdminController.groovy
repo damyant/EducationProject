@@ -22,7 +22,7 @@ class AdminController {
     def pdfRenderingService
     def studentRegistrationService
     def springSecurityService
-
+    def feeDetailService
     def attendanceService
     @Secured(["ROLE_GENERATE_ROLL_NO"])
 
@@ -241,24 +241,27 @@ class AdminController {
         def programList = ProgramDetail.list(sort:'courseName')
         [studyCenterList:studyCenterList,programList:programList]
     }
-    def getChallanDetails={
+    def getChallanDetailsforStudent={
         def resultMap=[:]
-        def studentInst=Student.findAllByChallanNo(params.challanNo);
-        println("%%%%%%%%%%%%%%%%%%%%%% "+studentInst);
-        def feeAmount=[]
-        for(int i=0;i<studentInst.size();i++){
-           def amount=AdmissionFee.findAllByProgramDetail(studentInst[i].programDetail);
-            if(studentInst[i].studyCentre[0].centerCode=='11111'){
-                feeAmount.add(amount[0].feeAmountAtIDOL)
-            }
-            else{
-                feeAmount.add(amount.feeAmountAtSC)
-//                println("feeAmountAtSC"+amount[0].feeAmountAtSC)
-            }
+        println(">>>>>>>>>>>>>>>>>>>"+params)
+        resultMap = feeDetailService.studentDetailByChallanNumber(params)
 
-        }
-        resultMap.studentInst=studentInst;
-        resultMap.feeAmount=feeAmount;
+//        def studentInst=Student.findAllByChallanNo(params.challanNo);
+//        println("%%%%%%%%%%%%%%%%%%%%%% "+studentInst);
+//        def feeAmount=[]
+//        for(int i=0;i<studentInst.size();i++){
+//           def amount=AdmissionFee.findAllByProgramDetail(studentInst[i].programDetail);
+//            if(studentInst[i].studyCentre[0].centerCode=='11111'){
+//                feeAmount.add(amount[0].feeAmountAtIDOL)
+//            }
+//            else{
+//                feeAmount.add(amount.feeAmountAtSC)
+////                println("feeAmountAtSC"+amount[0].feeAmountAtSC)
+//            }
+//
+//        }
+//        resultMap.studentInst=studentInst;
+//        resultMap.feeAmount=feeAmount;
         render resultMap as JSON
     }
     def saveApprovePayInSlip={
@@ -277,25 +280,24 @@ class AdminController {
 
         resultMap.feeAmount=feeAmount.feeAmountAtIDOL;
        println(resultMap);
-         resultMap as JSON
+        render resultMap as JSON
     }
 
     def searchByChallanNo(){
+
+        def returnMap = [:]
         println("???????/"+params)
-        def returnMap=[:]
-        def courseNameList=[],courseFee=[]
-        def stuList=  Student.findAllByChallanNo(params.challanNo)
-
-        stuList.each{
-            println("==="+it.programDetail[0])
-            courseNameList<<it.programDetail[0].courseName
-            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
-        }
-        returnMap.stuList=stuList
-        returnMap.courseNameList=courseNameList
-        returnMap.courseFee=courseFee
-
+        returnMap = feeDetailService.studentDetailByChallanNumber(params)
         render  returnMap as JSON
+    }
+
+    def approveFeeForStudents = {
+   println(">>>>>>>>>>>>>"+params.studentListId)
+      params.studentListId.each{
+          def student = Student.findById(it)
+          println(it)
+      }
+        println(">>>>>>>>>>>>>"+params.studentListId[0])
     }
 }
 

@@ -196,6 +196,22 @@ class FeeDetailService {
         resultMap.feeAmountList=feeAmountList
         return resultMap
     }
+
+    def studentDetailByChallanNumber(params){
+        def returnMap=[:]
+        def courseNameList=[],courseFee=[]
+        def stuList=  Student.findAllByChallanNo(params.challanNo)
+
+        stuList.each{
+            println("==="+it.programDetail[0])
+            courseNameList<<it.programDetail[0].courseName
+            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+        }
+        returnMap.stuList=stuList
+        returnMap.courseNameList=courseNameList
+        returnMap.courseFee=courseFee
+        return returnMap
+    }
 }
 
 
