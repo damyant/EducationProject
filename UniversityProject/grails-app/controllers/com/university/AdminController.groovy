@@ -246,6 +246,7 @@ class AdminController {
         println(">>>>>>>>>>>>>>>>>>>"+params)
         resultMap = feeDetailService.studentDetailByChallanNumber(params)
 
+
 //        def studentInst=Student.findAllByChallanNo(params.challanNo);
 //        println("%%%%%%%%%%%%%%%%%%%%%% "+studentInst);
 //        def feeAmount=[]
@@ -292,11 +293,18 @@ class AdminController {
 
     def approveFeeForStudents = {
    println(">>>>>>>>>>>>>"+params.studentListId)
+        def student
       params.studentListId.each{
-          def student = Student.findById(it)
-          println(it)
-      }
-        println(">>>>>>>>>>>>>"+params.studentListId[0])
+          student = Student.findById(it)
+          def status = Status.findById(4)
+          student.status = status
+          student.save(flush: true)
+    }
+        if(student){
+            flash.message = "Approved Successfully"
+            redirect(action: "approvePayInSlip")
+        }
+
     }
 }
 
