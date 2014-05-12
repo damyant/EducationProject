@@ -8,25 +8,39 @@
 </head>
 
 <body>
-<div id="main">
-    <div style="width: 80%;margin: auto; text-align: right;">
-        Challan No : ${challanNo}
+
+<div style="border: 2px solid; padding: 10px;">
+    <div class="university-size-full-1-1" style="margin-bottom: 25px;"><div
+            style="float: right"><lable>Challan. No.</lable><label>${challanNo}</label></div>
+
+        <div class="university-clear-both"></div>
     </div>
-    <table STYLE="width: 80%;margin: auto; text-align: center;">
+
+    <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
+
+    <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
+
+    <div>GAUHATI UNIVERSITY</div>
+
+    <div>Guwahati, Assam</div>
+</p>
+    <table style="width: 80%;border: 1px dotted;margin: auto; text-align: center;">
         <tr>
-            <th>Student Name</th>
-            <th>Roll No</th>
-            <th>Amount</th>
+            <th style="width: 33%;">Student Name</th>
+            <th style="width: 33%;">Roll No</th>
+            <th style="width: 33%;">Amount</th>
         </tr>
         <g:each in="${0..stuList.size()}" var="index">
-            <tr><td> ${stuList.getAt(index)?.firstName} ${stuList.getAt(index)?.lastName}</td>
+            <tr>
+                <td>${stuList.getAt(index)?.firstName} ${stuList.getAt(index)?.lastName}</td>
                 <td>${stuList.getAt(index)?.rollNo}</td>
                 <td>${courseFee.getAt(index)}</td>
             </tr>
         </g:each>
     </table>
-    <table STYLE="width: 80%;margin: auto; text-align: center;">
-        <tr><td>Grand Total</td><td></td><td>${totalFee}</td></tr>
+    <br/>
+    <table style="width: 80%;border: 1px dotted;margin: auto; text-align: center;">
+        <tr><td style="width: 33%;">Total Fee</td><td style="width: 33%;"></td><td style="width: 33%;">${totalFee}</td></tr>
         <tr><td>Payment Mode</td><td></td><td>${paymentModeName.paymentModeName}</td></tr>
         <tr><td>Payment Date</td><td></td><td>${paymentDate}</td></tr>
         <tr><td>Bank</td><td></td><td>${bank.bankName}</td></tr>
