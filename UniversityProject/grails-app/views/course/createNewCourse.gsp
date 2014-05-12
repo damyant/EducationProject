@@ -68,7 +68,10 @@
                 <td><label>Select Program Type :<span class="university-obligatory">*</span></label></td>
                 <td><g:select name="courseType" id="courseTypeName" optionKey="id" optionValue="courseTypeName" class="university-size-1-2" from="${CourseType.findAll()}" noSelection="['':' Select Program Type']" /></td>
             </tr>
-
+            <tr>
+                <td><label>Select Program Category :<span class="university-obligatory">*</span></label></td>
+                <td><g:select name="programType" id="programType" optionKey="id" optionValue="type" class="university-size-1-2" from="${examinationproject.ProgramType.findAll()}" noSelection="['':' Select Program Category']" /></td>
+            </tr>
             <tr>
                 <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
                 <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)" onblur="semesterList()" readonly/></td>

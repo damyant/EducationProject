@@ -194,6 +194,7 @@ class AdminController {
     }
     def generateStudentList={
         def studList= adminInfoService.updateStudentList(params)
+        println("******************"+studList.firstName);
         render studList as JSON
     }
 

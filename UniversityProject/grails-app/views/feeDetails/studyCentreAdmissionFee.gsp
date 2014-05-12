@@ -41,7 +41,7 @@
                 <th style="width: 10%;padding-left: 10px;"><input type="checkbox" name="selectAll" id="selectAll"><label for="selectAll">Select All</label></th>
                 <th  style="width: 10%;">Serial No</th>
                 <th style="width: 26.6%;">Roll No</th>
-                <th style="width: 26.6%;">Type of Fees</th>
+                <th style="width: 26.6%;">Student Name</th>
                 <th style="width: 26.6%;">Amount <b>[&#x20B9;]</b> </th>
 
             </tr>
@@ -58,8 +58,10 @@
 
         </table>
         <br/>
-        <div style="margin-top: 10px;">
-            <input type="button" class="university-size-1-4 ui-button" id="feeSubmitButton" value="Submit" style="display: none;margin: auto"/>
+        <div style="width:50%;margin:auto;">
+                <input type="button" class="university-size-1-3 ui-button" id="generateFeeChallan" value="Generate Fee Challan" style="display: none; float: left;"/>
+                <input type="button" class="university-size-1-3 ui-button" id="PayByChallan" value="Pay" style="display: none;float:  right;"/>
+
         </div>
         </fieldset>
 </div>

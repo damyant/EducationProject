@@ -4,6 +4,7 @@ class ProgramDetail {
 
     String courseName
     String courseCode
+    ProgramType programType
     CourseMode courseMode
     CourseType courseType
     int noOfTerms
@@ -19,6 +20,7 @@ class ProgramDetail {
         id column: "CourseId"
         courseName column: "CourseName"
         courseCode column: "CourseCode"
+        programType column: "ProgramType"
         courseMode column: "CourseMode"
         courseType column: "CourseType"
         noOfTerms column: "NoOfTerms"
@@ -34,6 +36,7 @@ class ProgramDetail {
     static constraints = {
         courseName(nullable: false)
         courseCode(nullable:false)
+        programType(nullable:false)
         courseMode(nullable: false)
         courseType(nullable: false)
         noOfTerms(nullable: false)

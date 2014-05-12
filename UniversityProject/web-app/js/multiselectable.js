@@ -123,6 +123,7 @@ function updateInfo(obj) {
     $('#courseName').val(courseDetailJson['course'].courseName)
     $('#modeName option[value=' + courseDetailJson['course'].courseMode.id + ']').attr("selected", "selected");
     $('#courseTypeName option[value=' + courseDetailJson['course'].courseType.id + ']').attr("selected", "selected");
+    $('#programType option[value=' + courseDetailJson['course'].programType.id+ ']').attr("selected", "selected");
     $('#noOfTerms').val(courseDetailJson['course'].noOfTerms)
     $('#courseCode').val(courseDetailJson['course'].courseCode)
     $('#noOfAcademicYears').val(courseDetailJson['course'].noOfAcademicYears)
@@ -159,6 +160,7 @@ function viewCourseInfo(obj) {
     //$('#modeName option[value='+courseDetailJson['course'].courseMode.id+']').attr("selected", "selected");
     $('#modeName').html(courseDetailJson['courseMode'])
     $('#courseTypeName').html(courseDetailJson['courseType'])
+    $('#courseCategory').html(courseDetailJson['ProgramType'])
     $('#noOfTerms').html(courseDetailJson['course'].noOfTerms)
     $('#courseCode').html(courseDetailJson['course'].courseCode)
     $('#noOfAcademicYears').html(courseDetailJson['course'].noOfAcademicYears)
