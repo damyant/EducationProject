@@ -234,6 +234,8 @@ class FeeDetailsController {
         println(resultMap)
         render resultMap as JSON
     }
+
+
     def payChallanForStudyCenterStu={
 //        println("***************"+params)
         def courseNameList=[],courseFee=[]

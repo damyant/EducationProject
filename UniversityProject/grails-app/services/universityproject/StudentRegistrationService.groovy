@@ -35,7 +35,7 @@ class StudentRegistrationService {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
         if (params.studentId) {
             studentRegistration = Student.findById(Long.parseLong(params.studentId))
-            studentRegistration.firstName = params.studentName
+            studentRegistration.firstName = params.firstName
             studentRegistration.lastName = params.lastName
             studentRegistration.middleName = params.middleName
             studentRegistration.gender = params.gender
@@ -47,7 +47,7 @@ class StudentRegistrationService {
             studentRegistration.addressPinCode = params.addressPinCode
             studentRegistration.addressPO = params.addressPO
             studentRegistration.addressTown = params.addressTown
-            studentRegistration.studentAddress = params.addressStudentName
+            studentRegistration.studentAddress = params.studentAddress
             studentRegistration.addressDistrict = params.addressDistrict
             studentRegistration.challanNo = getChallanNumber()
 

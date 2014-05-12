@@ -26,14 +26,14 @@
             <tr>
                 <td class="university-size-1-4">Enter Challan Number</td>
                 <td class="university-size-1-4"> <input type="text" name="searchChallanNo"id="searchChallanNo"   value=""/></td>
-                <td class="university-size-1-4"><input type="button" value="Show Students" onclick="showStudents()"/> </td>
+                <td class="university-size-1-4"><input type="button" value="Show Students" onclick="showListOfStudents()"/> </td>
                 <td class="university-size-1-4"></td>
             </tr>
             </thead>
             <tbody></tbody>
         </table>
 
-            <table>
+            <table id="studentPayList" class="university-size-full-1-1" style="visibility: hidden">
                 <tr>
                     <td class="university-size-1-3">Payment Mode</td>
                     <td  class="university-size-2-3"><g:select name="paymentMode" class="university-size-1-2" id="paymentMode" optionKey="id"
@@ -62,7 +62,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" class="ui-button university-size-1-3" value="Pay"/> </td>
+                    <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3" value="Pay" style="visibility: hidden"/> </td>
                 </tr>
             </table>
         </g:form>
