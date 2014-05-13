@@ -53,7 +53,36 @@
           </table>
       </g:if>
 
-      <g:if test="${totalListByCourse}">
+
+    <g:elseif test="${totalListBySessions}">
+        <h3>Total Students In All Courses For Different Sessions</h3>
+        <table style=" text-align: center" class="gridtable">
+            <tr>
+                    <th rowspan="2">Programme</th>
+                    <th colspan="${sessionVal.size()}">Session </th>
+            </tr>
+            <tr>
+                    <g:each in="${sessionVal}" var="item">
+                       <th>${item}</th>
+                    </g:each>
+            </tr>
+            <g:each in="${totalListBySessions}" var="item">
+                <tr >
+                    <td>${item.key}</td>
+                    <g:each in="${item.value}" var="value">
+                        <td> ${value}</td>
+                    </g:each>
+                </tr>
+            </g:each>
+        </table>
+    </g:elseif>
+
+
+
+
+
+
+      <g:elseif test="${totalListByCourse}">
           <h3> Total Students In ${totalListByCourse.getAt(0).programDetail[0].courseName} For ${courseSession} Session</h3>
            <table style=" text-align: center" class="gridtable">
                     <th>Roll No</th>
@@ -61,18 +90,20 @@
                     <th>Study Centre</th>
                     <th>Examination Centre</th>
                     <th>Mobile No.</th>
+                    <th>Status</th>
                    <g:each in="${totalListByCourse}" var="student">
                         <tr >
                             <td >${student.rollNo}</td>
                             <td >${student.studentName}</td>
                             <td >${student.studyCentre[0].name}</td>
                             <td >${student.examinationCentre[0].examinationCentreName}</td>
-                            <td >+91 ${student.mobileNo}</td>
+                            <td >91${student.mobileNo}</td>
+                            <td >${student.status.status}</td>
                         </tr>
                    </g:each>
            </table>
-      </g:if>
-      <g:if test="${totalListByStudyCentre}">
+      </g:elseif>
+      <g:elseif test="${totalListByStudyCentre}">
             <h3> Total Students In All Courses For ${studyCentreSession} Session</h3>
             <table style=" text-align: center" class="gridtable">
                     <th>Course Name</th>
@@ -84,8 +115,8 @@
                     </tr>
                 </g:each>
             </table>
-      </g:if>
-      <g:if test="${totalListByExaminationCentre}">
+      </g:elseif>
+      <g:elseif test="${totalListByExaminationCentre}">
         <h3> Total Students In All Courses For ${examinationCentreSession} Session</h3>
         <table style=" text-align: center" class="gridtable">
                 <th>Course Name</th>
@@ -97,8 +128,8 @@
                     </tr>
                 </g:each>
         </table>
-      </g:if>
-      <g:if test="${totalListByCategory}">
+      </g:elseif>
+      <g:elseif test="${totalListByCategory}">
             <h3> Total Students In All Courses For ${categorySession} Session In Different Category</h3>
             <table style=" text-align: center" class="gridtable">
                    <tr>
@@ -109,7 +140,7 @@
                            <th>General</th>
                            <th>MOBC</th>
                            <th>OBC</th>
-                           <th> ST</th>
+                           <th>S.T</th>
                            <th>SC</th>
                            <th>MINORITY</th>
                    </tr>
@@ -122,8 +153,8 @@
                           </tr>
                    </g:each>
             </table>
-       </g:if>
-      <g:if test="${totalListByCategoryGender}">
+       </g:elseif>
+      <g:elseif test="${totalListByCategoryGender}">
 
                 <h3 style="width: 100%"> Total Students In All Courses For ${categoryGenderSession} Session In Different Category And Gender</h3>
                 <table style=" text-align: center" class="gridtable">
@@ -135,7 +166,7 @@
                            <th colspan="2">General</th>
                            <th colspan="2">MOBC</th>
                            <th colspan="2">OBC</th>
-                           <th colspan="2">ST</th>
+                           <th colspan="2">S.T</th>
                            <th colspan="2">SC</th>
                            <th colspan="2">MINORITY</th>
                        </tr>
@@ -162,11 +193,11 @@
                             </tr>
                         </g:each>
                  </table>
-      </g:if>
+      </g:elseif>
 
 
-    <g:if test="${totalListByAdmissionUnapproved}">
-        %{--<h3> Total Students In ${totalListByCourse.getAt(0).programDetail[0].courseName} For ${admissionUnapprovedSession} Session</h3>--}%
+    <g:elseif test="${totalListByAdmissionApprovedUnapproved}">
+        <h3> Unapproved Students In ${totalListByAdmissionApprovedUnapproved.getAt(0).studyCentre[0].name} For ${admissionApprovedUnapprovedSession} Session</h3>
         <table style=" text-align: center" class="gridtable">
             <th>Roll No</th>
             <th>Name</th>
@@ -179,12 +210,82 @@
                     <td >${student.studentName}</td>
                     <td >${student.programDetail[0].courseCode}</td>
                     <td >${student.examinationCentre[0].examinationCentreName}</td>
-                    <td >+91 ${student.mobileNo}</td>
+                    <td >91${student.mobileNo}</td>
                 </tr>
             </g:each>
         </table>
-    </g:if>
+    </g:elseif>
 
+
+
+    <g:elseif test="${totalListByStudyCentreFeePaid}">
+        <h3> Fees Paid Report At ${totalListByStudyCentreFeePaid.getAt(0).studentId.studyCentre[0].name} Study Centre For ${studyCentreFeePaidSession} Session</h3>
+        <table style=" text-align: center" class="gridtable">
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Fees Type</th>
+            <th>Payment Date</th>
+            %{--<th>Mobile No.</th>--}%
+            <g:each in="${totalListByStudyCentreFeePaid}" var="student">
+                <tr>
+                    <td >${student.studentId.rollNo}</td>
+                    <td >${student.studentId.studentName}</td>
+                    <td >${student.feeTypeId.type}</td>
+                    <td ><g:formatDate format="yyyy-MM-dd" date="${student.paymentDate}"/></td>
+                    %{--<td >91${student.mobileNo}</td>--}%
+                </tr>
+            </g:each>
+        </table>
+    </g:elseif>
+
+
+
+
+<g:elseif test="${totalListBySessionComprative}">
+    <h3>Total Students In All Courses For Different Sessions</h3>
+    <table style=" text-align: center" class="gridtable">
+        <tr>
+            <th rowspan="2">Name of the Study Centre
+            </th>
+            <th colspan="${sessionVal.size()}">Session </th>
+        </tr>
+        <tr>
+            <g:each in="${sessionVal}" var="item">
+                <th>${item}</th>
+            </g:each>
+        </tr>
+        <g:each in="${totalListBySessionComprative}" var="item">
+            <tr >
+                <td>${item.key}</td>
+                <g:each in="${item.value}" var="value">
+                    <td> ${value}</td>
+                </g:each>
+            </tr>
+        </g:each>
+    </table>
+</g:elseif>
+
+
+<g:elseif test="${totalListApprovedUnapprovedRollNo}">
+%{--<h3> Total Students In ${totalListByCourse.getAt(0).programDetail[0].courseName} For ${admissionUnapprovedSession} Session</h3>--}%
+    <table style=" text-align: center" class="gridtable">
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Examination Centre</th>
+        <th>Mobile No.</th>
+        <g:each in="${totalListApprovedUnapprovedRollNo}" var="student">
+            <tr >
+                <td >${student.rollNo}</td>
+                <td >${student.studentName}</td>
+                <td >${student.examinationCentre[0].examinationCentreName}</td>
+                <td >91${student.mobileNo}</td>
+            </tr>
+        </g:each>
+    </table>
+</g:elseif>
+<g:else>
+    <h3>No Record Found</h3>
+</g:else>
  </div>
 </body>
 </html>
