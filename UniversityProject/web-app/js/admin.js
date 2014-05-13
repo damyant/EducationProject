@@ -1,6 +1,7 @@
 
 var studentIdList = [];
 var subjectIdList=[];
+var feeTypeList=[];
 $(document).ready(function () {
 
         $("#submit").click(function(){
@@ -386,4 +387,25 @@ function approvePayInSlip(){
         }
 
     })
+}
+
+function submitProgramFee(){
+alert("hi")
+    $.ajax({
+        type: "post",
+        url: url('programFee', 'saveProgramFee', ''),
+        data: $("#createNewFee").serialize()+"&feeTypeList="+feeTypeList,
+
+        success: function (data) {
+//            if(data.flag){
+//                $('#rollNo').val('');
+//                $('#payInSlipNo').val('');
+//                $('#datePick').val('');
+//                $('#approvePayInSlip')[0].reset();
+//                $('#statusMessage').html("Approved Succesfully")
+//            }
+        }
+
+    })
+
 }
