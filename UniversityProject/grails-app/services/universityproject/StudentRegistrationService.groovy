@@ -35,9 +35,7 @@ class StudentRegistrationService {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         if (params.studentId) {
             studentRegistration = Student.findById(Long.parseLong(params.studentId))
-            studentRegistration.firstName = params.firstName
-            studentRegistration.middleName = params.middleName
-            studentRegistration.lastName = params.lastName
+            studentRegistration.studentName = params.studentName
             studentRegistration.gender = params.gender
             studentRegistration.category = params.category
             studentRegistration.mobileNo = Long.parseLong(params.mobileNo)
@@ -47,10 +45,9 @@ class StudentRegistrationService {
             studentRegistration.addressPinCode = params.addressPinCode
             studentRegistration.addressPO = params.addressPO
             studentRegistration.addressTown = params.addressTown
-            studentRegistration.address = params.address
+            studentRegistration.addressStudentName = params.addressStudentName
             studentRegistration.addressDistrict = params.addressDistrict
-            if(params.idol=="idol")
-             studentRegistration.challanNo = getChallanNumber()
+            studentRegistration.challanNo = getChallanNumber()
 
         } else {
             studentRegistration = new Student(params)
@@ -66,7 +63,7 @@ class StudentRegistrationService {
             }
         }
         studentRegistration.dob = df.parse(params.d_o_b)
-
+        studentRegistration.challanNo = getChallanNumber()
         Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
 
         studentRegistration.studyCentre = studyCentre
@@ -238,8 +235,7 @@ class StudentRegistrationService {
         for (int i = 0; i < 100; i++) {
             students = new Student()
 //            println("Seeded user" + i)
-            students.firstName = "first" + i
-            students.lastName = "last" + i
+            students.studentName = "Student" + i
             students.gender = "Male"
             students.category = "GEN"
             students.referenceNumber = getStudentReferenceNumber()
@@ -259,17 +255,59 @@ class StudentRegistrationService {
     }
 
     def getChallanNumber(){
-        String challanNo = getStudentReferenceNumber()
+
+        int serialNo = 1
+        SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd"); // Just the year
+        def date = (sdf.format(Calendar.getInstance().getTime()))
+        def challan = date.replaceAll("/","")
+        def challanSr
+        def length
+        def challanNo
         if(Student.count()>0){
-            if(!Student.findByChallanNo(challanNo)){
-               return challanNo
-            }else{
-               getChallanNumber()
+            def obj = Student.createCriteria()
+            def studentByChallanNo = obj.list {
+                maxResults(1)
+                order("challanNo", "desc")
             }
+
+            def lastChallanDate = studentByChallanNo[0].challanNo.substring(0,6)
+            if(lastChallanDate.equalsIgnoreCase(challan)){
+                serialNo = Integer.parseInt(studentByChallanNo[0].challanNo.substring(6,10))
+                serialNo =serialNo+1
+            }else{
+                serialNo =1
+            }
+
+            length = serialNo.toString().length()
+            switch(length){
+                case 1:
+                    challanSr = "000"+serialNo.toString()
+                    break;
+                case 2:
+                    challanSr = "00"+serialNo.toString()
+                    break;
+                case 3:
+                    challanSr = "0"+serialNo.toString()
+                    break;
+                default:
+                    challanSr = serialNo.toString()
+
+            }
+
+            println("Incremented serial"+challanSr)
+            challanNo = challan+challanSr
+
         }else{
+             challanSr = "000"+serialNo.toString()
+             challanNo = challan+challanSr
+
+            }
+
+
+            println("challan number is"+challanNo)
             return challanNo
         }
     }
 
-}
+
 
