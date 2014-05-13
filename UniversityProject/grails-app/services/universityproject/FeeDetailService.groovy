@@ -125,6 +125,28 @@ class FeeDetailService {
         resultMap.feeAmount=feeAmount.feeAmountAtSC
         return resultMap
     }
+
+    def AllProgramStudentList={
+        def resultMap=[:]
+        def obj = Student.createCriteria()
+        def currentUser=springSecurityService.getCurrentUser()
+        def stuList = obj.list {
+            studyCentre {
+                eq('id',Long.parseLong(currentUser.studyCentreId.toString()))
+            }
+            and {
+                eq('status', Status.findById(2))
+            }
+        }
+        def bankName=Bank.list(sort:'bankName')
+        def paymentMode=PaymentMode.list(sort:'paymentModeName')
+        def feeList = FeeType.list(sort:'type')
+        resultMap.studentList=stuList
+        resultMap.bankName=bankName
+        resultMap.paymentMode=paymentMode
+        resultMap.feeList=feeList
+        return resultMap
+    }
 }
 
 

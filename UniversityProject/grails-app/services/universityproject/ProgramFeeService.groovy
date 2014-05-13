@@ -1,12 +1,22 @@
 package universityproject
 
+
 import examinationproject.AdmissionFee
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
 import examinationproject.ProgramDetail
 import examinationproject.ProgramFee
 import examinationproject.ProgramSession
+
+import examinationproject.ProgramDetail
+import examinationproject.ProgramFee
+import examinationproject.ProgramSession
+import examinationproject.Student
+import grails.converters.JSON
+
 import grails.transaction.Transactional
+
+import java.text.SimpleDateFormat
 
 @Transactional
 class ProgramFeeService {
@@ -20,6 +30,7 @@ class ProgramFeeService {
  * @param programFeeInstance
  * @return
  */
+
     def saveProgramFeeType(params) {
         def feeTypeList=params.feeTypeList.split(',')
         def admissionFeeIns=new AdmissionFee(params)
@@ -36,8 +47,15 @@ class ProgramFeeService {
             misFeeIns.save(failOnError: true)
 //            misFeeIns.programSession
         }
-//        programFeeInstance.save(flush: true)
     }
+//        programFeeInstance.save(flush: true)
+//=======
+//    def saveProgramFeeType(ProgramFee programFeeInstance,params) {
+//
+//        println("in new Fee creation"+params)
+//        programFeeInstance.save(flush: true)
+//>>>>>>> 1d8cc4769cfe0a5da2fad0ffb46e77d943c787cc
+//    }
 /**
  * Service to delete a particular fee type
  * @param programFeeInstance
@@ -50,6 +68,31 @@ class ProgramFeeService {
             isDeleted = false
         }
 
+    }
+
+    def getProgramSessions(params){
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
+        String year = sdf.format(Calendar.getInstance().getTime());
+        def startYear = year
+        def endYear
+        def currentSession
+        def nextSession
+        def programSessions= []
+        try{
+            Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.program))
+            endYear = (Integer.parseInt(year) + programDetail[0].noOfAcademicYears).toString()
+            currentSession = (startYear + "-" + endYear)
+            nextSession    =  ((Integer.parseInt(startYear)+1) + "-" + ++Integer.parseInt(endYear))
+            programSessions.add(new ProgramSession(programDetail:programDetail,sessionOfProgram: currentSession))
+            programSessions.add(new ProgramSession(programDetail:programDetail,sessionOfProgram: nextSession))
+//
+            println("ProgramSession"+programSessions)
+            }catch(Exception ex){
+                println("..........Problem in creating program session for programs"+ex)
+         }
+            return programSessions
     }
 
 }

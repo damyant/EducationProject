@@ -39,9 +39,28 @@
                         <g:select id="programDetail" name="programDetail"
                                   from="${examinationproject.ProgramDetail.list()}" optionKey="id"
                                   optionValue="courseName" class="many-to-one university-size-1-2"
-                                  noSelection="['': 'Choose Type']"/>
+                                  noSelection="['': 'Choose Type']" onchange="loadSession(this)"/>
                     </div>
                 </div>
+
+
+                <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} university-size-1-1">
+                    <div class="university-size-1-3"><label for="programDetail">
+                        <g:message code="programFee.programSession.label" default="Program Session"/><span
+                                class="university-obligatory">*</span>
+                    </label>
+                    </div>
+
+                    <div class="university-size-2-3">
+                        <g:select id="programSession" name="programSession"
+                                  from="" optionKey=""
+                                  optionValue="" class="many-to-one university-size-1-2"
+                                  noSelection="['': 'Choose Session']" />
+                    </div>
+                </div>
+
+
+
 
                 <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'feeAmountAtIDOL', 'error')} required">
                     <div class="university-size-1-3">
@@ -51,13 +70,7 @@
                         </label>
                     </div>
 
-%{--<<<<<<< HEAD--}%
-            %{--<div class="university-size-2-3">--}%
-                %{--<g:textField name="feeAmountAtIDOL" class="university-size-1-2" type="number"--}%
-                             %{--value="" required=""/>--}%
-            %{--</div>--}%
-        %{--</div>--}%
-%{--=======--}%
+
                     <div class="university-size-2-3">
                         <g:textField name="feeAmountAtIDOL" class="university-size-1-2" type="number"
                                      value=""
@@ -74,13 +87,7 @@
                         </label>
                     </div>
 
-%{--<<<<<<< HEAD--}%
-            %{--<div class="university-size-2-3">--}%
-                %{--<g:textField name="feeAmountAtSC" class="university-size-1-2" type="number"--}%
-                             %{--value="" required=""/>--}%
-            %{--</div>--}%
-        %{--</div>--}%
-%{--=======--}%
+
                     <div class="university-size-2-3">
                         <g:textField name="feeAmountAtSC"
                                      class="university-size-1-2"
@@ -130,19 +137,7 @@
 
                 </g:each>
 
-                %{--<div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">--}%
-                    %{--<div class="university-size-1-3">--}%
-                        %{--<label for="certificateFee">--}%
-                            %{--<g:message code="programFee.certificateFee.label" default="Certificate Fee"/>--}%
-                            %{--<span class="university-obligatory">*</span>--}%
-                        %{--</label>--}%
-                    %{--</div>--}%
 
-                    %{--<div class="university-size-2-3">--}%
-                        %{--<g:textField name="certificateFee" class="university-size-1-2" type="number" onkeypress="return isNumber(event)"--}%
-                                     %{--value=""/>--}%
-                    %{--</div>--}%
-                %{--</div>--}%
 
                 <div class="fieldcontain">
                     <div class="university-size-1-3">&nbsp;</div>

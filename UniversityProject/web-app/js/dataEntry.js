@@ -203,8 +203,23 @@ function submitFeeDetail() {
 
 }
 
+function populateStudentsForAllProgram(object) {
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'populateStudentsForAllProgram', ''),
+            success: function (data) {
+
+
+                appendStudentList(data)
+
+            }
+
+        });
+}
+
 function populateStudents(object) {
     var programId = $(object).val();
+    $('#allProgram').prop('checked', false);
     if (programId) {
         $.ajax({
             type: "post",
@@ -326,10 +341,9 @@ function putAmount(studentId, index) {
 $(document).ready(function () {
     $("input[name='entry']").change(function () {
         var programId = $('#programId').val();
-        if (programId) {
             $.ajax({
                 type: "post",
-                url: url('feeDetails', 'populateStudents', ''),
+                url: url('feeDetails', 'populateStudentsForAllProgram', ''),
                 data: {programId: programId},
                 success: function (data) {
                     $("#paymentDetails tr").remove();
@@ -402,11 +416,8 @@ $(document).ready(function () {
                     }
                 }
             });
-        }
-    })
-    ;
-})
-;
+        });
+});
 
 
 
