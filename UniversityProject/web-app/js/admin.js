@@ -1,6 +1,7 @@
 
 var studentIdList = [];
 var subjectIdList=[];
+var feeTypeList=[];
 $(document).ready(function () {
 
         $("#submit").click(function(){
@@ -353,6 +354,28 @@ function loadBranch(t){
         });
     }
 }
+
+
+
+function loadSession(t){
+    var program=$(t).val();
+//    alert(bank)
+    if(program){
+        $.ajax({
+            type: "post",
+            url: url('programFee', 'getProgramSession', ''),
+            data: {program: program},
+            success: function (data) {
+                //document.location.reload();
+                $("#programSession").empty().append('');
+                $("#programSession").append('Select Session');
+                for (var i = 0; i < data.length; i++) {
+                    $("#programSession").append('<option value="' + data[i].id + '">' + data[i].sessionOfProgram + '</option>')
+                }
+            }
+        });
+    }
+}
 function populateChallanDetail(t){
     var challanNo=$(t).val();
     $.ajax({
@@ -386,4 +409,25 @@ function approvePayInSlip(){
         }
 
     })
+}
+
+function submitProgramFee(){
+alert("hi")
+    $.ajax({
+        type: "post",
+        url: url('programFee', 'saveProgramFee', ''),
+        data: $("#createNewFee").serialize()+"&feeTypeList="+feeTypeList,
+
+        success: function (data) {
+//            if(data.flag){
+//                $('#rollNo').val('');
+//                $('#payInSlipNo').val('');
+//                $('#datePick').val('');
+//                $('#approvePayInSlip')[0].reset();
+//                $('#statusMessage').html("Approved Succesfully")
+//            }
+        }
+
+    })
+
 }

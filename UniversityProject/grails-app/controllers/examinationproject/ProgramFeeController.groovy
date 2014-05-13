@@ -1,12 +1,13 @@
 package examinationproject
 
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Secured("ROLE_ADMIN")
-@Transactional
+//@Transactional
 class ProgramFeeController {
     def programFeeService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -30,6 +31,8 @@ class ProgramFeeController {
 
     @Transactional
     def save(ProgramFee programFeeInstance) {
+
+
         if (programFeeInstance == null) {
             notFound()
             return
@@ -42,6 +45,15 @@ class ProgramFeeController {
 
         programFeeService.saveProgramFeeType(programFeeInstance)
         redirect(action: "listOfFeeType")
+
+    }
+
+    def saveProgramFee(){
+        println("innnnnnnnnnn=="+params)
+        def feeTypeList=params.feeTypeList.split(',')
+        println("innnnnnnnnnn=="+feeTypeList[0])
+
+        programFeeService.saveProgramFeeType(params)
 
     }
 
@@ -134,7 +146,13 @@ class ProgramFeeController {
             redirect(action: "viewExistingFeeType")
         }
         catch (Exception e) {
-            println("<<<<<<<<<<<Problem in deleting study center" + e)
+            println("<<<<<<<<<<<Problem in deleting study center$e")
         }
+    }
+
+
+    def getProgramSession = {
+     def programSessions=   programFeeService.getProgramSessions(params)
+        render programSessions as JSON
     }
 }
