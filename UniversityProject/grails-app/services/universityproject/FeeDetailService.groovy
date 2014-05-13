@@ -141,10 +141,16 @@ class FeeDetailService {
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
         def feeList = FeeType.list(sort:'type')
+        def feeAmountList=[]
+        for (int i=0;i<stuList.size();i++){
+            def amount=ProgramFee.findAllByProgramDetail(stuList.programDetail)
+            feeAmountList.add(amount.feeAmountAtSC)
+        }
         resultMap.studentList=stuList
         resultMap.bankName=bankName
         resultMap.paymentMode=paymentMode
         resultMap.feeList=feeList
+        resultMap.feeAmountList=feeAmountList
         return resultMap
     }
 }

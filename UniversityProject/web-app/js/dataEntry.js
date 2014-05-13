@@ -288,19 +288,16 @@ function appendStudentList(data) {
         $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID'+i+'"><td><input type="checkbox" name="check' + i + '" id="check' + i + '"></td><td>' + count + '</td>'+
             '<td><input type="text" hidden="hidden" id="studentId' + i + '" value="' + data.studentList[i].id + '" >' +
             '<input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td>' +
-            '<td>' + data.studentList[i].firstName + ' ' + data.studentList[i].lastName + '</td><td><input type="text" id="feeAmount' + i + '" name="feeAmount" readonly/></td>' +
-//            '<td><select id="paymentMode' + i + '" name="paymentMode"  class="many-to-one university-size-1-1" /></td>' +
-//            '<td><input type="text" id="referenceNumber'+ i +'" name="referenceNumber"></td><td><input type="text" class="datePickers university-size-1-1" id="datePick' + i + '" name="paymentDate"/> </td>' +
-//            '<td><select onchange="getBankBranch(' + i + ')" id="bankName' + i + '" name="bankName" o class="many-to-one university-size-1-1" /></td>' +
-//            '<td><select id="branch' + i + '" name="branch" class="many-to-one university-size-1-1" /></td><td><input type="button" value="save" class="ui-button university-size-3-4" onclick="saveFeeData(' + i + ')"></td>'
-            '</tr>');
-
-//        $("#bankName" + i).empty().append('<option value="">Select Bank Name</option>')
-//        $("#paymentMode" + i).empty().append('<option value="">Select Payment Mode</option>')
-//        $("#branch" + i).empty().append('<option value="">Select Branch</option>')
+            '<td>' + data.studentList[i].firstName + ' ' + data.studentList[i].lastName + '</td>'+
+            '<td><input type="text" id="feeAmount' + i + '" name="feeAmount" readonly/></td></tr>');
         if (type == '') {
             $("#feeType" + i).empty().append('<option value="1">Education Fee</option>')
-            $("#feeAmount" + i).val(data.feeAmount)
+            if(data.feeAmountList){
+                $("#feeAmount" + i).val(data.feeAmountList[i])
+            }
+            else{
+                $("#feeAmount" + i).val(data.feeAmount)
+            }
         }
         else {
 
