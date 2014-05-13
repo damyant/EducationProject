@@ -119,6 +119,14 @@ class FeeDetailsController {
         render resultMap as JSON
     }
 
+    def populateStudentsForAllProgram={
+        println("in method");
+        def resultMap=[:]
+        resultMap= feeDetailService.AllProgramStudentList()
+        println("in method"+resultMap);
+        render resultMap as JSON
+    }
+
     def getBankBranch={
 
         def bankIns=Bank.findById(Long.parseLong(params.bankId))

@@ -25,13 +25,15 @@
         <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
         <table class="inner university-size-full-1-1" style="margin: auto">
             <tr>
-                <td class="university-size-1-3"><label>Select a Program</label></td>
-                <td class="university-size-2-3" style="padding-left: 20px;">
-                    <g:select name="programList" class="university-size-1-2" id="programId" optionKey="id"
+                <td class="university-size-1-4"><label>Select a Program</label></td>
+                <td class="university-size-1-4">
+                    <g:select name="programList" class="university-size-1-1" id="programId" optionKey="id"
                               optionValue="courseName"
                               from="${programList}" noSelection="['': ' Select Program']"
                               onchange="populateStudents(this)"/>
                 </td>
+                <td class="university-size-1-4" style="text-align: center;">OR</td>
+                <td class="university-size-1-4"><input type="checkbox" id="allProgram" name="allProgram" onclick="populateStudentsForAllProgram(this)"/><label for="allProgram">All Programs</label></td>
             </tr>
         </table>
         <br/>
