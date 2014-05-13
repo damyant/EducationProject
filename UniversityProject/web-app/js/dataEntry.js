@@ -68,7 +68,7 @@ function appendDataTable(data) {
             studentList[i] = data.stuList[i]
             var ide = data.stuList[i].id
 
-            $('#studentList tbody').append('<tr></td><td>' + data.stuList[i].rollNo + '</td><td>' + data.stuList[i].studentName
+            $('#studentList tbody').append('<tr></td><td>' + data.stuList[i].rollNo + '</td><td>' + data.stuList[i].firstName+' '+data.stuList[i].lastName
                 + '</td><td><button id="fee" onclick="openPopUp(' + data.stuList[i].id + ')">Fee Entry</button></td></tr>')
 
         }
@@ -203,8 +203,23 @@ function submitFeeDetail() {
 
 }
 
+function populateStudentsForAllProgram(object) {
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'populateStudentsForAllProgram', ''),
+            success: function (data) {
+
+
+                appendStudentList(data)
+
+            }
+
+        });
+}
+
 function populateStudents(object) {
     var programId = $(object).val();
+    $('#allProgram').prop('checked', false);
     if (programId) {
         $.ajax({
             type: "post",
@@ -224,7 +239,7 @@ function populateStudents(object) {
 
 
 function getBankBranch(index) {
-
+//alert("jdfjdjf"+index)
     $.ajax({
         type: "post",
         url: url('feeDetails', 'getBankBranch', ''),
@@ -242,49 +257,62 @@ function getBankBranch(index) {
 
 
 function saveFeeData(index) {
+    var type = $('#paramType').val()
+    var bool = admissionFeeValidation(index)
+    if (bool) {
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'saveFeeData', ''),
+            data: {programId: $('#programId').val(), bankId: $('#bankName' + index).val(), paymentModeId: $('#paymentMode' + index).val(), branchId: $('#branch' + index).val(),
+                paymentDate: $('#datePick' + index).val(), paymentReferenceNumber: $('#referenceNumber' + index).val(), studentId: $('#studentId' + index).val(), feeTypeId: $('#feeType' + index).val()},
+            success: function (data) {
+                appendStudentList(data)
+            }
 
-    var bool= admissionFeeValidation(index)
-    if(bool){
-     $.ajax({
-        type: "post",
-        url: url('feeDetails', 'saveFeeData', ''),
-        data: {programId:$('#programId').val(),bankId: $('#bankName' + index).val(),paymentModeId: $('#paymentMode' + index).val(), branchId: $('#branch' + index).val(),
-        paymentDate:$('#datePick'+index).val(),paymentReferenceNumber:$('#referenceNumber'+index).val(),studentId:$('#studentId'+index).val(),feeTypeId:1},
-        success: function (data) {
-            appendStudentList(data)
-
-        }
-
-    })
-    }else{
+        })
+    } else {
         return bool
     }
 
 }
 
 
-function appendStudentList(data){
-
+function appendStudentList(data) {
+    var type = $('#paramType').val()
+    $('#studyCenterFeeEntryTable').attr('hidden', false);
+    $('#rangeRadioButtons').attr('hidden', false);
     $("#studyCenterFeeEntryTable tbody tr").remove()
+    var count=1
     for (var i = 0; i < data.studentList.length; i++) {
 
-        $("#studyCenterFeeEntryTable tbody").append('<tr><td><input type="text" hidden="hidden" id="studentId'+i+'" value="'+data.studentList[i].id+'" >' +
+        $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID'+i+'"><td><input type="checkbox" name="check' + i + '" id="check' + i + '"></td><td>' + count + '</td>'+
+            '<td><input type="text" hidden="hidden" id="studentId' + i + '" value="' + data.studentList[i].id + '" >' +
             '<input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td>' +
-            '<td><input type="text" value="Education fee" id="feeType" readonly/></td><td><input type="text" id="feeAmount'+ i + '" name="feeAmount" readonly value="' + data.feeAmount + '" /></td>' +
-            '<td><select id="paymentMode' + i + '" name="paymentMode"  class="many-to-one university-size-1-1" /></td>' +
-            '<td><input type="text" id="referenceNumber'+ i +'" name="referenceNumber"></td><td><input type="text" class="datePickers university-size-1-1" id="datePick' + i + '" name="paymentDate"/> </td>' +
-            '<td><select onchange="getBankBranch(' + i + ')" id="bankName' + i + '" name="bankName" o class="many-to-one university-size-1-1" /></td>' +
-            '<td><select id="branch' + i + '" name="branch" class="many-to-one university-size-1-1" /></td><td><input type="button" value="save" class="ui-button university-size-3-4" onclick="saveFeeData(' + i + ')"></td></tr>');
+            '<td>' + data.studentList[i].firstName + ' ' + data.studentList[i].lastName + '</td>'+
+            '<td><input type="text" id="feeAmount' + i + '" name="feeAmount" readonly/></td></tr>');
+        if (type == '') {
+            $("#feeType" + i).empty().append('<option value="1">Education Fee</option>')
+            if(data.feeAmountList){
+                $("#feeAmount" + i).val(data.feeAmountList[i])
+            }
+            else{
+                $("#feeAmount" + i).val(data.feeAmount)
+            }
+        }
+        else {
 
-        $("#bankName" + i).empty().append('<option value="">Select Bank Name</option>')
-        $("#paymentMode" + i).empty().append('<option value="">Select Payment Mode</option>')
-        $("#branch" + i).empty().append('<option value="">Select Branch</option>')
-        for (var j = 0; j < data.bankName.length; j++) {
-            $("#bankName" + i).append('<option value="' + data.bankName[j].id + '">' + data.bankName[j].bankName + '</option>')
+            $("#feeType" + i).empty().append('<option value="">Select Fee Type</option>')
+            for (var l = 0; l < data.feeList.length; l++) {
+                $("#feeType" + i).append('<option value="' + data.feeList[l].id + '">' + data.feeList[l].type + '</option>')
+            }
         }
-        for (var k = 0; k < data.paymentMode.length; k++) {
-            $("#paymentMode" + i).append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
-        }
+//        for (var j = 0; j < data.bankName.length; j++) {
+//            $("#bankName" + i).append('<option value="' + data.bankName[j].id + '">' + data.bankName[j].bankName + '</option>')
+//        }
+//        for (var k = 0; k < data.paymentMode.length; k++) {
+//            $("#paymentMode" + i).append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
+//        }
+        count++;
     }
     $(".datePickers").datepicker({
         changeMonth: true,
@@ -294,7 +322,99 @@ function appendStudentList(data){
     });
 
 }
+function putAmount(studentId, index) {
+//    alert("shdshdsds "+studentId+" ########### "+index+" $$$$$$$$ "+$("#feeType" + index).val());
+    $.ajax({
+        type: "post",
+        url: url('feeDetails', 'getFeeAmount', ''),
+        data: {studentId: studentId, index: index, feeType: $("#feeType" + index).val()},
+        success: function (data) {
+            $("#feeAmount" + index).val('')
+            $("#feeAmount" + index).val(data.programFeeAmount)
+        }
+    })
+}
 
+$(document).ready(function () {
+    $("input[name='entry']").change(function () {
+        var programId = $('#programId').val();
+            $.ajax({
+                type: "post",
+                url: url('feeDetails', 'populateStudentsForAllProgram', ''),
+                data: {programId: programId},
+                success: function (data) {
+                    $("#paymentDetails tr").remove();
+                    document.getElementById('generateFeeChallan').style.display = 'block';
+                    document.getElementById('PayByChallan').style.display = 'block';
+//                    $('#feeSubmitButton').attr('hidden', false);
+                    $('#paymentDetails').attr('hidden', false);
+
+                    if ($('#rangeEntry').is(':checked')) {
+                        $("#paymentDetails").append('<tr><th class="university-size-1-4">Serial No.</th>'+
+                            '<th class="university-size-1-8">Total Amount <b>[&#8377;]</b></th>'+
+                            '<th class="university-size-1-8">Payment Mode</th>'+
+                            '<th class="university-size-1-8">Challan No</th>'+
+                            '<th class="university-size-1-8">Payment Date</th>'+
+                            '<th class="university-size-1-8">Bank</th><th class="university-size-1-8">Branch</th></tr>');
+                            $("#paymentDetails").append('<tr><td><input type="text" class="university-size-1-3"  name="rollNoFrom"> - <input type="text" class="university-size-1-3" name="rollNoTo"></td>'+
+                                '<td><input type="text" id="totalAmount" name="totalAmount"></td>'+
+                                '<td><select id="paymentMode" name="paymentMode"  class="many-to-one university-size-1-1" /></td>' +
+                                '<td><input type="text" id="referenceNumber" name="referenceNumber"></td>'+
+                                '<td><input type="text" class="datePickers university-size-1-1" id="datePick" name="paymentDate"/> </td>' +
+                                '<td><select onchange="getBankBranch(0)" id="bankName0" name="bankName" class="many-to-one university-size-1-1" /></td>' +
+                                '<td><select id="branch0" name="branch" class="many-to-one university-size-1-1" /></td></tr>');
+
+                            $("#bankName0").empty().append('<option value="">Select Bank Name</option>')
+                            $("#paymentMode").empty().append('<option value="">Select Payment Mode</option>')
+                            $("#branch0").empty().append('<option value="">Select Branch</option>')
+                            for (var j = 0; j < data.bankName.length; j++) {
+                                $("#bankName0").append('<option value="' + data.bankName[j].id + '">' + data.bankName[j].bankName + '</option>')
+                            }
+                            for (var k = 0; k < data.paymentMode.length; k++) {
+                                $("#paymentMode").append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
+                            }
+                        }
+                        $(".datePickers").datepicker({
+                            changeMonth: true,
+                            changeYear: true,
+                            dateFormat: "dd/mm/yy",
+                            maxDate: 0
+                        });
+                    if ($('#individualEntry').is(':checked')) {
+                        $("#paymentDetails").append('<tr><th class="university-size-1-4">Roll No</th>'+
+                            '<th class="university-size-1-8">Total Amount <b>[&#8377;]</b></th>'+
+                            '<th class="university-size-1-8">Payment Mode</th>'+
+                            '<th class="university-size-1-8">Refrence No</th>'+
+                            '<th class="university-size-1-8">Payment Date</th>'+
+                            '<th class="university-size-1-8">Bank</th><th class="university-size-1-8">Branch</th></tr>');
+                            $("#paymentDetails").append('<tr><td><input type="text" class="university-size-1-1" name="rollNo' + i + '" id="rollNo' + i + '"></td>'+
+                                '<td><input type="text" id="totalAmount" name="totalAmount"></td>'+
+                                '<td><select id="paymentMode" name="paymentMode"  class="many-to-one university-size-1-1" /></td>' +
+                                '<td><input type="text" id="referenceNumber" name="referenceNumber"></td>'+
+                                '<td><input type="text" class="datePickers university-size-1-1" id="datePick" name="paymentDate"/> </td>' +
+                                '<td><select onchange="getBankBranch(' + 0 + ')" id="bankName0" name="bankName" class="many-to-one university-size-1-1" /></td>' +
+                                '<td><select id="branch0" name="branch" class="many-to-one university-size-1-1" /></td></tr>');
+
+                            $("#bankName0").empty().append('<option value="">Select Bank Name</option>')
+                            $("#paymentMode").empty().append('<option value="">Select Payment Mode</option>')
+                            $("#branch0").empty().append('<option value="">Select Branch</option>')
+                            for (var j = 0; j < data.bankName.length; j++) {
+                                $("#bankName0").append('<option value="' + data.bankName[j].id + '">' + data.bankName[j].bankName + '</option>')
+                            }
+                            for (var k = 0; k < data.paymentMode.length; k++) {
+                                $("#paymentMode").append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
+                            }
+                        $(".datePickers").datepicker({
+                            changeMonth: true,
+                            changeYear: true,
+                            dateFormat: "dd/mm/yy",
+                            maxDate: 0
+                        });
+                    }
+                }
+            });
+        });
+});
 
 
 

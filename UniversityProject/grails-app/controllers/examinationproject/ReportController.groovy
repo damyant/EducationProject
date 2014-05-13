@@ -8,13 +8,13 @@ class ReportController {
     def reportService
     def pdfRenderingService
     def reportIndex = {
-        println('in report Index')
+//        println('in report Index')
 
 //        [totalList :params.totalList, sessionVal:params.sessionVal, flag:params.flag]
     }
 
     def getSessionList(){
-        println("in getSession List")
+//        println("in getSession List")
         def sessionList = Student.createCriteria().list {
             projections {
                 distinct("registrationYear")
@@ -23,6 +23,7 @@ class ReportController {
        render sessionList as JSON
     }
    def generateReport={
+
        println("in generate Report "+ params)
        println('params value '+ params.value)
        if(params.value=='session' && params.session){
@@ -57,6 +58,7 @@ class ReportController {
 
        }
       else if(params.value=='sessions' && params.fromSession && params.toSession){
+
            println("getting the printable report of students of all course of sessions "+ params.fromSession+" and "+ params.toSession)
            def startSession=Integer.parseInt(params.fromSession)
            def endSession = Integer.parseInt(params.toSession)
@@ -70,6 +72,7 @@ class ReportController {
            }
            def args = [template: "generate", model: [totalListBySessions :totalList, sessionVal: sessionList, ],filename:params.session+'_All_Course'+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
+
        }
 
       else if(params.value=='course' && params.course){

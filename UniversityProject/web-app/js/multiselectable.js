@@ -11,8 +11,8 @@ function semesterList() {
             ' <td style="width:20% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList(' + j + ')" name="add' + j + '"  id="add' + j + '">Add</button>' +
             '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList(' + j + ')" name="remove' + j + '"  id="remove' + j + '">Remove</button> </td>' +
             '<td style="width:40%;"><select class="select-to" style="width: 50%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  />' +
-            '<div id="upload-syllabus" style="width: 30%;float:right;">' +
-            '<input type="button" style="float: right; margin-top:20%" id="Syllabus_link" value="Syllabus" onclick="syllabusUpload(' + j + ')" /></div>' +
+//            '<div id="upload-syllabus" style="width: 30%;float:right;">' +
+//            '<input type="button" style="float: right; margin-top:20%" id="Syllabus_link" value="Syllabus" onclick="syllabusUpload(' + j + ')" /></div>' +
 
             '<div id="error-select-' + j + '"></div></div></td></tr>')
 
@@ -123,6 +123,7 @@ function updateInfo(obj) {
     $('#courseName').val(courseDetailJson['course'].courseName)
     $('#modeName option[value=' + courseDetailJson['course'].courseMode.id + ']').attr("selected", "selected");
     $('#courseTypeName option[value=' + courseDetailJson['course'].courseType.id + ']').attr("selected", "selected");
+    $('#programType option[value=' + courseDetailJson['course'].programType.id+ ']').attr("selected", "selected");
     $('#noOfTerms').val(courseDetailJson['course'].noOfTerms)
     $('#courseCode').val(courseDetailJson['course'].courseCode)
     $('#noOfAcademicYears').val(courseDetailJson['course'].noOfAcademicYears)
@@ -159,6 +160,7 @@ function viewCourseInfo(obj) {
     //$('#modeName option[value='+courseDetailJson['course'].courseMode.id+']').attr("selected", "selected");
     $('#modeName').html(courseDetailJson['courseMode'])
     $('#courseTypeName').html(courseDetailJson['courseType'])
+    $('#courseCategory').html(courseDetailJson['ProgramType'])
     $('#noOfTerms').html(courseDetailJson['course'].noOfTerms)
     $('#courseCode').html(courseDetailJson['course'].courseCode)
     $('#noOfAcademicYears').html(courseDetailJson['course'].noOfAcademicYears)
@@ -201,9 +203,10 @@ function ConvertFormToJSON(form) {
 
     jQuery.each(array, function () {
         json[this.name] = this.value || '';
-
+//        alert(this.name)
         i++;
     });
+    json['uploadSyllabus'] = $('#uploadSyllabus').val() || '';
     var semesterList = {};
 
     for (var j = 1; j <= $('#noOfTerms').val(); j++) {
@@ -237,6 +240,7 @@ function clearField() {
 //    $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 function save() {
+//    alert("dfdfdfd")
     validate();
     var status = $("#createCourse").valid();
     if (!fireMultiValidate()) {
@@ -265,33 +269,9 @@ function save() {
         });
     }
 }
-function syllabusUpload(index) {
+function syllabusUpload() {
     if ($('#courseName').val()!= "") {
-        if (!$('#semester' + index).find(":selected").val()=='') {
-            if (($('#semester' + index + ' :selected').length == 1)) {
-                $('#syllabusFile').trigger('click');
-                $('#syllabusFile').on('change', function () {
-                    myfile= $( this ).val();
-                    var ext = myfile.split('.').pop();
-                    if(ext=="pdf" || ext=="docx" || ext=="doc") {
-                        $('#syllabusOfSubject').val($('#semester' + index).find(":selected").val());
-                        $('#syllabusCourse').val($('#courseName').val());
-                        $('#syllabusOfSemester').val('Semester' + index);
-                        $('#syllabusUploadForm').submit();
-                    }
-                    else{
-                        alert("Invalid File Type.")
-                        $( this ).val('');
-                    }
-                });
-            }
-            else {
-                alert("Select only One Option.")
-            }
-        }
-        else {
-            alert("Select a Course to Add Syllabus.");
-        }
+
     }
     else {
         alert("Enter The Program Name First.");
@@ -318,4 +298,25 @@ function checkCourseCode() {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
+}
+function checkFileType(e){
+
+        var file_list = e.target.files;
+
+        for (var i = 0, file; file = file_list[i]; i++) {
+            var sFileName = file.name;
+            var sFileExtension = sFileName.split('.')[sFileName.split('.').length - 1].toLowerCase();
+            var iFileSize = file.size;
+            var iConvert = (file.size / 10485760).toFixed(2);
+
+            if (!(sFileExtension === "pdf" || sFileExtension === "doc" || sFileExtension === "docx") || iFileSize > 10485760) {
+                txt = "File type : " + sFileExtension + "\n\n";
+                txt += "Size: " + iConvert + " MB \n\n";
+                txt += "Please make sure your file is in pdf or doc format and less than 10 MB.\n\n";
+                alert(txt);
+            }
+            else{
+                return false;
+            }
+        }
 }

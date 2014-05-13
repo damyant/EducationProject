@@ -90,7 +90,7 @@ class FeeDetailsController {
     }
 
     def saveBulkFeeDetails ={
-        println("hello kuldeep now save your data" + params)
+//        println("hello kuldeep now save your data" + params)
         def feeDetailsInstance = feeDetailService.saveFeeDetails(params)
 
         if (feeDetailsInstance.hasErrors()) {
@@ -102,6 +102,7 @@ class FeeDetailsController {
         }
 
     }
+    @Secured("ROLE_STUDY_CENTRE")
     def studyCentreAdmissionFee={
         def programList = ProgramDetail.list(sort:'courseName')
 //        def paymentModeList = PaymentMode.list(sort:'paymentModeName')
@@ -115,6 +116,14 @@ class FeeDetailsController {
     def populateStudents={
         def resultMap=[:]
         resultMap= feeDetailService.StudentList(params)
+        render resultMap as JSON
+    }
+
+    def populateStudentsForAllProgram={
+        println("in method");
+        def resultMap=[:]
+        resultMap= feeDetailService.AllProgramStudentList()
+        println("in method"+resultMap);
         render resultMap as JSON
     }
 
@@ -133,5 +142,30 @@ class FeeDetailsController {
         render resultMap as JSON
 
     }
-
+    def getFeeAmount={
+//        println("################################################ ====>"+params);
+        def resultMap=[:]
+        def student = Student.findById(params.studentId)
+        def programFee = ProgramFee.findByProgramDetail(student.programDetail)
+//        println(student.programDetail)
+        def programFeeAmount
+//        println("type --->"+params.feeType)
+        def feeType=params.feeType
+        if(feeType==1) {
+            programFeeAmount = programFee.feeAmountAtSC
+//            println("1")
+        }
+        else if(feeType==2) {
+            programFeeAmount = programFee.examinationFee
+//            println("2")
+        }
+        else{
+                programFeeAmount = programFee.certificateFee
+//                println("3")
+        }
+        resultMap.programFeeAmount=programFeeAmount;
+//        println(programFee.feeAmountAtSC)
+//        println(resultMap)
+        render resultMap as JSON
+    }
 }

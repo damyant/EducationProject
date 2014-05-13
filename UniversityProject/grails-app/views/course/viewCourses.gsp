@@ -53,6 +53,11 @@
                         </tr>
 
                         <tr>
+                            <td><label style="padding-left: 8px;">Course Category</label></td>
+                            <td style="width: 60%"><label id="courseCategory"></label></td>
+                        </tr>
+
+                        <tr>
                             <td><label style="padding-left: 8px;">Number of Terms/Semesters</label></td>
                             <td style="width: 60%"><label id="noOfTerms"></label></td>
                         </tr>

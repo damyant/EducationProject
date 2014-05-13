@@ -26,7 +26,7 @@
         <li><a href="#"><g:message code="default.mainMenu2"/></a>
             <ul>
 
-                <sec:ifNotGranted roles="ROLE_ADMIN">
+                <sec:ifNotGranted roles="ROLE_ADMIN,ROLE_IDOL_USER">
                 <li><g:link controller="student" action="registration"><g:message
                         code="default.mainMenu2.subMenu1"/></g:link></li>
                 </sec:ifNotGranted>
@@ -194,9 +194,9 @@
 
         <li><a href="#"><g:message code="default.mainMenu8"/></a>
             <ul>
-                <li><g:link controller="feeDetails"
-                            action="createFeeDetails"><g:message
-                            code="default.mainMenu8.subMenu1"/></g:link></li>
+                %{--<li><g:link controller="feeDetails"--}%
+                            %{--action="createFeeDetails"><g:message--}%
+                            %{--code="default.mainMenu8.subMenu1"/></g:link></li>--}%
                 <li><g:link controller="feeDetails"
                             action="bulkFeeEntry"><g:message
                             code="default.mainMenu8.subMenu2"/></g:link></li>
@@ -208,7 +208,7 @@
                                     code="default.mainMenu8.subMenu3.subMenu1"/></g:link></li>
 
                         <li><g:link controller="feeDetails"
-                                    action="studyCentrePostAdmissionFee"><g:message
+                                    action="studyCentreAdmissionFee" params="[type:'postAdmission']"><g:message
                                     code="default.mainMenu8.subMenu3.subMenu2"/></g:link></li>
                     </ul>
                 </li>

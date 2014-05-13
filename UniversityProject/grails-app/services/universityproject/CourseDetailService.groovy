@@ -7,7 +7,8 @@ import examinationproject.CourseSubject
 import examinationproject.Semester
 import examinationproject.Subject
 import grails.transaction.Transactional
-
+import org.codehaus.groovy.grails.web.context.ServletContextHolder
+import java.io.File;
 @Transactional
 class CourseDetailService {
 
@@ -19,13 +20,15 @@ class CourseDetailService {
         def status = ""
         def semObj
         def existingCourseObj
-        println(params.courseId)
+//        println(params.courseId)
         if (params.courseId) {
             existingCourseObj = ProgramDetail.findById(Integer.parseInt(params.courseId))
         }
 
+
+
         if (existingCourseObj) {
-            println("innnn" + params)
+//            println("innnn" + params)
             existingCourseObj.courseName = params.courseName
             existingCourseObj.courseCode = Integer.parseInt(params.courseCode)
             existingCourseObj.courseMode = CourseMode.findById(params.courseMode)
@@ -99,7 +102,9 @@ class CourseDetailService {
         def subList = []
         def courseObj = ProgramDetail.findById(params.courseId)
         courseDetail.course = courseObj
+//        println("***********"+courseObj)
         courseDetail.courseType = courseObj.courseType.courseTypeName
+        courseDetail.ProgramType = courseObj.programType.type
         courseDetail.courseMode = courseObj.courseMode.modeName
         courseObj.semester.each {
             subMap[it.semesterNo] = CourseSubject.findAllByCourseDetailAndSemester(courseObj, it).subject

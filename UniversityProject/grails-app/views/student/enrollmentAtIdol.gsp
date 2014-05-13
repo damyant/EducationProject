@@ -32,7 +32,12 @@
                 <table class="inner university-size-full-1-1">
                     <tr>
                         <td class="university-size-1-3">Name of the applicant <span class="university-obligatory">*</span></td>
-                        <td class="university-size-2-3"><input type="text" name="studentName" style="text-transform:capitalize" onkeypress="return onlyAlphabets(event, this);"
+                        <td class="university-size-2-3">
+                            <input type="text" placeholder="Enter First Name" name="firstName" style="text-transform:capitalize" onkeypress="return onlyAlphabets(event, this);"
+                                   maxlength="50" class="university-size-1-2"/>
+                            <input type="text" placeholder="Enter Middle Name"  name="middleName" style="text-transform:capitalize" onkeypress="return onlyAlphabets(event, this);"
+                                   maxlength="50" class="university-size-1-2"/>
+                            <input type="text" placeholder="Enter Last Name"  name="lastName" style="text-transform:capitalize" onkeypress="return onlyAlphabets(event, this);"
                                    maxlength="50" class="university-size-1-2"/>
                         </td>
                     </tr>

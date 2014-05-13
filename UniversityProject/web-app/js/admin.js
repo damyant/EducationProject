@@ -1,6 +1,7 @@
 
 var studentIdList = [];
 var subjectIdList=[];
+var feeTypeList=[];
 $(document).ready(function () {
 
         $("#submit").click(function(){
@@ -33,7 +34,7 @@ $(document).ready(function () {
                 }
 
             })
-            alert(this.value)
+//            alert(this.value)
             generateRollNo(this.value)
 //            document.forms["generateRollNo"].submit();
         }
@@ -133,7 +134,7 @@ function appendTable(data) {
         document.getElementById("studentList").style.visibility = "visible";
         $('#studentList thead').append('<tr><th><input type="checkbox" name="chkbox" onchange="toggleChecked(this.checked)"/> <label for="chkbox">Select All</label> </th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th></tr>')
         for (var i = 0; i < data.stuList.length; i++) {
-            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].studentName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
+            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName+' '+data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
         }
         $('#studentList tbody').append('<tr><td colspan="3"><input type="button" value="' + data.label + '" id="assignRollNo"></td></tr>')
 
@@ -285,12 +286,12 @@ function generateStudentsList() {
             $('#studentList thead tr').remove()
             $('#studentList tbody tr').remove()
             if (data.length>0) {
-//                alert(data.length);
+//                alert(data[0].firstName);
                 $('#msg').html("");
                 document.getElementById("studentList").style.visibility = "visible";
                 $('#studentList thead').append('<tr><th>' + "Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Roll Number" + '</th><th>' + "Mobile No" + '</th><th>&nbsp;</th></tr>')
                 for (var i = 0; i < data.length; i++) {
-                    $('#studentList tbody').append('<tr><td>' + data[i].studentName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" value="View" onclick="viewStudent(' + data[i].id + ')"/></td></tr>')
+                    $('#studentList tbody').append('<tr><td>' + data[i].firstName+' '+data[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" value="View" onclick="viewStudent(' + data[i].id + ')"/></td></tr>')
                 }
 
             }
@@ -353,9 +354,30 @@ function loadBranch(t){
         });
     }
 }
+
+
+
+function loadSession(t){
+    var program=$(t).val();
+//    alert(bank)
+    if(program){
+        $.ajax({
+            type: "post",
+            url: url('programFee', 'getProgramSession', ''),
+            data: {program: program},
+            success: function (data) {
+                //document.location.reload();
+                $("#programSession").empty().append('');
+                $("#programSession").append('Select Session');
+                for (var i = 0; i < data.length; i++) {
+                    $("#programSession").append('<option value="' + data[i].id + '">' + data[i].sessionOfProgram + '</option>')
+                }
+            }
+        });
+    }
+}
 function populateChallanDetail(t){
     var challanNo=$(t).val();
-    alert(challanNo)
     $.ajax({
         type: "post",
         url: url('admin', 'getChallanDetails', ''),
@@ -368,4 +390,44 @@ function populateChallanDetail(t){
 
         }
     });
+}
+
+function approvePayInSlip(){
+    $.ajax({
+        type: "post",
+        url: url('admin', 'saveApprovePayInSlip', ''),
+        data: {rollNo:$('#rollNo').val(),bankId: 10,paymentModeId: 5, branchId: 21,
+            paymentDate:$('#datePick').val(),paymentReferenceNumber:$('#payInSlipNo').val(),feeTypeId:1},
+        success: function (data) {
+                if(data.flag){
+                    $('#rollNo').val('');
+                    $('#payInSlipNo').val('');
+                    $('#datePick').val('');
+                    $('#approvePayInSlip')[0].reset();
+                    $('#statusMessage').html("Approved Succesfully")
+                }
+        }
+
+    })
+}
+
+function submitProgramFee(){
+alert("hi")
+    $.ajax({
+        type: "post",
+        url: url('programFee', 'saveProgramFee', ''),
+        data: $("#createNewFee").serialize()+"&feeTypeList="+feeTypeList,
+
+        success: function (data) {
+//            if(data.flag){
+//                $('#rollNo').val('');
+//                $('#payInSlipNo').val('');
+//                $('#datePick').val('');
+//                $('#approvePayInSlip')[0].reset();
+//                $('#statusMessage').html("Approved Succesfully")
+//            }
+        }
+
+    })
+
 }

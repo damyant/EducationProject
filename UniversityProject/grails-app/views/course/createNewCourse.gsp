@@ -51,7 +51,7 @@
         </g:else>
     </div>
 
-    <g:form  method="post" name="createCourse" id="createCourse">
+    <g:uploadForm  method="post" name="createCourse" id="createCourse" enctype="multipart/form-data" >
         <g:hiddenField name="courseId" id="courseId" />
         <div style="margin-left: 10px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
         <table class="university-table inner" border="0">
@@ -68,7 +68,10 @@
                 <td><label>Select Program Type :<span class="university-obligatory">*</span></label></td>
                 <td><g:select name="courseType" id="courseTypeName" optionKey="id" optionValue="courseTypeName" class="university-size-1-2" from="${CourseType.findAll()}" noSelection="['':' Select Program Type']" /></td>
             </tr>
-
+            <tr>
+                <td><label>Select Program Category :<span class="university-obligatory">*</span></label></td>
+                <td><g:select name="programType" id="programType" optionKey="id" optionValue="type" class="university-size-1-2" from="${examinationproject.ProgramType.findAll()}" noSelection="['':' Select Program Category']" /></td>
+            </tr>
             <tr>
                 <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
                 <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2" onkeypress="return isNumber(event)" onblur="semesterList()" readonly/></td>
@@ -112,27 +115,15 @@
                 </td>
             </tr>
             <tr>
+                <td><label>Upload Syllabus :</label></td>
+                <td><input type="file" id="uploadSyllabus" name="uploadSyllabus" class="university-size-1-2" onchange="checkFileType(event)"/></td>
+            </tr>
+            <tr>
                 <td colspan="2" style="text-align: center"><input type="button" id="submitForm" onclick="save();" value="<g:message code="default.button.create"/>" class="university-button">
                 <input id="clear" onclick="clearField()" type="reset" value="<g:message code="default.button.clear"/>" class="university-button" ></td>
             </tr>
         </table>
-    </g:form>
-        %{--<script type="text/javascript">--}%
-            %{--$(function() {--}%
-                %{--$("#dropbox, #multiple").html5Uploader({--}%
-                    %{--name: "foo",--}%
-                    %{--postUrl: "bar.aspx"--}%
-                %{--});--}%
-            %{--});--}%
-        %{--</script>--}%
-       <g:uploadForm controller="course" action="uploadSyllabus" method="post" enctype="multipart/form-data" name="syllabusUploadForm" id="syllabusUploadForm">
-            <input type="file" name="syllabusFile" id="syllabusFile" style="visibility: hidden;">
-            <input type="hidden" name="syllabusCourse" id="syllabusCourse" value="">
-            <input type="hidden" name="syllabusOfSubject" id="syllabusOfSubject" value="">
-            <input type="hidden" name="syllabusOfSemester" id="syllabusOfSemester" value=="">
-        </g:uploadForm>
-        %{--<input class="multi" accept="pdf"/>--}%
-
+    </g:uploadForm >
     </fieldset>
 </div>
 </body>

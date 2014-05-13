@@ -109,7 +109,7 @@ class WriteExcelService {
         for (int i = 0; i < finalList.size(); i++) {
             int j = 0
             addLabel(sheet, j, i + 2, finalList[i].rollNo);
-            addLabel(sheet, j + 1, i + 2, finalList[i].studentName);
+            addLabel(sheet, j + 1, i + 2, finalList[i].firstName+' '+finalList[i].lastName);
             addLabel(sheet, j + 2, i + 2, finalList[i].studyCentre[0].name);
             addLabel(sheet, j + 3, i + 2, finalList[i].examinationCentre[0].examinationCentreName);
             addLabel(sheet, j + 4, i + 2, "91"+finalList[i].mobileNo);

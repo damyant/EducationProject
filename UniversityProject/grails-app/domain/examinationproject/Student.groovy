@@ -3,7 +3,9 @@ package examinationproject
 
 class Student {
 
-    String studentName
+    String firstName
+    String middleName
+    String lastName
     Date dob
     String category
     String gender
@@ -12,7 +14,7 @@ class Student {
     BigInteger mobileNo
     BigInteger registrationNo1
     BigInteger registrationNo2
-    String addressStudentName
+    String address
     String addressTown
     String addressPO
     String addressDistrict
@@ -20,6 +22,7 @@ class Student {
     String addressPinCode
     String location
     String applicationNo
+    String parentsName
     String rollNo
     int semester
     Status status
@@ -37,7 +40,7 @@ class Student {
 
     static constraints = {
         referenceNumber(nullable:true)
-        studentName(nullable: true)
+        middleName(nullable: true)
         dob(nullable: true)
         category(nullable: true)
         gender(nullable: true)
@@ -46,7 +49,7 @@ class Student {
         mobileNo(nullable: true)
         registrationNo1(nullable: true)
         registrationNo2(nullable: true)
-        addressStudentName(nullable: true)
+        address(nullable: true)
         addressTown(nullable: true)
         addressPO(nullable: true)
         addressDistrict(nullable: true)
@@ -55,7 +58,7 @@ class Student {
         studentImage(nullable: true)
         location(nullable: true)
         applicationNo(nullable: true)
-        rollNo(nullable:true,unique: true)
+        rollNo(nullable:true)
         status(nullable:true)
         admitCardGenerated(nullable: true)
         examinationVenue(nullable: true)
@@ -69,7 +72,10 @@ class Student {
         studyCentre cascade:'none'
         programDetail cascade: 'none'
         examinationCentre cascade:'none'
-        studentName column: "studentName"
+        firstName column: "firstName"
+        lastName column: "lastName"
+        middleName column: "middleName"
+        parentsName column: "parentsName"
         dob column: "Dob",index: 'Dob_Index'
         rollNo column: "RollNo",index: 'RollNo_Index'
         category column: "Category"
@@ -80,7 +86,7 @@ class Student {
         studyCentre column: "StudyCentre"
         registrationNo1 column: "RegistrationNo1"
         registrationNo2 column: "RegistrationNo2"
-        addressStudentName column: "AddressStudentName"
+        address column: "Address"
         addressTown column: "AddressTown"
         addressPO column: "AddressPO"
         addressDistrict column: "AddressDistrict"

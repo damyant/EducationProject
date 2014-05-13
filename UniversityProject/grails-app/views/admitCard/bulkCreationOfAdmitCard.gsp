@@ -120,7 +120,7 @@
                  hidden="">
 
                 <label class="university-left-right-margin">
-                    <img src="${resource(dir: 'images', file: 'Printer-icon.png')}"
+                    <img src="${resource(dir: 'images', file: 'Download (7).ico')}"
                          style="width: 30px;vertical-align: bottom; margin: auto 20px;" class="logo-image"/>
                 </label>
                 <label class="university-left-margin" style="color: #000; font-size: 17px;"><b>From</b></label>
@@ -134,7 +134,7 @@
             </div>
 
             <div id="studentListPrintButton" style="margin: 10px auto;width:94%;text-align: center;" hidden="">
-                <input type="button" value="Print" onclick="generateAdmitCard()" class="university-button">
+                <input type="button" value="Download" onclick="generateAdmitCard()" class="university-button">
             </div>
         </g:form>
     </fieldset>

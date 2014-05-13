@@ -1,9 +1,14 @@
 package universityproject
 
+import examinationproject.Bank
+import examinationproject.Branch
 import examinationproject.City
 import examinationproject.CourseSubject
 import examinationproject.ExaminationCentre
 import examinationproject.ExaminationVenue
+import examinationproject.FeeDetails
+import examinationproject.FeeType
+import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
 import examinationproject.Semester
@@ -12,6 +17,7 @@ import examinationproject.Student
 import examinationproject.Subject
 import grails.transaction.Transactional
 
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 
 @Transactional
@@ -152,6 +158,25 @@ def springSecurityService
             }
         }
         return  studList
+    }
+    def savePayInSlip(params){
+        Boolean status=false;
+        def feeDetailsInstance = new FeeDetails();
+        def student = Student.findByRollNo(params.rollNo);
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        feeDetailsInstance.studentId = student
+        feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
+        feeDetailsInstance.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber);
+        feeDetailsInstance.feeTypeId = FeeType.findById(params.feeTypeId)
+        feeDetailsInstance.bankId = Bank.findById(Long.parseLong(params.bankId))
+        feeDetailsInstance.branchId = Branch.findById(Long.parseLong(params.branchId))
+        feeDetailsInstance.paymentModeId =PaymentMode.findById(Long.parseLong(params.paymentModeId))
+        if (feeDetailsInstance.save(flush: true, failOnError: true)) {
+            student.status = Status.findById(3)
+            student.save(flush: true, failOnError: true)
+            status=true;
+        }
+        return status
     }
 
 }

@@ -1,12 +1,13 @@
 package examinationproject
 
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Secured("ROLE_ADMIN")
-@Transactional
+//@Transactional
 class ProgramFeeController {
     def programFeeService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -21,11 +22,17 @@ class ProgramFeeController {
 //    }
 
     def createNewFeeType() {
-        respond new ProgramFee(params)
+        def feeType
+        if(FeeType.count()>0)
+            feeType = FeeType.list()
+         [feeType:feeType]
+
     }
 
     @Transactional
     def save(ProgramFee programFeeInstance) {
+
+
         if (programFeeInstance == null) {
             notFound()
             return
@@ -38,6 +45,15 @@ class ProgramFeeController {
 
         programFeeService.saveProgramFeeType(programFeeInstance)
         redirect(action: "listOfFeeType")
+
+    }
+
+    def saveProgramFee(){
+        println("innnnnnnnnnn=="+params)
+        def feeTypeList=params.feeTypeList.split(',')
+        println("innnnnnnnnnn=="+feeTypeList[0])
+
+        programFeeService.saveProgramFeeType(params)
 
     }
 
@@ -66,7 +82,7 @@ class ProgramFeeController {
 
 //    @Transactional
     def deleteFeeType(ProgramFee programFeeInstance) {
-        println("ffffffff****************")
+//        println("ffffffff****************")
 
         if (programFeeInstance == null) {
             notFound()
@@ -89,7 +105,8 @@ class ProgramFeeController {
     }
     def addFeeType = {
         def feeInstance = FeeType.get(params?.feeTypeId);
-        [feeInstance: feeInstance]
+        def programList = ProgramDetail.list(sort:'courseName')
+        [feeInstance: feeInstance,programList: programList]
     }
     def saveNewFee = {
         println(params?.feeId)
@@ -100,9 +117,9 @@ class ProgramFeeController {
             feeTypeInst.type = params?.type
             println("hiiiiiii");
         } else {
-            feeTypeInst = new FeeType()
-            feeTypeInst.type = params?.type
-            println("hoooooo");
+            feeTypeInst = new FeeType(type: params.type)
+
+            println("hoooooo"+params.type);
         }
         Boolean flag = false
         if (feeTypeInst.save(flush: true)) {
@@ -129,7 +146,13 @@ class ProgramFeeController {
             redirect(action: "viewExistingFeeType")
         }
         catch (Exception e) {
-            println("<<<<<<<<<<<Problem in deleting study center" + e)
+            println("<<<<<<<<<<<Problem in deleting study center$e")
         }
+    }
+
+
+    def getProgramSession = {
+     def programSessions=   programFeeService.getProgramSessions(params)
+        render programSessions as JSON
     }
 }

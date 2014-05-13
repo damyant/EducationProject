@@ -71,11 +71,11 @@
         <table align="center" cellpadding="18" id="preview-pdf" class="university-table-1-2"
                style="width: 100%;margin: auto; border: 1px solid; ">
             <tr>
-                <td>
+                <td style="width: 60%;">
                     <label>Name</label>
                 </td>
-                <td>
-                    <label>${studentInstance?.studentName}</label>
+                <td style="width: 40%;">
+                    <label>${studentInstance?.firstName} ${studentInstance?.middleName} ${studentInstance?.lastName}</label>
                 </td>
             </tr>
             <tr>
@@ -156,11 +156,11 @@
                         <label>Complete Mailing Address</label>
                     </td>
                     <td style="vertical-align: top;">
-                        <div>${studentInstance?.addressTown}</div>
+                        <div>${studentInstance?.address}, ${studentInstance?.addressTown}</div>
 
                         <div>${studentInstance?.addressPO} ${studentInstance?.addressDistrict}</div>
 
-                        <div>${studentInstance?.addressState}  ${studentInstance?.addressPinCode}</div>
+                        <div>${studentInstance?.addressState},  ${studentInstance?.addressPinCode}</div>
                     </td>
                 </tr>
             </g:if>
