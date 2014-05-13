@@ -113,8 +113,8 @@ function selectRows(){
     selected.length=0;
 }
 
-function getSemester(){
-    var data = $('#programList').val();
+function getSemester(t){
+    var data = $(t).val();
     $.ajax({
         type: "post",
         url: url('admitCard', 'getSemesterList', ''),

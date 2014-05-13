@@ -35,7 +35,7 @@
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
                                       from="${programList}" noSelection="['': ' Select Program']"
-                                      onchange="showExamVenueList(),getSemester(),enableShowCandidate()"/>
+                                      onchange="showExamVenueList(),getSemester(this),enableShowCandidate()"/>
                         </td>
                         <td></td>
                     </tr>
