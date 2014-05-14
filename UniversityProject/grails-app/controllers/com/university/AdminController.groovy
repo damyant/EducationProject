@@ -1,12 +1,11 @@
 package com.university
 
+import examinationproject.AdmissionFee
 import examinationproject.Bank
-import examinationproject.Branch
 import examinationproject.ExaminationCentre
-import examinationproject.ExaminationVenue
 import examinationproject.FeeType
 import examinationproject.ProgramDetail
-import examinationproject.ProgramFee
+
 import examinationproject.Student
 import examinationproject.Status
 import examinationproject.StudyCenter
@@ -98,8 +97,8 @@ class AdminController {
         def program= student.programDetail
         def programName=program[0].courseName
         boolean status
-        def programFee = ProgramFee.findByProgramDetail(program)
-        if(programFee)
+        def admissionFee = AdmissionFee.findByProgramDetail(program)
+        if(admissionFee)
             status=true
         else
             status = false
@@ -121,7 +120,7 @@ class AdminController {
 //        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
         def feeTypeId =Integer.parseInt(params.feeType)
         def feeType = FeeType.findById(feeTypeId)
-        def programFee = ProgramFee.findByProgramDetail(program)
+        def programFee = AdmissionFee.findByProgramDetail(program)
         def programFeeAmount
 
             switch(feeTypeId){
@@ -265,11 +264,13 @@ class AdminController {
         render returnMap as JSON
     }
     def getFeeAmount={
+
         def resultMap=[:]
-//        println(params)
-        def feeAmount=ProgramFee.findAllById(params.program);
+        println(params)
+        def feeAmount=AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
+
         resultMap.feeAmount=feeAmount.feeAmountAtIDOL;
-//        println(resultMap);
+       println(resultMap);
         render resultMap as JSON
     }
 }

@@ -337,7 +337,8 @@ $(document).ready(function () {
                 document.getElementById('generateFeeChallan').style.display = 'block';
 //                document.getElementById('PayByChallan').style.display = 'block';
 //                    $('#feeSubmitButton').attr('hidden', false);
-                $('#paymentDetails').attr('hidden', false);
+//                $('#paymentDetails').attr('hidden', false);
+                document.getElementById('paymentDetails').style.display = 'block';
 
                 if ($('#rangeEntry').is(':checked')) {
                     $("#paymentDetails").append('<tr><th class="university-size-1-1" style="text-align: center;">Serial No.</th>' +
