@@ -22,7 +22,7 @@ class ProgramFeeController {
 //    }
 
     def createNewFeeType() {
-        def feeType
+        def feeType=null
         if(FeeType.count()>0)
             feeType = FeeType.list()
          [feeType:feeType]
