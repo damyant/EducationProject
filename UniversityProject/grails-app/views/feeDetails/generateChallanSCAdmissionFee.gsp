@@ -50,7 +50,8 @@
         <table id="studyCenterFeeEntryTable" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd; " hidden="hidden">
             <thead>
             <tr>
-                <th style="width: 10%;">Serial No</th>
+                %{--<th style="width: 10%;padding-left: 10px;"><input type="checkbox" name="selectAll" id="selectAll"><label for="selectAll">Select All</label></th>--}%
+                <th  style="width: 10%;">Serial No</th>
                 <th style="width: 26.6%;">Roll No</th>
                 <th style="width: 26.6%;">Student Name</th>
                 <th style="width: 26.6%;">Amount <b>[&#x20B9;]</b> </th>
