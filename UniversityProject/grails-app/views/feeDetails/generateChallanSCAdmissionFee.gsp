@@ -48,7 +48,7 @@
             </tr>
             <tr><td><label>Select a Term</label></td>
                 <td>
-                    <select name="semesterList" class="university-size-1-1" id="semesterList" disabled>
+                    <select name="semesterList" class="university-size-1-1" id="semesterList">
                         <option value="">Select Semester</option>
                     </select>
                 </td>

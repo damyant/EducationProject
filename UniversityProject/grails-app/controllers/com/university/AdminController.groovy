@@ -248,11 +248,21 @@ class AdminController {
     def getChallanDetails={
         def resultMap=[:]
         def studentInst=Student.findAllByChallanNo(params.challanNo);
-        def feeAmount=ProgramFee.findAllByProgramDetail(studentInst.programDetail);
+        println("%%%%%%%%%%%%%%%%%%%%%% "+studentInst);
+        def feeAmount=[]
+        for(int i=0;i<studentInst.size();i++){
+           def amount=AdmissionFee.findAllByProgramDetail(studentInst[i].programDetail);
+            if(studentInst[i].studyCentre[0].centerCode=='11111'){
+                feeAmount.add(amount[0].feeAmountAtIDOL)
+            }
+            else{
+                feeAmount.add(amount.feeAmountAtSC)
+//                println("feeAmountAtSC"+amount[0].feeAmountAtSC)
+            }
+
+        }
         resultMap.studentInst=studentInst;
-        resultMap.feeAmount=feeAmount.feeAmountAtSC;
-//        println("%%%%%%%%%%%%"+resultMap.studentInst[0].rollNo);
-//        println("###########"+resultMap.feeAmount[0]);
+        resultMap.feeAmount=feeAmount;
         render resultMap as JSON
     }
     def saveApprovePayInSlip={
