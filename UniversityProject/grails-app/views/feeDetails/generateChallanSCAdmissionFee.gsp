@@ -76,7 +76,7 @@
             <div class="university-size-1-3 university-display-inline"><input type="radio" id="individualEntry" name="entry" value="Range"> <label for="individualEntry">Generate challan Individually</label></div>
         </div>
         <br/>
-        <table id="paymentDetails" hidden="hidden" style="margin: auto;border:1px solid #dddddd; " >
+        <table id="paymentDetails" style="margin: auto;border:1px solid #dddddd;display: none; " >
 
         </table>
         <br/>
