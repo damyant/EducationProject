@@ -413,11 +413,36 @@ function approvePayInSlip(){
 
 function submitProgramFee(){
 
-  //  var programSession = $("#session").val()
+alert("hi")
+   var programId = $("#programDetail").val()
+    alert(programId)
+
     $.ajax({
         type: "post",
         url: url('programFee', 'saveProgramFee', ''),
-        data: $("#createNewFee").serialize()+"&feeTypeList="+feeTypeList,
+        data: $("#createNewFee").serialize()+"&feeTypeList="+feeTypeList+"&programDetail="+programId,
+
+        success: function (data) {
+//            if(data.flag){
+//                $('#rollNo').val('');
+//                $('#payInSlipNo').val('');
+//                $('#datePick').val('');
+//                $('#approvePayInSlip')[0].reset();
+//                $('#statusMessage').html("Approved Succesfully")
+//            }
+        }
+
+    })
+
+}
+
+function updateProgramFee(){
+    alert("hi")
+   var programId = $("#programId").val()
+    $.ajax({
+        type: "post",
+        url: url('programFee', 'saveProgramFee', ''),
+        data: $("#updateFee").serialize()+"&feeTypeList="+feeTypeList+"&programDetail="+programId,
 
         success: function (data) {
 //            if(data.flag){

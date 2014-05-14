@@ -5,6 +5,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'programFee.label', default: 'ProgramFee')}" />
         <title><g:message code="default.edit.label" args="[entityName]"/></title>
+        <g:javascript src='admin.js'/>
     </head>
 	<body>
     <div id="main">
@@ -20,7 +21,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-            <g:form url="[resource: programFeeInstance, action: 'update']" method="PUT">
+            <g:form id="updateFee" name="updateFee">
                 <g:hiddenField name="version" value="${programFeeInstance?.version}"/>
 				<fieldset class="form">
                     <div style="margin-left: 5px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
@@ -33,9 +34,12 @@
                         </div>
 
                         <div class="university-size-2-3">
-                            <g:select id="programDetail" name="programDetail.id"
+                            <g:select id="programDetail" name="programDetail"
                                       from="${programFeeInstance.programDetail}" optionKey="id" optionValue="courseName"
                                       class="many-to-one university-size-1-2"/>
+
+                            <g:hiddenField name="programId" id="programId" value="${programFeeInstance.programDetail.id}"></g:hiddenField>
+                            <g:hiddenField name="admissionFee" id="admissionFee" value="${programFeeInstance.id}"></g:hiddenField>
                         </div>
                     </div>
 
@@ -80,40 +84,35 @@
                                          value="${programFeeInstance.lateFeeAmount}"/>
                         </div>
                     </div>
+              <g:if test ="${miscellaneousFeeList}">
+                    <g:each in="${miscellaneousFeeList}" var="miscellaneousFee">
+                        <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">
+                            <div class="university-size-1-3">
+                                <label for="feeType">
+                                    ${miscellaneousFee?.feeType?.type}
+                                    <span class="university-obligatory">*</span>
+                                </label>
+                            </div>
 
-                    <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">
-                        <div class="university-size-1-3">
-                            <label for="examinationFee">
-                                <g:message code="programFee.examinationFee.label" default="Examination Fee"/>
-                                <span class="university-obligatory">*</span>
-                            </label>
+                            <div class="university-size-2-3">
+                                <g:textField name="feeTypeAmount" class="university-size-1-2" type="number" onkeypress="return isNumber(event)"
+                                             value="${miscellaneousFee?.amount}"/>
+                            </div>
                         </div>
+                        <g:javascript>
+                         feeTypeList.push(${miscellaneousFee?.feeType?.id})
+                        </g:javascript>
 
-                        <div class="university-size-2-3">
-                            <g:textField name="examinationFee" class="university-size-1-2" type="number"
-                                         value="${programFeeInstance.examinationFee}"/>
-                        </div>
-                    </div>
+                    </g:each>
+              </g:if>
 
-                    <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">
-                        <div class="university-size-1-3">
-                            <label for="certificateFee">
-                                <g:message code="programFee.certificateFee.label" default="Certificate Fee"/>
-                                <span class="university-obligatory">*</span>
-                            </label>
-                        </div>
 
-                        <div class="university-size-2-3">
-                            <g:textField name="certificateFee" class="university-size-1-2" type="number"
-                                         value="${programFeeInstance.certificateFee}"/>
-                        </div>
-                    </div>
 
                     <div class="fieldcontain">
                         <div class="university-size-1-3"></div>
 
                         <div class="university-size-2-3">
-                            <g:actionSubmit class="save university-button" action="update"
+                            <input type="button" name="create" class="save university-button" onclick="updateProgramFee()"
                                             onclick="validate()" value="${message(code: 'default.button.update.label', default: 'Update')}"/>
                             <g:link controller="programFee" class="university-text-decoration-none"
                                     action="listOfFeeType"><input type="button" name="create"

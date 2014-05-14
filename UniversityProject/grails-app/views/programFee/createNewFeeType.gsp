@@ -37,9 +37,11 @@
 
                     <div class="university-size-2-3">
                         <g:select id="programDetail" name="programDetail"
-                                  from="${examinationproject.ProgramDetail.list()}" optionKey="id"
+                                  from="${programDetailList}" optionKey="id"
                                   optionValue="courseName" class="many-to-one university-size-1-2"
                                   noSelection="['': 'Choose Type']" onchange="loadSession(this)"/>
+
+
                     </div>
                 </div>
 

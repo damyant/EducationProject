@@ -81,8 +81,8 @@ class AdminController {
     @Secured(["ROLE_ADMIN","ROLE_IDOL_USER"])
     def feeVoucher={
         def feeType = FeeType.list(sort:'type')
-        def selectFeeType=FeeType.findAllById(1)
-        [feeType:feeType,selectFeeType:selectFeeType]
+      //  def selectFeeType=FeeType.findAllById(1)
+        [feeType:feeType]
     }
 
 
@@ -128,7 +128,7 @@ class AdminController {
                     programFeeAmount = programFee.feeAmountAtIDOL
                     break;
                 case 2:
-                    programFeeAmount = programFee.examinationFee
+                    programFeeAmount = programFee.feeAmountAtSC
                     break;
                 case 3:
                     programFeeAmount = programFee.certificateFee
