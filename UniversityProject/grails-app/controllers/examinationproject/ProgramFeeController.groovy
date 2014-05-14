@@ -51,7 +51,7 @@ class ProgramFeeController {
     def saveProgramFee(){
         println("innnnnnnnnnn=="+params)
         def feeTypeList=params.feeTypeList.split(',')
-        println("innnnnnnnnnn=="+feeTypeList[0])
+        println("innnnnn"+params.programSession+"nnnnn=="+feeTypeList[0])
 
         programFeeService.saveProgramFeeType(params)
 

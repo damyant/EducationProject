@@ -367,10 +367,10 @@ function loadSession(t){
             data: {program: program},
             success: function (data) {
                 //document.location.reload();
-                $("#programSession").empty().append('');
-                $("#programSession").append('Select Session');
+                $("#session").empty().append('');
+                $("#session").append('Select Session');
                 for (var i = 0; i < data.length; i++) {
-                    $("#programSession").append('<option value="' + data[i].id + '">' + data[i].sessionOfProgram + '</option>')
+                    $("#session").append('<option value="' + data[i].sessionOfProgram + '">' + data[i].sessionOfProgram + '</option>')
                 }
             }
         });
@@ -413,6 +413,7 @@ function approvePayInSlip(){
 
 function submitProgramFee(){
 alert("hi")
+  //  var programSession = $("#session").val()
     $.ajax({
         type: "post",
         url: url('programFee', 'saveProgramFee', ''),

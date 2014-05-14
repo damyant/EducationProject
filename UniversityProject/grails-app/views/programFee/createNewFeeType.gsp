@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:select id="programSession" name="programSession"
+                        <g:select id="session" name="programSession"
                                   from="" optionKey=""
                                   optionValue="" class="many-to-one university-size-1-2"
                                   noSelection="['': 'Choose Session']" />
