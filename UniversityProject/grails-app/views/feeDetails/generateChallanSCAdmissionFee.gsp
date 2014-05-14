@@ -31,10 +31,10 @@
                     <g:select name="programList" class="university-size-1-1" id="programId" optionKey="id"
                               optionValue="courseName"
                               from="${programList}" noSelection="['': ' Select Program']"
-                              onchange="populateStudents(this), getSemester(this)"/>
+                              onchange="getSemester(this)"/>
                 </td>
                 <td class="university-size-1-4" style="text-align: center;">OR</td>
-                <td class="university-size-1-4"><input type="checkbox" id="allProgram" name="allProgram" onclick="populateStudentsForAllProgram(this)"/><label for="allProgram">All Programs</label></td>
+                <td class="university-size-1-4"><input type="checkbox" id="allProgram" name="allProgram"/><label for="allProgram">All Programs</label></td>
             </tr>
             <tr><td><label>Select a Term</label></td>
                 <td>
@@ -43,10 +43,10 @@
                     </select>
                 </td>
                 <td  style="text-align: center;">OR</td>
-                <td><input type="checkbox" id="allSemester" name="allSemester" onclick="populateStudentsForAllProgram(this)"/><label for="allSemester">All Semester</label></td>
+                <td><input type="checkbox" id="allSemester" name="allSemester"/><label for="allSemester">All Semester</label></td>
             </tr>
         </table>
-       <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1"> <input type="button" value="Show Students" onclick="loadStudentList()" class="ui-button university-size-1-4" style="margin: auto;"></div>
+       <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1"> <input type="button" value="Show Students" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;"></div>
         <table id="studyCenterFeeEntryTable" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd; " hidden="hidden">
             <thead>
             <tr>

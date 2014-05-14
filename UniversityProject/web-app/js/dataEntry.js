@@ -292,12 +292,7 @@ function appendStudentList(data) {
             '<td><input type="text" id="feeAmount' + i + '" name="feeAmount" readonly/></td></tr>');
         if (type == '') {
             $("#feeType" + i).empty().append('<option value="1">Education Fee</option>')
-            if (data.feeAmountList) {
-                $("#feeAmount" + i).val(data.feeAmountList[i])
-            }
-            else {
-                $("#feeAmount" + i).val(data.feeAmount)
-            }
+            $("#feeAmount" + i).val(data.feeAmount[i])
         }
         else {
 
@@ -306,12 +301,6 @@ function appendStudentList(data) {
                 $("#feeType" + i).append('<option value="' + data.feeList[l].id + '">' + data.feeList[l].type + '</option>')
             }
         }
-//        for (var j = 0; j < data.bankName.length; j++) {
-//            $("#bankName" + i).append('<option value="' + data.bankName[j].id + '">' + data.bankName[j].bankName + '</option>')
-//        }
-//        for (var k = 0; k < data.paymentMode.length; k++) {
-//            $("#paymentMode" + i).append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
-//        }
         count++;
     }
     $(".datePickers").datepicker({
@@ -369,6 +358,48 @@ $(document).ready(function () {
     });
 });
 
+
+function populateStudentList(){
+    var program= $('#programId').val();
+    var semester= $('#semesterList').val();
+    var chkBox1 = document.getElementById('allProgram');
+    var chkBox2 = document.getElementById('allSemester');
+//    alert(chkBox1.checked)
+    if(program!='' && semester!='' && chkBox1.checked==false && chkBox2.checked==false){
+        program= $('#programId').val();
+        semester= $('#semesterList').val();
+    }
+    else if(program=='' && semester=='' && chkBox1.checked==true && chkBox2.checked==true){
+        program= 'All';
+        semester= 'All';
+    }
+    else if(program=='' && semester!='' && chkBox1.checked==true && chkBox2.checked==false){
+        program= 'All';
+        semester= $('#semesterList').val();
+    }
+    else if(program!='' && semester=='' && chkBox1.checked==false && chkBox2.checked==true){
+        program= $('#programId').val();
+        semester= 'All';
+    }
+    else{
+        alert("Please Select Program and Semester.")
+    }
+    if (program) {
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'populateStudents', ''),
+            data: {program: program, semester:semester},
+            success: function (data) {
+
+
+                appendStudentList(data)
+
+            }
+//
+
+        });
+    }
+}
 
 
 
