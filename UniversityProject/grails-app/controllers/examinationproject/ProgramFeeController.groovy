@@ -7,7 +7,7 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Secured("ROLE_ADMIN")
-@Transactional
+//@Transactional
 class ProgramFeeController {
     def programFeeService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -31,6 +31,8 @@ class ProgramFeeController {
 
     @Transactional
     def save(ProgramFee programFeeInstance) {
+
+
         if (programFeeInstance == null) {
             notFound()
             return
@@ -43,6 +45,15 @@ class ProgramFeeController {
 
         programFeeService.saveProgramFeeType(programFeeInstance)
         redirect(action: "listOfFeeType")
+
+    }
+
+    def saveProgramFee(){
+        println("innnnnnnnnnn=="+params)
+        def feeTypeList=params.feeTypeList.split(',')
+        println("innnnnnnnnnn=="+feeTypeList[0])
+
+        programFeeService.saveProgramFeeType(params)
 
     }
 

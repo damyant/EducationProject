@@ -5,7 +5,6 @@
     <g:set var="entityName" value="${message(code: 'programFee.label', default: 'ProgramFee')}"/>
     <g:javascript src='validate.js'/>
     <g:javascript src='admin.js'/>
-
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
 </head>
@@ -26,7 +25,7 @@
                     </g:eachError>
                 </ul>
             </g:hasErrors>
-            <g:form url="[resource: programFeeInstance, action: 'save']" id="createNewFee" name="createNewFee">
+            <form id="createNewFee" name="createNewFee">
                 <div style="margin-left: 5px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 
                 <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} university-size-1-1">
@@ -127,10 +126,15 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField name="feeType" class="university-size-1-2" type="number" onkeypress="return isNumber(event)"
+                        <g:textField name="feeTypeAmount" class="university-size-1-2" type="number" onkeypress="return isNumber(event)"
                                      value=""/>
                     </div>
                 </div>
+                    <g:javascript>
+                     feeTypeList.push(${fee?.id})
+
+                    </g:javascript>
+
                 </g:each>
 
 
@@ -139,8 +143,9 @@
                     <div class="university-size-1-3">&nbsp;</div>
 
                     <div class="university-size-2-3" style="margin: auto;">
-                        <g:submitButton name="create" class="save university-button"
-                                        onclick="validate()" value="${message(code: 'default.button.create.label', default: 'Create')}"/>
+                        <input type="button" name="create" class="save university-button" onclick="submitProgramFee()" value="${message(code: 'default.button.create.label', default: 'Create')}"/>
+                        %{--<g:submitButton name="create" class="save university-button"--}%
+                                        %{--onclick="validate()" value="${message(code: 'default.button.create.label', default: 'Create')}"/>--}%
                         <g:link controller="programFee" class="university-text-decoration-none"
                                 action="listOfFeeType"><input type="button" name="create"
                                                               class="save university-button"
@@ -148,7 +153,7 @@
                     </div>
                 </div>
 
-            </g:form>
+            </form>
         </div>
     </fieldset>
 </div>

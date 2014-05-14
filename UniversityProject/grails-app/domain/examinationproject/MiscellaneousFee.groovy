@@ -8,7 +8,7 @@ class MiscellaneousFee {
     ProgramSession programSession
 
     static constraints = {
-        programDetail(nullable: false,unique: true)
+        programDetail(nullable: false)
         feeType(nullable:true)
         amount(nullable:true)
         programSession(nullable:true)

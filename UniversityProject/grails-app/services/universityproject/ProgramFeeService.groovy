@@ -1,10 +1,19 @@
 package universityproject
 
+
+import examinationproject.AdmissionFee
+import examinationproject.FeeType
+import examinationproject.MiscellaneousFee
+import examinationproject.ProgramDetail
+import examinationproject.ProgramFee
+import examinationproject.ProgramSession
+
 import examinationproject.ProgramDetail
 import examinationproject.ProgramFee
 import examinationproject.ProgramSession
 import examinationproject.Student
 import grails.converters.JSON
+
 import grails.transaction.Transactional
 
 import java.text.SimpleDateFormat
@@ -21,11 +30,32 @@ class ProgramFeeService {
  * @param programFeeInstance
  * @return
  */
-    def saveProgramFeeType(ProgramFee programFeeInstance,params) {
 
-        println("in new Fee creation"+params)
-        programFeeInstance.save(flush: true)
+    def saveProgramFeeType(params) {
+        def feeTypeList=params.feeTypeList.split(',')
+        def admissionFeeIns=new AdmissionFee(params)
+        admissionFeeIns.save(failOnError: true)
+//        def misFeeIns=new MiscellaneousFee()
+        def i=0;
+        feeTypeList.each{
+
+            def misFeeIns=new MiscellaneousFee()
+            misFeeIns.programDetail=ProgramDetail.findById(Long.parseLong(params.programDetail))
+            misFeeIns.feeType=FeeType.findById(Long.parseLong(it.toString()))
+            misFeeIns.amount=Integer.parseInt(params.feeTypeAmount[i])
+            ++i;
+            misFeeIns.save(failOnError: true)
+//            misFeeIns.programSession
+        }
     }
+//        programFeeInstance.save(flush: true)
+//=======
+//    def saveProgramFeeType(ProgramFee programFeeInstance,params) {
+//
+//        println("in new Fee creation"+params)
+//        programFeeInstance.save(flush: true)
+//>>>>>>> 1d8cc4769cfe0a5da2fad0ffb46e77d943c787cc
+//    }
 /**
  * Service to delete a particular fee type
  * @param programFeeInstance
