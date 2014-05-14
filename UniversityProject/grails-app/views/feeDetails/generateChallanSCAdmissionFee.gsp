@@ -42,20 +42,19 @@
                         <option value="">Select Semester</option>
                     </select>
                 </td>
-                <td  style="text-align: center;">OR</td>
-                <td><input type="checkbox" id="allSemester" name="allSemester"/><label for="allSemester">All Semester</label></td>
+                <td  style="text-align: center;"></td>
+                <td></td>
             </tr>
         </table>
        <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1"> <input type="button" value="Show Students" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;"></div>
         <table id="studyCenterFeeEntryTable" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd; " hidden="hidden">
             <thead>
             <tr>
-                <th style="width: 10%;padding-left: 10px;"><input type="checkbox" name="selectAll" id="selectAll"><label for="selectAll">Select All</label></th>
-                <th  style="width: 10%;">Serial No</th>
+                <th style="width: 10%;">Serial No</th>
                 <th style="width: 26.6%;">Roll No</th>
                 <th style="width: 26.6%;">Student Name</th>
                 <th style="width: 26.6%;">Amount <b>[&#x20B9;]</b> </th>
-
+                <th style="width: 10%;">Semester</th>
             </tr>
             </thead>
             <tbody></tbody>
