@@ -21,7 +21,11 @@ class ProgramFeeController {
 //    }
 
     def createNewFeeType() {
-        respond new ProgramFee(params)
+        def feeType
+        if(FeeType.count()>0)
+            feeType = FeeType.list()
+         [feeType:feeType]
+
     }
 
     @Transactional
