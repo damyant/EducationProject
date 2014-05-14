@@ -44,6 +44,7 @@ class AdmitCardController {
     }
 
     def getSemesterList={
+        println("++"+params)
         try{
 
         def course=ProgramDetail.findById(params.data)

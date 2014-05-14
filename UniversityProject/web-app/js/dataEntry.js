@@ -285,7 +285,7 @@ function appendStudentList(data) {
     var count = 1
     for (var i = 0; i < data.studentList.length; i++) {
 
-        $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID' + i + '"><td>' + count + '</td>' +
+        $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID' + i + '"><td><input name="studentCheckbox" hidden="hidden" class="studentCheckbox" type="checkbox" id='+data.studentList[i].id+'>' + count + '</td>' +
             '<td><input type="text" hidden="hidden" id="studentId' + i + '" value="' + data.studentList[i].id + '" >' +
             '<input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td>' +
             '<td>' + data.studentList[i].firstName + ' ' + data.studentList[i].lastName + '</td>' +
@@ -335,7 +335,7 @@ $(document).ready(function () {
             success: function (data) {
                 $("#paymentDetails tr").remove();
                 document.getElementById('generateFeeChallan').style.display = 'block';
-                document.getElementById('PayByChallan').style.display = 'block';
+//                document.getElementById('PayByChallan').style.display = 'block';
 //                    $('#feeSubmitButton').attr('hidden', false);
 //                $('#paymentDetails').attr('hidden', false);
                 document.getElementById('paymentDetails').style.display = 'block';
@@ -343,7 +343,7 @@ $(document).ready(function () {
                 if ($('#rangeEntry').is(':checked')) {
                     $("#paymentDetails").append('<tr><th class="university-size-1-1" style="text-align: center;">Serial No.</th>' +
                         '</tr>');
-                    $("#paymentDetails").append('<tr><td  style="text-align: center;"><input type="text" class="university-size-1-7"  name="serialNoFrom"> - <input type="text" class="university-size-1-7" name="serialNoTo"></td>' +
+                    $("#paymentDetails").append('<tr><td  style="text-align: center;"><input type="text" class="university-size-1-7"  id="serialNoFrom" name="serialNoFrom"> - <input type="text" class="university-size-1-7" id="serialNoTo" name="serialNoTo"></td>' +
                         '</tr>');
 
 
@@ -362,12 +362,13 @@ $(document).ready(function () {
 
 
 function populateStudentList(){
-    var program= $('#programId').val();
+
+    var program= $('#programList').val();
     var semester= $('#semesterList').val();
     var chkBox1 = document.getElementById('allProgram');
 //    alert(chkBox1.checked)
     if(program!='' && semester!='' && chkBox1.checked==false){
-        program= $('#programId').val();
+        program= $('#programList').val();
         semester= $('#semesterList').val();
     }
     else if(program=='' && semester=='' && chkBox1.checked==true){

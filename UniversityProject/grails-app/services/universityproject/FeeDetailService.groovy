@@ -98,7 +98,7 @@ class FeeDetailService {
     }
 
     def StudentList(params){
-        println("*********"+params)
+
         def resultMap=[:]
         def obj = Student.createCriteria()
         def currentUser=springSecurityService.getCurrentUser()
