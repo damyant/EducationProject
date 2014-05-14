@@ -364,23 +364,18 @@ function populateStudentList(){
     var program= $('#programId').val();
     var semester= $('#semesterList').val();
     var chkBox1 = document.getElementById('allProgram');
-    var chkBox2 = document.getElementById('allSemester');
 //    alert(chkBox1.checked)
-    if(program!='' && semester!='' && chkBox1.checked==false && chkBox2.checked==false){
+    if(program!='' && semester!='' && chkBox1.checked==false){
         program= $('#programId').val();
         semester= $('#semesterList').val();
     }
-    else if(program=='' && semester=='' && chkBox1.checked==true && chkBox2.checked==true){
+    else if(program=='' && semester=='' && chkBox1.checked==true){
         program= 'All';
         semester= 'All';
     }
-    else if(program=='' && semester!='' && chkBox1.checked==true && chkBox2.checked==false){
+    else if(program=='' && semester!='' && chkBox1.checked==true){
         program= 'All';
         semester= $('#semesterList').val();
-    }
-    else if(program!='' && semester=='' && chkBox1.checked==false && chkBox2.checked==true){
-        program= $('#programId').val();
-        semester= 'All';
     }
     else{
         alert("Please Select Program and Semester.")
@@ -396,6 +391,20 @@ function populateStudentList(){
         });
     }
 }
+function loadProgram(t){
+    var type= $(t).val();
+    $.ajax({
+        type: "post",
+        url: url('feeDetails', 'loadProgram', ''),
+        data: {type: type},
+        success: function (data) {
+            $("#programList").empty().append('data <option value="">Select Program</option>')
+            for (var i = 0; i < data.programList.length; i++) {
+                $("#programList").append('<option value="' + data.programList[i].id + '">' + data.programList[i].courseName + '</option>')
+            }
 
+        }
+    });
+}
 
 

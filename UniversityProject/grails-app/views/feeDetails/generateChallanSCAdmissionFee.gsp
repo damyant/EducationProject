@@ -25,12 +25,22 @@
         </g:else>
         <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
         <table class="inner university-size-full-1-1" style="margin: auto">
+            <tr><td><label>Select Program Catagory</label></td>
+                <td>
+                    <g:select name="programCategory" class="university-size-1-1" id="programCategory" optionKey="id"
+                              optionValue="type"
+                              from="${programCategory}" noSelection="['': ' Select Program Category']"
+                              onchange="loadProgram(this)"/>
+                </td>
+                <td  style="text-align: center;"></td>
+                <td></td>
+            </tr>
             <tr>
                 <td class="university-size-1-4"><label>Select a Program</label></td>
                 <td class="university-size-1-4">
-                    <g:select name="programList" class="university-size-1-1" id="programId" optionKey="id"
+                    <g:select name="programList" class="university-size-1-1" id="programList" optionKey="id"
                               optionValue="courseName"
-                              from="${programList}" noSelection="['': ' Select Program']"
+                              from="" noSelection="['': ' Select Program']"
                               onchange="getSemester(this)"/>
                 </td>
                 <td class="university-size-1-4" style="text-align: center;">OR</td>
@@ -38,7 +48,7 @@
             </tr>
             <tr><td><label>Select a Term</label></td>
                 <td>
-                    <select name="programTerm" class="university-size-1-1" id="semesterList">
+                    <select name="semesterList" class="university-size-1-1" id="semesterList" disabled>
                         <option value="">Select Semester</option>
                     </select>
                 </td>
@@ -62,8 +72,8 @@
         </table>
         <br/>
         <div class="university-size-1-2"  style="margin: 5px auto;width:98%;text-align: center;vertical-align: middle; border: 1px solid #BDBDBD; padding: 0.5%;border-radius: 4px;" id="rangeRadioButtons" hidden="hidden">
-            <div class="university-size-1-3 university-display-inline"><input type="radio" id="rangeEntry" name="entry" value="Range"> <label for="rangeEntry">Enter Fee By Range</label> </div>
-            <div class="university-size-1-3 university-display-inline"><input type="radio" id="individualEntry" name="entry" value="Range"> <label for="individualEntry">Enter Fee Individually</label></div>
+            <div class="university-size-1-3 university-display-inline"><input type="radio" id="rangeEntry" name="entry" value="Range"> <label for="rangeEntry">Generate challan By Range</label> </div>
+            <div class="university-size-1-3 university-display-inline"><input type="radio" id="individualEntry" name="entry" value="Range"> <label for="individualEntry">Generate challan Individually</label></div>
         </div>
         <br/>
         <table id="paymentDetails" hidden="hidden" style="margin: auto;border:1px solid #dddddd; " >
