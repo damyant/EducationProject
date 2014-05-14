@@ -105,9 +105,9 @@ class ProgramFeeController {
             feeTypeInst.type = params?.type
             println("hiiiiiii");
         } else {
-            feeTypeInst = new FeeType()
-            feeTypeInst.type = params?.type
-            println("hoooooo");
+            feeTypeInst = new FeeType(type: params.type)
+
+            println("hoooooo"+params.type);
         }
         Boolean flag = false
         if (feeTypeInst.save(flush: true)) {

@@ -36,21 +36,21 @@
                     <input type="hidden" value="${feeInstance?.id}" name="feeId"/>
                 </td>
             </tr>
-            <tr>
-                <td class="university-size-1-3"><label for="programList">Select Program <span class="university-obligatory">*</span></label></td>
-                <td class="university-size-2-3 ">
-                    <g:select name="programList" id="programList" class="university-size-1-2" optionKey="id"
-                              optionValue="courseName"
-                              from="${programList}" noSelection="['': ' Select Program']"
-                              onchange=""/>
-                </td>
-            </tr>
-            <tr>
-                <td class="university-size-1-3"><label for="feeAmount">Fee Amount <b>[&#8377;]</b><span class="university-obligatory"> *</span></label></td>
-                <td class="university-size-2-3 ">
-                    <input type="text" class="university-size-1-2" value="" name="type" id="feeAmount"/>
-                </td>
-            </tr>
+            %{--<tr>--}%
+                %{--<td class="university-size-1-3"><label for="programList">Select Program <span class="university-obligatory">*</span></label></td>--}%
+                %{--<td class="university-size-2-3 ">--}%
+                    %{--<g:select name="programList" id="programList" class="university-size-1-2" optionKey="id"--}%
+                              %{--optionValue="courseName"--}%
+                              %{--from="${programList}" noSelection="['': ' Select Program']"--}%
+                              %{--onchange=""/>--}%
+                %{--</td>--}%
+            %{--</tr>--}%
+            %{--<tr>--}%
+                %{--<td class="university-size-1-3"><label for="feeAmount">Fee Amount <b>[&#8377;]</b><span class="university-obligatory"> *</span></label></td>--}%
+                %{--<td class="university-size-2-3 ">--}%
+                    %{--<input type="text" class="university-size-1-2" value="" name="feeAmount" id="feeAmount"/>--}%
+                %{--</td>--}%
+            %{--</tr>--}%
             <tr>
                 <td class="university-size-1-3 ">&nbsp;</td>
                 <td class="university-size-2-3 "><input type="submit" value="Submit" onclick="validate()" class="university-size-1-4 ui-button"/></td>
