@@ -110,6 +110,12 @@ class FeeDetailsController {
         [programList:programList]
 //        [programList:programList, paymentModeList:paymentModeList, bankList:bankList]
     }
+
+    @Secured("ROLE_STUDY_CENTRE")
+    def generateChallanSCAdmissionFee={
+        def programList = ProgramDetail.list(sort:'courseName')
+        [programList:programList]
+    }
     def studyCentrePostAdmissionFee={
 
     }

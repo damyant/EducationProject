@@ -203,9 +203,20 @@
                 <li><a href="#"><g:message
                         code="default.mainMenu8.subMenu3"/></a>
                     <ul>
-                        <li><g:link controller="feeDetails"
+                        <li>
+                            <g:link controller="feeDetails"
+                                    action="generateChallanSCAdmissionFee"><g:message
+                                    code="default.mainMenu8.subMenu3.subMenu1"/></g:link>
+
+
+                        </li>
+                        <li>
+                            <g:link controller="feeDetails"
                                     action="studyCentreAdmissionFee"><g:message
-                                    code="default.mainMenu8.subMenu3.subMenu1"/></g:link></li>
+                                    code="default.mainMenu8.subMenu3.subMenu3"/></g:link>
+
+
+                        </li>
 
                         <li><g:link controller="feeDetails"
                                     action="studyCentreAdmissionFee" params="[type:'postAdmission']"><g:message

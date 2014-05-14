@@ -103,7 +103,7 @@
 
 #menu ul ul {
     top: 0;
-    left: 160px;
+    left: 180px;
     margin: 0 0 0 10px;
     _margin: 0;
     /*IE6 only*/
@@ -124,7 +124,7 @@
 
 #menu ul a {
     padding: 10px;
-    width: 140px;
+    width: 160px;
     _height: 10px; /*IE6 only*/
     display: block;
     white-space: nowrap;
