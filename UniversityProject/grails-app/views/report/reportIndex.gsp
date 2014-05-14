@@ -55,13 +55,12 @@
                     <a href="#">
                         <li >By Category</li>
                         <ul>
-                            <li id="categoryDiv">Course Wise </li>
+                            <a href="#">    <li id="categoryDiv">Course Wise </li>         </a>
 
-                            <li id="categoryGenderDiv"> Course Wise With Gender Break-up
-                            </li>
-                            <li id="categoryGenderStudentList"> Course Wise Students List
-
-                            </li>
+                            <a href="#">  <li id="categoryGenderDiv"> Course Wise With Gender Break-up
+                            </li> </a>
+                            <a href="#">      <li id="categoryGenderStudentList"> Course Wise Students List
+                            </li></a>
                         </ul>
                     </a>
                 </div>
@@ -83,10 +82,10 @@
                         <li>Fees Paid Report:
                         </li>
                         <ul>
-                            <li id="feePaidStudyCentre"> Study Centre Wise Fee Paid Statement
-                            </li>
-                            <li id="dailyFeeReport">Daily Fees Report
-                            </li>
+                            <a href="#">  <li id="feePaidStudyCentre"> Study Centre Wise Fee Paid Statement
+                            </li>      </a>
+                            <a href="#">   <li id="dailyFeeReport">Daily Fees Report
+                            </li></a>
 
 
                         </ul>

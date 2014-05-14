@@ -179,10 +179,10 @@ class AttendanceService {
         // Write a few number
         for (int i = 0; i < finalList.size(); i++) {
             int j = 0
-            addNumber(sheet, j, i + 3, i + 1);
-            addNumber(sheet, j + 1, i + 3, finalList[i].registrationYear);
-            addNumber(sheet, j + 2, i + 3, Integer.parseInt(finalList[i].rollNo));
-            addLabel(sheet, j + 3, i + 3, finalList[i].studentName);
+            addNumber(sheet, j, i+3, i+1);
+            addNumber(sheet, j+1, i+3, finalList[i].registrationYear);
+            addNumber(sheet, j+2, i+3, Integer.parseInt(finalList[i].rollNo));
+            addLabel(sheet, j+3, i+3, finalList[i].firstName+' ');
         }
 
     }
