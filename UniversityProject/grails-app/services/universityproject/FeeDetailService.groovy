@@ -99,6 +99,7 @@ class FeeDetailService {
     }
 
     def StudentList(params){
+        println("*********"+params)
         def resultMap=[:]
         def obj = Student.createCriteria()
         def currentUser=springSecurityService.getCurrentUser()
@@ -113,7 +114,7 @@ class FeeDetailService {
                 }
                 and {
                     eq('status', Status.findById(2))
-                    eq('semester', Long.parseLong(params.semester))
+                    eq('semester', Integer.parseInt(params.semester))
                 }
             }
         }

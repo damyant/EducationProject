@@ -285,7 +285,7 @@ function appendStudentList(data) {
     var count = 1
     for (var i = 0; i < data.studentList.length; i++) {
 
-        $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID' + i + '"><td><input type="checkbox" name="check' + i + '" id="check' + i + '"></td><td>' + count + '</td>' +
+        $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID' + i + '"><td>' + count + '</td>' +
             '<td><input type="text" hidden="hidden" id="studentId' + i + '" value="' + data.studentList[i].id + '" >' +
             '<input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td>' +
             '<td>' + data.studentList[i].firstName + ' ' + data.studentList[i].lastName + '</td>' +
@@ -390,8 +390,6 @@ function populateStudentList(){
             url: url('feeDetails', 'populateStudents', ''),
             data: {program: program, semester:semester},
             success: function (data) {
-
-
                 appendStudentList(data)
 
             }
