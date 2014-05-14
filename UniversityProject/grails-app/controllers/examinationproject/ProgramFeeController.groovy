@@ -1,5 +1,6 @@
 package examinationproject
 
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 import static org.springframework.http.HttpStatus.*
@@ -134,7 +135,13 @@ class ProgramFeeController {
             redirect(action: "viewExistingFeeType")
         }
         catch (Exception e) {
-            println("<<<<<<<<<<<Problem in deleting study center" + e)
+            println("<<<<<<<<<<<Problem in deleting study center$e")
         }
+    }
+
+
+    def getProgramSession = {
+     def programSessions=   programFeeService.getProgramSessions(params)
+        render programSessions as JSON
     }
 }

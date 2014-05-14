@@ -353,6 +353,28 @@ function loadBranch(t){
         });
     }
 }
+
+
+
+function loadSession(t){
+    var program=$(t).val();
+//    alert(bank)
+    if(program){
+        $.ajax({
+            type: "post",
+            url: url('programFee', 'getProgramSession', ''),
+            data: {program: program},
+            success: function (data) {
+                //document.location.reload();
+                $("#programSession").empty().append('');
+                $("#programSession").append('Select Session');
+                for (var i = 0; i < data.length; i++) {
+                    $("#programSession").append('<option value="' + data[i].id + '">' + data[i].sessionOfProgram + '</option>')
+                }
+            }
+        });
+    }
+}
 function populateChallanDetail(t){
     var challanNo=$(t).val();
     $.ajax({
