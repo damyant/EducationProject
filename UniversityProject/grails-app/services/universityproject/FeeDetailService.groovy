@@ -1,5 +1,6 @@
 package universityproject
 
+import examinationproject.AdmissionFee
 import examinationproject.Bank
 import examinationproject.FeeDetails
 import examinationproject.FeeType
@@ -157,7 +158,7 @@ class FeeDetailService {
         def feeList = FeeType.list(sort:'type')
         def feeAmountList=[]
         for (int i=0;i<stuList.size();i++){
-            def amount=ProgramFee.findAllByProgramDetail(stuList.programDetail)
+            def amount=AdmissionFee.findAllByProgramDetail(stuList.programDetail)
             feeAmountList.add(amount.feeAmountAtSC)
         }
         resultMap.studentList=stuList

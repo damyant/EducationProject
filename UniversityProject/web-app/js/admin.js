@@ -435,7 +435,7 @@ function submitProgramFee(){
 
 
 function generateChallanForRange(){
-
+    alert("dd")
     var from=$("#serialNoFrom").val()
     var to = $("#serialNoTo").val()
 
@@ -464,7 +464,6 @@ function generateChallanForRange(){
     $("#studentListId").val(selectedStudentId)
     alert(selectedStudentId)
     if(selectedStudentId!=null){
-
         $("#challanForStudyCenter").submit()
     }
 }

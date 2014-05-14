@@ -166,7 +166,7 @@ class StudentRegistrationService {
                     if (studentByYearAndCourse.get(0).rollNo) {
 
 //                        if (rollNumber == null) {
-                            rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
+                            rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 7)
                             rollTemp1 = Integer.parseInt(rollTemp) + 1
                             rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
 //                        } else {
