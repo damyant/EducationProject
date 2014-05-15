@@ -97,8 +97,8 @@ class AdminController {
         def program= student.programDetail
         def programName=program[0].courseName
         boolean status
-        def programFee = ProgramFee.findByProgramDetail(program)
-        if(programFee)
+        def admissionFee = AdmissionFee.findByProgramDetail(program)
+        if(admissionFee)
             status=true
         else
             status = false
@@ -120,7 +120,7 @@ class AdminController {
 //        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
         def feeTypeId =Integer.parseInt(params.feeType)
         def feeType = FeeType.findById(feeTypeId)
-        def programFee = ProgramFee.findByProgramDetail(program)
+        def programFee = AdmissionFee.findByProgramDetail(program)
         def programFeeAmount
 
             switch(feeTypeId){
