@@ -114,8 +114,19 @@ class FeeDetailsController {
     @Secured("ROLE_STUDY_CENTRE")
     def generateChallanSCAdmissionFee={
         def programList = ProgramDetail.list(sort:'courseName')
-        [programList:programList]
+        def programCategory=ProgramType.list(sort:'type')
+        [programList:programList, programCategory:programCategory]
     }
+
+    def loadProgram={
+        println("params"+params)
+        def programType=ProgramType.findById(Long.parseLong(params.type))
+        def programList = ProgramDetail.findAllByProgramType(programType)
+        def response =[programList:programList]
+        println(response.programList[0].courseName)
+        render response as JSON
+    }
+
     def studyCentrePostAdmissionFee={
 
     }

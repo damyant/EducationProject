@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4160cf6c-6634-4f74-96e2-3c48ee9d0b8c" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\damyant\GUProject\UniversityProject\UniversityProject\grails-app\domain\examinationproject\ProgramFee.groovy" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/ProgramFeeService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/ProgramFeeService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/studyCentreFeeApproval.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/studyCentreFeeApproval.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admitCard.js" afterPath="$PROJECT_DIR$/web-app/js/admitCard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/dataEntry.js" afterPath="$PROJECT_DIR$/web-app/js/dataEntry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/enrollmentAtIdol.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/enrollmentAtIdol.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/generateChallanSCAdmissionFee.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/generateChallanSCAdmissionFee.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/validation.js" afterPath="$PROJECT_DIR$/web-app/js/validation.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UniversityProject.iws" />
@@ -76,7 +78,7 @@
       <file leaf-file-name="Student.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="16" selection-start="199" selection-end="199" vertical-scroll-proportion="-3.1875" vertical-offset="51" max-vertical-offset="1904">
+            <state line="14" column="16" selection-start="240" selection-end="240" vertical-scroll-proportion="-3.1875" vertical-offset="85" max-vertical-offset="1921">
               <folding />
             </state>
           </provider>
@@ -157,7 +159,7 @@
       <file leaf-file-name="admitCard.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web-app/js/admitCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="87" column="23" selection-start="2316" selection-end="2316" vertical-scroll-proportion="0.5033557" vertical-offset="1329" max-vertical-offset="6834">
+            <state line="89" column="5" selection-start="2364" selection-end="2364" vertical-scroll-proportion="0.5033557" vertical-offset="1363" max-vertical-offset="6851">
               <folding />
             </state>
           </provider>
@@ -203,6 +205,7 @@
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/ProgramFeeService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
+        <option value="$PROJECT_DIR$/web-app/js/admitCard.js" />
       </list>
     </option>
   </component>
@@ -747,12 +750,12 @@
       <created>1400069108212</created>
       <updated>1400069108212</updated>
       <workItem from="1400069107433" duration="1665000" />
-      <workItem from="1400129105366" duration="7218000" />
+      <workItem from="1400129105366" duration="7744000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8883000" />
+    <option name="totallyTimeSpent" value="9409000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -910,7 +913,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="16" selection-start="199" selection-end="199" vertical-scroll-proportion="-3.1875" vertical-offset="51" max-vertical-offset="1904">
+        <state line="14" column="16" selection-start="240" selection-end="240" vertical-scroll-proportion="-3.1875" vertical-offset="85" max-vertical-offset="1921">
           <folding />
         </state>
       </provider>
@@ -929,7 +932,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/admitCard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="23" selection-start="2316" selection-end="2316" vertical-scroll-proportion="0.5033557" vertical-offset="1329" max-vertical-offset="6834">
+        <state line="89" column="5" selection-start="2364" selection-end="2364" vertical-scroll-proportion="0.5033557" vertical-offset="1363" max-vertical-offset="6851">
           <folding />
         </state>
       </provider>

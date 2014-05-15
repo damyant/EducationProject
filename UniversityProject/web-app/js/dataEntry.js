@@ -285,19 +285,15 @@ function appendStudentList(data) {
     var count = 1
     for (var i = 0; i < data.studentList.length; i++) {
 
-        $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID' + i + '"><td><input type="checkbox" name="check' + i + '" id="check' + i + '"></td><td>' + count + '</td>' +
+        $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID' + i + '"><td>' + count + '</td>' +
             '<td><input type="text" hidden="hidden" id="studentId' + i + '" value="' + data.studentList[i].id + '" >' +
             '<input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td>' +
             '<td>' + data.studentList[i].firstName + ' ' + data.studentList[i].lastName + '</td>' +
-            '<td><input type="text" id="feeAmount' + i + '" name="feeAmount" readonly/></td></tr>');
+            '<td><input type="text" id="feeAmount' + i + '" name="feeAmount" readonly/></td>'+
+            '<td><input type="text" id="semester' + i + '" name="semester" value="' + data.studentList[i].semester + '" readonly/></td></tr>');
         if (type == '') {
             $("#feeType" + i).empty().append('<option value="1">Education Fee</option>')
-            if (data.feeAmountList) {
-                $("#feeAmount" + i).val(data.feeAmountList[i])
-            }
-            else {
-                $("#feeAmount" + i).val(data.feeAmount)
-            }
+            $("#feeAmount" + i).val(data.feeAmount[i])
         }
         else {
 
@@ -306,12 +302,6 @@ function appendStudentList(data) {
                 $("#feeType" + i).append('<option value="' + data.feeList[l].id + '">' + data.feeList[l].type + '</option>')
             }
         }
-//        for (var j = 0; j < data.bankName.length; j++) {
-//            $("#bankName" + i).append('<option value="' + data.bankName[j].id + '">' + data.bankName[j].bankName + '</option>')
-//        }
-//        for (var k = 0; k < data.paymentMode.length; k++) {
-//            $("#paymentMode" + i).append('<option value="' + data.paymentMode[k].id + '">' + data.paymentMode[k].paymentModeName + '</option>')
-//        }
         count++;
     }
     $(".datePickers").datepicker({
@@ -347,7 +337,8 @@ $(document).ready(function () {
                 document.getElementById('generateFeeChallan').style.display = 'block';
                 document.getElementById('PayByChallan').style.display = 'block';
 //                    $('#feeSubmitButton').attr('hidden', false);
-                $('#paymentDetails').attr('hidden', false);
+//                $('#paymentDetails').attr('hidden', false);
+                document.getElementById('paymentDetails').style.display = 'block';
 
                 if ($('#rangeEntry').is(':checked')) {
                     $("#paymentDetails").append('<tr><th class="university-size-1-1" style="text-align: center;">Serial No.</th>' +
@@ -370,5 +361,51 @@ $(document).ready(function () {
 });
 
 
+function populateStudentList(){
+    var program= $('#programId').val();
+    var semester= $('#semesterList').val();
+    var chkBox1 = document.getElementById('allProgram');
+//    alert(chkBox1.checked)
+    if(program!='' && semester!='' && chkBox1.checked==false){
+        program= $('#programId').val();
+        semester= $('#semesterList').val();
+    }
+    else if(program=='' && semester=='' && chkBox1.checked==true){
+        program= 'All';
+        semester= 'All';
+    }
+    else if(program=='' && semester!='' && chkBox1.checked==true){
+        program= 'All';
+        semester= $('#semesterList').val();
+    }
+    else{
+        alert("Please Select Program and Semester.")
+    }
+    if (program) {
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'populateStudents', ''),
+            data: {program: program, semester:semester},
+            success: function (data) {
+                appendStudentList(data)
+            }
+        });
+    }
+}
+function loadProgram(t){
+    var type= $(t).val();
+    $.ajax({
+        type: "post",
+        url: url('feeDetails', 'loadProgram', ''),
+        data: {type: type},
+        success: function (data) {
+            $("#programList").empty().append('data <option value="">Select Program</option>')
+            for (var i = 0; i < data.programList.length; i++) {
+                $("#programList").append('<option value="' + data.programList[i].id + '">' + data.programList[i].courseName + '</option>')
+            }
+
+        }
+    });
+}
 
 

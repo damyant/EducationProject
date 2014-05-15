@@ -115,6 +115,7 @@ function selectRows(){
 
 function getSemester(t){
     var data = $(t).val();
+    $('semesterList').prop('disabled',false)
     $.ajax({
         type: "post",
         url: url('admitCard', 'getSemesterList', ''),
