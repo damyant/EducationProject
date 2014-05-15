@@ -29,7 +29,7 @@ class ProgramFeeController {
         def feeType=null
         if(FeeType.count()>0)
             feeType = FeeType.list()
-       def programDetailList = ProgramDetail.list()
+        def programDetailList = ProgramDetail.list()
          [feeType:feeType,programDetailList:programDetailList]
 
     }
@@ -93,15 +93,7 @@ class ProgramFeeController {
 
     }
 
-//    protected void notFound() {
-//        request.withFormat {
-//            form {
-//                flash.message = message(code: 'default.not.found.message', args: [message(code: 'programFeeInstance.label', default: 'ProgramFee'), params.id])
-//                redirect action: "listOfFeeType", method: "GET"
-//            }
-//            '*' { render status: NOT_FOUND }
-//        }
-//    }
+
     def addFeeType = {
         def feeInstance = FeeType.get(params?.feeTypeId);
         def programList = ProgramDetail.list(sort:'courseName')

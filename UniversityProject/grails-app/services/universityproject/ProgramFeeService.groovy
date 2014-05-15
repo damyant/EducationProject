@@ -23,7 +23,6 @@ class ProgramFeeService {
  * @param programFeeInstance
  * @return
  */
-
     def saveProgramFeeType(params) {
         def feeTypeList=params.feeTypeList.split(',')
         def admissionFeeIns
