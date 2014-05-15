@@ -12,6 +12,20 @@
     <title></title>
     <g:javascript src='admin.js'/>
     <g:javascript src='admitCard.js'/>
+    <script type="text/javascript">
+    $(window).bind("load", function () {
+
+        var challanNo = "${challanNo}"
+        if (challanNo) {
+
+            url = "http://localhost:9093/UniversityProject/student/registration"
+            window.location.href = url;
+            window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId);
+
+        }
+
+    })
+    </script>
 </head>
 
 <body>
@@ -51,6 +65,7 @@
             </tr>
             <tr><td><label>Select a Term</label></td>
                 <td>
+
                     <select name="semesterList" class="university-size-1-1" id="semesterList" >
                         <option value="">Select Semester</option>
                     </select>
@@ -79,12 +94,12 @@
             <div class="university-size-1-3 university-display-inline"><input type="radio" id="individualEntry" name="entry" value="Range"> <label for="individualEntry">Generate challan Individually</label></div>
         </div>
         <br/>
-        <table id="paymentDetails" style="margin: auto;border:1px solid #dddddd;display: none; " >
+        <table id="paymentDetails" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd;display: none; " >
 
         </table>
         <br/>
-        <div style="width:50%;margin:auto; text-align: center;">
-                <input type="button" class="university-size-1-3 ui-button" id="generateFeeChallan" onclick="generateChallanForRange()" value="Generate Fee Challan" style="display: none;text-align: center;"/>
+        <div style="width:100%;margin:auto; text-align: center;">
+                <input type="button" class="university-size-1-3 ui-button" id="generateFeeChallan" onclick="generateChallanForRange()" value="Generate Fee Challan" style="display: none;margin-left: 33%;"/>
         </div>
     </g:form>
         </fieldset>

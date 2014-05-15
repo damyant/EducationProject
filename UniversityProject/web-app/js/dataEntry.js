@@ -327,36 +327,22 @@ function putAmount(studentId, index) {
 
 $(document).ready(function () {
     $("input[name='entry']").change(function () {
-        var programId = $('#programId').val();
-        $.ajax({
-            type: "post",
-            url: url('feeDetails', 'populateStudentsForAllProgram', ''),
-            data: {programId: programId},
-            success: function (data) {
                 $("#paymentDetails tr").remove();
                 document.getElementById('generateFeeChallan').style.display = 'block';
-//                document.getElementById('PayByChallan').style.display = 'block';
-//                    $('#feeSubmitButton').attr('hidden', false);
-//                $('#paymentDetails').attr('hidden', false);
                 document.getElementById('paymentDetails').style.display = 'block';
-
                 if ($('#rangeEntry').is(':checked')) {
                     $("#paymentDetails").append('<tr><th class="university-size-1-1" style="text-align: center;">Serial No.</th>' +
                         '</tr>');
                     $("#paymentDetails").append('<tr><td  style="text-align: center;"><input type="text" class="university-size-1-7"  id="serialNoFrom" name="serialNoFrom"> - <input type="text" class="university-size-1-7" id="serialNoTo" name="serialNoTo"></td>' +
                         '</tr>');
-
-
                 }
-
                 if ($('#individualEntry').is(':checked')) {
                     $("#paymentDetails").append('<tr><th class="university-size-1-4">Roll No</th>' +
                         '</tr>');
                     $("#paymentDetails").append('<tr><td><input type="text" class="university-size-1-1" name="rollNo' + i + '" id="rollNo' + i + '"></td>' +
                         '</tr>')
                 }
-            }
-        });
+
     });
 });
 

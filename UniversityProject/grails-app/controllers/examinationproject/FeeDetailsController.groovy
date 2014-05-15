@@ -191,15 +191,25 @@ class FeeDetailsController {
 
     def challanForStudyCenterStu={
          println("***************"+params)
+        List<Student> studList =[]
+        List<AdmissionFee> addmissionFee = []
         def stuList=params.studentListId.split(",")
         def challanNo=studentRegistrationService.getChallanNumber()
         for(def i=0;i<stuList.size()-1;i++){
-            println("**********"+stuList[i])
+            println("**********"+stuList[i]);
             def stuIns=Student.findById(Long.parseLong(stuList[i]))
+            stuIns.rollNo
             stuIns.challanNo=challanNo
             stuIns.save(failOnError: true)
+            studList.add(stuIns)
+            Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
+            addmissionFee.add(AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession))
         }
-        def args = [template: "printAdmitCard", model: [studentInstance: stuList],filename:fileName+".pdf"]
+
+        def args = [template: "printChallan", model: [studList: studList,addmissionFee:addmissionFee],filename:"fileName"+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
+    }
+    def printChallan={
+
     }
 }
