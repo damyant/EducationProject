@@ -176,8 +176,8 @@ function loadProgramFeeAmount(t){
         type: "post",
         url: url('admin', 'getFeeAmount', ''),
         data: {program: program},
-        success: function (data) {
-            $('#admissionFeeAmount').val(data.feeAmount);
+        success: function (program) {
+            $('#admissionFeeAmount').val(program.feeAmount);
         }
     });
 }
