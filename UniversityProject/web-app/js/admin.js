@@ -47,6 +47,7 @@ $(document).ready(function () {
 
 
 
+$("#feeType").append('<option value="0">' + "Admission Fee" + '</option>')
 
 
 });

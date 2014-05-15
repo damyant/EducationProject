@@ -97,9 +97,10 @@ class ProgramFeeService {
         def programSessions= []
         try{
             Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.program))
-            endYear = (Integer.parseInt(year) + programDetail[0].noOfAcademicYears).toString()
+          //  endYear = (Integer.parseInt(year) + programDetail[0].noOfAcademicYears).toString()
+            endYear = Integer.parseInt(year)+1
             currentSession = (startYear + "-" + endYear)
-            nextSession    =  ((Integer.parseInt(startYear)+1) + "-" + ++Integer.parseInt(endYear))
+            nextSession    = endYear+ "-" + ++endYear
             programSessions.add(new ProgramSession(programDetail:programDetail,sessionOfProgram: currentSession))
             programSessions.add(new ProgramSession(programDetail:programDetail,sessionOfProgram: nextSession))
 //

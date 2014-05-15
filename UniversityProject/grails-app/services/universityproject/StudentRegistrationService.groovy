@@ -70,7 +70,8 @@ class StudentRegistrationService {
 
         studentRegistration.studyCentre = studyCentre
         Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
-        endYear = (Integer.parseInt(year) + programDetail[0].noOfAcademicYears).toString()
+      //  endYear = (Integer.parseInt(year) + programDetail[0].noOfAcademicYears).toString()
+        endYear = Integer.parseInt(year)+1
         programSession = (startYear + "-" + endYear)
 
         def session = ProgramSession.count()
