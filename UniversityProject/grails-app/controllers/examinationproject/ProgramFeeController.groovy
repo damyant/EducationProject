@@ -12,9 +12,13 @@ class ProgramFeeController {
     def programFeeService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def listOfFeeType(Integer max) {
+    def listOfFeeType = {
+        Integer max
         params.max = Math.min(max ?: 10, 100)
-        respond ProgramFee.list(params), model: [programFeeInstanceCount: ProgramFee.count()]
+        def programFeeInstanceList
+        programFeeInstanceList = AdmissionFee.list()
+
+         [programFeeInstanceList:programFeeInstanceList]
     }
 
 //    def show(ProgramFee programFeeInstance) {
@@ -25,28 +29,11 @@ class ProgramFeeController {
         def feeType=null
         if(FeeType.count()>0)
             feeType = FeeType.list()
-         [feeType:feeType]
+       def programDetailList = ProgramDetail.list()
+         [feeType:feeType,programDetailList:programDetailList]
 
     }
 
-    @Transactional
-    def save(ProgramFee programFeeInstance) {
-
-
-        if (programFeeInstance == null) {
-            notFound()
-            return
-        }
-
-        if (programFeeInstance.hasErrors()) {
-            respond programFeeInstance.errors, view: 'createNewFeeType'
-            return
-        }
-
-        programFeeService.saveProgramFeeType(programFeeInstance)
-        redirect(action: "listOfFeeType")
-
-    }
 
     def saveProgramFee(){
         println("innnnnnnnnnn=="+params)
@@ -54,55 +41,67 @@ class ProgramFeeController {
         println("innnnnn"+params.programSession+"nnnnn=="+feeTypeList[0])
 
         programFeeService.saveProgramFeeType(params)
+        redirect(action: "listOfFeeType")
 
     }
 
-    def editFeeType(ProgramFee programFeeInstance) {
+    def editFeeType  =  {
 
-        respond programFeeInstance
+
+        def programFeeInstance = AdmissionFee.findById(Integer.parseInt(params.id))
+        def program = programFeeInstance.programDetail
+        def programSession = programFeeInstance.programSession
+        def feeType
+        List<MiscellaneousFee> miscellaneousFeeList = []
+        if(FeeType.count()>0){
+        feeType = FeeType.list()
+            feeType.each {
+                println("Hello")
+                def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(FeeType.findById(it.id),program,programSession)
+                if(miscellaneousFee)
+                miscellaneousFeeList.add(miscellaneousFee)
+                println("fdsgfhsdgfsdhf"+miscellaneousFee)
+            }
+            [programFeeInstance:programFeeInstance,miscellaneousFeeList:miscellaneousFeeList]
+
+        }else{
+            [programFeeInstance:programFeeInstance]
+        }
+
+
     }
 
     @Transactional
-    def update(ProgramFee programFeeInstance) {
-        if (programFeeInstance == null) {
-            notFound()
-            return
-        }
+    def update(AdmissionFee programFeeInstance) {
+
 
         if (programFeeInstance.hasErrors()) {
             respond programFeeInstance.errors, view: 'editFeeType'
             return
         }
 
-        programFeeService.saveProgramFeeType(programFeeInstance)
+        programFeeService.saveProgramFeeType(params)
 
         redirect(action: "listOfFeeType")
 
     }
 
 //    @Transactional
-    def deleteFeeType(ProgramFee programFeeInstance) {
-//        println("ffffffff****************")
-
-        if (programFeeInstance == null) {
-            notFound()
-            return
-        }
-
-        programFeeService.deleteFeeType(programFeeInstance)
+    def deleteFeeType= {
+        programFeeService.deleteFeeType(params)
         redirect(action: "listOfFeeType")
 
     }
 
-    protected void notFound() {
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'programFeeInstance.label', default: 'ProgramFee'), params.id])
-                redirect action: "listOfFeeType", method: "GET"
-            }
-            '*' { render status: NOT_FOUND }
-        }
-    }
+//    protected void notFound() {
+//        request.withFormat {
+//            form {
+//                flash.message = message(code: 'default.not.found.message', args: [message(code: 'programFeeInstance.label', default: 'ProgramFee'), params.id])
+//                redirect action: "listOfFeeType", method: "GET"
+//            }
+//            '*' { render status: NOT_FOUND }
+//        }
+//    }
     def addFeeType = {
         def feeInstance = FeeType.get(params?.feeTypeId);
         def programList = ProgramDetail.list(sort:'courseName')
