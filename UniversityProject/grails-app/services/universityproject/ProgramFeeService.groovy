@@ -5,15 +5,8 @@ import examinationproject.AdmissionFee
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
 import examinationproject.ProgramDetail
-import examinationproject.ProgramFee
-import examinationproject.ProgramSession
 
-import examinationproject.ProgramDetail
-import examinationproject.ProgramFee
 import examinationproject.ProgramSession
-import examinationproject.Student
-import grails.converters.JSON
-
 import grails.transaction.Transactional
 
 import java.text.SimpleDateFormat
@@ -30,11 +23,14 @@ class ProgramFeeService {
  * @param programFeeInstance
  * @return
  */
-
     def saveProgramFeeType(params) {
         def feeTypeList=params.feeTypeList.split(',')
-        def admissionFeeIns=new AdmissionFee()
-        Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Long.parseLong(params.programDetail))
+        def admissionFeeIns
+        if(params.admissionFee)
+           admissionFeeIns=AdmissionFee.findById(Integer.parseInt(params.admissionFee))
+        else
+           admissionFeeIns=new AdmissionFee()
+        Set<ProgramDetail> programDetail = ProgramDetail.findAllById(params.programDetail)
         admissionFeeIns.feeAmountAtIDOL=Integer.parseInt(params.feeAmountAtIDOL)
         admissionFeeIns.feeAmountAtSC=Integer.parseInt(params.feeAmountAtSC)
         admissionFeeIns.programDetail = programDetail[0]
@@ -59,9 +55,12 @@ class ProgramFeeService {
 
         def i=0;
         feeTypeList.each{
-
-            def misFeeIns=new MiscellaneousFee()
-            misFeeIns.programDetail=ProgramDetail.findById(Long.parseLong(params.programDetail))
+            def misFeeIns
+            if(it)
+                misFeeIns=MiscellaneousFee.findById(it)
+            else
+                misFeeIns=new MiscellaneousFee()
+            misFeeIns.programDetail=ProgramDetail.findById(params.programDetail)
             misFeeIns.feeType=FeeType.findById(Long.parseLong(it.toString()))
             misFeeIns.amount=Integer.parseInt(params.feeTypeAmount[i])
             misFeeIns.programSession=programSessionIns
@@ -70,20 +69,14 @@ class ProgramFeeService {
 //            misFeeIns.programSession
         }
     }
-//        programFeeInstance.save(flush: true)
-//=======
-//    def saveProgramFeeType(ProgramFee programFeeInstance,params) {
-//
-//        println("in new Fee creation"+params)
-//        programFeeInstance.save(flush: true)
-//>>>>>>> 1d8cc4769cfe0a5da2fad0ffb46e77d943c787cc
-//    }
+
 /**
  * Service to delete a particular fee type
  * @param programFeeInstance
  */
-    boolean deleteFeeType(ProgramFee programFeeInstance) {
+    boolean deleteFeeType(params) {
         boolean isDeleted = false
+        def programFeeInstance = AdmissionFee.findById(Integer.parseInt(params.id))
         if (programFeeInstance.delete(flush: true)) {
             isDeleted = true
         } else {

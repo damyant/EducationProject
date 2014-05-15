@@ -1,6 +1,6 @@
 
 var studentIdList = [];
-var subjectIdList=[];
+var subjectIdList=[],selectedStudentId=[];
 var feeTypeList=[];
 $(document).ready(function () {
 
@@ -412,12 +412,15 @@ function approvePayInSlip(){
 }
 
 function submitProgramFee(){
+
 alert("hi")
-  //  var programSession = $("#session").val()
+   var programId = $("#programDetail").val()
+    alert(programId)
+
     $.ajax({
         type: "post",
         url: url('programFee', 'saveProgramFee', ''),
-        data: $("#createNewFee").serialize()+"&feeTypeList="+feeTypeList,
+        data: $("#createNewFee").serialize()+"&feeTypeList="+feeTypeList+"&programDetail="+programId,
 
         success: function (data) {
 //            if(data.flag){
@@ -431,4 +434,87 @@ alert("hi")
 
     })
 
+}
+
+function updateProgramFee(){
+    alert("hi")
+   var programId = $("#programId").val()
+    $.ajax({
+        type: "post",
+        url: url('programFee', 'saveProgramFee', ''),
+        data: $("#updateFee").serialize()+"&feeTypeList="+feeTypeList+"&programDetail="+programId,
+
+        success: function (data) {
+//            if(data.flag){
+//                $('#rollNo').val('');
+//                $('#payInSlipNo').val('');
+//                $('#datePick').val('');
+//                $('#approvePayInSlip')[0].reset();
+//                $('#statusMessage').html("Approved Succesfully")
+//            }
+        }
+
+    })
+
+}
+
+
+function generateChallanForRange(){
+
+    var from=$("#serialNoFrom").val()
+    var to = $("#serialNoTo").val()
+
+    if(from!=undefined){
+    if(from.length==0){
+        alert("Please Enter from Sr No.")
+    }
+    var selectedRange=0;
+    if(to>=from){
+        selectedRange = (to-from)
+    }else{
+        alert("Please enter range correctly")
+        return false
+    }
+
+    var rangeCount = parseInt(from)+selectedRange;
+    for(i=from-1;i<rangeCount;i++)
+        $('#studyCenterFeeEntryTable').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', true)
+
+    for(i=to;i<totalRows;i++)
+        $('#studyCenterFeeEntryTable').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
+    for(i=from-2;i>=0;i--)
+        $('#studyCenterFeeEntryTable').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
+    $('input:checked').each(function() {
+        selectedStudentId.push($(this).attr('id'));
+    });
+    $("#studentListId").val(selectedStudentId)
+
+    if(selectedStudentId!=null){
+
+      }
+    }
+    else{
+        $("#challanForStudyCenter").submit()
+    }
+}
+
+
+function challanAjaxRequest(){
+
+    $.ajax({
+        type: "post",
+        url: url('feeDetails', 'challanForStudyCenterStu', ''),
+        data:"studentIdList="+selectedStudentId,
+
+        success: function (data) {
+//            if(data.flag){
+//                $('#rollNo').val('');
+//                $('#payInSlipNo').val('');
+//                $('#datePick').val('');
+//                $('#approvePayInSlip')[0].reset();
+//                $('#statusMessage').html("Approved Succesfully")
+//            }
+        }
+
+    })
 }

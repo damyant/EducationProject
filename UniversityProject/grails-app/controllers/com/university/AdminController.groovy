@@ -1,12 +1,12 @@
 package com.university
 
+import examinationproject.AdmissionFee
 import examinationproject.Bank
-import examinationproject.Branch
 import examinationproject.ExaminationCentre
-import examinationproject.ExaminationVenue
 import examinationproject.FeeType
+import examinationproject.MiscellaneousFee
 import examinationproject.ProgramDetail
-import examinationproject.ProgramFee
+
 import examinationproject.Student
 import examinationproject.Status
 import examinationproject.StudyCenter
@@ -82,8 +82,8 @@ class AdminController {
     @Secured(["ROLE_ADMIN","ROLE_IDOL_USER"])
     def feeVoucher={
         def feeType = FeeType.list(sort:'type')
-        def selectFeeType=FeeType.findAllById(1)
-        [feeType:feeType,selectFeeType:selectFeeType]
+      //  def selectFeeType=FeeType.findAllById(1)
+        [feeType:feeType]
     }
 
 
@@ -98,8 +98,8 @@ class AdminController {
         def program= student.programDetail
         def programName=program[0].courseName
         boolean status
-        def programFee = ProgramFee.findByProgramDetail(program)
-        if(programFee)
+        def admissionFee = AdmissionFee.findByProgramDetail(program)
+        if(admissionFee)
             status=true
         else
             status = false
@@ -109,32 +109,27 @@ class AdminController {
 
     @Secured(["ROLE_ADMIN","ROLE_IDOL_USER"])
     def generateFeeVoucher={
-//        println(">>>>>>>>????????>>"+params)
+       println(">>>>>>>>????????>>"+params)
         def student = Student.findByRollNo(params.rollNo)
-        if(!(student.studyCentre[0].centerCode=="11111")){
-             redirect(action: "feeVoucher",params:[error:"error"])
+        def program = student.programDetail
+        def feeTypeId
+        def feeType
+        def programFeeAmount
+        def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program,student.programSession)
+
+//        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
+        if(params.feeType){
+            println("hfdsfsfgs???????????????????????????")
+            feeTypeId =Integer.parseInt(params.feeType)
+            feeType = FeeType.findById(feeTypeId)
+           def mFee = MiscellaneousFee.findByFeeType(feeType)
+            programFeeAmount= mFee.amount
+        }else{
+            println("hfdsfsfgs?????????????????>>>>>>>>>>>>>>>>?")
+            feeType = null
+            programFeeAmount=programFee.feeAmountAtIDOL
         }
 
-
-
-        def program= student.programDetail
-//        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
-        def feeTypeId =Integer.parseInt(params.feeType)
-        def feeType = FeeType.findById(feeTypeId)
-        def programFee = ProgramFee.findByProgramDetail(program)
-        def programFeeAmount
-
-            switch(feeTypeId){
-                case 1:
-                    programFeeAmount = programFee.feeAmountAtIDOL
-                    break;
-                case 2:
-                    programFeeAmount = programFee.examinationFee
-                    break;
-                case 3:
-                    programFeeAmount = programFee.certificateFee
-                    break;
-            }
 //        println("feeTypeId    "+feeTypeId+"********"+programFee.feeAmountAtIDOL)
         def args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
         pdfRenderingService.render(args+[controller:this],response)
@@ -249,11 +244,21 @@ class AdminController {
     def getChallanDetails={
         def resultMap=[:]
         def studentInst=Student.findAllByChallanNo(params.challanNo);
-        def feeAmount=ProgramFee.findAllByProgramDetail(studentInst.programDetail);
+        println("%%%%%%%%%%%%%%%%%%%%%% "+studentInst);
+        def feeAmount=[]
+        for(int i=0;i<studentInst.size();i++){
+           def amount=AdmissionFee.findAllByProgramDetail(studentInst[i].programDetail);
+            if(studentInst[i].studyCentre[0].centerCode=='11111'){
+                feeAmount.add(amount[0].feeAmountAtIDOL)
+            }
+            else{
+                feeAmount.add(amount.feeAmountAtSC)
+//                println("feeAmountAtSC"+amount[0].feeAmountAtSC)
+            }
+
+        }
         resultMap.studentInst=studentInst;
-        resultMap.feeAmount=feeAmount.feeAmountAtSC;
-//        println("%%%%%%%%%%%%"+resultMap.studentInst[0].rollNo);
-//        println("###########"+resultMap.feeAmount[0]);
+        resultMap.feeAmount=feeAmount;
         render resultMap as JSON
     }
     def saveApprovePayInSlip={
@@ -265,11 +270,13 @@ class AdminController {
         render returnMap as JSON
     }
     def getFeeAmount={
+
         def resultMap=[:]
-//        println(params)
-        def feeAmount=ProgramFee.findAllById(params.program);
+        println(params)
+        def feeAmount=AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
+
         resultMap.feeAmount=feeAmount.feeAmountAtIDOL;
-//        println(resultMap);
+       println(resultMap);
         render resultMap as JSON
     }
 }

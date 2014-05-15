@@ -1,14 +1,14 @@
 package universityproject
 
+import examinationproject.AdmissionFee
 import examinationproject.Bank
 import examinationproject.FeeDetails
 import examinationproject.FeeType
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
-import examinationproject.ProgramFee
+
 import examinationproject.Status
 import examinationproject.Student
-import grails.converters.JSON
 import grails.transaction.Transactional
 
 import java.text.DateFormat
@@ -99,7 +99,7 @@ class FeeDetailService {
     }
 
     def StudentList(params){
-        println("*********"+params)
+
         def resultMap=[:]
         def obj = Student.createCriteria()
         def currentUser=springSecurityService.getCurrentUser()
@@ -158,7 +158,7 @@ class FeeDetailService {
         def feeList = FeeType.list(sort:'type')
         def feeAmountList=[]
         for (int i=0;i<stuList.size();i++){
-            def amount=ProgramFee.findAllByProgramDetail(stuList.programDetail)
+            def amount=AdmissionFee.findAllByProgramDetail(stuList.programDetail)
             feeAmountList.add(amount.feeAmountAtSC)
         }
         resultMap.studentList=stuList

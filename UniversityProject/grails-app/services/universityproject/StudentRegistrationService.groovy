@@ -165,14 +165,14 @@ class StudentRegistrationService {
                 if (studentByYearAndCourse.size()>0) {
                     if (studentByYearAndCourse.get(0).rollNo) {
 
-                        if (rollNumber == null) {
+//                        if (rollNumber == null) {
                             rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
                             rollTemp1 = Integer.parseInt(rollTemp) + 1
                             rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
-                        } else {
-                            ++rollTemp1
-                            rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
-                        }
+//                        } else {
+//                            ++rollTemp1
+//                            rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
+//                        }
                     } else {
                         rollNumber = courseCodeStr + yearCode + rollStr
                     }
@@ -302,11 +302,11 @@ class StudentRegistrationService {
              challanNo = challan+challanSr
 
             }
-
-
             println("challan number is"+challanNo)
             return challanNo
         }
+
+
     }
 
 

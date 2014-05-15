@@ -12,6 +12,8 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class FeeDetailsController {
     def feeDetailService
+    def studentRegistrationService
+    def pdfRenderingService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -114,8 +116,19 @@ class FeeDetailsController {
     @Secured("ROLE_STUDY_CENTRE")
     def generateChallanSCAdmissionFee={
         def programList = ProgramDetail.list(sort:'courseName')
-        [programList:programList]
+        def programCategory=ProgramType.list(sort:'type')
+        [programList:programList, programCategory:programCategory]
     }
+
+    def loadProgram={
+        println("params"+params)
+        def programType=ProgramType.findById(Long.parseLong(params.type))
+        def programList = ProgramDetail.findAllByProgramType(programType)
+        def response =[programList:programList]
+        println(response.programList[0].courseName)
+        render response as JSON
+    }
+
     def studyCentrePostAdmissionFee={
 
     }
@@ -173,5 +186,48 @@ class FeeDetailsController {
 //        println(programFee.feeAmountAtSC)
 //        println(resultMap)
         render resultMap as JSON
+    }
+
+
+    def challanForStudyCenterStu={
+         println("***************"+params)
+        List<Student> studList =[]
+        List<AdmissionFee> addmissionFee = []
+        def stuList=[]
+        def totalFee=0;
+        def challanNo=studentRegistrationService.getChallanNumber()
+        if(params.rollNoSearch){
+           def stuIns= Student.findByRollNo(params.rollNoSearch)
+            stuIns.challanNo=challanNo
+            stuIns.save(failOnError: true)
+            studList.add(stuIns)
+            Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
+            def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtIDOL
+            totalFee=totalFee+ feeForStudent
+            addmissionFee.add(feeForStudent)
+        }else{
+        stuList=params.studentListId.split(",")
+            for(def i=0;i<stuList.size()-1;i++){
+                println("**********"+stuList[i]);
+                def stuIns=Student.findById(Long.parseLong(stuList[i]))
+                stuIns.rollNo
+                stuIns.challanNo=challanNo
+                stuIns.save(failOnError: true)
+                studList.add(stuIns)
+                Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
+                def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtIDOL
+                totalFee=totalFee+ feeForStudent
+                addmissionFee.add(feeForStudent)
+            }
+
+        }
+
+
+
+        def args = [template: "printChallan", model: [studList: studList,addmissionFee:addmissionFee,totalFee:totalFee],filename:"fileName"+".pdf"]
+        pdfRenderingService.render(args + [controller: this], response)
+    }
+    def printChallan={
+
     }
 }
