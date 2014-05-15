@@ -237,7 +237,7 @@ class StudentRegistrationService {
         for (int i = 0; i < 100; i++) {
             students = new Student()
 //            println("Seeded user" + i)
-            students.studentName = "Student" + i
+            //students.studentName = "Student" + i
             students.gender = "Male"
             students.category = "GEN"
             students.referenceNumber = getStudentReferenceNumber()
