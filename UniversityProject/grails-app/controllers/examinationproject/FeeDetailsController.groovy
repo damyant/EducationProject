@@ -107,10 +107,8 @@ class FeeDetailsController {
     @Secured("ROLE_STUDY_CENTRE")
     def studyCentreAdmissionFee={
         def programList = ProgramDetail.list(sort:'courseName')
-//        def paymentModeList = PaymentMode.list(sort:'paymentModeName')
-//        def bankList = Bank.list(sort:'bankName')
-        [programList:programList]
-//        [programList:programList, paymentModeList:paymentModeList, bankList:bankList]
+        def programCategory=ProgramType.list(sort:'type')
+        [programList:programList, programCategory:programCategory]
     }
 
     @Secured("ROLE_STUDY_CENTRE")
@@ -165,7 +163,7 @@ class FeeDetailsController {
 //        println("################################################ ====>"+params);
         def resultMap=[:]
         def student = Student.findById(params.studentId)
-        def programFee = ProgramFee.findByProgramDetail(student.programDetail)
+        def programFee = AdmissionFee.findByProgramDetail(student.programDetail)
 //        println(student.programDetail)
         def programFeeAmount
 //        println("type --->"+params.feeType)
@@ -211,5 +209,11 @@ class FeeDetailsController {
     }
     def printChallan={
 
+    }
+    def populateStudentsByChallan={
+        def resultMap=[:]
+        resultMap= feeDetailService.StudentListByChallan(params)
+        println(resultMap)
+        render resultMap as JSON
     }
 }

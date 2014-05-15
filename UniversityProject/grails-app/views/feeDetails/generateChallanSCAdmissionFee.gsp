@@ -12,22 +12,8 @@
     <title></title>
     <g:javascript src='admin.js'/>
     <g:javascript src='admitCard.js'/>
-    <script type="text/javascript">
-    $(window).bind("load", function () {
-
-        var challanNo = "${challanNo}"
-        if (challanNo) {
-
-            url = "http://localhost:9093/UniversityProject/student/registration"
-            window.location.href = url;
-            window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId);
-
-        }
-
-    })
-    </script>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
 </head>
-
 <body>
 <div id="main">
 
@@ -82,7 +68,7 @@
                 <th  style="width: 10%;">Serial No</th>
                 <th style="width: 26.6%;">Roll No</th>
                 <th style="width: 26.6%;">Student Name</th>
-                <th style="width: 26.6%;">Amount <b>[&#x20B9;]</b> </th>
+                <th style="width: 26.6%;">Amount </th>
                 <th style="width: 10%;">Semester</th>
             </tr>
             </thead>
