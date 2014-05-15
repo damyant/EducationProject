@@ -17,35 +17,19 @@
 <div id="main">
     <fieldset class="form">
         <g:if test="${params?.type}">
-            <h3>Study Centre Post Admission Fee Entry</h3>
+            <h3>Study Centre Payment Fee Entry</h3>
         </g:if>
         <g:else>
-            <h3>Study Centre Admission Fee Entry</h3>
+            <h3>Study Centre Payment Fee Entry</h3>
         </g:else>
         <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
-        <table class="inner university-size-full-1-1" style="margin: auto">
-            <tr>
-                <td class="university-size-1-4"><label>Select a Program</label></td>
-                <td class="university-size-1-4">
-                    <g:select name="programList" class="university-size-1-1" id="programId" optionKey="id"
-                              optionValue="courseName"
-                              from="${programList}" noSelection="['': ' Select Program']"
-                              onchange="populateStudents(this)"/>
-                </td>
-                <td class="university-size-1-4" style="text-align: center;">OR</td>
-                <td class="university-size-1-4"><input type="checkbox" id="allProgram" name="allProgram" onclick="populateStudentsForAllProgram(this)"/><label for="allProgram">All Programs</label></td>
-            </tr>
-        </table>
-        <br/>
-        <table id="studyCenterFeeEntryTable" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd; " hidden="hidden">
+        <table class="inner university-size-full-1-1" id="scStudnetList" style="margin: auto">
             <thead>
-            <tr>
-                <th style="width: 10%;padding-left: 10px;"><input type="checkbox" name="selectAll" id="selectAll"><label for="selectAll">Select All</label></th>
-                <th  style="width: 10%;">Serial No</th>
-                <th style="width: 26.6%;">Roll No</th>
-                <th style="width: 26.6%;">Student Name</th>
-                <th style="width: 26.6%;">Amount <b>[&#x20B9;]</b> </th>
 
+            <tr>
+                <td>Enter Challan Number</td>
+             <td> <input type="text" name="searchChallanNo"id="searchChallanNo"   value=""/></td>
+                <td><input type="button" value="Show Students" onclick="showStudents()"/> </td>
             </tr>
             </thead>
             <tbody></tbody>
