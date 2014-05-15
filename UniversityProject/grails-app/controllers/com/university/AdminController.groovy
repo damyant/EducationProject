@@ -1,12 +1,11 @@
 package com.university
 
+import examinationproject.AdmissionFee
 import examinationproject.Bank
-import examinationproject.Branch
 import examinationproject.ExaminationCentre
-import examinationproject.ExaminationVenue
 import examinationproject.FeeType
 import examinationproject.ProgramDetail
-import examinationproject.ProgramFee
+
 import examinationproject.Student
 import examinationproject.Status
 import examinationproject.StudyCenter
@@ -265,11 +264,13 @@ class AdminController {
         render returnMap as JSON
     }
     def getFeeAmount={
+
         def resultMap=[:]
-//        println(params)
-        def feeAmount=ProgramFee.findAllById(params.program);
+        println(params)
+        def feeAmount=AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
+
         resultMap.feeAmount=feeAmount.feeAmountAtIDOL;
-//        println(resultMap);
+       println(resultMap);
         render resultMap as JSON
     }
 }

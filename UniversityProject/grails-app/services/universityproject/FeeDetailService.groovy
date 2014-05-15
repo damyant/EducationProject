@@ -5,10 +5,9 @@ import examinationproject.FeeDetails
 import examinationproject.FeeType
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
-import examinationproject.ProgramFee
+
 import examinationproject.Status
 import examinationproject.Student
-import grails.converters.JSON
 import grails.transaction.Transactional
 
 import java.text.DateFormat

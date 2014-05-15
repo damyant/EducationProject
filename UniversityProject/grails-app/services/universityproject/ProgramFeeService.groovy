@@ -5,15 +5,8 @@ import examinationproject.AdmissionFee
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
 import examinationproject.ProgramDetail
-import examinationproject.ProgramFee
-import examinationproject.ProgramSession
 
-import examinationproject.ProgramDetail
-import examinationproject.ProgramFee
 import examinationproject.ProgramSession
-import examinationproject.Student
-import grails.converters.JSON
-
 import grails.transaction.Transactional
 
 import java.text.SimpleDateFormat
@@ -82,15 +75,15 @@ class ProgramFeeService {
  * Service to delete a particular fee type
  * @param programFeeInstance
  */
-    boolean deleteFeeType(ProgramFee programFeeInstance) {
-        boolean isDeleted = false
-        if (programFeeInstance.delete(flush: true)) {
-            isDeleted = true
-        } else {
-            isDeleted = false
-        }
-
-    }
+//    boolean deleteFeeType(ProgramFee programFeeInstance) {
+//        boolean isDeleted = false
+//        if (programFeeInstance.delete(flush: true)) {
+//            isDeleted = true
+//        } else {
+//            isDeleted = false
+//        }
+//
+//    }
 
     def getProgramSessions(params){
 
