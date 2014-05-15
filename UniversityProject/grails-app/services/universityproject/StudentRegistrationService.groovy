@@ -302,8 +302,6 @@ class StudentRegistrationService {
              challanNo = challan+challanSr
 
             }
-
-
             println("challan number is"+challanNo)
             return challanNo
         }

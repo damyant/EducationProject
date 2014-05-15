@@ -12,6 +12,8 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class FeeDetailsController {
     def feeDetailService
+    def studentRegistrationService
+    def pdfRenderingService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -184,5 +186,20 @@ class FeeDetailsController {
 //        println(programFee.feeAmountAtSC)
 //        println(resultMap)
         render resultMap as JSON
+    }
+
+
+    def challanForStudyCenterStu={
+         println("***************"+params)
+        def stuList=params.studentListId.split(",")
+        def challanNo=studentRegistrationService.getChallanNumber()
+        for(def i=0;i<stuList.size()-1;i++){
+            println("**********"+stuList[i])
+            def stuIns=Student.findById(Long.parseLong(stuList[i]))
+            stuIns.challanNo=challanNo
+            stuIns.save(failOnError: true)
+        }
+        def args = [template: "printAdmitCard", model: [studentInstance: stuList],filename:fileName+".pdf"]
+        pdfRenderingService.render(args + [controller: this], response)
     }
 }
