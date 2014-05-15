@@ -6,6 +6,7 @@ class CourseSubject implements Serializable  {
     ProgramDetail courseDetail
     Subject subject
     Semester semester
+    ProgramSession programSession
 
 
     boolean equals(other) {
@@ -16,6 +17,7 @@ class CourseSubject implements Serializable  {
         other.courseDetail?.id == courseDetail?.id &&
         other.subject?.id == subject?.id
         other.semester?.id==semester?.id
+        other.programSession?.id==programSession?.id
     }
 
     int hashCode() {
@@ -23,22 +25,23 @@ class CourseSubject implements Serializable  {
         if (courseDetail) builder.append(courseDetail.id)
         if (subject) builder.append(subject.id)
         if (semester) builder.append(semester.id)
+        if(programSession) builder.append(programSession.id)
         builder.toHashCode()
     }
 
 
-    static CourseSubject get(long courseId, long subjectId, long semesterId) {
-        find 'from CourseSubject where courseDetail.id=:courseId and subject.id=:subjectId and semester.id=:semesterId',
-                [courseId: courseId, subjectId: subjectId,semesterId:semesterId]
+    static CourseSubject get(long courseId, long subjectId, long semesterId,long programSession) {
+        find 'from CourseSubject where courseDetail.id=:courseId and subject.id=:subjectId and semester.id=:semesterId and programSession.id=:programSession',
+                [courseId: courseId, subjectId: subjectId,semesterId:semesterId,programSession:programSession]
     }
 
-    static CourseSubject create(ProgramDetail courseDetail, Subject subject, Semester semester,boolean flush = false) {
+    static CourseSubject create(ProgramDetail courseDetail, Subject subject, Semester semester,ProgramSession programSession,boolean flush = false) {
 
-        new CourseSubject(courseDetail: courseDetail, subject: subject,semester:semester).save()
+        new CourseSubject(courseDetail: courseDetail, subject: subject,semester:semester,programSession:programSession).save()
     }
 
-    static boolean remove(ProgramDetail courseDetail, Subject subject, Semester semester, boolean flush = false) {
-        CourseSubject instance = CourseSubject.findByCourseDetailAndSubjectAndSemester(courseDetail, subject,semester)
+    static boolean remove(ProgramDetail courseDetail, Subject subject, Semester semester,ProgramSession programSession, boolean flush = false) {
+        CourseSubject instance = CourseSubject.findByCourseDetailAndSubjectAndSemester(courseDetail, subject,semester,programSession)
         if (!instance) {
             return false
         }
@@ -59,8 +62,11 @@ class CourseSubject implements Serializable  {
         executeUpdate 'DELETE FROM CourseSubject WHERE semester=:semester', [semester: semester]
     }
 
+    static void removeAll(ProgramSession programSession) {
+        executeUpdate 'DELETE FROM CourseSubject WHERE programSession=:programSession', [programSession: programSession]
+    }
     static mapping = {
-        id composite: ['courseDetail', 'subject','semester']
+        id composite: ['courseDetail', 'subject','semester','programSession']
         version false
     }
 
