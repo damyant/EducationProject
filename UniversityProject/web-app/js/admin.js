@@ -460,10 +460,11 @@ function updateProgramFee(){
 
 
 function generateChallanForRange(){
-    alert("dd")
+
     var from=$("#serialNoFrom").val()
     var to = $("#serialNoTo").val()
 
+    if(from!=undefined){
     if(from.length==0){
         alert("Please Enter from Sr No.")
     }
@@ -487,8 +488,12 @@ function generateChallanForRange(){
         selectedStudentId.push($(this).attr('id'));
     });
     $("#studentListId").val(selectedStudentId)
-    alert(selectedStudentId)
+
     if(selectedStudentId!=null){
+
+      }
+    }
+    else{
         $("#challanForStudyCenter").submit()
     }
 }
