@@ -53,8 +53,8 @@ class ProgramExamVenue implements Serializable  {
         executeUpdate 'DELETE FROM ProgramExamVenue WHERE courseDetail=:courseDetail', [courseDetail: courseDetail]
     }
 
-    static void removeAll(ExaminationCentre examCenter) {
-        executeUpdate 'DELETE FROM ProgramExamVenue WHERE examCenter=:examCenter', [examCenter: examCenter]
+    static void removeAll(ExaminationCentre examCenter,ProgramDetail courseDetail) {
+        executeUpdate 'DELETE FROM ProgramExamVenue WHERE examCenter=:examCenter and courseDetail=:courseDetail', [examCenter: examCenter,courseDetail:courseDetail]
     }
 
     static void removeAll(ExaminationVenue examVenue) {

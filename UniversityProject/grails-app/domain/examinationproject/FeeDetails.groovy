@@ -10,6 +10,8 @@ class FeeDetails {
     Bank bankId
     Branch branchId
 
+
+
     static constraints = {
         challanNo(nullable: false)
         feeTypeId(nullable: true)

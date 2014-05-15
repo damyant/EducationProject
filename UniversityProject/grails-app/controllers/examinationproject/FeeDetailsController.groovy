@@ -127,12 +127,20 @@ class FeeDetailsController {
         render response as JSON
     }
 
-    def studyCentrePostAdmissionFee={
-
+    def challanForMiscellaneousFee={
+        def programList = ProgramDetail.list(sort:'courseName')
+        def programCategory=ProgramType.list(sort:'type')
+        def miscFeeType=FeeType.list(sort:'type')
+        [programList:programList, programCategory:programCategory,miscFeeType:miscFeeType]
     }
     def populateStudents={
         def resultMap=[:]
         resultMap= feeDetailService.StudentList(params)
+        render resultMap as JSON
+    }
+    def populateStudentsForMFee={
+        def resultMap=[:]
+        resultMap= feeDetailService.StudentListForMFee(params)
         render resultMap as JSON
     }
 
