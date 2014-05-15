@@ -21,10 +21,12 @@
         <g:each in="${0..studList.size()-1}" var="index">
             <tr><td> ${studList[index].firstName} ${studList[index].lastName}</td>
             <td>${studList[index].rollNo}</td>
-            <td>${addmissionFee[index].feeAmountAtIDOL}</td>
+            <td>${addmissionFee[index]}</td>
             </tr>
         </g:each>
+        <tr><td></td><td>Grand Total</td><td>${totalFee}</td></tr>
     </table>
+
 </div>
 </body>
 </html>

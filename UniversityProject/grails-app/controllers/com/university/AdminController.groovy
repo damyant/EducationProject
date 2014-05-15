@@ -4,6 +4,7 @@ import examinationproject.AdmissionFee
 import examinationproject.Bank
 import examinationproject.ExaminationCentre
 import examinationproject.FeeType
+import examinationproject.MiscellaneousFee
 import examinationproject.ProgramDetail
 
 import examinationproject.Student
@@ -108,32 +109,27 @@ class AdminController {
 
     @Secured(["ROLE_ADMIN","ROLE_IDOL_USER"])
     def generateFeeVoucher={
-//        println(">>>>>>>>????????>>"+params)
+       println(">>>>>>>>????????>>"+params)
         def student = Student.findByRollNo(params.rollNo)
-        if(!(student.studyCentre[0].centerCode=="11111")){
-             redirect(action: "feeVoucher",params:[error:"error"])
+        def program = student.programDetail
+        def feeTypeId
+        def feeType
+        def programFeeAmount
+        def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program,student.programSession)
+
+//        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
+        if(params.feeType){
+            println("hfdsfsfgs???????????????????????????")
+            feeTypeId =Integer.parseInt(params.feeType)
+            feeType = FeeType.findById(feeTypeId)
+           def mFee = MiscellaneousFee.findByFeeType(feeType)
+            programFeeAmount= mFee.amount
+        }else{
+            println("hfdsfsfgs?????????????????>>>>>>>>>>>>>>>>?")
+            feeType = null
+            programFeeAmount=programFee.feeAmountAtIDOL
         }
 
-
-
-        def program= student.programDetail
-//        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
-        def feeTypeId =Integer.parseInt(params.feeType)
-        def feeType = FeeType.findById(feeTypeId)
-        def programFee = AdmissionFee.findByProgramDetail(program)
-        def programFeeAmount
-
-            switch(feeTypeId){
-                case 1:
-                    programFeeAmount = programFee.feeAmountAtIDOL
-                    break;
-                case 2:
-                    programFeeAmount = programFee.feeAmountAtSC
-                    break;
-                case 3:
-                    programFeeAmount = programFee.certificateFee
-                    break;
-            }
 //        println("feeTypeId    "+feeTypeId+"********"+programFee.feeAmountAtIDOL)
         def args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
         pdfRenderingService.render(args+[controller:this],response)
@@ -281,7 +277,25 @@ class AdminController {
 
         resultMap.feeAmount=feeAmount.feeAmountAtIDOL;
        println(resultMap);
-        render resultMap as JSON
+         resultMap as JSON
+    }
+
+    def searchByChallanNo(){
+        println("???????/"+params)
+        def returnMap=[:]
+        def courseNameList=[],courseFee=[]
+        def stuList=  Student.findAllByChallanNo(params.challanNo)
+
+        stuList.each{
+            println("==="+it.programDetail[0])
+            courseNameList<<it.programDetail[0].courseName
+            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+        }
+        returnMap.stuList=stuList
+        returnMap.courseNameList=courseNameList
+        returnMap.courseFee=courseFee
+
+        render  returnMap as JSON
     }
 }
 

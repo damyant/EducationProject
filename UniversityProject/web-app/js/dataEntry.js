@@ -339,7 +339,7 @@ $(document).ready(function () {
                 if ($('#individualEntry').is(':checked')) {
                     $("#paymentDetails").append('<tr><th class="university-size-1-4">Roll No</th>' +
                         '</tr>');
-                    $("#paymentDetails").append('<tr><td><input type="text" class="university-size-1-1" name="rollNo' + i + '" id="rollNo' + i + '"></td>' +
+                    $("#paymentDetails").append('<tr><td><input type="text" class="university-size-1-1" name="rollNoSearch" id="rollNo' + i + '"></td>' +
                         '</tr>')
                 }
 

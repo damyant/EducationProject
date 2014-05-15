@@ -460,10 +460,11 @@ function updateProgramFee(){
 
 
 function generateChallanForRange(){
-    alert("dd")
+
     var from=$("#serialNoFrom").val()
     var to = $("#serialNoTo").val()
 
+    if(from!=undefined){
     if(from.length==0){
         alert("Please Enter from Sr No.")
     }
@@ -487,29 +488,34 @@ function generateChallanForRange(){
         selectedStudentId.push($(this).attr('id'));
     });
     $("#studentListId").val(selectedStudentId)
-    alert(selectedStudentId)
+
     if(selectedStudentId!=null){
+
+      }
+    }
+    else{
         $("#challanForStudyCenter").submit()
     }
 }
 
 
-function challanAjaxRequest(){
+
+function showStudents(){
+
 
     $.ajax({
         type: "post",
-        url: url('feeDetails', 'challanForStudyCenterStu', ''),
-        data:"studentIdList="+selectedStudentId,
+        url: url('admin', 'searchByChallanNo', ''),
+        data: 'challanNo='+$('#searchChallanNo').val(),
 
         success: function (data) {
-//            if(data.flag){
-//                $('#rollNo').val('');
-//                $('#payInSlipNo').val('');
-//                $('#datePick').val('');
-//                $('#approvePayInSlip')[0].reset();
-//                $('#statusMessage').html("Approved Succesfully")
-//            }
+//            alert(data[0].programDetail.id)
+            $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
+            for(var i=0;i<data.stuList.length;i++){
+            $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td>'+data.stuList[i].rollNo+'</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
+            }
         }
 
     })
+
 }
