@@ -277,7 +277,25 @@ class AdminController {
 
         resultMap.feeAmount=feeAmount.feeAmountAtIDOL;
        println(resultMap);
-        render resultMap as JSON
+         resultMap as JSON
+    }
+
+    def searchByChallanNo(){
+        println("???????/"+params)
+        def returnMap=[:]
+        def courseNameList=[],courseFee=[]
+        def stuList=  Student.findAllByChallanNo(params.challanNo)
+
+        stuList.each{
+            println("==="+it.programDetail[0])
+            courseNameList<<it.programDetail[0].courseName
+            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+        }
+        returnMap.stuList=stuList
+        returnMap.courseNameList=courseNameList
+        returnMap.courseFee=courseFee
+
+        render  returnMap as JSON
     }
 }
 
