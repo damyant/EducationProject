@@ -193,20 +193,38 @@ class FeeDetailsController {
          println("***************"+params)
         List<Student> studList =[]
         List<AdmissionFee> addmissionFee = []
-        def stuList=params.studentListId.split(",")
+        def stuList=[]
+        def totalFee=0;
         def challanNo=studentRegistrationService.getChallanNumber()
-        for(def i=0;i<stuList.size()-1;i++){
-            println("**********"+stuList[i]);
-            def stuIns=Student.findById(Long.parseLong(stuList[i]))
-            stuIns.rollNo
+        if(params.rollNoSearch){
+           def stuIns= Student.findByRollNo(params.rollNoSearch)
             stuIns.challanNo=challanNo
             stuIns.save(failOnError: true)
             studList.add(stuIns)
             Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
-            addmissionFee.add(AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession))
+            def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtIDOL
+            totalFee=totalFee+ feeForStudent
+            addmissionFee.add(feeForStudent)
+        }else{
+        stuList=params.studentListId.split(",")
+            for(def i=0;i<stuList.size()-1;i++){
+                println("**********"+stuList[i]);
+                def stuIns=Student.findById(Long.parseLong(stuList[i]))
+                stuIns.rollNo
+                stuIns.challanNo=challanNo
+                stuIns.save(failOnError: true)
+                studList.add(stuIns)
+                Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
+                def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtIDOL
+                totalFee=totalFee+ feeForStudent
+                addmissionFee.add(feeForStudent)
+            }
+
         }
 
-        def args = [template: "printChallan", model: [studList: studList,addmissionFee:addmissionFee],filename:"fileName"+".pdf"]
+
+
+        def args = [template: "printChallan", model: [studList: studList,addmissionFee:addmissionFee,totalFee:totalFee],filename:"fileName"+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
     }
     def printChallan={
