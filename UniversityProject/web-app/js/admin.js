@@ -376,21 +376,6 @@ function loadSession(t){
         });
     }
 }
-function populateChallanDetail(t){
-    var challanNo=$(t).val();
-    $.ajax({
-        type: "post",
-        url: url('admin', 'getChallanDetails', ''),
-        data: {challanNo: challanNo},
-
-        success: function (data) {
-            console.log("dsfddsdds"+data.studentInst.rollNo);
-            $('#rollNo').val(data.studentInst[0].rollNo);
-            $('#feeAmount').val(data.feeAmount[0]);
-
-        }
-    });
-}
 
 function approvePayInSlip(){
     $.ajax({
@@ -520,11 +505,12 @@ function showStudents(){
     })
 
 }
-
 function showListOfStudents(){
+    document.getElementById("studentPayList").style.visibility = "visible";
+    document.getElementById("paySubmit").style.visibility = "visible";
     $.ajax({
         type: "post",
-        url: url('admin', 'searchLiatofStudentByChallanNo', ''),
+        url: url('admin', 'searchListStudentByChallanNo', ''),
         data: 'challanNo='+$('#searchChallanNo').val(),
 
         success: function (data) {
@@ -536,4 +522,28 @@ function showListOfStudents(){
             }
         }
     })
+}
+function populateChallanDetail(t){
+    var challanNo=$(t).val();
+//    alert("?????????????")
+    $.ajax({
+        type: "post",
+        url: url('admin', 'getChallanDetailsforStudent', ''),
+        data: {challanNo: challanNo},
+
+        success: function (data) {
+            alert(data.stuList[0].firstName)
+            $("#allStudentList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
+            for(var i=0;i<data.stuList.length;i++){
+                $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="'+data.stuList[i].id+'"/> '+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td>'+data.stuList[i].rollNo+'</td><td>'+data.courseNameList[i]+'</td><td>'+data.bank+'</td><td>'+data.branch+'</td><td>'+data.courseFee[i]+'</td></tr>')
+            }
+            $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
+
+        }
+    });
+}
+
+function submitStudents(){
+    alert("hi")
+    $("#approvePayInSlip").submit()
 }

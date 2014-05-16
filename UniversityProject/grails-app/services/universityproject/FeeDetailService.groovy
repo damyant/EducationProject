@@ -196,17 +196,38 @@ class FeeDetailService {
         resultMap.feeAmountList=feeAmountList
         return resultMap
     }
-    def StudentListByChallan={
-        def resultMap=[:]
-        def studList=Student.findAllByChallanNo(params.challanNo)
-        def feeAmountList=[]
-            for (int i=0;i<stuList.size();i++){
-                def amount=AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
-                feeAmountList.add(amount.feeAmountAtSC)
-            }
-        resultMap.studList=studList
-        resultMap.feeAmountList=feeAmountList
-        return resultMap
+
+
+    def studentDetailByChallanNumber(params){
+        def returnMap=[:]
+        def courseNameList=[],courseFee=[]
+        def stuList=  Student.findAllByChallanNo(params.challanNo)
+        def feeDetails = FeeDetails.findByChallanNo(params.challanNo)
+        println(">>>>>>>>>>>>>>>>>>"+feeDetails.branchId.branchLocation)
+        stuList.each{
+            println("==="+it.programDetail[0])
+            courseNameList<<it.programDetail[0].courseName
+            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+        }
+        returnMap.stuList=stuList
+        returnMap.courseNameList=courseNameList
+        returnMap.courseFee=courseFee
+        returnMap.bank=feeDetails.bankId.bankName
+        returnMap.branch=feeDetails.branchId.branchLocation
+        return returnMap
+//=======
+//        def StudentListByChallan={
+//            def resultMap=[:]
+//            def studList=Student.findAllByChallanNo(params.challanNo)
+//            def feeAmountList=[]
+//            for (int i=0;i<stuList.size();i++){
+//                def amount=AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
+//                feeAmountList.add(amount.feeAmountAtSC)
+//            }
+//            resultMap.studList=studList
+//            resultMap.feeAmountList=feeAmountList
+//            return resultMap
+//            >>>>>>> 6dde9414035ea88164f9f1e9b7c2f804c236d5a1
     }
 }
 
