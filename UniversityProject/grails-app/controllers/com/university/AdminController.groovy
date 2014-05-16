@@ -1,12 +1,11 @@
 package com.university
 
+import examinationproject.AdmissionFee
 import examinationproject.Bank
-import examinationproject.Branch
 import examinationproject.ExaminationCentre
-import examinationproject.ExaminationVenue
 import examinationproject.FeeType
 import examinationproject.ProgramDetail
-import examinationproject.ProgramFee
+
 import examinationproject.Student
 import examinationproject.Status
 import examinationproject.StudyCenter
@@ -98,8 +97,8 @@ class AdminController {
         def program= student.programDetail
         def programName=program[0].courseName
         boolean status
-        def programFee = ProgramFee.findByProgramDetail(program)
-        if(programFee)
+        def admissionFee = AdmissionFee.findByProgramDetail(program)
+        if(admissionFee)
             status=true
         else
             status = false
@@ -121,7 +120,7 @@ class AdminController {
 //        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
         def feeTypeId =Integer.parseInt(params.feeType)
         def feeType = FeeType.findById(feeTypeId)
-        def programFee = ProgramFee.findByProgramDetail(program)
+        def programFee = AdmissionFee.findByProgramDetail(program)
         def programFeeAmount
 
             switch(feeTypeId){
@@ -201,14 +200,16 @@ class AdminController {
 
     def downloadAttendanceSheet = {
         if(params.programSession){
+                        println('this is the real path '+params)
             def webRootDir = servletContext.getRealPath("/")
             def userDir = new File(webRootDir,'/Attendance')
             userDir.mkdirs()
             def excelPath = servletContext.getRealPath("/")+'Attendance'+System.getProperty('file.separator')+'Output'+'.xls'
-//            println('this is the real path '+excelPath)
+
             def status= attendanceService.getStudentList(params,excelPath)
+            println("hello kuldeep u r back in controller "+ status)
             if(status){
-//                println("hello kuldeep u r back in controller "+ status)
+                println("hello kuldeep u r back in controller "+ status)
                 File myFile = new File(servletContext.getRealPath("/")+'Attendance'+System.getProperty('file.separator')+'Output'+'.xls')
                 response.setHeader "Content-disposition", "attachment; filename="+'Output'+".xls"
                 response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
@@ -217,60 +218,61 @@ class AdminController {
                 myFile.delete()
             }
             else{
+       flash.message = "${message(code: 'student.not.found.message')}"
+       redirect(action: 'downloadAttendanceSheet')
+    }
+}
 
-            }
-        }
-
-        else{
+else{
 //            println("there is no parameters")
-        }
+}
 
-    }
-    def uploadInternalMarks={
-        def studyCentreList = StudyCenter.list(sort:'name')
-        def programList = ProgramDetail.list(sort:'courseName')
-        [programList: programList, studyCentreList: studyCentreList]
-    }
-    def approvePayInSlip={
-        def bankList= Bank.list(sort:'bankName');
-        def feeTypeList = FeeType.list(sort: 'type');
-        [bankList:bankList,feeTypeList:feeTypeList]
-    }
-    def getBranchList={
-        def list=Bank.findAllById(Integer.parseInt(params.bank));
+}
+def uploadInternalMarks={
+def studyCentreList = StudyCenter.list(sort:'name')
+def programList = ProgramDetail.list(sort:'courseName')
+[programList: programList, studyCentreList: studyCentreList]
+}
+def approvePayInSlip={
+def bankList= Bank.list(sort:'bankName');
+def feeTypeList = FeeType.list(sort: 'type');
+[bankList:bankList,feeTypeList:feeTypeList]
+}
+def getBranchList={
+def list=Bank.findAllById(Integer.parseInt(params.bank));
 //        println("))))))))@@@@@@@@@@@@@@@@@@"+list.branch[0].branchLocation)
-        render list.branch[0] as JSON
-    }
-    def studyCentreFeeApproval={
-        def studyCenterList=StudyCenter.list(sort: 'name');
-        def programList = ProgramDetail.list(sort:'courseName')
-        [studyCenterList:studyCenterList,programList:programList]
-    }
-    def getChallanDetails={
-        def resultMap=[:]
-        def studentInst=Student.findAllByChallanNo(params.challanNo);
-        def feeAmount=ProgramFee.findAllByProgramDetail(studentInst.programDetail);
-        resultMap.studentInst=studentInst;
-        resultMap.feeAmount=feeAmount.feeAmountAtSC;
+render list.branch[0] as JSON
+}
+def studyCentreFeeApproval={
+def studyCenterList=StudyCenter.list(sort: 'name');
+def programList = ProgramDetail.list(sort:'courseName')
+[studyCenterList:studyCenterList,programList:programList]
+}
+def getChallanDetails={
+def resultMap=[:]
+def studentInst=Student.findAllByChallanNo(params.challanNo);
+def feeAmount=ProgramFee.findAllByProgramDetail(studentInst.programDetail);
+resultMap.studentInst=studentInst;
+resultMap.feeAmount=feeAmount.feeAmountAtSC;
 //        println("%%%%%%%%%%%%"+resultMap.studentInst[0].rollNo);
 //        println("###########"+resultMap.feeAmount[0]);
-        render resultMap as JSON
-    }
-    def saveApprovePayInSlip={
+render resultMap as JSON
+}
+def saveApprovePayInSlip={
 //        println("saving  "+params);
-        def returnMap=[:]
-        Boolean result=adminInfoService.savePayInSlip(params);
-        returnMap.flag=result
+def returnMap=[:]
+Boolean result=adminInfoService.savePayInSlip(params);
+returnMap.flag=result
 //        println(result);
-        render returnMap as JSON
-    }
-    def getFeeAmount={
-        def resultMap=[:]
-//        println(params)
-        def feeAmount=ProgramFee.findAllById(params.program);
-        resultMap.feeAmount=feeAmount.feeAmountAtIDOL;
-//        println(resultMap);
-        render resultMap as JSON
+render returnMap as JSON
+}
+def getFeeAmount={
+    def resultMap=[:]
+    println(params)
+    def feeAmount=AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
+    resultMap.feeAmount=feeAmount.feeAmountAtIDOL;
+    println(resultMap);
+    render resultMap as JSON
     }
 }
 

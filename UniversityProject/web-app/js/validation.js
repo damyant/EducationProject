@@ -15,7 +15,6 @@ function validate() {
             uploadSyllabus: {
                 extension: "doc|pdf|docx"
             },
-            address: "required",
             programList: "required",
             internalMarks: {
                 required:true,
@@ -23,6 +22,7 @@ function validate() {
             },
             district: "required",
             city: "required",
+            parentsName:"required",
             semesterList: "required",
             examDistrict:"required",
             examCity:"required",
@@ -337,6 +337,7 @@ function validate() {
             centerCode: "Please Enter Center Code",
             d_o_b: "Please Enter Date of birth",
             programId: "Please select Program",
+            parentsName: "Please Enter Parent's Name",
             programDetail: "Please enter Program",
             category: "Please select one of these categories",
             nationality: "please select Nationality",
@@ -353,7 +354,6 @@ function validate() {
             examinationCentre: "Please Select Examination Venue",
             examDistrict:"Please Select Examination Center District",
             examCity:"Please Select Examination Center City",
-            address: "Please enter Student Name",
             firstName: "Please enter First Name",
             lastName:"Please enter Last Name",
             addressTown: "Please Enter your town",

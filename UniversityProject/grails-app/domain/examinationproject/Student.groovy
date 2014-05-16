@@ -41,6 +41,7 @@ class Student {
     static constraints = {
         referenceNumber(nullable:true)
         middleName(nullable: true)
+        parentsName(nullable: true)
         dob(nullable: true)
         category(nullable: true)
         gender(nullable: true)

@@ -45,22 +45,37 @@ class AdmitCardController {
 
     def getSemesterList={
         try{
-
-        def course=ProgramDetail.findById(params.data)
-            def resultMap = [:]
-
-            if(course!=null){
-                resultMap.totalSem = course.noOfTerms
-                resultMap.session=course.programSession
-
+            if(params.data=='allProgram'){
+                def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
+                def sessions= ProgramSession.executeQuery( "select distinct  programSession.sessionOfProgram from ProgramSession programSession" );
+                println("-----------"+sessions)
+                println("oye kuldeep "+ course[0])
+                def resultMap = [:]
+                resultMap.totalSem = course[0]
+                resultMap.session =  sessions
                 render resultMap as JSON
             }
-        else {
-            render null
-        }
+            else{
+                def course=ProgramDetail.findById(params.data)
+                println("------------------"+ course)
+
+                def resultMap = [:]
+
+                if(course!=null){
+                    resultMap.totalSem = course.noOfTerms
+                    resultMap.session=course.programSession
+
+                    render resultMap as JSON
+                }
+                else {
+                    render null
+                }
+            }
         }catch (Exception e){
             println("Error in getting Semester Number"+e)
-        }
+
+             }
+
     }
 
     def examVenueCapacity={

@@ -147,10 +147,12 @@ function showProgrammeList(){
             if(data.length>0){
                 $('#submit').css('display','inline')
             }
-            $("#programList").empty().append('<option value=""> Select Programme</option>')
+            $("#programList").empty().append('<option value=""> Select Programmes</option>')
+            $("#programList").append('<option value="allProgram"> All Programmes</option>')
             for (var i = 0; i < data.length; i++) {
                 $("#programList").append('<option value="' + data[i].id + '">' + data[i].courseName + '</option>')
             }
+            $('#programRow').show()
         },
         error:function(XMLHttpRequest, textStatus, errorThrown){
 

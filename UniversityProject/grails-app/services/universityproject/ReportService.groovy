@@ -31,9 +31,9 @@ class ReportService {
              wbSettings.setLocale(new Locale("en", "EN"));
              WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
              int sheetNo=0
-            studyCenterId = currentUser.studyCentreId
-            def studyCenter= StudyCenter.findById(studyCenterId)
-            programList.each {
+             studyCenterId = currentUser.studyCentreId
+             def studyCenter= StudyCenter.findById(studyCenterId)
+             programList.each {
                 def pId= it.id
                 def stuObj= Student.createCriteria()
                 def count = stuObj.list{
@@ -49,7 +49,7 @@ class ReportService {
                 }
                 status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook)
                 sheetNo= sheetNo+1
-            }
+             }
              workbook.write();
              workbook.close();
              return status

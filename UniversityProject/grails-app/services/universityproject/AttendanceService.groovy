@@ -3,6 +3,7 @@ package universityproject
 import examinationproject.CourseSubject
 import examinationproject.ExaminationVenue
 import examinationproject.ProgramDetail
+import examinationproject.ProgramExamVenue
 import examinationproject.ProgramSession
 import examinationproject.Semester
 import examinationproject.Status
@@ -32,55 +33,193 @@ class AttendanceService {
     private WritableCellFormat times;
     private WritableCellFormat times1;
 
-
     Boolean getStudentList(params, excelPath) {
-//         println("hello kuldeep "+ params)
-        def obj = Student.createCriteria()
-        def studentList = obj.list {
-            programDetail {
-                eq('id', Long.parseLong(params.programList))
-            }
-            examinationVenue {
-                eq('id', Long.parseLong(params.examinationCentre))
-            }
-            and {
-                eq('programSession', ProgramSession.findById(Integer.parseInt(params.programSession)))
-            }
-            and {
-                eq('status', Status.findById(3))
-            }
+        boolean status= false
+        File file = new File(excelPath);
+        WorkbookSettings wbSettings = new WorkbookSettings();
+        wbSettings.setLocale(new Locale("en", "EN"));
+        WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
+        def  sheetNo=0
+        def examinationVenueIns = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
+        if(params.programList=='allProgram' && params.programSession=='allSession' && params.programTerm=='allSemester'){
+            def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
+            def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
+            def sessions= ProgramSession.executeQuery( "select distinct  programSession.sessionOfProgram from ProgramSession programSession" );
+            program.each{
+                def pid= it.courseDetail.id
+                println("-----------------------------------********"+ pid)
+                for(int i=1;i<=course[0]; i++){
+                    sessions.each{
+                        def session=it
+                        def obj = Student.createCriteria()
+                        def studentList = obj.list {
+                            programDetail {
+                                eq('id', pid)
+                            }
+                           examinationVenue {
+                                eq('id', examinationVenueIns.id)
+                            }
+                            and {
+                                    eq('programSession', ProgramSession.findBySessionOfProgram(''+session))
+                                }
 
-            and {
-                eq('semester', Integer.parseInt(params.programTerm))
+                            and {
+                                eq('status', Status.findById(4))
+                            }
+                            and {
+                                    eq('semester', i)
+                                }
+                        }
+//                        def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
+                        def programDetail = ProgramDetail.findById(pid)
+                        def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, i)
+                        def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
+                        if(studentList){
+                        status = writeAttendanceSheet(studentList, params, semester, courseSubject, examinationVenueIns, workbook, sheetNo)
+                        sheetNo= sheetNo+1;
+                        }
+
+                    }
+                }
+
             }
+            if(sheetNo>0){
+            workbook.write();
+            workbook.close();
+            }
+            return status
+
         }
-        def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
-        def programDetail = ProgramDetail.findById(Long.parseLong(params.programList))
-        def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, Integer.parseInt(params.programTerm))
-//        println("programDetail is " + programDetail + " semester " + semester)
-        def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
-        boolean status = writeAttendanceSheet(studentList, params, semester, courseSubject, excelPath, examinationCentre)
+        else if(params.programList=='allProgram' && params.programSession!='allSession' && params.programTerm=='allSemester'){
+            def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
+            def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
+//            def sessions= ProgramSession.executeQuery( "select distinct  programSession.sessionOfProgram from ProgramSession programSession" );
+            program.each{
+                def pid= it.courseDetail.id
+                println("-----------------------------------********"+ pid)
+                for(int i=1;i<=course[0]; i++){
+                        def session=it
+                        def obj = Student.createCriteria()
+                        def studentList = obj.list {
+                            programDetail {
+                                eq('id', pid)
+                            }
+                            examinationVenue {
+                                eq('id', examinationVenueIns.id)
+                            }
+                            and {
+                                eq('programSession', ProgramSession.findBySessionOfProgram(params.programSession))
+                            }
 
-//        println("this is the status after file handling " + status)
-        return status
+                            and {
+                                eq('status', Status.findById(4))
+                            }
+                            and {
+                                eq('semester', i)
+                            }
+                        }
+//                        def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
+                        def programDetail = ProgramDetail.findById(pid)
+                        def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, i)
+                        def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
+                        if(studentList){
+                            status = writeAttendanceSheet(studentList, params, semester, courseSubject, examinationVenueIns, workbook, sheetNo)
+                            sheetNo= sheetNo+1;
+                        }
+                }
+            }
+            if(sheetNo>0){
+                workbook.write();
+                workbook.close();
+            }
+            return status
+        }
+
+        else if(params.programList=='allProgram' && params.programSession=='allSession' && params.programTerm!='allSemester'){
+            def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
+//            def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
+            def sessions= ProgramSession.executeQuery( "select distinct  programSession.sessionOfProgram from ProgramSession programSession" );
+            program.each{
+                def pid= it.courseDetail.id
+                println("-----------------------------------********"+ pid)
+                sessions.each{
+
+                    def session=it
+                    def obj = Student.createCriteria()
+                    def studentList = obj.list {
+                        programDetail {
+                            eq('id', pid)
+                        }
+                        examinationVenue {
+                            eq('id', examinationVenueIns.id)
+                        }
+                        and {
+                            eq('programSession', ProgramSession.findBySessionOfProgram(''+session))
+                        }
+
+                        and {
+                            eq('status', Status.findById(4))
+                        }
+                        and {
+                            eq('semester', Integer.parseInt(params.programTerm))
+                        }
+                    }
+//                        def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
+                    def programDetail = ProgramDetail.findById(pid)
+                    def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, Integer.parseInt(params.programTerm))
+                    def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
+                    if(studentList){
+                        status = writeAttendanceSheet(studentList, params, semester, courseSubject, examinationVenueIns, workbook, sheetNo)
+                        sheetNo= sheetNo+1;
+                    }
+                }
+            }
+            if(sheetNo>0){
+                workbook.write();
+                workbook.close();
+            }
+            return status
+        }
+        else{
+                def obj = Student.createCriteria()
+                def studentList = obj.list {
+                    programDetail {
+                        eq('id', Long.parseLong(params.programList))
+                    }
+                    examinationVenue {
+                        eq('id', examinationVenueIns.id)
+                    }
+                    and {
+                        eq('programSession', ProgramSession.findById(Integer.parseInt(params.programSession)))
+                    }
+                    and {
+                        eq('status', Status.findById(4))
+                    }
+
+                    and {
+                        eq('semester', Integer.parseInt(params.programTerm))
+                    }
+                }
+//              def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
+                def programDetail = ProgramDetail.findById(Long.parseLong(params.programList))
+                def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, Integer.parseInt(params.programTerm))
+                def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
+                status = writeAttendanceSheet(studentList, params, semester, courseSubject,  examinationVenueIns, workbook, sheetNo)
+                workbook.write();
+                workbook.close();
+                return status
+        }
 
     }
 
-    boolean writeAttendanceSheet(studentList, params, semester, courseSubject, String fileName, ExaminationVenue examinationCentre) {
+    boolean writeAttendanceSheet(studentList, params, semester, courseSubject,  ExaminationVenue examinationCentre, WritableWorkbook workbook, int sheetNo) {
         try {
-            File file = new File(fileName);
-            WorkbookSettings wbSettings = new WorkbookSettings();
 
-            wbSettings.setLocale(new Locale("en", "EN"));
-
-            WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
-            WritableSheet sheet = workbook.createSheet("Report", 0);
-            WritableSheet excelSheet = workbook.getSheet(0);
+            WritableSheet sheet = workbook.createSheet("Report", sheetNo);
+            WritableSheet excelSheet = workbook.getSheet(sheetNo);
             createLabel(excelSheet, courseSubject, examinationCentre);
             createContent(excelSheet, studentList);
 
-            workbook.write();
-            workbook.close();
             return true
         }
         catch (Exception e) {

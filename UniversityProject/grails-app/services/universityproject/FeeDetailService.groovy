@@ -5,10 +5,9 @@ import examinationproject.FeeDetails
 import examinationproject.FeeType
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
-import examinationproject.ProgramFee
+
 import examinationproject.Status
 import examinationproject.Student
-import grails.converters.JSON
 import grails.transaction.Transactional
 
 import java.text.DateFormat
@@ -99,30 +98,73 @@ class FeeDetailService {
     }
 
     def StudentList(params){
+        println("*********"+params)
         def resultMap=[:]
         def obj = Student.createCriteria()
         def currentUser=springSecurityService.getCurrentUser()
-        def stuList = obj.list {
+        def stuList=[]
+        if(params.program!='All' && params.semester!='All'){
+            stuList = obj.list {
                 programDetail {
-                    eq('id', Long.parseLong(params.programId))
+                    eq('id', Long.parseLong(params.program))
                 }
-            studyCentre {
-                eq('id',Long.parseLong(currentUser.studyCentreId.toString()))
+                studyCentre {
+                    eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
+                }
+                and {
+                    eq('status', Status.findById(2))
+                    eq('semester', Integer.parseInt(params.semester))
+                }
             }
+        }
+        else if(params.program=='All' && params.semester!='All'){
+            stuList = obj.list {
+                studyCentre {
+                    eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
+                }
+                and {
+                    eq('status', Status.findById(2))
+                    eq('semester', Long.parseLong(params.semester))
+                }
+            }
+
+        }
+        else if(params.program!='All' && params.semester=='All'){
+            stuList = obj.list {
+                programDetail {
+                    eq('id', Long.parseLong(params.program))
+                }
+                studyCentre {
+                    eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
+                }
                 and {
                     eq('status', Status.findById(2))
                 }
             }
+        }
+        else {
+            stuList = obj.list {
+                studyCentre {
+                    eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
+                }
+                and {
+                    eq('status', Status.findById(2))
+                }
+            }
+        }
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
         def feeList = FeeType.list(sort:'type')
-        def programDetail=ProgramDetail.findAllById(params.programId)
-        def feeAmount=ProgramFee.findAllByProgramDetail(programDetail)
+        def feeAmountList=[]
+        for (int i=0;i<stuList.size();i++){
+            def amount=ProgramFee.findAllByProgramDetail(stuList.programDetail)
+            feeAmountList.add(amount.feeAmountAtSC)
+        }
         resultMap.studentList=stuList
         resultMap.bankName=bankName
         resultMap.paymentMode=paymentMode
         resultMap.feeList=feeList
-        resultMap.feeAmount=feeAmount.feeAmountAtSC
+        resultMap.feeAmount=feeAmountList
         return resultMap
     }
 

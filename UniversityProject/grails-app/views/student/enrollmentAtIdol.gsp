@@ -33,12 +33,25 @@
                     <tr>
                         <td class="university-size-1-3">Name of the applicant <span class="university-obligatory">*</span></td>
                         <td class="university-size-2-3">
-                            <input type="text" placeholder="Enter First Name" name="firstName" style="text-transform:capitalize" onkeypress="return onlyAlphabets(event, this);"
-                                   maxlength="50" class="university-size-1-2"/>
-                            <input type="text" placeholder="Enter Middle Name"  name="middleName" style="text-transform:capitalize" onkeypress="return onlyAlphabets(event, this);"
-                                   maxlength="50" class="university-size-1-2"/>
-                            <input type="text" placeholder="Enter Last Name"  name="lastName" style="text-transform:capitalize" onkeypress="return onlyAlphabets(event, this);"
-                                   maxlength="50" class="university-size-1-2"/>
+                            <table class="inner university-table-1-3 university-size-1-1" style="vertical-align: top;">
+                                <tr>
+                                    <td>
+                                        <input type="text" placeholder="First Name" name="firstName" style="margin-left: -10px;text-transform: capitalize;"
+                                               onkeypress="return onlyAlphabets(event, this);"
+                                               maxlength="50" class="university-size-1-1" value=""/>
+                                    </td>
+                                    <td style="vertical-align: top;">
+                                        <input type="text" placeholder="Middle Name" name="middleName" style="margin-left: -10px;text-transform: capitalize;"
+                                               onkeypress="return onlyAlphabets(event, this);"
+                                               maxlength="50" class="university-size-1-1" value=""/>
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Last Name" name="lastName" style="margin-left: -10px;text-transform: capitalize;"
+                                               onkeypress="return onlyAlphabets(event, this);"
+                                               maxlength="50" class="university-size-1-1" value=""/>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr>
