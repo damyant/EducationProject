@@ -14,7 +14,7 @@ class Student {
     BigInteger mobileNo
     BigInteger registrationNo1
     BigInteger registrationNo2
-    String address
+    String studentAddress
     String addressTown
     String addressPO
     String addressDistrict
@@ -50,7 +50,7 @@ class Student {
         mobileNo(nullable: true)
         registrationNo1(nullable: true)
         registrationNo2(nullable: true)
-        address(nullable: true)
+        studentAddress(nullable: true)
         addressTown(nullable: true)
         addressPO(nullable: true)
         addressDistrict(nullable: true)
@@ -87,7 +87,7 @@ class Student {
         studyCentre column: "StudyCentre"
         registrationNo1 column: "RegistrationNo1"
         registrationNo2 column: "RegistrationNo2"
-        address column: "Address"
+        studentAddress column: "studentAddress"
         addressTown column: "AddressTown"
         addressPO column: "AddressPO"
         addressDistrict column: "AddressDistrict"

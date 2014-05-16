@@ -283,8 +283,8 @@
             <tr>
 
                 <td style="width: 30%;">Address:</td>
-                <td style="width: 70%;"><input type="text" name="address" maxlength="30"
-                                               class="university-size-1-2" value="${studInstance?.address}"/>
+                <td style="width: 70%;"><input type="text" name="studentAddress" maxlength="30"
+                                               class="university-size-1-2" value="${studInstance?.studentAddress}"/>
                 </td>
             </tr>
             <tr>

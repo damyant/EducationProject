@@ -45,7 +45,7 @@ class StudentRegistrationService {
             studentRegistration.addressPinCode = params.addressPinCode
             studentRegistration.addressPO = params.addressPO
             studentRegistration.addressTown = params.addressTown
-            studentRegistration.addressStudentName = params.addressStudentName
+            studentRegistration.studentAddress = params.studentAddress
             studentRegistration.addressDistrict = params.addressDistrict
             studentRegistration.challanNo = getChallanNumber()
 
