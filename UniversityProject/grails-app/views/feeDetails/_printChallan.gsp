@@ -19,8 +19,8 @@
     <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
 
         <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
-
         <div>GAUHATI UNIVERSITY</div>
+        <div>Guwahati, Assam</div>
     </p>
     <table style="width: 80%;margin: auto; text-align: center;">
         <tr>
@@ -36,8 +36,15 @@
             </tr>
         </g:each>
     </table>
-    <table STYLE="width: 80%;margin: auto; text-align: center;">
-        <tr><td style="width: 33%;">Grand Total</td><td style="width: 33%;"></td><td style="width: 33%;">${totalFee}</td></tr>
+    <table style="border: 1px solid;width: 80%;margin: auto;">
+
+    </table>
+    <table style="width: 80%;margin: auto; text-align: center;">
+        <tr>
+            <td style="width: 33%;">Grand Total</td>
+            <td style="width: 33%;">  </td>
+            <td style="width: 33%;">${totalFee}</td>
+        </tr>
     </table>
 
 </div>
