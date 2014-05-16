@@ -24,11 +24,13 @@
                 <td>${courseFee.getAt(index)}</td>
             </tr>
         </g:each>
-        <tr><td></td><td>Grand Total</td><td>${totalFee}</td></tr>
-        <tr><td></td><td>Payment Mode</td><td>${paymentModeName.paymentModeName}</td></tr>
-        <tr><td></td><td>Payment Date</td><td>${paymentDate}</td></tr>
-        <tr><td></td><td>Bank</td><td>${bank.bankName}</td></tr>
-        <tr><td></td><td>Branch</td><td>${branch.branchLocation}</td></tr>
+    </table>
+    <table STYLE="width: 80%;margin: auto; text-align: center;">
+        <tr><td>Grand Total</td><td></td><td>${totalFee}</td></tr>
+        <tr><td>Payment Mode</td><td></td><td>${paymentModeName.paymentModeName}</td></tr>
+        <tr><td>Payment Date</td><td></td><td>${paymentDate}</td></tr>
+        <tr><td>Bank</td><td></td><td>${bank.bankName}</td></tr>
+        <tr><td>Branch</td><td></td><td>${branch.branchLocation}</td></tr>
     </table>
 
 </div>

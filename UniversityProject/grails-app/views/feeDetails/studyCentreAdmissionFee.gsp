@@ -26,7 +26,7 @@
             <tr>
                 <td class="university-size-1-4">Enter Challan Number</td>
                 <td class="university-size-1-4"> <input type="text" name="searchChallanNo"id="searchChallanNo"   value=""/></td>
-                <td class="university-size-1-4"><input type="button" value="Show Students" onclick="showStudents()"/> </td>
+                <td class="university-size-1-4"><input type="button" value="Show Students" onclick="showListOfStudents()"/> </td>
                 <td class="university-size-1-4"></td>
             </tr>
             </thead>

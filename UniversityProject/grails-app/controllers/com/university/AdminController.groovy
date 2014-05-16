@@ -278,6 +278,20 @@ class AdminController {
         render resultMap as JSON
     }
 
+    def searchLiatofStudentByChallanNo(){
+        def returnMap=[:]
+        def courseNameList=[],courseFee=[]
+        def stuList=  Student.findAllByChallanNo(params.challanNo)
+        stuList.each{
+            println("==="+it.programDetail[0])
+            courseNameList<<it.programDetail[0].courseName
+            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+        }
+        returnMap.stuList=stuList
+        returnMap.courseNameList=courseNameList
+        returnMap.courseFee=courseFee
+        render  returnMap as JSON
+    }
     def searchByChallanNo(){
         def returnMap=[:]
         def courseNameList=[],courseFee=[]

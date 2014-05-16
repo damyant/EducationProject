@@ -24,7 +24,9 @@
             <td>${addmissionFee[index]}</td>
             </tr>
         </g:each>
-        <tr><td></td><td>Grand Total</td><td>${totalFee}</td></tr>
+    </table>
+    <table STYLE="width: 80%;margin: auto; text-align: center;">
+        <tr><td>Grand Total</td><td></td><td>${totalFee}</td></tr>
     </table>
 
 </div>
