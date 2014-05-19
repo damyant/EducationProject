@@ -532,8 +532,7 @@ function populateChallanDetail(t){
         data: {challanNo: challanNo},
 
         success: function (data) {
-            alert(data.stuList[0].firstName)
-            $("#allStudentList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
+            $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
             for(var i=0;i<data.stuList.length;i++){
                 $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="'+data.stuList[i].id+'"/> '+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td>'+data.stuList[i].rollNo+'</td><td>'+data.courseNameList[i]+'</td><td>'+data.bank+'</td><td>'+data.branch+'</td><td>'+data.courseFee[i]+'</td></tr>')
             }
@@ -544,6 +543,5 @@ function populateChallanDetail(t){
 }
 
 function submitStudents(){
-    alert("hi")
     $("#approvePayInSlip").submit()
 }
