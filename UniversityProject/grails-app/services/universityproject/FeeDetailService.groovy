@@ -258,7 +258,7 @@ class FeeDetailService {
         def feeList = FeeType.list(sort:'type')
         def feeAmountList=[]
         for (int i=0;i<stuList.size();i++){
-            def amount=ProgramFee.findAllByProgramDetail(stuList.programDetail)
+            def amount=AdmissionFee.findAllByProgramDetail(stuList.programDetail)
             feeAmountList.add(amount.feeAmountAtSC)
         }
         resultMap.studentList=stuList
@@ -275,7 +275,7 @@ class FeeDetailService {
         def courseNameList=[],courseFee=[]
         def stuList=  Student.findAllByChallanNo(params.challanNo)
         def feeDetails = FeeDetails.findByChallanNo(params.challanNo)
-        println(">>>>>>>>>>>>>>>>>>"+feeDetails.branchId.branchLocation)
+
         stuList.each{
             println("==="+it.programDetail[0])
             courseNameList<<it.programDetail[0].courseName

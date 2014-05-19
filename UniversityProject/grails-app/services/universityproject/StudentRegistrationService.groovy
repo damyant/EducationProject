@@ -35,7 +35,9 @@ class StudentRegistrationService {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
         if (params.studentId) {
             studentRegistration = Student.findById(Long.parseLong(params.studentId))
-            studentRegistration.studentName = params.studentName
+            studentRegistration.firstName = params.firstName
+            studentRegistration.lastName = params.lastName
+            studentRegistration.middleName = params.middleName
             studentRegistration.gender = params.gender
             studentRegistration.category = params.category
             studentRegistration.mobileNo = Long.parseLong(params.mobileNo)
@@ -112,7 +114,7 @@ class StudentRegistrationService {
             feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
             feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
             feeDetails.feeTypeId = FeeType.findById(1)
-            feeDetails.studentId= studentRegistration
+            feeDetails.challanNo= studentRegistration.challanNo
             feeDetails.paymentDate = df.parse(params.paymentDate)
             feeDetails.save(flush: true,failOnError: true)
             }

@@ -313,6 +313,7 @@ function setCourseLabel(t){
     $('#city').val('');
     $('#examCenterList').empty();
     $('#addExamCentre').empty();
+    $("#examinationCentre").val(0)
 
 }
 

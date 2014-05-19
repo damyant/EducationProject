@@ -128,7 +128,7 @@ def springSecurityService
         def courseIns=ProgramDetail.findById(Long.parseLong(params.programList))
         def examCentreIns=ExaminationCentre.findById(Long.parseLong(params.examinationCentre))
         def venueList=params.venueList.split(",")
-        ProgramExamVenue.removeAll(examCentreIns)
+        ProgramExamVenue.removeAll(examCentreIns,courseIns)
 
         venueList.each {it ->
             ProgramExamVenue.create courseIns,examCentreIns, ExaminationVenue.findById(Integer.parseInt(it.toString()))
