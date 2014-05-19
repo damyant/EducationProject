@@ -11,16 +11,34 @@
 
 
 function showCityList() {
-    var data = $('#district').val();
+    alert('in show city list')
+    var data;
+    data = $('#district').val();
+    alert("----------------"+data)
+    if(data){
+
+    }
+    else{
+        data=$('#districtCumulative').val()
+        alert("in else "+ data)
+    }
+
+
+
 
     $.ajax({
         type: "post",
         url: url('studyCenter', 'getCityList', ''),
         data: {data: data},
         success: function (data) {
-            $("#city").empty().append('<option value="">Select Examination Centre</option>')
+            $("#city").empty().append('<option value="">Select Examination Centre</option>');
+
+            $("#examCityCumulative").empty().append('<option value="">Select Examination Centre</option>');
             for (var i = 0; i < data.length; i++) {
-                $("#city").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>')
+                alert(data[i].cityName)
+                $("#city").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>');
+
+                $("#examCityCumulative").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>')
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -123,9 +141,11 @@ function showCentreList(t) {
         success: function (data) {
 
             $("#examinationCentre").empty().append('<option value=""> Select Examination Venue</option>')
+            $("#examinationCentreCumulative").empty().append('<option value=""> Select Examination Venue</option>')
             for (var i = 0; i < data.length; i++) {
-//                alert("--------------"+data[i].name)
+                alert("--------------"+data[i].name)
                 $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
+                $("#examinationCentreCumulative").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

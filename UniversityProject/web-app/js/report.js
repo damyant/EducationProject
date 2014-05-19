@@ -2,11 +2,13 @@
 $(function() {
     $(".dialog").dialog({
         autoOpen: false,
+        draggable: false,
+        position: ['center',100],
 //        maxWidth:600,
 //        maxHeight: 500,
         width: 600,
         resizable: false,
-        height: 200,
+        height: 210,
         modal: true,
         title:'Enter Details',
         close: function(ev, ui) { getStudentsList()}
@@ -108,6 +110,10 @@ $(function() {
     $('#admissionApproved').on('click', function(){
 //        alert("clicked")
         openPopUp(19)
+    })
+    $('#byCumulativeCandidateNo').on('click', function(){
+//        alert("clicked")
+        openPopUp(20)
     })
 });
 
@@ -274,6 +280,18 @@ function openPopUp(value){
         $('tr').hide()
         $('#flagValue').val('admissionApproved')
         $("#byAdmissionApprovedReport").show()
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+
+    else if(value==20){
+        $('tr').hide()
+        $('#flagValue').val('examinationCentreCumulative')
+        $('#district').val('')
+        $('#inExcel').val('')
+        $("#byExaminationCentre").show()
+        $("#examCenterSelectCumulative tr").show()
         $("#submitButton").show()
 //        alert("condition is true")
         $('#sessionDialog').dialog('open')

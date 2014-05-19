@@ -248,6 +248,16 @@ class ReportController {
            pdfRenderingService.render(args + [controller: this], response)
       }
 
+      else if(params.value=='examinationCentreCumulative' && params.examinationCentreCumulativeSchedule){
+           println("this cumulative function is called")
+           def totalList = reportService.getReportDataExaminationCentreCumulative(params)
+           def sessionVal= Integer.parseInt(params.courseApprovedSession)+1
+           sessionVal= params.courseApprovedSession+'-'+sessionVal
+           def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           pdfRenderingService.render(args + [controller: this], response)
+
+       }
+
    }
 
 }

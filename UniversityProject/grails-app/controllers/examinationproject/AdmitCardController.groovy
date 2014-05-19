@@ -57,7 +57,7 @@ class AdmitCardController {
             }
             else{
                 def course=ProgramDetail.findById(params.data)
-                println("------------------"+ course)
+
 
                 def resultMap = [:]
 

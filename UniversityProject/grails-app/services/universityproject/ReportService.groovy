@@ -1,8 +1,11 @@
 package universityproject
 
+import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.FeeType
 import examinationproject.ProgramDetail
+import examinationproject.ProgramExamVenue
+import examinationproject.ProgramSession
 import examinationproject.Status
 import examinationproject.Student
 import examinationproject.StudyCenter
@@ -663,4 +666,66 @@ class ReportService {
     }
 
 
+    def getReportDataExaminationCentreCumulative(params){
+        def examinationVenueIns = ExaminationVenue.findById(Long.parseLong(params.examinationCentreCumulative))
+        def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
+        def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
+        println('max no of course '+ course)
+
+        if(params.examinationCentreCumulativeSchedule=='7'){
+            program.each{
+                def pid= it.courseDetail.id
+                for(int i=2; i<=course[0]; i+=2){
+                    def obj = Student.createCriteria()
+                        def  studentList = obj.list {
+                        programDetail {
+                            eq('id', pid)
+                        }
+                        examinationVenue {
+                            eq('id', examinationVenueIns.id)
+                        }
+                        and {
+                            eq('status', Status.findById(4))
+                        }
+                        and {
+                            eq('semester', i)
+                        }
+                            projections{
+                                rowCount()
+                            }
+                    }
+                    println("this is the result of the query "+studentList+' for the course '+pid+' for the semester '+i)
+                }
+            }
+        }
+        else if(params.examinationCentreCumulativeSchedule=='1'){
+            program.each{
+                def pid= it.courseDetail.id
+                for(int i=1; i<=course[0]; i+=2){
+                    def obj = Student.createCriteria()
+                    def  studentList = obj.list {
+                        programDetail {
+                            eq('id', pid)
+                        }
+                        examinationVenue {
+                            eq('id', examinationVenueIns.id)
+                        }
+                        and {
+                            eq('status', Status.findById(4))
+                        }
+                        and {
+                            eq('semester', i)
+                        }
+                        projections{
+                            rowCount()
+                        }
+                    }
+                    println("this is the result of the query "+studentList+' for the course '+pid+' for the semester '+i)
+                }
+            }
+        }
+    }
 }
+
+
+

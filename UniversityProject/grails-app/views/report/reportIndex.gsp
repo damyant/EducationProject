@@ -91,7 +91,8 @@
                         </ul>
                     </a>
                 </div>
-
+                 <div id="byCumulativeCandidateNo"> <a href="#"> <li>Examination venue Cumulative Candidate No
+                 </a></div>
       </ul>
       </sec:ifAnyGranted>
     </div>
@@ -423,6 +424,67 @@
 
                </tr>
 
+
+
+
+
+           <tr id="cumulativeCandidateNo">
+
+               <table id="examCenterSelectCumulative" style="border: 0px solid black">
+                   <tr>
+                       <td style="width: 50%">
+
+                           <g:select name="districtCumulative" id="districtCumulative" optionKey="id"
+                                     value="" class="university-size-1-1"
+                                     onChange="showCityList()" optionValue="districtName"
+                                     from="${District.list([sort: 'districtName'])}" noSelection="['': ' Select District']"/>
+
+                       </td>
+                       <td style="width: 50%">
+
+
+                           <g:select name="examCityCumulative" id="examCityCumulative" optionKey="id" class="university-size-1-1"
+                                     optionValue="cityName"
+                                     from="" onchange="showCentreList(this)"
+                                     noSelection="['': 'Select Examination Centre']"/>
+
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>
+                           <g:select name="examinationCentreCumulative" id="examinationCentreCumulative" class="university-size-1-1" from=" "
+                                     noSelection="['': 'Select Examination Venue']"/>
+
+                       </td>
+                       <td>
+                           <select name="examinationCentreCumulativeSchedule" class="university-size-1-1" id="examinationCentreCumulativeSchedule">
+                               <option value="0">Select Examination Schedule</option>
+                               <option value="1">January</option>
+                               <option value="7">July</option>
+                               </select>
+                       </td>
+                   </tr>
+               </table>
+
+           </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                <tr id="submitButton">
                    <td>
                        <g:hiddenField name="value" id="flagValue" value=""/>
@@ -443,3 +505,106 @@
  </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
