@@ -12,32 +12,13 @@
     <title></title>
     <g:javascript src='admin.js'/>
     <g:javascript src='admitCard.js'/>
-    <script type="text/javascript">
-    $(window).bind("load", function () {
-
-        var challanNo = "${challanNo}"
-        if (challanNo) {
-
-            url = "http://localhost:9093/UniversityProject/student/registration"
-            window.location.href = url;
-            window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId);
-
-        }
-
-    })
-    </script>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
 </head>
-
 <body>
 <div id="main">
 
     <fieldset class="form">
-        <g:if test="${params?.type}">
-            <h3>Study Centre Post Admission Fee Entry</h3>
-        </g:if>
-        <g:else>
-            <h3>Study Centre Admission Fee Entry</h3>
-        </g:else>
+            <h3>Generate Admission Fee Challan</h3>
     <g:form name="challanForStudyCenter" id="challanForStudyCenter" controller="feeDetails" action="challanForStudyCenterStu">
         <g:hiddenField name="studentListId" id="studentListId" value="" />
         <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
@@ -82,7 +63,7 @@
                 <th  style="width: 10%;">Serial No</th>
                 <th style="width: 26.6%;">Roll No</th>
                 <th style="width: 26.6%;">Student Name</th>
-                <th style="width: 26.6%;">Amount <b>[&#x20B9;]</b> </th>
+                <th style="width: 26.6%;">Amount </th>
                 <th style="width: 10%;">Semester</th>
             </tr>
             </thead>
@@ -94,12 +75,12 @@
             <div class="university-size-1-3 university-display-inline"><input type="radio" id="individualEntry" name="entry" value="Range"> <label for="individualEntry">Generate challan Individually</label></div>
         </div>
         <br/>
-        <table id="paymentDetails" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd;display: none; " >
+        <table id="paymentDetails" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd;visibility: hidden " >
 
         </table>
         <br/>
         <div style="width:100%;margin:auto; text-align: center;">
-                <input type="button" class="university-size-1-3 ui-button" id="generateFeeChallan" onclick="generateChallanForRange()" value="Generate Fee Challan" style="display: none;margin-left: 33%;"/>
+                <input type="button" class="university-size-1-3 ui-button" id="generateFeeChallan" onclick="generateChallanForRange()" value="Generate Fee Challan" style="visibility: hidden;"/>
         </div>
     </g:form>
         </fieldset>

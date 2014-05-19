@@ -156,7 +156,7 @@
                         <label>Complete Mailing Address</label>
                     </td>
                     <td style="vertical-align: top;">
-                        <div>${studentInstance?.address}, ${studentInstance?.addressTown}</div>
+                        <div>${studentInstance?.studentAddress}, ${studentInstance?.addressTown}</div>
 
                         <div>${studentInstance?.addressPO} ${studentInstance?.addressDistrict}</div>
 

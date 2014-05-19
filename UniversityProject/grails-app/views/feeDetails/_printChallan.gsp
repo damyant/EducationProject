@@ -8,23 +8,43 @@
 </head>
 
 <body>
-<div id="main">
-    <div style="width: 80%;margin: auto; text-align: right;">
-        Challan No : ${studList[0].challanNo}
+
+<div style="border: 1px solid; padding: 10px;">
+    <div class="university-size-full-1-1" style="margin-bottom: 25px;"><div
+            style="float: right"><lable>Challan. No.</lable><label>${studList[0].challanNo}</label></div>
+
+        <div class="university-clear-both"></div>
     </div>
-    <table STYLE="width: 80%;margin: auto; text-align: center;">
+
+    <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
+
+        <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
+        <div>GAUHATI UNIVERSITY</div>
+        <div>Guwahati, Assam</div>
+    </p>
+    <table style="width: 80%;margin: auto; text-align: center;">
         <tr>
-            <th>Student Name</th>
-            <th>Roll No</th>
-            <th>Amount</th>
+            <th style="width: 33%;">Student Name</th>
+            <th style="width: 33%;">Roll No</th>
+            <th style="width: 33%;">Amount</th>
         </tr>
-        <g:each in="${0..studList.size()-1}" var="index">
-            <tr><td> ${studList[index].firstName} ${studList[index].lastName}</td>
-            <td>${studList[index].rollNo}</td>
-            <td>${addmissionFee[index]}</td>
+        <g:each in="${0..studList.size() - 1}" var="index">
+            <tr>
+                <td>${studList[index].firstName} ${studList[index].lastName}</td>
+                <td>${studList[index].rollNo}</td>
+                <td>${addmissionFee[index]}</td>
             </tr>
         </g:each>
-        <tr><td></td><td>Grand Total</td><td>${totalFee}</td></tr>
+    </table>
+    <table style="border: 1px solid;width: 80%;margin: auto;">
+
+    </table>
+    <table style="width: 80%;margin: auto; text-align: center;">
+        <tr>
+            <td style="width: 33%;">Grand Total</td>
+            <td style="width: 33%;">  </td>
+            <td style="width: 33%;">${totalFee}</td>
+        </tr>
     </table>
 
 </div>

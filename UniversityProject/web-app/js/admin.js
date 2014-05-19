@@ -376,21 +376,6 @@ function loadSession(t){
         });
     }
 }
-function populateChallanDetail(t){
-    var challanNo=$(t).val();
-    $.ajax({
-        type: "post",
-        url: url('admin', 'getChallanDetails', ''),
-        data: {challanNo: challanNo},
-
-        success: function (data) {
-            console.log("dsfddsdds"+data.studentInst.rollNo);
-            $('#rollNo').val(data.studentInst[0].rollNo);
-            $('#feeAmount').val(data.feeAmount[0]);
-
-        }
-    });
-}
 
 function approvePayInSlip(){
     $.ajax({
@@ -490,31 +475,73 @@ function generateChallanForRange(){
     $("#studentListId").val(selectedStudentId)
 
     if(selectedStudentId!=null){
-
+        $("#challanForStudyCenter").submit()
       }
     }
     else{
-        $("#challanForStudyCenter").submit()
+
     }
 }
 
 
-function challanAjaxRequest(){
+
+function showStudents(){
+
 
     $.ajax({
         type: "post",
-        url: url('feeDetails', 'challanForStudyCenterStu', ''),
-        data:"studentIdList="+selectedStudentId,
+        url: url('admin', 'searchByChallanNo', ''),
+        data: 'challanNo='+$('#searchChallanNo').val(),
 
         success: function (data) {
-//            if(data.flag){
-//                $('#rollNo').val('');
-//                $('#payInSlipNo').val('');
-//                $('#datePick').val('');
-//                $('#approvePayInSlip')[0].reset();
-//                $('#statusMessage').html("Approved Succesfully")
-//            }
+//            alert(data[0].programDetail.id)
+            $("#scStudnetList tbody").empty().append('')
+            $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
+            for(var i=0;i<data.stuList.length;i++){
+            $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
+            }
         }
 
     })
+
+}
+function showListOfStudents(){
+    document.getElementById("studentPayList").style.visibility = "visible";
+    document.getElementById("paySubmit").style.visibility = "visible";
+    $.ajax({
+        type: "post",
+        url: url('admin', 'searchListStudentByChallanNo', ''),
+        data: 'challanNo='+$('#searchChallanNo').val(),
+
+        success: function (data) {
+//            alert(data[0].programDetail.id)
+            $("#scStudnetList tbody").empty().append('')
+            $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
+            for(var i=0;i<data.stuList.length;i++){
+                $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
+            }
+        }
+    })
+}
+function populateChallanDetail(t){
+    var challanNo=$(t).val();
+//    alert("?????????????")
+    $.ajax({
+        type: "post",
+        url: url('admin', 'getChallanDetailsforStudent', ''),
+        data: {challanNo: challanNo},
+
+        success: function (data) {
+            $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
+            for(var i=0;i<data.stuList.length;i++){
+                $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="'+data.stuList[i].id+'"/> '+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td>'+data.stuList[i].rollNo+'</td><td>'+data.courseNameList[i]+'</td><td>'+data.bank+'</td><td>'+data.branch+'</td><td>'+data.courseFee[i]+'</td></tr>')
+            }
+            $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
+
+        }
+    });
+}
+
+function submitStudents(){
+    $("#approvePayInSlip").submit()
 }
