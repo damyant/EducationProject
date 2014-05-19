@@ -44,6 +44,7 @@ class AdmitCardController {
     }
 
     def getSemesterList={
+        println("++"+params)
         try{
             if(params.data=='allProgram'){
                 def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')

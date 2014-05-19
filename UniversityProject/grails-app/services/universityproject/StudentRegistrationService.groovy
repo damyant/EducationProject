@@ -32,10 +32,12 @@ class StudentRegistrationService {
         def endYear
         def programSession
         def studentRegistration
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
         if (params.studentId) {
             studentRegistration = Student.findById(Long.parseLong(params.studentId))
-            studentRegistration.studentName = params.studentName
+            studentRegistration.firstName = params.firstName
+            studentRegistration.lastName = params.lastName
+            studentRegistration.middleName = params.middleName
             studentRegistration.gender = params.gender
             studentRegistration.category = params.category
             studentRegistration.mobileNo = Long.parseLong(params.mobileNo)
@@ -45,7 +47,7 @@ class StudentRegistrationService {
             studentRegistration.addressPinCode = params.addressPinCode
             studentRegistration.addressPO = params.addressPO
             studentRegistration.addressTown = params.addressTown
-            studentRegistration.addressStudentName = params.addressStudentName
+            studentRegistration.studentAddress = params.studentAddress
             studentRegistration.addressDistrict = params.addressDistrict
             studentRegistration.challanNo = getChallanNumber()
 
@@ -112,7 +114,7 @@ class StudentRegistrationService {
             feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
             feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
             feeDetails.feeTypeId = FeeType.findById(1)
-            feeDetails.studentId= studentRegistration
+            feeDetails.challanNo= studentRegistration.challanNo
             feeDetails.paymentDate = df.parse(params.paymentDate)
             feeDetails.save(flush: true,failOnError: true)
             }
@@ -165,14 +167,14 @@ class StudentRegistrationService {
                 if (studentByYearAndCourse.size()>0) {
                     if (studentByYearAndCourse.get(0).rollNo) {
 
-                        if (rollNumber == null) {
+//                        if (rollNumber == null) {
                             rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
                             rollTemp1 = Integer.parseInt(rollTemp) + 1
                             rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
-                        } else {
-                            ++rollTemp1
-                            rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
-                        }
+//                        } else {
+//                            ++rollTemp1
+//                            rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
+//                        }
                     } else {
                         rollNumber = courseCodeStr + yearCode + rollStr
                     }
@@ -302,8 +304,6 @@ class StudentRegistrationService {
              challanNo = challan+challanSr
 
             }
-
-
             println("challan number is"+challanNo)
             return challanNo
         }

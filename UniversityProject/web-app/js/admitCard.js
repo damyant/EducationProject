@@ -114,6 +114,7 @@ function selectRows(){
 }
 
 function getSemester(t){
+
     var data = $(t).val();
     $('#semesterList').prop('disabled',false)
     $('#SessionList').prop('disabled',false)
@@ -123,7 +124,9 @@ function getSemester(t){
         data: {data: data},
         success: function (data) {
             $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+
             $("#SessionList").empty().append('data <option value="">Select Session</option>')
+
             for (var i = 1; i <= data.totalSem; i++) {
                 $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
             }
@@ -174,6 +177,8 @@ function getSemesterForAttendance(t){
             }
         })
     }
+
+    $("#semesterList").attr('enabled',true)
 
 }
 
@@ -350,6 +355,7 @@ function setCourseLabel(t){
     $('#city').val('');
     $('#examCenterList').empty();
     $('#addExamCentre').empty();
+    $("#examinationCentre").val(0)
 
 }
 
@@ -423,7 +429,7 @@ function enableShowCandidate(){
 
 
 function downloadAdmitCard(){
-    validate()
+    validate();
     var result = $('#individualDownloadAdmitCard').valid()
     if(result) {
         $("#individualDownloadAdmitCard").submit();

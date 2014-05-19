@@ -12,6 +12,8 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class FeeDetailsController {
     def feeDetailService
+    def studentRegistrationService
+    def pdfRenderingService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -104,11 +106,9 @@ class FeeDetailsController {
     }
     @Secured("ROLE_STUDY_CENTRE")
     def studyCentreAdmissionFee={
-        def programList = ProgramDetail.list(sort:'courseName')
-//        def paymentModeList = PaymentMode.list(sort:'paymentModeName')
-//        def bankList = Bank.list(sort:'bankName')
-        [programList:programList]
-//        [programList:programList, paymentModeList:paymentModeList, bankList:bankList]
+        def bankName=Bank.list(sort:'bankName')
+        def paymentMode=PaymentMode.list(sort:'paymentModeName')
+        [bankName:bankName, paymentMode:paymentMode]
     }
 
     @Secured("ROLE_STUDY_CENTRE")
@@ -127,12 +127,20 @@ class FeeDetailsController {
         render response as JSON
     }
 
-    def studyCentrePostAdmissionFee={
-
+    def challanForMiscellaneousFee={
+        def programList = ProgramDetail.list(sort:'courseName')
+        def programCategory=ProgramType.list(sort:'type')
+        def miscFeeType=FeeType.list(sort:'type')
+        [programList:programList, programCategory:programCategory,miscFeeType:miscFeeType]
     }
     def populateStudents={
         def resultMap=[:]
         resultMap= feeDetailService.StudentList(params)
+        render resultMap as JSON
+    }
+    def populateStudentsForMFee={
+        def resultMap=[:]
+        resultMap= feeDetailService.StudentListForMFee(params)
         render resultMap as JSON
     }
 
@@ -163,7 +171,7 @@ class FeeDetailsController {
 //        println("################################################ ====>"+params);
         def resultMap=[:]
         def student = Student.findById(params.studentId)
-        def programFee = ProgramFee.findByProgramDetail(student.programDetail)
+        def programFee = AdmissionFee.findByProgramDetail(student.programDetail)
 //        println(student.programDetail)
         def programFeeAmount
 //        println("type --->"+params.feeType)
@@ -184,5 +192,97 @@ class FeeDetailsController {
 //        println(programFee.feeAmountAtSC)
 //        println(resultMap)
         render resultMap as JSON
+    }
+
+
+    def challanForStudyCenterStu={
+         println("***************"+params)
+        List<Student> studList =[]
+        List<AdmissionFee> addmissionFee = []
+        def stuList=[]
+        def totalFee=0;
+        def challanNo=studentRegistrationService.getChallanNumber()
+        if(params.rollNoSearch){
+           def stuIns= Student.findByRollNo(params.rollNoSearch)
+            stuIns.challanNo=challanNo
+            stuIns.save(failOnError: true)
+            studList.add(stuIns)
+            Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
+            def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtIDOL
+            totalFee=totalFee+ feeForStudent
+            addmissionFee.add(feeForStudent)
+        }else{
+        stuList=params.studentListId.split(",")
+            for(def i=0;i<stuList.size()-1;i++){
+                println("**********"+stuList[i]);
+                def stuIns=Student.findById(Long.parseLong(stuList[i]))
+                stuIns.rollNo
+                stuIns.challanNo=challanNo
+                stuIns.save(failOnError: true)
+                studList.add(stuIns)
+                Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
+                def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtIDOL
+                totalFee=totalFee+ feeForStudent
+                addmissionFee.add(feeForStudent)
+            }
+
+        }
+
+
+
+        def args = [template: "printChallan", model: [studList: studList,addmissionFee:addmissionFee,totalFee:totalFee],filename:challanNo+".pdf"]
+        pdfRenderingService.render(args + [controller: this], response)
+    }
+    def printChallan={
+
+    }
+    def populateStudentsByChallan={
+        def resultMap=[:]
+        resultMap= feeDetailService.StudentListByChallan(params)
+        println(resultMap)
+        render resultMap as JSON
+    }
+
+
+    def payChallanForStudyCenterStu={
+//        println("***************"+params)
+        def courseNameList=[],courseFee=[]
+        def stuList=  Student.findAllByChallanNo(params.searchChallanNo)
+        def totalFee=0;
+        stuList.each{
+            println("==="+it.programDetail[0])
+            courseNameList<<it.programDetail[0].courseName
+            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+
+        }
+        for(def k=0;k<courseFee.size();k++){
+            totalFee=totalFee+courseFee[k]
+        }
+        def paymentModeName=PaymentMode.findById(params.paymentMode)
+        def bank=Bank.findById(params.bankName)
+        def branch=Branch.findById(params.branchLocation)
+        def feeDetailsInstance = new FeeDetails()
+        feeDetailsInstance.challanNo=params.searchChallanNo
+        feeDetailsInstance.paymentModeId=PaymentMode.findById(params.paymentMode)
+        feeDetailsInstance.bankId=Bank.findById(params.bankName)
+        feeDetailsInstance.branchId=Branch.findById(params.branchLocation)
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        feeDetailsInstance.paymentDate=df.parse(params.paymentDate)
+
+        if (feeDetailsInstance.save(flush: true, failOnError: true)) {
+            for(int j=0;j<stuList.size();j++){
+                stuList[j].status = Status.findById(3)
+                stuList[j].save(flush: true, failOnError: true)
+            }
+        }
+        def challanNo=params.searchChallanNo
+        def paymentDate=params.paymentDate
+        println("size"+stuList.size())
+        println("std"+stuList)
+        println("std"+stuList[0])
+        println("fee"+courseFee.size()+" >>>>>>>>>>>> "+courseFee)
+
+        def args = [template: "printPayChallan", model: [bank:bank,branch:branch,paymentModeName:paymentModeName,paymentDate:paymentDate,stuList:stuList,courseFee:courseFee,totalFee:totalFee,courseNameList:courseNameList,challanNo:challanNo,],filename:challanNo+".pdf"]
+        pdfRenderingService.render(args + [controller: this], response)
     }
 }

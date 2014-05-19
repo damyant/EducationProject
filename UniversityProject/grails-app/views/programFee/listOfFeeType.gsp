@@ -1,5 +1,5 @@
 
-<%@ page import="examinationproject.ProgramFee" %>
+<%@ page import="examinationproject.AdmissionFee" %>
 <!DOCTYPE html>
 <html>
 	<head>

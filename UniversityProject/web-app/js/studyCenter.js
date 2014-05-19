@@ -35,7 +35,7 @@ function showCityList() {
 
             $("#examCityCumulative").empty().append('<option value="">Select Examination Centre</option>');
             for (var i = 0; i < data.length; i++) {
-                alert(data[i].cityName)
+
                 $("#city").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>');
 
                 $("#examCityCumulative").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>')
@@ -143,7 +143,6 @@ function showCentreList(t) {
             $("#examinationCentre").empty().append('<option value=""> Select Examination Venue</option>')
             $("#examinationCentreCumulative").empty().append('<option value=""> Select Examination Venue</option>')
             for (var i = 0; i < data.length; i++) {
-                alert("--------------"+data[i].name)
                 $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
                 $("#examinationCentreCumulative").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
             }

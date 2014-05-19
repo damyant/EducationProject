@@ -692,6 +692,7 @@ class ReportService {
                         }
                             projections{
                                 rowCount()
+                                groupProperty('semester')
                             }
                     }
                     println("this is the result of the query "+studentList+' for the course '+pid+' for the semester '+i)
@@ -718,6 +719,7 @@ class ReportService {
                         }
                         projections{
                             rowCount()
+                            groupProperty('semester')
                         }
                     }
                     println("this is the result of the query "+studentList+' for the course '+pid+' for the semester '+i)

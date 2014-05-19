@@ -44,15 +44,15 @@ class AttendanceService {
         if(params.programList=='allProgram' && params.programSession=='allSession' && params.programTerm=='allSemester'){
             def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
             def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
-            def sessions= ProgramSession.executeQuery( "select distinct  programSession.sessionOfProgram from ProgramSession programSession" );
-
-                println("-----------------------------------********"+ pid)
-                for(int i=1;i<=course[0]; i++){
-                    sessions.each{
-                        def session=it
-                        def obj = Student.createCriteria()
-                         program.each{
-                            def pid= it.courseDetail.id
+               for(int i=1;i<=course[0]; i++){
+                    program.each{
+                        def pid= it.courseDetail.id
+                        def session=ProgramSession.findAllById(pid)
+                        println("---------------------------------------------"+session)
+                         session.each{
+                            def sessionId=it.id
+                             println("-------------------------"+sessionId)
+                            def obj = Student.createCriteria()
                             def studentList = obj.list {
                             programDetail {
                                 eq('id', pid)
@@ -61,9 +61,8 @@ class AttendanceService {
                                 eq('id', examinationVenueIns.id)
                             }
                             and {
-                                    eq('programSession', ProgramSession.findBySessionOfProgram(''+session))
+                                eq('programSession', ProgramSession.findById(sessionId))
                             }
-
                             and {
                                 eq('status', Status.findById(4))
                             }
@@ -71,6 +70,7 @@ class AttendanceService {
                                     eq('semester', i)
                             }
                         }
+                             println("this is the semester "+i+" this is the course "+pid+' this is the session '+ sessionId+' student list is '+studentList)
 //                        def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
                         def programDetail = ProgramDetail.findById(pid)
                         def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, i)
@@ -139,13 +139,12 @@ class AttendanceService {
         else if(params.programList=='allProgram' && params.programSession=='allSession' && params.programTerm!='allSemester'){
             def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
 //            def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
-            def sessions= ProgramSession.executeQuery( "select distinct  programSession.sessionOfProgram from ProgramSession programSession" );
             program.each{
                 def pid= it.courseDetail.id
+                def sessions =ProgramSession.findAllById(pid)
                 println("-----------------------------------********"+ pid)
                 sessions.each{
-
-                    def session=it
+                    def sessionId=it.id
                     def obj = Student.createCriteria()
                     def studentList = obj.list {
                         programDetail {
@@ -155,7 +154,7 @@ class AttendanceService {
                             eq('id', examinationVenueIns.id)
                         }
                         and {
-                            eq('programSession', ProgramSession.findBySessionOfProgram(''+session))
+                            eq('programSession', ProgramSession.findById(sessionId))
                         }
 
                         and {
@@ -165,7 +164,6 @@ class AttendanceService {
                             eq('semester', Integer.parseInt(params.programTerm))
                         }
                     }
-//                        def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
                     def programDetail = ProgramDetail.findById(pid)
                     def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, Integer.parseInt(params.programTerm))
                     def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
@@ -201,6 +199,8 @@ class AttendanceService {
                         eq('semester', Integer.parseInt(params.programTerm))
                     }
                 }
+            println("this is the semester "+params.programTerm+" this is the course "+params.programList+' this is the session '+ params.programSession+' student list is '+studentList)
+
 //              def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
                 def programDetail = ProgramDetail.findById(Long.parseLong(params.programList))
                 def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, Integer.parseInt(params.programTerm))
