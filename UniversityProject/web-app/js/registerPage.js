@@ -133,6 +133,7 @@ function submitTempRegistration() {
     validate();
     var result = $('#tempEnrollment').valid()
     if (result) {
+
         $.ajax({
             type: "post",
             url: url('student', 'tempRegistration', ''),
@@ -146,18 +147,18 @@ function submitTempRegistration() {
     }
 }
 function confirmGenerateChallan(rollno) {
-
+alert("challan"+rollno)
         $.ajax({
         type: "post",
         url: url('admin', 'checkFeeByRollNo', ''),
-        data: {rollNo: rollno},
+        data: {rollNo: rollno,feeType:0},
         success: function (data) {
             if (data.feeStatus) {
                 var confirmOK = confirm("Do you want to Generate Challan for Roll No " + rollno + " ?");
                 if (confirmOK) {
 
 //                    window.open('/UniversityProject/admin/generateFeeVoucher?rollNo=' + rollno+'&feeType=1');
-                        window.location.href = '/UniversityProject/admin/generateFeeVoucher?rollNo=' + rollno;
+                        window.location.href = '/UniversityProject/admin/generateFeeVoucher?rollNo=' + rollno+"&idol="+"idol&feeType="+"0";
                 }
                 else {
                     alert('Student Registered Successfully & Roll No is ' + rollno);

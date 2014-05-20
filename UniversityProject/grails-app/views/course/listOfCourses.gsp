@@ -18,35 +18,40 @@
         <thead>
         <tr>
             <th>Program Name</th>
+            <th>Program Session</th>
             <th>Program Type</th>
             <th>Program Mode</th>
+
             <th>&nbsp;</th>
         </tr>
         </thead>
         <tbody>
         <g:if test="${params.type == 'update'}">
-            <g:each var="course"  in="${courseList}">
+            <g:each var="course"  in="${courseSessionList}">
                 <tr>
-                    <td>${course.courseName}</td>
-                    <td>${course.courseType.courseTypeName}</td>
-                    <td>${course.courseMode.modeName}</td>
+                    <td>${course.programDetailId.courseName}</td>
+                    <td>${course.sessionOfProgram}</td>
+                    <td>${course.programDetailId.courseType.courseTypeName}</td>
+                    <td>${course.programDetailId.courseMode.modeName}</td>
+
                 <td><div class="university-float-right">
                     %{--<input type="submit" value="Update" class="university-button"/>--}%
-                    <button class="university-button"> <g:link  controller="course" action="createNewCourse" params="[courseId:course.id,semester:course.noOfTerms]" class="university-text-decoration-none">Update</g:link></button>
-                    <button class="university-button"> <g:link  controller="course" action="deleteCourse" params="[courseId:course.id,semester:course.noOfTerms]" class="university-text-decoration-none">Delete</g:link></button>
+                    <button class="university-button"> <g:link  controller="course" action="createNewCourse" params="[courseSessionId:course.id,semester:course.programDetailId.noOfTerms]" class="university-text-decoration-none">Update</g:link></button>
+                    <button class="university-button"> <g:link  controller="course" action="deleteCourse" params="[courseSessionId:course.id,semester:course.programDetailId.noOfTerms]" class="university-text-decoration-none">Delete</g:link></button>
                     %{--<input type="button" value="Delete"  class="university-button"/>--}%
                 </div></td>
             </tr>
            </g:each>
         </g:if>
         <g:else>
-           <g:each var="course"  in="${courseList}">
+           <g:each var="course"  in="${courseSessionList}">
             <tr>
-                <td>${course.courseName}</td>
-                <td>${course.courseType.courseTypeName}</td>
-                <td>${course.courseMode.modeName}</td>
+                <td>${course.programDetailId.courseName}</td>
+                <td>${course.sessionOfProgram}</td>
+                <td>${course.programDetailId.courseType.courseTypeName}</td>
+                <td>${course.programDetailId.courseMode.modeName}</td>
                 <td><div class="university-float-right">
-                    <button class="university-button"> <g:link  controller="course" action="viewCourses" params="[courseId:course.id,semester:course.noOfTerms,type:'view']" class="university-text-decoration-none">View</g:link></button>
+                    <button class="university-button"> <g:link  controller="course" action="viewCourses" params="[courseSessionId:course.id,semester:course.programDetailId.noOfTerms,type:'view']" class="university-text-decoration-none">View</g:link></button>
                 </div></td>
             </tr>
            </g:each>

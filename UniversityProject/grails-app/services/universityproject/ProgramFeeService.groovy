@@ -39,13 +39,24 @@ class ProgramFeeService {
         def session = ProgramSession.count()
         def programSessionIns
         if (session > 0) {
-            if (programDetail[0].programSession.id) {
-                programSessionIns = ProgramSession.findById(programDetail[0].programSession.id)
+            //old is gold code
+//            if (programDetail[0].programSession.id) {
+//                programSessionIns = ProgramSession.findById(programDetail[0].programSession.id)
+//            } else {
+//                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession, programDetail: programDetail).save(flush: true, failOnError: true)
+//            }
+//        } else {
+//            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession, programDetail: programDetail).save(flush: true, failOnError: true)
+////            println("Session new" + programSessionIns.sessionOfProgram)
+//        }
+            //new code start from here
+            if (ProgramSession.findBySessionOfProgram(params.programSession)) {
+                programSessionIns = ProgramSession.findBySessionOfProgram(params.programSession)
             } else {
-                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession, programDetail: programDetail).save(flush: true, failOnError: true)
+                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
             }
         } else {
-            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession, programDetail: programDetail).save(flush: true, failOnError: true)
+            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
 //            println("Session new" + programSessionIns.sessionOfProgram)
         }
         admissionFeeIns.programSession= programSessionIns
@@ -96,12 +107,13 @@ class ProgramFeeService {
         def nextSession
         def programSessions= []
         try{
-            Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.program))
-            endYear = (Integer.parseInt(year) + programDetail[0].noOfAcademicYears).toString()
+//            Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.program))
+          //  endYear = (Integer.parseInt(year) + programDetail[0].noOfAcademicYears).toString()
+            endYear = Integer.parseInt(year)+1
             currentSession = (startYear + "-" + endYear)
-            nextSession    =  ((Integer.parseInt(startYear)+1) + "-" + ++Integer.parseInt(endYear))
-            programSessions.add(new ProgramSession(programDetail:programDetail,sessionOfProgram: currentSession))
-            programSessions.add(new ProgramSession(programDetail:programDetail,sessionOfProgram: nextSession))
+            nextSession    = endYear+ "-" + ++endYear
+            programSessions.add(new ProgramSession(sessionOfProgram: currentSession))
+            programSessions.add(new ProgramSession(sessionOfProgram: nextSession))
 //
             println("ProgramSession"+programSessions)
             }catch(Exception ex){

@@ -79,11 +79,14 @@ class AdminController {
         render stuList as JSON
     }
 
-    @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
-    def feeVoucher = {
-        def feeType = FeeType.list(sort: 'type')
-        //  def selectFeeType=FeeType.findAllById(1)
-        [feeType: feeType]
+    @Secured(["ROLE_ADMIN","ROLE_IDOL_USER"])
+    def feeVoucher={
+        def feeType = []
+        feeType = FeeType.list(sort:'type')
+      // def selectFeeType=FeeType.findAllById(1)
+       // feeType.add(new FeeType(type:"Admission Fee"))
+        [feeType:feeType]
+
     }
 
 
@@ -94,45 +97,77 @@ class AdminController {
     }
 
     def checkFeeByRollNo = {
+
+
+        def response
+        try{
         def student = Student.findByRollNo(params.rollNo)
-        def program = student.programDetail
-        def programName = program[0].courseName
+        def program= student.programDetail[0]
+        def feeType
+        def programName=program.courseName
         boolean status
         def admissionFee = AdmissionFee.findByProgramDetail(program)
-        if (admissionFee)
-            status = true
+        def mFee
+
+       if(Integer.parseInt(params.feeType)>0){
+           println("Hello")
+           feeType = FeeType.findById(params.feeType)
+           mFee = MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(feeType,program,student.programSession)
+           if(mFee)
+               status=true
+           else
+               status= false
+       }else{
+        if(admissionFee)
+            status=true
         else
             status = false
-        def response = [id: student.id, feeStatus: status, program: programName]
+
+}
+        response =[id:student.id,feeStatus:status,program:programName,feeType:feeType]
+        }catch(Exception ex){
+            println("problem in checking the existence of roll number"+ex)
+        }
+
         render response as JSON
     }
 
     @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
     def generateFeeVoucher = {
-        println(">>>>>>>>????????>>" + params)
         def student = Student.findByRollNo(params.rollNo)
-        def program = student.programDetail
+        def program = student.programDetail[0]
         def feeTypeId
-        def feeType
-        def programFeeAmount
-        def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
+
+        def feeType=null
+        def args
+        def programFeeAmount=0
+        def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program,student.programSession)
 
 //        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
-        if (params.feeType) {
-            println("hfdsfsfgs???????????????????????????")
-            feeTypeId = Integer.parseInt(params.feeType)
+        if(Integer.parseInt(params.feeType)>0){
+            try{
+            feeTypeId =Integer.parseInt(params.feeType)
             feeType = FeeType.findById(feeTypeId)
-            def mFee = MiscellaneousFee.findByFeeType(feeType)
-            programFeeAmount = mFee.amount
-        } else {
-            println("hfdsfsfgs?????????????????>>>>>>>>>>>>>>>>?")
+            def mFee = MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(feeType,program,student.programSession)
+            programFeeAmount= mFee.amount
+            }catch(NullPointerException ex){
+                println("MiscellaneousFee does not exists"+ex)
+
+            }
+        }else{
+
             feeType = null
             programFeeAmount = programFee.feeAmountAtIDOL
         }
 
 //        println("feeTypeId    "+feeTypeId+"********"+programFee.feeAmountAtIDOL)
-        def args = [template: "feeVoucher", model: [student: student, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
-        pdfRenderingService.render(args + [controller: this], response)
+
+        if(params.idol=="idol")
+             args = [template:"feeVoucherAtIdol", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
+        else
+            args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
+        pdfRenderingService.render(args+[controller:this],response)
+
 
     }
 
