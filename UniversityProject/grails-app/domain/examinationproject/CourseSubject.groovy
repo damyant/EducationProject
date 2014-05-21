@@ -7,6 +7,9 @@ class CourseSubject implements Serializable  {
     Subject subject
     Semester semester
     ProgramSession programSession
+    Date examDate
+    String examTime
+
 
 
     boolean equals(other) {
@@ -37,7 +40,12 @@ class CourseSubject implements Serializable  {
 
     static CourseSubject create(ProgramDetail courseDetail, Subject subject, Semester semester,ProgramSession programSession,boolean flush = false) {
 
-        new CourseSubject(courseDetail: courseDetail, subject: subject,semester:semester,programSession:programSession).save()
+        new CourseSubject(courseDetail: courseDetail, subject: subject,semester:semester,programSession:programSession).save(failOnError: true)
+    }
+
+    static CourseSubject saveDate(ProgramDetail courseDetail, Subject subject, Semester semester,ProgramSession programSession, Date examDate,String examTime,boolean flush = false) {
+
+        new CourseSubject(courseDetail: courseDetail, subject: subject,semester:semester,programSession:programSession,examDate:examDate,examTime:examTime).save()
     }
 
     static boolean remove(ProgramDetail courseDetail, Subject subject, Semester semester,ProgramSession programSession, boolean flush = false) {
@@ -73,6 +81,8 @@ class CourseSubject implements Serializable  {
 
 
 static constraints = {
+    examDate (nullable: true)
+    examTime (nullable: true)
     }
 
 

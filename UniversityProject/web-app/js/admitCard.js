@@ -138,6 +138,8 @@ function getSemester(t){
 
 }
 
+
+
 function getSemesterForAttendance(t){
     var data = $(t).val();
     $('#semesterList').prop('disabled',false)
