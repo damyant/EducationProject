@@ -183,7 +183,7 @@ function appendSubjects(obj){
             var d = $.datepicker.parseDate("mm/dd/yy", obj.dateList[counter].toString());
             datesInNewFormat = $.datepicker.formatDate( "dd/mm/yy", d);
             }
-          
+
             if(obj.allSubjects[i][j].toString()!=null){
                examTime=obj.examTimeList[i][j]
 
