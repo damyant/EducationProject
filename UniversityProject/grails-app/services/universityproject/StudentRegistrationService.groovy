@@ -77,8 +77,8 @@ class StudentRegistrationService {
         def session = ProgramSession.count()
         def programSessionIns
         if (session > 0) {
-            if (programDetail[0].programSession.id) {
-                programSessionIns = ProgramSession.findById(programDetail[0].programSession.id)
+            if (programDetail[0].id) {
+                programSessionIns = ProgramSession.findById(programDetail[0].id)
             } else {
                 programSessionIns = new ProgramSession(sessionOfProgram: programSession, programDetail: programDetail).save(flush: true, failOnError: true)
             }
