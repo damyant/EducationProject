@@ -62,6 +62,7 @@ class AdmitCardController {
                     def programSession = ProgramSession.findAllByProgramDetailId(course)
                     resultMap.totalSem = course.noOfTerms
                     resultMap.session=programSession
+
                     render resultMap as JSON
                 }
                 else {
@@ -134,15 +135,15 @@ class AdmitCardController {
         }
         if(stuList[0]){
 
-        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findBySemesterNoAndCourseDetail(stuList[0].semester,stuList[0].programDetail))*.subject as Set
+        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession))*.subject as Set
         def finalList=list.sort{a,b->
             a.examDate<=>b.examDate
         }
 
-        finalList.each{
-            examDate.append(it.examDate.format("dd/MM/yyyy"))
-            examDate.append(", ")
-        }
+//        finalList.each{
+//            examDate.append(it.examDate.format("dd/MM/yyyy"))
+//            examDate.append(", ")
+//        }
 
 //        println("status==="+status)
 

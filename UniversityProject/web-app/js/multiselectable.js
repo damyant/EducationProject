@@ -132,6 +132,7 @@ function updateInfo(obj) {
     $('#totalCreditPoints').val(courseDetailJson['course'].totalCreditPoints)
     $('#noOfPapers').val(courseDetailJson['course'].noOfPapers)
     $('#courseId').val(courseDetailJson['course'].id)
+    $('#session option[value=' + courseDetailJson['sessionOfCourse']+']').attr("selected", "selected");
     semesterList()
     for (var i = 1; i <= $('#noOfTerms').val(); i++) {
 

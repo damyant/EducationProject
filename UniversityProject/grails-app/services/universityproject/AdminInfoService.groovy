@@ -31,7 +31,6 @@ def springSecurityService
 
     def provisionalStudentList(params){
 //        println("==========="+springSecurityService.principal.id)
-
         def studyCenterId=0
         def statusObj
         if(params.studyCenterId){
