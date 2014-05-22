@@ -446,7 +446,7 @@ class AdminController {
             student=Student.findAllByChallanNo(params.studyMaterialText)
         }
         println("result=="+student)
-        
+
         render student as JSON
     }
 }
