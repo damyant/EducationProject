@@ -661,29 +661,27 @@ class ReportService {
             }
         }
     }
+
     //Added By Digvijay...
     def getReportDataDailyFeePaid(params){
         def finalMap =[]
         def feeFromDate
         def feeToDate
         println("Report Service --> getReportDataDailyFeePaid--> Parameters Values :: "+ params)
-        // Select *  from fee_details where date ranges from date1 to date2
 
         def feeObj = FeeDetails.createCriteria()
         def feeList = feeObj.list{
+            feeFromDate = new Date().parse("dd/MM/yyyy", params.feeFromDate)
+            feeToDate = new Date().parse("dd/MM/yyyy", params.feeToDate)
             between('paymentDate', feeFromDate, feeToDate)
         }
-
-        println("this is the list of fee details "+ feeList)
+        println("List Value --> "+ feeList)
         feeList.each{
-            println("----------"+it.paymentDate)
             println("----------"+it.paymentReferenceNumber)
             println("----------"+it.paymentModeId)
-
         }
-
-        println("this is the final map "+ finalMap)
-        return finalMap
+        println("Returned List Value --> "+ feeList)
+        return feeList
     }
 
 

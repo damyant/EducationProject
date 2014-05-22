@@ -174,8 +174,17 @@
         <li><g:link controller="admin"
                     action="downloadAttendanceSheet"><g:message
                     code="default.mainMenu6.subMenu6"/></g:link></li>
+
+        %{--Added By Digvijay on 19 June 2014--}%
+        <li><g:link controller="admin"
+                    action="addCourses"><g:message
+                    code="default.mainMenu6.subMenu7"/></g:link></li>
+        <li><g:link controller="admin"
+                    action="updateCourses"><g:message
+                    code="default.mainMenu6.subMenu8"/></g:link></li>
     </ul>
 </li>
+
 <li><a href="#"><g:message
         code="default.mainMenu7"/></a>
     <ul>

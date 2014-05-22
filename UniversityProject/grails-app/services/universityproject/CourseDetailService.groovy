@@ -4,6 +4,7 @@ import examinationproject.CourseMode
 import examinationproject.CourseType
 import examinationproject.ProgramDetail
 import examinationproject.CourseSubject
+import examinationproject.ProgramType
 import examinationproject.Semester
 import examinationproject.Subject
 import grails.transaction.Transactional
@@ -128,5 +129,9 @@ class CourseDetailService {
         }
     }
 
-
+//    //ADDED BY DIGVIJAY ON 20 May 2014
+//    def saveCourses(params) {
+//        System.out.println("Inside Service --> saveCourses method")
+//        def addCourseList = ProgramType.findOrSaveById()
+//    }
 }

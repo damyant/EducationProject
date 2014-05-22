@@ -150,4 +150,26 @@ class CourseController {
         render status as JSON
 
     }
+
+    //ADDED BY DIGVIJAY ON 20 May 2014
+    def saveCourses() {
+        println("CourseController-->saveCourses::"+params)
+        redirect(controller: 'admin', action: 'addCourses')
+
+        //def subjectIns = new Subject()
+        //subjectIns.subjectName = params.subjectName
+        //subjectIns.subjectCode = Long.parseLong(params.subjectCode)
+        //subjectIns.programTypeId = ProgramType.findById(programTypeId)
+        //courseDetailService.saveCourses(params)
+
+        def subjectIns=new Subject(params)
+        subjectIns.save(failOnError: true, flush: true)
+
+        if (!subjectIns.save()) {
+            subjectIns.errors.each {
+                println it
+            }
+        }
+    }
+
 }

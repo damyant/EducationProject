@@ -247,16 +247,15 @@ class ReportController {
            def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
        }
-       // Added By Digvijay
+       //Added By Digvijay on 13 May
        else if(params.value=='dailyFeePaid' && params.feeFromDate && params.feeToDate){
            println("Report Controller --> Daily Fee Report")
            def totalList = reportService.getReportDataDailyFeePaid(params)
-           //def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
-           //sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByDailyFeePaid :totalList],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
+           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
+           def args = [template: "generate", model: [totalListByDailyFeePaid :totalList, studyCentreFeePaidSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
        }
-
    }
 
 }

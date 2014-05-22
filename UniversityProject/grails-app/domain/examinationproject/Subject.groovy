@@ -6,6 +6,7 @@ class Subject {
     String subjectName
     Date examDate
     String examTime
+    ProgramType programTypeId
 
     static mapping = {
         id column: "SubjectId"
@@ -13,6 +14,7 @@ class Subject {
         subjectCode column: "SubjectCode"
         examDate column: "ExamDate"
         examTime column: "ExamTime"
+        programTypeId column: "ProgramTypeId"
 
     }
 
@@ -21,5 +23,6 @@ class Subject {
         subjectCode(nullable:false)
         examDate(nullable: true)
         examTime(nullable: true)
+        programTypeId (nullable: true)
     }
 }

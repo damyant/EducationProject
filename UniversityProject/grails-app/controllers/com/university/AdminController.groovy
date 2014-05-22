@@ -6,7 +6,7 @@ import examinationproject.ExaminationCentre
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
 import examinationproject.ProgramDetail
-
+import examinationproject.ProgramType
 import examinationproject.Student
 import examinationproject.Status
 import examinationproject.StudyCenter
@@ -319,6 +319,17 @@ class AdminController {
             redirect(action: "approvePayInSlip")
         }
 
+    }
+
+    //ADDED BY DIGVIJAY ON 19 May 2014
+    def addCourses = {
+        def programTypeList = ProgramType.list()
+        println("AdminController-->addCourses"+programTypeList);
+        [programTypeList:programTypeList]
+    }
+
+    def updateCourses = {
+        println("AdminController-->updateCourses Action")
     }
 }
 
