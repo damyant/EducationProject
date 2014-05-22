@@ -98,6 +98,7 @@ class AdminController {
     }
 
     def checkFeeByRollNo = {
+        println("??????????????"+params)
         def response
         try {
             def student = Student.findByRollNo(params.rollNo)
@@ -305,7 +306,8 @@ class AdminController {
         stuList.each{
             println("==="+it.programDetail[0])
             courseNameList<<it.programDetail[0].courseName
-            if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
+            //if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
+            if(it.studyCentre.centerCode[0]=="11111"){
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
             }else{
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
