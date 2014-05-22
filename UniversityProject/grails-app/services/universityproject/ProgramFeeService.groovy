@@ -26,6 +26,7 @@ class ProgramFeeService {
     def saveProgramFeeType(params) {
         def feeTypeList=params.feeTypeList.split(',')
         def admissionFeeIns
+        def program = ProgramDetail.findById(params.programDetail)
         if(params.admissionFee)
            admissionFeeIns=AdmissionFee.findById(Integer.parseInt(params.admissionFee))
         else
@@ -54,14 +55,11 @@ class ProgramFeeService {
         def i=0;
         try{
         feeTypeList.each{
-            def misFeeIns  =MiscellaneousFee.findById(it)
+            def misFeeIns  =MiscellaneousFee.findByFeeTypeAndProgramDetail(FeeType.findById(it),program)
             if(!misFeeIns){
                 println("else")
                 misFeeIns=new MiscellaneousFee()
             }
-
-
-
             misFeeIns.programDetail=ProgramDetail.findById(params.programDetail)
             misFeeIns.feeType=FeeType.findById(Long.parseLong(it.toString()))
             misFeeIns.amount=Integer.parseInt(params.feeTypeAmount[i])

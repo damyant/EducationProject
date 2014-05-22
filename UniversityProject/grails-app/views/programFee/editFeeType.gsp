@@ -33,16 +33,27 @@
                         </label>
                         </div>
 
-                        <div class="university-size-2-3">
+                        <div class="university-size-1-3">
                             <g:select id="programDetail" name="programDetail"
                                       from="${programFeeInstance.programDetail}" optionKey="id" optionValue="courseName"
-                                      class="many-to-one university-size-1-2"/>
+                                      class="many-to-one university-size-1-2" onchange="loadSession(this)"/>
 
                             <g:hiddenField name="programId" id="programId" value="${programFeeInstance.programDetail.id}"></g:hiddenField>
                             <g:hiddenField name="admissionFee" id="admissionFee" value="${programFeeInstance.id}"></g:hiddenField>
                         </div>
                     </div>
+                    <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} ">
+                    <div class="university-size-2-3"><label for="programDetail">
+                        <g:message code="programFee.programSession.label" default="Program Session"/><span
+                                class="university-obligatory">*</span>
+                    </label>
+                    </div>
 
+                    <div class="university-size-2-3">
+                        <g:textField id="session" name="programSession" readonly="readonly" value="${programFeeInstance.programSession.sessionOfProgram}"
+                                 />
+                    </div>
+                        </div>
                     <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'feeAmountAtIDOL', 'error')} required">
                         <div class="university-size-1-3">
                             <label for="feeAmountAtIDOL">

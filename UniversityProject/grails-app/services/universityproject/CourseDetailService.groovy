@@ -41,7 +41,6 @@ class CourseDetailService {
             existingCourseObj.totalMarks = Integer.parseInt(params.totalMarks)
             existingCourseObj.marksPerPaper = Integer.parseInt(params.marksPerPaper)
             existingCourseObj.totalCreditPoints = Integer.parseInt(params.totalCreditPoints)
-
             existingCourseObj.save(failOnError: true, flush: true)
             if (session > 0) {
                 if (ProgramSession.findByProgramDetailIdAndSessionOfProgram(existingCourseObj,params.session)) {
@@ -85,8 +84,8 @@ class CourseDetailService {
             def courseObj = new ProgramDetail(params)
             courseObj.save(failOnError: true, flush: true)
             if (session > 0) {
-                if (ProgramSession.findBySessionOfProgram(params.session)) {
-                    sessionObj = ProgramSession.findBySessionOfProgram(params.session)
+                if (ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,courseObj)) {
+                    sessionObj = ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,courseObj)
                 } else {
                     sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId:courseObj).save(flush: true, failOnError: true)
                 }
