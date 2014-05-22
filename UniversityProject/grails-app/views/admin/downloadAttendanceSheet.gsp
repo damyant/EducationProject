@@ -16,6 +16,9 @@
 
 <body>
 <div id="main">
+    <g:if test="${flash.message}">
+        <div class="message"><div class="university-status-message">${flash.message}</div></div>
+    </g:if>
   <g:form controller="admin" action="downloadAttendanceSheet">
   <table>
       <tr>
@@ -51,18 +54,18 @@
               </table>
           </td>
       </tr>
-      <tr>
+      <tr id="programRow" hidden="hidden">
           <td>Select Programme</td>
           <td>
               <table><tr>
              <td style="width: 50%">
               <g:select name="programList" id="programList" optionKey="id" class="university-size-1-1"
-                        optionValue="courseName" from="" noSelection="['': ' Select Program']" onchange="getSemester()"/>
+                        optionValue="courseName" from="" noSelection="['': '']" onchange="getSemesterForAttendance(this)"/>
 
           </td>
 
                   <td>
-                      <select name="programTerm" class="university-size-1-1" id="semesterList">
+                      <select name="programTerm" class="university-size-1-1" id="semesterList" disabled >
                           <option value="">Select Semester</option>
                       </select>
                   </td>
@@ -71,7 +74,7 @@
                   <tr>
                       <td>
                           <g:select name="programSession" from="" class="university-size-1-1" id="SessionList"
-                                    onchange="enableShowCandidate()" noSelection="['': ' Select Session']"/>
+                                    onchange="enableShowCandidate()" noSelection="['': ' Select Session']" disabled="true" />
 
                       </td>
                       <td></td>

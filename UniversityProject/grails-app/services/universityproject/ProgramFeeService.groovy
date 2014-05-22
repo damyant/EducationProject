@@ -39,6 +39,7 @@ class ProgramFeeService {
         def session = ProgramSession.count()
         def programSessionIns
         if (session > 0) {
+
             if (ProgramSession.findBySessionOfProgram(params.programSession)) {
                 programSessionIns = ProgramSession.findBySessionOfProgram(params.programSession)
             } else {
@@ -46,12 +47,9 @@ class ProgramFeeService {
             }
         } else {
             programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
-//            println("Session new" + programSessionIns.sessionOfProgram)
         }
         admissionFeeIns.programSession= programSessionIns
         admissionFeeIns.save(failOnError: true)
-//        def misFeeIns=new MiscellaneousFee()
-
 
         def i=0;
         try{
@@ -93,8 +91,6 @@ class ProgramFeeService {
     }
 
     def getProgramSessions(params){
-
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         String year = sdf.format(Calendar.getInstance().getTime());
         def startYear = year
@@ -103,13 +99,13 @@ class ProgramFeeService {
         def nextSession
         def programSessions= []
         try{
-            Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.program))
+//            Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.program))
           //  endYear = (Integer.parseInt(year) + programDetail[0].noOfAcademicYears).toString()
             endYear = Integer.parseInt(year)+1
             currentSession = (startYear + "-" + endYear)
             nextSession    = endYear+ "-" + ++endYear
-            programSessions.add(new ProgramSession(programDetail:programDetail,sessionOfProgram: currentSession))
-            programSessions.add(new ProgramSession(programDetail:programDetail,sessionOfProgram: nextSession))
+            programSessions.add(new ProgramSession(sessionOfProgram: currentSession))
+            programSessions.add(new ProgramSession(sessionOfProgram: nextSession))
 //
             println("ProgramSession"+programSessions)
             }catch(Exception ex){

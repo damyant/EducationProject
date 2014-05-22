@@ -17,7 +17,6 @@ import grails.plugins.springsecurity.Secured
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 
-
 class AdminController {
 
     def adminInfoService
@@ -86,8 +85,6 @@ class AdminController {
     def feeVoucher = {
         def feeType = []
         feeType = FeeType.list(sort: 'type')
-        // def selectFeeType=FeeType.findAllById(1)
-        // feeType.add(new FeeType(type:"Admission Fee"))
         [feeType: feeType]
     }
 
@@ -99,8 +96,6 @@ class AdminController {
     }
 
     def checkFeeByRollNo = {
-        println("?????????????" + params)
-
         def response
         try {
             def student = Student.findByRollNo(params.rollNo)
@@ -128,12 +123,15 @@ class AdminController {
             response = [id: student.id, feeStatus: status, program: programName, feeType: feeType]
         } catch (Exception ex) {
             println("problem in checking the existence of roll number" + ex)
+
         }
+
         render response as JSON
     }
 
     @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
     def generateFeeVoucher = {
+
         println(">>>>>>>>????????>>" + params)
         def student = Student.findByRollNo(params.rollNo)
         def program = student.programDetail[0]
@@ -143,7 +141,6 @@ class AdminController {
         def programFeeAmount = 0
         def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
 
-//        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
         if (Integer.parseInt(params.feeType) > 0) {
             println("hfdsfsfgs???????????????????????????")
             try {
@@ -161,12 +158,12 @@ class AdminController {
             programFeeAmount = programFee.feeAmountAtIDOL
         }
 
-//        println("feeTypeId    "+feeTypeId+"********"+programFee.feeAmountAtIDOL)
         if (params.idol == "idol")
             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
         else
             args = [template: "feeVoucher", model: [student: student, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
         pdfRenderingService.render(args + [controller: this], response)
+
 
     }
 
@@ -220,21 +217,21 @@ class AdminController {
     }
     def generateStudentList = {
         def studList = adminInfoService.updateStudentList(params)
-        println("******************" + studList.firstName);
         render studList as JSON
     }
 
 
     def downloadAttendanceSheet = {
         if (params.programSession) {
+
             def webRootDir = servletContext.getRealPath("/")
             def userDir = new File(webRootDir, '/Attendance')
             userDir.mkdirs()
             def excelPath = servletContext.getRealPath("/") + 'Attendance' + System.getProperty('file.separator') + 'Output' + '.xls'
-//            println('this is the real path '+excelPath)
             def status = attendanceService.getStudentList(params, excelPath)
+            println("hello kuldeep u r back in controller " + status)
             if (status) {
-//                println("hello kuldeep u r back in controller "+ status)
+                println("hello kuldeep u r back in controller " + status)
                 File myFile = new File(servletContext.getRealPath("/") + 'Attendance' + System.getProperty('file.separator') + 'Output' + '.xls')
                 response.setHeader "Content-disposition", "attachment; filename=" + 'Output' + ".xls"
                 response.contentType = new MimetypesFileTypeMap().getContentType(myFile)
@@ -242,7 +239,8 @@ class AdminController {
                 response.outputStream.flush()
                 myFile.delete()
             } else {
-
+                flash.message = "${message(code: 'student.not.found.message')}"
+                redirect(action: 'downloadAttendanceSheet')
             }
         } else {
 //            println("there is no parameters")
@@ -261,9 +259,11 @@ class AdminController {
     }
     def getBranchList = {
         def list = Bank.findAllById(Integer.parseInt(params.bank));
-//        println("))))))))@@@@@@@@@@@@@@@@@@"+list.branch[0].branchLocation)
         render list.branch[0] as JSON
     }
+
+
+
     def studyCentreFeeApproval = {
         def studyCenterList = StudyCenter.list(sort: 'name');
         def programList = ProgramDetail.list(sort: 'courseName')
@@ -271,33 +271,15 @@ class AdminController {
     }
     def getChallanDetailsforStudent = {
         def resultMap = [:]
-        println(">>>>>>>>>>>>>>>>>>>" + params)
         resultMap = feeDetailService.studentDetailByChallanNumber(params)
-
-//        def studentInst=Student.findAllByChallanNo(params.challanNo);
-//        println("%%%%%%%%%%%%%%%%%%%%%% "+studentInst);
-//        def feeAmount=[]
-//        for(int i=0;i<studentInst.size();i++){
-//           def amount=AdmissionFee.findAllByProgramDetail(studentInst[i].programDetail);
-//            if(studentInst[i].studyCentre[0].centerCode=='11111'){
-//                feeAmount.add(amount[0].feeAmountAtIDOL)
-//            }
-//            else{
-//                feeAmount.add(amount.feeAmountAtSC)
-////                println("feeAmountAtSC"+amount[0].feeAmountAtSC)
-//            }
-//
-//        }
-//        resultMap.studentInst=studentInst;
-//        resultMap.feeAmount=feeAmount;
         render resultMap as JSON
     }
     def saveApprovePayInSlip = {
-//        println("saving  "+params);
         def returnMap = [:]
         Boolean result = adminInfoService.savePayInSlip(params);
         returnMap.flag = result
 //        println(result);
+
         render returnMap as JSON
     }
     def getFeeAmount = {

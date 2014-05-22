@@ -38,9 +38,28 @@
                         <g:select name="programList" id="programList" class="university-size-1-1" optionKey="id"
                                   optionValue="courseName"
                                   from="${programList}" noSelection="['': ' Select Program']"
-                                  onchange="getSemesterAndSubjectList()"/>
+                                  onchange="getSemester(this)"/>
                     </td>
+
                     <td class="university-size-1-2"></td>
+                </tr>
+                <tr>
+                    <td class="university-size-1-4"><label>Select a Session</label></td>
+                    <td class="university-size-1-4">
+                        <g:select name="SessionList" id="SessionList" class="university-size-1-1"
+                                  from="" noSelection="['': ' Select Session']"
+                                  onchange=""/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="university-size-1-4"><label>Select a Session Type</label></td>
+                    <td class="university-size-1-4">
+                     <select name="sessionType" id="sessionType" class="university-size-1-1"  onchange="getSemesterAndSubjectList()">
+                         <option value="0">Select Session Type</option>
+                         <option value="1">July</option>
+                         <option value="2">January</option>
+                     </select>
+                    </td>
                 </tr>
             </table>
 

@@ -6,7 +6,11 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
+<<<<<<< HEAD
   <component name="IdProvider" IDEtalkID="D005B620A05E3203A4B54A1CB2F82D2A" />
+=======
+  <component name="IdProvider" IDEtalkID="20812A2285A3ECD971615E3CE3589F67" />
+>>>>>>> b12456748fce24394f1d694ed122bf9289bcac9c
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />

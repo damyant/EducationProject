@@ -14,9 +14,8 @@ class ProgramDetail {
     int marksPerPaper
     int totalCreditPoints
     Date lateFeeDate
-
-    static hasMany = [semester: Semester, student: Student]
-    static belongsTo = [Student,ProgramSession]
+    static hasMany = [student: Student]
+    static belongsTo = [Student]
     static mapping = {
         id column: "CourseId"
         courseName column: "CourseName"
@@ -30,8 +29,8 @@ class ProgramDetail {
         totalMarks column: "TotalMarks"
         marksPerPaper column: "MarksPerPaper"
         totalCreditPoints column: "TotalCreditPoints"
-        semester cascade:"all,delete-orphan"
         lateFeeDate column: "LateFeeDate"
+
 
     }
 
