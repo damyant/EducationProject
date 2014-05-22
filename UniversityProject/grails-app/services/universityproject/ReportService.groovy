@@ -665,6 +665,28 @@ class ReportService {
         }
     }
 
+    //Added By Digvijay...
+    def getReportDataDailyFeePaid(params){
+        def finalMap =[]
+        def feeFromDate
+        def feeToDate
+        println("Report Service --> getReportDataDailyFeePaid--> Parameters Values :: "+ params)
+
+        def feeObj = FeeDetails.createCriteria()
+        def feeList = feeObj.list{
+            feeFromDate = new Date().parse("dd/MM/yyyy", params.feeFromDate)
+            feeToDate = new Date().parse("dd/MM/yyyy", params.feeToDate)
+            between('paymentDate', feeFromDate, feeToDate)
+        }
+        println("List Value --> "+ feeList)
+        feeList.each{
+            println("----------"+it.paymentReferenceNumber)
+            println("----------"+it.paymentModeId)
+        }
+        println("Returned List Value --> "+ feeList)
+        return feeList
+    }
+
 
     def getReportDataExaminationCentreCumulative(params){
         def examinationVenueIns = ExaminationVenue.findById(Long.parseLong(params.examinationCentreCumulative))
@@ -728,6 +750,4 @@ class ReportService {
         }
     }
 }
-
-
 

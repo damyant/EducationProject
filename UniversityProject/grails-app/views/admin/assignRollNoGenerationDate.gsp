@@ -25,7 +25,7 @@
                     Enter Start Date <span class="university-obligatory">*</span>
                 </td>
                 <td class="university-size-2-3">
-                    <input type="text" name="startD" id="startD" value="<g:formatDate format="dd/MM/yyyy" date="${rollDateInst.startD}"/>" class="university-size-1-2"/>
+                    <input type="text" name="startD" id="startD" value="<g:formatDate format="dd/MM/yyyy" date="${rollDateInst?.startD}"/>" class="university-size-1-2"/>
                 </td>
             </tr>
             <tr>
@@ -33,7 +33,7 @@
                     Enter End Date <span class="university-obligatory">*</span>
                 </td>
                 <td class="university-size-2-3">
-                    <input type="text" name="endD" id="endD" value="<g:formatDate format="dd/MM/yyyy" date="${rollDateInst.endD}"/>" class="university-size-1-2"/>
+                    <input type="text" name="endD" id="endD" value="<g:formatDate format="dd/MM/yyyy" date="${rollDateInst?.endD}"/>" class="university-size-1-2"/>
                 </td>
             </tr>
             <tr>
