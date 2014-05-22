@@ -740,6 +740,12 @@ textarea:-moz-placeholder {
     border-radius: 4px;
 }
 
+.mainContent3 {
+
+    height: 350px;
+    border-radius: 4px;
+}
+
 .reset-message {
     font-size: 15px;
     color: blue;

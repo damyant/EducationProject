@@ -5,7 +5,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 class ProgramExamVenue implements Serializable  {
     ProgramDetail courseDetail
     ExaminationVenue examVenue
-    ExaminationCentre examCenter
+    City examCenter
 
 
     boolean equals(other) {
@@ -33,12 +33,12 @@ class ProgramExamVenue implements Serializable  {
                 [courseId: courseId, examCenterId: examCenterId, examVenue: examVenue]
     }
 
-    static ProgramExamVenue create(ProgramDetail courseDetail,ExaminationCentre examCenter,ExaminationVenue examVenue,boolean flush = false) {
+    static ProgramExamVenue create(ProgramDetail courseDetail,City examCenter,ExaminationVenue examVenue,boolean flush = false) {
 
         new ProgramExamVenue(courseDetail: courseDetail, examCenter: examCenter, examVenue:examVenue).save()
     }
 
-    static boolean remove(ProgramDetail courseDetail, ExaminationCentre examCenter,ExaminationVenue examVenue, boolean flush = false) {
+    static boolean remove(ProgramDetail courseDetail, City examCenter,ExaminationVenue examVenue, boolean flush = false) {
         ProgramExamVenue instance = ProgramExamVenue.findByCourseDetailAndExamCenterAndExamVenue(courseDetail, examCenter, examVenue)
 //        ProgramExamVenue instance = ProgramExamVenue.findByCourseDetailAndCity(courseDetail, city)
         if (!instance) {
@@ -53,7 +53,7 @@ class ProgramExamVenue implements Serializable  {
         executeUpdate 'DELETE FROM ProgramExamVenue WHERE courseDetail=:courseDetail', [courseDetail: courseDetail]
     }
 
-    static void removeAll(ExaminationCentre examCenter,ProgramDetail courseDetail) {
+    static void removeAll(City examCenter,ProgramDetail courseDetail) {
         executeUpdate 'DELETE FROM ProgramExamVenue WHERE examCenter=:examCenter and courseDetail=:courseDetail', [examCenter: examCenter,courseDetail:courseDetail]
     }
 

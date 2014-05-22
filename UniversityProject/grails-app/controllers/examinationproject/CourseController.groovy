@@ -9,20 +9,23 @@ import java.io.File;
 @Secured("ROLE_ADMIN")
 class CourseController {
     def courseDetailService
+    def programFeeService
 
 
     def createNewCourse() {
         boolean updateFlag = false
         def courseDetail = [:]
         def subObj = Subject.findAll()
-//        println("create"+ params)
-        if (params.courseId) {
+        def programSessions=   programFeeService.getProgramSessions(params)
+
+        println("these are the sessions"+ programSessions)
+        if (params.courseSessionId) {
             courseDetail = courseDetailService.getFullDetailOfCourse(params)
             updateFlag = true
         }
 //        println(updateFlag)
 
-        [courseDetail: courseDetail as JSON, subjList: subObj as JSON, updateFlag: updateFlag]
+        [courseDetail: courseDetail as JSON, subjList: subObj as JSON, updateFlag: updateFlag, programSessions:programSessions]
     }
 
 
@@ -35,7 +38,7 @@ class CourseController {
     def saveCourse() {
         def response = [:]
         def data = request.JSON
-        println(data);
+        println("============================="+data);
         try {
             if (data.uploadSyllabus) {
                 println("############>>" + data.uploadSyllabus);
@@ -80,12 +83,22 @@ class CourseController {
     def listOfCourses() {
 
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        def c = ProgramDetail.createCriteria()
-        def courseList = c.list(params) {
-            order("courseName", "asc")
-        }
+//        def c = ProgramDetail.createCriteria()
+//        def courseList = c.list(params) {
+//            order("courseName", "asc")
+//        }
+//       def courseSessionList=[]
+//        println("***********="+courseList)
+//        courseList.each{
+//            def programSession= ProgramSession.findAllByProgramDetailId(it)
+//            if(programSession)
+//            courseSessionList.add(programSession)
+//        }
+        def programList=ProgramSession.list()
 
-        [courseList: courseList, courseInstanceTotal: ProgramDetail.count()]
+
+
+        [courseSessionList:programList, courseInstanceTotal: ProgramSession.count()]
 
 
     }

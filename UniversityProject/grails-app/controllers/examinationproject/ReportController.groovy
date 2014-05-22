@@ -186,14 +186,14 @@ class ReportController {
       }
 
 
-       else if(params.value=='admissionSelfRegistration' && params.admissionSelfRegistrationSession){
+      else if(params.value=='admissionSelfRegistration' && params.admissionSelfRegistrationSession){
            println("this function is called")
            def totalList = reportService.getReportDataAdmissionSelfRegistration(params)
            def sessionVal= Integer.parseInt(params.admissionUnapprovedSession)+1
            sessionVal= params.admissionUnapprovedSession+'-'+sessionVal
            def args = [template: "generate", model: [totalListByAdmissionUnapproved :totalList, admissionUnapprovedSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
-       }
+      }
 
 
       else if(params.value=='studyCentreFeePaid' && params.studyCentreFeePaidSession){
@@ -203,7 +203,7 @@ class ReportController {
            sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
            def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, studyCentreFeePaidSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
-       }
+      }
 
       else if(params.value=='sessionsComparative' && params.fromSessionComparative && params.toSessionComparative){
            println("this function is called")
@@ -237,15 +237,25 @@ class ReportController {
                myFile.delete()
            }
 
-       }
+      }
 
-       else if(params.value=='courseUnapproved' && params.courseUnapprovedSession || params.value=='courseApproved' && params.courseApprovedSession){
+      else if(params.value=='courseUnapproved' && params.courseUnapprovedSession || params.value=='courseApproved' && params.courseApprovedSession){
            println("this function is called")
            def totalList = reportService.getReportDataCourseApprovedUnapproved(params)
            def sessionVal= Integer.parseInt(params.courseApprovedSession)+1
            sessionVal= params.courseApprovedSession+'-'+sessionVal
            def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
+      }
+
+      else if(params.value=='examinationCentreCumulative' && params.examinationCentreCumulativeSchedule){
+           println("this cumulative function is called")
+           def totalList = reportService.getReportDataExaminationCentreCumulative(params)
+           def sessionVal= Integer.parseInt(params.courseApprovedSession)+1
+           sessionVal= params.courseApprovedSession+'-'+sessionVal
+           def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           pdfRenderingService.render(args + [controller: this], response)
+
        }
        //Added By Digvijay on 13 May
        else if(params.value=='dailyFeePaid' && params.feeFromDate && params.feeToDate){

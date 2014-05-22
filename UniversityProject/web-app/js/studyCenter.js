@@ -11,16 +11,34 @@
 
 
 function showCityList() {
-    var data = $('#district').val();
+    alert('in show city list')
+    var data;
+    data = $('#district').val();
+    alert("----------------"+data)
+    if(data){
+
+    }
+    else{
+        data=$('#districtCumulative').val()
+        alert("in else "+ data)
+    }
+
+
+
 
     $.ajax({
         type: "post",
         url: url('studyCenter', 'getCityList', ''),
         data: {data: data},
         success: function (data) {
-            $("#city").empty().append('<option value="">Select Examination Centre</option>')
+            $("#city").empty().append('<option value="">Select Examination Centre</option>');
+
+            $("#examCityCumulative").empty().append('<option value="">Select Examination Centre</option>');
             for (var i = 0; i < data.length; i++) {
-                $("#city").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>')
+
+                $("#city").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>');
+
+                $("#examCityCumulative").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>')
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -38,7 +56,7 @@ function showExamCenterList() {
         success: function (data) {
             $("#examinationCentre").empty().append('<option value="">Select Examination Centre</option>')
             for (var i = 0; i < data.length; i++) {
-                $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].examinationCentreName + '</option>')
+                $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>')
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -84,6 +102,7 @@ function showStudyCenterList() {
 }
 
 
+
 function updateStudyCenter() {
 
     window.location.href = '/UniversityProject/studyCenter/createNewStudyCenter';
@@ -123,9 +142,10 @@ function showCentreList(t) {
         success: function (data) {
 
             $("#examinationCentre").empty().append('<option value=""> Select Examination Venue</option>')
+            $("#examinationCentreCumulative").empty().append('<option value=""> Select Examination Venue</option>')
             for (var i = 0; i < data.length; i++) {
-//                alert("--------------"+data[i].name)
                 $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
+                $("#examinationCentreCumulative").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -147,10 +167,12 @@ function showProgrammeList(){
             if(data.length>0){
                 $('#submit').css('display','inline')
             }
-            $("#programList").empty().append('<option value=""> Select Programme</option>')
+            $("#programList").empty().append('<option value=""> Select Programmes</option>')
+            $("#programList").append('<option value="allProgram"> All Programmes</option>')
             for (var i = 0; i < data.length; i++) {
                 $("#programList").append('<option value="' + data[i].id + '">' + data[i].courseName + '</option>')
             }
+            $('#programRow').show()
         },
         error:function(XMLHttpRequest, textStatus, errorThrown){
 

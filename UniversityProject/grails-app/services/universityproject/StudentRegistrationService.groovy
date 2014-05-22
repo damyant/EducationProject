@@ -70,20 +70,21 @@ class StudentRegistrationService {
 
         studentRegistration.studyCentre = studyCentre
         Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
-        endYear = (Integer.parseInt(year) + programDetail[0].noOfAcademicYears).toString()
+      //  endYear = (Integer.parseInt(year) + programDetail[0].noOfAcademicYears).toString()
+        endYear = Integer.parseInt(year)+1
         programSession = (startYear + "-" + endYear)
 
         def session = ProgramSession.count()
         def programSessionIns
         if (session > 0) {
-            if (programDetail[0].programSession.id) {
-                programSessionIns = ProgramSession.findById(programDetail[0].programSession.id)
+            if (programDetail[0].id) {
+                programSessionIns = ProgramSession.findById(programDetail[0].id)
             } else {
-                programSessionIns = new ProgramSession(sessionOfProgram: programSession, programDetail: programDetail).save(flush: true, failOnError: true)
+                programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
             }
         } else {
-            programSessionIns = new ProgramSession(sessionOfProgram: programSession, programDetail: programDetail).save(flush: true, failOnError: true)
-//            println("Session new" + programSessionIns.sessionOfProgram)
+            programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
+
         }
 
 
@@ -93,7 +94,7 @@ class StudentRegistrationService {
         if(params.idol=="idol")
             studentRegistration.challanNo = getChallanNumber()
         Set<ExaminationVenue> examinationCentreList = ExaminationVenue.findAllById(Integer.parseInt(params.examinationCentre))
-        studentRegistration.examinationCentre = examinationCentreList
+        studentRegistration.city = examinationCentreList
         if (!params.appNo) {
             studentRegistration.studentImage = photographe.bytes
         } else {
@@ -112,8 +113,9 @@ class StudentRegistrationService {
             feeDetails.bankId= Bank.findById(Integer.parseInt(params.bankName))
             feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
             feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
-            feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
-            feeDetails.feeTypeId = FeeType.findById(1)
+//            feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
+            feeDetails.isAdmission = 0
+            feeDetails.challanDate=new Date()
             feeDetails.challanNo= studentRegistration.challanNo
             feeDetails.paymentDate = df.parse(params.paymentDate)
             feeDetails.save(flush: true,failOnError: true)
@@ -237,7 +239,7 @@ class StudentRegistrationService {
         for (int i = 0; i < 100; i++) {
             students = new Student()
 //            println("Seeded user" + i)
-            students.studentName = "Student" + i
+            //students.studentName = "Student" + i
             students.gender = "Male"
             students.category = "GEN"
             students.referenceNumber = getStudentReferenceNumber()

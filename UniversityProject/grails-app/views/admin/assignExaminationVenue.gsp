@@ -39,7 +39,7 @@
                         <td class="university-size-1-4"><label>Select an Examination Centre</label></td>
                         <td class="university-size-1-4" style="padding-left: 20px;">
                             <g:select name="examinationCentre" id="examinationCentre" optionKey="id" class="university-size-1-1"
-                                      optionValue="examinationCentreName" from="${examinationCenterList}"
+                                      optionValue="cityName" from="${examinationCenterList}"
                                       noSelection="['0': ' Select Examination Centre']"
                                       onchange="showExamVenueList1()"/>
                         </td>

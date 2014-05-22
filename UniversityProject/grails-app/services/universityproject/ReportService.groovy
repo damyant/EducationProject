@@ -1,8 +1,11 @@
 package universityproject
 
+import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.FeeType
 import examinationproject.ProgramDetail
+import examinationproject.ProgramExamVenue
+import examinationproject.ProgramSession
 import examinationproject.Status
 import examinationproject.Student
 import examinationproject.StudyCenter
@@ -31,9 +34,9 @@ class ReportService {
              wbSettings.setLocale(new Locale("en", "EN"));
              WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
              int sheetNo=0
-            studyCenterId = currentUser.studyCentreId
-            def studyCenter= StudyCenter.findById(studyCenterId)
-            programList.each {
+             studyCenterId = currentUser.studyCentreId
+             def studyCenter= StudyCenter.findById(studyCenterId)
+             programList.each {
                 def pId= it.id
                 def stuObj= Student.createCriteria()
                 def count = stuObj.list{
@@ -49,7 +52,7 @@ class ReportService {
                 }
                 status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook)
                 sheetNo= sheetNo+1
-            }
+             }
              workbook.write();
              workbook.close();
              return status
@@ -685,4 +688,72 @@ class ReportService {
     }
 
 
+<<<<<<< HEAD
 }
+=======
+    def getReportDataExaminationCentreCumulative(params){
+        def examinationVenueIns = ExaminationVenue.findById(Long.parseLong(params.examinationCentreCumulative))
+        def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
+        def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
+        println('max no of course '+ course)
+
+        if(params.examinationCentreCumulativeSchedule=='7'){
+            program.each{
+                def pid= it.courseDetail.id
+                for(int i=2; i<=course[0]; i+=2){
+                    def obj = Student.createCriteria()
+                        def  studentList = obj.list {
+                        programDetail {
+                            eq('id', pid)
+                        }
+                        examinationVenue {
+                            eq('id', examinationVenueIns.id)
+                        }
+                        and {
+                            eq('status', Status.findById(4))
+                        }
+                        and {
+                            eq('semester', i)
+                        }
+                            projections{
+                                rowCount()
+                                groupProperty('semester')
+                            }
+                    }
+                    println("this is the result of the query "+studentList+' for the course '+pid+' for the semester '+i)
+                }
+            }
+        }
+        else if(params.examinationCentreCumulativeSchedule=='1'){
+            program.each{
+                def pid= it.courseDetail.id
+                for(int i=1; i<=course[0]; i+=2){
+                    def obj = Student.createCriteria()
+                    def  studentList = obj.list {
+                        programDetail {
+                            eq('id', pid)
+                        }
+                        examinationVenue {
+                            eq('id', examinationVenueIns.id)
+                        }
+                        and {
+                            eq('status', Status.findById(4))
+                        }
+                        and {
+                            eq('semester', i)
+                        }
+                        projections{
+                            rowCount()
+                            groupProperty('semester')
+                        }
+                    }
+                    println("this is the result of the query "+studentList+' for the course '+pid+' for the semester '+i)
+                }
+            }
+        }
+    }
+}
+
+
+
+>>>>>>> 7fbe725fdd533b293cdcc48e0206d12a4d93b326

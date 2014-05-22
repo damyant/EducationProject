@@ -34,34 +34,47 @@ class AdmitCardController {
     def bulkCreationOfAdmitCard ={
         def programList = ProgramDetail.list(sort:'courseName')
         def studyCentreList = StudyCenter.list()
-        def examinationCenter=ExaminationCentre.list(sort:'examinationCentreName')
+        def examinationCenter=City.findAllByIsExamCentre(1,[sort: 'cityName'])
 //        def examinationCenter=ExaminationVenue.list()*.city as Set
 //        def finalExaminationCenterList= examinationCenter.sort{a,b->
 //            a.cityName<=>b.cityName
 //        }
 
+
         [programList: programList, studyCentreList: studyCentreList, examinationCenterList: examinationCenter]
     }
 
+
     def getSemesterList={
-        println("++"+params)
+        println("gettinf semsster wise subjects"+params)
         try{
-
-        def course=ProgramDetail.findById(params.data)
-            def resultMap = [:]
-
-            if(course!=null){
-                resultMap.totalSem = course.noOfTerms
-                resultMap.session=course.programSession
-
+            if(params.data=='allProgram'){
+                def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
+                def sessions= ProgramSession.executeQuery( "select distinct  programSession.sessionOfProgram from ProgramSession programSession" );
+                def resultMap = [:]
+                resultMap.totalSem = course[0]
+                resultMap.session =  sessions
                 render resultMap as JSON
             }
-        else {
-            render null
-        }
+            else{
+                def course=ProgramDetail.findById(Integer.parseInt(params.data))
+                def resultMap = [:]
+                if(course!=null){
+                    def programSession = ProgramSession.findAllByProgramDetailId(course)
+                    resultMap.totalSem = course.noOfTerms
+                    resultMap.session=programSession
+
+                    render resultMap as JSON
+                }
+                else {
+                    render null
+                }
+            }
         }catch (Exception e){
             println("Error in getting Semester Number"+e)
+
         }
+
     }
 
     def examVenueCapacity={
@@ -122,18 +135,22 @@ class AdmitCardController {
           status=  admitCardService.updateStudentRecord(stuList,params.examinationVenue)
         }
         if(stuList[0]){
+            def programSessionIns=ProgramSession.findById(Long.parseLong(params.programSessionId))
 
-        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findBySemesterNoAndCourseDetail(stuList[0].semester,stuList[0].programDetail))*.subject as Set
-        def finalList=list.sort{a,b->
-            a.examDate<=>b.examDate
-        }
+            println(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession))
+        def subjectList=CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession),programSessionIns)*.subject
 
-        finalList.each{
-            examDate.append(it.examDate.format("dd/MM/yyyy"))
+            def dateList=[]
+            subjectList.each{
+               dateList<< CourseSubject.findBySubjectAndProgramSession(it,programSessionIns).examDate
+            }
+
+            dateList.each{
+            if(it){
+            examDate.append(it.format("dd/MM/yyyy"))
             examDate.append(", ")
+            }
         }
-
-//        println("status==="+status)
 
         def month=""
         if(stuList[0].semester%2==0){
@@ -145,6 +162,7 @@ class AdmitCardController {
 
         def session=stuList[0].programSession.sessionOfProgram.split("-")
         def fileName=stuList[0].programDetail[0].courseName+" "+month+" "+session[0]
+
         def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate,guLogo:logo],filename:fileName+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
         }

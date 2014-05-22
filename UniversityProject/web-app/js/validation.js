@@ -2,7 +2,7 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-    $("#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
+    $("#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
         rules: {
 //              tempEnroll
             examCentre:"required",
@@ -165,6 +165,13 @@ function validate() {
             d_o_b: {
                 required: true,
                 date: true
+            },
+
+            startD: {
+                required: true
+            },
+            endD: {
+                required: true
             },
             mobileNo: {
                 required: true,
@@ -373,6 +380,14 @@ function validate() {
             examinationCentreName: "Please Enter examination Centre Name",
             rollNo:{ required:"Please Enter a Roll Number",
                 minlength:"Please Enter 8 digit Roll Number"
+            },
+            startD:{
+                required:"Please Enter Start Date",
+                dateISO:"Please Enter Valid Date"
+            },
+            endD:{
+                required:"Please Enter End Date",
+                dateISO:"Please Enter Valid Date"
             },
             feeType: "Please Select Fee type",
             feeAmountAtIDOL: "Please Enter Fee amount at IDOL",

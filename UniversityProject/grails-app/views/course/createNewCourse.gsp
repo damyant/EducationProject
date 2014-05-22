@@ -61,6 +61,21 @@
 
             </tr>
             <tr>
+                <td style="width: 40%"><label>Select Session :<span class="university-obligatory">*</span></label></td>
+                <td style="width: 60%">
+                    <select id="session" name="session" class="university-size-1-2">
+                       <g:each in="${programSessions}" var="session">
+                           <option value="${session.sessionOfProgram}">${session.sessionOfProgram}</option>
+                       </g:each>
+                    </select>
+                    %{--<g:select from="${programSessions}"--}%
+                              %{--optionKey="id"--}%
+                              %{--optionValue="${{ book -> "${book.title} - ${book.isbn}" }}"--}%
+                              %{--name="bookCustom"/>--}%
+                </td>
+
+            </tr>
+            <tr>
                 <td><label>Select Mode :<span class="university-obligatory">*</span></label></td>
                 <td><g:select name="courseMode" id="modeName" optionKey="id" optionValue="modeName" onchange="enableNoOfSem(this)" class="university-size-1-2" from="${CourseMode.findAll()}" noSelection="['':' Select Mode']" /></td>
             </tr>

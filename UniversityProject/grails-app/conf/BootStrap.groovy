@@ -18,6 +18,7 @@ class BootStrap {
                 username: 'admin',
                 password: 'admin',
                 email: 'admin@damyant.com',
+                studyCentreId: 1,
                 enabled: true).save(failOnError: true)
 
         if (!adminUser.authorities.contains(adminRole)) {

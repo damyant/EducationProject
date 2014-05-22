@@ -116,7 +116,9 @@ function selectRows(){
 function getSemester(t){
 
     var data = $(t).val();
-    $('semesterList').prop('disabled',false)
+    alert("-------------"+data)
+    $('#semesterList').prop('disabled',false)
+    $('#SessionList').prop('disabled',false)
     $.ajax({
         type: "post",
         url: url('admitCard', 'getSemesterList', ''),
@@ -132,15 +134,58 @@ function getSemester(t){
             for (var i = 0; i < data.session.length; i++) {
                 $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
             }
-
-
         }
-
     })
+
+}
+
+
+
+function getSemesterForAttendance(t){
+    var data = $(t).val();
+    $('#semesterList').prop('disabled',false)
+    $('#SessionList').prop('disabled',false)
+    if(data=='allProgram'){
+    $.ajax({
+        type: "post",
+        url: url('admitCard', 'getSemesterList', ''),
+        data: {data: data},
+        success: function (data) {
+            $("#semesterList").empty().append('data <option value="allSemester">All Semester</option>')
+            $("#SessionList").empty().append('data <option value="allSession">All Session</option>')
+            for (var i = 1; i <= data.totalSem; i++) {
+                $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+            }
+            for (var i = 0; i < data.session.length; i++) {
+                $("#SessionList").append('<option value="' + data.session[i] + '">' + data.session[i] + '</option>')
+            }
+        }
+    })
+  }
+    else{
+
+        $.ajax({
+            type: "post",
+            url: url('admitCard', 'getSemesterList', ''),
+            data: {data: data},
+            success: function (data) {
+                $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+                $("#SessionList").empty().append('data <option value="">Select Session</option>')
+                for (var i = 1; i <= data.totalSem; i++) {
+                    $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+                }
+                for (var i = 0; i < data.session.length; i++) {
+                    $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
+                }
+            }
+        })
+    }
 
     $("#semesterList").attr('enabled',true)
 
 }
+
+
 function showStudentInfo(){
     document.getElementById("admitCardTab").style.display = "block";
     document.getElementById("subjectTab").style.display = "block";
@@ -332,7 +377,8 @@ function generateAdmitCard(){
         $("#studentList").val(selectedStudentList)
         var studentList =$("#studentList").val()
         var venue =$("#examCenterList").val()
-        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue);
+        var programSessionId=$("#SessionList").val()
+        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue+'&programSessionId='+programSessionId);
         //$("#admitCardForm").submit();
 //        studentsSelected(selectedStudentList)
 

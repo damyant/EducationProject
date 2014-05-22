@@ -16,18 +16,25 @@
     <script type="text/javascript">
 
     </script>
-
+         ${params}
     <script type="text/javascript">
          $(function () {
-            $("#rollNo").blur(function () {
+            $("#feeType").blur(function () {
+                var rollNo = $("#rollNo").val()
+                var feeType = $(this).val()
                 if ($(this).length > 0) {
                     var url = "${createLink(controller:'admin', action:'checkFeeByRollNo')}"
-                    $.getJSON(url, {rollNo: $(this).val()}, function (json) {
+                    $.getJSON(url, {rollNo: rollNo,feeType:feeType}, function (json) {
                             if (json.feeStatus) {
                             $("#submit").prop('disabled', false);
                             $("#feeType").prop('disabled', false);
+                            $("#feeError").prop('hidden', true);
                         }else{
-                          $("#feeError").html("Fee of program "+json.program+" not yet created");
+                          $("#feeError").html(json.feeType.type+" not yet created");
+                          $("#feeError").prop('hidden', false);
+                          $("#submit").prop('disabled', true);
+
+
                         }
                     });
                 }

@@ -36,7 +36,7 @@ class Student {
     String challanNo
 
 
-    static hasMany = [examinationCentre : ExaminationCentre, studyCentre : StudyCenter,programDetail:ProgramDetail]
+    static hasMany = [city : City, studyCentre : StudyCenter,programDetail:ProgramDetail]
 
     static constraints = {
         referenceNumber(nullable:true)

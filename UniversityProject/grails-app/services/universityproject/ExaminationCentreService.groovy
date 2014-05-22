@@ -7,6 +7,7 @@ import examinationproject.ExaminationVenue
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
 import examinationproject.Student
+import examinationproject.StudyCenter
 import grails.transaction.Transactional
 
 @Transactional
@@ -17,7 +18,7 @@ class ExaminationCentreService {
     }
 
     Boolean saveCentres(params) {
-
+//        println("?????????????????????????>> "+params)
         Boolean examinationVenueInsSaved = false;
         def examinationCentreNameList = []
         examinationCentreNameList.addAll(params?.examinationCentreName)
@@ -40,11 +41,18 @@ class ExaminationCentreService {
             examinationVenueIns.inchargeName = examinationCentreInchargeList[i].toString()
             examinationVenueIns.name = examinationCentreNameList[i].toString()
             examinationVenueIns.centreCode = Integer.parseInt(examinationCentreCodeList[i])
-            def examIns = ExaminationCentre.findById(Integer.parseInt(params.examinationCentre))
+            def examIns = City.findById(Integer.parseInt(params.examinationCentre))
             examIns.addToExamVenue(examinationVenueIns)
+
 
 //            examinationVenueIns. = examinationCentreList
             if (examinationVenueIns.save(flush: true, failOnError: true)) {
+                if(params.Select){
+                    def studyCenterInst=StudyCenter.get(params.Select)
+//                    println("**********************> "+studyCenterInst)
+                    studyCenterInst.isExamVenue=0
+                    studyCenterInst.save(flush: true, failOnError: true)
+                }
                 examinationVenueInsSaved = true;
             }
         }
@@ -55,8 +63,8 @@ class ExaminationCentreService {
     def examVenueList(params) {
 
         if (params) {
-            def list=ExaminationCentre.findAllById(Integer.parseInt(params.examinationCentre))
-//            println("<<<"+list.examVenue)
+            def list=City.findAllById(Integer.parseInt(params.examinationCentre))
+            println("<<<"+list)
 //            def obj=ExaminationVenue.createCriteria();
 //            def examVenueList=obj.list{
 //                ex
@@ -84,20 +92,36 @@ class ExaminationCentreService {
 
     def associatedExamVenue(params) {
 
-        def examinationCentre = ExaminationCentre.findById(Long.parseLong(params.examinationCentre))
+        def examinationCentre = City.findById(Long.parseLong(params.examinationCentre))
         def programIns = ProgramDetail.findById(Long.parseLong(params.programList))
         def examVenue = ProgramExamVenue.findAllByCourseDetailAndExamCenter(programIns, examinationCentre)
          return examVenue.examVenue
     }
 
-    Boolean saveExamCentres(params) {
-        Boolean isSaved = false;
-        ExaminationCentre examCentreIns = new ExaminationCentre()
-        examCentreIns.examinationCentreName= params.examCentreName
-        examCentreIns.district = District.findById(Integer.parseInt(params.district))
-        if (examCentreIns.save(flush: true)) {
-            isSaved = true
+    int saveExamCentres(params) {
+        int status = 0;
+        def examCentreIns=City.findByCityNameAndIsExamCentre(params.examCentreName,1)
+        def cityIns=City.findByCityNameAndIsExamCentre(params.examCentreName,0)
+        if(examCentreIns)
+        {
+            status=1
         }
+        else if (cityIns){
+            cityIns.isExamCentre=1
+            if (cityIns.save(flush: true)) {
+                status=2
+            }
+        }
+        else{
+            City CentreIns = new City()
+            CentreIns.cityName= params.examCentreName
+            CentreIns.district = District.findById(Integer.parseInt(params.district))
+            CentreIns.isExamCentre=1
+            if (CentreIns.save(flush: true)) {
+                status=2
+            }
+        }
+        return status
     }
 
     def deletionExamVenue(params){

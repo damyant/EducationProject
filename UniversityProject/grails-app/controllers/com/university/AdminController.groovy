@@ -2,11 +2,17 @@ package com.university
 
 import examinationproject.AdmissionFee
 import examinationproject.Bank
+import examinationproject.City
 import examinationproject.ExaminationCentre
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
+import examinationproject.MiscellaneousFeeChallan
 import examinationproject.ProgramDetail
 import examinationproject.ProgramType
+<<<<<<< HEAD
+=======
+import examinationproject.RollNoGenerationFixture
+>>>>>>> 7fbe725fdd533b293cdcc48e0206d12a4d93b326
 import examinationproject.Student
 import examinationproject.Status
 import examinationproject.StudyCenter
@@ -14,7 +20,8 @@ import grails.converters.JSON
 import javax.activation.MimetypesFileTypeMap
 import grails.plugins.springsecurity.Secured
 
-
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 class AdminController {
 
@@ -24,272 +31,304 @@ class AdminController {
     def springSecurityService
     def feeDetailService
     def attendanceService
-    @Secured(["ROLE_GENERATE_ROLL_NO"])
 
+    @Secured(["ROLE_GENERATE_ROLL_NO"])
     def viewProvisionalStudents() {
 
-        def studyCenterList=StudyCenter.list(sort: 'name')
-        def programList=ProgramDetail.list(sort: 'courseName')
-       [studyCenterList:studyCenterList,programList:programList]
+        def studyCenterList = StudyCenter.list(sort: 'name')
+        def programList = ProgramDetail.list(sort: 'courseName')
+        [studyCenterList: studyCenterList, programList: programList]
     }
 
     @Secured("ROLE_ADMIN")
-    def viewApprovedStudents(){
-        def studyCenterList=StudyCenter.list(sort: 'name')
-        def programList=ProgramDetail.list(sort: 'courseName')
-        [studyCenterList:studyCenterList,programList:programList]
+    def viewApprovedStudents() {
+        def studyCenterList = StudyCenter.list(sort: 'name')
+        def programList = ProgramDetail.list(sort: 'courseName')
+        [studyCenterList: studyCenterList, programList: programList]
     }
 
-    def getStudentList(){
-        def responseMap=[:]
-        def stuList= adminInfoService.provisionalStudentList(params)
-        responseMap.status="referenceNo"
-        responseMap.label=params.pageType
-        responseMap.stuList=stuList
+    def getStudentList() {
+        def responseMap = [:]
+        def stuList = adminInfoService.provisionalStudentList(params)
+        responseMap.status = "referenceNo"
+        responseMap.label = params.pageType
+        responseMap.stuList = stuList
         render responseMap as JSON
 
     }
+
     @Secured("ROLE_ADMIN")
-    def generateRollNo(){
-        String rollNumber=null
+    def generateRollNo() {
+        String rollNumber = null
         def stuObj
-        def stuList=[]
-        def responseMap=[:]
+        def stuList = []
+        def responseMap = [:]
         def status
-        if(params.pageType=="Approve RollNo"){
-            status= studentRegistrationService.approvedStudents(params)
-        }
-        else{
+        if (params.pageType == "Approve RollNo") {
+            status = studentRegistrationService.approvedStudents(params)
+        } else {
             def studentIdList = params.studentList.split(",")
             studentIdList.each { i ->
-                rollNumber =studentRegistrationService.getStudentRollNumber(params)
-                 stuObj = Student.findById(i)
-                 stuObj.rollNo = rollNumber
-                 stuObj.status = Status.findById(Long.parseLong("2"))
-                 stuObj.save(flush: true,failOnError: true)
+                rollNumber = studentRegistrationService.getStudentRollNumber(params)
+                stuObj = Student.findById(i)
+                stuObj.rollNo = rollNumber
+                stuObj.status = Status.findById(Long.parseLong("2"))
+                stuObj.save(flush: true, failOnError: true)
             }
         }
 
-        if(stuObj){
-        stuList= adminInfoService.provisionalStudentList(params)
+        if (stuObj) {
+            stuList = adminInfoService.provisionalStudentList(params)
         }
-        responseMap.status='rollNo'
-        responseMap.stuList=stuList
+        responseMap.status = 'rollNo'
+        responseMap.stuList = stuList
         render responseMap as JSON
         render stuList as JSON
     }
 
-    @Secured(["ROLE_ADMIN","ROLE_IDOL_USER"])
-    def feeVoucher={
-        def feeType = FeeType.list(sort:'type')
-      //  def selectFeeType=FeeType.findAllById(1)
-        [feeType:feeType]
+    @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
+    def feeVoucher = {
+        def feeType = []
+        feeType = FeeType.list(sort: 'type')
+        [feeType: feeType]
     }
 
 
     def examFeeVoucher = {
-        def feeType = FeeType.list(sort:'type')
+        def feeType = FeeType.list(sort: 'type')
 
-        [feeType:feeType]
+        [feeType: feeType]
     }
 
     def checkFeeByRollNo = {
-        def student = Student.findByRollNo(params.rollNo)
-        def program= student.programDetail
-        def programName=program[0].courseName
-        boolean status
-        def admissionFee = AdmissionFee.findByProgramDetail(program)
-        if(admissionFee)
-            status=true
-        else
-            status = false
-        def response =[id:student.id,feeStatus:status,program:programName]
+        def response
+        try {
+            def student = Student.findByRollNo(params.rollNo)
+            println("??????????" + student)
+            def program = student.programDetail[0]
+            def feeType
+            def programName = program.courseName
+            boolean status
+            def admissionFee = AdmissionFee.findByProgramDetail(program)
+            def mFee
+
+            if (Integer.parseInt(params.feeType) > 0) {
+                feeType = FeeType.findById(params.feeType)
+                mFee = MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(feeType, program, student.programSession)
+                if (mFee)
+                    status = true
+                else
+                    status = false
+            } else {
+                if (admissionFee)
+                    status = true
+                else
+                    status = false
+            }
+            response = [id: student.id, feeStatus: status, program: programName, feeType: feeType]
+        } catch (Exception ex) {
+            println("problem in checking the existence of roll number" + ex)
+
+        }
+
         render response as JSON
     }
 
-    @Secured(["ROLE_ADMIN","ROLE_IDOL_USER"])
-    def generateFeeVoucher={
-       println(">>>>>>>>????????>>"+params)
-        def student = Student.findByRollNo(params.rollNo)
-        def program = student.programDetail
-        def feeTypeId
-        def feeType
-        def programFeeAmount
-        def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program,student.programSession)
+    @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
+    def generateFeeVoucher = {
 
-//        println("&&&&&&&&&&&&&&&&&&&&&&&"+program)
-        if(params.feeType){
+        println(">>>>>>>>????????>>" + params)
+        def student = Student.findByRollNo(params.rollNo)
+        def program = student.programDetail[0]
+        def feeTypeId
+        def feeType = null
+        def args
+        def programFeeAmount = 0
+        def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
+
+        if (Integer.parseInt(params.feeType) > 0) {
             println("hfdsfsfgs???????????????????????????")
-            feeTypeId =Integer.parseInt(params.feeType)
-            feeType = FeeType.findById(feeTypeId)
-           def mFee = MiscellaneousFee.findByFeeType(feeType)
-            programFeeAmount= mFee.amount
-        }else{
+            try {
+                feeTypeId = Integer.parseInt(params.feeType)
+                feeType = FeeType.findById(feeTypeId)
+                def mFee = MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(feeType, program, student.programSession)
+                programFeeAmount = mFee.amount
+            } catch (NullPointerException ex) {
+                println("MiscellaneousFee does not exists" + ex)
+
+            }
+        } else {
             println("hfdsfsfgs?????????????????>>>>>>>>>>>>>>>>?")
             feeType = null
-            programFeeAmount=programFee.feeAmountAtIDOL
+            programFeeAmount = programFee.feeAmountAtIDOL
         }
 
-//        println("feeTypeId    "+feeTypeId+"********"+programFee.feeAmountAtIDOL)
-        def args = [template:"feeVoucher", model:[student:student, programFee:programFee,programFeeAmount:programFeeAmount,feeType:feeType]]
-        pdfRenderingService.render(args+[controller:this],response)
+        if (params.idol == "idol")
+            args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
+        else
+            args = [template: "feeVoucher", model: [student: student, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
+        pdfRenderingService.render(args + [controller: this], response)
+
 
     }
 
     @Secured("ROLE_ADMIN")
-    def assignExaminationDate={
-        def programList = ProgramDetail.list(sort:'courseName')
+    def assignExaminationDate = {
+        def programList = ProgramDetail.list(sort: 'courseName')
         [programList: programList]
     }
     @Secured("ROLE_ADMIN")
     def assignExaminationVenue={
         def programList = ProgramDetail.list(sort:'courseName')
-        def examinationCenter=ExaminationCentre.list(sort:'examinationCentreName')
-
-        [programList: programList,examinationCenterList:examinationCenter]
+        def obj=City.createCriteria()
+        def examCenterList=obj.list {
+            eq('isExamCentre',1)
+            order('cityName','asc')
+        }
+            [programList: programList,examinationCenterList:examCenterList]
     }
 
-    def getSubjectList={
-        def subMap=[:]
-       subMap= adminInfoService.subjectList(params)
+    def getSubjectList = {
+        def subMap = [:]
+        subMap = adminInfoService.subjectList(params)
 
-        if(subMap.allSubjects.size()<1){
-            subMap.noSubjects=true
+        if (subMap.allSubjects.size() < 1) {
+            subMap.noSubjects = true
             render subMap as JSON
-        }
-        else{
+        } else {
             render subMap as JSON
         }
     }
 
-    def saveExamDate={
-        def checkStatus=[:]
-        def status=adminInfoService.saveExamDate(params)
+    def saveExamDate = {
+        def checkStatus = [:]
+        def status = adminInfoService.saveExamDate(params)
 
-        if(status.size()>1){
-            checkStatus.saveFlag=true
-        }
-        else{
-            checkStatus.saveFlag=false
+        if (status.size() > 1) {
+            checkStatus.saveFlag = true
+        } else {
+            checkStatus.saveFlag = false
         }
         render checkStatus as JSON
 
     }
 
-    def saveExamVenue={
+    def saveExamVenue = {
 
-        def status=adminInfoService.saveExamVenue(params)
-        if(status){
+        def status = adminInfoService.saveExamVenue(params)
+        if (status) {
             render status
-        }
-        else{
+        } else {
             render "<h5>Error In Assigning Examination Venue</h5>"
         }
 
     }
-    def generateStudentList={
-        def studList= adminInfoService.updateStudentList(params)
-        println("******************"+studList.firstName);
+    def generateStudentList = {
+        def studList = adminInfoService.updateStudentList(params)
         render studList as JSON
     }
 
 
     def downloadAttendanceSheet = {
-        if(params.programSession){
+        if (params.programSession) {
+
             def webRootDir = servletContext.getRealPath("/")
-            def userDir = new File(webRootDir,'/Attendance')
+            def userDir = new File(webRootDir, '/Attendance')
             userDir.mkdirs()
-            def excelPath = servletContext.getRealPath("/")+'Attendance'+System.getProperty('file.separator')+'Output'+'.xls'
-//            println('this is the real path '+excelPath)
-            def status= attendanceService.getStudentList(params,excelPath)
-            if(status){
-//                println("hello kuldeep u r back in controller "+ status)
-                File myFile = new File(servletContext.getRealPath("/")+'Attendance'+System.getProperty('file.separator')+'Output'+'.xls')
-                response.setHeader "Content-disposition", "attachment; filename="+'Output'+".xls"
-                response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
-                response.outputStream << myFile .bytes
+            def excelPath = servletContext.getRealPath("/") + 'Attendance' + System.getProperty('file.separator') + 'Output' + '.xls'
+            def status = attendanceService.getStudentList(params, excelPath)
+            println("hello kuldeep u r back in controller " + status)
+            if (status) {
+                println("hello kuldeep u r back in controller " + status)
+                File myFile = new File(servletContext.getRealPath("/") + 'Attendance' + System.getProperty('file.separator') + 'Output' + '.xls')
+                response.setHeader "Content-disposition", "attachment; filename=" + 'Output' + ".xls"
+                response.contentType = new MimetypesFileTypeMap().getContentType(myFile)
+                response.outputStream << myFile.bytes
                 response.outputStream.flush()
                 myFile.delete()
+            } else {
+                flash.message = "${message(code: 'student.not.found.message')}"
+                redirect(action: 'downloadAttendanceSheet')
             }
-            else{
-
-            }
-        }
-
-        else{
+        } else {
 //            println("there is no parameters")
         }
 
     }
-    def uploadInternalMarks={
-        def studyCentreList = StudyCenter.list(sort:'name')
-        def programList = ProgramDetail.list(sort:'courseName')
+    def uploadInternalMarks = {
+        def studyCentreList = StudyCenter.list(sort: 'name')
+        def programList = ProgramDetail.list(sort: 'courseName')
         [programList: programList, studyCentreList: studyCentreList]
     }
-    def approvePayInSlip={
-        def bankList= Bank.list(sort:'bankName');
+    def approvePayInSlip = {
+        def bankList = Bank.list(sort: 'bankName');
         def feeTypeList = FeeType.list(sort: 'type');
-        [bankList:bankList,feeTypeList:feeTypeList]
+        [bankList: bankList, feeTypeList: feeTypeList]
     }
-    def getBranchList={
-        def list=Bank.findAllById(Integer.parseInt(params.bank));
-//        println("))))))))@@@@@@@@@@@@@@@@@@"+list.branch[0].branchLocation)
+    def getBranchList = {
+        def list = Bank.findAllById(Integer.parseInt(params.bank));
         render list.branch[0] as JSON
     }
-    def studyCentreFeeApproval={
-        def studyCenterList=StudyCenter.list(sort: 'name');
-        def programList = ProgramDetail.list(sort:'courseName')
-        [studyCenterList:studyCenterList,programList:programList]
+
+
+
+    def studyCentreFeeApproval = {
+        def studyCenterList = StudyCenter.list(sort: 'name');
+        def programList = ProgramDetail.list(sort: 'courseName')
+        [studyCenterList: studyCenterList, programList: programList]
     }
-    def getChallanDetailsforStudent={
-        def resultMap=[:]
-        println(">>>>>>>>>>>>>>>>>>>"+params)
+    def getChallanDetailsforStudent = {
+        def resultMap = [:]
         resultMap = feeDetailService.studentDetailByChallanNumber(params)
-
-
-//        def studentInst=Student.findAllByChallanNo(params.challanNo);
-//        println("%%%%%%%%%%%%%%%%%%%%%% "+studentInst);
-//        def feeAmount=[]
-//        for(int i=0;i<studentInst.size();i++){
-//           def amount=AdmissionFee.findAllByProgramDetail(studentInst[i].programDetail);
-//            if(studentInst[i].studyCentre[0].centerCode=='11111'){
-//                feeAmount.add(amount[0].feeAmountAtIDOL)
-//            }
-//            else{
-//                feeAmount.add(amount.feeAmountAtSC)
-////                println("feeAmountAtSC"+amount[0].feeAmountAtSC)
-//            }
-//
-//        }
-//        resultMap.studentInst=studentInst;
-//        resultMap.feeAmount=feeAmount;
         render resultMap as JSON
     }
-    def saveApprovePayInSlip={
-//        println("saving  "+params);
-        def returnMap=[:]
-        Boolean result=adminInfoService.savePayInSlip(params);
-        returnMap.flag=result
+    def saveApprovePayInSlip = {
+        def returnMap = [:]
+        Boolean result = adminInfoService.savePayInSlip(params);
+        returnMap.flag = result
 //        println(result);
+
         render returnMap as JSON
     }
-    def getFeeAmount={
+    def getFeeAmount = {
 
-        def resultMap=[:]
+        def resultMap = [:]
         println(params)
-        def feeAmount=AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
-        resultMap.feeAmount=feeAmount.feeAmountAtIDOL;
+        def feeAmount = AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
+        resultMap.feeAmount = feeAmount.feeAmountAtIDOL;
         render resultMap as JSON
     }
-
     def searchListStudentByChallanNo(){
         def returnMap=[:]
+
         def courseNameList=[],courseFee=[]
         def stuList=  Student.findAllByChallanNo(params.challanNo)
+        def currentUser = springSecurityService.currentUser
+        println("username = :"+StudyCenter.findAllById(currentUser.studyCentreId).centerCode)
         stuList.each{
             println("==="+it.programDetail[0])
             courseNameList<<it.programDetail[0].courseName
-            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+            if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
+            }else{
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+            }
+        }
+        returnMap.stuList = stuList
+        returnMap.courseNameList = courseNameList
+        returnMap.courseFee = courseFee
+        render returnMap as JSON
+    }
+
+    def searchMiscFeeListByChallanNo(){
+        def returnMap=[:]
+        def courseNameList=[],courseFee=[],stuList=[]
+        def miscFeeChallanList=  MiscellaneousFeeChallan.findAllByChallanNo(params.challanNo)
+        miscFeeChallanList.each{
+//            println("==="+it.student.programDetail)
+            stuList<<it.student
+            courseNameList<<it.student.programDetail[0].courseName
+            courseFee<<MiscellaneousFee.findByProgramDetailAndFeeType(it.student.programDetail[0],it.feeType).amount
         }
         returnMap.stuList=stuList
         returnMap.courseNameList=courseNameList
@@ -297,18 +336,18 @@ class AdminController {
         render  returnMap as JSON
     }
     def searchByChallanNo(){
-
-
         def returnMap = [:]
-        println("???????/"+params)
+        println("???????/" + params)
         returnMap = feeDetailService.studentDetailByChallanNumber(params)
-        render  returnMap as JSON
+        render returnMap as JSON
     }
 
     def approveFeeForStudents = {
-   println(">>>>>>>>>>>>>"+params.studentListId)
+        println(">>>>>>>>>>>>>" + params.studentListId)
         def student
-      params.studentListId.each{
+        def studentListId=[]
+        studentListId.addAll(params.studentListId)
+      studentListId.each{
           student = Student.findById(it)
           def status = Status.findById(4)
           student.status = status
@@ -333,3 +372,78 @@ class AdminController {
     }
 }
 
+
+    def assignRollNoGenerationDate={
+        def rollDateInst = RollNoGenerationFixture.findById(1)
+        [rollDateInst:rollDateInst]
+    }
+    def saveRollNoGenerationDate={
+            def status=adminInfoService.saveRollNoGenDate(params)
+        if(status) {
+            flash.message = "Date Generated Successfully"
+        }
+        else {
+            flash.message = "Unable to Generate Date Successfully"
+        }
+            redirect(action: "assignRollNoGenerationDate")
+
+    }
+    def generateRollIsAllow={
+        def returnMap = [:]
+        Boolean status=false
+        def genRollNoIns=RollNoGenerationFixture.findById(1)
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date min=genRollNoIns.startD
+        Date max=genRollNoIns.endD
+        Date cdate=new Date()
+        if(cdate.compareTo(min) >= 0 && cdate.compareTo(max) <= 0){
+            status=true
+        }
+        returnMap.status=status
+        render  returnMap as JSON
+    }
+
+
+    def assignLateFeeDate = {
+
+        def programList = []
+        def programs = ProgramDetail.list(sort: 'courseName')
+        programs.each {
+
+            if (it.lateFeeDate == null) {
+                println(it)
+                println("?????????????????" + it.lateFeeDate)
+                programList.add(it)
+            }
+        }
+
+        def programCategory = ProgramType.list(sort: 'type')
+        [programList: programList, programCategory: programCategory]
+
+    }
+
+    def loadProgram = {
+        println("params" + params)
+        def programList = [], dateList = []
+        def programType = ProgramType.findById(Long.parseLong(params.type))
+        def programs = ProgramDetail.findAllByProgramType(programType)
+        programs.each {
+            dateList << it.lateFeeDate.getDateString()
+        }
+        def response = [programList: programs, dateList: dateList]
+        render response as JSON
+    }
+
+    def saveLateFeeDate = {
+        println(">?><< <<<<<<<<<<<<<" + params)
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+        def date = df.parse(params.lateFeeDate)
+        params.programs.each {
+            def program = ProgramDetail.findById(Integer.parseInt(it))
+            program.lateFeeDate = date
+            program.save(flush: true, failOnError: true)
+
+        }
+        redirect(action: "assignLateFeeDate")
+    }
+}

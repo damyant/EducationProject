@@ -104,13 +104,40 @@ class StudyCenterController {
         def result= studyCenterInfoService.studyCenterList(params)
         if(result)
         render result as JSON
-        else  status.flag="false"
+        else
+            status.flag="false"
         render status as JSON
         }
         catch (Exception e){
             println("<<<<<<<<<<<Problem in getting study center list" + e)
         }
     }
+
+    def getStudyCenterForECList(){
+
+        try{
+            def status=[:]
+            def result= studyCenterInfoService.studyCenterForECList(params)
+            if(result)
+                render result as JSON
+            else
+                status.flag="false"
+            render status as JSON
+        }
+        catch (Exception e){
+            println("<<<<<<<<<<<Problem in getting study center list" + e)
+        }
+    }
+
+
+    def getStudyCenterDetails(){
+        def studyCenterDetails=[:]
+        def studyCenterInst=StudyCenter.findById(params.centreId)
+        studyCenterInst.name
+        studyCenterDetails.studyCenterInst=studyCenterInst
+        render studyCenterDetails as JSON
+    }
+
 
     def getCityList() {
 
