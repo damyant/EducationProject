@@ -63,13 +63,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            %{--<tr>--}%
-                            %{--<td class="university-size-2-3">--}%
-                            %{--<label class="university-size-1-2"><strong>Registration No.</strong></label>--}%
-                            %{--<label class="university-size-1-2" id="regNo"></label>--}%
-                            %{--</td>--}%
-                            %{--</tr>--}%
-                            <tr>
+                                        <tr>
                                 <td style="width: 80%;">
                                     <div style="width: 100%;">To the <i><b> <label id="mode">Semester</label> Examination <label id="year">2014</label> </b></i>Under the Institute of Distance and Open Learning </div>
                                 </td>

@@ -139,6 +139,8 @@ function getSemester(t){
 
 }
 
+
+
 function getSemesterForAttendance(t){
     var data = $(t).val();
     $('#semesterList').prop('disabled',false)
@@ -375,7 +377,8 @@ function generateAdmitCard(){
         $("#studentList").val(selectedStudentList)
         var studentList =$("#studentList").val()
         var venue =$("#examCenterList").val()
-        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue);
+        var programSessionId=$("#SessionList").val()
+        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue+'&programSessionId='+programSessionId);
         //$("#admitCardForm").submit();
 //        studentsSelected(selectedStudentList)
 

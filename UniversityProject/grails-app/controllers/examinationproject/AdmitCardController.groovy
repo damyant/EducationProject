@@ -43,8 +43,9 @@ class AdmitCardController {
         [programList: programList, studyCentreList: studyCentreList, examinationCenterList: examinationCenter]
     }
 
+
     def getSemesterList={
-        println("++"+params)
+        println("gettinf semsster wise subjects"+params)
         try{
             if(params.data=='allProgram'){
                 def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
@@ -60,8 +61,7 @@ class AdmitCardController {
                 if(course!=null){
                     def programSession = ProgramSession.findAllByProgramDetailId(course)
                     resultMap.totalSem = course.noOfTerms
-                       resultMap.session=programSession
-
+                    resultMap.session=programSession
 
                     render resultMap as JSON
                 }
@@ -72,7 +72,7 @@ class AdmitCardController {
         }catch (Exception e){
             println("Error in getting Semester Number"+e)
 
-             }
+        }
 
     }
 
@@ -134,18 +134,22 @@ class AdmitCardController {
           status=  admitCardService.updateStudentRecord(stuList,params.examinationVenue)
         }
         if(stuList[0]){
+            def programSessionIns=ProgramSession.findById(Long.parseLong(params.programSessionId))
 
-        def list=CourseSubject.findAllByCourseDetailAndSemester(stuList[0].programDetail,Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession))*.subject as Set
-        def finalList=list.sort{a,b->
-            a.examDate<=>b.examDate
+            println(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession))
+        def subjectList=CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession),programSessionIns)*.subject
+
+            def dateList=[]
+            subjectList.each{
+               dateList<< CourseSubject.findBySubjectAndProgramSession(it,programSessionIns).examDate
+            }
+
+            dateList.each{
+            if(it){
+            examDate.append(it.format("dd/MM/yyyy"))
+            examDate.append(", ")
+            }
         }
-
-//        finalList.each{
-//            examDate.append(it.examDate.format("dd/MM/yyyy"))
-//            examDate.append(", ")
-//        }
-
-//        println("status==="+status)
 
         def month=""
         if(stuList[0].semester%2==0){
@@ -157,6 +161,7 @@ class AdmitCardController {
 
         def session=stuList[0].programSession.sessionOfProgram.split("-")
         def fileName=stuList[0].programDetail[0].courseName+" "+month+" "+session[0]
+
         def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate,guLogo:logo],filename:fileName+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
         }

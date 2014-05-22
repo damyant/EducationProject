@@ -91,8 +91,7 @@ class CourseDetailService {
                     sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId:courseObj).save(flush: true, failOnError: true)
                 }
             } else {
-                println("---------------------------isme aa gya")
-                sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId:courseObj).save(flush: true, failOnError: true)
+                  sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId:courseObj).save(flush: true, failOnError: true)
             }
             for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
                 semObj = new Semester()
@@ -138,8 +137,9 @@ class CourseDetailService {
         programSession.semester.each {
             subMap[it.semesterNo] = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programSession.programDetailId, it, programSession).subject
             subList = subMap
-        }
+         }
         courseDetail.semesterList = subList
+
         return courseDetail
 
     }
@@ -148,11 +148,9 @@ class CourseDetailService {
 
 //        def existingCourseObj = ProgramDetail.findById(params.courseId)
         def existingProgramSession= ProgramSession.findById(Long.parseLong(params.courseSessionId))
-        println("*****="+existingProgramSession)
         if (existingProgramSession) {
             def semesterList = Semester.findAllByProgramSession(existingProgramSession)
             CourseSubject.removeAll(existingProgramSession.programDetailId,existingProgramSession)
-            println("??????????"+semesterList)
             semesterList.each {
                 it.delete(failOnError: true,flush: true)
             }
