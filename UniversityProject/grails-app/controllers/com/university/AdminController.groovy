@@ -9,10 +9,7 @@ import examinationproject.MiscellaneousFee
 import examinationproject.MiscellaneousFeeChallan
 import examinationproject.ProgramDetail
 import examinationproject.ProgramType
-<<<<<<< HEAD
-=======
 import examinationproject.RollNoGenerationFixture
->>>>>>> 7fbe725fdd533b293cdcc48e0206d12a4d93b326
 import examinationproject.Student
 import examinationproject.Status
 import examinationproject.StudyCenter
