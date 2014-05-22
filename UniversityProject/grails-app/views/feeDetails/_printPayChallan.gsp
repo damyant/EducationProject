@@ -30,11 +30,13 @@
             <th style="width: 33%;">Roll No</th>
             <th style="width: 33%;">Amount</th>
         </tr>
-        <g:each in="${0..stuList.size()}" var="index">
+        <g:each in="${0..stuList.size()-1}" var="index">
             <tr>
                 <td>${stuList.getAt(index)?.firstName} ${stuList.getAt(index)?.lastName}</td>
                 <td>${stuList.getAt(index)?.rollNo}</td>
-                <td>${courseFee.getAt(index)}</td>
+                <td>${courseFee.getAt(index)}
+                    <label style="font-size: 13px;display: block">(with late fee ${lateFee})</label>
+                </td>
             </tr>
         </g:each>
     </table>

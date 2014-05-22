@@ -24,15 +24,15 @@
     </p>
     <table style="width: 80%;margin: auto; text-align: center;">
         <tr>
-            <th style="width: 33%;">Student Name</th>
-            <th style="width: 33%;">Roll No</th>
-            <th style="width: 33%;">Amount</th>
+                <th style="width: 33%;">Student Name</th>
+                <th style="width: 33%;">Roll No</th>
+                <th style="width: 33%;">Amount</th>
         </tr>
         <g:each in="${0..studList.size() - 1}" var="index">
             <tr>
                 <td>${studList[index].firstName} ${studList[index].lastName}</td>
                 <td>${studList[index].rollNo}</td>
-                <td>${addmissionFee[index]}</td>
+                <td>${addmissionFee[index]}<label style="font-size: 13px;display: block">(with late fee ${lateFee})</label></td>
             </tr>
         </g:each>
     </table>

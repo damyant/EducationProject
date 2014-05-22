@@ -297,19 +297,26 @@ class AdminController {
     }
     def searchListStudentByChallanNo(){
         def returnMap=[:]
-
+        def lateFee=0
         def courseNameList=[],courseFee=[]
         def stuList=  Student.findAllByChallanNo(params.challanNo)
         def currentUser = springSecurityService.currentUser
         println("username = :"+StudyCenter.findAllById(currentUser.studyCentreId).centerCode)
         stuList.each{
-            println("==="+it.programDetail[0])
+            lateFee=0
+            def lateFeeDate=it.programDetail.lateFeeDate[0]
+            def today=new Date()
+//            def amount=AdmissionFee.findByProgramDetail(it.programDetail[0])
+            if(today.compareTo(lateFeeDate) > 0){
+                lateFee=AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
+            }
             courseNameList<<it.programDetail[0].courseName
             if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
-                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL+lateFee
             }else{
-                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC+lateFee
             }
+//            courseFee=courseFee
         }
         returnMap.stuList = stuList
         returnMap.courseNameList = courseNameList
@@ -426,13 +433,16 @@ class AdminController {
 
     def saveLateFeeDate = {
         println(">?><< <<<<<<<<<<<<<" + params)
+        println(">?><< <<<<<<<<<<<<<" + params.programs)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
         def date = df.parse(params.lateFeeDate)
-        params.programs.each {
+        def programList=[]
+        programList.addAll( params.programs)
+        programList.each {
+//            println("############################3 "+it )
             def program = ProgramDetail.findById(Integer.parseInt(it))
             program.lateFeeDate = date
             program.save(flush: true, failOnError: true)
-
         }
         redirect(action: "assignLateFeeDate")
     }
