@@ -144,10 +144,10 @@
             </tr>
             <tr>
                 <td>
-                    <label>Prefered  examination centre</label>
+                    <label>Preferred  examination centre</label>
                 </td>
                 <td>
-                    <label>${studentInstance?.examinationCentre?.examinationCentreName[0]}</label>
+                    <label>${studentInstance?.city?.cityName[0]}</label>
                 </td>
             </tr>
             <g:if test="${studentInstance?.addressTown}">

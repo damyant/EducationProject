@@ -87,8 +87,6 @@ class StudentRegistrationService {
 
         }
 
-
-
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
         if(params.idol=="idol")
@@ -232,7 +230,7 @@ class StudentRegistrationService {
         Set<ExaminationCentre> examinationCentre = ExaminationCentre.findAllById(1)
         Set<StudyCenter> studyCenters = StudyCenter.findAllById(8)
         Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)
-        def programSession = ProgramSession.findById(1)
+//        def programSession = ProgramSession.findById(1)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 
@@ -251,7 +249,7 @@ class StudentRegistrationService {
             students.studyCentre = studyCenters
             students.admitCardGenerated = false
             students.programDetail = programDetails
-            students.programSession = programSession
+//            students.programSession = programSession
             students.registrationYear = year
             students.save(flush: true)
 

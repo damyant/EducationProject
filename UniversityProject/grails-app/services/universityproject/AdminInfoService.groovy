@@ -34,6 +34,7 @@ def springSecurityService
 
     def provisionalStudentList(params){
 //        println("==========="+springSecurityService.principal.id)
+        println("in this")
         def studyCenterId=0
         def statusObj
         if(params.studyCenterId){
@@ -51,7 +52,7 @@ def springSecurityService
             statusObj=Status.findById(2)
         }
         else{
-            statusObj=Status.findById(1)
+                    statusObj=Status.findById(1)
         }
         def obj=Student .createCriteria()
         def stuList= obj.list{
@@ -66,10 +67,9 @@ def springSecurityService
                 count()
             }
 
-
         }
 
-
+        println("list of students "+ stuList)
         return  stuList
 
 
@@ -240,5 +240,8 @@ def springSecurityService
         def rollDateInst1 = RollNoGenerationFixture.get(1);
         return status
     }
+
+
+
 
 }

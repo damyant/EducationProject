@@ -4,11 +4,13 @@ class Subject {
 
     int subjectCode
     String subjectName
+    ProgramType programTypeId
 
     static mapping = {
         id column: "SubjectId"
         subjectName column: "SubjectName"
         subjectCode column: "SubjectCode"
+        programTypeId column: "ProgramTypeId"
 
 
     }
@@ -16,6 +18,7 @@ class Subject {
     static constraints = {
         subjectName(nullable: false)
         subjectCode(nullable:false)
+        programTypeId (nullable: true)
 
     }
 }

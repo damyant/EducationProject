@@ -69,7 +69,7 @@ class AdminController {
                 rollNumber = studentRegistrationService.getStudentRollNumber(params)
                 stuObj = Student.findById(i)
                 stuObj.rollNo = rollNumber
-                stuObj.status = Status.findById(Long.parseLong("2"))
+                stuObj.status = Status.findById(Long.parseLong("3"))
                 stuObj.save(flush: true, failOnError: true)
             }
         }
@@ -363,6 +363,19 @@ class AdminController {
         }
 
     }
+
+    //ADDED BY DIGVIJAY ON 19 May 2014
+    def addCourses = {
+        def programTypeList = ProgramType.list()
+        println("AdminController-->addCourses"+programTypeList);
+        [programTypeList:programTypeList]
+    }
+
+    def updateCourses = {
+        println("AdminController-->updateCourses Action")
+    }
+//}
+
 
     def assignRollNoGenerationDate={
         def rollDateInst = RollNoGenerationFixture.findById(1)
