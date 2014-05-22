@@ -181,7 +181,6 @@ class AdminController {
         [programList: programList]
     }
     @Secured("ROLE_ADMIN")
-<<<<<<< HEAD
     def assignExaminationVenue={
         def programList = ProgramDetail.list(sort:'courseName')
         def obj=City.createCriteria()
@@ -190,13 +189,6 @@ class AdminController {
             order('cityName','asc')
         }
             [programList: programList,examinationCenterList:examCenterList]
-=======
-    def assignExaminationVenue = {
-        def programList = ProgramDetail.list(sort: 'courseName')
-        def examinationCenter = ExaminationCentre.list(sort: 'examinationCentreName')
-
-        [programList: programList, examinationCenterList: examinationCenter]
->>>>>>> b12456748fce24394f1d694ed122bf9289bcac9c
     }
 
     def getSubjectList = {
@@ -331,8 +323,6 @@ class AdminController {
         resultMap.feeAmount = feeAmount.feeAmountAtIDOL;
         render resultMap as JSON
     }
-
-<<<<<<< HEAD
     def searchListStudentByChallanNo(){
         def returnMap=[:]
 
@@ -348,28 +338,12 @@ class AdminController {
             }else{
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
             }
-=======
-    def searchListStudentByChallanNo() {
-        def returnMap = [:]
-        def courseNameList = [], courseFee = []
-        def stuList = Student.findAllByChallanNo(params.challanNo)
-        stuList.each {
-            println("===" + it.programDetail[0])
-            courseNameList << it.programDetail[0].courseName
-            courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
->>>>>>> b12456748fce24394f1d694ed122bf9289bcac9c
         }
         returnMap.stuList = stuList
         returnMap.courseNameList = courseNameList
         returnMap.courseFee = courseFee
         render returnMap as JSON
     }
-<<<<<<< HEAD
-=======
-
-    def searchByChallanNo() {
-
->>>>>>> b12456748fce24394f1d694ed122bf9289bcac9c
 
     def searchMiscFeeListByChallanNo(){
         def returnMap=[:]
@@ -396,7 +370,6 @@ class AdminController {
     def approveFeeForStudents = {
         println(">>>>>>>>>>>>>" + params.studentListId)
         def student
-<<<<<<< HEAD
         def studentListId=[]
         studentListId.addAll(params.studentListId)
       studentListId.each{
@@ -406,15 +379,6 @@ class AdminController {
           student.save(flush: true)
     }
         if(student){
-=======
-        params.studentListId.each {
-            student = Student.findById(it)
-            def status = Status.findById(4)
-            student.status = status
-            student.save(flush: true)
-        }
-        if (student) {
->>>>>>> b12456748fce24394f1d694ed122bf9289bcac9c
             flash.message = "Approved Successfully"
             redirect(action: "approvePayInSlip")
         }

@@ -11,12 +11,10 @@ import examinationproject.FeeType
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
-<<<<<<< HEAD
-import examinationproject.RollNoGenerationDate
 import examinationproject.RollNoGenerationFixture
-=======
+
 import examinationproject.ProgramSession
->>>>>>> b12456748fce24394f1d694ed122bf9289bcac9c
+
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
@@ -105,17 +103,12 @@ def springSecurityService
             dateList<<CourseSubject.findAllByProgramSessionAndSemester(programSessionIns,it)
         }
 
-<<<<<<< HEAD
-          subList<<CourseSubject.findAllByCourseDetailAndSemester(programIns,it).subject
-
-          dateList=subList.examDate
-=======
         dateList.each{
             subList<<it.subject
             semesterNumberList<<it.semester
             examDateList<<it.examDate
             examTimeList<<it.examTime
->>>>>>> b12456748fce24394f1d694ed122bf9289bcac9c
+
         }
 
         println("??????"+examTimeList)
@@ -136,7 +129,7 @@ def springSecurityService
         subjectMap.semesterNoList=semesterNumberList
         subjectMap.dateList=totalDateList
         subjectMap.examTimeList=examTimeList
-        println("?????????"+subjectMap)
+//        println("?????????"+subjectMap)
 
       return subjectMap
 
@@ -156,7 +149,7 @@ def springSecurityService
          def courseSubjectObj=CourseSubject.findBySubjectAndProgramSession(Subject.findById(Long.parseLong(it)),sessionObj)
             println("###33333"+courseSubjectObj)
          if(params.examinationDate[count]){
-             println("innnnnnnnnnn")
+//             println("innnnnnnnnnn")
          courseSubjectObj.examDate=f1.parse(params.examinationDate[count])
           }
           else{
@@ -246,8 +239,6 @@ def springSecurityService
             }
         }
         def rollDateInst1 = RollNoGenerationFixture.get(1);
-//        println("new***************"+rollDateInst1.startD)
-//        println("new***************"+rollDateInst1.endD)
         return status
     }
 
