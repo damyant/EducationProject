@@ -13,6 +13,7 @@ class ProgramDetail {
     int totalMarks
     int marksPerPaper
     int totalCreditPoints
+    Date lateFeeDate
 
     static hasMany = [semester: Semester, student: Student]
     static belongsTo = [Student,ProgramSession]
@@ -30,6 +31,7 @@ class ProgramDetail {
         marksPerPaper column: "MarksPerPaper"
         totalCreditPoints column: "TotalCreditPoints"
         semester cascade:"all,delete-orphan"
+        lateFeeDate column: "LateFeeDate"
 
     }
 
@@ -45,6 +47,6 @@ class ProgramDetail {
         totalMarks(nullable: false)
         marksPerPaper(nullable: false)
         totalCreditPoints(nullable:false)
-
+        lateFeeDate(nullable: true)
     }
 }

@@ -2,6 +2,7 @@ package examinationproject
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import org.apache.commons.lang.ObjectUtils.Null
 
 //@Secured("ROLE_STUDYCENTRE")
 class StudentController {
@@ -12,6 +13,7 @@ class StudentController {
 //    @Secured('ROLE_STUDYCENTRE')
 
     def registration= {
+        println(">>>>>>>>>>>>>>>>>>>>>>"+params)
 
         def studyCentre
 
@@ -30,6 +32,7 @@ class StudentController {
 
         }
         def studInstance = Student.get(params.studentId)
+
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
         def bankName=Bank.list(sort:'bankName')
@@ -180,5 +183,29 @@ class StudentController {
     def seedBulkStudents={
         studentRegistrationService.seedStudent()
         render "done"
+    }
+
+  def  updateStudent={
+      println(params)
+      try{
+       def student = Student.findByRollNo(params.rollNo)
+          if(student){
+            redirect(action: "registration", params:[studentId:student.id])
+          }else{
+              flash.message = "No Record Found"
+              redirect(action: "studentListView")
+          }
+      }catch(NullPointerException ex ){
+          println("Problem in searching student by roll number"+ex.printStackTrace())
+      }
+
+    }
+
+    def viewStudent = {
+        println("??????????????????????"+params)
+        def student = Student.findById(params.studentId)
+        println("Challan Number"+student.addressDistrict)
+        def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
+        [studInstance:student,feeDetails: feeDetails]
     }
 }

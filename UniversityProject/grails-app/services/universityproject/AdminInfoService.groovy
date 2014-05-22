@@ -164,7 +164,7 @@ def springSecurityService
         def feeDetailsInstance = new FeeDetails();
         def student = Student.findByRollNo(params.rollNo);
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        feeDetailsInstance.studentId = student
+        feeDetailsInstance.challanNo= student.challanNo
         feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
         feeDetailsInstance.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber);
         feeDetailsInstance.feeTypeId = FeeType.findById(params.feeTypeId)

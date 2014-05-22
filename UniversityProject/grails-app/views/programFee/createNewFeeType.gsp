@@ -7,6 +7,27 @@
     <g:javascript src='admin.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#session").blur(function () {
+                var programDetail = $("#programDetail").val()
+                if ($(this).length > 0) {
+                    var url = "${createLink(controller:'programFee', action:'isFeeCreated')}"
+                    $.getJSON(url, {programDetail: programDetail,session:$(this).val()}, function (json) {
+                        if (json.feeStatus) {
+                            $("#submit").prop('disabled', false);
+                        }else{
+                            $("#feeError").html(json.feeType.type+" not yet created");
+                            $("#submit").prop('disabled', true);
+
+
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -145,7 +166,7 @@
                     <div class="university-size-1-3">&nbsp;</div>
 
                     <div class="university-size-2-3" style="margin: auto;">
-                        <input type="button" name="create" class="save university-button" onclick="submitProgramFee()" value="${message(code: 'default.button.create.label', default: 'Create')}"/>
+                        <input type="button" id="submit" name="create" class="save university-button" onclick="submitProgramFee()" value="${message(code: 'default.button.create.label', default: 'Create')}"/>
                         %{--<g:submitButton name="create" class="save university-button"--}%
                                         %{--onclick="validate()" value="${message(code: 'default.button.create.label', default: 'Create')}"/>--}%
                         <g:link controller="programFee" class="university-text-decoration-none"

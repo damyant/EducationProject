@@ -77,14 +77,25 @@ class StudentRegistrationService {
         def session = ProgramSession.count()
         def programSessionIns
         if (session > 0) {
-            if (programDetail[0].programSession.id) {
-                programSessionIns = ProgramSession.findById(programDetail[0].programSession.id)
+            //OLD CODE
+//            if (programDetail[0].programSession.id) {
+//                programSessionIns = ProgramSession.findById(programDetail[0].programSession.id)
+//            } else {
+//                programSessionIns = new ProgramSession(sessionOfProgram: programSession, programDetail: programDetail).save(flush: true, failOnError: true)
+//            }
+//        } else {
+//            programSessionIns = new ProgramSession(sessionOfProgram: programSession, programDetail: programDetail).save(flush: true, failOnError: true)
+////            println("Session new" + programSessionIns.sessionOfProgram)
+            //END OLD CODE
+
+            if (ProgramSession.findBySessionOfProgram(programSession)) {
+                programSessionIns = ProgramSession.findBySessionOfProgram(programSession)
             } else {
-                programSessionIns = new ProgramSession(sessionOfProgram: programSession, programDetail: programDetail).save(flush: true, failOnError: true)
+                programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
             }
         } else {
-            programSessionIns = new ProgramSession(sessionOfProgram: programSession, programDetail: programDetail).save(flush: true, failOnError: true)
-//            println("Session new" + programSessionIns.sessionOfProgram)
+            programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
+
         }
 
 

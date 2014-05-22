@@ -83,6 +83,7 @@
 <h3>STUDENT INFORMATION SHEET</h3>
 
 <g:hiddenField name="studentId" value="${studInstance?.id}"/>
+
 <div style="margin-left: 10px;"><label><h6>All [<span
         class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 

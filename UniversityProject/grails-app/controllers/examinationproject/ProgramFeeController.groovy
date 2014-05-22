@@ -30,6 +30,13 @@ class ProgramFeeController {
         if(FeeType.count()>0)
             feeType = FeeType.list()
         def programDetailList = ProgramDetail.list()
+
+//        def newProgramDetailList =[]
+//        programDetailList.each{
+//          if(!AdmissionFee.findByProgramDetail(it)){
+//              newProgramDetailList.add(it)
+//        }
+       // }
          [feeType:feeType,programDetailList:programDetailList]
 
     }
@@ -145,5 +152,26 @@ class ProgramFeeController {
     def getProgramSession = {
      def programSessions=   programFeeService.getProgramSessions(params)
         render programSessions as JSON
+    }
+
+    def isFeeCreated = {
+        def response
+        try{
+            def program = ProgramDetail.findById(Integer.parseInt(params.programDetail))
+            def session = ProgramSession.findBySessionOfProgram(params.session)
+            def admissionFee = AdmissionFee.findByProgramDetailAndProgramSession(program,session)
+
+            def programName=program.courseName
+            boolean status
+            if(admissionFee)
+              status=true
+            else
+              status = false
+
+            response =[feeStatus:status,program:programName]
+        }catch(Exception ex){
+            println("problem in checking the existence of Fee"+ex.printStackTrace())
+        }
+        render response as JSON
     }
 }

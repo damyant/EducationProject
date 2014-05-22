@@ -164,6 +164,10 @@
                 <li><g:link controller="programFee"
                             action="listOfFeeType"><g:message
                             code="default.mainMenu3.subMenu7.subMenu2"/></g:link></li>
+
+                <li><g:link controller="admin"
+                            action="assignLateFeeDate"><g:message
+                            code="default.mainMenu3.subMenu7.subMenu7"/></g:link></li>
                 <sec:ifAnyGranted roles="ROLE_ADMIN">
                     <li><g:link controller="admin"
                                 action="approvePayInSlip"><g:message

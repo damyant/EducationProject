@@ -31,6 +31,7 @@
                             $("#feeError").prop('hidden', true);
                         }else{
                           $("#feeError").html(json.feeType.type+" not yet created");
+                          $("#feeError").prop('hidden', false);
                           $("#submit").prop('disabled', true);
 
 

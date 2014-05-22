@@ -39,13 +39,13 @@ class ProgramFeeService {
         def session = ProgramSession.count()
         def programSessionIns
         if (session > 0) {
-            if (programDetail[0].programSession.id) {
-                programSessionIns = ProgramSession.findById(programDetail[0].programSession.id)
+            if (ProgramSession.findBySessionOfProgram(params.programSession)) {
+                programSessionIns = ProgramSession.findBySessionOfProgram(params.programSession)
             } else {
-                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession, programDetail: programDetail).save(flush: true, failOnError: true)
+                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
             }
         } else {
-            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession, programDetail: programDetail).save(flush: true, failOnError: true)
+            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
 //            println("Session new" + programSessionIns.sessionOfProgram)
         }
         admissionFeeIns.programSession= programSessionIns
@@ -54,12 +54,16 @@ class ProgramFeeService {
 
 
         def i=0;
+        try{
         feeTypeList.each{
-            def misFeeIns
-            if(it)
-                misFeeIns=MiscellaneousFee.findById(it)
-            else
+            def misFeeIns  =MiscellaneousFee.findById(it)
+            if(!misFeeIns){
+                println("else")
                 misFeeIns=new MiscellaneousFee()
+            }
+
+
+
             misFeeIns.programDetail=ProgramDetail.findById(params.programDetail)
             misFeeIns.feeType=FeeType.findById(Long.parseLong(it.toString()))
             misFeeIns.amount=Integer.parseInt(params.feeTypeAmount[i])
@@ -67,6 +71,9 @@ class ProgramFeeService {
             ++i;
             misFeeIns.save(failOnError: true)
 //            misFeeIns.programSession
+        }
+        }catch(Exception e){
+            println("??????????????"+e)
         }
     }
 
