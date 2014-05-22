@@ -30,6 +30,7 @@ def springSecurityService
 
     def provisionalStudentList(params){
 //        println("==========="+springSecurityService.principal.id)
+        println("in this")
         def studyCenterId=0
         def statusObj
         if(params.studyCenterId){
@@ -47,6 +48,7 @@ def springSecurityService
             statusObj=Status.findById(2)
         }
         else{
+            println("in this")
             statusObj=Status.findById(1)
         }
         def obj=Student .createCriteria()
@@ -65,7 +67,7 @@ def springSecurityService
 
         }
 
-
+        println("list of students "+ stuList)
         return  stuList
 
 
