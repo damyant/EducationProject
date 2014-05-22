@@ -179,6 +179,47 @@ class AttendanceService {
             }
             return status
         }
+        else if(params.programList=='allProgram' && params.programSession!='allSession' && params.programTerm!='allSemester'){
+            def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
+//            def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
+            program.each{
+                def pid= it.courseDetail.id
+                println("-----------------------------------********"+ pid)
+                    def obj = Student.createCriteria()
+                    def studentList = obj.list {
+                        programDetail {
+                            eq('id', pid)
+                        }
+                        examinationVenue {
+                            eq('id', examinationVenueIns.id)
+                        }
+                        and {
+                            eq('programSession', ProgramSession.findBySessionOfProgram(params.programSession))
+                        }
+
+                        and {
+                            eq('status', Status.findById(4))
+                        }
+                        and {
+                            eq('semester', Integer.parseInt(params.programTerm))
+                        }
+                    }
+                    def programDetail = ProgramDetail.findById(pid)
+                    def semester = Semester.findByProgramSessionAndSemesterNo(ProgramSession.findBySessionOfProgram(params.programSession), Integer.parseInt(params.programTerm))
+                    def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
+                    if(studentList){
+                        status = writeAttendanceSheet(studentList, params, semester, courseSubject, examinationVenueIns, workbook, sheetNo)
+                        sheetNo= sheetNo+1;
+                    }
+
+            }
+            if(sheetNo>0){
+                workbook.write();
+                workbook.close();
+            }
+            return status
+        }
+
         else{
                 def obj = Student.createCriteria()
                 def studentList = obj.list {

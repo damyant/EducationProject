@@ -47,7 +47,6 @@ class ReportController {
                }
            }
            else{
-
            def totalList = reportService.getReportDataSession(params, null)
            def sessionVal= Integer.parseInt(params.session)+1
            sessionVal= params.session+'-'+sessionVal

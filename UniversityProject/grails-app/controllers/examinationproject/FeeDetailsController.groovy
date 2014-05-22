@@ -335,8 +335,14 @@ class FeeDetailsController {
                 lateFee=AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
             }
             courseNameList<<it.programDetail[0].courseName
+<<<<<<< HEAD
             if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL+lateFee
+=======
+          //  if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
+            if(it.studyCentre.centerCode[0]=="11111"){
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
+>>>>>>> 89cc1bb444e218bf1bd5582e077aec9f18c6bce9
             }else{
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC+lateFee
             }

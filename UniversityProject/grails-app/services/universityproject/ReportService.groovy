@@ -26,10 +26,9 @@ class ReportService {
          def currentUser=springSecurityService.getCurrentUser()
          println("-------------------------------"+currentUser)
          def programList = ProgramDetail.list(sort: 'courseCode')
-         if(currentUser.studyCentreId){
-             println("oh yes abhi------------->")
+         if(currentUser.studyCentreId && params.inExcel){
              def status
-             File file = new File(excelPath);
+             File file = new File(''+excelPath);
              WorkbookSettings  wbSettings = new WorkbookSettings();
              wbSettings.setLocale(new Locale("en", "EN"));
              WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
@@ -57,6 +56,33 @@ class ReportService {
              workbook.close();
              return status
         }
+         else if(currentUser.studyCentreId){
+             studyCenterId = currentUser.studyCentreId
+             def studyCenter= StudyCenter.findById(studyCenterId)
+             programList.each {
+                 def pId= it.id
+                 def stuObj= Student.createCriteria()
+                 def count = stuObj.list{
+                     programDetail{
+                         eq('id', pId)
+                     }
+                     studyCentre{
+                         eq('id' , studyCenter.id)
+                     }
+                     and{
+                         eq('registrationYear' , Integer.parseInt(params.session))
+                     }
+                     projections {
+                         rowCount()
+                     }
+                 }
+
+                 totalForSession+=count
+                 finalStudentMap.put(it.courseName, count.getAt(0))
+             }
+             finalStudentMap.put("TOTAL STUDENTS", totalForSession)
+             return finalStudentMap
+         }
         else{
              programList.each {
                   def pId= it.id
@@ -76,14 +102,14 @@ class ReportService {
              totalForSession+=count
              finalStudentMap.put(it.courseName, count.getAt(0))
             }
+             finalStudentMap.put("TOTAL STUDENTS", totalForSession)
+             return finalStudentMap
         }
-        finalStudentMap.put("TOTAL STUDENTS", totalForSession)
-        return finalStudentMap
+
     }
 
 
     def getReportDataSessions(startSession, endSession) {
-
         def categoryList =[]
         categoryList
         def totalByCategory=[]
@@ -254,7 +280,7 @@ class ReportService {
                     programDetail{
                         eq('id', pId)
                     }
-                    examinationCentre{
+                    city{
                         eq('id' , Long.parseLong(params.examCity))
                     }
                     and{
@@ -277,7 +303,7 @@ class ReportService {
                     programDetail{
                         eq('id', pId)
                     }
-                    examinationCentre{
+                    city{
                         eq('id' , Long.parseLong(params.examCity))
                     }
                     and{
@@ -589,6 +615,7 @@ class ReportService {
 
 
     def getReportDataStudentCategory(params, excelPath){
+        println(params.categoryStudentListSession+"--------------------------"+params.studentCategory)
         File file = new File(excelPath);
         WorkbookSettings  wbSettings = new WorkbookSettings();
         wbSettings.setLocale(new Locale("en", "EN"));
@@ -607,7 +634,7 @@ class ReportService {
                     eq('registrationYear' , Integer.parseInt(params.categoryStudentListSession))
                 }
                 and{
-                    eq('category', params.studentCategory)
+                    eq('category', ''+params.studentCategory)
                 }
             }
             println("--------------"+count)

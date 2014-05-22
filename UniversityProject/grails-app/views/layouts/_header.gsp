@@ -188,7 +188,12 @@
                     code="default.mainMenu6.subMenu8"/></g:link></li>
 
         <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
+
                 code="default.mainMenu6.subMenu9"/></g:link></li>
+        <li><g:link controller="admin"
+                    action="studyMaterial"><g:message
+                  code="default.mainMenu6.subMenu10"/></g:link></li>
+
 
     </ul>
 </li>

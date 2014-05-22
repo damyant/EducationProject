@@ -3,7 +3,7 @@ package com.university
 import examinationproject.AdmissionFee
 import examinationproject.Bank
 import examinationproject.City
-import examinationproject.ExaminationCentre
+
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
 import examinationproject.MiscellaneousFeeChallan
@@ -98,6 +98,7 @@ class AdminController {
     }
 
     def checkFeeByRollNo = {
+        println("??????????????"+params)
         def response
         try {
             def student = Student.findByRollNo(params.rollNo)
@@ -327,7 +328,8 @@ class AdminController {
                 lateFee=AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
             }
             courseNameList<<it.programDetail[0].courseName
-            if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
+            //if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
+            if(it.studyCentre.centerCode[0]=="11111"){
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
 //                +lateFee  -----------If required late fee remove this
             }else{
@@ -476,5 +478,24 @@ class AdminController {
             program.save(flush: true, failOnError: true)
         }
         redirect(action: "assignLateFeeDate")
+    }
+
+
+    def studyMaterial={
+
+    }
+
+    def getStudentForStudyMaterial(){
+        println("???????????"+params)
+        def student=[]
+        if(params.studyMaterialRadio=="Roll Number"){
+          student= Student.findByRollNo(params.studyMaterialText)
+        }
+        else{
+            student=Student.findAllByChallanNo(params.studyMaterialText)
+        }
+        println("result=="+student)
+
+        render student as JSON
     }
 }

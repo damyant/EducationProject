@@ -4,10 +4,9 @@ import examinationproject.Bank
 import examinationproject.Branch
 import examinationproject.City
 import examinationproject.CourseSubject
-import examinationproject.ExaminationCentre
+
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
-import examinationproject.FeeType
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
