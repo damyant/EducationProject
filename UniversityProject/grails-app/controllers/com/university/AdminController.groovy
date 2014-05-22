@@ -367,7 +367,7 @@ class AdminController {
     def updateCourses = {
         println("AdminController-->updateCourses Action")
     }
-}
+//}
 
 
     def assignRollNoGenerationDate={
