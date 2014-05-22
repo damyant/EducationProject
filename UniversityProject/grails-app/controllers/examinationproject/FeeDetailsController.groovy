@@ -320,6 +320,7 @@ class FeeDetailsController {
 
     def payChallanForStudyCenterStu={
        println("***************"+params)
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         def courseNameList=[],courseFee=[]
         def stuList=  Student.findAllByChallanNo(params.searchChallanNo)
         def currentUser = springSecurityService.currentUser
@@ -346,31 +347,36 @@ class FeeDetailsController {
         def paymentModeName=PaymentMode.findById(params.paymentMode)
         def bank=Bank.findById(params.bankName)
         def branch=Branch.findById(params.branchLocation)
-        def feeDetailsInstance = new FeeDetails()
-        feeDetailsInstance.challanNo=params.searchChallanNo
-        feeDetailsInstance.paymentModeId=PaymentMode.findById(params.paymentMode)
-        feeDetailsInstance.bankId=Bank.findById(params.bankName)
-        feeDetailsInstance.isAdmission=true
-        feeDetailsInstance.branchId=Branch.findById(params.branchLocation)
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        feeDetailsInstance.challanDate=new Date()
-        feeDetailsInstance.paymentDate=df.parse(params.paymentDate)
+        def feeDetailsInstance=FeeDetails.findAllByChallanNo(params.searchChallanNo)
+        if(feeDetailsInstance){
+            flash.message = "Pay Challan Already Created For this Challan"
+            redirect(action: "payAdmissionFee")
 
-        if (feeDetailsInstance.save(flush: true, failOnError: true)) {
-            for(int j=0;j<stuList.size();j++){
-                stuList[j].status = Status.findById(3)
-                stuList[j].save(flush: true, failOnError: true)
-            }
         }
-        def challanNo=params.searchChallanNo
-        def paymentDate=params.paymentDate
-        println("size"+stuList.size())
-        println("std"+stuList)
-        println("std"+stuList[0])
-        println("fee"+courseFee.size()+" >>>>>>>>>>>> "+courseFee)
+        else {
+            feeDetailsInstance.challanNo=params.searchChallanNo
+            feeDetailsInstance.paymentModeId = PaymentMode.findById(params.paymentMode)
+            feeDetailsInstance.bankId = Bank.findById(params.bankName)
+            feeDetailsInstance.isAdmission = true
+            feeDetailsInstance.branchId = Branch.findById(params.branchLocation)
+            feeDetailsInstance.challanDate = new Date()
+            feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
+            if (feeDetailsInstance.save(flush: true, failOnError: true)) {
+                for (int j = 0; j < stuList.size(); j++) {
+                    stuList[j].status = Status.findById(3)
+                    stuList[j].save(flush: true, failOnError: true)
+                }
+            }
+            def challanNo = params.searchChallanNo
+            def paymentDate = params.paymentDate
+            println("size" + stuList.size())
+            println("std" + stuList)
+            println("std" + stuList[0])
+            println("fee" + courseFee.size() + " >>>>>>>>>>>> " + courseFee)
 
-        def args = [template: "printPayChallan", model: [bank:bank,lateFee:lateFee,branch:branch,paymentModeName:paymentModeName,paymentDate:paymentDate,stuList:stuList,courseFee:courseFee,totalFee:totalFee,courseNameList:courseNameList,challanNo:challanNo,],filename:challanNo+".pdf"]
-        pdfRenderingService.render(args + [controller: this], response)
+            def args = [template: "printPayChallan", model: [bank: bank, lateFee: lateFee, branch: branch, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
+            pdfRenderingService.render(args + [controller: this], response)
+        }
     }
 
     def payMiscFeeChallan={

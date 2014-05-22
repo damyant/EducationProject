@@ -32,7 +32,11 @@
             <tr>
                 <td>${studList[index].firstName} ${studList[index].lastName}</td>
                 <td>${studList[index].rollNo}</td>
-                <td>${addmissionFee[index]}<label style="font-size: 13px;display: block">(with late fee ${lateFee})</label></td>
+                <td>${addmissionFee[index]}
+                    <g:if test="${lateFee!=0}">
+                        <label style="font-size: 13px;display: block">(with late fee ${lateFee})</label>
+                    </g:if>
+                </td>
             </tr>
         </g:each>
     </table>

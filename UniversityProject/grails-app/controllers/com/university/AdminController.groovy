@@ -140,11 +140,12 @@ class AdminController {
         def feeTypeId
         def feeType = null
         def args
+        def lateFee=0
         def programFeeAmount = 0
         def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
 
         if (Integer.parseInt(params.feeType) > 0) {
-            println("hfdsfsfgs???????????????????????????")
+//            println("hfdsfsfgs???????????????????????????")
             try {
                 feeTypeId = Integer.parseInt(params.feeType)
                 feeType = FeeType.findById(feeTypeId)
@@ -155,15 +156,21 @@ class AdminController {
 
             }
         } else {
-            println("hfdsfsfgs?????????????????>>>>>>>>>>>>>>>>?")
+//            println("hfdsfsfgs?????????????????>>>>>>>>>>>>>>>>?")
+
+            def lateFeeDate=student.programDetail.lateFeeDate[0]
+            def today=new Date()
+            if(today.compareTo(lateFeeDate) > 0){
+                lateFee=AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+            }
             feeType = null
-            programFeeAmount = programFee.feeAmountAtIDOL
+            programFeeAmount = programFee.feeAmountAtIDOL+lateFee
         }
 
         if (params.idol == "idol")
-            args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
+            args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
         else
-            args = [template: "feeVoucher", model: [student: student, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
+            args = [template: "feeVoucher", model: [student: student,lateFee:lateFee, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
         pdfRenderingService.render(args + [controller: this], response)
 
 
@@ -288,11 +295,20 @@ class AdminController {
         render returnMap as JSON
     }
     def getFeeAmount = {
-
         def resultMap = [:]
-        println(params)
+        def lateFee=0
+        def programIns= ProgramDetail.findById(Integer.parseInt(params.program))
+        def lateFeeDate=programIns.lateFeeDate
+        def today=new Date()
+//        println("********############## "+today.compareTo(lateFeeDate))
+        if(today.compareTo(lateFeeDate) > 0){
+            lateFee=AdmissionFee.findByProgramDetail(programIns).lateFeeAmount
+        }
+//        println("%%%%%%%%%%%%%%%%%%% "+lateFee)
         def feeAmount = AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
-        resultMap.feeAmount = feeAmount.feeAmountAtIDOL;
+//        println("%%%%%%%%%%%%%%%%%%%<<<<<<<<< "+feeAmount)
+        def payableFee=feeAmount.feeAmountAtIDOL+lateFee
+        resultMap.feeAmount = payableFee
         render resultMap as JSON
     }
     def searchListStudentByChallanNo(){
@@ -312,9 +328,11 @@ class AdminController {
             }
             courseNameList<<it.programDetail[0].courseName
             if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
-                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL+lateFee
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
+//                +lateFee  -----------If required late fee remove this
             }else{
-                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC+lateFee
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+//                +lateFee
             }
 //            courseFee=courseFee
         }

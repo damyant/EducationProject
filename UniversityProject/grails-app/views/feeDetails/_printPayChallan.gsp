@@ -35,7 +35,9 @@
                 <td>${stuList.getAt(index)?.firstName} ${stuList.getAt(index)?.lastName}</td>
                 <td>${stuList.getAt(index)?.rollNo}</td>
                 <td>${courseFee.getAt(index)}
-                    <label style="font-size: 13px;display: block">(with late fee ${lateFee})</label>
+                    <g:if test="${lateFee!=0}">
+                        <label style="font-size: 13px;display: block">(with late fee ${lateFee})</label>
+                    </g:if>
                 </td>
             </tr>
         </g:each>

@@ -11,16 +11,16 @@
 
 
 function showCityList() {
-    alert('in show city list')
+//    alert('in show city list')
     var data;
     data = $('#district').val();
-    alert("----------------"+data)
+//    alert("----------------"+data)
     if(data){
 
     }
     else{
         data=$('#districtCumulative').val()
-        alert("in else "+ data)
+//        alert("in else "+ data)
     }
 
 

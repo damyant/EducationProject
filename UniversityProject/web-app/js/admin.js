@@ -69,7 +69,7 @@ function a(id) {
 }
 
 function saveExamDate(){
-    alert("submit")
+//    alert("submit")
     var course=$('#programList').val();
     $.ajax({
         type: "post",
@@ -261,7 +261,7 @@ function checkTimeFormat(count){
     var val =$('#examTime'+count).val() ;
 
     if(val != '' && !val.match(re)) {
-        alert("Invalid time format: " + val);
+//        alert("Invalid time format: " + val);
         form.timeVal.focus();
         return false;
     }
