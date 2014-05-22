@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4160cf6c-6634-4f74-96e2-3c48ee9d0b8c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/CourseDetailService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/CourseDetailService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/ProgramFeeService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/ProgramFeeService.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admin.js" afterPath="$PROJECT_DIR$/web-app/js/admin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/approvePayInSlip.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/approvePayInSlip.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/programFee/editFeeType.gsp" afterPath="$PROJECT_DIR$/grails-app/views/programFee/editFeeType.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UniversityProject.iws" />
@@ -118,7 +112,7 @@
       <file leaf-file-name="StudentRegistrationService.groovy" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="9" selection-start="4516" selection-end="4516" vertical-scroll-proportion="0.54658383" vertical-offset="1453" max-vertical-offset="5491">
+            <state line="86" column="0" selection-start="3913" selection-end="3913" vertical-scroll-proportion="0.4409938" vertical-offset="1249" max-vertical-offset="5457">
               <folding>
                 <element signature="e#27#57#0" expanded="true" />
               </folding>
@@ -220,8 +214,8 @@
         <option value="$PROJECT_DIR$/grails-app/views/admin/approvePayInSlip.gsp" />
         <option value="$PROJECT_DIR$/web-app/js/admin.js" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/CourseDetailService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
       </list>
     </option>
   </component>
@@ -698,12 +692,12 @@
       <workItem from="1400563397950" duration="21858000" />
       <workItem from="1400647585934" duration="5925000" />
       <workItem from="1400663263641" duration="16944000" />
-      <workItem from="1400734373997" duration="12769000" />
+      <workItem from="1400734373997" duration="13573000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139358000" />
+    <option name="totallyTimeSpent" value="140162000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -1209,7 +1203,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="9" selection-start="4516" selection-end="4516" vertical-scroll-proportion="0.54658383" vertical-offset="1453" max-vertical-offset="5491">
+        <state line="86" column="0" selection-start="3913" selection-end="3913" vertical-scroll-proportion="0.4409938" vertical-offset="1249" max-vertical-offset="5457">
           <folding>
             <element signature="e#27#57#0" expanded="true" />
           </folding>

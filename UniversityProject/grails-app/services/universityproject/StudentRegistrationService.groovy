@@ -87,8 +87,6 @@ class StudentRegistrationService {
 
         }
 
-
-
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
         if(params.idol=="idol")
