@@ -688,9 +688,6 @@ class ReportService {
     }
 
 
-
-}
-
     def getReportDataExaminationCentreCumulative(params){
         def examinationVenueIns = ExaminationVenue.findById(Long.parseLong(params.examinationCentreCumulative))
         def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
