@@ -14,7 +14,7 @@ class FeeDetailsController {
     def feeDetailService
     def studentRegistrationService
     def pdfRenderingService
-
+    def springSecurityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 
@@ -105,7 +105,7 @@ class FeeDetailsController {
 
     }
     @Secured("ROLE_STUDY_CENTRE")
-    def studyCentreAdmissionFee={
+    def payAdmissionFee={
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
         [bankName:bankName, paymentMode:paymentMode]
@@ -132,6 +132,13 @@ class FeeDetailsController {
         def programCategory=ProgramType.list(sort:'type')
         def miscFeeType=FeeType.list(sort:'type')
         [programList:programList, programCategory:programCategory,miscFeeType:miscFeeType]
+    }
+
+    @Secured("ROLE_STUDY_CENTRE")
+    def payMiscellaneousFee={
+        def bankName=Bank.list(sort:'bankName')
+        def paymentMode=PaymentMode.list(sort:'paymentModeName')
+        [bankName:bankName, paymentMode:paymentMode]
     }
     def populateStudents={
         def resultMap=[:]
@@ -202,18 +209,19 @@ class FeeDetailsController {
         def stuList=[]
         def totalFee=0;
         def challanNo=studentRegistrationService.getChallanNumber()
+
         if(params.rollNoSearch){
            def stuIns= Student.findByRollNo(params.rollNoSearch)
             stuIns.challanNo=challanNo
             stuIns.save(failOnError: true)
             studList.add(stuIns)
             Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
-            def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtIDOL
+            def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtSC
             totalFee=totalFee+ feeForStudent
             addmissionFee.add(feeForStudent)
         }else{
         stuList=params.studentListId.split(",")
-            for(def i=0;i<stuList.size()-1;i++){
+            for(def i=0;i<stuList.size();i++){
                 println("**********"+stuList[i]);
                 def stuIns=Student.findById(Long.parseLong(stuList[i]))
                 stuIns.rollNo
@@ -233,6 +241,54 @@ class FeeDetailsController {
         def args = [template: "printChallan", model: [studList: studList,addmissionFee:addmissionFee,totalFee:totalFee],filename:challanNo+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
     }
+    def generateChallanForMiscellaneousFee={
+        println("***************"+params)
+        List<Student> studList =[]
+        List<MiscellaneousFee> miscellaneousFee = []
+        def stuList=[]
+        def totalFee=0;
+        def challanNo=studentRegistrationService.getChallanNumber()
+        if(params.rollNoSearch){
+            def feeType=FeeType.findById(params.feeCategory)
+            def stuIns= Student.findByRollNo(params.rollNoSearch)
+            def mFeeInstance = new MiscellaneousFeeChallan()
+            mFeeInstance.challanNo=challanNo
+            mFeeInstance.feeType=feeType
+            mFeeInstance.student=stuIns
+//            stuIns.challanNo=challanNo
+            mFeeInstance.save(failOnError: true)
+            studList.add(stuIns)
+
+            Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
+            def feeForStudent=MiscellaneousFee.findByProgramDetailAndProgramSessionAndFeeType(programDetails[0],stuIns.programSession,feeType).amount
+
+            totalFee=totalFee+ feeForStudent
+            miscellaneousFee.add(feeForStudent)
+        }
+      else{
+            stuList=params.studentListId.split(",")
+            for(def i=0;i<stuList.size();i++){
+                println("**********"+stuList[i]);
+                def mFeeInstance = new MiscellaneousFeeChallan()
+                def stuIns=Student.findById(Long.parseLong(stuList[i]))
+                def feeType=FeeType.findById(params.feeCategory)
+                mFeeInstance.challanNo=challanNo
+                mFeeInstance.feeType=feeType
+                mFeeInstance.student=stuIns
+//                stuIns.challanNo=challanNo
+                mFeeInstance.save(failOnError: true)
+                studList.add(stuIns)
+                Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
+                def feeForStudent=MiscellaneousFee.findByProgramDetailAndProgramSessionAndFeeType(programDetails[0],stuIns.programSession,feeType).amount
+                totalFee=totalFee+ feeForStudent
+                miscellaneousFee.add(feeForStudent)
+            }
+
+        }
+        def args = [template: "printMiscFeeChallan", model: [studList: studList,challanNo:challanNo,miscellaneousFee:miscellaneousFee,totalFee:totalFee],filename:challanNo+".pdf"]
+        pdfRenderingService.render(args + [controller: this], response)
+    }
+
     def printChallan={
 
     }
@@ -245,15 +301,19 @@ class FeeDetailsController {
 
 
     def payChallanForStudyCenterStu={
-//        println("***************"+params)
+       println("***************"+params)
         def courseNameList=[],courseFee=[]
         def stuList=  Student.findAllByChallanNo(params.searchChallanNo)
+        def currentUser = springSecurityService.currentUser
         def totalFee=0;
         stuList.each{
             println("==="+it.programDetail[0])
             courseNameList<<it.programDetail[0].courseName
-            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
-
+            if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
+            }else{
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+            }
         }
         for(def k=0;k<courseFee.size();k++){
             totalFee=totalFee+courseFee[k]
@@ -265,8 +325,10 @@ class FeeDetailsController {
         feeDetailsInstance.challanNo=params.searchChallanNo
         feeDetailsInstance.paymentModeId=PaymentMode.findById(params.paymentMode)
         feeDetailsInstance.bankId=Bank.findById(params.bankName)
+        feeDetailsInstance.isAdmission=true
         feeDetailsInstance.branchId=Branch.findById(params.branchLocation)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        feeDetailsInstance.challanDate=new Date()
         feeDetailsInstance.paymentDate=df.parse(params.paymentDate)
 
         if (feeDetailsInstance.save(flush: true, failOnError: true)) {
@@ -284,5 +346,48 @@ class FeeDetailsController {
 
         def args = [template: "printPayChallan", model: [bank:bank,branch:branch,paymentModeName:paymentModeName,paymentDate:paymentDate,stuList:stuList,courseFee:courseFee,totalFee:totalFee,courseNameList:courseNameList,challanNo:challanNo,],filename:challanNo+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
+    }
+
+    def payMiscFeeChallan={
+        println("***************"+params)
+        def courseNameList=[],courseFee=[]
+        def stuList= []
+        def miscFeeChallanList=  MiscellaneousFeeChallan.findAllByChallanNo(params.searchChallanNo)
+        miscFeeChallanList.each{
+//            println("==="+it.student.programDetail)
+            stuList<<it.student
+            courseNameList<<it.student.programDetail[0].courseName
+            courseFee<<MiscellaneousFee.findByProgramDetailAndFeeType(it.student.programDetail[0],it.feeType).amount
+        }
+        def totalFee=0;
+        for(def k=0;k<courseFee.size();k++){
+            totalFee=totalFee+courseFee[k]
+        }
+        def paymentModeName=PaymentMode.findById(params.paymentMode)
+        def bank=Bank.findById(params.bankName)
+        def branch=Branch.findById(params.branchLocation)
+        def feeDetailsInstance = new FeeDetails()
+        feeDetailsInstance.challanNo=params.searchChallanNo
+        feeDetailsInstance.paymentModeId=PaymentMode.findById(params.paymentMode)
+        feeDetailsInstance.bankId=Bank.findById(params.bankName)
+        feeDetailsInstance.branchId=Branch.findById(params.branchLocation)
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        feeDetailsInstance.challanDate=new Date()
+        feeDetailsInstance.paymentDate=df.parse(params.paymentDate)
+        def status=false
+        if (feeDetailsInstance.save(flush: true, failOnError: true)) {
+            status=true
+        }
+        def challanNo=params.searchChallanNo
+        def paymentDate=params.paymentDate
+
+        def args = [template: "printPayMiscFeeChallan", model: [bank:bank,branch:branch,paymentModeName:paymentModeName,paymentDate:paymentDate,stuList:stuList,courseFee:courseFee,totalFee:totalFee,courseNameList:courseNameList,challanNo:challanNo,],filename:challanNo+".pdf"]
+        pdfRenderingService.render(args + [controller: this], response)
+    }
+    def gerStudentId={
+        def resultMap=[:]
+        def studentId=Student.findByRollNo(params.rollNo).id
+        resultMap.studentId=studentId
+        render resultMap as JSON
     }
 }

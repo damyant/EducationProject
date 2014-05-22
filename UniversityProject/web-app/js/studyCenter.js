@@ -56,7 +56,7 @@ function showExamCenterList() {
         success: function (data) {
             $("#examinationCentre").empty().append('<option value="">Select Examination Centre</option>')
             for (var i = 0; i < data.length; i++) {
-                $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].examinationCentreName + '</option>')
+                $("#examinationCentre").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>')
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -100,6 +100,7 @@ function showStudyCenterList() {
         }
     });
 }
+
 
 
 function updateStudyCenter() {

@@ -272,10 +272,14 @@ class FeeDetailService {
 
     def studentDetailByChallanNumber(params){
         def returnMap=[:]
+        def stuList =[]
         def courseNameList=[],courseFee=[]
-        def stuList=  Student.findAllByChallanNo(params.challanNo)
+        def tempStuList=  Student.findAllByChallanNo(params.challanNo)
         def feeDetails = FeeDetails.findByChallanNo(params.challanNo)
-
+        tempStuList.each{
+            if(!(it.status.id==4))
+                stuList.add(it)
+        }
         stuList.each{
             println("==="+it.programDetail[0])
             courseNameList<<it.programDetail[0].courseName

@@ -42,16 +42,16 @@ class AttendanceService {
         def  sheetNo=0
         def examinationVenueIns = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
         if(params.programList=='allProgram' && params.programSession=='allSession' && params.programTerm=='allSemester'){
-            def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
+            def programExamVenue = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
             def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
                for(int i=1;i<=course[0]; i++){
-                    program.each{
+                   programExamVenue.each{
                         def pid= it.courseDetail.id
-                        def session=ProgramSession.findAllById(pid)
-                        println("---------------------------------------------"+session)
+                        def session=ProgramSession.findAllByProgramDetailId(it.courseDetail)
+//                        println("---------------------------------------------"+session)
                          session.each{
                             def sessionId=it.id
-                             println("-------------------------"+sessionId)
+//                             println("-------------------------"+sessionId)
                             def obj = Student.createCriteria()
                             def studentList = obj.list {
                             programDetail {
@@ -70,10 +70,10 @@ class AttendanceService {
                                     eq('semester', i)
                             }
                         }
-                             println("this is the semester "+i+" this is the course "+pid+' this is the session '+ sessionId+' student list is '+studentList)
+                        println("this is the semester "+i+" this is the course "+pid+' this is the session '+ sessionId+' student list is '+studentList)
 //                        def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
                         def programDetail = ProgramDetail.findById(pid)
-                        def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, i)
+                             def semester = Semester.findByProgramSessionAndSemesterNo(ProgramSession.findById(sessionId), i)
                         def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
                         if(studentList){
                         status = writeAttendanceSheet(studentList, params, semester, courseSubject, examinationVenueIns, workbook, sheetNo)
@@ -121,7 +121,7 @@ class AttendanceService {
                         }
 //                        def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
                         def programDetail = ProgramDetail.findById(pid)
-                        def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, i)
+                        def semester = Semester.findByProgramSessionAndSemesterNo(ProgramSession.findBySessionOfProgram(params.programSession), i)
                         def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
                         if(studentList){
                             status = writeAttendanceSheet(studentList, params, semester, courseSubject, examinationVenueIns, workbook, sheetNo)
@@ -165,7 +165,7 @@ class AttendanceService {
                         }
                     }
                     def programDetail = ProgramDetail.findById(pid)
-                    def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, Integer.parseInt(params.programTerm))
+                    def semester = Semester.findByProgramSessionAndSemesterNo(ProgramSession.findById(sessionId), Integer.parseInt(params.programTerm))
                     def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
                     if(studentList){
                         status = writeAttendanceSheet(studentList, params, semester, courseSubject, examinationVenueIns, workbook, sheetNo)
@@ -203,7 +203,7 @@ class AttendanceService {
 
 //              def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
                 def programDetail = ProgramDetail.findById(Long.parseLong(params.programList))
-                def semester = Semester.findByCourseDetailAndSemesterNo(programDetail, Integer.parseInt(params.programTerm))
+                def semester = Semester.findByProgramSessionAndSemesterNo(ProgramSession.findById(Integer.parseInt(params.programSession)), Integer.parseInt(params.programTerm))
                 def courseSubject = CourseSubject.findAllByCourseDetailAndSemester(programDetail, semester)
                 status = writeAttendanceSheet(studentList, params, semester, courseSubject,  examinationVenueIns, workbook, sheetNo)
                 workbook.write();
@@ -295,7 +295,8 @@ class AttendanceService {
         addCaption(sheet, 3, 2, "Name");
         int i = 4;
         courseSubject.each {
-            String date = it.subject.examDate.getDateString()
+            println("---------------------"+it.subject)
+            String date = it.examDate.getDateString()
 //            println("hello " + i + " date " + date.getClass())
             SimpleDateFormat sdfDestination = new SimpleDateFormat("dd/MM/yyyy");
             Date date1 = sdfDestination.parse(date);

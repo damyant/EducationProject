@@ -1,4 +1,4 @@
-<%@ page import="com.university.Role; com.university.UserRole; com.university.User" %>
+<%@ page import="examinationproject.StudyCenter; examinationproject.ExaminationCentre; com.university.Role; com.university.UserRole; com.university.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,6 +68,7 @@
                                                                   value="${userInstance?.email}"/></div>
 
                 </div>
+
 
                 %{--<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">--}%
 
@@ -158,6 +159,22 @@
                     </g:each>
                     </tbody>
                 </table>
+                <g:if test="${studyCentre!=null}">
+                    <div class="fieldcontain required" id="studyCentreDiv">
+
+
+                        <div class="university-size-1-4"> <label for="email">
+                            Select Study Centre </label>
+                            <span class="required-indicator">*</span></div>
+                        <div class="university-size-1-3">
+                            <g:select id="studyCentreId" name="studyCentreId" from="${studyCentreList}"
+                                      optionKey="id" optionValue="name" value="${studyCentre}"
+                                      class="university-size-2-3" noSelection="['': ' Select Study Centre']"/>
+                        </div>
+
+
+                    </div>
+                </g:if>
             </fieldset>
             <fieldset class="buttons">
                <input type="SUBMIT" class="university-button" value="Update" id="updateUser"/>
@@ -168,5 +185,26 @@
         </g:form>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        document.getElementById("studyCentreId").multiple = false;
+    })
+    $('input[name="myCheckbox"]').change(function () {
+        if ($(this).is(':checked')) {
+            if ($(this).val() == 3) {
+                document.getElementById("studyCentreDiv").style.visibility = "visible";
+                $('#studyCentreId').prop('disabled', false);
+                $('#studyCentreId').prop('required', true);
+            }
+        }
+        else{
+            if ($(this).val() == 3) {
+                document.getElementById("studyCentreDiv").style.visibility = "hidden";
+                $('#studyCentreId').prop('disabled', true);
+                $('#studyCentreId').prop('required', false);
+            }
+        }
+    })
+</script>
 </body>
 </html>

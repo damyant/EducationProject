@@ -31,6 +31,7 @@ class ExaminationCenterController {
     }
 
     def getExamCentreList = {
+
         def result = examinationCentreService.examVenueList(params)
         def associatedExamVenue
         if(params.programList){
@@ -113,11 +114,11 @@ class ExaminationCenterController {
 
     def getExaminationVenueList(){
         try{
-            ExaminationCentre examinationCentre = ExaminationCentre.get(params.int('data'));
+            City city = City.get(params.int('data'));
 
             def venueList = null
-            if (examinationCentre != null) {
-                venueList= examinationCentre.examVenue
+            if (city != null) {
+                venueList= city.examVenue
                 render venueList as JSON
             } else {
                 render null
@@ -150,7 +151,7 @@ class ExaminationCenterController {
 
     @Secured("ROLE_ADMIN")
     def create={
-        def districtList=ExaminationCentre.list()*.district as Set
+        def districtList=City.list()*.district as Set
         def finalDistrictList= districtList.sort{a,b->
             a.districtName<=>b.districtName
         }
@@ -173,13 +174,15 @@ class ExaminationCenterController {
     @Secured("ROLE_ADMIN")
     def createExamCentre={
         def districtList=District.list(sort:'districtName')
-
         [districtList:districtList]
     }
     def saveExamCentre={
-        Boolean flag = examinationCentreService.saveExamCentres(params)
-        if(flag){
+        int flag = examinationCentreService.saveExamCentres(params)
+        if(flag==2){
             flash.message =  "Examination Centre Saved Successfully"
+        }
+        else if(flag==1){
+            flash.message =  "Examination Centre Already Exist"
         }
         else{
             flash.message =  "Examination Centre Not Saved"
@@ -194,7 +197,8 @@ class ExaminationCenterController {
             District district = District.get(params.int('data'));
             def examCenterList = null
             if (district != null) {
-                examCenterList = ExaminationCentre.findAllByDistrict(district,[sort:'examinationCentreName'])
+                examCenterList = City.findAllByDistrictAndIsExamCentre(district,1,[sort: 'cityName'])
+                println(examCenterList)
                 render examCenterList as JSON
             } else {
                 render null

@@ -39,17 +39,7 @@ class ProgramFeeService {
         def session = ProgramSession.count()
         def programSessionIns
         if (session > 0) {
-            //old is gold code
-//            if (programDetail[0].programSession.id) {
-//                programSessionIns = ProgramSession.findById(programDetail[0].programSession.id)
-//            } else {
-//                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession, programDetail: programDetail).save(flush: true, failOnError: true)
-//            }
-//        } else {
-//            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession, programDetail: programDetail).save(flush: true, failOnError: true)
-////            println("Session new" + programSessionIns.sessionOfProgram)
-//        }
-            //new code start from here
+
             if (ProgramSession.findBySessionOfProgram(params.programSession)) {
                 programSessionIns = ProgramSession.findBySessionOfProgram(params.programSession)
             } else {
@@ -57,20 +47,21 @@ class ProgramFeeService {
             }
         } else {
             programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
-//            println("Session new" + programSessionIns.sessionOfProgram)
         }
         admissionFeeIns.programSession= programSessionIns
         admissionFeeIns.save(failOnError: true)
-//        def misFeeIns=new MiscellaneousFee()
-
 
         def i=0;
+        try{
         feeTypeList.each{
-            def misFeeIns
-            if(it)
-                misFeeIns=MiscellaneousFee.findById(it)
-            else
+            def misFeeIns  =MiscellaneousFee.findById(it)
+            if(!misFeeIns){
+                println("else")
                 misFeeIns=new MiscellaneousFee()
+            }
+
+
+
             misFeeIns.programDetail=ProgramDetail.findById(params.programDetail)
             misFeeIns.feeType=FeeType.findById(Long.parseLong(it.toString()))
             misFeeIns.amount=Integer.parseInt(params.feeTypeAmount[i])
@@ -78,6 +69,9 @@ class ProgramFeeService {
             ++i;
             misFeeIns.save(failOnError: true)
 //            misFeeIns.programSession
+        }
+        }catch(Exception e){
+            println("??????????????"+e)
         }
     }
 
@@ -97,8 +91,6 @@ class ProgramFeeService {
     }
 
     def getProgramSessions(params){
-
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         String year = sdf.format(Calendar.getInstance().getTime());
         def startYear = year

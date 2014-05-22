@@ -85,8 +85,8 @@ class CourseDetailService {
             def courseObj = new ProgramDetail(params)
             courseObj.save(failOnError: true, flush: true)
             if (session > 0) {
-                if (ProgramSession.findBySessionOfProgram(params.session)) {
-                    sessionObj = ProgramSession.findBySessionOfProgram(params.session)
+               if (ProgramSession.findByProgramDetailIdAndSessionOfProgram(existingCourseObj,params.session)) {
+                    sessionObj = ProgramSession.findByProgramDetailIdAndSessionOfProgram(existingCourseObj,params.session)
                 } else {
                     sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId:courseObj).save(flush: true, failOnError: true)
                 }
