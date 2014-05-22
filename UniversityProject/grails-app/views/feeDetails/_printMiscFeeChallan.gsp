@@ -11,7 +11,7 @@
 
 <div style="border: 1px solid; padding: 10px;">
     <div class="university-size-full-1-1" style="margin-bottom: 25px;"><div
-            style="float: right"><lable>Challan No. </lable><label>${studList[0].challanNo}</label></div>
+            style="float: right"><lable>Challan No. </lable><label>${challanNo}</label></div>
 
         <div class="university-clear-both"></div>
     </div>
@@ -32,7 +32,7 @@
             <tr>
                 <td>${studList[index].firstName} ${studList[index].lastName}</td>
                 <td>${studList[index].rollNo}</td>
-                <td>${addmissionFee[index]}</td>
+                <td>${miscellaneousFee[index]}</td>
             </tr>
         </g:each>
     </table>

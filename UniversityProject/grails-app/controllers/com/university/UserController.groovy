@@ -1,7 +1,9 @@
 
 package com.university
 
+import examinationproject.StudyCenter
 
+import javax.validation.constraints.Null
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -47,8 +49,9 @@ class UserController {
     def createUser() {
         def userInstance = new User()
         userInstance.properties = params
+        def stydyCentreList=StudyCenter.list(sort: 'name')
         def roleList=userService.getRoleList()
-        [userInstance: userInstance,roles:roleList]
+        [userInstance: userInstance,roles:roleList, stydyCentreList:stydyCentreList]
     }
 
 
@@ -98,6 +101,7 @@ class UserController {
 
     def editUser= {
         def currentUser= springSecurityService.getCurrentUser().getUsername()
+        def studyCentreList=StudyCenter.list(sort: 'name')
         def boolean compare= false
         def userInstance = User.get(params.id)
         if(currentUser==userInstance.username){
@@ -111,9 +115,14 @@ class UserController {
         else {
 
             def roles=Role.getAll()
+            def studyCentre = null
+            println("^^^^^^^^^^&&&&&&  "+userInstance.studyCentreId)
+            if(userInstance.studyCentreId!=0) {
+                studyCentre = StudyCenter.findById(userInstance.studyCentreId).id
 //            println(roles.id)
-//            println(userRoles)
-            return [userInstance: userInstance,roles:roles, userRoles:userRoles, compare:compare]
+                println("&&&&&&&&&&&&&&&&&&" + studyCentre)
+            }
+            return [userInstance: userInstance,roles:roles, userRoles:userRoles, compare:compare, studyCentreList:studyCentreList, studyCentre:studyCentre]
         }
     }
 

@@ -34,8 +34,19 @@ $(document).ready(function () {
                 }
 
             })
-//            alert(this.value)
-            generateRollNo(this.value)
+            $.ajax({
+                type: "post",
+                url: url('admin', 'generateRollIsAllow', ''),
+                success: function (data) {
+                    if (data.status) {
+                        generateRollNo(this.value)
+                    }
+                    else {
+                            alert("Roll No Generation Date has Expired.")
+                            $('#generateRollNo').reset();
+                    }
+                }
+            })
 //            document.forms["generateRollNo"].submit();
         }
         else {
@@ -282,17 +293,6 @@ function saveExamVenue(){
             $('#examCenterList').empty();
             $('#addExamCentre').empty();
             $('#successMessage').html('Successfully Assigned Examination Venue');
-//            setTimeout(function(){  $('#successMessage').hide(); }, 8000);
-//            if(data.noSubjects==true){
-//                $("#subjectList tr").remove();
-//                $("#msgDiv").html("The is no subjects associated with the program")
-//
-//            }
-//            else{
-//                appendSubjects(data);
-//                $("#msgDiv").html("")
-//                alert(data)
-//            }
         }
     });
 }
@@ -493,7 +493,7 @@ function generateChallanForRange(){
         $('#studyCenterFeeEntryTable').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
     for(i=from-2;i>=0;i--)
         $('#studyCenterFeeEntryTable').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
-    $('input:checked').each(function() {
+    $('input[name="studentCheckbox"]:checked').each(function() {
         selectedStudentId.push($(this).attr('id'));
     });
     $("#studentListId").val(selectedStudentId)
@@ -506,6 +506,8 @@ function generateChallanForRange(){
 
     }
 }
+
+
 
 
 
@@ -547,8 +549,36 @@ function showListOfStudents(){
         }
     })
 }
-function populateChallanDetail(t){
-    var challanNo=$(t).val();
+
+function showMiscFeeListOfStudents(){
+    document.getElementById("studentPayList").style.visibility = "visible";
+    document.getElementById("paySubmit").style.visibility = "visible";
+    $.ajax({
+        type: "post",
+        url: url('admin', 'searchMiscFeeListByChallanNo', ''),
+        data: 'challanNo='+$('#searchChallanNo').val(),
+
+        success: function (data) {
+//            alert(data[0].programDetail.id)
+            $("#scStudnetList tbody").empty().append('')
+            $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
+            for(var i=0;i<data.stuList.length;i++){
+                $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
+            }
+        }
+    })
+}
+
+function checkChallan(challan){
+    if(challan.length!=10){
+        return false
+    }
+}
+function populateChallanDetail(){
+    var challanNo=$("#payInSlipNo").val();
+    var bool = checkChallan(challanNo);
+    if(!bool)
+    return bool
 //    alert("?????????????")
     $.ajax({
         type: "post",
@@ -556,12 +586,16 @@ function populateChallanDetail(t){
         data: {challanNo: challanNo},
 
         success: function (data) {
-            $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
-            for(var i=0;i<data.stuList.length;i++){
-                $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="'+data.stuList[i].id+'"/> '+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td>'+data.stuList[i].rollNo+'</td><td>'+data.courseNameList[i]+'</td><td>'+data.bank+'</td><td>'+data.branch+'</td><td>'+data.courseFee[i]+'</td></tr>')
+            if(data.studentList) {
+                $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
+                for (var i = 0; i < data.stuList.length; i++) {
+                    $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.stuList[i].id + '"/> ' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td>' + data.stuList[i].rollNo + '</td><td>' + data.courseNameList[i] + '</td><td>' + data.bank + '</td><td>' + data.branch + '</td><td>' + data.courseFee[i] + '</td></tr>')
+                }
+                $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
+                $("#error").hide()
+            }else{
+                $("#error").show()
             }
-            $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
-
         }
     });
 }
@@ -569,3 +603,20 @@ function populateChallanDetail(t){
 function submitStudents(){
     $("#approvePayInSlip").submit()
 }
+
+$( document ).ready(function() {
+   $("#rollNoGenerationDate").ready(function(){
+       $("#startD").datepicker({
+           changeMonth: true,
+           changeYear: true,
+           dateFormat: "dd/mm/yy",
+           minDate: 0
+       });
+       $("#endD").datepicker({
+           changeMonth: true,
+           changeYear: true,
+           dateFormat: "dd/mm/yy",
+           minDate: 0
+       });
+   })
+});

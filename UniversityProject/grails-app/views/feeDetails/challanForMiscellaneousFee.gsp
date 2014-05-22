@@ -13,13 +13,14 @@
     <g:javascript src='admin.js'/>
     <g:javascript src='admitCard.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'admin.js')}"></script>
 </head>
 <body>
 <div id="main">
 
     <fieldset class="form">
             <h3>Generate Miscellaneous Fee Challan</h3>
-        <g:form name="challanForStudyCenter" id="challanForStudyCenter" controller="feeDetails" action="challanForStudyCenterStu">
+        <g:form name="challanForStudyCenter" id="challanForStudyCenter" controller="feeDetails" action="generateChallanForMiscellaneousFee">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
             <table class="inner university-size-full-1-1" style="margin: auto">
@@ -28,14 +29,14 @@
                         <g:select name="feeCategory" class="university-size-1-1" id="feeCategory" optionKey="id"
                                   optionValue="type"
                                   from="${miscFeeType}" noSelection="['': ' Select Fee Category']"
-                                  onchange=""/>
+                                  onchange="enableAll()"/>
                     </td>
                     <td  style="text-align: center;"></td>
                     <td></td>
                 </tr>
                 <tr><td><label>Select Program Catagory</label></td>
                     <td>
-                        <g:select name="programCategory" class="university-size-1-1" id="programCategory" optionKey="id"
+                        <g:select name="programCategory" disabled="true" class="university-size-1-1" id="programCategory" optionKey="id"
                                   optionValue="type"
                                   from="${programCategory}" noSelection="['': ' Select Program Category']"
                                   onchange="loadProgram(this)"/>
@@ -46,18 +47,18 @@
                 <tr>
                     <td class="university-size-1-4"><label>Select a Program</label></td>
                     <td class="university-size-1-4">
-                        <g:select name="programList" class="university-size-1-1" id="programList" optionKey="id"
+                        <g:select name="programList" disabled="true" class="university-size-1-1" id="programList" optionKey="id"
                                   optionValue="courseName"
                                   from="" noSelection="['': ' Select Program']"
                                   onchange="getSemester(this)"/>
                     </td>
                     <td class="university-size-1-4" style="text-align: center;">OR</td>
-                    <td class="university-size-1-4"><input type="checkbox" id="allProgram" name="allProgram"/><label for="allProgram">All Programs</label></td>
+                    <td class="university-size-1-4"><input type="checkbox" id="allProgram" name="allProgram" disabled="true"/><label for="allProgram">All Programs</label></td>
                 </tr>
                 <tr><td><label>Select a Term</label></td>
                     <td>
 
-                        <select name="semesterList" class="university-size-1-1" id="semesterList" >
+                        <select name="semesterList" class="university-size-1-1" disabled="true" id="semesterList" >
                             <option value="">Select Semester</option>
                         </select>
                     </td>

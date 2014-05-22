@@ -178,6 +178,8 @@
         <li><g:link controller="admin"
                     action="downloadAttendanceSheet"><g:message
                     code="default.mainMenu6.subMenu6"/></g:link></li>
+        <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
+                code="default.mainMenu6.subMenu9"/></g:link></li>
     </ul>
 </li>
 <li><a href="#"><g:message
@@ -194,9 +196,9 @@
         %{--<li><g:link controller="feeDetails"--}%
         %{--action="createFeeDetails"><g:message--}%
         %{--code="default.mainMenu8.subMenu1"/></g:link></li>--}%
-        <li><g:link controller="feeDetails"
-                    action="bulkFeeEntry"><g:message
-                    code="default.mainMenu8.subMenu2"/></g:link></li>
+        %{--<li><g:link controller="feeDetails"--}%
+                    %{--action="bulkFeeEntry"><g:message--}%
+                    %{--code="default.mainMenu8.subMenu2"/></g:link></li>--}%
         <li><a href="#"><g:message
                 code="default.mainMenu8.subMenu3"/></a>
             <ul>
@@ -207,7 +209,7 @@
                 </li>
                 <li>
                     <g:link controller="feeDetails"
-                            action="studyCentreAdmissionFee"><g:message
+                            action="payAdmissionFee"><g:message
                             code="default.mainMenu8.subMenu3.subMenu3"/></g:link>
                 </li>
 

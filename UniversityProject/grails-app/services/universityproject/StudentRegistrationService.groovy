@@ -94,7 +94,7 @@ class StudentRegistrationService {
         if(params.idol=="idol")
             studentRegistration.challanNo = getChallanNumber()
         Set<ExaminationVenue> examinationCentreList = ExaminationVenue.findAllById(Integer.parseInt(params.examinationCentre))
-        studentRegistration.examinationCentre = examinationCentreList
+        studentRegistration.city = examinationCentreList
         if (!params.appNo) {
             studentRegistration.studentImage = photographe.bytes
         } else {
@@ -113,8 +113,9 @@ class StudentRegistrationService {
             feeDetails.bankId= Bank.findById(Integer.parseInt(params.bankName))
             feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
             feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
-            feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
-            feeDetails.feeTypeId = FeeType.findById(1)
+//            feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
+            feeDetails.isAdmission = 0
+            feeDetails.challanDate=new Date()
             feeDetails.challanNo= studentRegistration.challanNo
             feeDetails.paymentDate = df.parse(params.paymentDate)
             feeDetails.save(flush: true,failOnError: true)

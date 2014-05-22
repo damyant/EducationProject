@@ -91,6 +91,8 @@ function submitForm() {
         async: false,
         data: $('#examinationCenterForm').serialize(),
         success: function (response) {
+            $("#studyCenterTab tbody tr").remove()
+            document.getElementById("studyCentreForEV").style.visibility = "hidden"
             document.getElementById("examinationCenterForm").reset();
             $('div#msg').html(response);
             $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -209,7 +211,7 @@ function validateAndSubmitForm() {
 }
 function clearErrorMsg(t) {
     $(t).next("label").text("");
-
+    $('#removeButton1').prop('disabled', false)
 }
 
 
@@ -231,4 +233,50 @@ function showList() {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
+}
+
+function showListOfStudyCenter(t) {
+
+    var data = $(t).val();
+    $.ajax({
+        type: "post",
+        url: url('studyCenter', 'getStudyCenterForECList', ''),
+        data: {data: data},
+        success: function (data) {
+
+            if (data.flag != "false") {
+                document.getElementById("studyCentreForEV").style.visibility = "visible";
+                $("#msgDiv").html("")
+                $("#studyCenterTab thead tr").remove()
+                $("#studyCenterTab thead").append('<tr><th style="width:30%;">Name</th><th style="width: 25%;">Address</th><th style="width: 30%;">Website URL</th><th style="width: 15%;">Select One Option</th></tr>')
+                $("#studyCenterTab tbody tr").remove()
+                for (var i = 0; i < data.length; i++) {
+                        $("#studyCenterTab tbody").append('<tr><td>' + data[i].name + '</td><td>' + data[i].address + '</td><td>' + data[i].websiteUrl + '</td><td><input type="radio" name="Select" onchange="loadValues(' + data[i].id + ')" value="' + data[i].id + '" id="select'+i+'"/></td></tr>')
+                }
+            }
+            else {
+                document.getElementById("studyCentreForEV").style.visibility = "hidden";
+                $("#studyCenterTab tbody tr").remove()
+                $("#msgDiv").html("No Study Center Available or All Study Center are converted to Examination Venue")
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}
+
+
+function loadValues(data){
+    $.ajax({
+        type: "post",
+        url: url('studyCenter', 'getStudyCenterDetails', ''),
+        data: {centreId: data},
+        success: function (data) {
+            $('#examinationCentreName1').val(data.studyCenterInst.name)
+            $('#examinationCentreContactNo1').val(data.studyCenterInst.phoneNoOfHeadIns)
+            $('#examinationCentreIncharge1').val(data.studyCenterInst.nameOfHeadIns)
+            $('#examinationCentreAddress1').val(data.studyCenterInst.address)
+            $('#removeButton1').prop('disabled', true)
+        }
+    })
 }
