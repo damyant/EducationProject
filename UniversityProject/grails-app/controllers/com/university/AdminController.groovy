@@ -411,9 +411,15 @@ class AdminController {
         def programList = [], dateList = []
         def programType = ProgramType.findById(Long.parseLong(params.type))
         def programs = ProgramDetail.findAllByProgramType(programType)
-        programs.each {
-            dateList << it.lateFeeDate.getDateString()
-        }
+            programs.each {
+                if(it.lateFeeDate){
+                dateList << it.lateFeeDate.getDateString()
+                }
+                else{
+                    dateList <<""
+                }
+            }
+
         def response = [programList: programs, dateList: dateList]
         render response as JSON
     }
