@@ -114,11 +114,11 @@ class ExaminationCenterController {
 
     def getExaminationVenueList(){
         try{
-            ExaminationCentre examinationCentre = ExaminationCentre.get(params.int('data'));
+            City city = City.get(params.int('data'));
 
             def venueList = null
-            if (examinationCentre != null) {
-                venueList= examinationCentre.examVenue
+            if (city != null) {
+                venueList= city.examVenue
                 render venueList as JSON
             } else {
                 render null

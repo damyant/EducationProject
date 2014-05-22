@@ -26,6 +26,7 @@ class ProgramFeeService {
     def saveProgramFeeType(params) {
         def feeTypeList=params.feeTypeList.split(',')
         def admissionFeeIns
+        def program = ProgramDetail.findById(params.programDetail)
         if(params.admissionFee)
            admissionFeeIns=AdmissionFee.findById(Integer.parseInt(params.admissionFee))
         else
@@ -40,13 +41,13 @@ class ProgramFeeService {
         def programSessionIns
         if (session > 0) {
 
-            if (ProgramSession.findBySessionOfProgram(params.programSession)) {
-                programSessionIns = ProgramSession.findBySessionOfProgram(params.programSession)
+            if (ProgramSession.findBySessionOfProgramAndProgramDetailId(params.programSession,program)) {
+                programSessionIns = ProgramSession.findBySessionOfProgramAndProgramDetailId(params.programSession,program)
             } else {
-                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
+                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession,programDetailId:program).save(flush: true, failOnError: true)
             }
         } else {
-            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
+            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession,programDetailId:program ).save(flush: true, failOnError: true)
         }
         admissionFeeIns.programSession= programSessionIns
         admissionFeeIns.save(failOnError: true)
@@ -54,14 +55,11 @@ class ProgramFeeService {
         def i=0;
         try{
         feeTypeList.each{
-            def misFeeIns  =MiscellaneousFee.findById(it)
+            def misFeeIns  =MiscellaneousFee.findByFeeTypeAndProgramDetail(FeeType.findById(it),program)
             if(!misFeeIns){
                 println("else")
                 misFeeIns=new MiscellaneousFee()
             }
-
-
-
             misFeeIns.programDetail=ProgramDetail.findById(params.programDetail)
             misFeeIns.feeType=FeeType.findById(Long.parseLong(it.toString()))
             misFeeIns.amount=Integer.parseInt(params.feeTypeAmount[i])
