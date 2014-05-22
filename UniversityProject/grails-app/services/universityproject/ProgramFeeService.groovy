@@ -41,13 +41,13 @@ class ProgramFeeService {
         def programSessionIns
         if (session > 0) {
 
-            if (ProgramSession.findBySessionOfProgram(params.programSession)) {
-                programSessionIns = ProgramSession.findBySessionOfProgram(params.programSession)
+            if (ProgramSession.findBySessionOfProgramAndProgramDetailId(params.programSession,program)) {
+                programSessionIns = ProgramSession.findBySessionOfProgramAndProgramDetailId(params.programSession,program)
             } else {
-                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
+                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession,programDetailId:program).save(flush: true, failOnError: true)
             }
         } else {
-            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
+            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession,programDetailId:program ).save(flush: true, failOnError: true)
         }
         admissionFeeIns.programSession= programSessionIns
         admissionFeeIns.save(failOnError: true)

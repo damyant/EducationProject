@@ -394,7 +394,7 @@ function loadSession(t){
                 //document.location.reload();
                 $("#session").empty().append('');
                 $("#session").append('Select Session');
-                for (var i = 0; i < data.length; i++) {
+                for (var i = 0; i < data.length-1; i++) {
                     $("#session").append('<option value="' + data[i].sessionOfProgram + '">' + data[i].sessionOfProgram + '</option>')
                 }
             }

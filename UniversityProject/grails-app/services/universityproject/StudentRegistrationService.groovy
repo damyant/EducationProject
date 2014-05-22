@@ -76,9 +76,11 @@ class StudentRegistrationService {
 
         def session = ProgramSession.count()
         def programSessionIns
+        println("++++++++++++++"+session)
         if (session > 0) {
+            println("???????????"+programDetail[0].id)
             if (programDetail[0].id) {
-                programSessionIns = ProgramSession.findById(programDetail[0].id)
+                programSessionIns = ProgramSession.findAllByProgramDetailId(ProgramDetail.findById(programDetail[0].id))
             } else {
                 programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
             }
@@ -133,6 +135,7 @@ class StudentRegistrationService {
      */
     def getStudentRollNumber(params) {
         def status = false
+        try{
         Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
@@ -163,7 +166,6 @@ class StudentRegistrationService {
                 order("rollNo", "desc")
             }
 
-//            println("List Size"+studentByYearAndCourse)
                 if (studentByYearAndCourse.size()>0) {
                     if (studentByYearAndCourse.get(0).rollNo) {
 
@@ -171,10 +173,6 @@ class StudentRegistrationService {
                             rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
                             rollTemp1 = Integer.parseInt(rollTemp) + 1
                             rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
-//                        } else {
-//                            ++rollTemp1
-//                            rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
-//                        }
                     } else {
                         rollNumber = courseCodeStr + yearCode + rollStr
                     }
@@ -186,6 +184,9 @@ class StudentRegistrationService {
             rollNumber = courseCodeStr + yearCode + rollStr
         }
         return rollNumber
+        }catch(Exception e){
+           println("Problem in roll number generation")
+        }
     }
 
     /**
