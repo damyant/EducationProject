@@ -11,8 +11,12 @@ import examinationproject.FeeType
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
+<<<<<<< HEAD
 import examinationproject.RollNoGenerationDate
 import examinationproject.RollNoGenerationFixture
+=======
+import examinationproject.ProgramSession
+>>>>>>> b12456748fce24394f1d694ed122bf9289bcac9c
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
@@ -32,7 +36,6 @@ def springSecurityService
 
     def provisionalStudentList(params){
 //        println("==========="+springSecurityService.principal.id)
-
         def studyCenterId=0
         def statusObj
         if(params.studyCenterId){
@@ -76,25 +79,52 @@ def springSecurityService
     }
 
     def subjectList(params){
-        def subjectMap=[:]
-        def subList=[],totalDateList=[]
-        def dateList=[]
-        def programIns=ProgramDetail.findById(Long.parseLong(params.programId))
-        def semesterList=Semester.findAllByCourseDetail(programIns)
-        def count=0
-        semesterList.each{
 
+        def subjectMap=[:]
+        def subList=[],totalDateList=[],totalTimeList=[],examDateList=[],newSemesterList=[],semesterNumberList=[],examTimeList=[]
+        def dateList=[]
+        def programSessionIns=ProgramSession.findById(Long.parseLong(params.sessionId))
+        def semesterList=Semester.findAllByProgramSession(programSessionIns)
+        def count=0
+        if(params.sessionTypeId=='1'){
+            semesterList.each {
+                 if(it.semesterNo%2==0){
+                    newSemesterList<<it
+                }
+            }
+        }
+        else{
+            semesterList.each {
+                if(it.semesterNo%2!=0){
+                 newSemesterList<<it
+                }
+            }
+
+        }
+         newSemesterList.each{
+            dateList<<CourseSubject.findAllByProgramSessionAndSemester(programSessionIns,it)
+        }
+
+<<<<<<< HEAD
           subList<<CourseSubject.findAllByCourseDetailAndSemester(programIns,it).subject
 
           dateList=subList.examDate
+=======
+        dateList.each{
+            subList<<it.subject
+            semesterNumberList<<it.semester
+            examDateList<<it.examDate
+            examTimeList<<it.examTime
+>>>>>>> b12456748fce24394f1d694ed122bf9289bcac9c
         }
 
+        println("??????"+examTimeList)
 
-        for(def i=0;i<subList.examDate.size();i++){
+        for(def i=0;i<dateList.examDate.size();i++){
 
-            for(def j=0;j<dateList[i].size();j++){
-                if(dateList[i][j]!=null){
-              totalDateList<<dateList[i][j].getDateString()
+            for(def j=0;j<examDateList[i].size();j++){
+                if(examDateList[i][j]!=null){
+                totalDateList<<examDateList[i][j].getDateString()
               ++count
             }
                 else{
@@ -103,7 +133,10 @@ def springSecurityService
             }
         }
         subjectMap.allSubjects=subList
+        subjectMap.semesterNoList=semesterNumberList
         subjectMap.dateList=totalDateList
+        subjectMap.examTimeList=examTimeList
+        println("?????????"+subjectMap)
 
       return subjectMap
 
@@ -114,15 +147,26 @@ def springSecurityService
         SimpleDateFormat f1 = new SimpleDateFormat("dd/MM/yyyy");
         def subjectList=params.subjectIdList.split(",")
         def count=0
-        subjectList.each{i ->
-            if(params.examinationDate[count]!=""){
-            def subjectIns=Subject.findById(Long.parseLong(i.toString()))
-            subjectIns.examDate=f1.parse(params.examinationDate[count])
-            subjectIns.examTime=params.examinationTime[count]
-            subjectIns.save(failOnError: true)
-            ++count;
-            }
+        println("+++++++++"+params)
+
+        def sessionObj=ProgramSession.findById(Long.parseLong(params.SessionList))
+        subjectList.each{
+//            println("@@@@@@@"+Subject.findById(Long.parseLong(it)))
+//            println("@@@@@@@"+sessionObj)
+         def courseSubjectObj=CourseSubject.findBySubjectAndProgramSession(Subject.findById(Long.parseLong(it)),sessionObj)
+            println("###33333"+courseSubjectObj)
+         if(params.examinationDate[count]){
+             println("innnnnnnnnnn")
+         courseSubjectObj.examDate=f1.parse(params.examinationDate[count])
+          }
+          else{
+             courseSubjectObj.examDate=Date
+          }
+         courseSubjectObj.examTime=params.examinationTime[count]
+         courseSubjectObj.save(failOnError: true)
+         ++count
         }
+
     }
 
     def saveExamVenue(params){
