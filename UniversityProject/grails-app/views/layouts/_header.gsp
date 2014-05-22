@@ -179,7 +179,10 @@
                     action="downloadAttendanceSheet"><g:message
                     code="default.mainMenu6.subMenu6"/></g:link></li>
         <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
-                code="default.mainMenu6.subMenu9"/></g:link></li>
+                code="default.mainMenu6.subMenu7"/></g:link></li>
+        <li><g:link controller="admin"
+                    action="studyMaterial"><g:message
+                    code="default.mainMenu6.subMenu9"/></g:link></li>
     </ul>
 </li>
 <li><a href="#"><g:message
