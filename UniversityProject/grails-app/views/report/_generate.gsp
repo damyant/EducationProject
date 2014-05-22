@@ -283,6 +283,45 @@
         </g:each>
     </table>
 </g:elseif>
+
+%{--Added By DIgvijay--}%
+<g:elseif test="${totalListByDailyFeePaid}">
+    <h3 style="text-align: center">Daily Fees Report of as on 19/05/2014  ${params.feeToDate}/> </h3>
+
+    <table style=" text-align: left" class="gridtable">
+        <th>Payment Type</th>
+        <th>Payment Mode</th>
+        <g:each in="${totalListByDailyFeePaid}" var="feeDetails">
+            <tr >
+                <td >${feeDetails.feeTypeId.type}</td>
+                <td >${feeDetails.paymentModeId.paymentModeName}</td>
+            </tr>
+        </g:each>
+    </table>
+
+    <table style=" text-align: center" class="gridtable">
+        <th>Student Name</th>
+        <th>Roll No</th>
+        <th>Payment No</th>
+        <th>Amount</th>
+        <g:each in="${totalListByDailyFeePaid}" var="feeDetails">
+            <tr >
+                <td >${feeDetails.studentId.firstName} ${feeDetails.studentId.middleName} ${feeDetails.studentId.lastName}</td>
+                <td >${feeDetails.studentId.rollNo}</td>
+                <td >${feeDetails.studentId.challanNo}</td>
+                <td >${feeDetails.studentId.lastName}</td>
+            </tr>
+        </g:each>
+    </table>
+
+    <table style=" text-align: right" class="gridtable">
+        <th>Group Total</th>
+        <tr>
+            <td>Add all Amount</td>
+        </tr>
+    </table>
+</g:elseif>
+
 <g:else>
     <h3>No Record Found</h3>
 </g:else>
