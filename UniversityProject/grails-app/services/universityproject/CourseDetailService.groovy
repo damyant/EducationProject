@@ -4,11 +4,11 @@ import examinationproject.CourseMode
 import examinationproject.CourseType
 import examinationproject.ProgramDetail
 import examinationproject.CourseSubject
-<<<<<<< HEAD
+
 import examinationproject.ProgramType
-=======
+
 import examinationproject.ProgramSession
->>>>>>> 7fbe725fdd533b293cdcc48e0206d12a4d93b326
+
 import examinationproject.Semester
 import examinationproject.Subject
 import grails.transaction.Transactional
