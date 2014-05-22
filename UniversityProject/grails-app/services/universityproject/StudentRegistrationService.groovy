@@ -76,12 +76,21 @@ class StudentRegistrationService {
 
         def session = ProgramSession.count()
         def programSessionIns
+
+
         if (session > 0) {
             if (programDetail[0].id) {
-                programSessionIns = ProgramSession.findById(programDetail[0].id)
-            } else {
-                programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
+                programSessionIns = ProgramSession.findByProgramDetailIdAndSessionOfProgram(programDetail[0], programSession)
+                if(!programSessionIns){
+                   def programIns= ProgramSession.executeQuery("from ProgramSession where programDetailId=:programDetailId order by sessionOfProgram desc ",[programDetailId:programDetail[0],max:1])
+                    programSessionIns=programIns[0]
+
+                }
+
             }
+// else {
+//                programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
+//            }
         } else {
             programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
 
