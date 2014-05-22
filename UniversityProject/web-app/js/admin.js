@@ -576,9 +576,7 @@ function checkChallan(challan){
 }
 function populateChallanDetail(){
     var challanNo=$("#payInSlipNo").val();
-    var bool = checkChallan(challanNo);
-    if(!bool)
-    return bool
+    if(challanNo.length==10){
 //    alert("?????????????")
     $.ajax({
         type: "post",
@@ -586,7 +584,8 @@ function populateChallanDetail(){
         data: {challanNo: challanNo},
 
         success: function (data) {
-            if(data.studentList) {
+            if(data.stuList) {
+                console.log("error")
                 $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
                 for (var i = 0; i < data.stuList.length; i++) {
                     $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.stuList[i].id + '"/> ' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td>' + data.stuList[i].rollNo + '</td><td>' + data.courseNameList[i] + '</td><td>' + data.bank + '</td><td>' + data.branch + '</td><td>' + data.courseFee[i] + '</td></tr>')
@@ -594,10 +593,15 @@ function populateChallanDetail(){
                 $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
                 $("#error").hide()
             }else{
+                console.log("error")
                 $("#error").show()
             }
         }
     });
+    }else{
+        alert("please enter 10 digit valid challan number")
+        return false
+    }
 }
 
 function submitStudents(){

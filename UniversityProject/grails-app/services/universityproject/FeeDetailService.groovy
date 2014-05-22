@@ -10,6 +10,7 @@ import examinationproject.ProgramDetail
 
 import examinationproject.Status
 import examinationproject.Student
+import examinationproject.StudyCenter
 import grails.transaction.Transactional
 
 import java.text.DateFormat
@@ -275,6 +276,10 @@ class FeeDetailService {
         def stuList =[]
         def courseNameList=[],courseFee=[]
         def tempStuList=  Student.findAllByChallanNo(params.challanNo)
+//        if(!tempStuList){
+//            return null
+//        }
+        def currentUser = springSecurityService.currentUser
         def feeDetails = FeeDetails.findByChallanNo(params.challanNo)
         tempStuList.each{
             if(!(it.status.id==4))
@@ -283,27 +288,21 @@ class FeeDetailService {
         stuList.each{
             println("==="+it.programDetail[0])
             courseNameList<<it.programDetail[0].courseName
-            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+            //if(StudyCenter.findAllById(.studyCentreId).centerCode[0]=="11111") {
+            if(it.studyCentre.centerCode[0]=="11111"){
+            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
+            }else{
+                courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+            }
         }
         returnMap.stuList=stuList
         returnMap.courseNameList=courseNameList
         returnMap.courseFee=courseFee
         returnMap.bank=feeDetails.bankId.bankName
         returnMap.branch=feeDetails.branchId.branchLocation
+        println("vvvvvvvvv"+returnMap)
         return returnMap
-//=======
-//        def StudentListByChallan={
-//            def resultMap=[:]
-//            def studList=Student.findAllByChallanNo(params.challanNo)
-//            def feeAmountList=[]
-//            for (int i=0;i<stuList.size();i++){
-//                def amount=AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
-//                feeAmountList.add(amount.feeAmountAtSC)
-//            }
-//            resultMap.studList=studList
-//            resultMap.feeAmountList=feeAmountList
-//            return resultMap
-//            >>>>>>> 6dde9414035ea88164f9f1e9b7c2f804c236d5a1
+
     }
 }
 
