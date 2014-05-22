@@ -242,8 +242,8 @@
                     <g:if test="${studInstance}">
                         <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-2"
                                   optionKey="id"
-                                  optionValue="examinationCentreName"
-                                  from="${ExaminationCentre.findAllByDistrict(District.get(studInstance?.examinationCentre?.district?.id?.get(0)))}"
+                                  optionValue="cityName"
+                                  from="${City.findAllByDistrict(District.get(studInstance?.examinationCentre?.district?.id?.get(0)))}"
                                   value="${studInstance?.examinationCentre?.id?.get(0)}"
                                   noSelection="['': 'Select District']"/>
                     </g:if>

@@ -20,7 +20,7 @@ class StudentController {
 
             def currentUser = springSecurityService.currentUser.username
             if (springSecurityService.currentUser.studyCentreId != 0) {
-                studyCentre = StudyCenter.findByEmailIdOfHeadIns(currentUser)
+                studyCentre= StudyCenter.findById(springSecurityService.currentUser.studyCentreId)
             } else {
                 studyCentre = StudyCenter.findByCenterCode('11111')
             }
@@ -131,7 +131,7 @@ class StudentController {
 
             def currentUser = springSecurityService.currentUser.username
             if (springSecurityService.currentUser.studyCentreId != 0) {
-                studyCentre = StudyCenter.findByEmailIdOfHeadIns(currentUser)
+                studyCentre= StudyCenter.findById(springSecurityService.currentUser.studyCentreId)
             } else {
                 studyCentre = StudyCenter.findByCenterCode('11111')
             }
@@ -142,7 +142,7 @@ class StudentController {
         }
         def programList = ProgramDetail.list(sort: 'courseName')
 //        def districtList=District.list(sort: 'districtName')
-        def districtList=ExaminationCentre.list()*.district as Set
+        def districtList=City.list()*.district as Set
         def finalDistrictList= districtList.sort{a,b->
             a.districtName<=>b.districtName
         }

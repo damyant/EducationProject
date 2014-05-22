@@ -34,11 +34,12 @@ class AdmitCardController {
     def bulkCreationOfAdmitCard ={
         def programList = ProgramDetail.list(sort:'courseName')
         def studyCentreList = StudyCenter.list()
-        def examinationCenter=ExaminationCentre.list(sort:'examinationCentreName')
+        def examinationCenter=City.findAllByIsExamCentre(1,[sort: 'cityName'])
 //        def examinationCenter=ExaminationVenue.list()*.city as Set
 //        def finalExaminationCenterList= examinationCenter.sort{a,b->
 //            a.cityName<=>b.cityName
 //        }
+
 
         [programList: programList, studyCentreList: studyCentreList, examinationCenterList: examinationCenter]
     }

@@ -22,7 +22,6 @@ $(function () {
 });
 
 function nextStudent() {
-
     var nextValue = $('#nextStudentId').val()
 //    alert("Next button clicked-----------"+nextValue)
     openPopUp(nextValue)
@@ -32,8 +31,6 @@ function previousStudent() {
 //    alert("hello------------------------------"+previousValue)
     openPopUp(previousValue)
 }
-
-
 function getStudentsList() {
 
     var date = $('#admissionDate').val()
@@ -54,8 +51,6 @@ function getStudentsList() {
 }
 
 function appendDataTable(data) {
-
-
     $('#studentList thead tr').remove()
     $('#studentList tbody tr').remove()
     if (data.stuList.length > 0) {
@@ -125,8 +120,6 @@ function toggleChecked(status) {
 }
 
 function openPopUp(studentId) {
-
-
     $("#dialog").dialog('open');
     for (var i = 0; i < studentList.length; i++) {
         if (studentList[i]) {
@@ -285,7 +278,7 @@ function appendStudentList(data) {
     var count = 1
     for (var i = 0; i < data.studentList.length; i++) {
 
-        $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID' + i + '"><td><input name="studentCheckbox" hidden="hidden" class="studentCheckbox" type="checkbox" id=' + data.studentList[i].id + '>' + count + '</td>' +
+        $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID' + i + '"><td><input type="hidden" value="' + count + '" id="' + data.studentList[i].rollNo + '"/><input name="studentCheckbox" hidden="hidden" class="studentCheckbox" type="checkbox" id=' + data.studentList[i].id + '>' + count + '</td>' +
             '<td><input type="text" hidden="hidden" id="studentId' + i + '" value="' + data.studentList[i].id + '" >' +
             '<input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td>' +
             '<td>' + data.studentList[i].firstName + ' ' + data.studentList[i].lastName + '</td>' +
@@ -338,13 +331,22 @@ $(document).ready(function () {
         if ($('#individualEntry').is(':checked')) {
             $("#paymentDetails").append('<tr><th class="university-size-1-1" style="text-align: center;">Roll No</th>' +
                 '</tr>');
-            $("#paymentDetails").append('<tr><td style="text-align: center;"><input type="text" class="university-size-1-3" name="rollNoSearch" id="rollNo' + i + '"></td>' +
+            $("#paymentDetails").append('<tr><td style="text-align: center;"><input type="text" class="university-size-1-3" name="rollNoSearch" id="rollNo" onchange="enterSrNo(this)">' +
+                '<input type="hidden" class="university-size-1-7"  id="serialNoFrom" name="serialNoFrom"><input type="hidden" class="university-size-1-7" id="serialNoTo" name="serialNoTo">' +
+                '</td>' +
                 '</tr>')
         }
 
     });
 });
 
+function enterSrNo(t){
+    var rollNo = $(t).val();
+    var value=$('#'+rollNo).val();
+//    alert(value)
+    $('#serialNoFrom').val(value);
+    $('#serialNoTo').val(value);
+}
 
 function populateStudentList() {
 
@@ -380,7 +382,7 @@ function populateStudentList() {
 }
 
 function populateStudentListForMiscFee() {
-    alert("dffffffffff")
+//    alert("dffffffffff")
     var program = $('#programList').val();
     var semester = $('#semesterList').val();
     var feeType = $('#programCategory').val();
@@ -401,7 +403,7 @@ function populateStudentListForMiscFee() {
     else {
         alert("Please Fill the Filters.")
     }
-    alert(" @@@@@@@@@@@@@@@@@@@ "+program+" ########## "+semester)
+//    alert(" @@@@@@@@@@@@@@@@@@@ "+program+" ########## "+semester)
     if (program) {
         $.ajax({
             type: "post",
@@ -434,7 +436,7 @@ function loadProgram(t) {
 
 function loadStudents(t) {
     var challanNo = $(t).value();
-    alert(challanNo)
+//    alert(challanNo)
     $.ajax({
         type: "post",
         url: url('feeDetails', 'populateStudentsByChallan', ''),
@@ -451,4 +453,10 @@ function loadStudents(t) {
         }
     });
 }
+function enableAll(){
+    $('#programCategory').attr('disabled', false);
+    $('#programList').attr('disabled', false);
+    $('#allProgram').attr('disabled', false);
+    $('#semesterList').attr('disabled', false);
 
+}

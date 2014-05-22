@@ -67,6 +67,15 @@ class StudyCenterInfoService {
 
     }
 
+    def studyCenterForECList(params) {
+        if (params) {
+            StudyCenter.findAllByCityAndIsExamVenue(City.findById(params.data), 1)
+
+        }
+
+
+    }
+
     def studyCenterDetailInfo(params) {
         // println(params.studyCenterId);
         if (params) {

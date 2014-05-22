@@ -11,6 +11,8 @@ import examinationproject.FeeType
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
+import examinationproject.RollNoGenerationDate
+import examinationproject.RollNoGenerationFixture
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
@@ -83,7 +85,7 @@ def springSecurityService
         semesterList.each{
 
           subList<<CourseSubject.findAllByCourseDetailAndSemester(programIns,it).subject
-       
+
           dateList=subList.examDate
         }
 
@@ -126,12 +128,11 @@ def springSecurityService
     def saveExamVenue(params){
 
         def courseIns=ProgramDetail.findById(Long.parseLong(params.programList))
-        def examCentreIns=ExaminationCentre.findById(Long.parseLong(params.examinationCentre))
+        def examCentreIns=City.findById(Long.parseLong(params.examinationCentre))
         def venueList=params.venueList.split(",")
         ProgramExamVenue.removeAll(examCentreIns,courseIns)
-
         venueList.each {it ->
-            ProgramExamVenue.create courseIns,examCentreIns, ExaminationVenue.findById(Integer.parseInt(it.toString()))
+         ProgramExamVenue.create courseIns,examCentreIns, ExaminationVenue.findById(Integer.parseInt(it.toString()))
 
         }
     }
@@ -164,10 +165,10 @@ def springSecurityService
         def feeDetailsInstance = new FeeDetails();
         def student = Student.findByRollNo(params.rollNo);
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        feeDetailsInstance.studentId = student
+        feeDetailsInstance.challanNo = student.challanNo
         feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
-        feeDetailsInstance.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber);
-        feeDetailsInstance.feeTypeId = FeeType.findById(params.feeTypeId)
+//        feeDetailsInstance.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber);
+        feeDetailsInstance.isAdmission =1
         feeDetailsInstance.bankId = Bank.findById(Long.parseLong(params.bankId))
         feeDetailsInstance.branchId = Branch.findById(Long.parseLong(params.branchId))
         feeDetailsInstance.paymentModeId =PaymentMode.findById(Long.parseLong(params.paymentModeId))
@@ -176,6 +177,33 @@ def springSecurityService
             student.save(flush: true, failOnError: true)
             status=true;
         }
+        return status
+    }
+    def saveRollNoGenDate(params){
+//        println(params)
+        Boolean status=false;
+        def rollDateInst = RollNoGenerationFixture.get(1);
+        SimpleDateFormat dFormat = new SimpleDateFormat("dd/MM/yyyy");
+        if(rollDateInst){
+//            println("***************"+rollDateInst.startD)
+//            println("***************"+rollDateInst.endD)
+            rollDateInst.startD=dFormat.parse(params.startD)
+            rollDateInst.endD=dFormat.parse(params.endD)
+            if (rollDateInst.save(flush: true, failOnError: true)) {
+                status=true;
+            }
+        }
+        else{
+            def newRollDateInst=new RollNoGenerationFixture()
+            newRollDateInst.startD=dFormat.parse(params.startD)
+            newRollDateInst.endD=dFormat.parse(params.endD)
+            if (newRollDateInst.save(flush: true, failOnError: true)) {
+                status=true;
+            }
+        }
+        def rollDateInst1 = RollNoGenerationFixture.get(1);
+//        println("new***************"+rollDateInst1.startD)
+//        println("new***************"+rollDateInst1.endD)
         return status
     }
 

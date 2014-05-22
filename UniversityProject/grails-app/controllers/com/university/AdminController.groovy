@@ -2,17 +2,22 @@ package com.university
 
 import examinationproject.AdmissionFee
 import examinationproject.Bank
+import examinationproject.City
 import examinationproject.ExaminationCentre
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
+import examinationproject.MiscellaneousFeeChallan
 import examinationproject.ProgramDetail
-
+import examinationproject.RollNoGenerationFixture
 import examinationproject.Student
 import examinationproject.Status
 import examinationproject.StudyCenter
 import grails.converters.JSON
 import javax.activation.MimetypesFileTypeMap
 import grails.plugins.springsecurity.Secured
+
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 
 
@@ -25,7 +30,6 @@ class AdminController {
     def feeDetailService
     def attendanceService
     @Secured(["ROLE_GENERATE_ROLL_NO"])
-
     def viewProvisionalStudents() {
 
         def studyCenterList=StudyCenter.list(sort: 'name')
@@ -144,9 +148,12 @@ class AdminController {
     @Secured("ROLE_ADMIN")
     def assignExaminationVenue={
         def programList = ProgramDetail.list(sort:'courseName')
-        def examinationCenter=ExaminationCentre.list(sort:'examinationCentreName')
-
-        [programList: programList,examinationCenterList:examinationCenter]
+        def obj=City.createCriteria()
+        def examCenterList=obj.list {
+            eq('isExamCentre',1)
+            order('cityName','asc')
+        }
+            [programList: programList,examinationCenterList:examCenterList]
     }
 
     def getSubjectList={
@@ -284,12 +291,35 @@ class AdminController {
 
     def searchListStudentByChallanNo(){
         def returnMap=[:]
+
         def courseNameList=[],courseFee=[]
         def stuList=  Student.findAllByChallanNo(params.challanNo)
+        def currentUser = springSecurityService.currentUser
+        println("username = :"+StudyCenter.findAllById(currentUser.studyCentreId).centerCode)
         stuList.each{
             println("==="+it.programDetail[0])
             courseNameList<<it.programDetail[0].courseName
-            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+            if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
+            }else{
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+            }
+        }
+        returnMap.stuList=stuList
+        returnMap.courseNameList=courseNameList
+        returnMap.courseFee=courseFee
+        render  returnMap as JSON
+    }
+
+    def searchMiscFeeListByChallanNo(){
+        def returnMap=[:]
+        def courseNameList=[],courseFee=[],stuList=[]
+        def miscFeeChallanList=  MiscellaneousFeeChallan.findAllByChallanNo(params.challanNo)
+        miscFeeChallanList.each{
+//            println("==="+it.student.programDetail)
+            stuList<<it.student
+            courseNameList<<it.student.programDetail[0].courseName
+            courseFee<<MiscellaneousFee.findByProgramDetailAndFeeType(it.student.programDetail[0],it.feeType).amount
         }
         returnMap.stuList=stuList
         returnMap.courseNameList=courseNameList
@@ -297,8 +327,6 @@ class AdminController {
         render  returnMap as JSON
     }
     def searchByChallanNo(){
-
-
         def returnMap = [:]
         println("???????/"+params)
         returnMap = feeDetailService.studentDetailByChallanNumber(params)
@@ -308,7 +336,9 @@ class AdminController {
     def approveFeeForStudents = {
    println(">>>>>>>>>>>>>"+params.studentListId)
         def student
-      params.studentListId.each{
+        def studentListId=[]
+        studentListId.addAll(params.studentListId)
+      studentListId.each{
           student = Student.findById(it)
           def status = Status.findById(4)
           student.status = status
@@ -319,6 +349,35 @@ class AdminController {
             redirect(action: "approvePayInSlip")
         }
 
+    }
+    def assignRollNoGenerationDate={
+        def rollDateInst = RollNoGenerationFixture.findById(1)
+        [rollDateInst:rollDateInst]
+    }
+    def saveRollNoGenerationDate={
+            def status=adminInfoService.saveRollNoGenDate(params)
+        if(status) {
+            flash.message = "Date Generated Successfully"
+        }
+        else {
+            flash.message = "Unable to Generate Date Successfully"
+        }
+            redirect(action: "assignRollNoGenerationDate")
+
+    }
+    def generateRollIsAllow={
+        def returnMap = [:]
+        Boolean status=false
+        def genRollNoIns=RollNoGenerationFixture.findById(1)
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date min=genRollNoIns.startD
+        Date max=genRollNoIns.endD
+        Date cdate=new Date()
+        if(cdate.compareTo(min) >= 0 && cdate.compareTo(max) <= 0){
+            status=true
+        }
+        returnMap.status=status
+        render  returnMap as JSON
     }
 }
 

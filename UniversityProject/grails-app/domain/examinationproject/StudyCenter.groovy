@@ -14,6 +14,7 @@ class StudyCenter {
     String asstCoordinator
     String asstMobile
     String asstEmail
+    int isExamVenue
 
     City city
     static hasMany = [student : Student]
@@ -36,7 +37,7 @@ class StudyCenter {
         asstCoordinator column: "asstCoordinator"
         asstMobile column: "asstMobile"
         asstEmail column: "asstEmail"
-
+        isExamVenue defaultValue: 1
     }
 
     static constraints = {

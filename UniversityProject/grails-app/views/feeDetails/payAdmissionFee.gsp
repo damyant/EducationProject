@@ -19,7 +19,7 @@
 <div id="main">
 
     <fieldset class="form">
-        <h3>Pay Admission Fee Entry</h3>
+        <h3>Pay Admission Fee</h3>
         <g:form controller="feeDetails" action="payChallanForStudyCenterStu" name="paychallanForStudyCenter" id="paychallanForStudyCenter">
         <table class="inner university-size-full-1-1" id="scStudnetList" style="margin: auto">
             <thead>
