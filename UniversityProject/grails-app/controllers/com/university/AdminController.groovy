@@ -3,7 +3,7 @@ package com.university
 import examinationproject.AdmissionFee
 import examinationproject.Bank
 import examinationproject.City
-import examinationproject.ExaminationCentre
+
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
 import examinationproject.MiscellaneousFeeChallan
@@ -69,7 +69,7 @@ class AdminController {
                 rollNumber = studentRegistrationService.getStudentRollNumber(params)
                 stuObj = Student.findById(i)
                 stuObj.rollNo = rollNumber
-                stuObj.status = Status.findById(Long.parseLong("2"))
+                stuObj.status = Status.findById(Long.parseLong("3"))
                 stuObj.save(flush: true, failOnError: true)
             }
         }
@@ -98,6 +98,7 @@ class AdminController {
     }
 
     def checkFeeByRollNo = {
+        println("??????????????"+params)
         def response
         try {
             def student = Student.findByRollNo(params.rollNo)
@@ -140,11 +141,12 @@ class AdminController {
         def feeTypeId
         def feeType = null
         def args
+        def lateFee=0
         def programFeeAmount = 0
         def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
 
         if (Integer.parseInt(params.feeType) > 0) {
-            println("hfdsfsfgs???????????????????????????")
+//            println("hfdsfsfgs???????????????????????????")
             try {
                 feeTypeId = Integer.parseInt(params.feeType)
                 feeType = FeeType.findById(feeTypeId)
@@ -155,15 +157,21 @@ class AdminController {
 
             }
         } else {
-            println("hfdsfsfgs?????????????????>>>>>>>>>>>>>>>>?")
+//            println("hfdsfsfgs?????????????????>>>>>>>>>>>>>>>>?")
+
+            def lateFeeDate=student.programDetail.lateFeeDate[0]
+            def today=new Date()
+            if(today.compareTo(lateFeeDate) > 0){
+                lateFee=AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+            }
             feeType = null
-            programFeeAmount = programFee.feeAmountAtIDOL
+            programFeeAmount = programFee.feeAmountAtIDOL+lateFee
         }
 
         if (params.idol == "idol")
-            args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
+            args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
         else
-            args = [template: "feeVoucher", model: [student: student, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
+            args = [template: "feeVoucher", model: [student: student,lateFee:lateFee, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
         pdfRenderingService.render(args + [controller: this], response)
 
 
@@ -288,28 +296,47 @@ class AdminController {
         render returnMap as JSON
     }
     def getFeeAmount = {
-
         def resultMap = [:]
-        println(params)
+        def lateFee=0
+        def programIns= ProgramDetail.findById(Integer.parseInt(params.program))
+        def lateFeeDate=programIns.lateFeeDate
+        def today=new Date()
+//        println("********############## "+today.compareTo(lateFeeDate))
+        if(today.compareTo(lateFeeDate) > 0){
+            lateFee=AdmissionFee.findByProgramDetail(programIns).lateFeeAmount
+        }
+//        println("%%%%%%%%%%%%%%%%%%% "+lateFee)
         def feeAmount = AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
-        resultMap.feeAmount = feeAmount.feeAmountAtIDOL;
+//        println("%%%%%%%%%%%%%%%%%%%<<<<<<<<< "+feeAmount)
+        def payableFee=feeAmount.feeAmountAtIDOL+lateFee
+        resultMap.feeAmount = payableFee
         render resultMap as JSON
     }
     def searchListStudentByChallanNo(){
         def returnMap=[:]
-
+        def lateFee=0
         def courseNameList=[],courseFee=[]
         def stuList=  Student.findAllByChallanNo(params.challanNo)
         def currentUser = springSecurityService.currentUser
         println("username = :"+StudyCenter.findAllById(currentUser.studyCentreId).centerCode)
         stuList.each{
-            println("==="+it.programDetail[0])
+            lateFee=0
+            def lateFeeDate=it.programDetail.lateFeeDate[0]
+            def today=new Date()
+//            def amount=AdmissionFee.findByProgramDetail(it.programDetail[0])
+            if(today.compareTo(lateFeeDate) > 0){
+                lateFee=AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
+            }
             courseNameList<<it.programDetail[0].courseName
-            if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
+            //if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
+            if(it.studyCentre.centerCode[0]=="11111"){
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
+//                +lateFee  -----------If required late fee remove this
             }else{
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+//                +lateFee
             }
+//            courseFee=courseFee
         }
         returnMap.stuList = stuList
         returnMap.courseNameList = courseNameList
@@ -424,23 +451,51 @@ class AdminController {
         def programList = [], dateList = []
         def programType = ProgramType.findById(Long.parseLong(params.type))
         def programs = ProgramDetail.findAllByProgramType(programType)
-        programs.each {
-            dateList << it.lateFeeDate.getDateString()
-        }
+            programs.each {
+                if(it.lateFeeDate){
+                dateList << it.lateFeeDate.getDateString()
+                }
+                else{
+                    dateList <<""
+                }
+            }
+
         def response = [programList: programs, dateList: dateList]
         render response as JSON
     }
 
     def saveLateFeeDate = {
         println(">?><< <<<<<<<<<<<<<" + params)
+        println(">?><< <<<<<<<<<<<<<" + params.programs)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
         def date = df.parse(params.lateFeeDate)
-        params.programs.each {
+        def programList=[]
+        programList.addAll( params.programs)
+        programList.each {
+//            println("############################3 "+it )
             def program = ProgramDetail.findById(Integer.parseInt(it))
             program.lateFeeDate = date
             program.save(flush: true, failOnError: true)
-
         }
         redirect(action: "assignLateFeeDate")
+    }
+
+
+    def studyMaterial={
+
+    }
+
+    def getStudentForStudyMaterial(){
+        println("???????????"+params)
+        def student=[]
+        if(params.studyMaterialRadio=="Roll Number"){
+          student= Student.findByRollNo(params.studyMaterialText)
+        }
+        else{
+            student=Student.findAllByChallanNo(params.studyMaterialText)
+        }
+        println("result=="+student)
+
+        render student as JSON
     }
 }

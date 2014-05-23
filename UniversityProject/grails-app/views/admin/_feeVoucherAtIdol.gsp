@@ -22,8 +22,12 @@
         <table width="100%" class="university-table-1-2">
             <tr><td><lable>Name:</lable></td><td><label>${student?.firstName} ${student?.lastName} ${student?.middleName}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
-            <tr><td>Type Of Fee:</td><td>${programFee?.programDetail?.courseName} ${feeType?.type}</td></tr>
-            <tr><td><lable>Amount:</lable></td><td><label>${programFeeAmount}</label></td></tr>
+            <tr><td>Type Of Fee:</td><td>Admission Fee for ${programFee?.programDetail?.courseName}</td></tr>
+            <tr><td><lable>Amount:</lable></td><td><label>${programFeeAmount}</label>
+                <g:if test="${lateFee!=0}">
+                    <label style="font-size: 13px;display: block">(with late fee ${lateFee})</label>
+                </g:if>
+            </td></tr>
 
             <tr><td style="vertical-align: bottom;">${new Date()}</td><td
                     style="vertical-align: bottom;height: 63px;"><div

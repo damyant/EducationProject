@@ -2,10 +2,9 @@ package universityproject
 
 import examinationproject.Bank
 import examinationproject.Branch
-import examinationproject.ExaminationCentre
+
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
-import examinationproject.FeeType
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.Status
@@ -13,7 +12,6 @@ import examinationproject.ProgramSession
 import examinationproject.StudyCenter
 import examinationproject.Student
 import grails.transaction.Transactional
-import jxl.CellReferenceHelper
 
 import java.security.SecureRandom
 import java.text.DateFormat;
@@ -76,18 +74,26 @@ class StudentRegistrationService {
 
         def session = ProgramSession.count()
         def programSessionIns
+
         if (session > 0) {
+            println("???????????"+programDetail[0].id)
             if (programDetail[0].id) {
-                programSessionIns = ProgramSession.findById(programDetail[0].id)
-            } else {
-                programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
+
+                programSessionIns = ProgramSession.findByProgramDetailIdAndSessionOfProgram(programDetail[0], programSession)
+                if(!programSessionIns){
+                   def programIns= ProgramSession.executeQuery("from ProgramSession where programDetailId=:programDetailId order by sessionOfProgram desc ",[programDetailId:programDetail[0],max:1])
+                    programSessionIns=programIns[0]
+
+                }
+
             }
+// else {
+//                programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
+//            }
         } else {
             programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
 
         }
-
-
 
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
@@ -135,6 +141,7 @@ class StudentRegistrationService {
      */
     def getStudentRollNumber(params) {
         def status = false
+        try{
         Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
@@ -165,7 +172,6 @@ class StudentRegistrationService {
                 order("rollNo", "desc")
             }
 
-//            println("List Size"+studentByYearAndCourse)
                 if (studentByYearAndCourse.size()>0) {
                     if (studentByYearAndCourse.get(0).rollNo) {
 
@@ -173,10 +179,6 @@ class StudentRegistrationService {
                             rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
                             rollTemp1 = Integer.parseInt(rollTemp) + 1
                             rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
-//                        } else {
-//                            ++rollTemp1
-//                            rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
-//                        }
                     } else {
                         rollNumber = courseCodeStr + yearCode + rollStr
                     }
@@ -188,6 +190,9 @@ class StudentRegistrationService {
             rollNumber = courseCodeStr + yearCode + rollStr
         }
         return rollNumber
+        }catch(Exception e){
+           println("Problem in roll number generation")
+        }
     }
 
     /**
@@ -229,10 +234,10 @@ class StudentRegistrationService {
     def seedStudent() {
         def students
 
-        Set<ExaminationCentre> examinationCentre = ExaminationCentre.findAllById(1)
+//        Set<ExaminationCentre> examinationCentre = ExaminationCentre.findAllById(1)
         Set<StudyCenter> studyCenters = StudyCenter.findAllById(8)
         Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)
-        def programSession = ProgramSession.findById(1)
+//        def programSession = ProgramSession.findById(1)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 
@@ -247,11 +252,11 @@ class StudentRegistrationService {
             students.nationality = "Indian"
             students.state = "Assam"
             students.status = Status.findById(1)
-            students.examinationCentre = examinationCentre
+//            students.examinationCentre = examinationCentre
             students.studyCentre = studyCenters
             students.admitCardGenerated = false
             students.programDetail = programDetails
-            students.programSession = programSession
+//            students.programSession = programSession
             students.registrationYear = year
             students.save(flush: true)
 

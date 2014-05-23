@@ -10,6 +10,7 @@ import examinationproject.ProgramDetail
 
 import examinationproject.Status
 import examinationproject.Student
+import examinationproject.StudyCenter
 import grails.transaction.Transactional
 
 import java.text.DateFormat
@@ -158,9 +159,17 @@ class FeeDetailService {
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
         def feeList = FeeType.list(sort:'type')
         def feeAmountList=[]
+        def lateFee=0
+
         for (int i=0;i<stuList.size();i++){
+            def lateFeeDate=stuList[i].programDetail.lateFeeDate[0]
+            def today=new Date()
             def amount=AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
-            feeAmountList.add(amount.feeAmountAtSC)
+            if(today.compareTo(lateFeeDate) > 0){
+                lateFee=amount[0].lateFeeAmount
+            }
+            def payableAmount=amount[0].feeAmountAtSC+lateFee
+            feeAmountList.add(payableAmount)
         }
         resultMap.studentList=stuList
         resultMap.bankName=bankName
@@ -273,8 +282,13 @@ class FeeDetailService {
     def studentDetailByChallanNumber(params){
         def returnMap=[:]
         def stuList =[]
+        def lateFee=0
         def courseNameList=[],courseFee=[]
         def tempStuList=  Student.findAllByChallanNo(params.challanNo)
+//        if(!tempStuList){
+//            return null
+//        }
+        def currentUser = springSecurityService.currentUser
         def feeDetails = FeeDetails.findByChallanNo(params.challanNo)
         tempStuList.each{
             if(!(it.status.id==4))
@@ -282,28 +296,28 @@ class FeeDetailService {
         }
         stuList.each{
             println("==="+it.programDetail[0])
+            lateFee=0
+            def lateFeeDate=it.programDetail.lateFeeDate[0]
+            def today=new Date()
+            if(today.compareTo(lateFeeDate) > 0){
+                lateFee=AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
+            }
             courseNameList<<it.programDetail[0].courseName
-            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+            //if(StudyCenter.findAllById(.studyCentreId).centerCode[0]=="11111") {
+            if(it.studyCentre.centerCode[0]=="11111"){
+            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL+lateFee
+            }else{
+                courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC+lateFee
+            }
         }
         returnMap.stuList=stuList
         returnMap.courseNameList=courseNameList
         returnMap.courseFee=courseFee
         returnMap.bank=feeDetails.bankId.bankName
         returnMap.branch=feeDetails.branchId.branchLocation
+        println("vvvvvvvvv"+returnMap)
         return returnMap
-//=======
-//        def StudentListByChallan={
-//            def resultMap=[:]
-//            def studList=Student.findAllByChallanNo(params.challanNo)
-//            def feeAmountList=[]
-//            for (int i=0;i<stuList.size();i++){
-//                def amount=AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
-//                feeAmountList.add(amount.feeAmountAtSC)
-//            }
-//            resultMap.studList=studList
-//            resultMap.feeAmountList=feeAmountList
-//            return resultMap
-//            >>>>>>> 6dde9414035ea88164f9f1e9b7c2f804c236d5a1
+
     }
 }
 

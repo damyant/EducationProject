@@ -4,10 +4,9 @@ import examinationproject.Bank
 import examinationproject.Branch
 import examinationproject.City
 import examinationproject.CourseSubject
-import examinationproject.ExaminationCentre
+
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
-import examinationproject.FeeType
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
@@ -34,6 +33,7 @@ def springSecurityService
 
     def provisionalStudentList(params){
 //        println("==========="+springSecurityService.principal.id)
+        println("in this")
         def studyCenterId=0
         def statusObj
         if(params.studyCenterId){
@@ -51,7 +51,7 @@ def springSecurityService
             statusObj=Status.findById(2)
         }
         else{
-            statusObj=Status.findById(1)
+                    statusObj=Status.findById(1)
         }
         def obj=Student .createCriteria()
         def stuList= obj.list{
@@ -66,10 +66,9 @@ def springSecurityService
                 count()
             }
 
-
         }
 
-
+        println("list of students "+ stuList)
         return  stuList
 
 

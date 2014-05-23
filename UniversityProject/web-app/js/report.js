@@ -245,7 +245,7 @@ function openPopUp(value){
         $('#sessionDialog').dialog('open')
     }
     else if(value==15){
-                alert("condition is true" + value)
+//                alert("condition is true" + value)
         $('tr').hide()
         $('#flagValue').val('categoryStudentList')
         $("#categoryStudentList").show()
@@ -253,7 +253,7 @@ function openPopUp(value){
         $('#sessionDialog').dialog('open')
     }
     else if(value==16){
-        alert("condition is true")
+//        alert("condition is true")
         $('#inExcel').val('true')
         $('tr').hide()
         $('#flagValue').val('session')

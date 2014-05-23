@@ -51,21 +51,29 @@ class StudentController {
         def studentRegistration
             def signature = request.getFile('signature')
             def photographe = request.getFile("photograph")
-
+        println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
             studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe )
 
-
         if (studentRegistration) {
-
-            if(springSecurityService.isLoggedIn()){
-
-
-            flash.message = "${message(code: 'register.created.message')}"
-            redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
-            }else{
-                flash.message = "${message(code: 'register.created.message')}"
-                redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+            if(params.studentId){
+                if(springSecurityService.isLoggedIn()){
+                    flash.message = "${message(code: 'register.updated.message')}"
+                    redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
+                }else{
+                    flash.message = "${message(code: 'register.updated.message')}"
+                    redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+                }
             }
+            else{
+                if(springSecurityService.isLoggedIn()){
+                    flash.message = "${message(code: 'register.created.message')}"
+                    redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
+                }else{
+                    flash.message = "${message(code: 'register.created.message')}"
+                    redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+                }
+            }
+
         } else {
 //                println("Cannot Register new Student")
                 flash.message = "${message(code: 'register.notCreated.message')}"

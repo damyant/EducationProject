@@ -31,7 +31,6 @@
 
         </table>
 
-
           <table id="allStudentList" class="inner">
             <tbody>
 

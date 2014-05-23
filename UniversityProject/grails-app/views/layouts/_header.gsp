@@ -53,10 +53,9 @@
             </ul>
         </li>
         <li>
-            <a href="#"><g:message code="Examination Centre"/></a>
+            <a href="#">Examination Centre</a>
             <ul>
-                <li><g:link controller="examinationCenter" action="createExamCentre"><g:message
-                        code="Create"/></g:link></li>
+                <li><g:link controller="examinationCenter" action="createExamCentre">Create</g:link></li>
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu3.subMenu1"/></a>
@@ -189,7 +188,12 @@
                     code="default.mainMenu6.subMenu8"/></g:link></li>
 
         <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
+
                 code="default.mainMenu6.subMenu9"/></g:link></li>
+        <li><g:link controller="admin"
+                    action="studyMaterial"><g:message
+                  code="default.mainMenu6.subMenu10"/></g:link></li>
+
 
     </ul>
 </li>

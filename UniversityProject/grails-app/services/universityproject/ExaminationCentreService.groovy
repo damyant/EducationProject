@@ -2,7 +2,7 @@ package universityproject
 
 import examinationproject.City
 import examinationproject.District
-import examinationproject.ExaminationCentre
+
 import examinationproject.ExaminationVenue
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue

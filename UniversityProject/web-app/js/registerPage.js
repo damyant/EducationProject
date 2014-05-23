@@ -147,7 +147,7 @@ function submitTempRegistration() {
     }
 }
 function confirmGenerateChallan(rollno) {
-alert("challan"+rollno)
+//alert("challan"+rollno)
         $.ajax({
         type: "post",
         url: url('admin', 'checkFeeByRollNo', ''),
