@@ -43,13 +43,15 @@ class ProgramFeeController {
 
 
     def saveProgramFee(){
+        def response
         println("innnnnnnnnnn=="+params)
         def feeTypeList=params.feeTypeList.split(',')
         println("innnnnn"+params.programSession+"nnnnn=="+feeTypeList[0])
 
-        programFeeService.saveProgramFeeType(params)
-        redirect(action: "listOfFeeType")
-
+        def result=programFeeService.saveProgramFeeType(params)
+        response=[status:result]
+        render response as JSON
+//        redirect(action: "listOfFeeType")
     }
 
     def editFeeType  =  {

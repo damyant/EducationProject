@@ -432,13 +432,11 @@ function submitProgramFee(){
         data: $("#createNewFee").serialize()+"&feeTypeList="+feeTypeList+"&programDetail="+programId,
 
         success: function (data) {
-//            if(data.flag){
-//                $('#rollNo').val('');
-//                $('#payInSlipNo').val('');
-//                $('#datePick').val('');
-//                $('#approvePayInSlip')[0].reset();
-//                $('#statusMessage').html("Approved Succesfully")
-//            }
+            if(data.status){
+                $('#createNewFee')[0].reset();
+                document.getElementById("statusMessage").style.visibility = "visible";
+                $('#statusMessage').html("Saved Successfully")
+            }
         }
 
     })
@@ -454,13 +452,11 @@ function updateProgramFee(){
         data: $("#updateFee").serialize()+"&feeTypeList="+feeTypeList+"&programDetail="+programId,
 
         success: function (data) {
-//            if(data.flag){
-//                $('#rollNo').val('');
-//                $('#payInSlipNo').val('');
-//                $('#datePick').val('');
-//                $('#approvePayInSlip')[0].reset();
-//                $('#statusMessage').html("Approved Succesfully")
-//            }
+            if(data.status){
+                $('#updateFee')[0].reset();
+                document.getElementById("statusMessage").style.visibility = "visible";
+                $('#statusMessage').html("Updated Successfully")
+            }
         }
 
     })
