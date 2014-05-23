@@ -338,7 +338,7 @@ class FeeDetailsController {
 
             if(it.studyCentre.centerCode[0]=="11111"){
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL+lateFee
-            }else{
+     }else{
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC+lateFee
             }
         }

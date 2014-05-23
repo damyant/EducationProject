@@ -142,20 +142,6 @@ class AdminController {
         def lateFee=0
         def programFeeAmount = 0
         def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
-         println("++++++++++++++++++++"+params.feeType)
-//        if (Integer.parseInt(params.feeType) > 0) {
-////            println("hfdsfsfgs???????????????????????????")
-//            try {
-//                feeTypeId = Integer.parseInt(params.feeType)
-//                feeType = FeeType.findById(feeTypeId)
-//                def mFee = MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(feeType, program, student.programSession)
-//                programFeeAmount = mFee.amount
-//            } catch (NullPointerException ex) {
-//                println("MiscellaneousFee does not exists" + ex)
-//
-//            }
-//        } else {
-//            println("hfdsfsfgs?????????????????>>>>>>>>>>>>>>>>?")
             try{
             def lateFeeDate=student.programDetail.lateFeeDate[0]
             def today=new Date()
@@ -164,13 +150,10 @@ class AdminController {
             }
             feeType = null
             programFeeAmount = programFee.feeAmountAtIDOL+lateFee
-
         }catch(NullPointerException e){
         flash.message="Late Fee Date is not asigned! "
                 redirect(controller: params.controller,action: params.action)
         }
-       // }
-
 
         if (params.idol == "idol")
             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
