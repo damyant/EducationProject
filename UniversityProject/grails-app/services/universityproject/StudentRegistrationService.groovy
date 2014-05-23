@@ -2,10 +2,9 @@ package universityproject
 
 import examinationproject.Bank
 import examinationproject.Branch
-import examinationproject.ExaminationCentre
+import examinationproject.City
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
-import examinationproject.FeeType
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.Status
@@ -13,7 +12,6 @@ import examinationproject.ProgramSession
 import examinationproject.StudyCenter
 import examinationproject.Student
 import grails.transaction.Transactional
-import jxl.CellReferenceHelper
 
 import java.security.SecureRandom
 import java.text.DateFormat;
@@ -212,7 +210,7 @@ class StudentRegistrationService {
 
     def seedStudent() {
         def students
-        Set<ExaminationCentre> examinationCentre = ExaminationCentre.findAllById(1)
+        Set<City> examinationCentre = City.findAllById(1)
         Set<StudyCenter> studyCenters = StudyCenter.findAllById(8)
         Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
@@ -227,7 +225,7 @@ class StudentRegistrationService {
             students.nationality = "Indian"
             students.state = "Assam"
             students.status = Status.findById(1)
-            students.examinationCentre = examinationCentre
+//            students.examinationCentre = examinationCentre
             students.studyCentre = studyCenters
             students.admitCardGenerated = false
             students.programDetail = programDetails

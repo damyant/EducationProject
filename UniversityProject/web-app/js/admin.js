@@ -69,7 +69,7 @@ function a(id) {
 }
 
 function saveExamDate(){
-    alert("submit")
+//    alert("submit")
     var course=$('#programList').val();
     $.ajax({
         type: "post",
@@ -261,7 +261,7 @@ function checkTimeFormat(count){
     var val =$('#examTime'+count).val() ;
 
     if(val != '' && !val.match(re)) {
-        alert("Invalid time format: " + val);
+//        alert("Invalid time format: " + val);
         form.timeVal.focus();
         return false;
     }
@@ -544,7 +544,7 @@ function showListOfStudents(){
             $("#scStudnetList tbody").empty().append('')
             $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
             for(var i=0;i<data.stuList.length;i++){
-                $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
+                $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" readonly name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"/></td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
             }
         }
     })
@@ -624,3 +624,29 @@ $( document ).ready(function() {
        });
    })
 });
+
+
+
+function studentForStudyMaterial(){
+
+    $.ajax({
+        type: "post",
+        url: url('admin', 'getStudentForStudyMaterial', ''),
+        data: $("#studyMaterial").serialize(),
+
+        success: function (data) {
+            if(data.studentList) {
+                $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
+                for (var i = 0; i < data.stuList.length; i++) {
+                    $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.stuList[i].id + '"/> ' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td>' + data.stuList[i].rollNo + '</td><td>' + data.courseNameList[i] + '</td><td>' + data.bank + '</td><td>' + data.branch + '</td><td>' + data.courseFee[i] + '</td></tr>')
+                }
+                $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
+                $("#error").hide()
+            }else{
+                $("#error").show()
+            }
+        }
+    });
+
+
+}

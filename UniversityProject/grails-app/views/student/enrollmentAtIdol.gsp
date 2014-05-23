@@ -141,6 +141,7 @@
                     <tr>
                         <td></td>
                         <td>
+
                             <input type="button" value="Submit" onclick="submitTempRegistration()" class="university-button">
                             <input type="reset" value="Reset" onclick="resetImage()" class="university-button">
                         </td>
