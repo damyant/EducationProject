@@ -116,7 +116,7 @@ function selectRows(){
 function getSemester(t){
 
     var data = $(t).val();
-    alert("-------------"+data)
+//    alert("-------------"+data)
     $('#semesterList').prop('disabled',false)
     $('#SessionList').prop('disabled',false)
     $.ajax({

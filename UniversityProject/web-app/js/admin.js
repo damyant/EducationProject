@@ -69,7 +69,7 @@ function a(id) {
 }
 
 function saveExamDate(){
-    alert("submit")
+//    alert("submit")
     var course=$('#programList').val();
     $.ajax({
         type: "post",
@@ -261,7 +261,7 @@ function checkTimeFormat(count){
     var val =$('#examTime'+count).val() ;
 
     if(val != '' && !val.match(re)) {
-        alert("Invalid time format: " + val);
+//        alert("Invalid time format: " + val);
         form.timeVal.focus();
         return false;
     }
@@ -432,13 +432,11 @@ function submitProgramFee(){
         data: $("#createNewFee").serialize()+"&feeTypeList="+feeTypeList+"&programDetail="+programId,
 
         success: function (data) {
-//            if(data.flag){
-//                $('#rollNo').val('');
-//                $('#payInSlipNo').val('');
-//                $('#datePick').val('');
-//                $('#approvePayInSlip')[0].reset();
-//                $('#statusMessage').html("Approved Succesfully")
-//            }
+            if(data.status){
+                $('#createNewFee')[0].reset();
+                document.getElementById("statusMessage").style.visibility = "visible";
+                $('#statusMessage').html("Saved Successfully")
+            }
         }
 
     })
@@ -454,13 +452,11 @@ function updateProgramFee(){
         data: $("#updateFee").serialize()+"&feeTypeList="+feeTypeList+"&programDetail="+programId,
 
         success: function (data) {
-//            if(data.flag){
-//                $('#rollNo').val('');
-//                $('#payInSlipNo').val('');
-//                $('#datePick').val('');
-//                $('#approvePayInSlip')[0].reset();
-//                $('#statusMessage').html("Approved Succesfully")
-//            }
+            if(data.status){
+                $('#updateFee')[0].reset();
+                document.getElementById("statusMessage").style.visibility = "visible";
+                $('#statusMessage').html("Updated Successfully")
+            }
         }
 
     })
@@ -544,7 +540,7 @@ function showListOfStudents(){
             $("#scStudnetList tbody").empty().append('')
             $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
             for(var i=0;i<data.stuList.length;i++){
-                $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
+                $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" readonly name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"/></td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
             }
         }
     })

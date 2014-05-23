@@ -46,7 +46,7 @@
                     </td>
                     </tr>
                     <tr><td><label>Assign Examination Date</label></td>
-                    <td><input type="text" name="lateFeeDate" maxlength="10" class="university-size-1-2" id="datepicker"
+                    <td><input type="text" name="lateFeeDate" maxlength="10" disabled onchange="loadAssignDate(this)" class="university-size-1-2" id="datepicker"
                                value=""></td>
                     </tr>
             </table>
@@ -69,8 +69,9 @@
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: "mm/dd/yy",
-                maxDate: 0
+                minDate: 0
             });
+
         });
     });
 </script>

@@ -6,7 +6,7 @@
 var studentList = [];
 // document ready function............................................
 
-$(document).ready(function(){
+$(document).ready(function () {
 
 
 })
@@ -326,7 +326,7 @@ function putAmount(studentId, index) {
 }
 
 $(document).ready(function () {
-       $("input[name='entry']").change(function () {
+    $("input[name='entry']").change(function () {
         $("#paymentDetails tr").remove();
         document.getElementById("generateFeeChallan").style.visibility = "visible";
         document.getElementById("paymentDetails").style.visibility = "visible";
@@ -347,9 +347,9 @@ $(document).ready(function () {
     });
 });
 
-function enterSrNo(t){
+function enterSrNo(t) {
     var rollNo = $(t).val();
-    var value=$('#'+rollNo).val();
+    var value = $('#' + rollNo).val();
 //    alert(value)
     $('#serialNoFrom').val(value);
     $('#serialNoTo').val(value);
@@ -415,7 +415,7 @@ function populateStudentListForMiscFee() {
         $.ajax({
             type: "post",
             url: url('feeDetails', 'populateStudentsForMFee', ''),
-            data: {program: program, semester: semester,feeType:feeType},
+            data: {program: program, semester: semester, feeType: feeType},
             success: function (data) {
                 appendStudentList(data)
             }
@@ -431,38 +431,72 @@ function filterProgram(t) {
         url: url('admin', 'loadProgram', ''),
         data: {type: type},
         success: function (data) {
+            $('#datepicker').prop("disabled", false)
             $("#courseList thead").empty().append('<tr><th class="university-size-1-3">' + '<input type="checkbox" id="chkAll" name="all" onclick="selectAllCheck(this)">Select All</input>' + '</th><th class="university-size-1-3">' + "Course Name" + '</th><th class="university-size-1-3"></th></tr>')
             $("#courseList tbody").empty()
 
             for (var i = 0; i < data.programList.length; i++) {
+
 //                var date=$.datepicker.formatDate('dd/MM/yy', data.programList[i].lateFeeDate)
-                $("#courseList tbody").append('<tr><td><input type="checkbox" name="programs" class="course" onchange="enableTextField(this)" value="'+data.programList[i].id+'" id="course'+data.programList[i].id+'"/></td>'+'<td>'+ data.programList[i].courseName+'</td><td><input type="text" readonly value="'+data.dateList[i]+'" name="assignDate'+data.programList[i].id+'" class="assignDate" id="'+data.programList[i].id+'"><input type="hidden" id="hidden'+data.programList[i].id+'" name="hidden'+i+'"</td></tr>')
+                $("#courseList tbody").append('<tr><td><input type="checkbox" name="programs" class="course" onchange="enableTextField(this)" value="' + data.programList[i].id + '" id="course' + data.programList[i].id + '"/></td>' + '<td>' + data.programList[i].courseName + '</td><td><input type="text" readonly value="' + data.dateList[i] + '" name="assignDate' + data.programList[i].id + '" class="assignDate" id="' + data.programList[i].id + '"><input type="hidden" id="hidden' + data.programList[i].id + '" value="' + data.dateList[i] + '" name="hidden' + i + '"/></td></tr>')
+                $("#"+ data.programList[i].id).datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "mm/dd/yy",
+                    minDate: 0
+                });
             }
         }
+
+    });
+
+}
+function loadAssignDate(t) {
+    var valueDate = $(t).val()
+    $('input[name="programs"]:checked').each(function () {
+//        selectedStudentId.push($(this).attr('id'));
+        var checkboxValue = $(this).val()
+        $("#" + checkboxValue).val(valueDate)
     });
 }
-function selectAllCheck(t){
-    $(".course").prop("checked",$("#chkAll").prop("checked"))
-   if($(t).is(':checked')){
+
+
+function selectAllCheck(t) {
+    $(".course").prop("checked", $("#chkAll").prop("checked"))
+    if ($(t).is(':checked')) {
         $(".assignDate").prop("readonly", false)
+        if ($('#datepicker').val() != "") {
+            $(".assignDate").val($('#datepicker').val())
+        }
+        $('input[name="programs"]:checked').each(function () {
+            var checkboxValue = $(this).val()
+        })
     }
-    else{
-       $(".assignDate").prop("readonly", true)
-   }
+    else {
+        $(".assignDate").prop("readonly", true)
+        $('input[name="programs"]').each(function () {
+            var checkboxValue = $(this).val()
+            $("#" + checkboxValue).val($("#hidden" + checkboxValue).val())
+        })
+    }
+
 }
 
-function enableTextField(t){
-    var txtId=$(t).val()
+function enableTextField(t) {
+    var txtId = $(t).val()
 //    alert(txtId)
-    if($(t).is(':checked')){
-        $('#'+txtId).prop('readonly', false);
+    if ($(t).is(':checked')) {
+        $('#' + txtId).prop('readonly', false);
+        if ($('#datepicker').val() != "") {
+            $(t).val($('#datepicker').val())
+        }
     }
-    else{
-        $('#'+txtId).prop('readonly', true);
+    else {
+        $('#' + txtId).prop('readonly', true);
+        $("#" + txtId).val($("#hidden" + txtId).val())
     }
 
 }
-
 
 
 function loadProgram(t) {
@@ -501,7 +535,7 @@ function loadStudents(t) {
         }
     });
 }
-function enableAll(){
+function enableAll() {
     $('#programCategory').attr('disabled', false);
     $('#programList').attr('disabled', false);
     $('#allProgram').attr('disabled', false);
