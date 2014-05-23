@@ -87,9 +87,9 @@
                 <li><g:link controller="admin"
                             action="addCourses"><g:message
                             code="default.mainMenu6.subMenu7"/></g:link></li>
-                <li><g:link controller="admin"
-                            action="updateCourses"><g:message
-                            code="default.mainMenu6.subMenu8"/></g:link></li>
+                %{--<li><g:link controller="admin"--}%
+                            %{--action="updateCourses"><g:message--}%
+                            %{--code="default.mainMenu6.subMenu8"/></g:link></li>--}%
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>
@@ -139,7 +139,9 @@
     <ul>
         <li><g:link controller="admin" action="viewProvisionalStudents"><g:message
                 code="default.mainMenu6.subMenu1"/></g:link></li>
-
+        <li><g:link controller="admin"
+                    action="assignLateFeeDate"><g:message
+                    code="default.mainMenu3.subMenu7.subMenu7"/></g:link></li>
         <li><g:link controller="admin"
                     action="assignExaminationDate"><g:message
                     code="default.mainMenu6.subMenu4"/></g:link></li>
@@ -200,11 +202,7 @@
         <li><a href="#"><g:message
                 code="default.mainMenu8.subMenu3"/></a>
             <ul>
-                <li><g:link controller="admin"
-                            action="assignLateFeeDate"><g:message
-                            code="default.mainMenu3.subMenu7.subMenu7"/></g:link></li>
-
-                <li>
+               <li>
                     <g:link controller="feeDetails"
                             action="generateChallanSCAdmissionFee"><g:message
                             code="default.mainMenu8.subMenu3.subMenu1"/></g:link>

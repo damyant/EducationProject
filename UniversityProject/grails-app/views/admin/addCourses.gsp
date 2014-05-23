@@ -20,12 +20,12 @@
     <fieldset class="form">
         <h3>Add Courses</h3>
 <g:form id="addCoursesFrmId" name="" controller="course" action="saveCourses">
-    <table class="inner" style="margin: auto;text-align: center; width: 70%">
+    <table class="inner" style="margin: auto; width: 100%">
         <tr>
             <td>
                 <p>
                     <label for="programTypeId">
-                        <g:message code="addCourses.selectCategory.label" default="Select Course Category"/> :<span
+                        <g:message code="addCourses.selectCategory.label" default="Select Course Category"/> <span
                             class="university-obligatory">*</span>
                     </label>
                 </p>
@@ -38,17 +38,17 @@
             </td>
         </tr>
 
-        <tr>
-            <td class="university-size-1-3"><p>Course Code :<span class="university-obligatory">*</span>
-            </p></td>
-            <td class="university-size-2-3"><g:textField name="subjectCode" id="subjectCode"
-                                                         class="university-size-1-2" required="true"
-                                                         onkeypress="return isNumber(event)"
-            /></td>
-        </tr>
+        %{--<tr>--}%
+            %{--<td class="university-size-1-3"><p>Course Code :<span class="university-obligatory">*</span>--}%
+            %{--</p></td>--}%
+            %{--<td class="university-size-2-3"><g:textField name="subjectCode" id="subjectCode"--}%
+                                                         %{--class="university-size-1-2" required="true"--}%
+                                                         %{--onkeypress="return isNumber(event)"--}%
+            %{--/></td>--}%
+        %{--</tr>--}%
 
         <tr>
-            <td class="university-size-1-3"><p>Course Name :<span class="university-obligatory">*</span>
+            <td class="university-size-1-3"><p>Course Name <span class="university-obligatory">*</span>
             </p></td>
             <td class="university-size-2-3"><g:textField name="subjectName" id="subjectName"
                                                          class="university-size-1-2" required="true"

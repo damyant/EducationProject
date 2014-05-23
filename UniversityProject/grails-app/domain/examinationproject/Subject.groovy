@@ -2,7 +2,7 @@ package examinationproject
 
 class Subject {
 
-    int subjectCode
+    String subjectCode
     String subjectName
     ProgramType programTypeId
 
@@ -17,8 +17,8 @@ class Subject {
 
     static constraints = {
         subjectName(nullable: false)
-        subjectCode(nullable:false)
-        programTypeId (nullable: true)
+        subjectCode(nullable:true)
+        programTypeId (nullable: false)
 
     }
 }
