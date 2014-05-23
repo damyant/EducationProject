@@ -365,10 +365,10 @@ class AdminController {
     }
 
     def updateCourses = {
-        println("AdminController-->updateCourses Action")
+        println("AdminController-->updateCourses Action" + params)
+        def programDetail = ProgramDetail.findById(params.CourseId)
+        [programDetail:programDetail]
     }
-//}
-
 
     def assignRollNoGenerationDate={
         def rollDateInst = RollNoGenerationFixture.findById(1)

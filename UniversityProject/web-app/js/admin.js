@@ -599,10 +599,36 @@ function populateChallanDetail(){
         }
     });
 }
+//Added By DIgvijay on 22 May 2014
+function populateCourseDetail(){
+    var courseId = $("#courseId").val();
+    alert("courseId--->"+courseId)
+
+    $.ajax({
+        type: "post",
+        url: url('admin', 'updateCourses', ''),
+        data: {courseId: courseId},
+
+        success: function (data) {
+            if(data.programDetail) {
+                $("#allCourseList tbody").empty().append('<tr><th>Course Id</th><th>Course Code</th><th>Course Name</th></tr>')
+                for (var i = 0; i < data.programDetail.length; i++) {
+                    $("#allCourseList tbody").append('<tr><td><input type="text" name="courseListId" hidden="hidden" value="' + data.programDetail[i].courseId + '"/> ' + data.programDetail[i].courseCode + ' &nbsp;' + data.programDetail[i].courseName + '</td></tr>')
+                }
+                $("#allCourseList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
+                $("#error").hide()
+            }else{
+                $("#error").show()
+            }
+        }
+    });
+}
 
 function submitStudents(){
     $("#approvePayInSlip").submit()
 }
+
+
 
 $( document ).ready(function() {
    $("#rollNoGenerationDate").ready(function(){
