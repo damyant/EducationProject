@@ -38,6 +38,7 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
+            <div id="statusMessage" style="visibility: hidden" class="university-status-message"></div>
             <g:hasErrors bean="${programFeeInstance}">
                 <ul class="errors" role="alert">
                     <g:eachError bean="${programFeeInstance}" var="error">
