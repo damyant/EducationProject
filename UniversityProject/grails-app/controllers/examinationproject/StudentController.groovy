@@ -37,7 +37,7 @@ class StudentController {
         def districtList=District.list(sort: 'districtName')
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
-        def centreList =  ExaminationCentre.list(sort: 'examinationCentreName')
+        def centreList =  City.findAllByIsExamCentre(1)
 //        println("sss"+studInstance.status)
         [studyCentre: studyCentre,studInstance:studInstance, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode]
 
@@ -51,7 +51,7 @@ class StudentController {
         def studentRegistration
             def signature = request.getFile('signature')
             def photographe = request.getFile("photograph")
-        println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
+//        println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
             studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe )
 
         if (studentRegistration) {

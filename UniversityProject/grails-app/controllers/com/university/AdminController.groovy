@@ -145,18 +145,18 @@ class AdminController {
         def programFeeAmount = 0
         def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
 
-        if (Integer.parseInt(params.feeType) > 0) {
-//            println("hfdsfsfgs???????????????????????????")
-            try {
-                feeTypeId = Integer.parseInt(params.feeType)
-                feeType = FeeType.findById(feeTypeId)
-                def mFee = MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(feeType, program, student.programSession)
-                programFeeAmount = mFee.amount
-            } catch (NullPointerException ex) {
-                println("MiscellaneousFee does not exists" + ex)
-
-            }
-        } else {
+//        if (Integer.parseInt(params.feeType) > 0) {
+////            println("hfdsfsfgs???????????????????????????")
+//            try {
+//                feeTypeId = Integer.parseInt(params.feeType)
+//                feeType = FeeType.findById(feeTypeId)
+//                def mFee = MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(feeType, program, student.programSession)
+//                programFeeAmount = mFee.amount
+//            } catch (NullPointerException ex) {
+//                println("MiscellaneousFee does not exists" + ex)
+//
+//            }
+//        } else {
 //            println("hfdsfsfgs?????????????????>>>>>>>>>>>>>>>>?")
 
             def lateFeeDate=student.programDetail.lateFeeDate[0]
@@ -166,7 +166,7 @@ class AdminController {
             }
             feeType = null
             programFeeAmount = programFee.feeAmountAtIDOL+lateFee
-        }
+//        }
 
         if (params.idol == "idol")
             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
