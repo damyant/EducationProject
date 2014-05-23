@@ -355,10 +355,11 @@ class FeeDetailsController {
 
         }
         else {
+            feeDetailsInstance=new FeeDetails()
             feeDetailsInstance.challanNo=params.searchChallanNo
             feeDetailsInstance.paymentModeId = PaymentMode.findById(params.paymentMode)
             feeDetailsInstance.bankId = Bank.findById(params.bankName)
-            feeDetailsInstance.isAdmission = true
+            feeDetailsInstance.isAdmission= true
             feeDetailsInstance.branchId = Branch.findById(params.branchLocation)
             feeDetailsInstance.challanDate = new Date()
             feeDetailsInstance.paymentDate = df.parse(params.paymentDate)

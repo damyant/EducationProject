@@ -83,8 +83,7 @@ class StudentController {
 
 
     def applicationPrintPreview = {
-
-//        println("params" + params)
+        println("params" + params)
         def student = Student.findById(params.studentID)
         def args = [template: "applicationPrintPreview", model: [studentInstance: student]]
         pdfRenderingService.render(args + [controller: this], response)
