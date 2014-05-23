@@ -434,7 +434,6 @@ class AdminController {
     }
 
     def saveLateFeeDate = {
-        println(">?><< <<<<<<<<<<<<<" + params)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
         def date = df.parse(params.lateFeeDate)
         params.programs.each {
@@ -453,15 +452,22 @@ class AdminController {
 
     def getStudentForStudyMaterial(){
         println("???????????"+params)
-        def student=[]
-        if(params.studyMaterialRadio=="Roll Number"){
-          student= Student.findByRollNo(params.studyMaterialText)
+        def returnMap=[:]
+        returnMap= adminInfoService.studentForStudyMaterial(params)
+        render returnMap as JSON
+    }
+
+    def saveStudyMaterial(){
+        println("inn"+params)
+        def returnMap=[:]
+        def resultMap= adminInfoService.saveStudentForStudyMaterial(params)
+        println("********"+resultMap)
+        if(resultMap){
+          returnMap.status="true"
         }
         else{
-            student=Student.findAllByChallanNo(params.studyMaterialText)
+            returnMap.status="false"
         }
-        println("result=="+student)
-
-        render student as JSON
+        render returnMap as JSON
     }
 }

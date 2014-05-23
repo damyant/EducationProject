@@ -628,19 +628,29 @@ $( document ).ready(function() {
 
 
 function studentForStudyMaterial(){
+    var result = $('#studyMaterialPage').valid()
 
     $.ajax({
         type: "post",
         url: url('admin', 'getStudentForStudyMaterial', ''),
-        data: $("#studyMaterial").serialize(),
+        data: $("#studyMaterialPage").serialize(),
 
         success: function (data) {
+            alert(data.assignedStudyMaterail.id)
             if(data.studentList) {
-                $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
-                for (var i = 0; i < data.stuList.length; i++) {
-                    $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.stuList[i].id + '"/> ' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td>' + data.stuList[i].rollNo + '</td><td>' + data.courseNameList[i] + '</td><td>' + data.bank + '</td><td>' + data.branch + '</td><td>' + data.courseFee[i] + '</td></tr>')
+
+                $("#studentRecord tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th></tr>')
+                for (var i = 0; i < data.studentList.length; i++) {
+                    $("#studentRecord tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.studentList[i].id + '"/> ' + data.studentList[i].firstName + ' &nbsp;' + data.studentList[i].lastName + '</td><td>' + data.studentList[i].rollNo + '</td><td>' + data.courseDetail[0].courseName + '</td></tr>')
+                    $("#studentRecord tbody").append('<tr><th colspan="3">Current Semester Courses</th></tr>')
+
+                    for(var j=0;j<data.subjectsList[i].length;j++){
+
+                    $("#studentRecord tbody").append('<tr><td><input type="checkbox" name="subjectCheckBox" value="'+data.subjectsList[i][j].id+'" /></td><td>'+data.subjectsList[i][j].subjectName+'</td></tr>')
+                    }
                 }
-                $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
+
+                $("#studentRecord tbody").append('<tr><td><input type="button" value="Assign Study Material" onclick="assignStudyMaterial()"/> </td></tr>')
                 $("#error").hide()
             }else{
                 $("#error").show()
@@ -648,5 +658,34 @@ function studentForStudyMaterial(){
         }
     });
 
+
+}
+
+
+function assignStudyMaterial(){
+        var subjectList=[]
+    if ($("input[name=subjectCheckBox]:checked").length != 0) {
+
+        $.ajax({
+            type: "post",
+            url: url('admin', 'saveStudyMaterial', ''),
+            data: $("#studyMaterialPage").serialize(),
+            success: function (data) {
+                if (data.status=='true') {
+                    alert("???")
+
+                }
+                else {
+                    alert("There is some problem in assigning Study Material")
+
+                }
+            }
+        })
+
+    }
+    else {
+        alert("Select the Subject first.");
+        return false;
+    }
 
 }
