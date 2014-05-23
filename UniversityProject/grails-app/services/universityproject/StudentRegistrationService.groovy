@@ -70,7 +70,6 @@ class StudentRegistrationService {
 
         studentRegistration.studyCentre = studyCentre
         Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
-      //  endYear = (Integer.parseInt(year) + programDetail[0].noOfAcademicYears).toString()
         endYear = Integer.parseInt(year)+1
         programSession = (startYear + "-" + endYear)
 
@@ -78,25 +77,16 @@ class StudentRegistrationService {
         def programSessionIns
 
         if (session > 0) {
-            println("???????????"+programDetail[0].id)
             if (programDetail[0].id) {
-
                 programSessionIns = ProgramSession.findByProgramDetailIdAndSessionOfProgram(programDetail[0], programSession)
                 if(!programSessionIns){
                    def programIns= ProgramSession.executeQuery("from ProgramSession where programDetailId=:programDetailId order by sessionOfProgram desc ",[programDetailId:programDetail[0],max:1])
                     programSessionIns=programIns[0]
-
                 }
-
             }
-// else {
-//                programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
-//            }
         } else {
             programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
-
         }
-
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
         if(params.idol=="idol")
@@ -110,18 +100,13 @@ class StudentRegistrationService {
         }
         studentRegistration.semester = 1
         studentRegistration.admitCardGenerated = false
-        //RAJ CODE
 
-        //END RAJ CODE
-        // studentRegistration.studentSignature=signature.bytes
         if (studentRegistration.save(flush: true, failOnError: true)) {
             if (!springSecurityService.isLoggedIn()) {
             def feeDetails = new FeeDetails()
-
             feeDetails.bankId= Bank.findById(Integer.parseInt(params.bankName))
             feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
             feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
-//            feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
             feeDetails.isAdmission = 0
             feeDetails.challanDate=new Date()
             feeDetails.challanNo= studentRegistration.challanNo
@@ -132,8 +117,6 @@ class StudentRegistrationService {
         } else {
             return null
         }
-
-
     }
 
     /**
@@ -156,12 +139,10 @@ class StudentRegistrationService {
 
         if (courseCodeStr.length() > 2) {
             courseCodeStr = courseCodeStr.substring(courseCodeStr.length() - 2, courseCodeStr.length())
-//            println(courseCodeStr)
         }
         String rollNumber = null;
         def student = Student.count()
         if (student > 0) {
-
             def obj = Student.createCriteria()
             def studentByYearAndCourse = obj.list {
                 programDetail {
@@ -176,8 +157,6 @@ class StudentRegistrationService {
 
                 if (studentByYearAndCourse.size()>0) {
                     if (studentByYearAndCourse.get(0).rollNo) {
-
-//                        if (rollNumber == null) {
                             rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
                             rollTemp1 = Integer.parseInt(rollTemp) + 1
                             rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
@@ -214,14 +193,12 @@ class StudentRegistrationService {
         if(Student.count()>0){
             if(!Student.findByReferenceNumber(new String(buf))){
                 return new String(buf);
-
             }else{
                 getStudentReferenceNumber()
             }
              }else{
             return new String(buf)
           }
-
     }
 
     def approvedStudents(params) {
@@ -235,18 +212,14 @@ class StudentRegistrationService {
 
     def seedStudent() {
         def students
-
         Set<ExaminationCentre> examinationCentre = ExaminationCentre.findAllById(1)
         Set<StudyCenter> studyCenters = StudyCenter.findAllById(8)
         Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)
-//        def programSession = ProgramSession.findById(1)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 
         for (int i = 0; i < 100; i++) {
             students = new Student()
-//            println("Seeded user" + i)
-            //students.studentName = "Student" + i
             students.gender = "Male"
             students.category = "GEN"
             students.referenceNumber = getStudentReferenceNumber()
@@ -258,15 +231,12 @@ class StudentRegistrationService {
             students.studyCentre = studyCenters
             students.admitCardGenerated = false
             students.programDetail = programDetails
-//            students.programSession = programSession
             students.registrationYear = year
             students.save(flush: true)
-
         }
     }
 
     def getChallanNumber(){
-
         int serialNo = 1
         SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd"); // Just the year
         def date = (sdf.format(Calendar.getInstance().getTime()))
@@ -288,7 +258,6 @@ class StudentRegistrationService {
             }else{
                 serialNo =1
             }
-
             length = serialNo.toString().length()
             switch(length){
                 case 1:
@@ -302,10 +271,7 @@ class StudentRegistrationService {
                     break;
                 default:
                     challanSr = serialNo.toString()
-
             }
-
-            println("Incremented serial"+challanSr)
             challanNo = challan+challanSr
 
         }else{
@@ -313,11 +279,8 @@ class StudentRegistrationService {
              challanNo = challan+challanSr
 
             }
-            println("challan number is"+challanNo)
             return challanNo
         }
-
-
     }
 
 

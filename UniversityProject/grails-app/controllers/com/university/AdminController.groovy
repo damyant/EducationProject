@@ -98,11 +98,9 @@ class AdminController {
     }
 
     def checkFeeByRollNo = {
-        println("??????????????"+params)
         def response
         try {
             def student = Student.findByRollNo(params.rollNo)
-            println("??????????" + student)
             def program = student.programDetail[0]
             def feeType
             def programName = program.courseName
