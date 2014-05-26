@@ -244,7 +244,7 @@ def springSecurityService
     def studentForStudyMaterial(params){
         def resultMap=[:]
 
-        def subjectsList=[]
+        def subjectsList=[],assignedStudyMaterailList=[]
 //        if(params.studyMaterialRadio=="Roll Number"){
            def stuList= Student.findAllByRollNo(params.studyMaterialText)
 //        }
@@ -252,14 +252,14 @@ def springSecurityService
 //            stuList=Student.findAllByChallanNo(params.studyMaterialText)
 //        }
         if(stuList){
-        println("*******"+stuList)
           subjectsList<<CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList.semester,stuList.programSession),stuList.programSession).subject
-
         resultMap.studentList=stuList
         resultMap.courseDetail=stuList.programDetail[0]
         resultMap.subjectsList=subjectsList
         resultMap.assignedStudyMaterail= StudyMaterial.findAllByStudentId(stuList[0]).subjectId
+
         }
+
         return resultMap
 
 

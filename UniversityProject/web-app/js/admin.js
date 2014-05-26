@@ -632,9 +632,9 @@ function studentForStudyMaterial(){
         data: $("#studyMaterialPage").serialize(),
 
         success: function (data) {
-            alert(data.assignedStudyMaterail.id)
-            if(data.studentList) {
 
+            if(data.studentList) {
+                $("#msgDiv").html(" ")
                 $("#studentRecord tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th></tr>')
                 for (var i = 0; i < data.studentList.length; i++) {
                     $("#studentRecord tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.studentList[i].id + '"/> ' + data.studentList[i].firstName + ' &nbsp;' + data.studentList[i].lastName + '</td><td>' + data.studentList[i].rollNo + '</td><td>' + data.courseDetail[0].courseName + '</td></tr>')
@@ -642,11 +642,15 @@ function studentForStudyMaterial(){
 
                     for(var j=0;j<data.subjectsList[i].length;j++){
 
-                    $("#studentRecord tbody").append('<tr><td><input type="checkbox" name="subjectCheckBox" value="'+data.subjectsList[i][j].id+'" /></td><td>'+data.subjectsList[i][j].subjectName+'</td></tr>')
+                    $("#studentRecord tbody").append('<tr><td><input type="checkbox" name="subjectCheckBox" id="'+data.subjectsList[i][j].id+'" value="'+data.subjectsList[i][j].id+'" /></td><td>'+data.subjectsList[i][j].subjectName+'</td></tr>')
                     }
                 }
 
                 $("#studentRecord tbody").append('<tr><td><input type="button" value="Assign Study Material" onclick="assignStudyMaterial()"/> </td></tr>')
+
+                for(var k=0;k<data.assignedStudyMaterail.length;k++){
+                  $("#"+data.assignedStudyMaterail[k].id).attr('checked',true)
+                }
                 $("#error").hide()
             }else{
                 $("#error").show()
@@ -668,13 +672,15 @@ function assignStudyMaterial(){
             data: $("#studyMaterialPage").serialize(),
             success: function (data) {
                 if (data.status=='true') {
-                    alert("???")
-
+                    $("#studentRecord tbody tr").remove()
+                    $("#studyMaterialText").val('')
+                        $("#msgDiv").html("Study Material has been assigned to student")
                 }
                 else {
                     alert("There is some problem in assigning Study Material")
 
                 }
+
             }
         })
 
