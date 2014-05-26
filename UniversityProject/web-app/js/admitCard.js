@@ -116,9 +116,9 @@ function selectRows(){
 function getSemester(t){
 
     var data = $(t).val();
-    alert("-------------"+data)
     $('#semesterList').prop('disabled',false)
     $('#SessionList').prop('disabled',false)
+    if(data){
     $.ajax({
         type: "post",
         url: url('admitCard', 'getSemesterList', ''),
@@ -136,13 +136,27 @@ function getSemester(t){
             }
         }
     })
+    }
+    else{
+        $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+        $("#SessionList").empty().append('data <option value="">Select Session</option>')
+        $("#sessionType").val(0)
+        $("#subjectList").empty();
 
+
+    }
+
+}
+function setType(){
+    $("#sessionType").val(0)
+    $("#subjectList").empty();
 }
 
 
 
 function getSemesterForAttendance(t){
     var data = $(t).val();
+    if(data){
     $('#semesterList').prop('disabled',false)
     $('#SessionList').prop('disabled',false)
     if(data=='allProgram'){
@@ -179,6 +193,13 @@ function getSemesterForAttendance(t){
                 }
             }
         })
+    }
+    }
+    else{
+        $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+        $("#SessionList").empty().append('data <option value="">Select Session</option>')
+        $('#semesterList').prop('disabled',true)
+        $('#SessionList').prop('disabled', true)
     }
 
     $("#semesterList").attr('enabled',true)

@@ -24,14 +24,20 @@ class ProgramFeeService {
  * @return
  */
     def saveProgramFeeType(params) {
+        println("#######@@@@@@@@@@@@>>>>>>>>>"+params)
+        def status=false
         def feeTypeList=params.feeTypeList.split(',')
         def admissionFeeIns
         def program = ProgramDetail.findById(params.programDetail)
-        if(params.admissionFee)
-           admissionFeeIns=AdmissionFee.findById(Integer.parseInt(params.admissionFee))
-        else
-           admissionFeeIns=new AdmissionFee()
+        if(params.admissionFee) {
+            admissionFeeIns = AdmissionFee.findById(Integer.parseInt(params.admissionFee))
+            println(">>>>>>>>?>>>>>> " +admissionFeeIns)
+        }
+        else {
+            admissionFeeIns = new AdmissionFee()
+        }
         Set<ProgramDetail> programDetail = ProgramDetail.findAllById(params.programDetail)
+        println(">>>>>>>>?>>>>>>"+programDetail)
         admissionFeeIns.feeAmountAtIDOL=Integer.parseInt(params.feeAmountAtIDOL)
         admissionFeeIns.feeAmountAtSC=Integer.parseInt(params.feeAmountAtSC)
         admissionFeeIns.programDetail = programDetail[0]
@@ -40,17 +46,19 @@ class ProgramFeeService {
         def session = ProgramSession.count()
         def programSessionIns
         if (session > 0) {
-
-            if (ProgramSession.findBySessionOfProgram(params.programSession)) {
-                programSessionIns = ProgramSession.findBySessionOfProgram(params.programSession)
+            println("Session    "+ProgramSession.findBySessionOfProgramAndProgramDetailId(params.programSession,program))
+            if (ProgramSession.findBySessionOfProgramAndProgramDetailId(params.programSession,program)) {
+                programSessionIns = ProgramSession.findBySessionOfProgramAndProgramDetailId(params.programSession,program)
             } else {
-                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
+                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession,programDetailId:program).save(flush: true, failOnError: true)
             }
         } else {
-            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession).save(flush: true, failOnError: true)
+            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession,programDetailId:program ).save(flush: true, failOnError: true)
         }
         admissionFeeIns.programSession= programSessionIns
-        admissionFeeIns.save(failOnError: true)
+        if(admissionFeeIns.save(failOnError: true)){
+            status = true
+        }
 
         def i=0;
         try{
@@ -65,12 +73,16 @@ class ProgramFeeService {
             misFeeIns.amount=Integer.parseInt(params.feeTypeAmount[i])
             misFeeIns.programSession=programSessionIns
             ++i;
-            misFeeIns.save(failOnError: true)
+           if(misFeeIns.save(failOnError: true)){
+               status = true
+           }
+
 //            misFeeIns.programSession
         }
         }catch(Exception e){
             println("??????????????"+e)
         }
+        return status
     }
 
 /**

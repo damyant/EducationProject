@@ -4,10 +4,9 @@ import examinationproject.Bank
 import examinationproject.Branch
 import examinationproject.City
 import examinationproject.CourseSubject
-import examinationproject.ExaminationCentre
+
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
-import examinationproject.FeeType
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
@@ -33,43 +32,43 @@ def springSecurityService
     }
 
     def provisionalStudentList(params){
-//        println("==========="+springSecurityService.principal.id)
-        println("in this")
-        def studyCenterId=0
-        def statusObj
-        if(params.studyCenterId){
-            studyCenterId=params.studyCenterId
-        }
-        else{
-            def currentUser=springSecurityService.getCurrentUser()
-
-            studyCenterId=currentUser.studyCentreId
-        }
+//        def studyCenterId=0
+//        def statusObj
+//        if(params.studyCenterId){
+//            studyCenterId=params.studyCenterId
+//        }
+//        else{
+//            def currentUser=springSecurityService.getCurrentUser()
+//            studyCenterId=currentUser.studyCentreId
+//        }
 
 
-        if(params.pageType=="Approve RollNo"){
-
-            statusObj=Status.findById(2)
-        }
-        else{
-                    statusObj=Status.findById(1)
-        }
+//        if(params.pageType=="Approve RollNo"){
+//
+//            statusObj=Status.findById(2)
+//        }
+//        else{
+//            statusObj=Status.findById(1)
+//        }
         def obj=Student .createCriteria()
         def stuList= obj.list{
             programDetail{
                 eq('id', Long.parseLong(params.programId))
             }
-            studyCentre {
-                eq('id', Long.parseLong(studyCenterId.toString()))
-            }
             and{
-                eq('status',statusObj)
-                count()
+                isNull('rollNo')
             }
+//            studyCentre {
+//                eq('id', Long.parseLong(studyCenterId.toString()))
+//            }
+//            and{
+//                eq('status',statusObj)
+//                count()
+//            }
 
         }
 
-        println("list of students "+ stuList)
+        println("list of students "+ stuList+"-----------------"+params.programId)
         return  stuList
 
 

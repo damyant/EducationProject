@@ -22,7 +22,7 @@ class AdmitCardService {
             programDetail {
                 eq('id', Long.parseLong(params.programList))
             }
-            examinationCentre {
+            city {
                 eq('id', Long.parseLong(params.examinationCentre))
             }
             and {

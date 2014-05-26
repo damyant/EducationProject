@@ -48,7 +48,7 @@
                     <td class="university-size-1-4">
                         <g:select name="SessionList" id="SessionList" class="university-size-1-1"
                                   from="" noSelection="['': ' Select Session']"
-                                  onchange=""/>
+                                  onchange="setType()"/>
                     </td>
                 </tr>
                 <tr>

@@ -232,7 +232,7 @@
                 <td class="university-size-1-2">
 
                     <g:select name="examDistrict" id="district" optionKey="id"
-                              value="${studInstance?.examinationCentre?.district?.id?.get(0)}"
+                              value="${studInstance?.city?.district?.id?.get(0)}"
                               class="university-size-1-2"
                               onChange="showExamCenterList()" optionValue="districtName"
                               from="${districtList}" noSelection="['': ' Select District']"/>
@@ -244,8 +244,8 @@
                         <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-2"
                                   optionKey="id"
                                   optionValue="cityName"
-                                  from="${City.findAllByDistrict(District.get(studInstance?.examinationCentre?.district?.id?.get(0)))}"
-                                  value="${studInstance?.examinationCentre?.id?.get(0)}"
+                                  from="${City.findAllByDistrict(District.get(studInstance?.city?.district?.id?.get(0)))}"
+                                  value="${studInstance?.city?.id?.get(0)}"
                                   noSelection="['': 'Select District']"/>
                     </g:if>
                     <g:else>

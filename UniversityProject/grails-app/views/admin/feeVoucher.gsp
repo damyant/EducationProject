@@ -16,30 +16,26 @@
     <script type="text/javascript">
 
     </script>
-         ${params}
+         %{--${params}--}%
     <script type="text/javascript">
          $(function () {
-            $("#feeType").blur(function () {
+            $("#rollNo").blur(function () {
                 var rollNo = $("#rollNo").val()
-                var feeType = $(this).val()
-                if ($(this).length > 0) {
+                var feeType = 0
                     var url = "${createLink(controller:'admin', action:'checkFeeByRollNo')}"
-                    $.getJSON(url, {rollNo: rollNo,feeType:feeType}, function (json) {
+                    $.getJSON(url, {rollNo: rollNo, feeType:feeType}, function (json) {
+//                        alert(json.feeStatus)
                             if (json.feeStatus) {
-                            $("#submit").prop('disabled', false);
-                            $("#feeType").prop('disabled', false);
-                            $("#feeError").prop('hidden', true);
-                        }else{
-                          $("#feeError").html(json.feeType.type+" not yet created");
-                          $("#feeError").prop('hidden', false);
-                          $("#submit").prop('disabled', true);
 
+                            $("#submit").prop('disabled', false);
+//                            $("#feeType").prop('disabled', false);
+                            $("#feeError").prop('hidden', true);
 
                         }
                     });
-                }
-            });
-        });
+//                }
+            })
+         });
     </script>
 
 </head>
@@ -95,9 +91,9 @@
                         </g:if>
                         <g:else>
                             <g:select id="feeType" name="feeType"
-                                      from="${feeType}" optionKey="id"
+                                      from="" optionKey="id"
                                       optionValue="type" class="many-to-one university-size-1-3"
-                                      noSelection="['': 'Choose Type']"/>
+                                      readonly="true"/>
                         </g:else>
 
                     </td>
