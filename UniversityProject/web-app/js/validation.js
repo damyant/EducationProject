@@ -2,8 +2,14 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-    $("#studyMaterialPage,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
+    $("#studyMaterialPage,#addCoursesFrmId,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
         rules: {
+
+            //Add Course
+            programTypeId:"required",
+            subjectName: {required: true,
+                lettersnumberswithbasicpunc: true
+            },
             //studyMaterialPageFields
             studyMaterialText: {
                 required: true,
@@ -11,6 +17,7 @@ function validate() {
             },
 //              tempEnroll
             examCentre:"required",
+            address:"required",
             examVenue:"required",
 //            Study Center
             name: {
@@ -159,19 +166,23 @@ function validate() {
             },
             totalMarks: {
                 required: true,
-                number: true
+                number: true,
+                min:1
             },
-            noOfPapers: {
+            noOfPapers:  {
                 required: true,
-                number: true
+                number: true,
+                min:1
             },
-            marksPerPaper: {
+            marksPerPaper:  {
                 required: true,
-                number: true
+                number: true,
+                min:1
             },
-            totalCreditPoints: {
+            totalCreditPoints:  {
                 required: true,
-                number: true
+                number: true,
+                min:1
             },
 
             d_o_b: {
@@ -292,6 +303,10 @@ function validate() {
 
         },
         messages: {
+            programTypeId:"Please Select Program Type",
+            subjectName: {required: "Please Enter Course Name",
+                lettersnumberswithbasicpunc: "Letters or numbers or punctuation only please"
+            },
             studyMaterialText:{
                 required:'Please Enter Roll Number',
                 number: "Only accepts Numbers"
@@ -395,10 +410,18 @@ function validate() {
             noOfTerms: "Please Enter Number of terms",
             courseCode: "Please Enter your Course Code ",
             noOfAcademicYears: "Please enter your Academic years",
-            totalMarks: "Please Enter Total Marks",
-            noOfPapers: "Please Enter Number of papers",
-            marksPerPaper: "Please Enter Passing Marks",
-            totalCreditPoints: "Please Enter total Credit Points",
+            totalMarks: {required: "Please Enter Total Marks",
+            min: "Enter Value Greater then Zero"
+            },
+            noOfPapers: {required: "Please Enter Number of papers",
+            min: "Enter Value Greater then Zero"
+        },
+            marksPerPaper:{required: "Please Enter Passing Marks",
+                min: "Enter Value Greater then Zero"
+            },
+            totalCreditPoints:{required: "Please Enter total Credit Points",
+                min: "Enter Value Greater then Zero"
+            },
             examinationCentreName: "Please Enter examination Centre Name",
             rollNo:{ required:"Please Enter a Roll Number",
                 minlength:"Please Enter 8 digit Roll Number"
@@ -458,9 +481,12 @@ function validate() {
 
 
 
-
-        jQuery.format("Please only enter letters, spaces, periods, or hyphens.")
+    jQuery.format("Please only enter letters, spaces, periods, or hyphens.")
     );
+    jQuery.validator.addMethod("lettersnumberswithbasicpunc", function(value, element) {
+        return this.optional(element) || /^[a-z0-9-.,\\:()'\"\s]+$/i.test(value);
+    }, "Letters or punctuation only please");
+
     $.validator.addMethod('minStrict', function (value, element, param) {
             return value > param;
         },

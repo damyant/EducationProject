@@ -358,6 +358,7 @@ class FeeDetailsController {
             feeDetailsInstance=new FeeDetails()
             feeDetailsInstance.challanNo=params.searchChallanNo
             feeDetailsInstance.paymentModeId = PaymentMode.findById(params.paymentMode)
+            feeDetailsInstance.paymentReferenceNumber = PaymentMode.findById(params.paymentReferenceNumber)
             feeDetailsInstance.bankId = Bank.findById(params.bankName)
             feeDetailsInstance.isAdmission= true
             feeDetailsInstance.branchId = Branch.findById(params.branchLocation)
@@ -371,12 +372,13 @@ class FeeDetailsController {
             }
             def challanNo = params.searchChallanNo
             def paymentDate = params.paymentDate
-            println("size" + stuList.size())
-            println("std" + stuList)
-            println("std" + stuList[0])
-            println("fee" + courseFee.size() + " >>>>>>>>>>>> " + courseFee)
+            def paymentReferenceNumber = params.paymentReferenceNumber
+//            println("size" + stuList.size())
+//            println("std" + stuList)
+//            println("std" + stuList[0])
+//            println("fee" + courseFee.size() + " >>>>>>>>>>>> " + courseFee)
 
-            def args = [template: "printPayChallan", model: [bank: bank, lateFee: lateFee, branch: branch, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
+            def args = [template: "printPayChallan", model: [bank: bank, lateFee: lateFee, branch: branch,paymentReferenceNumber:paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         }
     }
@@ -404,6 +406,7 @@ class FeeDetailsController {
         feeDetailsInstance.paymentModeId=PaymentMode.findById(params.paymentMode)
         feeDetailsInstance.bankId=Bank.findById(params.bankName)
         feeDetailsInstance.branchId=Branch.findById(params.branchLocation)
+        feeDetailsInstance.paymentReferenceNumber=Branch.findById(params.paymentReferenceNumber)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         feeDetailsInstance.challanDate=new Date()
         feeDetailsInstance.paymentDate=df.parse(params.paymentDate)
@@ -413,8 +416,9 @@ class FeeDetailsController {
         }
         def challanNo=params.searchChallanNo
         def paymentDate=params.paymentDate
+        def paymentReferenceNumber=params.paymentReferenceNumber
 
-        def args = [template: "printPayMiscFeeChallan", model: [bank:bank,branch:branch,paymentModeName:paymentModeName,paymentDate:paymentDate,stuList:stuList,courseFee:courseFee,totalFee:totalFee,courseNameList:courseNameList,challanNo:challanNo,],filename:challanNo+".pdf"]
+        def args = [template: "printPayMiscFeeChallan", model: [bank:bank,branch:branch,paymentReferenceNumber:paymentReferenceNumber,paymentModeName:paymentModeName,paymentDate:paymentDate,stuList:stuList,courseFee:courseFee,totalFee:totalFee,courseNameList:courseNameList,challanNo:challanNo,],filename:challanNo+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
     }
     def gerStudentId={

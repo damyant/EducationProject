@@ -31,6 +31,7 @@ function showCityList() {
         url: url('studyCenter', 'getCityList', ''),
         data: {data: data},
         success: function (data) {
+            $("#city").prop("disabled", false)
             $("#city").empty().append('<option value="">Select Examination Centre</option>');
 
             $("#examCityCumulative").empty().append('<option value="">Select Examination Centre</option>');
