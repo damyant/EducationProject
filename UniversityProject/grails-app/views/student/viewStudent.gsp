@@ -161,7 +161,7 @@
             <g:if test="${studInstance?.addressDistrict}">
                     <input type="text"  readonly value="${studInstance?.addressDistrict}"/>
             </g:if>
-                    <input type="text"  readonly value="${studInstance?.examinationCentre[0]?.examinationCentreName}"/>
+                    <input type="text"  readonly value="${studInstance?.city[0]?.cityName}"/>
 
 
     </td>
@@ -273,10 +273,10 @@
                         <td>Payment Mode</td>
                         <td><input type="text" value="${feeDetails?.paymentModeId.paymentModeName}" readonly/></td>
                     </tr>
-                    <tr>
-                        <td>Reference Number</td>
-                        <td><input type="text" value="${feeDetails?.paymentReferenceNumber}" readonly/></td>
-                    </tr>
+                    %{--<tr>--}%
+                        %{--<td>Reference Number</td>--}%
+                        %{--<td><input type="text" value="${feeDetails?.paymentReferenceNumber}" readonly/></td>--}%
+                    %{--</tr>--}%
                     <tr>
                         <td>Payment Date</td>
                         <td><input type="text" readonly value="<g:formatDate format="MM/dd/yyyy" date="${feeDetails?.paymentDate}"/>" class="university-size-1-2" id="paymentDate"/></td>

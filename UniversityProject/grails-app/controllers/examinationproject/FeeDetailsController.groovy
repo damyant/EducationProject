@@ -335,10 +335,10 @@ class FeeDetailsController {
                 lateFee=AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
             }
             courseNameList<<it.programDetail[0].courseName
-            if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
-                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL+lateFee
 
-            }else{
+            if(it.studyCentre.centerCode[0]=="11111"){
+                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL+lateFee
+     }else{
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC+lateFee
             }
         }
@@ -355,10 +355,11 @@ class FeeDetailsController {
 
         }
         else {
+            feeDetailsInstance=new FeeDetails()
             feeDetailsInstance.challanNo=params.searchChallanNo
             feeDetailsInstance.paymentModeId = PaymentMode.findById(params.paymentMode)
             feeDetailsInstance.bankId = Bank.findById(params.bankName)
-            feeDetailsInstance.isAdmission = true
+            feeDetailsInstance.isAdmission= true
             feeDetailsInstance.branchId = Branch.findById(params.branchLocation)
             feeDetailsInstance.challanDate = new Date()
             feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
