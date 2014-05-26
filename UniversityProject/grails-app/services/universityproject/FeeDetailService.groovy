@@ -295,7 +295,7 @@ class FeeDetailService {
                 stuList.add(it)
         }
         stuList.each{
-            println("==="+it.programDetail[0])
+//            println("==="+it.programDetail[0])
             lateFee=0
             def lateFeeDate=it.programDetail.lateFeeDate[0]
             def today=new Date()
@@ -313,9 +313,10 @@ class FeeDetailService {
         returnMap.stuList=stuList
         returnMap.courseNameList=courseNameList
         returnMap.courseFee=courseFee
+        returnMap.paymentReferenceNumber=feeDetails.paymentReferenceNumber
         returnMap.bank=feeDetails.bankId.bankName
         returnMap.branch=feeDetails.branchId.branchLocation
-        println("vvvvvvvvv"+returnMap)
+//        println("vvvvvvvvv"+returnMap)
         return returnMap
 
     }

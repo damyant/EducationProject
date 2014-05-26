@@ -9,6 +9,9 @@
     <body>
     <div id="main">
         <fieldset class="form">
+            <g:if test="${flash.message}">
+                <div class="message"><div class="university-status-message">${flash.message}</div></div>
+            </g:if>
         <g:if test="${params.type == 'update'}">
             <table id="courseTab" class="university-size-full-1-1 university-table-1-4 university-table-text-left ">
         </g:if>
@@ -60,10 +63,10 @@
     </table>
         <div class="paginateButtons">
             <g:if test="${params.type == 'update'}">
-                <g:paginate  total="${courseInstanceTotal}" params="['type':'update']" />
+                <g:paginate controller="course" action="listOfCourses"  total="${courseInstanceTotal}" params="['type':'update']"/>
             </g:if>
             <g:else>
-                <g:paginate  total="${courseInstanceTotal}"/>
+                <g:paginate controller="course" action="listOfCourses"  total="${courseInstanceTotal}" />
             </g:else>
         </div>
         </fieldset>

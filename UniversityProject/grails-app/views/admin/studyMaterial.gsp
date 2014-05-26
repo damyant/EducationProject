@@ -26,6 +26,7 @@
            <tr> <td><input type="button" name="Search" value="Search" onclick="studentForStudyMaterial()"></td>
             </tr>
         </table>
+            <div id="msgDiv"></div>
             <table id="studentRecord">
                <tbody></tbody>
             </table>

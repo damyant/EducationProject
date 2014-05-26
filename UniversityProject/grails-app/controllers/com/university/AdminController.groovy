@@ -405,12 +405,18 @@ class AdminController {
         Boolean status=false
         def genRollNoIns=RollNoGenerationFixture.findById(1)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date min=genRollNoIns.startD
-        Date max=genRollNoIns.endD
-        Date cdate=new Date()
-        if(cdate.compareTo(min) >= 0 && cdate.compareTo(max) <= 0){
-            status=true
-        }
+       try {
+           Date min = genRollNoIns.startD
+           Date max = genRollNoIns.endD
+           Date cdate = new Date()
+           if (cdate.compareTo(min) >= 0 && cdate.compareTo(max) <= 0) {
+               status = true
+           }
+       }
+       catch(NullPointerException e){
+           flash.message="Please Assign Roll No Generation Date."
+           redirect(action: "viewProvisionalStudents")
+       }
         returnMap.status=status
         render  returnMap as JSON
     }

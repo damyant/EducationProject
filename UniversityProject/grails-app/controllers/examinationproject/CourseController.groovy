@@ -94,8 +94,10 @@ class CourseController {
 //            if(programSession)
 //            courseSessionList.add(programSession)
 //        }
-        def programList=ProgramSession.list()
+        def c=ProgramSession.createCriteria()
+        def programList=c.list(params){
 
+        }
 
 
         [courseSessionList:programList, courseInstanceTotal: ProgramSession.count()]
@@ -109,7 +111,13 @@ class CourseController {
     }
 
     def deleteCourse() {
-        courseDetailService.deleteCourse(params)
+        def result=courseDetailService.deleteCourse(params)
+        if(result){
+            flash.message="Deleted Successfully."
+        }
+        else{
+            flash.message="Unable to Delete Successfully."
+        }
         redirect(action: "listOfCourses", params: ['type': "update"])
     }
 
@@ -167,7 +175,7 @@ class CourseController {
     //ADDED BY DIGVIJAY ON 20 May 2014
     def saveCourses() {
         println("CourseController-->saveCourses::"+params)
-        redirect(controller: 'admin', action: 'addCourses')
+
 
         //def subjectIns = new Subject()
         //subjectIns.subjectName = params.subjectName
@@ -176,13 +184,17 @@ class CourseController {
         //courseDetailService.saveCourses(params)
 
         def subjectIns=new Subject(params)
-        subjectIns.save(failOnError: true, flush: true)
 
-        if (!subjectIns.save()) {
+        if (subjectIns.save(failOnError: true, flush: true)) {
+            flash.message="New Course Saved Successfully."
+        }
+        else{
+            flash.message="Unable to Save Course Successfully."
             subjectIns.errors.each {
                 println it
             }
         }
+        redirect(controller: 'admin', action: 'addCourses')
     }
 
 }

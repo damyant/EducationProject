@@ -37,8 +37,9 @@ class StudyCenterController {
         try {
          def studyCentreInstance=   studyCenterInfoService.studyCenterDetailInfo(params)
             def districtIns=District.list(sort:'districtName' )
+
 //            return [view: "examinationCenter/createNewStudyCenter"]
-            [studyCentreInstance:studyCentreInstance,districtIns:districtIns]
+            [studyCentreInstance:studyCentreInstance,districtIns:districtIns,]
         }
         catch (Exception e) {
             println("<<<<<<<<<<<There is some problem in saving new study center" + e)
@@ -85,8 +86,9 @@ class StudyCenterController {
     }
     @Secured("ROLE_ADMIN")
     def viewStudyCentre() {
+        def cityIns=City.list(sort:'cityName' )
         def districtList=District.list(sort:'districtName')
-        [districtList:districtList]
+        [districtList:districtList,cityList:cityIns]
 
     }
 

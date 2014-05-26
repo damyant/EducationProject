@@ -68,10 +68,16 @@
                 </g:else>
 				</tbody>
 			</table>
-			<div class="pagination">
-				<g:paginate total="${programFeeInstanceCount ?: 0}" />
-			</div>
+                <div class="paginateButtons">
+                    %{--<g:if test="${params.type == 'update'}">--}%
+                        %{--<g:paginate controller="programFee" action="listOfFeeType"  total="${programFeeInstanceList}" params="['type':'update']"/>--}%
+                    %{--</g:if>--}%
+                    %{--<g:else>--}%
+                        <g:paginate controller="programFee" action="listOfFeeType"  total="${admissionFeeTotal}" />
+                    %{--</g:else>--}%
+                </div>
 		</div>
+
         </fieldset>
     </div>
     </body>
