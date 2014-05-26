@@ -338,8 +338,7 @@ class FeeDetailsController {
 
             if(it.studyCentre.centerCode[0]=="11111"){
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL+lateFee
-
-            }else{
+     }else{
                 courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC+lateFee
             }
         }
@@ -356,10 +355,11 @@ class FeeDetailsController {
 
         }
         else {
+            feeDetailsInstance=new FeeDetails()
             feeDetailsInstance.challanNo=params.searchChallanNo
             feeDetailsInstance.paymentModeId = PaymentMode.findById(params.paymentMode)
             feeDetailsInstance.bankId = Bank.findById(params.bankName)
-            feeDetailsInstance.isAdmission = true
+            feeDetailsInstance.isAdmission= true
             feeDetailsInstance.branchId = Branch.findById(params.branchLocation)
             feeDetailsInstance.challanDate = new Date()
             feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
