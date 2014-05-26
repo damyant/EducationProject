@@ -439,12 +439,7 @@ function filterProgram(t) {
 
 //                var date=$.datepicker.formatDate('dd/MM/yy', data.programList[i].lateFeeDate)
                 $("#courseList tbody").append('<tr><td><input type="checkbox" name="programs" class="course" onchange="enableTextField(this)" value="' + data.programList[i].id + '" id="course' + data.programList[i].id + '"/></td>' + '<td>' + data.programList[i].courseName + '</td><td><input type="text" readonly value="' + data.dateList[i] + '" name="assignDate' + data.programList[i].id + '" class="assignDate" id="' + data.programList[i].id + '"><input type="hidden" id="hidden' + data.programList[i].id + '" value="' + data.dateList[i] + '" name="hidden' + i + '"/></td></tr>')
-                $("#"+ data.programList[i].id).datepicker({
-                    changeMonth: true,
-                    changeYear: true,
-                    dateFormat: "mm/dd/yy",
-                    minDate: 0
-                });
+
             }
         }
 
@@ -456,6 +451,7 @@ function loadAssignDate(t) {
     $('input[name="programs"]:checked').each(function () {
 //        selectedStudentId.push($(this).attr('id'));
         var checkboxValue = $(this).val()
+        alert(checkboxValue)
         $("#" + checkboxValue).val(valueDate)
     });
 }
@@ -488,7 +484,7 @@ function enableTextField(t) {
     if ($(t).is(':checked')) {
         $('#' + txtId).prop('readonly', false);
         if ($('#datepicker').val() != "") {
-            $(t).val($('#datepicker').val())
+            $('#' + txtId).val($('#datepicker').val())
         }
     }
     else {
