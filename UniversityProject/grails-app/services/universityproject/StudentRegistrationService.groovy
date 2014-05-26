@@ -107,6 +107,7 @@ class StudentRegistrationService {
             feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
             feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
             feeDetails.isAdmission = 0
+            feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
             feeDetails.challanDate=new Date()
             feeDetails.challanNo= studentRegistration.challanNo
             feeDetails.paymentDate = df.parse(params.paymentDate)
