@@ -24,7 +24,7 @@
             <g:hiddenField name="studentListId" id="programId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
             <table class="inner university-size-full-1-1" style="margin: auto">
-                <tr><td><label>Select Program Catagory</label></td>
+                <tr><td><label>Select Program Category</label></td>
                     <td>
                         <g:select name="programCategory" class="university-size-2-3" id="programCategory" optionKey="id"
                                   optionValue="type"

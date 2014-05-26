@@ -96,7 +96,13 @@ function saveExamDate(){
 
 }
 function getStudents() {
-
+    var program =$('#programId').val()
+    if(program=='null'){
+        $('#studentList thead tr').remove()
+        $('#studentList tbody tr').remove()
+        return false;
+    }
+    else{
     $.ajax({
         type: "post",
         url: url('admin', 'getStudentList', ''),
@@ -105,6 +111,7 @@ function getStudents() {
             appendTable(data)
         }
     });
+    }
 }
 
 function viewStudentByRollNo(){
@@ -120,15 +127,24 @@ function viewStudentByRollNo(){
 
 function enableProgram(t) {
     var op = $(t).val();
+    $('#programId').val('');
+    $('#studentList thead tr').remove()
+    $('#studentList tbody tr').remove()
     if (op != 'null') {
         $('#programId').prop('disabled', false);
     } else {
-        $('#programId').prop('disabled', true);
+            $('#programId').val('');
+            $('#programId').prop('disabled', true);
+            $('#studentList thead tr').remove()
+            $('#studentList tbody tr').remove()
+
+
     }
 }
 function toggleChecked(status) {
     $(".checkbox").each(function () {
-        $('input:checkbox:not(:disabled)').attr("checked", status)
+//        $('input:checkbox:not(:disabled)').attr("checked", status)
+        $('input:checkbox:not(:disabled)').prop( "checked", status );
     })
 }
 
@@ -169,8 +185,10 @@ function appendTable(data) {
 }
 
 function getSemesterAndSubjectList(){
-
-    $.ajax({
+    var session= $('#SessionList').val()
+    var sessionType= $("#sessionType").val()
+    if(session && sessionType!='0'){
+        $.ajax({
         type: "post",
         url: url('admin', 'getSubjectList', ''),
         data: {sessionId: $('#SessionList').val(),sessionTypeId:$("#sessionType").val()},
@@ -179,6 +197,7 @@ function getSemesterAndSubjectList(){
             if(data.noSubjects==true){
                 $("#subjectList tr").remove()
                 $("#msgDiv").html("There is no Course associated with the program")
+
             }
             else{
                 $("#msgDiv").html("")
@@ -186,6 +205,10 @@ function getSemesterAndSubjectList(){
             }
         }
     });
+    }
+    else{
+        $("#subjectList").empty();
+    }
 }
 function appendSubjects(obj){
     var count=1;
@@ -218,7 +241,7 @@ function appendSubjects(obj){
         }
         count++;
     }
-    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" class="university-button" value="Submit" onclick="saveExamDate()"/></td></tr>' )
+    $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" class="university-button" value="Submit" onclick="validateFields('+counter+')"/></td></tr>' )
     $(".datePickers").datepicker({
         changeMonth: true,
         changeYear: true,
@@ -230,27 +253,27 @@ function appendSubjects(obj){
         showLeadingZero: true
     });
 }
-//function validateFields(counter){
-//    var date=null;
-//    var time = null;
-//    var bool = true;
-//    for(var i=0;i<counter;i++){
-//            date = $('#examDate'+i).val();
-//            time = $('#examTime'+i).val()
-//            if ((date == "null" || date.length == 0)) {
-//                $('#dateError'+i).text("Please Select Examination Date")
-//                bool=false
-//            }
-//            if ((time == "null" || time == "")) {
-//                $('#timeError'+i).text("Please Select Examination Time")
-//                bool=false
-//            }
-//    }
-//    if(bool){
-//        submitExamDate();
-//    }
-//    return bool;
-//}
+function validateFields(counter){
+    var date=null;
+    var time = null;
+    var bool = true;
+    for(var i=0;i<counter;i++){
+            date = $('#examDate'+i).val();
+            time = $('#examTime'+i).val()
+            if ((date == "null" || date.length == 0)) {
+                $('#dateError'+i).text("Please Select Examination Date")
+                bool=false
+            }
+            if ((time == "null" || time == "")) {
+                $('#timeError'+i).text("Please Select Examination Time")
+                bool=false
+            }
+    }
+    if(bool){
+        saveExamDate();
+    }
+    return bool;
+}
 
 function checkTimeFormat(count){
 
@@ -660,6 +683,7 @@ function studentForStudyMaterial(){
                 $("#error").hide()
             }else{
                 $("#error").show()
+                $("#studentRecord tbody").empty()
             }
         }
     });

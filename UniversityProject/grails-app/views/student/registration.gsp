@@ -159,7 +159,7 @@
 
             <label><span>OBC</span><input type="radio" name="category" value="OBC" class="radioInput"/></label>
 
-            <label><span>SC</span><input type="radio" name="category" value=" SC" class="radioInput" style=""/></label>
+            <label><span>SC</span><input type="radio" name="category" value="SC" class="radioInput" style=""/></label>
 
             <label><span>ST</span><input type="radio" name="category" value="S.T" class="radioInput"/></label>
 
@@ -272,33 +272,33 @@ onkeypress="return isNumber(event)"/>
 <!----- Address ---------------------------------------------------------->
 <tr>
     <!----- Mobile Number ---------------------------------------------------------->
-    <td>Parent's Name</td>
+    <td>Parent's Name<span class="university-obligatory">*</span></td>
     <td><input type="text" id="parentsName" class="university-size-1-2" name="parentsName" maxlength="100"
                value="${studInstance?.parentsName}"
                onkeypress="return onlyAlphabets(event, this);"/>
     </td>
 </tr>
 <tr>
-    <td>Complete Mailing Address of Candidate<br/><br/><br/></td>
+    <td>Complete Mailing Address of Candidate<span class="university-obligatory">*</span><br/><br/><br/></td>
     <td>
         <table style="width: 100%" id="examCenterAddress">
             <tr>
 
                 <td style="width: 30%;">Address:</td>
-                <td style="width: 70%;"><input type="text" name="studentAddress" maxlength="30"
+                <td style="width: 70%;"><input type="text" id="studentAddress" name="studentAddress" maxlength="30"
                                                class="university-size-1-2" value="${studInstance?.studentAddress}"/>
                 </td>
             </tr>
             <tr>
                 <td style="width: 30%;">Village/Town:</td>
-                <td style="width: 70%;"><input type="text" name="addressTown" maxlength="30"
+                <td style="width: 70%;"><input type="text" id="townName" name="addressTown" maxlength="30"
                                                value="${studInstance?.addressTown}"
                                                class="university-size-1-2"/></td>
             </tr>
             <tr>
 
                 <td style="width: 30%;">Post Office:</td>
-                <td style="width: 70%;"><input type="text" name="addressPO" value="${studInstance?.addressPO}"
+                <td style="width: 70%;"><input type="text" id="poAddress" name="addressPO" value="${studInstance?.addressPO}"
                                                maxlength="30" class="university-size-1-2"/>
                 </td>
             </tr>
@@ -306,19 +306,19 @@ onkeypress="return isNumber(event)"/>
                 <td style="width: 30%;">District:</td>
 
                 <td style="width: 70%;"><input type="text" value="${studInstance?.addressDistrict}"
-                                               name="addressDistrict" maxlength="30"
+                                               name="addressDistrict" maxlength="30" id="addDistrict"
                                                class="university-size-1-2"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">State:</td>
                 <td style="width: 70%;"><input type="text" value="${studInstance?.addressState}" name="addressState"
-                                               maxlength="30"
+                                               maxlength="30" id="stateAddress"
                                                class="university-size-1-2"/>
                 </td>
             </tr>
             <tr>
                 <td style="width: 30%;">Pincode:</td>
-                <td style="width: 70%;"><input type="text" value="${studInstance?.addressPinCode}" name="addressPinCode"
+                <td style="width: 70%;"><input type="text" value="${studInstance?.addressPinCode}" name="addressPinCode" id="pincode"
                                                maxlength="6"
                                                class="university-size-1-2"
                                                onkeypress="return isNumber(event)"/></td>
@@ -356,36 +356,36 @@ onkeypress="return isNumber(event)"/>
                 <legend>Fee Details</legend>
                 <table class="inner">
                     <tr>
-                        <td>Bank Name</td>
+                        <td>Bank Name<span class="university-obligatory">*</span></td>
                         <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
                                       optionValue="bankName"
                                       from="${bankName}" noSelection="['': ' Select Bank']"
                                       onchange="loadBranch(this)"/></td>
                     </tr>
                     <tr>
-                        <td>Branch Name</td>
+                        <td>Branch Name<span class="university-obligatory">*</span></td>
                         <td><g:select name="branchName" class="university-size-1-2" optionKey=""
                                       optionValue="" id="branchLocation"
                                       from="" noSelection="['': ' Select Branch']"/></td>
                     </tr>
                     <tr>
-                        <td>Admission Fee Amount</td>
+                        <td>Admission Fee Amount<span class="university-obligatory">*</span></td>
                         <td><input type="text" name="admissionFeeAmount" class="university-size-1-2"
                                    id="admissionFeeAmount" readonly/></td>
                     </tr>
                     <tr>
-                        <td>Payment Mode</td>
+                        <td>Payment Mode<span class="university-obligatory">*</span></td>
                         <td><g:select name="paymentMode" class="university-size-1-2" optionKey="id"
                                       optionValue="paymentModeName" id="paymentMode"
                                       from="${paymentMode}" noSelection="['': ' Select PaymentMode']"/></td>
                     </tr>
                     <tr>
-                        <td>Reference Number</td>
+                        <td>Reference Number<span class="university-obligatory">*</span></td>
                         <td><input type="text" name="feeReferenceNumber" class="university-size-1-2"
                                    id="feeReferenceNumber"/></td>
                     </tr>
                     <tr>
-                        <td>Payment Date</td>
+                        <td>Payment Date<span class="university-obligatory">*</span></td>
                         <td><input type="text" name="paymentDate" class="university-size-1-2" id="paymentDate"/></td>
                     </tr>
                 </table>

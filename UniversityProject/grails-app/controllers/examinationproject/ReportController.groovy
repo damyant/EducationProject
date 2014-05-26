@@ -180,7 +180,8 @@ class ReportController {
                sessionVal= Integer.parseInt(params.admissionApprovedSession)+1
                sessionVal= params.admissionApprovedSession+'-'+sessionVal
            }
-           def args = [template: "generate", model: [totalListByAdmissionApprovedUnapproved :totalList, admissionApprovedUnapprovedSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           println('this is the value of total list '+ totalList)
+           def args = [template: "generate", model: [totalListByAdmissionApprovedUnapproved :totalList, admissionApprovedUnapprovedSession:sessionVal, value:params.value],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
       }
 

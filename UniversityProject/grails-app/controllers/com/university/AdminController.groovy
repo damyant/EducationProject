@@ -481,6 +481,7 @@ class AdminController {
         println("???????????"+params)
         def returnMap=[:]
         returnMap= adminInfoService.studentForStudyMaterial(params)
+        println('this is the returning map '+returnMap)
         render returnMap as JSON
     }
 

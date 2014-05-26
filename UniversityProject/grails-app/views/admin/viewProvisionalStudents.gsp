@@ -31,22 +31,24 @@
                 <tr>
                     <sec:ifAnyGranted roles="ROLE_GENERATE_ROLL_NO">
                         <g:hiddenField name="roleType" id="roleType" value="admin"/>
-                        <td style="min-width: 12%">
-                            <label for="studyCenter">Select Study Center</label>
-                        </td>
-                        <td style="width: 33%">
-                            <g:select name="studyCenter" class="university-size-1-1" id="studyCenter"
-                                      from="${studyCenterList}" optionKey="id" optionValue="name"
-                                      noSelection="['null': ' Select Study Center']" onchange="enableProgram(this)"/>
-                        </td>
+                        %{--<td style="min-width: 12%">--}%
+                            %{--<label for="studyCenter">Select Study Center</label>--}%
+                        %{--</td>--}%
+                        %{--<td style="width: 33%">--}%
+                            %{--<g:select name="studyCenter" class="university-size-1-1" id="studyCenter"--}%
+                                      %{--from="${studyCenterList}" optionKey="id" optionValue="name"--}%
+                                      %{--noSelection="['null': ' Select Study Center']" onchange="enableProgram(this)"/>--}%
+                        %{--</td>--}%
                         <td style="min-width: 10%">
                             <label for="programId">Select Program</label>
                         </td>
                         <td style="width: 33%">
                             <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}"
                                       optionKey="id" optionValue="courseName" noSelection="['null': ' Select Program']"
-                                      onchange="getStudents()" disabled="true"/>
+                                      onchange="getStudents()"/>
                         </td>
+                        <td></td>
+                        <td></td>
                         <td style="width: 10%"></td>
                     </sec:ifAnyGranted>
 

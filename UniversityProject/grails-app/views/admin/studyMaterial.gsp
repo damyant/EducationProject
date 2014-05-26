@@ -17,6 +17,7 @@
 <div id="main">
     <fieldset class="form">
         <form id="studyMaterialPage" name="studyMaterialPage">
+<<<<<<< HEAD
             <g:hiddenField name="subjectList" id="subjectList"/>
             <div class="university-status-message"> <div id="msgDiv"></div></div>
             <table class="inner">
@@ -31,6 +32,18 @@
                         <input type="button" class="university-button" name="Search" value="Search" onclick="studentForStudyMaterial()"></td>
                     <td class="university-size-1-4"></td>
                 </tr>
+=======
+            <g:hiddenField name="subjectList" id="subjectList" />
+            <div id="msgDiv" class="university-status-message"></div>
+            <div id="error" class="university-status-message" hidden="hidden">No Student Found</div>
+        <table>
+            <tr>  <td>Enter Roll Number <input type="text" name="studyMaterialText" id="studyMaterialText" onkeypress="return isNumber(event)"></td></tr>
+           <tr> <td><input type="button" name="Search" value="Search"   onclick="studentForStudyMaterial()"></td>
+            </tr>
+        </table>
+            <table id="studentRecord">
+               <tbody></tbody>
+>>>>>>> fc1f981bea1823c2e03ed4d852252aee7ac173ce
             </table>
             <div id="studentRecordDiv"></div>
         </form>

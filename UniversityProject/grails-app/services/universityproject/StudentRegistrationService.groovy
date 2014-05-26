@@ -23,6 +23,7 @@ class StudentRegistrationService {
     def springSecurityService
 
     Student saveNewStudentRegistration(params, signature, photographe) {
+
         Boolean studentRegistrationInsSaved = false;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         String year = sdf.format(Calendar.getInstance().getTime());
@@ -106,6 +107,7 @@ class StudentRegistrationService {
             feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
             feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
             feeDetails.isAdmission = 0
+            feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
             feeDetails.challanDate=new Date()
             feeDetails.challanNo= studentRegistration.challanNo
             feeDetails.paymentDate = df.parse(params.paymentDate)

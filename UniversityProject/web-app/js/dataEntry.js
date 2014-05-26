@@ -425,7 +425,8 @@ function populateStudentListForMiscFee() {
 function filterProgram(t) {
     var type = $(t).val();
 
-//   alert(type)
+ alert(type)
+    if(type){
     $.ajax({
         type: "post",
         url: url('admin', 'loadProgram', ''),
@@ -443,7 +444,14 @@ function filterProgram(t) {
             }
         }
 
+
     });
+    }
+    else{
+        $('#datepicker').prop("disabled", true)
+        $("#courseList thead").empty()
+        $("#courseList tbody").empty()
+    }
 
 }
 function loadAssignDate(t) {
