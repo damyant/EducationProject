@@ -60,10 +60,10 @@
     </table>
         <div class="paginateButtons">
             <g:if test="${params.type == 'update'}">
-                <g:paginate  total="${courseInstanceTotal}" params="['type':'update']" />
+                <g:paginate controller="course" action="listOfCourses"  total="${courseInstanceTotal}" params="['type':'update']"/>
             </g:if>
             <g:else>
-                <g:paginate  total="${courseInstanceTotal}"/>
+                <g:paginate controller="course" action="listOfCourses"  total="${courseInstanceTotal}" />
             </g:else>
         </div>
         </fieldset>

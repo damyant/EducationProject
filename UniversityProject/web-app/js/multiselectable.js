@@ -1,8 +1,3 @@
-/**
- * Created by sonali on 3/13/14.
- */
-
-
 
 function semesterList() {
     $('#multiSelectTab tbody tr').remove()

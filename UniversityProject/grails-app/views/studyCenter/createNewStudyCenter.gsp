@@ -19,7 +19,7 @@
 <div id="main">
 <fieldset class="form">
 <g:if test="${flash.message}">
-    <div class="message">${flash.message}</div>
+    <div class="message"><div class="university-status-message">${flash.message}</div></div>
 </g:if>
 <g:hasErrors bean="${studyCentreInstance}">
     <div class="errors">
@@ -228,13 +228,18 @@
                         code="default.button.create"/></g:if><g:else><g:message
                         code="default.button.save"/></g:else>" class="university-button" onclick="validate()">
 
-                <g:if test="${params.status != 'updated'}"><input type="reset" value="<g:message
-                        code="default.button.clear"/>" class="university-button"></g:if> <g:else><input
-                    type="reset" value="<g:message code="default.button.clear"/>" class="university-button"
-                    disabled></g:else></td>
+                <g:if test="${params.type != 'edit'}">
+                    <input type="reset" value="<g:message
+                        code="default.button.clear"/>" class="university-button"></g:if>
+                <g:else>
+                    <a href="/UniversityProject/studyCenter/viewStudyCentre?type=update&district=${studyCentreInstance?.city?.district?.id}&city=${studyCentreInstance?.city?.id}" > <input type="button" class="university-button"  value="Back" /></a>
+                </g:else></td>
         </tr>
     </g:else>
     </table>
+<g:if test="${params.type == 'view'}">
+    <div class="university-size-full-1-1" style="margin: auto;text-align: center;"><a href="/UniversityProject/studyCenter/viewStudyCentre?district=${studyCentreInstance?.city?.district?.id}&city=${studyCentreInstance?.city?.id}" > <input type="button" class="ui-button"  value="Back" /></a></div>
+</g:if>
 </g:form>
 </fieldset>
 </div>

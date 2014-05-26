@@ -66,8 +66,7 @@ function showExamCenterList() {
 }
 
 function showStudyCenterList() {
-
-    var data = $('#city').val();
+   var data = $('#city').val();
     var type = $('#ParameterType').val();
     $.ajax({
         type: "post",

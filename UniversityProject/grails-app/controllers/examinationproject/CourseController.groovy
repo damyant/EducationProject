@@ -94,8 +94,10 @@ class CourseController {
 //            if(programSession)
 //            courseSessionList.add(programSession)
 //        }
-        def programList=ProgramSession.list()
+        def c=ProgramSession.createCriteria()
+        def programList=c.list(params){
 
+        }
 
 
         [courseSessionList:programList, courseInstanceTotal: ProgramSession.count()]
