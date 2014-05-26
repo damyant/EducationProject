@@ -2,8 +2,13 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-    $("#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
+    $("#studyMaterialPage,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
         rules: {
+            //studyMaterialPageFields
+            studyMaterialText: {
+                required: true,
+                number: true
+            },
 //              tempEnroll
             examCentre:"required",
             examVenue:"required",
@@ -280,6 +285,10 @@ function validate() {
 
         },
         messages: {
+            studyMaterialText:{
+                required:'Please Enter Roll Number',
+                number: "Only accepts Numbers"
+            },
             feeReferenceNumber:{
                 required: "Please Enter Reference Number",
                 number: "Only accepts Numbers"
