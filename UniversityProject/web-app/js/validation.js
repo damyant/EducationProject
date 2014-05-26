@@ -591,4 +591,26 @@ function admissionFeeValidation(index){
     }
 
 }
-
+function checkValidation() {
+//    alert("hi")
+    $("#paychallanForStudyCenter").validate({
+        rules: {
+            paymentMode:"required",
+            paymentDate:"required",
+            paymentReferenceNumber: {required: true,
+                number:true
+            },
+            bankName:"required",
+            branchLocation:"required"
+        },
+        messages: {
+            paymentMode:"Please  Select Payment Mode",
+            paymentDate:"Select Payment Date",
+            paymentReferenceNumber: {required: "Please Enter Ref. Number",
+                number: "Accepts Number Only"
+            },
+            bankName:"Please Select Bank Name",
+            branchLocation:"Please Select Branch Name"
+        }
+    })
+}

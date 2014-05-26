@@ -113,8 +113,22 @@ function selectRows(){
     selected.length=0;
 }
 
+function hideAll(){
+    $('#studyCenterFeeEntryTable').prop('hidden', true)
+    $('#allProgram').prop('checked', false)
+    $('#rangeRadioButtons').prop('hidden', true)
+//    $('#paymentDetails').prop('hidden', true)
+    document.getElementById("paymentDetails").style.visibility="hidden"
+    document.getElementById("generateFeeChallan").style.visibility="hidden"
+//    $('#generateFeeChallan').prop('hidden', true)
+}
 function getSemester(t){
-
+    $('#studyCenterFeeEntryTable').prop('hidden', true)
+    $('#allProgram').prop('checked', false)
+    $('#rangeRadioButtons').prop('hidden', true)
+    document.getElementById("paymentDetails").style.visibility="hidden"
+    document.getElementById("generateFeeChallan").style.visibility="hidden"
+//    $('#generateFeeChallan').prop('hidden', true)
     var data = $(t).val();
     $('#semesterList').prop('disabled',false)
     $('#SessionList').prop('disabled',false)
