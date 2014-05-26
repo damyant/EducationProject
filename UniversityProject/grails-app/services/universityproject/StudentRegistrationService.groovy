@@ -23,6 +23,7 @@ class StudentRegistrationService {
     def springSecurityService
 
     Student saveNewStudentRegistration(params, signature, photographe) {
+
         Boolean studentRegistrationInsSaved = false;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         String year = sdf.format(Calendar.getInstance().getTime());
