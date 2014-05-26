@@ -47,6 +47,7 @@
         <tr><td style="width: 33%;">Total Fee</td><td style="width: 33%;"></td><td style="width: 33%;">${totalFee}</td></tr>
         <tr><td>Payment Mode</td><td></td><td>${paymentModeName.paymentModeName}</td></tr>
         <tr><td>Payment Date</td><td></td><td>${paymentDate}</td></tr>
+        <tr><td>Payment Ref Number</td><td></td><td>${paymentReferenceNumber}</td></tr>
         <tr><td>Bank</td><td></td><td>${bank.bankName}</td></tr>
         <tr><td>Branch</td><td></td><td>${branch.branchLocation}</td></tr>
     </table>

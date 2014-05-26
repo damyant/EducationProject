@@ -44,7 +44,7 @@
         </g:if>
 
         <div id="statusMessage" style="display:none;" class="university-status-message">
-            <g:if test="${params.courseId}">
+            <g:if test="${params.courseSessionId}">
                 <g:message code="course.updated.message"/>
             </g:if>
             <g:else>
