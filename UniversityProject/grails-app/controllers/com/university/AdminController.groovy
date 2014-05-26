@@ -98,11 +98,9 @@ class AdminController {
     }
 
     def checkFeeByRollNo = {
-        println("??????????????"+params)
         def response
         try {
             def student = Student.findByRollNo(params.rollNo)
-            println("??????????" + student)
             def program = student.programDetail[0]
             def feeType
             def programName = program.courseName
@@ -144,21 +142,7 @@ class AdminController {
         def lateFee=0
         def programFeeAmount = 0
         def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
-
-//        if (Integer.parseInt(params.feeType) > 0) {
-////            println("hfdsfsfgs???????????????????????????")
-//            try {
-//                feeTypeId = Integer.parseInt(params.feeType)
-//                feeType = FeeType.findById(feeTypeId)
-//                def mFee = MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(feeType, program, student.programSession)
-//                programFeeAmount = mFee.amount
-//            } catch (NullPointerException ex) {
-//                println("MiscellaneousFee does not exists" + ex)
-//
-//            }
-//        } else {
-//            println("hfdsfsfgs?????????????????>>>>>>>>>>>>>>>>?")
-
+            try{
             def lateFeeDate=student.programDetail.lateFeeDate[0]
             def today=new Date()
             if(today.compareTo(lateFeeDate) > 0){
@@ -166,7 +150,10 @@ class AdminController {
             }
             feeType = null
             programFeeAmount = programFee.feeAmountAtIDOL+lateFee
-//        }
+        }catch(NullPointerException e){
+        flash.message="Late Fee Date is not asigned! "
+                redirect(controller: params.controller,action: params.action)
+        }
 
         if (params.idol == "idol")
             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
@@ -417,12 +404,18 @@ class AdminController {
         Boolean status=false
         def genRollNoIns=RollNoGenerationFixture.findById(1)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date min=genRollNoIns.startD
-        Date max=genRollNoIns.endD
-        Date cdate=new Date()
-        if(cdate.compareTo(min) >= 0 && cdate.compareTo(max) <= 0){
-            status=true
-        }
+       try {
+           Date min = genRollNoIns.startD
+           Date max = genRollNoIns.endD
+           Date cdate = new Date()
+           if (cdate.compareTo(min) >= 0 && cdate.compareTo(max) <= 0) {
+               status = true
+           }
+       }
+       catch(NullPointerException e){
+           flash.message="Please Assign Roll No Generation Date."
+           redirect(action: "viewProvisionalStudents")
+       }
         returnMap.status=status
         render  returnMap as JSON
     }
@@ -465,8 +458,7 @@ class AdminController {
     }
 
     def saveLateFeeDate = {
-        println(">?><< <<<<<<<<<<<<<" + params)
-        println(">?><< <<<<<<<<<<<<<" + params.programs)
+
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
         def date = df.parse(params.lateFeeDate)
         def programList=[]
@@ -487,15 +479,23 @@ class AdminController {
 
     def getStudentForStudyMaterial(){
         println("???????????"+params)
-        def student=[]
-        if(params.studyMaterialRadio=="Roll Number"){
-          student= Student.findByRollNo(params.studyMaterialText)
+        def returnMap=[:]
+        returnMap= adminInfoService.studentForStudyMaterial(params)
+        println('this is the returning map '+returnMap)
+        render returnMap as JSON
+    }
+
+    def saveStudyMaterial(){
+        println("inn"+params)
+        def returnMap=[:]
+        def resultMap= adminInfoService.saveStudentForStudyMaterial(params)
+        println("********"+resultMap)
+        if(resultMap){
+          returnMap.status="true"
         }
         else{
-            student=Student.findAllByChallanNo(params.studyMaterialText)
+            returnMap.status="false"
         }
-        println("result=="+student)
-
-        render student as JSON
+        render returnMap as JSON
     }
 }

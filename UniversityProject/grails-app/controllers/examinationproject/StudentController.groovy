@@ -41,7 +41,6 @@ class StudentController {
 //        println("sss"+studInstance.status)
         [studyCentre: studyCentre,studInstance:studInstance, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode]
 
-
     }
     def viewResult = {
 
@@ -83,8 +82,7 @@ class StudentController {
 
 
     def applicationPrintPreview = {
-
-//        println("params" + params)
+        println("params" + params)
         def student = Student.findById(params.studentID)
         def args = [template: "applicationPrintPreview", model: [studentInstance: student]]
         pdfRenderingService.render(args + [controller: this], response)

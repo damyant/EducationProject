@@ -1,8 +1,3 @@
-/**
- * Created by sonali on 3/13/14.
- */
-
-
 
 function semesterList() {
     $('#multiSelectTab tbody tr').remove()
@@ -38,7 +33,7 @@ function viewSemesterList() {
     $('#multiSelectTab tr').remove()
     for (var j = 1; j <= $('#noOfTerms').html(); j++) {
         $('#multiSelectTab').append('<tr><td style="width: 40%"><label>Term - ' + j + ' Course</label></td>' +
-            '<td style="width: 60%"><select class="select-to university-size-2-3" readonly="readonly" style="width: 75%;border: 0px;margin: 0px" name="semester' + j + '" id="semester' + j + '"  multiple="true" /><input type="button" style="margin-left: 10px;" value="View Syllabus" id="viewSyllabus" onclick="viewSyllabus()" alt="Select a Course and Click This Button"/></td></tr>')
+            '<td style="width: 60%"><select class="select-to university-size-2-3" readonly="readonly" style="width: 75%;border: 0px;margin: 0px" name="semester' + j + '" id="semester' + j + '"  multiple="true" /></td></tr>')
 
     }
 

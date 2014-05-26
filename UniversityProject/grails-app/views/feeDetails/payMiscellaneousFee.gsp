@@ -47,6 +47,11 @@
                                                              value=""></td>
                 </tr>
                 <tr>
+                    <td  class="university-size-1-3">Payment Ref. No</td>
+                    <td  class="university-size-2-3"> <input type="text" name="paymentReferenceNumber" maxlength="10" onkeypress="return isNumber(event)" class="university-size-1-2" id="paymentReferenceNumber"
+                                                             value=""></td>
+                </tr>
+                <tr>
                     <td>Bank</td>
                     <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
                                   optionValue="bankName"

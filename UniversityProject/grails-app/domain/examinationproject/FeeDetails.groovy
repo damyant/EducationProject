@@ -10,7 +10,7 @@ class FeeDetails {
     PaymentMode paymentModeId
     Date paymentDate
     Date challanDate
-//    Integer paymentReferenceNumber
+    Integer paymentReferenceNumber
     Bank bankId
     Branch branchId
 
@@ -20,7 +20,7 @@ class FeeDetails {
         challanNo(nullable: false)
 //        feeTypeId(nullable: true)
         paymentModeId(nullable: false)
-//        paymentReferenceNumber(nullable: true)
+        paymentReferenceNumber(nullable: true)
         bankId(nullable: false)
         branchId(nullable: false)
     }
@@ -31,7 +31,7 @@ class FeeDetails {
         paymentModeId column: "PaymentModeId"
          paymentDate column: "PaymentDate"
         challanDate column: "ChallanDate"
-//        paymentReferenceNumber column: "ReferenceNumber"
+        paymentReferenceNumber column: "ReferenceNumber"
         bankId column: "BankId"
         branchId column: "BranchId"
 

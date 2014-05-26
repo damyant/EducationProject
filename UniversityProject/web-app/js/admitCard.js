@@ -293,16 +293,18 @@ function getStudentsForAdmitCard(){
 
 
 
-function showExamVenueList1()  {
+function showExamVenueList1(){
     $('#addExamCentre').empty();
     var data = $('#examinationCentre').val();
+    alert(data)
     $('#CentreForExamVenue').html($('#examinationCentre option:selected').text());
+    if(data){
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExamCentreList', ''),
         data: $('#assignExamVenue').serialize(),
         success: function (data) {
-
+            $('#submitButton').show()
             $("#examCenterList").empty().append('')
             for (var i = 0; i < data.name.length; i++) {
                 $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
@@ -314,10 +316,18 @@ function showExamVenueList1()  {
 
                 $("#addExamCentre").append('<option value="' + data.assocaitedExamVenue[j].id + '">' + data.assocaitedExamVenue[j].name + '</option>')
             }
+
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
+    }
+    else{
+        $('#submitButton').hide();
+        $("#examCenterList").empty();
+        $("#moveButton").css("visibility", 'hidden');
+        $("#movetoSelect").css("visibility", 'hidden');
+    }
 }
 
 function addVenue(param){

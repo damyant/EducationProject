@@ -17,6 +17,9 @@ import examinationproject.ProgramSession
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
+import examinationproject.StudyMaterial
+
+//import examinationproject.StudyMaterial
 import examinationproject.Subject
 import grails.transaction.Transactional
 
@@ -240,7 +243,47 @@ def springSecurityService
         return status
     }
 
+    def studentForStudyMaterial(params){
+        def resultMap=[:]
 
+        def subjectsList=[],assignedStudyMaterailList=[]
+//        if(params.studyMaterialRadio=="Roll Number"){
+           def stuList= Student.findAllByRollNo(params.studyMaterialText)
+//        }
+//        else{
+//            stuList=Student.findAllByChallanNo(params.studyMaterialText)
+//        }
+        if(stuList){
+        subjectsList<<CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList.semester,stuList.programSession),stuList.programSession).subject
+        resultMap.studentList=stuList
+        resultMap.courseDetail=stuList.programDetail[0]
+        resultMap.subjectsList=subjectsList
+        resultMap.assignedStudyMaterail= StudyMaterial.findAllByStudentId(stuList[0]).subjectId
+
+        }
+
+        return resultMap
+
+
+    }
+
+
+    def saveStudentForStudyMaterial(params){
+        println(params)
+        def subjectList=[]
+        def saveObj
+        subjectList.addAll(params.subjectCheckBox)
+        def stuIns=Student.findById(Long.parseLong(params.studentListId))
+        subjectList
+        StudyMaterial.removeAll(stuIns)
+        subjectList.each{
+         saveObj=   StudyMaterial.create(stuIns,Subject.findById(Long.parseLong(it.toString())))
+        }
+
+        return saveObj
+
+
+    }
 
 
 }
