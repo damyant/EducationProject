@@ -42,12 +42,12 @@
                               onchange="getSemester(this)"/>
                 </td>
                 <td class="university-size-1-4" style="text-align: center;">OR</td>
-                <td class="university-size-1-4"><input type="checkbox" id="allProgram" name="allProgram"/><label for="allProgram">All Programs</label></td>
+                <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" id="allProgram" name="allProgram"/><label for="allProgram">All Programs</label></td>
             </tr>
             <tr><td><label>Select a Term</label></td>
                 <td>
 
-                    <select name="semesterList" class="university-size-1-1" id="semesterList" >
+                    <select name="semesterList" onchange="hideAll()" class="university-size-1-1" id="semesterList" >
                         <option value="">Select Semester</option>
                     </select>
                 </td>

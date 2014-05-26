@@ -4,7 +4,6 @@
   Date: 5/22/14
   Time: 1:43 PM
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -14,24 +13,28 @@
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
 </head>
-
 <body>
 <div id="main">
+    <fieldset class="form">
         <form id="studyMaterialPage" name="studyMaterialPage">
-            <g:hiddenField name="subjectList" id="subjectList" />
-        <table>
-            %{--<tr><td><input type="radio" name="studyMaterialRadio" value="Roll Number">Enter Roll Number</td>--}%
+            <g:hiddenField name="subjectList" id="subjectList"/>
+            <div class="university-status-message"> <div id="msgDiv"></div></div>
+            <table class="inner">
+                %{--<tr><td><input type="radio" name="studyMaterialRadio" value="Roll Number">Enter Roll Number</td>--}%
                 %{--<td><input type="radio" name="studyMaterialRadio" value="Challan Number">Enter Challan Number</td></tr>--}%
-            <tr>  <td>Enter Roll Number <input type="text" name="studyMaterialText" id="studyMaterialText"></td></tr>
-           <tr> <td><input type="button" name="Search" value="Search" onclick="studentForStudyMaterial()"></td>
-            </tr>
-        </table>
-            <div id="msgDiv"></div>
-            <table id="studentRecord">
-               <tbody></tbody>
+                <tr>
+                    <td class="university-size-1-4">Enter Roll Number</td>
+                    <td class="university-size-1-4">
+                        <input type="text" class="university-size-1-1" name="studyMaterialText" id="studyMaterialText">
+                    </td>
+                    <td class="university-size-1-4">
+                        <input type="button" class="university-button" name="Search" value="Search" onclick="studentForStudyMaterial()"></td>
+                    <td class="university-size-1-4"></td>
+                </tr>
             </table>
-
+            <div id="studentRecordDiv"></div>
         </form>
-    </div>
+    </fieldset>
+</div>
 </body>
 </html>

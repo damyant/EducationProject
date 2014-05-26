@@ -159,7 +159,7 @@ function appendTable(data) {
         for (var i = 0; i < data.stuList.length; i++) {
             $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName+' '+data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
         }
-        $('#studentList tbody').append('<tr><td colspan="3"><input type="button" value="' + data.label + '" id="assignRollNo"></td></tr>')
+        $('#studentList tbody').append('<tr><td colspan="3"><input type="button" value="Assign Roll No" id="assignRollNo"></td></tr>')
 
     }
     else {
@@ -177,7 +177,6 @@ function getSemesterAndSubjectList(){
         success: function (data) {
 
             if(data.noSubjects==true){
-
                 $("#subjectList tr").remove()
                 $("#msgDiv").html("There is no Course associated with the program")
             }
@@ -188,7 +187,6 @@ function getSemesterAndSubjectList(){
         }
     });
 }
-
 function appendSubjects(obj){
     var count=1;
     var counter=0;
@@ -323,7 +321,6 @@ function generateStudentsList() {
 
         }
     });
-
 }
 function viewStudent(studentId){
     var data = studentId
@@ -528,19 +525,26 @@ function showStudents(){
 
 }
 function showListOfStudents(){
-    document.getElementById("studentPayList").style.visibility = "visible";
-    document.getElementById("paySubmit").style.visibility = "visible";
+
     $.ajax({
         type: "post",
         url: url('admin', 'searchListStudentByChallanNo', ''),
         data: 'challanNo='+$('#searchChallanNo').val(),
 
         success: function (data) {
+            $('#msgDiv').html("")
 //            alert(data[0].programDetail.id)
-            $("#scStudnetList tbody").empty().append('')
-            $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
-            for(var i=0;i<data.stuList.length;i++){
-                $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" readonly name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"/></td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
+            if(data.stuList.length>0) {
+                document.getElementById("studentPayList").style.visibility = "visible";
+                document.getElementById("paySubmit").style.visibility = "visible";
+                $("#scStudnetList tbody").empty().append('')
+                $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
+                for (var i = 0; i < data.stuList.length; i++) {
+                    $("#scStudnetList tbody").append('<tr><td>' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td><input type="text" readonly name="rollNo' + i + '" value="' + data.stuList[i].rollNo + '"/></td><td>' + data.courseNameList[i] + '</td><td>' + data.courseFee[i] + '</td></tr>')
+                }
+            }
+            else{
+                $('#msgDiv').html("Challan is already paid or Invalid Challan.")
             }
         }
     })
@@ -582,7 +586,7 @@ function populateChallanDetail(){
         success: function (data) {
             if(data.stuList) {
                 console.log("error")
-                $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
+                $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Payment Ref. No.</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
                 for (var i = 0; i < data.stuList.length; i++) {
                     $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.stuList[i].id + '"/> ' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td>' + data.stuList[i].rollNo + '</td><td>' + data.courseNameList[i] + '</td><td>' + data.paymentReferenceNumber + '</td><td>' + data.bank + '</td><td>' + data.branch + '</td><td>' + data.courseFee[i] + '</td></tr>')
                 }
@@ -635,9 +639,11 @@ function studentForStudyMaterial(){
 
             if(data.studentList) {
                 $("#msgDiv").html(" ")
+                $("#studentRecordDiv").empty().append("<table id='studentRecord' class='inner'><tbody></tbody></table>")
                 $("#studentRecord tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th></tr>')
                 for (var i = 0; i < data.studentList.length; i++) {
-                    $("#studentRecord tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.studentList[i].id + '"/> ' + data.studentList[i].firstName + ' &nbsp;' + data.studentList[i].lastName + '</td><td>' + data.studentList[i].rollNo + '</td><td>' + data.courseDetail[0].courseName + '</td></tr>')
+                    $("#studentRecord tbody").append('<tr style="border:  1px solid gainsboro"><td><input type="text" name="studentListId" hidden="hidden" value="' + data.studentList[i].id + '"/> ' + data.studentList[i].firstName + ' &nbsp;' + data.studentList[i].lastName + '</td><td>' + data.studentList[i].rollNo + '</td><td>' + data.courseDetail[0].courseName + '</td></tr>')
+                    $("#studentRecord tbody").append('<tr><td> </td><td> </td><td> </td></tr>')
                     $("#studentRecord tbody").append('<tr><th colspan="3">Current Semester Courses</th></tr>')
 
                     for(var j=0;j<data.subjectsList[i].length;j++){
