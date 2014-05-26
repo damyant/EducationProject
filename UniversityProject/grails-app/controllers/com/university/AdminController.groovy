@@ -393,7 +393,8 @@ class AdminController {
 
     def updateCourses = {
         println("AdminController-->updateCourses Action" + params)
-        def programDetail = ProgramDetail.findById(params.CourseId)
+        def programDetail = ProgramDetail.findById(Integer.parseInt(params.CourseId))
+        println("Inside Admin Controller Action "+programDetail)
         [programDetail:programDetail]
     }
 

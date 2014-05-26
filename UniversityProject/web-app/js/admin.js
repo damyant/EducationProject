@@ -614,6 +614,7 @@ function populateCourseDetail(){
         data: {courseId: courseId},
 
         success: function (data) {
+            alert("Inside ajax call.....")
             if(data.programDetail) {
                 $("#allCourseList tbody").empty().append('<tr><th>Course Id</th><th>Course Code</th><th>Course Name</th></tr>')
                 for (var i = 0; i < data.programDetail.length; i++) {
