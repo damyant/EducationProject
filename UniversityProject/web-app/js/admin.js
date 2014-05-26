@@ -42,7 +42,7 @@ $(document).ready(function () {
                         generateRollNo(this.value)
                     }
                     else {
-                            alert("Roll No Generation Date has Expired.")
+                            alert("Roll No Generation Date has Expired/Date Are Not Set Yet.")
                             $('#generateRollNo').reset();
                     }
                 }

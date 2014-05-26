@@ -15,9 +15,9 @@
     <g:if test="${params.city}">
         <script type="text/javascript">
             $(document).ready(function () {
-                showCityList()
-                alert(${City?.findById(params?.city)?.id})
-                $('#city').val(${City?.findById(params?.city)?.id})
+//                showCityList()
+                %{--alert(${City?.findById(params?.city)?.id})--}%
+                %{--$('#city').val(${City?.findById(params?.city)?.id})--}%
             })
         </script>
     </g:if>
@@ -40,8 +40,8 @@
             <div class="university-label-location-select">Select City:</div>
         <g:if test="${params.city}">
 
-            <g:select name="cityLocationList" id="city" optionKey="id" value="" optionValue="cityName"
-                      noSelection="['null': ' Select City']" from="" onchange="showStudyCenterList()"/>
+            <g:select name="cityLocationList" id="city" optionKey="id" value="${City?.findById(params?.city)?.id}" optionValue="cityName"
+                      noSelection="['null': ' Select City']" disabled="true" from="${cityList}" onchange="showStudyCenterList()"/>
         </g:if>
         <g:else>
             <g:select name="cityLocationList" id="city" optionKey="id" value="${City?.findById(params?.city)?.id}" optionValue="cityName"

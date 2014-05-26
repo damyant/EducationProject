@@ -150,7 +150,7 @@ class CourseDetailService {
     }
 
     def deleteCourse(params) {
-
+        def status = false
 //        def existingCourseObj = ProgramDetail.findById(params.courseId)
         def existingProgramSession= ProgramSession.findById(Long.parseLong(params.courseSessionId))
         if (existingProgramSession) {
@@ -163,9 +163,13 @@ class CourseDetailService {
             def courseSubject = ProgramSession.findByProgramDetailId(existingProgramSession.programDetailId)
 
             if(courseSubject==null){
-                ProgramDetail.findById(existingProgramSession.programDetailId.id).delete(failOnError: true,flush: true)
+                if(ProgramDetail.findById(existingProgramSession.programDetailId.id).delete(failOnError: true,flush: true)){
+                    status=true
+                }
             }
         }
+        return status
+
     }
 
 //    //ADDED BY DIGVIJAY ON 20 May 2014

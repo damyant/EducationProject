@@ -9,6 +9,9 @@
     <body>
     <div id="main">
         <fieldset class="form">
+            <g:if test="${flash.message}">
+                <div class="message"><div class="university-status-message">${flash.message}</div></div>
+            </g:if>
         <g:if test="${params.type == 'update'}">
             <table id="courseTab" class="university-size-full-1-1 university-table-1-4 university-table-text-left ">
         </g:if>
