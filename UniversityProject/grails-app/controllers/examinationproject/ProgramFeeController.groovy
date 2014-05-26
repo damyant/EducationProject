@@ -13,12 +13,16 @@ class ProgramFeeController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def listOfFeeType = {
-        Integer max
-        params.max = Math.min(max ?: 10, 100)
-        def programFeeInstanceList
-        programFeeInstanceList = AdmissionFee.list()
 
-         [programFeeInstanceList:programFeeInstanceList]
+
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def c=AdmissionFee.createCriteria()
+        def programFeeInstanceList=c.list(params){
+
+        }
+
+
+        [programFeeInstanceList:programFeeInstanceList, admissionFeeTotal: AdmissionFee.count()]
     }
 
 //    def show(ProgramFee programFeeInstance) {
@@ -109,29 +113,31 @@ class ProgramFeeController {
         [feeInstance: feeInstance,programList: programList]
     }
     def saveNewFee = {
-        println(params?.feeId)
+
         def feeTypeInst
         if (params?.feeId) {
             feeTypeInst = FeeType.findById(Long.parseLong(params.feeId))
             println(feeTypeInst.type);
             feeTypeInst.type = params?.type
-            println("hiiiiiii");
-        } else {
+           } else {
             feeTypeInst = new FeeType(type: params.type)
-
-            println("hoooooo"+params.type);
         }
         Boolean flag = false
         if (feeTypeInst.save(flush: true)) {
             flag = true
         }
-        if (flag) {
-            flash.message = "New Fee Type Added Successfully";
-        } else {
+        if (flag && params?.feeId) {
+            flash.message = "Fee Type Updated Successfully";
+        }
+        else if (flag) {
+            flash.message = "New Fee Type Saved Successfully";
+        }
+        else {
             flash.message = "Unable to Add New Fee Type.";
         }
         redirect(action: "addFeeType")
     }
+
     def viewExistingFeeType = {
         def feeTypeList = FeeType.list(sort: 'type');
         [feeTypeList: feeTypeList]
