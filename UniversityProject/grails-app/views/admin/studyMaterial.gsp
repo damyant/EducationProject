@@ -20,6 +20,7 @@
 
             <g:hiddenField name="subjectList" id="subjectList"/>
             <div class="university-status-message"> <div id="msgDiv"></div>
+
             <div id="error" class="university-status-message" hidden="hidden">No Student Found</div>
         </div>
             <table class="inner">
