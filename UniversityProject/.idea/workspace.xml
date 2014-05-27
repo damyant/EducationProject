@@ -2,35 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4160cf6c-6634-4f74-96e2-3c48ee9d0b8c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/Report/Student_List_2014.xls" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ProgramFeeController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ProgramFeeController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/ProgramFeeService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/ProgramFeeService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/ReportService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/ReportService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/report/_generate.gsp" afterPath="$PROJECT_DIR$/grails-app/views/report/_generate.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admin.js" afterPath="$PROJECT_DIR$/web-app/js/admin.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admitCard.js" afterPath="$PROJECT_DIR$/web-app/js/admitCard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/assignExaminationDate.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/assignExaminationDate.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/assignExaminationVenue.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/assignExaminationVenue.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/assignLateFeeDate.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/assignLateFeeDate.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/dataEntry.js" afterPath="$PROJECT_DIR$/web-app/js/dataEntry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/examinationCenter/create.gsp" afterPath="$PROJECT_DIR$/grails-app/views/examinationCenter/create.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/examinationCenter/editExaminationCentre.gsp" afterPath="$PROJECT_DIR$/grails-app/views/examinationCenter/editExaminationCentre.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/enrollmentAtIdol.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/enrollmentAtIdol.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/examinationCentre.js" afterPath="$PROJECT_DIR$/web-app/js/examinationCentre.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/generateChallanSCAdmissionFee.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/generateChallanSCAdmissionFee.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/payAdmissionFee.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/payAdmissionFee.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/registerPage.js" afterPath="$PROJECT_DIR$/web-app/js/registerPage.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/registration.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/registration.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/report.js" afterPath="$PROJECT_DIR$/web-app/js/report.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/report/reportIndex.gsp" afterPath="$PROJECT_DIR$/grails-app/views/report/reportIndex.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/studentListView.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/studentListView.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/studyCenter.js" afterPath="$PROJECT_DIR$/web-app/js/studyCenter.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/studyMaterial.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/studyMaterial.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/validation.js" afterPath="$PROJECT_DIR$/web-app/js/validation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/viewProvisionalStudents.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/viewProvisionalStudents.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/viewStudent.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/viewStudent.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UniversityProject.iws" />
@@ -109,10 +90,8 @@
       <file leaf-file-name="AdminInfoService.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="0" selection-start="1182" selection-end="1182" vertical-scroll-proportion="0.0" vertical-offset="578" max-vertical-offset="4811">
-              <folding>
-                <element signature="e#27#57#0" expanded="true" />
-              </folding>
+            <state line="18" column="33" selection-start="558" selection-end="558" vertical-scroll-proportion="0.0" vertical-offset="1224" max-vertical-offset="4760">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -138,10 +117,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="studyMaterial.gsp" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="studyMaterial.gsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grails-app/views/admin/studyMaterial.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="7" selection-start="1265" selection-end="1265" vertical-scroll-proportion="-12.0" vertical-offset="41" max-vertical-offset="731">
+            <state line="42" column="7" selection-start="1778" selection-end="1778" vertical-scroll-proportion="0.6426426" vertical-offset="500" max-vertical-offset="833">
               <folding />
             </state>
           </provider>
@@ -165,10 +144,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="registration.gsp" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="registration.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/student/registration.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="43" selection-start="2067" selection-end="2067" vertical-scroll-proportion="0.7147147" vertical-offset="510" max-vertical-offset="7888">
+            <state line="34" column="11" selection-start="1736" selection-end="1736" vertical-scroll-proportion="-1.3877552" vertical-offset="510" max-vertical-offset="7888">
               <folding />
             </state>
           </provider>
@@ -177,15 +156,90 @@
       <file leaf-file-name="validation.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/js/validation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="431" column="14" selection-start="14400" selection-end="14419" vertical-scroll-proportion="0.0" vertical-offset="7108" max-vertical-offset="10574">
+            <state line="464" column="14" selection-start="15413" selection-end="15413" vertical-scroll-proportion="0.0" vertical-offset="7669" max-vertical-offset="11169">
               <folding>
-                <marker date="1401167011153" expanded="true" signature="473:17461" placeholder="{...}" />
-                <marker date="1401167011153" expanded="true" signature="560:8278" placeholder="{&quot;examCentre&quot;: &quot;required&quot;...}" />
-                <marker date="1401167011153" expanded="true" signature="629:720" placeholder="{&quot;required&quot;: true...}" />
-                <marker date="1401167011153" expanded="true" signature="784:15878" placeholder="{...}" />
-                <marker date="1401167011153" expanded="true" signature="4501:4592" placeholder="{&quot;required&quot;: true...}" />
-                <marker date="1401167011153" expanded="true" signature="8038:8162" placeholder="{&quot;required&quot;: true...}" />
-                <marker date="1401167011153" expanded="true" signature="8380:15502" placeholder="{&quot;name&quot;: &quot;Please enter study center name&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="84:18592" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="678:16938" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="404:8829" placeholder="{&quot;programTypeId&quot;: &quot;required&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="473:1446" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="560:1446" placeholder="{&quot;examCentre&quot;: &quot;required&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="629:720" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="784:1446" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="3216:3341" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="3378:3414" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="3445:3482" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="3515:3549" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="3581:3635" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="3656:3710" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="3735:3795" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="3834:3883" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="3907:3954" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="3995:4034" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="4058:4110" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="4194:4230" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="4244:4285" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="4409:4444" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="4479:4545" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="4582:4647" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="4698:4782" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="4825:4908" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="4952:5007" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="5052:5136" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="5189:5269" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="5297:5380" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="5952:6054" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="6190:6288" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="6317:6394" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="6423:6515" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="6556:6625" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="6669:6730" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="6797:6889" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="6912:6962" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="6989:7042" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="7090:7144" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="7183:7247" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="7615:7730" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="7770:7793" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="7827:7867" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="8069:8119" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="8160:8206" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="8249:8298" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="8338:8383" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="8577:8786" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="8891:16562" placeholder="{&quot;name&quot;: &quot;Please enter study center name&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="8960:9040" placeholder="{&quot;required&quot;: &quot;Please Enter Course Name&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="9105:9218" placeholder="{&quot;required&quot;: 'Please Enter Roll Number'...}" />
+                <marker date="1401176550929" expanded="true" signature="9255:9360" placeholder="{&quot;required&quot;: &quot;Please Enter Reference Number&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="9387:9500" placeholder="{&quot;required&quot;: &quot;Please Entre Fee Type Name&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="9533:9639" placeholder="{&quot;required&quot;: &quot;Please Enter Bank Name&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="9694:9790" placeholder="{&quot;required&quot;: &quot;Please Enter Roll Number&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="9860:10149" placeholder="{&quot;extension&quot;: &quot;Please enter a value with a valid extension&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="10198:10441" placeholder="{&quot;required&quot;: &quot;Please Enter Date Of Birth&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="10504:10607" placeholder="{&quot;required&quot;: &quot;Please Enter Centre Name&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="10877:10956" placeholder="{&quot;required&quot;: &quot;Please Upload Internal Marks Sheet&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="11401:11533" placeholder="{&quot;required&quot;: &quot;Please enter email of Principal&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="11709:11831" placeholder="{&quot;required&quot;: &quot;Please enter Email of Coordinator&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="11934:12053" placeholder="{&quot;required&quot;: &quot;Please enter Email of Asst. Coordinator&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="12114:12252" placeholder="{&quot;required&quot;: &quot;Please Enter Website URL&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="14632:14704" placeholder="{&quot;required&quot;: &quot;Please Enter Total Marks&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="14764:14827" placeholder="{&quot;required&quot;: &quot;Please Enter Number of papers&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="14897:14976" placeholder="{&quot;required&quot;: &quot;Please Enter Passing Marks&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="15046:15119" placeholder="{&quot;required&quot;: &quot;Please Enter total Credit Points&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="15246:15276" placeholder="{&quot;required&quot;: &quot;Please Enter a Roll Number&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="15334:15412" placeholder="{&quot;required&quot;: &quot;Please Enter Start Date&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="15466:15574" placeholder="{&quot;required&quot;: &quot;Please Enter End Date&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="20482:21185" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="20718:20847" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="20902:20956" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="21016:21080" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="21109:21133" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="21137:21142" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="21257:21932" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="21327:21911" placeholder="{...}" />
+                <marker date="1401176550929" expanded="true" signature="21334:21581" placeholder="{&quot;paymentMode&quot;: &quot;required&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="21451:21499" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401176550929" expanded="true" signature="21637:21886" placeholder="{&quot;paymentMode&quot;: &quot;Please  Select Payment Mode&quot;...}" />
+                <marker date="1401176550929" expanded="true" signature="21791:21871" placeholder="{&quot;required&quot;: &quot;Please Enter Ref. Number&quot;...}" />
               </folding>
             </state>
           </provider>
@@ -243,12 +297,12 @@
         <option value="$PROJECT_DIR$/grails-app/views/student/_applicationPrintPreview.gsp" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/admin/studyMaterial.gsp" />
         <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/ProgramFeeController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/ProgramFeeService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/student/registration.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/admin/studyMaterial.gsp" />
       </list>
     </option>
   </component>
@@ -795,16 +849,16 @@
       <workItem from="1400820723765" duration="789000" />
       <workItem from="1400821600980" duration="16439000" />
       <workItem from="1401093477471" duration="11168000" />
-      <workItem from="1401165640044" duration="4972000" />
+      <workItem from="1401165640044" duration="5182000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="185875000" />
+    <option name="totallyTimeSpent" value="186085000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -821,7 +875,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2877013" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30503145" sideWeight="0.17423134" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30503145" sideWeight="0.17423134" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
@@ -1189,26 +1243,92 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="0" selection-start="1182" selection-end="1182" vertical-scroll-proportion="0.0" vertical-offset="578" max-vertical-offset="4811">
-          <folding>
-            <element signature="e#27#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/validation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="431" column="14" selection-start="14400" selection-end="14419" vertical-scroll-proportion="0.0" vertical-offset="7108" max-vertical-offset="10574">
+        <state line="464" column="14" selection-start="15413" selection-end="15413" vertical-scroll-proportion="0.0" vertical-offset="7669" max-vertical-offset="11169">
           <folding>
-            <marker date="1401167011153" expanded="true" signature="473:17461" placeholder="{...}" />
-            <marker date="1401167011153" expanded="true" signature="560:8278" placeholder="{&quot;examCentre&quot;: &quot;required&quot;...}" />
-            <marker date="1401167011153" expanded="true" signature="629:720" placeholder="{&quot;required&quot;: true...}" />
-            <marker date="1401167011153" expanded="true" signature="784:15878" placeholder="{...}" />
-            <marker date="1401167011153" expanded="true" signature="4501:4592" placeholder="{&quot;required&quot;: true...}" />
-            <marker date="1401167011153" expanded="true" signature="8038:8162" placeholder="{&quot;required&quot;: true...}" />
-            <marker date="1401167011153" expanded="true" signature="8380:15502" placeholder="{&quot;name&quot;: &quot;Please enter study center name&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="84:18592" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="678:16938" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="404:8829" placeholder="{&quot;programTypeId&quot;: &quot;required&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="473:1446" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="560:1446" placeholder="{&quot;examCentre&quot;: &quot;required&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="629:720" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="784:1446" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="3216:3341" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="3378:3414" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="3445:3482" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="3515:3549" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="3581:3635" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="3656:3710" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="3735:3795" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="3834:3883" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="3907:3954" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="3995:4034" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="4058:4110" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="4194:4230" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="4244:4285" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="4409:4444" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="4479:4545" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="4582:4647" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="4698:4782" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="4825:4908" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="4952:5007" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="5052:5136" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="5189:5269" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="5297:5380" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="5952:6054" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="6190:6288" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="6317:6394" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="6423:6515" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="6556:6625" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="6669:6730" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="6797:6889" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="6912:6962" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="6989:7042" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="7090:7144" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="7183:7247" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="7615:7730" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="7770:7793" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="7827:7867" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="8069:8119" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="8160:8206" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="8249:8298" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="8338:8383" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="8577:8786" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="8891:16562" placeholder="{&quot;name&quot;: &quot;Please enter study center name&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="8960:9040" placeholder="{&quot;required&quot;: &quot;Please Enter Course Name&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="9105:9218" placeholder="{&quot;required&quot;: 'Please Enter Roll Number'...}" />
+            <marker date="1401176550929" expanded="true" signature="9255:9360" placeholder="{&quot;required&quot;: &quot;Please Enter Reference Number&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="9387:9500" placeholder="{&quot;required&quot;: &quot;Please Entre Fee Type Name&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="9533:9639" placeholder="{&quot;required&quot;: &quot;Please Enter Bank Name&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="9694:9790" placeholder="{&quot;required&quot;: &quot;Please Enter Roll Number&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="9860:10149" placeholder="{&quot;extension&quot;: &quot;Please enter a value with a valid extension&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="10198:10441" placeholder="{&quot;required&quot;: &quot;Please Enter Date Of Birth&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="10504:10607" placeholder="{&quot;required&quot;: &quot;Please Enter Centre Name&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="10877:10956" placeholder="{&quot;required&quot;: &quot;Please Upload Internal Marks Sheet&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="11401:11533" placeholder="{&quot;required&quot;: &quot;Please enter email of Principal&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="11709:11831" placeholder="{&quot;required&quot;: &quot;Please enter Email of Coordinator&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="11934:12053" placeholder="{&quot;required&quot;: &quot;Please enter Email of Asst. Coordinator&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="12114:12252" placeholder="{&quot;required&quot;: &quot;Please Enter Website URL&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="14632:14704" placeholder="{&quot;required&quot;: &quot;Please Enter Total Marks&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="14764:14827" placeholder="{&quot;required&quot;: &quot;Please Enter Number of papers&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="14897:14976" placeholder="{&quot;required&quot;: &quot;Please Enter Passing Marks&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="15046:15119" placeholder="{&quot;required&quot;: &quot;Please Enter total Credit Points&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="15246:15276" placeholder="{&quot;required&quot;: &quot;Please Enter a Roll Number&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="15334:15412" placeholder="{&quot;required&quot;: &quot;Please Enter Start Date&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="15466:15574" placeholder="{&quot;required&quot;: &quot;Please Enter End Date&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="20482:21185" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="20718:20847" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="20902:20956" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="21016:21080" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="21109:21133" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="21137:21142" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="21257:21932" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="21327:21911" placeholder="{...}" />
+            <marker date="1401176550929" expanded="true" signature="21334:21581" placeholder="{&quot;paymentMode&quot;: &quot;required&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="21451:21499" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401176550929" expanded="true" signature="21637:21886" placeholder="{&quot;paymentMode&quot;: &quot;Please  Select Payment Mode&quot;...}" />
+            <marker date="1401176550929" expanded="true" signature="21791:21871" placeholder="{&quot;required&quot;: &quot;Please Enter Ref. Number&quot;...}" />
           </folding>
         </state>
       </provider>
@@ -1230,13 +1350,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/admin/studyMaterial.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="7" selection-start="1265" selection-end="1265" vertical-scroll-proportion="-12.0" vertical-offset="41" max-vertical-offset="731">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/ProgramFeeController.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="54" column="45" selection-start="1481" selection-end="1481" vertical-scroll-proportion="-9.695652" vertical-offset="627" max-vertical-offset="3179">
@@ -1253,7 +1366,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/student/registration.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="43" selection-start="2067" selection-end="2067" vertical-scroll-proportion="0.7147147" vertical-offset="510" max-vertical-offset="7888">
+        <state line="34" column="11" selection-start="1736" selection-end="1736" vertical-scroll-proportion="-1.3877552" vertical-offset="510" max-vertical-offset="7888">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="33" selection-start="558" selection-end="558" vertical-scroll-proportion="0.0" vertical-offset="1326" max-vertical-offset="4760">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/admin/studyMaterial.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="7" selection-start="1778" selection-end="1778" vertical-scroll-proportion="0.6426426" vertical-offset="500" max-vertical-offset="833">
           <folding />
         </state>
       </provider>
