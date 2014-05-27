@@ -13,25 +13,18 @@ class StudentController {
 //    @Secured('ROLE_STUDYCENTRE')
 
     def registration= {
-        println(">>>>>>>>>>>request with fee details>>>>>>>>>>>"+params)
-
         def studyCentre
-
         if (springSecurityService.isLoggedIn()) {
-
             def currentUser = springSecurityService.currentUser.username
             if (springSecurityService.currentUser.studyCentreId != 0) {
                 studyCentre= StudyCenter.findById(springSecurityService.currentUser.studyCentreId)
             } else {
                 studyCentre = StudyCenter.findByCenterCode('11111')
             }
-
         } else {
             studyCentre = StudyCenter.findByCenterCode('11111')
-
         }
         def studInstance = Student.get(params.studentId)
-
         def programList = ProgramDetail.list(sort: 'courseName')
         def districtList=District.list(sort: 'districtName')
         def bankName=Bank.list(sort:'bankName')
@@ -57,7 +50,7 @@ class StudentController {
                     flash.message = "${message(code: 'register.updated.message')}"
                     redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
                 }else{
-                    println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"+params.fee)
+//                    println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"+params.fee)
                     flash.message = "${message(code: 'register.updated.message')}"
                     redirect(action: "registration", params: [ fee:fee,studentID: studentRegistration.id,registered:"registered"])
                 }
@@ -84,8 +77,23 @@ class StudentController {
     def applicationPrintPreview = {
         println("params" + params)
         def student = Student.findById(params.studentID)
+        def lateFee=0
+        def payableFee=0
+        try {
+//            def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
+            def lateFeeDate = student.programDetail.lateFeeDate[0]
+            def today = new Date()
+            if (today.compareTo(lateFeeDate) > 0) {
+                lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+            }
+            def feeAmount = AdmissionFee.findByProgramDetail(student.programDetail);
+            payableFee = feeAmount.feeAmountAtIDOL + lateFee
+        }
+        catch(NullPointerException e){
+            payableFee=0
+        }
         def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
-        def args = [template: "applicationPrintPreview", model: [studentInstance: student,feeDetails:feeDetails,fee:params.fee]]
+        def args = [template: "applicationPrintPreview", model: [studentInstance: student,feeDetails:feeDetails,payableFee:payableFee]]
         pdfRenderingService.render(args + [controller: this], response)
 
 
@@ -208,9 +216,9 @@ class StudentController {
     }
 
     def viewStudent = {
-        println("??????????????????????"+params)
+//        println("??????????????????????"+params)
         def student = Student.findById(params.studentId)
-        println("Challan Number"+student.addressDistrict)
+//        println("Challan Number"+student.addressDistrict)
         def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
         [studInstance:student,feeDetails: feeDetails]
     }
