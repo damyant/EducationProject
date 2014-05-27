@@ -425,7 +425,8 @@ function populateStudentListForMiscFee() {
 function filterProgram(t) {
     var type = $(t).val();
 
-//   alert(type)
+ alert(type)
+    if(type){
     $.ajax({
         type: "post",
         url: url('admin', 'loadProgram', ''),
@@ -443,7 +444,14 @@ function filterProgram(t) {
             }
         }
 
+
     });
+    }
+    else{
+        $('#datepicker').prop("disabled", true)
+        $("#courseList thead").empty()
+        $("#courseList tbody").empty()
+    }
 
 }
 function loadAssignDate(t) {
@@ -493,9 +501,25 @@ function enableTextField(t) {
     }
 
 }
-
+function clearFields(){
+    $('#programCategory').val('')
+    $('#programList').val('')
+    $('#semesterList').val('')
+    $('#studyCenterFeeEntryTable').prop('hidden', true);
+    $('#rangeRadioButtons').prop('hidden', true);
+    document.getElementById("paymentDetails").style.visibility="hidden"
+    document.getElementById("generateFeeChallan").style.visibility="hidden"
+//    $('#generateFeeChallan').prop('hidden', true);
+}
 
 function loadProgram(t) {
+
+    $('#studyCenterFeeEntryTable').prop('hidden', true)
+    $('#allProgram').prop('checked', false)
+    $('#rangeRadioButtons').prop('hidden', true)
+    document.getElementById("paymentDetails").style.visibility="hidden"
+    document.getElementById("generateFeeChallan").style.visibility="hidden"
+//    $('#generateFeeChallan').prop('hidden', true)
     var type = $(t).val();
 //    alert(type)
     $.ajax({

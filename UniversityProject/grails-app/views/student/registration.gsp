@@ -159,7 +159,7 @@
 
             <label><span>OBC</span><input type="radio" name="category" value="OBC" class="radioInput"/></label>
 
-            <label><span>SC</span><input type="radio" name="category" value=" SC" class="radioInput" style=""/></label>
+            <label><span>SC</span><input type="radio" name="category" value="SC" class="radioInput" style=""/></label>
 
             <label><span>ST</span><input type="radio" name="category" value="S.T" class="radioInput"/></label>
 

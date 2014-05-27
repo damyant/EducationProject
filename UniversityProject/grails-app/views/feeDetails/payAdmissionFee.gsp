@@ -36,7 +36,7 @@
             </thead>
             <tbody></tbody>
         </table>
-
+            <div class="university-status-message"> <div id="msgDiv"></div></div>
             <table id="studentPayList" class="university-size-full-1-1" style="visibility: hidden">
                 <tr>
                     <td class="university-size-1-3">Payment Mode</td>
@@ -71,7 +71,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3" value="Pay" style="visibility: hidden"/> </td>
+                    <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3" onclick="checkValidation()" value="Pay" style="visibility: hidden"/> </td>
                 </tr>
             </table>
         </g:form>

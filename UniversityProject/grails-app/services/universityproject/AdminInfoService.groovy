@@ -17,7 +17,14 @@ import examinationproject.ProgramSession
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
+<<<<<<< HEAD
+
+import examinationproject.StudyMaterial
+=======
+import examinationproject.StudyMaterial
+
 //import examinationproject.StudyMaterial
+>>>>>>> fc1f981bea1823c2e03ed4d852252aee7ac173ce
 import examinationproject.Subject
 import grails.transaction.Transactional
 
@@ -33,43 +40,43 @@ def springSecurityService
     }
 
     def provisionalStudentList(params){
-//        println("==========="+springSecurityService.principal.id)
-        println("in this")
-        def studyCenterId=0
-        def statusObj
-        if(params.studyCenterId){
-            studyCenterId=params.studyCenterId
-        }
-        else{
-            def currentUser=springSecurityService.getCurrentUser()
-
-            studyCenterId=currentUser.studyCentreId
-        }
+//        def studyCenterId=0
+//        def statusObj
+//        if(params.studyCenterId){
+//            studyCenterId=params.studyCenterId
+//        }
+//        else{
+//            def currentUser=springSecurityService.getCurrentUser()
+//            studyCenterId=currentUser.studyCentreId
+//        }
 
 
-        if(params.pageType=="Approve RollNo"){
-
-            statusObj=Status.findById(2)
-        }
-        else{
-                    statusObj=Status.findById(1)
-        }
+//        if(params.pageType=="Approve RollNo"){
+//
+//            statusObj=Status.findById(2)
+//        }
+//        else{
+//            statusObj=Status.findById(1)
+//        }
         def obj=Student .createCriteria()
         def stuList= obj.list{
             programDetail{
                 eq('id', Long.parseLong(params.programId))
             }
-            studyCentre {
-                eq('id', Long.parseLong(studyCenterId.toString()))
-            }
             and{
-                eq('status',statusObj)
-                count()
+                isNull('rollNo')
             }
+//            studyCentre {
+//                eq('id', Long.parseLong(studyCenterId.toString()))
+//            }
+//            and{
+//                eq('status',statusObj)
+//                count()
+//            }
 
         }
 
-        println("list of students "+ stuList)
+        println("list of students "+ stuList+"-----------------"+params.programId)
         return  stuList
 
 
@@ -245,29 +252,18 @@ def springSecurityService
         def resultMap=[:]
 
         def subjectsList=[],assignedStudyMaterailList=[]
-//        if(params.studyMaterialRadio=="Roll Number"){
            def stuList= Student.findAllByRollNo(params.studyMaterialText)
-//        }
-//        else{
-//            stuList=Student.findAllByChallanNo(params.studyMaterialText)
-//        }
         if(stuList){
-          subjectsList<<CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList.semester,stuList.programSession),stuList.programSession).subject
+        subjectsList<<CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList.semester,stuList.programSession),stuList.programSession).subject
         resultMap.studentList=stuList
         resultMap.courseDetail=stuList.programDetail[0]
         resultMap.subjectsList=subjectsList
         resultMap.assignedStudyMaterail= StudyMaterial.findAllByStudentId(stuList[0]).subjectId
-
         }
-
         return resultMap
-
-
     }
-
-
     def saveStudentForStudyMaterial(params){
-        println(params)
+//        println(params)
         def subjectList=[]
         def saveObj
         subjectList.addAll(params.subjectCheckBox)
@@ -277,7 +273,6 @@ def springSecurityService
         subjectList.each{
          saveObj=   StudyMaterial.create(stuIns,Subject.findById(Long.parseLong(it.toString())))
         }
-
         return saveObj
 
 

@@ -69,5 +69,12 @@
             <div></div>
         </fieldset>
     </div>
+<script>
+    $(document).ready(function () {
+   $('#studyCenter').val('')
+   $('#programId').val('')
+
+    })
+</script>
 </body>
 </html>
