@@ -78,7 +78,7 @@ function readURL(input, type) {
         else {
             $("#profileImage").val('')
             $("#picture").attr('src', ' ')
-            alert("Please upload an image of size less then 50kb and in allowed format")
+            alert("Please upload an image of size less then 50kb and image Extension should be gif/png/bmp/jpeg/jpg.")
         }
 
         reader.readAsDataURL(input.files[0]);

@@ -30,33 +30,10 @@
             <g:hiddenField name="id" value="${examinationVenueInstance?.id}"/>
             <label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label>
             <table class="inner">
-
-                %{--<tr>--}%
-                    %{--<td><label><g:message code="default.createStudy.district"/> <span--}%
-                            %{--class="university-obligatory">*</span>--}%
-                    %{--</label></td>--}%
-                    %{--<td>--}%
-                        %{--<g:select name="district" id="district" optionKey="id"--}%
-                                  %{--value="${District?.findById(ExaminationCentre?.findAllByDistrict(examinationVenueInstance?.id))}" class="university-size-1-3"--}%
-                                  %{--onchange="showCityList()" optionValue="districtName" from="${District.findAll()}"--}%
-                                  %{--noSelection="['': ' Select District']"/>--}%
-                    %{--</td>--}%
-                %{--</tr>--}%
-                %{--<tr>--}%
-                    %{--<td><label><g:message code="default.createStudy.city"/><span class="university-obligatory">*</span>--}%
-                    %{--</label></td>--}%
-                    %{--<td id="city-box">--}%
-                        %{--<g:select name="city" id="city" optionKey="id" value="${examinationCentreInstance?.city?.id}"--}%
-                                  %{--class="university-size-1-3" optionValue="cityName"--}%
-                                  %{--from="${City.findAllByDistrict(District.get(examinationCentreInstance?.city?.district?.id))}"--}%
-                                  %{--noSelection="['': ' Select City']"/>--}%
-                    %{--</td>--}%
-                %{--</tr>--}%
-
                 <tr>
                     <td class="university-size-1-3"><label><g:message code="default.createExam.nameOfCenter"/><span
                             class="university-obligatory">*</span></label></td>
-                    <td class="university-size-2-3"><input type="text" name="centreName" value="${examinationVenueInstance?.name}"
+                    <td class="university-size-2-3"><input type="text" name="centreName" maxlength="70" value="${examinationVenueInstance?.name}"
                                class="university-size-1-3"/></td>
                 </tr>
 
@@ -85,7 +62,7 @@
                 <tr>
                     <td><label><g:message code="default.createExam.studentCapacity"/><span
                             class="university-obligatory">*</span></label></td>
-                    <td><input type="text" class="university-size-1-3" name="capacity"
+                    <td><input type="text" class="university-size-1-3" maxlength="7" name="capacity"
                                value="${examinationVenueInstance?.capacity}" onkeypress="return isNumber(event)"/></td>
                 </tr>
 

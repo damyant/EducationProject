@@ -19,8 +19,9 @@
         <form id="studyMaterialPage" name="studyMaterialPage">
             <g:hiddenField name="subjectList" id="subjectList"/>
             <div class="university-status-message"> <div id="msgDiv"></div>
-                <div id="error" class="university-status-message" hidden="hidden">No Student Found</div>
-            </div>
+
+            <div id="error" class="university-status-message" hidden="hidden">No Student Found</div>
+        </div>
             <table class="inner">
                 %{--<tr><td><input type="radio" name="studyMaterialRadio" value="Roll Number">Enter Roll Number</td>--}%
                 %{--<td><input type="radio" name="studyMaterialRadio" value="Challan Number">Enter Challan Number</td></tr>--}%
