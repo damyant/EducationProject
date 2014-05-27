@@ -17,14 +17,9 @@ import examinationproject.ProgramSession
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
-<<<<<<< HEAD
 
 import examinationproject.StudyMaterial
-=======
-import examinationproject.StudyMaterial
 
-//import examinationproject.StudyMaterial
->>>>>>> fc1f981bea1823c2e03ed4d852252aee7ac173ce
 import examinationproject.Subject
 import grails.transaction.Transactional
 

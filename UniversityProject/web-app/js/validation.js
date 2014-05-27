@@ -59,8 +59,8 @@ function validate() {
                 email: true
             },
             nameOfCoordinator: {
-                required: true,
-                textonly: true
+                required: true
+
             },
             emailIdOfCoordinator: {
                 required: true,
@@ -84,8 +84,7 @@ function validate() {
                 number: true
             },
             asstCoordinator: {
-                required: true,
-                textonly: true
+                required: true
             },
             asstMobile: {
                 required: true,

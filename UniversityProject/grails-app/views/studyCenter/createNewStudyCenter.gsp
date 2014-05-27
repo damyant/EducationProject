@@ -159,7 +159,7 @@
         <tr>
             <td><label><g:message code="default.createStudy.nameOfHeadIns"/> <span
                     class="university-obligatory">*</span></label></td>
-            <td><input type="text" name="nameOfHeadIns" onkeypress="return onlyAlphabets(event, this);"
+            <td><input type="text" name="nameOfHeadIns" onkeypress="return onlyAlphabetsWithSplChar(event);"
                        value="${studyCentreInstance?.nameOfHeadIns}"
                        class="university-size-1-2"/></td>
         </tr>

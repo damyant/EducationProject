@@ -66,15 +66,12 @@ class StudentRegistrationService {
         studentRegistration.dob = df.parse(params.d_o_b)
         studentRegistration.challanNo = getChallanNumber()
         Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
-
         studentRegistration.studyCentre = studyCentre
         Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
         endYear = Integer.parseInt(year)+1
         programSession = (startYear + "-" + endYear)
-
         def session = ProgramSession.count()
         def programSessionIns
-
         if (session > 0) {
             if (programDetail[0].id) {
                 programSessionIns = ProgramSession.findByProgramDetailIdAndSessionOfProgram(programDetail[0], programSession)
@@ -93,8 +90,10 @@ class StudentRegistrationService {
         Set<ExaminationVenue> examinationCentreList = ExaminationVenue.findAllById(Integer.parseInt(params.examinationCentre))
         studentRegistration.city = examinationCentreList
         if (!params.appNo) {
-            studentRegistration.studentImage = photographe.bytes
+            if(photographe.bytes)
+                studentRegistration.studentImage = photographe.bytes
         } else {
+            println("in else true"+params.appNo)
             studentRegistration.applicationNo = params.applicationNo
         }
         studentRegistration.semester = 1

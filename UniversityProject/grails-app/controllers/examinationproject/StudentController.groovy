@@ -46,7 +46,6 @@ class StudentController {
 
     }
     def submitRegistration = {
-
         def studentRegistration
             def signature = request.getFile('signature')
             def photographe = request.getFile("photograph")
