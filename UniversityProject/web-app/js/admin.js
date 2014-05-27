@@ -1,6 +1,6 @@
 
 var studentIdList = [];
-var subjectIdList=[],selectedStudentId=[];
+var subjectIdList=[];
 var feeTypeList=[];
 $(document).ready(function () {
 
@@ -485,23 +485,31 @@ function updateProgramFee(){
 
 
 function generateChallanForRange(){
-
+var selectedStudentId=[]
+    $('#rollNoError').html("")
     var from=$("#serialNoFrom").val()
     var to = $("#serialNoTo").val()
 
     if(from!=undefined){
     if(from.length==0){
-        alert("Please Enter from Sr No.")
+        $('#rollNoError').html("Please Enter Range/Roll Number From Above List.")
+        return false
     }
     var selectedRange=0;
     if(to>=from){
         selectedRange = (to-from)
     }else{
-        alert("Please enter range correctly")
+        $('#rollNoError').html("Please enter range correctly")
         return false
     }
 
     var rangeCount = parseInt(from)+selectedRange;
+    var srNoCount =$('input[name="studentCheckbox"]').length;
+    if(rangeCount>srNoCount){
+        $('#rollNoError').html("Please enter range correctly")
+        return false
+    }
+
     for(i=from-1;i<rangeCount;i++)
         $('#studyCenterFeeEntryTable').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', true)
 
@@ -509,9 +517,12 @@ function generateChallanForRange(){
         $('#studyCenterFeeEntryTable').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
     for(i=from-2;i>=0;i--)
         $('#studyCenterFeeEntryTable').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
+//        selectedStudentId.clean()
     $('input[name="studentCheckbox"]:checked').each(function() {
+
         selectedStudentId.push($(this).attr('id'));
     });
+//    $("#studentListId").val("")
     $("#studentListId").val(selectedStudentId)
 
     if(selectedStudentId!=null){
