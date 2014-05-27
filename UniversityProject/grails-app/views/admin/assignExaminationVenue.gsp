@@ -40,7 +40,7 @@
                         <td class="university-size-1-4" style="padding-left: 20px;">
                             <g:select name="examinationCentre" id="examinationCentre" optionKey="id" class="university-size-1-1"
                                       optionValue="cityName" from="${examinationCenterList}"
-                                      noSelection="['0': ' Select Examination Centre']"
+                                      noSelection="['': ' Select Examination Centre']"
                                       onchange="showExamVenueList1()"/>
                         </td>
                         <td class="university-size-1-2"><label id="CentreForExamVenue"
@@ -77,7 +77,7 @@
                     <tr>
                         <td class="university-size-1-4"></td>
                         <td class="university-size-1-4">
-                            <input type="button" value="Submit" class="university-button" onclick="saveExamVenue()">
+                            <input type="button" id="submitButton" value="Submit" class="university-button" onclick="saveExamVenue()" hidden="hidden">
                         </td>
                         <td class="university-size-1-2"></td>
                     </tr>

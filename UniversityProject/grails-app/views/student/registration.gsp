@@ -39,7 +39,6 @@
             var flag = "${registered}"
             var studentId = "${studentID}"
             var fee = "${params.admissionFeeAmount}"
-            alert("fee with late fee amount"+fee)
             if (flag == 'registered') {
 
                 url = "/UniversityProject/student/registration"
@@ -161,7 +160,7 @@
 
             <label><span>OBC</span><input type="radio" name="category" value="OBC" class="radioInput"/></label>
 
-            <label><span>SC</span><input type="radio" name="category" value=" SC" class="radioInput" style=""/></label>
+            <label><span>SC</span><input type="radio" name="category" value="SC" class="radioInput" style=""/></label>
 
             <label><span>ST</span><input type="radio" name="category" value="S.T" class="radioInput"/></label>
 

@@ -3,7 +3,7 @@ $(function() {
     $(".dialog").dialog({
         autoOpen: false,
         draggable: false,
-        position: ['center',100],
+        position: ['center',150],
 //        maxWidth:600,
 //        maxHeight: 500,
         width: 600,

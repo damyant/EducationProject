@@ -14,18 +14,13 @@ function showCityList() {
 //    alert('in show city list')
     var data;
     data = $('#district').val();
-//    alert("----------------"+data)
     if(data){
-
     }
     else{
         data=$('#districtCumulative').val()
 //        alert("in else "+ data)
     }
-
-
-
-
+    if(data){
     $.ajax({
         type: "post",
         url: url('studyCenter', 'getCityList', ''),
@@ -45,6 +40,12 @@ function showCityList() {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
+    }
+    else{
+        $("#city").empty().append('<option value="">Select Examination Centre</option>');
+        $("#examinationCentre").empty().append('<option value=""> Select Examination Venue</option>')
+        $('#programRow').hide()
+    }
 
 }
 function showExamCenterList() {
@@ -135,6 +136,7 @@ function viewStudyCenter(studyCenterId) {
 function showCentreList(t) {
 //    alert('now getting centres'+ t)
     var data = $(t).val();
+    if(data){
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExaminationVenueList', ''),
@@ -151,13 +153,18 @@ function showCentreList(t) {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
+    }
+    else{
+        $("#examinationCentre").empty().append('<option value=""> Select Examination Venue</option>')
+        $('#programRow').hide()
+    }
 
 }
 
 
 function showProgrammeList(){
     var data= $('#examinationCentre').val()
-
+    if(data){
     $.ajax({
         type:'post',
         url:url('examinationCenter','getProgrammeList',''),
@@ -178,6 +185,13 @@ function showProgrammeList(){
 
         }
     });
+    }
+    else{
+        $("#programList").empty().append('<option value=""> Select Programmes</option>')
+        $("#programList").append('<option value="allProgram"> All Programmes</option>')
+        $('#programRow').hide()
+    }
+
 
 }
 

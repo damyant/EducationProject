@@ -460,12 +460,13 @@ class ReportService {
                     eq('registrationYear' , Integer.parseInt(params.admissionUnapprovedSession))
                 }
                 and{
-                    eq('status', Status.findById(2))
+                    eq('status', Status.findById(3))
                 }
 
                 order('programDetail', 'asc')
             }
                    println("this is the result of query "+ studentList)
+            return studentList
         }
        else if(params.value=='admissionApproved'){
                 studentList = stuObj.list{
@@ -476,14 +477,15 @@ class ReportService {
                     eq('registrationYear' , Integer.parseInt(params.admissionApprovedSession))
                 }
                 and{
-                    eq('status', Status.findById(3))
+                    eq('status', Status.findById(4))
                 }
 
                 order('programDetail', 'asc')
             }
-            println("this is the result of query "+ studentList)
+            println("this is the result of query----------- "+ studentList)
+            return studentList
         }
-        return studentList
+
 
     }
 
@@ -511,7 +513,7 @@ class ReportService {
 
     def getReportDataStudyCentreFeePaid(params){
        def finalMap =[]
-       println("these are the parameters "+ params)
+       println("these "+ params)
        def stuObj = Student.createCriteria()
        def studentList = stuObj.list{
            studyCentre{
@@ -521,17 +523,19 @@ class ReportService {
                eq('registrationYear' , Integer.parseInt(params.studyCentreFeePaidSession))
            }
            and{
-               eq('status', Status.findById(3))
+               eq('status', Status.findById(4))
            }
        }
 
         println("this is the list of students "+ studentList)
+        def chalanNoList=[]
         studentList.each{
-            println("----------"+it.studentName)
+            println("----------"+it)
+            chalanNoList.add(it.challanNo)
         }
         def feeType= FeeType.list(sort: 'type')
         feeType.each{
-        def feeList = FeeDetails.findAllByStudentIdInListAndFeeTypeId(studentList, it)
+        def feeList = FeeDetails.findAllByChallanNoInListAnd
             println("this is the list of fee paid "+ feeList)
 
            if(feeList){
@@ -665,13 +669,14 @@ class ReportService {
                         eq('registrationYear' , Integer.parseInt(params.courseUnapprovedSession))
                     }
                     and{
-                        eq('status', Status.findById(2))
+                        ne('status', Status.findById(4))
                     }
                 }
 
                 return studentList
             }
             else if(params.value=='courseApproved'){
+                println('hello kuldeep in this')
                 def studentList = stuObj.list{
                     programDetail{
                         eq('id', Long.parseLong(params.courseApproved))
@@ -683,7 +688,7 @@ class ReportService {
                         eq('registrationYear' , Integer.parseInt(params.courseApprovedSession))
                     }
                     and{
-                        eq('status', Status.findById(3))
+                        eq('status', Status.findById(4))
                     }
                 }
 
@@ -721,7 +726,7 @@ class ReportService {
         def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
         println('max no of course '+ course)
 
-        if(params.examinationCentreCumulativeSchedule=='7'){
+        if(params.examinationCentreCumulativeSchedule=='July'){
             program.each{
                 def pid= it.courseDetail.id
                 for(int i=2; i<=course[0]; i+=2){
@@ -748,7 +753,7 @@ class ReportService {
                 }
             }
         }
-        else if(params.examinationCentreCumulativeSchedule=='1'){
+        else if(params.examinationCentreCumulativeSchedule=='January'){
             program.each{
                 def pid= it.courseDetail.id
                 for(int i=1; i<=course[0]; i+=2){

@@ -50,7 +50,6 @@ class StudentController {
             def signature = request.getFile('signature')
             def photographe = request.getFile("photograph")
 
-            println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"+params.fee)
             studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe )
 
         if (studentRegistration) {
