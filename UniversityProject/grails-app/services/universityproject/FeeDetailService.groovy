@@ -160,11 +160,13 @@ class FeeDetailService {
         def feeList = FeeType.list(sort:'type')
         def feeAmountList=[]
         def lateFee=0
-
+         println("this is the size "+stuList.size())
         for (int i=0;i<stuList.size();i++){
             def lateFeeDate=stuList[i].programDetail.lateFeeDate[0]
+            println("this is late fee Date "+stuList[i].programDetail.courseName)
             def today=new Date()
             def amount=AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
+            println("this is the amount "+ amount)
             if(today.compareTo(lateFeeDate) > 0){
                 lateFee=amount[0].lateFeeAmount
             }
