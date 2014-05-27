@@ -31,7 +31,6 @@ class Student {
     byte[] studentImage
     ProgramSession programSession
     Boolean admitCardGenerated
-    ExaminationVenue examinationVenue
     Date admissionDate =new Date()
     String challanNo
 
