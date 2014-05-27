@@ -104,14 +104,14 @@
             class="university-obligatory">*</span> </label></td>
         <td class="university-size-2-3">
             <input type="text" name="name" id="name" value="${studyCentreInstance?.name}"
-                   class="university-size-1-2" onkeypress="return onlyAlphabets(event, this);"/>
-        </td
+                   class="university-size-1-2" onkeypress="return onlyAlphabets(event, this);" maxlength="50"/>
+        </td>
                 </tr>
         <tr>
             <td><label><g:message code="default.createStudy.address"/> <span
                     class="university-obligatory">*</span></label></td>
             <td><input type="text" name="address" value="${studyCentreInstance?.address}" id="address"
-                       maxlength="" class="university-size-1-2"/></td>
+                       maxlength="200" class="university-size-1-2"/></td>
         </tr>
         <tr>
             <td><label><g:message code="default.createStudy.district"/> <span
@@ -146,7 +146,7 @@
             <td><label><g:message code="default.createStudy.centerCode"/> <span
                     class="university-obligatory">*</span></label></td>
             <td><input type="text" id="centerCode" name="centerCode" onkeypress="return isAlphaNumeric(event)"
-                       value="${studyCentreInstance?.centerCode}" maxlength="" onchange="checkStudyCenter()"
+                       value="${studyCentreInstance?.centerCode}" maxlength="8" onchange="checkStudyCenter()"
                        class="university-size-1-2"/><label id="errorMsg" class="error1"></label>
             </td>
         </tr>
