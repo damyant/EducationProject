@@ -663,14 +663,11 @@ $( document ).ready(function() {
 
 function studentForStudyMaterial(){
     var result = $('#studyMaterialPage').valid()
-
     $.ajax({
         type: "post",
         url: url('admin', 'getStudentForStudyMaterial', ''),
         data: $("#studyMaterialPage").serialize(),
-
         success: function (data) {
-
             if(data.studentList) {
                 $("#msgDiv").html(" ")
                 $("#studentRecordDiv").empty().append("<table id='studentRecord' class='inner'><tbody></tbody></table>")

@@ -165,14 +165,21 @@
                 </tr>
             </g:if>
         </table>
+
+        <div class="university-size-full-1-1" style="margin-bottom: 25px;"><div
+                style="float: right"><lable>Challan No. </lable><label>${studentInstance.challanNo}</label></div>
+
+            <div class="university-clear-both"></div>
+        </div>
         <table style="width: 80%;border: 1px dotted;margin: auto; text-align: center;">
-            <tr><td style="width: 33%;">Fee</td><td style="width: 33%;"></td><td style="width: 33%;">${totalFee}</td></tr>
-            <tr><td>Payment Mode</td><td></td><td>${paymentModeName.paymentModeName}</td></tr>
-            <tr><td>Payment Date</td><td></td><td>${paymentDate}</td></tr>
-            <tr><td>Payment Ref Number</td><td></td><td>${paymentReferenceNumber}</td></tr>
-            <tr><td>Bank</td><td></td><td>${bank.bankName}</td></tr>
-            <tr><td>Branch</td><td></td><td>${branch.branchLocation}</td></tr>
+            <tr><td style="width: 33%;">Fee</td><td style="width: 33%;"></td><td style="width: 33%;">${fee}</td></tr>
+            <tr><td>Payment Mode</td><td></td><td>${feeDetails.paymentModeId.paymentModeName}</td></tr>
+            <tr><td>Payment Date</td><td></td><td>${feeDetails.paymentDate}</td></tr>
+            <tr><td>Payment Ref Number</td><td></td><td>${feeDetails.paymentReferenceNumber}</td></tr>
+            <tr><td>Bank</td><td></td><td>${feeDetails.bankId.bankName}</td></tr>
+            <tr><td>Branch</td><td></td><td>${feeDetails.branchId.branchLocation}</td></tr>
         </table>
+
     </div>
 </div>
 </body>

@@ -55,7 +55,7 @@ class ProgramFeeController {
         def result=programFeeService.saveProgramFeeType(params)
         response=[status:result]
         render response as JSON
-//        redirect(action: "listOfFeeType")
+
     }
 
     def editFeeType  =  {
