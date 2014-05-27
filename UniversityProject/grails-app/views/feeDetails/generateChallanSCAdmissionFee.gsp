@@ -55,7 +55,8 @@
                 <td></td>
             </tr>
         </table>
-       <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1"> <input type="button" value="Show Students" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;"></div>
+       <div style="text-align: center; margin: 10px auto;"  class="university-size-full-1-1"> <input type="button" value="Show Students" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;"></div>
+        <div id="noStudentMsg" class="university-status-message"></div>
         <table id="studyCenterFeeEntryTable" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd; " hidden="hidden">
             <thead>
             <tr>
@@ -71,7 +72,7 @@
         </table>
         <br/>
         <div class="university-size-1-2"  style="margin: 5px auto;width:98%;text-align: center;vertical-align: middle; border: 1px solid #BDBDBD; padding: 0.5%;border-radius: 4px;" id="rangeRadioButtons" hidden="hidden">
-            <div class="university-size-1-3 university-display-inline"><input type="radio" id="rangeEntry" name="entry" value="Range"> <label for="rangeEntry">Generate challan By Range</label> </div>
+            <div class="university-size-1-3 university-display-inline"><input type="radio"id="rangeEntry" name="entry" value="Range"> <label for="rangeEntry">Generate challan By Range</label> </div>
             <div class="university-size-1-3 university-display-inline"><input type="radio" id="individualEntry" name="entry" value="Range"> <label for="individualEntry">Generate challan Individually</label></div>
         </div>
         <br/>

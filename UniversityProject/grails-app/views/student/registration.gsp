@@ -381,7 +381,7 @@ onkeypress="return isNumber(event)"/>
                     </tr>
                     <tr>
                         <td>Reference Number<span class="university-obligatory">*</span></td>
-                        <td><input type="text" name="feeReferenceNumber" maxlength="8"  class="university-size-1-2"
+                        <td><input type="text" name="feeReferenceNumber" maxlength="8"  class="university-size-1-2" onkeypress="return isNumber(event)"
                                    id="feeReferenceNumber"/></td>
                     </tr>
                     <tr>
