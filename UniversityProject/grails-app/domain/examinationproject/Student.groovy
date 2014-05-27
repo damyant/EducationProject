@@ -62,7 +62,6 @@ class Student {
         rollNo(nullable:true)
         status(nullable:true)
         admitCardGenerated(nullable: true)
-        examinationVenue(nullable: true)
         challanNo(nullable: true)
 
 
@@ -72,7 +71,7 @@ class Student {
         studentImage column: "studentImage", sqlType: "blob"
         studyCentre cascade:'none'
         programDetail cascade: 'none'
-        examinationCentre cascade:'none'
+//        examinationCentre cascade:'none'
         firstName column: "firstName"
         lastName column: "lastName"
         middleName column: "middleName"

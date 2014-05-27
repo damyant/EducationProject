@@ -18,7 +18,6 @@ import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
 import examinationproject.StudyMaterial
-
 import examinationproject.Subject
 import grails.transaction.Transactional
 

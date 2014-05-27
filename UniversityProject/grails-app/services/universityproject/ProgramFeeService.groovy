@@ -56,6 +56,7 @@ class ProgramFeeService {
             programSessionIns = new ProgramSession(sessionOfProgram: params.programSession,programDetailId:program ).save(flush: true, failOnError: true)
         }
         admissionFeeIns.programSession= programSessionIns
+
         if(admissionFeeIns.save(failOnError: true)){
             status = true
         }

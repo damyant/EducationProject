@@ -39,6 +39,7 @@ function validate() {
             addressTown:"required",
             addressPO:"required",
             addressDistrict:"required",
+
             addressState:"required",
             addressPinCode: "required",
             semesterList: "required",
@@ -59,8 +60,8 @@ function validate() {
                 email: true
             },
             nameOfCoordinator: {
-                required: true,
-                textonly: true
+                required: true
+
             },
             emailIdOfCoordinator: {
                 required: true,
@@ -84,8 +85,7 @@ function validate() {
                 number: true
             },
             asstCoordinator: {
-                required: true,
-                textonly: true
+                required: true
             },
             asstMobile: {
                 required: true,
@@ -139,12 +139,19 @@ function validate() {
                 required: true,
                 textonly: true
             },
+            feeReferenceNumber:{
 
+            },
 //
             declaration: {
                 required: true
-            }, courseName: {
+            },
+            courseName: {
                 required: true
+            },
+            admissionFeeAmount:{
+                required: true,
+                min: 1
             },
             courseMode: {
                 required: true
@@ -187,7 +194,8 @@ function validate() {
 
             d_o_b: {
                 required: true,
-                date: true
+                date: true,
+                minlength:10
             },
 
             startD: {
@@ -202,6 +210,7 @@ function validate() {
                 minlength: 10
             },
 
+
             studyCentre: "required",
 
             examiNationCentre: "required",
@@ -213,7 +222,6 @@ function validate() {
                 required: true,
                 textonly: true
             },
-            applicationNo:"required",
 
 
 //            CreateNewFeeType
@@ -244,6 +252,12 @@ function validate() {
                 number: true,
                 minlength: 8
             },
+            applicationNo: {
+                required: true,
+                number: true,
+                minlength: 6,
+                maxlength: 10
+            },
             feeType: {
                 required: true
             },
@@ -252,14 +266,17 @@ function validate() {
             },
             feeReferenceNumber:{
                 required: true,
-                number: true
+                number: true,
+                minlength:6,
+                maxlength:8
             },
             draftNumber: {
                 required: true,
                 number: true
             },
             paymentDate: {
-                required: true
+                required: true,
+                minlength:10
             },
             draftDate: {
                 required: true
@@ -313,7 +330,9 @@ function validate() {
             },
             feeReferenceNumber:{
                 required: "Please Enter Reference Number",
-                number: "Only accepts Numbers"
+                number: "Only accepts Numbers",
+                minlength:"Minimum 6 Characters Allowed",
+                maxlength:"Maximum 8 Characters Allowed"
             },
             type:{
                 required: "Please Entre Fee Type Name",
@@ -336,7 +355,12 @@ function validate() {
             },
             examCentreName: {required: "Please Enter Centre Name",
                 textonly: "Please Enter Alphabets Only"},
-            applicationNo:"Please Enter Application Number",
+            applicationNo: {
+                required: "Please Enter Application Number",
+                number: "Allow Numbers Only",
+                minlength:"Minimum 6 Characters Allowed",
+                maxlength:"Maximum 10 Characters Allowed"
+            },
             examCentre: "Please Select Examination Centre",
             programList: "Please Select Program Name",
             semesterList: "Please Select Term",
@@ -370,10 +394,16 @@ function validate() {
                 required: "Please Enter Website URL",
                 url: "Please Enter Valid website Url(eg:http://www.idolgu.in)‎"
             },
+            admissionFeeAmount:{
+                required: "Please Select Program",
+                min: "Program is unavailable at this Study Centre"
+            },
             nameOfApplicant: "Please enter Name of an Applicant",
             date_of_birth: "Please Enter Date of birth",
             centerCode: "Please Enter Center Code",
-            d_o_b: "Please Enter Date of birth",
+            d_o_b: {required: "Please Enter Date of birth",
+                minlength:"Please Enter Correct Date"
+            },
             programId: "Please select Program",
             parentsName: "Please Enter Parent's Name",
             studentAddress: "Please Enter Address",
@@ -442,7 +472,9 @@ function validate() {
             certificateFee: "Please Enter Certificate Fee amount",
             paymentMode: "Please Enter Payment Mode",
             draftNumber: "Please Enter Draft Number",
-            paymentDate: "Please Enter Payment Date",
+            paymentDate: {required: "Please Enter Payment Date",
+                minlength: "Please Enter Correct Date"
+            },
             draftDate: "Please Enter Draft Date",
             issuingBank: "Please Enter Issuing Bank Name",
             issuingBranch: "Please Enter Issuing Branch Name",
@@ -613,4 +645,7 @@ function checkValidation() {
             branchLocation:"Please Select Branch Name"
         }
     })
+}
+function disableKeyInput(t){
+    $(t).keydown(false);
 }
