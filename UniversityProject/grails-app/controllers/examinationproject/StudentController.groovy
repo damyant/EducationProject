@@ -13,12 +13,11 @@ class StudentController {
 //    @Secured('ROLE_STUDYCENTRE')
 
     def registration= {
-        println(">>>>>>>>>>>>>>>>>>>>>>"+params)
+        println(">>>>>>>>>>>request with fee details>>>>>>>>>>>"+params)
 
         def studyCentre
 
         if (springSecurityService.isLoggedIn()) {
-
 
             def currentUser = springSecurityService.currentUser.username
             if (springSecurityService.currentUser.studyCentreId != 0) {
@@ -39,18 +38,19 @@ class StudentController {
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
         def centreList =  City.findAllByIsExamCentre(1)
 //        println("sss"+studInstance.status)
-        [studyCentre: studyCentre,studInstance:studInstance, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode]
+        [studyCentre: studyCentre,studInstance:studInstance, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode,fee:params.fee]
 
     }
     def viewResult = {
 
     }
     def submitRegistration = {
-
+     println("????????????????????????????????????????????????????????????????????feeee"+params)
         def studentRegistration
             def signature = request.getFile('signature')
             def photographe = request.getFile("photograph")
-//        println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
+
+            println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"+params.fee)
             studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe )
 
         if (studentRegistration) {
@@ -59,8 +59,9 @@ class StudentController {
                     flash.message = "${message(code: 'register.updated.message')}"
                     redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
                 }else{
+                    println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"+params.fee)
                     flash.message = "${message(code: 'register.updated.message')}"
-                    redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+                    redirect(action: "registration", params: [ fee:fee,studentID: studentRegistration.id,registered:"registered"])
                 }
             }
             else{
@@ -85,7 +86,8 @@ class StudentController {
     def applicationPrintPreview = {
         println("params" + params)
         def student = Student.findById(params.studentID)
-        def args = [template: "applicationPrintPreview", model: [studentInstance: student]]
+        def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
+        def args = [template: "applicationPrintPreview", model: [studentInstance: student,feeDetails:feeDetails,fee:params.fee]]
         pdfRenderingService.render(args + [controller: this], response)
 
 

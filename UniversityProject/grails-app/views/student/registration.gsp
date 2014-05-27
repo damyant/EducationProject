@@ -38,12 +38,14 @@
 
             var flag = "${registered}"
             var studentId = "${studentID}"
+            var fee = "${params.admissionFeeAmount}"
+            alert("fee with late fee amount"+fee)
             if (flag == 'registered') {
 
                 url = "/UniversityProject/student/registration"
                 window.location.href = url;
                // window.open('/UniversityProject/admin/generateFeeVoucher/?rollNo='+rollNo+'&feeType='+feeType);
-                window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId);
+                window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId+'&fee='+fee);
 
             }
 

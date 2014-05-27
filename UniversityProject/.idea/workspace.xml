@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4160cf6c-6634-4f74-96e2-3c48ee9d0b8c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/_applicationPrintPreview.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/_applicationPrintPreview.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/registration.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/registration.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UniversityProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,6 +62,23 @@
       </breakpoint>
     </breakpoint_any>
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" line="61" class="examinationproject.StudentController" package="examinationproject">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -68,10 +88,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="StudentController.groovy" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="StudentController.groovy" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="73" selection-start="1905" selection-end="1905" vertical-scroll-proportion="-15.521739" vertical-offset="510" max-vertical-offset="3757">
+            <state line="16" column="0" selection-start="436" selection-end="436" vertical-scroll-proportion="-0.08292683" vertical-offset="272" max-vertical-offset="3791">
               <folding />
             </state>
           </provider>
@@ -80,7 +100,7 @@
       <file leaf-file-name="StudentRegistrationService.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="107" column="25" selection-start="5012" selection-end="5012" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="4726">
+            <state line="114" column="12" selection-start="5463" selection-end="5463" vertical-scroll-proportion="0.0" vertical-offset="1938" max-vertical-offset="4998">
               <folding />
             </state>
           </provider>
@@ -89,7 +109,7 @@
       <file leaf-file-name="_printPayChallan.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/feeDetails/_printPayChallan.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="51" selection-start="381" selection-end="609" vertical-scroll-proportion="-2.1632652" vertical-offset="98" max-vertical-offset="1054">
+            <state line="12" column="51" selection-start="381" selection-end="609" vertical-scroll-proportion="0.0" vertical-offset="98" max-vertical-offset="1054">
               <folding />
             </state>
           </provider>
@@ -98,7 +118,7 @@
       <file leaf-file-name="FeeDetails.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/domain/examinationproject/FeeDetails.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="34" selection-start="249" selection-end="271" vertical-scroll-proportion="-4.25" vertical-offset="0" max-vertical-offset="765">
+            <state line="14" column="19" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="765">
               <folding />
             </state>
           </provider>
@@ -110,7 +130,7 @@
       <file leaf-file-name="Student.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="24" selection-start="562" selection-end="578" vertical-scroll-proportion="12.395833" vertical-offset="1071" max-vertical-offset="1921">
+            <state line="28" column="24" selection-start="562" selection-end="578" vertical-scroll-proportion="0.0" vertical-offset="1071" max-vertical-offset="1921">
               <folding />
             </state>
           </provider>
@@ -122,17 +142,22 @@
       <file leaf-file-name="registration.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/student/registration.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="383" column="71" selection-start="17856" selection-end="17874" vertical-scroll-proportion="12.714286" vertical-offset="7134" max-vertical-offset="7871">
+            <state line="39" column="42" selection-start="1865" selection-end="1865" vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="7905">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_applicationPrintPreview.gsp" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="_applicationPrintPreview.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/student/_applicationPrintPreview.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="27" selection-start="2326" selection-end="2326" vertical-scroll-proportion="0.35334873" vertical-offset="867" max-vertical-offset="3128">
-              <folding />
+            <state line="174" column="101" selection-start="6570" selection-end="6570" vertical-scroll-proportion="0.0" vertical-offset="2714" max-vertical-offset="3247">
+              <folding>
+                <marker date="1401101792047" expanded="true" signature="844:7096" placeholder="..." />
+                <marker date="1401101792047" expanded="true" signature="895:7088" placeholder="..." />
+                <marker date="1401101792047" expanded="true" signature="905:7081" placeholder="..." />
+                <marker date="1401101792047" expanded="true" signature="6467:7069" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -140,9 +165,15 @@
       <file leaf-file-name="validation.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/js/validation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="404" column="58" selection-start="13117" selection-end="13117" vertical-scroll-proportion="-6.04" vertical-offset="6717" max-vertical-offset="10200">
+            <state line="404" column="58" selection-start="13117" selection-end="13117" vertical-scroll-proportion="0.0" vertical-offset="6717" max-vertical-offset="10200">
               <folding>
+                <marker date="1401098666843" expanded="true" signature="473:17461" placeholder="{...}" />
+                <marker date="1401098666843" expanded="true" signature="560:8278" placeholder="{&quot;examCentre&quot;: &quot;required&quot;...}" />
                 <marker date="1401098666843" expanded="true" signature="629:720" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401098666843" expanded="true" signature="784:15878" placeholder="{...}" />
+                <marker date="1401098666843" expanded="true" signature="4501:4592" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401098666843" expanded="true" signature="8038:8162" placeholder="{&quot;required&quot;: true...}" />
+                <marker date="1401098666843" expanded="true" signature="8380:15502" placeholder="{&quot;name&quot;: &quot;Please enter study center name&quot;...}" />
               </folding>
             </state>
           </provider>
@@ -151,7 +182,7 @@
       <file leaf-file-name="UserController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/university/UserController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="120" column="81" selection-start="3844" selection-end="3844" vertical-scroll-proportion="-47.304348" vertical-offset="867" max-vertical-offset="3995">
+            <state line="120" column="81" selection-start="3844" selection-end="3844" vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="4080">
               <folding />
             </state>
           </provider>
@@ -160,7 +191,7 @@
       <file leaf-file-name="feeVoucher.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/admin/feeVoucher.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="35" selection-start="437" selection-end="437" vertical-scroll-proportion="-5.2040815" vertical-offset="0" max-vertical-offset="2108">
+            <state line="15" column="35" selection-start="437" selection-end="437" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="2108">
               <folding />
             </state>
           </provider>
@@ -206,13 +237,13 @@
         <option value="$PROJECT_DIR$/grails-app/views/student/viewStudent.gsp" />
         <option value="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" />
         <option value="$PROJECT_DIR$/web-app/js/admin.js" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" />
         <option value="$PROJECT_DIR$/web-app/js/validation.js" />
-        <option value="$PROJECT_DIR$/grails-app/views/student/registration.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/student/_applicationPrintPreview.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/student/registration.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" />
       </list>
     </option>
   </component>
@@ -255,7 +286,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -530,7 +561,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -802,16 +833,17 @@
       <workItem from="1400734373997" duration="25918000" />
       <workItem from="1400820723765" duration="789000" />
       <workItem from="1400821600980" duration="16439000" />
-      <workItem from="1401093477471" duration="6206000" />
+      <workItem from="1401093477471" duration="11168000" />
+      <workItem from="1401165640044" duration="708000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175941000" />
+    <option name="totallyTimeSpent" value="181611000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -828,7 +860,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2877013" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14779875" sideWeight="0.17423134" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22484277" sideWeight="0.17423134" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
@@ -851,14 +883,14 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -878,8 +910,8 @@
       <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -946,11 +978,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/i18n/messages.properties">
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="204" column="0" selection-start="8895" selection-end="8895" vertical-scroll-proportion="0.71348315" vertical-offset="3214" max-vertical-offset="4318" />
+      </provider>
+      <provider editor-type-id="ResourceBundle">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/feeDetails/generateChallanSCAdmissionFee.gsp">
@@ -1148,9 +1180,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/conf/BuildConfig.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="28" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1428">
-          <folding />
-        </state>
+        <state line="7" column="28" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1428" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy">
@@ -1162,9 +1192,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="1069" selection-end="1069" vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="11883">
-          <folding />
-        </state>
+        <state line="32" column="0" selection-start="1069" selection-end="1069" vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="11883" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy">
@@ -1176,37 +1204,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/university/UserController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="81" selection-start="3844" selection-end="3844" vertical-scroll-proportion="-47.304348" vertical-offset="867" max-vertical-offset="3995">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/admin/feeVoucher.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="35" selection-start="437" selection-end="437" vertical-scroll-proportion="-5.2040815" vertical-offset="0" max-vertical-offset="2108">
+        <state line="120" column="81" selection-start="3844" selection-end="3844" vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="4080">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/validation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="404" column="58" selection-start="13117" selection-end="13117" vertical-scroll-proportion="-6.04" vertical-offset="6717" max-vertical-offset="10200">
+        <state line="404" column="58" selection-start="13117" selection-end="13117" vertical-scroll-proportion="0.0" vertical-offset="6717" max-vertical-offset="10200">
           <folding>
+            <marker date="1401098666843" expanded="true" signature="473:17461" placeholder="{...}" />
+            <marker date="1401098666843" expanded="true" signature="560:8278" placeholder="{&quot;examCentre&quot;: &quot;required&quot;...}" />
             <marker date="1401098666843" expanded="true" signature="629:720" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401098666843" expanded="true" signature="784:15878" placeholder="{...}" />
+            <marker date="1401098666843" expanded="true" signature="4501:4592" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401098666843" expanded="true" signature="8038:8162" placeholder="{&quot;required&quot;: true...}" />
+            <marker date="1401098666843" expanded="true" signature="8380:15502" placeholder="{&quot;name&quot;: &quot;Please enter study center name&quot;...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="73" selection-start="1905" selection-end="1905" vertical-scroll-proportion="-15.521739" vertical-offset="510" max-vertical-offset="3757">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="24" selection-start="562" selection-end="578" vertical-scroll-proportion="12.395833" vertical-offset="1071" max-vertical-offset="1921">
+        <state line="28" column="24" selection-start="562" selection-end="578" vertical-scroll-proportion="0.0" vertical-offset="1071" max-vertical-offset="1921">
           <folding />
         </state>
       </provider>
@@ -1216,7 +1236,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/domain/examinationproject/FeeDetails.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="34" selection-start="249" selection-end="271" vertical-scroll-proportion="-4.25" vertical-offset="0" max-vertical-offset="765">
+        <state line="14" column="19" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="765">
           <folding />
         </state>
       </provider>
@@ -1224,30 +1244,49 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="25" selection-start="5012" selection-end="5012" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="4726">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/student/registration.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="383" column="71" selection-start="17856" selection-end="17874" vertical-scroll-proportion="12.714286" vertical-offset="7134" max-vertical-offset="7871">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/feeDetails/_printPayChallan.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="51" selection-start="381" selection-end="609" vertical-scroll-proportion="-2.1632652" vertical-offset="98" max-vertical-offset="1054">
+        <state line="12" column="51" selection-start="381" selection-end="609" vertical-scroll-proportion="0.0" vertical-offset="98" max-vertical-offset="1054">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/student/_applicationPrintPreview.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="27" selection-start="2326" selection-end="2326" vertical-scroll-proportion="0.35334873" vertical-offset="867" max-vertical-offset="3128">
+        <state line="174" column="101" selection-start="6570" selection-end="6570" vertical-scroll-proportion="0.0" vertical-offset="2714" max-vertical-offset="3247">
+          <folding>
+            <marker date="1401101792047" expanded="true" signature="844:7096" placeholder="..." />
+            <marker date="1401101792047" expanded="true" signature="895:7088" placeholder="..." />
+            <marker date="1401101792047" expanded="true" signature="905:7081" placeholder="..." />
+            <marker date="1401101792047" expanded="true" signature="6467:7069" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="114" column="12" selection-start="5463" selection-end="5463" vertical-scroll-proportion="0.0" vertical-offset="1450" max-vertical-offset="4743">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/student/registration.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="42" selection-start="1865" selection-end="1865" vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="7905">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/admin/feeVoucher.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="35" selection-start="437" selection-end="437" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="2108">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="436" selection-end="436" vertical-scroll-proportion="-0.08292683" vertical-offset="272" max-vertical-offset="3791">
           <folding />
         </state>
       </provider>

@@ -112,6 +112,7 @@ class StudentRegistrationService {
             feeDetails.challanNo= studentRegistration.challanNo
             feeDetails.paymentDate = df.parse(params.paymentDate)
             feeDetails.save(flush: true,failOnError: true)
+            params.fee = params.admissionFeeAmount
             }
             return studentRegistration
         } else {
