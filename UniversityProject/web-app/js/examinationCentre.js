@@ -40,23 +40,23 @@ function examinationCenterDiv() {
     $('#VenueDiv' + index).append(
             '<div class="Venue">' +
             '<label class="Venue-label">Venue Name <span class="university-obligatory">*</span></label>' +
-            '<input type="text" style="" class="" onkeypress="return onlyAlphabets(event,this)"  onkeyup="clearErrorMsg(this)" style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/><label id="centerNameMsg' + index + '" class="error2" ></label></div>' +
+            '<input type="text" style="" class="" onkeypress="return onlyAlphabets(event,this)"  onkeyup="clearErrorMsg(this)" maxlength="60" style="" name="examinationCentreName" id="examinationCentreName' + index + '" "/><label id="centerNameMsg' + index + '" class="error2" ></label></div>' +
             '<div class="Venue"><label class="Venue-label">Venue Code <span class="university-obligatory">*</span></label>' +
-            '<input type="text"  type="text" style="" onchange="checkExamCenter(index)" onkeypress="return isNumber(event)" onkeyup="clearErrorMsg(this)" class=""  name="examinationCentreCode" id="examinationCentreCode' + index + '" /><label id="centerCodeMsg' + index + '" class="error2" ></label>' +
+            '<input type="text"  type="text" style="" maxlength="6" onchange="checkExamCenter(index)" onkeypress="return isNumber(event)" onkeyup="clearErrorMsg(this)" class=""  name="examinationCentreCode" id="examinationCentreCode' + index + '" /><label id="centerCodeMsg' + index + '" class="error2" ></label>' +
             '<label class="error1" id="errorMsg' + index + '"></label></div>');
     $('#VenueDiv' + index).append(
             '<div class="Venue">' +
             '<label class="Venue-label">Capacity <span class="university-obligatory">*</span></label>' +
-            '<input type="text" style="" onkeypress="return isNumber(event)"  onkeyup="clearErrorMsg(this)" class=""   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/><label id="centerCapacityMsg' + index + '" class="error2" ></label></div>' +
+            '<input type="text" style="" onkeypress="return isNumber(event)" maxlength="7"  onkeyup="clearErrorMsg(this)" class=""   style="" name="examinationCentreCapacity" id="examinationCentreCapacity' + index + '" "/><label id="centerCapacityMsg' + index + '" class="error2" ></label></div>' +
             '<div class="Venue"><label class="Venue-label">Incharge Name <span class="university-obligatory">*</span></label>' +
-            '<input type="text" style="" class="" onkeypress="return onlyAlphabets(event,this)" onkeyup="clearErrorMsg(this)"  style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/><label id="centerInchargeMsg' + index + '" class="error2" ></label>' +
+            '<input type="text" style="" class="" maxlength="60" onkeypress="return onlyAlphabets(event,this)" onkeyup="clearErrorMsg(this)"  style="" name="examinationCentreIncharge" id="examinationCentreIncharge' + index + '" "/><label id="centerInchargeMsg' + index + '" class="error2" ></label>' +
             '</div>');
     $('#VenueDiv' + index).append(
             '<div class="Venue">' +
             '<label class="Venue-label">Contact No <span class="university-obligatory">*</span></label>' +
             '<input type="text"  onkeypress="return isNumber(event))" onkeyup="clearErrorMsg(this)" style="" class="" maxlength="10" name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /><label id="centerContactNoMsg' + index + '" class="error2" ></label></div>' +
             '<div class="Venue"><label style="vertical-align: top"  class="Venue-label">Address <span class="university-obligatory">*</span></label>' +
-            '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" class=""   style="" name="examinationCentreAddress" onkeyup="clearErrorMsg(this)" id="examinationCentreAddress' + index + '" "/><label id="centerAddressMsg' + index + '" class="error2" ></label>' +
+            '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" class=""   style="" maxlength="100" name="examinationCentreAddress" onkeyup="clearErrorMsg(this)" id="examinationCentreAddress' + index + '" "/><label id="centerAddressMsg' + index + '" class="error2" ></label>' +
             '</div>');
 
 //        $('#accountHeadId' + index).html('');

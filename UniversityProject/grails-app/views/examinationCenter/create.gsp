@@ -48,7 +48,7 @@
                     <label><g:message code="default.createExamVenue.centre"/><span
                             class="university-obligatory">*</span></label></div>
                 <g:select name="examinationCentre" id="examinationCentre" optionKey="id" value=""
-                          class="university-size-1-3" optionValue="cityName" onchange="clearErrorMsg(this), showListOfStudyCenter(this)"
+                          class="university-size-1-3" optionValue="cityName" onchange="clearErrorMsg(this)"
                           from=""
                           noSelection="['': ' Select Examination Centre']"/><label id="cityError"
                                                                                    class="error5">&nbsp;</label>

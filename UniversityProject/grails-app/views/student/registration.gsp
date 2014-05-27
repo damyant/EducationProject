@@ -123,7 +123,7 @@
 
     <td>
         %{--<input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datePick"/>--}%
-        <input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datepicker"
+        <input type="text" name="d_o_b" maxlength="10" onkeypress="disableKeyInput(this)" class="university-size-1-2" id="datepicker"
                value="<g:formatDate format="MM/dd/yyyy" date="${studInstance?.dob}"/>">
 
     </td>
@@ -292,13 +292,13 @@ onkeypress="return isNumber(event)"/>
             <tr>
                 <td style="width: 30%;">Village/Town:</td>
                 <td style="width: 70%;"><input type="text" id="townName" name="addressTown" maxlength="30"
-                                               value="${studInstance?.addressTown}"
+                                               value="${studInstance?.addressTown}" onkeypress="return isAlphaNumeric(event);"
                                                class="university-size-1-2"/></td>
             </tr>
             <tr>
 
                 <td style="width: 30%;">Post Office:</td>
-                <td style="width: 70%;"><input type="text" id="poAddress" name="addressPO" value="${studInstance?.addressPO}"
+                <td style="width: 70%;"><input type="text" id="poAddress" name="addressPO" onkeypress="return onlyAlphabets(event, this);" value="${studInstance?.addressPO}"
                                                maxlength="30" class="university-size-1-2"/>
                 </td>
             </tr>
@@ -306,12 +306,12 @@ onkeypress="return isNumber(event)"/>
                 <td style="width: 30%;">District:</td>
 
                 <td style="width: 70%;"><input type="text" value="${studInstance?.addressDistrict}"
-                                               name="addressDistrict" maxlength="30" id="addDistrict"
+                                               name="addressDistrict" onkeypress="return onlyAlphabets(event, this);" maxlength="30" id="addDistrict"
                                                class="university-size-1-2"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">State:</td>
-                <td style="width: 70%;"><input type="text" value="${studInstance?.addressState}" name="addressState"
+                <td style="width: 70%;"><input type="text" value="${studInstance?.addressState}" name="addressState" onkeypress="return onlyAlphabets(event, this);"
                                                maxlength="30" id="stateAddress"
                                                class="university-size-1-2"/>
                 </td>
@@ -381,12 +381,12 @@ onkeypress="return isNumber(event)"/>
                     </tr>
                     <tr>
                         <td>Reference Number<span class="university-obligatory">*</span></td>
-                        <td><input type="text" name="feeReferenceNumber" class="university-size-1-2"
+                        <td><input type="text" name="feeReferenceNumber" maxlength="8"  class="university-size-1-2"
                                    id="feeReferenceNumber"/></td>
                     </tr>
                     <tr>
                         <td>Payment Date<span class="university-obligatory">*</span></td>
-                        <td><input type="text" name="paymentDate" class="university-size-1-2" id="paymentDate"/></td>
+                        <td><input type="text" name="paymentDate" onkeypress="disableKeyInput(this)" class="university-size-1-2" id="paymentDate"/></td>
                     </tr>
                 </table>
             </fieldset>
