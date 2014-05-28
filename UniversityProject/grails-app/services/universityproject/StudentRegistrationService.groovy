@@ -216,60 +216,62 @@ class StudentRegistrationService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 ////       At Study Center
-//        for (int i = 1; i < 300; i++) {
-//            println("Student Number is "+i)
-//            students = new Student()
-//            students.firstName = "StudentAtStudy"+i
-//            students.lastName="Test"
-//            students.gender = "Male"
-//            students.category = "GEN"
-//            students.programSession = ProgramSession.get(23)
-//            students.referenceNumber = getStudentReferenceNumber()
-//            students.challanNo = getChallanNumber()
-//            params.programId="23"
-//            students.rollNo = getStudentRollNumber(params)
-//            students.dob = new Date()
-//            students.admissionDate = new Date()
-//            students.programDetail = programDetails
-//            students.status = Status.findById(2)
-//            students.studyCentre = StudyCenter.findAllById(33)
-//            students.admitCardGenerated = false
-//            students.semester=1
-//            students.programDetail = programDetails
-//            students.registrationYear = year
-//            try{
-//            students.save(flush: true,failOnError: true)
-//            }catch (Exception e){
-//                println("????????"+e.printStackTrace())
-//            }
-//        }
-
-//        //At IDOL
-        for (int i = 1; i < 750; i++) {
+        for (int i = 1; i < 300; i++) {
             println("Student Number is "+i)
             students = new Student()
-            students.firstName = "StudentAtIDOL"+i
+            students.firstName = "StudentAtStudy"+i
             students.lastName="Test"
             students.gender = "Male"
             students.category = "GEN"
-            students.programSession = ProgramSession.get(33)
+            students.programSession = ProgramSession.get(23)
             students.referenceNumber = getStudentReferenceNumber()
             students.challanNo = getChallanNumber()
+            params.programId="23"
+            students.rollNo = getStudentRollNumber(params)
             students.dob = new Date()
             students.admissionDate = new Date()
             students.programDetail = programDetails
-            students.status = Status.findById(1)
-            students.studyCentre = StudyCenter.findAllById(1)
+            students.status = Status.findById(2)
+            students.studyCentre = StudyCenter.findAllById(33)
             students.admitCardGenerated = false
             students.semester=1
+            students.city=8
             students.programDetail = programDetails
             students.registrationYear = year
             try{
-                students.save(flush: true,failOnError: true)
+            students.save(flush: true,failOnError: true)
             }catch (Exception e){
                 println("????????"+e.printStackTrace())
             }
         }
+
+//        //At IDOL
+//        for (int i = 1; i < 750; i++) {
+//            println("Student Number is "+i)
+//            students = new Student()
+//            students.firstName = "StudentAtIDOL"+i
+//            students.lastName="Test"
+//            students.gender = "Male"
+//            students.category = "GEN"
+//            students.programSession = ProgramSession.get(33)
+//            students.referenceNumber = getStudentReferenceNumber()
+//            students.challanNo = getChallanNumber()
+//            students.dob = new Date()
+//            students.admissionDate = new Date()
+//            students.programDetail = programDetails
+//            students.status = Status.findById(1)
+//            students.studyCentre = StudyCenter.findAllById(1)
+//            students.admitCardGenerated = false
+//            students.semester=1
+//            students.city=8
+//            students.programDetail = programDetails
+//            students.registrationYear = year
+//            try{
+//                students.save(flush: true,failOnError: true)
+//            }catch (Exception e){
+//                println("????????"+e.printStackTrace())
+//            }
+//        }
     }
 
     def getChallanNumber(){
