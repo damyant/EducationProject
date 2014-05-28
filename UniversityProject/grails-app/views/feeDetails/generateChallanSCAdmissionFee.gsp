@@ -13,6 +13,8 @@
     <g:javascript src='admin.js'/>
     <g:javascript src='admitCard.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
 </head>
 <body>
 <div id="main">
@@ -70,6 +72,17 @@
             </thead>
             <tbody></tbody>
         </table>
+        <div style="text-align: center;visibility: hidden;" id="paginationDiv" class="university-size-full-1-1">
+            <br/>
+
+            <div class="pagination">
+                <a href="#" class="first" data-action="first">&laquo;</a>
+                <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                <input type="text" readonly="readonly"/>
+                <a href="#" class="next" data-action="next">&rsaquo;</a>
+                <a href="#" class="last" data-action="last">&raquo;</a>
+            </div>
+        </div>
         <br/>
         <div class="university-size-1-2"  style="margin: 5px auto;width:98%;text-align: center;vertical-align: middle; border: 1px solid #BDBDBD; padding: 0.5%;border-radius: 4px;" id="rangeRadioButtons" hidden="hidden">
             <div class="university-size-1-3 university-display-inline"><input type="radio"id="rangeEntry" name="entry" value="Range"> <label for="rangeEntry">Generate challan By Range</label> </div>
