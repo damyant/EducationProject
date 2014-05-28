@@ -149,7 +149,7 @@ function toggleChecked(status) {
 }
 
 function generateRollNo(value) {
-//alert("hi")
+alert("hi")
     $.ajax({
         type: "post",
         url: url('admin', 'generateRollNo', ''),

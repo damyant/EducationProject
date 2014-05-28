@@ -109,6 +109,7 @@ class AdminController {
             def mFee
 
             if (Integer.parseInt(params.feeType) > 0) {
+
                 feeType = FeeType.findById(params.feeType)
                 mFee = MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(feeType, program, student.programSession)
                 if (mFee)
@@ -124,7 +125,9 @@ class AdminController {
             response = [id: student.id, feeStatus: status, program: programName, feeType: feeType]
         } catch (Exception ex) {
             println("problem in checking the existence of roll number" + ex)
-
+//            flash.message="Roll No not available in database."
+//            redirect(action: "feeVoucher", params: [abc :"error"])
+              response = [error:'error']
         }
 
         render response as JSON

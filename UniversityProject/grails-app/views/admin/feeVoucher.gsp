@@ -31,7 +31,9 @@
 //                            $("#feeType").prop('disabled', false);
                             $("#feeError").prop('hidden', true);
 
-                        }
+                        }else{
+                                $('#errorMsg').show();
+                            }
                     });
 //                }
             })
@@ -49,9 +51,9 @@
                     code="rollNo.Generated.message"/></div>
             </div>
         </g:if>
-        <g:if test="${params.error == "error"}">
-            <div class="university-status-message">Roll Number does not belongs to IDOL</div>
-        </g:if>
+
+            <div class="university-status-message" id="errorMsg" hidden="hidden">Roll Number does not belongs to IDOL</div>
+
 
 
         <g:form id="generateFeeVoucher" name="generateFeeVoucher" controller="admin" action="generateFeeVoucher">
