@@ -90,7 +90,7 @@ class StudentRegistrationService {
         Set<ExaminationVenue> examinationCentreList = ExaminationVenue.findAllById(Integer.parseInt(params.examinationCentre))
         studentRegistration.city = examinationCentreList
         if (!params.appNo) {
-            if(photographe.bytes)
+//            if(photographe.bytes)
                 studentRegistration.studentImage = photographe.bytes
         } else {
             println("in else true"+params.appNo)

@@ -223,11 +223,11 @@ class AdminController {
 
     def downloadAttendanceSheet = {
         if (params.programSession) {
-
             def webRootDir = servletContext.getRealPath("/")
             def userDir = new File(webRootDir, '/Attendance')
             userDir.mkdirs()
             def excelPath = servletContext.getRealPath("/") + 'Attendance' + System.getProperty('file.separator') + 'Output' + '.xls'
+            try{
             def status = attendanceService.getStudentList(params, excelPath)
             println("hello kuldeep u r back in controller " + status)
             if (status) {
@@ -240,6 +240,12 @@ class AdminController {
                 myFile.delete()
             } else {
                 flash.message = "${message(code: 'student.not.found.message')}"
+                redirect(action: 'downloadAttendanceSheet')
+            }
+            }
+            catch(Exception e){
+                println("This is the exception "+ e)
+                flash.message = "${message(code: 'student.exception.found.message')}"
                 redirect(action: 'downloadAttendanceSheet')
             }
         } else {

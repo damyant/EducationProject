@@ -26,6 +26,7 @@ $(document).ready(function () {
     $(document).on('click', '#assignRollNo', function () {
 //        alert("hi")
         if ($("input[name=rollno_checkbox]:checked").length != 0) {
+            $.blockUI({ message: '<h1><img src="busy.gif" /> Please Wait...</h1>' });
             $("input[name=rollno_checkbox]:checked").each(function (i) {
 
                 if ($(this).attr("checked", true)) {
@@ -149,12 +150,16 @@ function toggleChecked(status) {
 }
 
 function generateRollNo(value) {
-//alert("hi")
     $.ajax({
         type: "post",
         url: url('admin', 'generateRollNo', ''),
         data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(), studentList: $("#studentId").val(), pageType: value},
         success: function (data) {
+            if(data.length>0){
+                alert('hello java')
+                $('#successMessage').show()
+            }
+            $.unblockUI();
             appendTable(data)
 
         }

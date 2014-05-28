@@ -21,8 +21,10 @@
         </g:if>
     %{--<h3>Generate Roll Number</h3>--}%
         <g:if test="${params.rollNo == 'generated'}">
-            <div class="message"><div class="university-status-message"><g:message
-                    code="rollNo.Generated.message"/></div></div>
+            <div class="message"></div>
+            <div class="university-status-message" id="successMessage" hidden="hidden">
+                Roll No Successfully Assigned
+            </div>
         </g:if>
         <g:form id="generateRollNo" name="generateRollNo">
             <g:hiddenField name="studentId" id="studentId"/>

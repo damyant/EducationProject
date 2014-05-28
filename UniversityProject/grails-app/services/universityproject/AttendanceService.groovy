@@ -221,6 +221,7 @@ class AttendanceService {
         }
 
         else{
+            println("hello kuldeep in else"+ params)
                 def obj = Student.createCriteria()
                 def studentList = obj.list {
                     programDetail {
@@ -249,27 +250,30 @@ class AttendanceService {
                 status = writeAttendanceSheet(studentList, params, semester, courseSubject,  examinationVenueIns, workbook, sheetNo)
                 workbook.write();
                 workbook.close();
+            println('back to first service '+ status)
                 return status
         }
 
     }
 
     boolean writeAttendanceSheet(studentList, params, semester, courseSubject,  ExaminationVenue examinationCentre, WritableWorkbook workbook, int sheetNo) {
+        println('writing attandance sheet now ')
         try {
 
             WritableSheet sheet = workbook.createSheet("Report", sheetNo);
             WritableSheet excelSheet = workbook.getSheet(sheetNo);
             createLabel(excelSheet, courseSubject, examinationCentre);
+            println("back to excel method")
             createContent(excelSheet, studentList);
 
             return true
         }
         catch (Exception e) {
 
-//            println("this is the exception " + e)
+            println("this is the exception " + e)
             return false
         }
-        return false
+
     }
 
 
@@ -336,14 +340,17 @@ class AttendanceService {
         addCaption(sheet, 3, 2, "Name");
         int i = 4;
         courseSubject.each {
-            println("---------------------"+it.subject)
-            String date = it.examDate.getDateString()
-//            println("hello " + i + " date " + date.getClass())
-            SimpleDateFormat sdfDestination = new SimpleDateFormat("dd/MM/yyyy");
-            Date date1 = sdfDestination.parse(date);
+              println("---------------------"+it.subject)
+              String date = it.examDate.getDateString()
+//            Date date = new Date()
+//              println("hello " + date + " date " + date.getClass())
+//            SimpleDateFormat sdfDestination = new SimpleDateFormat("dd/MM/yyyy");
+//            Date date1 = sdfDestination.parse(date);
 //            println("----------------" + date1)
-            addCaption(sheet, i, 2, " " + date);
-            i++;
+              if(date){
+                 addCaption(sheet, i, 2, " " + date);
+                 i++;
+              }
         }
         addCaption(sheet, i, 2, 'Full/Back')
     }
@@ -360,6 +367,7 @@ class AttendanceService {
             RowsExceededException {
         // Write a few number
         for (int i = 0; i < finalList.size(); i++) {
+            println("*****************************"+i)
             int j = 0
             addNumber(sheet, j, i+3, i+1);
             addNumber(sheet, j+1, i+3, finalList[i].registrationYear);
