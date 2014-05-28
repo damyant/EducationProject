@@ -31,6 +31,7 @@ class Student {
     byte[] studentImage
     ProgramSession programSession
     Boolean admitCardGenerated
+    ExaminationVenue examinationVenue
     Date admissionDate =new Date()
     
     String challanNo
@@ -62,6 +63,7 @@ class Student {
         rollNo(nullable:true)
         status(nullable:true)
         admitCardGenerated(nullable: true)
+        examinationVenue(nullable: true)
         challanNo(nullable: true)
 
 

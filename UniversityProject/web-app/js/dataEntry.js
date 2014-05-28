@@ -310,6 +310,37 @@ function appendStudentList(data) {
             }
             count++;
         }
+        document.getElementById("paginationDiv").style.visibility = "visible";
+        $table_rows = $('#studyCenterFeeEntryTable tbody tr');
+
+        var table_row_limit = 10;
+
+        var page_table = function(page) {
+
+            // calculate the offset and limit values
+            var offset = (page - 1) * table_row_limit,
+                limit = page * table_row_limit;
+
+            // hide all table rows
+            $table_rows.hide();
+
+            // show only the n rows
+            $table_rows.slice(offset, limit).show();
+
+        }
+        var pageNo=0
+        if($table_rows.length % table_row_limit){
+            pageNo=parseInt($table_rows.length / table_row_limit)+1
+        }
+        else{
+            pageNo=parseInt($table_rows.length / table_row_limit)
+        }
+//                alert(5%5)
+        $('.pagination').jqPagination({
+            max_page: pageNo,
+            paged: page_table
+        });
+        page_table(1);
         $(".datePickers").datepicker({
             changeMonth: true,
             changeYear: true,
@@ -319,6 +350,7 @@ function appendStudentList(data) {
 
     }
     else {
+        document.getElementById("paginationDiv").style.visibility = "hidden";
         $('#noStudentMsg').html("No Student Available")
     }
 
