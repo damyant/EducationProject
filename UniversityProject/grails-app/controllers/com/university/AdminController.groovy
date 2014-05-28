@@ -306,9 +306,9 @@ class AdminController {
         def returnMap=[:]
         def lateFee=0
         def courseNameList=[],courseFee=[]
-        def stuList=  Student.findAllByChallanNo(params.challanNo)
+        def stuList=  Student.findAllByChallanNoAndStatus(params.challanNo,Status.findById(2))
         def currentUser = springSecurityService.currentUser
-        println("username = :"+StudyCenter.findAllById(currentUser.studyCentreId).centerCode)
+//        println("username = :"+StudyCenter.findAllById(currentUser.studyCentreId).centerCode)
         stuList.each{
             lateFee=0
             def lateFeeDate=it.programDetail.lateFeeDate[0]

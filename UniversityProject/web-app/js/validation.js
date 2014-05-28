@@ -623,6 +623,10 @@ function admissionFeeValidation(index){
     }
 
 }
+
+function clearPayAdmission(){
+
+}
 function checkValidation() {
 //    alert("hi")
     $("#paychallanForStudyCenter").validate({

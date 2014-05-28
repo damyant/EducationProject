@@ -13,6 +13,7 @@
     <g:javascript src='admin.js'/>
     <g:javascript src='admitCard.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
+
 </head>
 
 <body>
@@ -24,35 +25,46 @@
         <g:if test="${flash.message}">
             <div class="message" role="status"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
-        <g:form controller="feeDetails" action="payChallanForStudyCenterStu" name="paychallanForStudyCenter" id="paychallanForStudyCenter">
-        <table class="inner university-size-full-1-1" id="scStudnetList" style="margin: auto">
-            <thead>
-            <tr>
-                <td class="university-size-1-4">Enter Challan Number</td>
-                <td class="university-size-1-4"> <input type="text" name="searchChallanNo"id="searchChallanNo"   value=""/></td>
-                <td class="university-size-1-4"><input type="button" value="Show Students" onclick="showListOfStudents()"/> </td>
-                <td class="university-size-1-4"></td>
-            </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-            <div class="university-status-message"> <div id="msgDiv"></div></div>
+        <g:form controller="feeDetails" action="payChallanForStudyCenterStu" name="paychallanForStudyCenter"
+                id="paychallanForStudyCenter">
+            <table class="inner university-size-full-1-1" style="margin: auto">
+                <thead>
+                <tr>
+                    <td class="university-size-1-4">Enter Challan Number</td>
+                    <td class="university-size-1-4"><input type="text" name="searchChallanNo" id="searchChallanNo"
+                                                           value=""/></td>
+                    <td class="university-size-1-4"><input type="button" value="Show Students"
+                                                           onclick="showListOfStudents()"/></td>
+                    <td class="university-size-1-4"></td>
+                </tr>
+                </thead>
+            </table>
+            <table class="inner university-size-full-1-1" id="scStudnetList" style="margin: auto">
+                <tbody></tbody>
+            </table>
+
+            <div class="university-status-message"><div id="msgDiv"></div></div>
             <table id="studentPayList" class="university-size-full-1-1" style="visibility: hidden">
                 <tr>
                     <td class="university-size-1-3">Payment Mode</td>
-                    <td  class="university-size-2-3"><g:select name="paymentMode" class="university-size-1-2" id="paymentMode" optionKey="id"
-                                  optionValue="paymentModeName"
-                                  from="${paymentMode}" noSelection="['': ' Select Payment Mode']"
-                                  onchange=""/></td>
+                    <td class="university-size-2-3"><g:select name="paymentMode" class="university-size-1-2"
+                                                              id="paymentMode" optionKey="id"
+                                                              optionValue="paymentModeName"
+                                                              from="${paymentMode}"
+                                                              noSelection="['': ' Select Payment Mode']"
+                                                              onchange=""/></td>
                 </tr>
                 <tr>
-                    <td  class="university-size-1-3">Payment Date</td>
-                    <td  class="university-size-2-3"> <input type="text" name="paymentDate" maxlength="10" class="university-size-1-2" id="datepicker"
-                                                             value=""></td>
+                    <td class="university-size-1-3">Payment Date</td>
+                    <td class="university-size-2-3"><input type="text" name="paymentDate" maxlength="10"
+                                                           class="university-size-1-2" id="datepicker"
+                                                           value=""></td>
                 </tr>
                 <tr>
-                    <td  class="university-size-1-3">Payment Ref. No</td>
-                    <td  class="university-size-2-3"> <input type="text" name="paymentReferenceNumber" maxlength="10" onkeypress="return isNumber(event)" class="university-size-1-2" id="paymentReferenceNumber"
+                    <td class="university-size-1-3">Payment Ref. No</td>
+                    <td class="university-size-2-3"><input type="text" name="paymentReferenceNumber" maxlength="10"
+                                                           onkeypress="return isNumber(event)"
+                                                           class="university-size-1-2" id="paymentReferenceNumber"
                                                            value=""></td>
                 </tr>
                 <tr>
@@ -71,7 +83,14 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3" onclick="checkValidation()" value="Pay" style="visibility: hidden"/> </td>
+                    <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3"
+                               onclick="checkValidation()" value="Pay" style="visibility: hidden"/> <input type="reset"
+                                                                                                           id="payClear"
+                                                                                                           class="ui-button university-size-1-3"
+                                                                                                           onclick="clearPayAdmission()"
+                                                                                                           value="Clear"
+                                                                                                           style="visibility: hidden"/>
+                    </td>
                 </tr>
             </table>
         </g:form>

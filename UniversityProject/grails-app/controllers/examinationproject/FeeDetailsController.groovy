@@ -383,7 +383,9 @@ class FeeDetailsController {
 
             def args = [template: "printPayChallan", model: [bank: bank, lateFee: lateFee, branch: branch,paymentReferenceNumber:paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
+
         }
+        redirect(action: payAdmissionFee)
     }
 
     def payMiscFeeChallan={
@@ -423,6 +425,7 @@ class FeeDetailsController {
 
         def args = [template: "printPayMiscFeeChallan", model: [bank:bank,branch:branch,paymentReferenceNumber:paymentReferenceNumber,paymentModeName:paymentModeName,paymentDate:paymentDate,stuList:stuList,courseFee:courseFee,totalFee:totalFee,courseNameList:courseNameList,challanNo:challanNo,],filename:challanNo+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
+
     }
     def gerStudentId={
         def resultMap=[:]
