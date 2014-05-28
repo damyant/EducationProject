@@ -10,6 +10,8 @@
 <head>
     <title></title>
     <meta name="layout" content="main"/>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
 </head>
 
 <body>
@@ -85,36 +87,34 @@
                     </tr>
                 </table>
             </div>
-
             <div class="university-status-message"><label id="showErrorMessage" hidden=""></label></div>
-
             <div id="studentListTable" class="university-List-View university-scrollable-y" hidden="">
                 <table id="admitCardTab" class="inner" style="width:100%;margin:auto">
+                    <thead>
                     <tr>
-                        <th style="width: 17%;padding-left: 10px;"><input type="checkbox" id="selectAll"
-                                                                          name="selectAll"/> Select All</th>
+                        <th style="width: 17%;padding-left: 10px;">
+                            <input type="checkbox" id="selectAll" name="selectAll"/> Select All
+                        </th>
                         <th style="width: 27%;">Sr. No.</th>
                         <th style="width: 27%;">Roll No.</th>
                         <th style="width: 29%;">Name</th>
-                        %{--<th class="university-size-1-5">GU Registration No</th>--}%
                     </tr>
-                    %{--<<<<<<< HEAD--}%
-                    %{--<% def count = 12 %>--}%
-                    %{--<g:each in="${(1..count).toList()}" var="c">--}%
-                    %{--<tr>--}%
-                    %{--<td><input type="checkbox" class="student" name="student" id="student${c}" /></td>--}%
-                    %{--<td>${c}</td>--}%
-                    %{--<td></td>--}%
-                    %{--<td></td>--}%
-                    %{--<td></td>--}%
-                    %{--</tr>--}%
-                    %{--</g:each>--}%
-                    %{--=======--}%
-
-                    %{-->>>>>>> 5f682d0d04746e079348f66d555177e37546a443--}%
+                    </thead>
+                    <tbody>
+                    </tbody>
                 </table>
             </div>
+        <div style="text-align: center;visibility: hidden;" id="paginationDiv" class="university-size-full-1-1">
+            <br/>
 
+            <div class="pagination">
+                <a href="#" class="first" data-action="first">&laquo;</a>
+                <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                <input type="text" readonly="readonly"/>
+                <a href="#" class="next" data-action="next">&rsaquo;</a>
+                <a href="#" class="last" data-action="last">&raquo;</a>
+            </div>
+        </div>
             <div id="studentListPrint"
                  style="margin: 5px auto;width:94%;text-align: center;vertical-align: middle; border: 1px solid #BDBDBD; padding: 0.5%;border-radius: 4px;"
                  hidden="">

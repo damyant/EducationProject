@@ -627,13 +627,36 @@ function showListOfStudents(){
                 document.getElementById("studentPayList").style.visibility = "visible";
                 document.getElementById("paySubmit").style.visibility = "visible";
                 document.getElementById("payClear").style.visibility = "visible";
+                $("#scStudnetList thead").empty().append('')
+                $("#scStudnetList thead").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
                 $("#scStudnetList tbody").empty().append('')
-                $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
                 for (var i = 0; i < data.stuList.length; i++) {
                     $("#scStudnetList tbody").append('<tr><td>' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td><input type="text" readonly name="rollNo' + i + '" value="' + data.stuList[i].rollNo + '"/></td><td>' + data.courseNameList[i] + '</td><td>' + data.courseFee[i] + '</td></tr>')
                 }
+                document.getElementById("paginationDiv").style.visibility = "visible";
+                $table_rows = $('#scStudnetList tbody tr');
+                var table_row_limit = 10;
+                var page_table = function(page) {
+                    var offset = (page - 1) * table_row_limit,
+                        limit = page * table_row_limit;
+                    $table_rows.hide();
+                    $table_rows.slice(offset, limit).show();
+                }
+                var pageNo=0
+                if($table_rows.length % table_row_limit){
+                    pageNo=parseInt($table_rows.length / table_row_limit)+1
+                }
+                else{
+                    pageNo=parseInt($table_rows.length / table_row_limit)
+                }
+                $('.pagination').jqPagination({
+                    max_page: pageNo,
+                    paged: page_table
+                });
+                page_table(1);
             }
             else{
+                document.getElementById("paginationDiv").style.visibility = "hidden";
                 $('#msgDiv').html("Challan is already paid or Invalid Challan.")
             }
         }
@@ -643,6 +666,7 @@ function showListOfStudents(){
 function showMiscFeeListOfStudents(){
     document.getElementById("studentPayList").style.visibility = "visible";
     document.getElementById("paySubmit").style.visibility = "visible";
+    document.getElementById("paginationDiv").style.visibility = "hidden";
     $.ajax({
         type: "post",
         url: url('admin', 'searchMiscFeeListByChallanNo', ''),
@@ -650,11 +674,43 @@ function showMiscFeeListOfStudents(){
 
         success: function (data) {
 //            alert(data[0].programDetail.id)
+            $("#scStudnetList thead").empty().append('')
             $("#scStudnetList tbody").empty().append('')
-            $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
+            $("#scStudnetList thead").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
             for(var i=0;i<data.stuList.length;i++){
                 $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
             }
+            document.getElementById("paginationDiv").style.visibility = "visible";
+            $table_rows = $('#scStudnetList tbody tr');
+
+            var table_row_limit = 10;
+
+            var page_table = function(page) {
+
+                // calculate the offset and limit values
+                var offset = (page - 1) * table_row_limit,
+                    limit = page * table_row_limit;
+
+                // hide all table rows
+                $table_rows.hide();
+
+                // show only the n rows
+                $table_rows.slice(offset, limit).show();
+
+            }
+            var pageNo=0
+            if($table_rows.length % table_row_limit){
+                pageNo=parseInt($table_rows.length / table_row_limit)+1
+            }
+            else{
+                pageNo=parseInt($table_rows.length / table_row_limit)
+            }
+//                alert(5%5)
+            $('.pagination').jqPagination({
+                max_page: pageNo,
+                paged: page_table
+            });
+            page_table(1);
         }
     })
 }

@@ -40,9 +40,20 @@
                 </thead>
             </table>
             <table class="inner university-size-full-1-1" id="scStudnetList" style="margin: auto">
+                <thead></thead>
                 <tbody></tbody>
             </table>
+            <div style="text-align: center;visibility: hidden;" id="paginationDiv" class="university-size-full-1-1">
+                <br/>
 
+                <div class="pagination">
+                    <a href="#" class="first" data-action="first">&laquo;</a>
+                    <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                    <input type="text" readonly="readonly"/>
+                    <a href="#" class="next" data-action="next">&rsaquo;</a>
+                    <a href="#" class="last" data-action="last">&raquo;</a>
+                </div>
+            </div>
             <div class="university-status-message"><div id="msgDiv"></div></div>
             <table id="studentPayList" class="university-size-full-1-1" style="visibility: hidden">
                 <tr>
