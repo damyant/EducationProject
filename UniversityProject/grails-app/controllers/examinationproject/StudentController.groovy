@@ -195,7 +195,7 @@ class StudentController {
 
 
     def seedBulkStudents={
-        studentRegistrationService.seedStudent()
+        studentRegistrationService.seedStudent(params)
         render "done"
     }
 
