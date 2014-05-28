@@ -32,6 +32,7 @@ class Student {
     ProgramSession programSession
     Boolean admitCardGenerated
     Date admissionDate =new Date()
+    
     String challanNo
 
 

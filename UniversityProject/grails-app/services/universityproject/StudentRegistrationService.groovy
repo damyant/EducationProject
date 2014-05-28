@@ -212,7 +212,7 @@ class StudentRegistrationService {
 
     def seedStudent(params) {
         def students
-        Set<ProgramDetail> programDetails = ProgramDetail.findAllById(33)
+        Set<ProgramDetail> programDetails = ProgramDetail.findAllById(25)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 ////       At Study Center
@@ -245,17 +245,18 @@ class StudentRegistrationService {
 //        }
 
 //        //At IDOL
-        for (int i = 1; i < 750; i++) {
+        for (int i = 1; i < 350; i++) {
             println("Student Number is "+i)
             students = new Student()
             students.firstName = "StudentAtIDOL"+i
             students.lastName="Test"
             students.gender = "Male"
             students.category = "GEN"
-            students.programSession = ProgramSession.get(33)
+            students.programSession = ProgramSession.get(25)
             students.referenceNumber = getStudentReferenceNumber()
             students.challanNo = getChallanNumber()
             students.dob = new Date()
+            students.city = City.findAllById(12)
             students.admissionDate = new Date()
             students.programDetail = programDetails
             students.status = Status.findById(1)
