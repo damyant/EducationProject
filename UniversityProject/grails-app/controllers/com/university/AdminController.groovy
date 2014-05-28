@@ -133,7 +133,7 @@ class AdminController {
     @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
     def generateFeeVoucher = {
 
-        println(">>>>>>>>????????>>" + params)
+//        println(">>>>>>>>????????>>" + params)
         def student = Student.findByRollNo(params.rollNo)
         def program = student.programDetail[0]
         def feeTypeId
@@ -229,9 +229,9 @@ class AdminController {
             userDir.mkdirs()
             def excelPath = servletContext.getRealPath("/") + 'Attendance' + System.getProperty('file.separator') + 'Output' + '.xls'
             def status = attendanceService.getStudentList(params, excelPath)
-            println("hello kuldeep u r back in controller " + status)
+//            println("hello kuldeep u r back in controller " + status)
             if (status) {
-                println("hello kuldeep u r back in controller " + status)
+//                println("hello kuldeep u r back in controller " + status)
                 File myFile = new File(servletContext.getRealPath("/") + 'Attendance' + System.getProperty('file.separator') + 'Output' + '.xls')
                 response.setHeader "Content-disposition", "attachment; filename=" + 'Output' + ".xls"
                 response.contentType = new MimetypesFileTypeMap().getContentType(myFile)
@@ -351,13 +351,13 @@ class AdminController {
     }
     def searchByChallanNo(){
         def returnMap = [:]
-        println("???????/" + params)
+//        println("???????/" + params)
         returnMap = feeDetailService.studentDetailByChallanNumber(params)
         render returnMap as JSON
     }
 
     def approveFeeForStudents = {
-        println(">>>>>>>>>>>>>" + params.studentListId)
+//        println(">>>>>>>>>>>>>" + params.studentListId)
         def student
         def studentListId=[]
         studentListId.addAll(params.studentListId)
@@ -377,14 +377,14 @@ class AdminController {
     //ADDED BY DIGVIJAY ON 19 May 2014
     def addCourses = {
         def programTypeList = ProgramType.list()
-        println("AdminController-->addCourses"+programTypeList);
+//        println("AdminController-->addCourses"+programTypeList);
         [programTypeList:programTypeList]
     }
 
     def updateCourses = {
-        println("AdminController-->updateCourses Action" + params)
+//        println("AdminController-->updateCourses Action" + params)
         def programDetail = ProgramDetail.findById(Integer.parseInt(params.CourseId))
-        println("Inside Admin Controller Action "+programDetail)
+//        println("Inside Admin Controller Action "+programDetail)
         [programDetail:programDetail]
     }
 
@@ -432,8 +432,8 @@ class AdminController {
         programs.each {
 
             if (it.lateFeeDate == null) {
-                println(it)
-                println("?????????????????" + it.lateFeeDate)
+//                println(it)
+//                println("?????????????????" + it.lateFeeDate)
                 programList.add(it)
             }
         }
@@ -444,7 +444,7 @@ class AdminController {
     }
 
     def loadProgram = {
-        println("params" + params)
+//        println("params" + params)
         def programList = [], dateList = []
         def programType = ProgramType.findById(Long.parseLong(params.type))
         def programs = ProgramDetail.findAllByProgramType(programType)
@@ -482,18 +482,18 @@ class AdminController {
     }
 
     def getStudentForStudyMaterial(){
-        println("???????????"+params)
+//        println("???????????"+params)
         def returnMap=[:]
         returnMap= adminInfoService.studentForStudyMaterial(params)
-        println('this is the returning map '+returnMap)
+//        println('this is the returning map '+returnMap)
         render returnMap as JSON
     }
 
     def saveStudyMaterial(){
-        println("inn"+params)
+//        println("inn"+params)
         def returnMap=[:]
         def resultMap= adminInfoService.saveStudentForStudyMaterial(params)
-        println("********"+resultMap)
+//        println("********"+resultMap)
         if(resultMap){
           returnMap.status="true"
         }

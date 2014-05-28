@@ -75,7 +75,7 @@ class StudentController {
 
 
     def applicationPrintPreview = {
-        println("params" + params)
+//        println("params" + params)
         def student = Student.findById(params.studentID)
         def lateFee=0
         def payableFee=0
@@ -200,7 +200,7 @@ class StudentController {
     }
 
   def  updateStudent={
-      println(params)
+//      println(params)
       try{
        def student = Student.findByRollNo(params.rollNo)
           if(student){

@@ -477,7 +477,7 @@ function populateStudentListForMiscFee() {
 function filterProgram(t) {
     var type = $(t).val();
 
-    alert(type)
+//    alert(type)
     if (type) {
         $.ajax({
             type: "post",
@@ -511,7 +511,7 @@ function loadAssignDate(t) {
     $('input[name="programs"]:checked').each(function () {
 //        selectedStudentId.push($(this).attr('id'));
         var checkboxValue = $(this).val()
-        alert(checkboxValue)
+//        alert(checkboxValue)
         $("#" + checkboxValue).val(valueDate)
     });
 }

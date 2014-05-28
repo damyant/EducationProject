@@ -48,9 +48,9 @@ class ProgramFeeController {
 
     def saveProgramFee(){
         def response
-        println("innnnnnnnnnn=="+params)
+//        println("innnnnnnnnnn=="+params)
         def feeTypeList=params.feeTypeList.split(',')
-        println("innnnnn"+params.programSession+"nnnnn=="+feeTypeList[0])
+//        println("innnnnn"+params.programSession+"nnnnn=="+feeTypeList[0])
 
         def result=programFeeService.saveProgramFeeType(params)
         response=[status:result]
@@ -59,8 +59,6 @@ class ProgramFeeController {
     }
 
     def editFeeType  =  {
-
-
         def programFeeInstance = AdmissionFee.findById(Integer.parseInt(params.id))
         def program = programFeeInstance.programDetail
         def programSession = programFeeInstance.programSession
@@ -69,11 +67,11 @@ class ProgramFeeController {
         if(FeeType.count()>0){
         feeType = FeeType.list()
             feeType.each {
-                println("Hello")
+//                println("Hello")
                 def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(FeeType.findById(it.id),program,programSession)
                 if(miscellaneousFee)
                 miscellaneousFeeList.add(miscellaneousFee)
-                println("fdsgfhsdgfsdhf"+miscellaneousFee)
+//                println("fdsgfhsdgfsdhf"+miscellaneousFee)
             }
             [programFeeInstance:programFeeInstance,miscellaneousFeeList:miscellaneousFeeList]
 
@@ -117,7 +115,7 @@ class ProgramFeeController {
         def feeTypeInst
         if (params?.feeId) {
             feeTypeInst = FeeType.findById(Long.parseLong(params.feeId))
-            println(feeTypeInst.type);
+//            println(feeTypeInst.type);
             feeTypeInst.type = params?.type
            } else {
             feeTypeInst = new FeeType(type: params.type)
@@ -145,7 +143,7 @@ class ProgramFeeController {
     @Secured("ROLE_ADMIN")
     def deleteFeesType = {
         try {
-            println("*&&&&&&&&&"+params.int('data'));
+//            println("*&&&&&&&&&"+params.int('data'));
             FeeType feeType = FeeType.get(params.int('data'))
             feeType.delete(flush: true)
             flash.message = "Deleted Successfully"

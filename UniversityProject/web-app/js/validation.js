@@ -562,7 +562,7 @@ function onlyAlphabets(e, t) {
             return false;
     }
     catch (err) {
-        alert(err.Description);
+//        alert(err.Description);
     }
 }
 

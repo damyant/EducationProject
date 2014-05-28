@@ -119,11 +119,11 @@ class FeeDetailsController {
     }
 
     def loadProgram={
-        println("params"+params)
+//        println("params"+params)
         def programType=ProgramType.findById(Long.parseLong(params.type))
         def programList = ProgramDetail.findAllByProgramType(programType)
         def response =[programList:programList]
-        println(response.programList[0].courseName)
+//        println(response.programList[0].courseName)
         render response as JSON
     }
 
@@ -152,10 +152,10 @@ class FeeDetailsController {
     }
 
     def populateStudentsForAllProgram={
-        println("in method");
+//        println("in method");
         def resultMap=[:]
         resultMap= feeDetailService.AllProgramStudentList()
-        println("in method"+resultMap);
+//        println("in method"+resultMap);
         render resultMap as JSON
     }
 
@@ -203,7 +203,7 @@ class FeeDetailsController {
 
 
     def challanForStudyCenterStu={
-         println("***************"+params)
+//         println("***************"+params)
         List<Student> studList =[]
         List<AdmissionFee> addmissionFee = []
         studList.clear()
@@ -235,7 +235,7 @@ class FeeDetailsController {
         stuList=params.studentListId.split(",")
             for(def i=0;i<stuList.size();i++){
                lateFee=0
-                println("**********"+stuList[i]);
+//                println("**********"+stuList[i]);
                 def stuIns=Student.findById(Long.parseLong(stuList[i]))
                 stuIns.rollNo
                 stuIns.challanNo=challanNo
@@ -256,12 +256,12 @@ class FeeDetailsController {
             }
 
         }
-        println(studList)
+//        println(studList)
         def args = [template: "printChallan", model: [studList: studList,addmissionFee:addmissionFee,totalFee:totalFee,lateFee:lateFee],filename:challanNo+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
     }
     def generateChallanForMiscellaneousFee={
-        println("***************"+params)
+//        println("***************"+params)
         List<Student> studList =[]
         List<MiscellaneousFee> miscellaneousFee = []
         studList.clear()
@@ -289,7 +289,7 @@ class FeeDetailsController {
       else{
             stuList=params.studentListId.split(",")
             for(def i=0;i<stuList.size();i++){
-                println("**********"+stuList[i]);
+//                println("**********"+stuList[i]);
                 def mFeeInstance = new MiscellaneousFeeChallan()
                 def stuIns=Student.findById(Long.parseLong(stuList[i]))
                 def feeType=FeeType.findById(params.feeCategory)
@@ -304,7 +304,7 @@ class FeeDetailsController {
                 totalFee=totalFee+ feeForStudent
                 miscellaneousFee.add(feeForStudent)
             }
-            println(studList)
+//            println(studList)
         }
         def args = [template: "printMiscFeeChallan", model: [studList: studList,challanNo:challanNo,miscellaneousFee:miscellaneousFee,totalFee:totalFee],filename:challanNo+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
@@ -316,13 +316,13 @@ class FeeDetailsController {
     def populateStudentsByChallan={
         def resultMap=[:]
         resultMap= feeDetailService.StudentListByChallan(params)
-        println(resultMap)
+//        println(resultMap)
         render resultMap as JSON
     }
 
 
     def payChallanForStudyCenterStu={
-       println("***************"+params)
+//       println("***************"+params)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         def courseNameList=[],courseFee=[]
         def stuList=  Student.findAllByChallanNo(params.searchChallanNo)
@@ -331,7 +331,7 @@ class FeeDetailsController {
         def lateFee=0
         stuList.each{
             lateFee=0
-            println("==="+it.programDetail[0])
+//            println("==="+it.programDetail[0])
             def lateFeeDate=it.programDetail.lateFeeDate[0]
             def today=new Date()
             if(today.compareTo(lateFeeDate) > 0){
@@ -389,7 +389,7 @@ class FeeDetailsController {
     }
 
     def payMiscFeeChallan={
-        println("***************"+params)
+//        println("***************"+params)
         def courseNameList=[],courseFee=[]
         def stuList= []
         def miscFeeChallanList=  MiscellaneousFeeChallan.findAllByChallanNo(params.searchChallanNo)
