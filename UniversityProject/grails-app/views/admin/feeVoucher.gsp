@@ -31,7 +31,9 @@
 //                            $("#feeType").prop('disabled', false);
                             $("#feeError").prop('hidden', true);
 
-                        }
+                        }else{
+                                $('#errorMsg').show();
+                            }
                     });
 //                }
             })
@@ -49,16 +51,16 @@
                     code="rollNo.Generated.message"/></div>
             </div>
         </g:if>
-        <g:if test="${params.error == "error"}">
-            <div class="university-status-message">Roll Number does not belongs to IDOL</div>
-        </g:if>
+
+            <div class="university-status-message" id="errorMsg" hidden="hidden">Roll Number does not belongs to IDOL</div>
+
 
 
         <g:form id="generateFeeVoucher" name="generateFeeVoucher" controller="admin" action="generateFeeVoucher">
         %{--<g:hiddenField name="studentId" id="studentId"/>--}%
         %{--<g:hiddenField name="pageType" id="pageType" value="Assign RollNo"/>--}%
             <div style="margin-left: 10px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
-            <table class="inner" style="margin: auto;text-align: center; width: 100%">
+            <table class="linner" style="margin: auto;text-align: center; width: 100%">
                 <tr>
                     <td class="university-size-1-3">
                         <p>Enter Roll Number:<span class="university-obligatory">*</span></p>
