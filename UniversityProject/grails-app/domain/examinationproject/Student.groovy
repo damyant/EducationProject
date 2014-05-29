@@ -63,6 +63,7 @@ class Student {
         rollNo(nullable:true)
         status(nullable:true)
         admitCardGenerated(nullable: true)
+        examinationVenue(nullable: true)
         challanNo(nullable: true)
 
 

@@ -29,24 +29,6 @@ def springSecurityService
     }
 
     def provisionalStudentList(params){
-//        def studyCenterId=0
-//        def statusObj
-//        if(params.studyCenterId){
-//            studyCenterId=params.studyCenterId
-//        }
-//        else{
-//            def currentUser=springSecurityService.getCurrentUser()
-//            studyCenterId=currentUser.studyCentreId
-//        }
-
-
-//        if(params.pageType=="Approve RollNo"){
-//
-//            statusObj=Status.findById(2)
-//        }
-//        else{
-//            statusObj=Status.findById(1)
-//        }
         def obj=Student .createCriteria()
         def stuList= obj.list{
             programDetail{
@@ -55,16 +37,7 @@ def springSecurityService
             and{
                 isNull('rollNo')
             }
-//            studyCentre {
-//                eq('id', Long.parseLong(studyCenterId.toString()))
-//            }
-//            and{
-//                eq('status',statusObj)
-//                count()
-//            }
-
         }
-
         println("list of students "+ stuList+"-----------------"+params.programId)
         return  stuList
 

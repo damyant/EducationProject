@@ -170,6 +170,7 @@ function confirmGenerateChallan(rollno) {
     });
 }
 function loadProgramFeeAmount(t){
+    $('#admissionFeeAmount').val("");
     var program=$(t).val();
 //    alert(program)
     $.ajax({

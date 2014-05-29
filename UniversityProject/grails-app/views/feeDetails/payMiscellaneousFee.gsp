@@ -20,36 +20,59 @@
 
     <fieldset class="form">
         <h3>Pay Admission Fee Entry</h3>
-        <g:form controller="feeDetails" action="payMiscFeeChallan" name="paychallanForStudyCenter" id="paychallanForStudyCenter">
-        <table class="inner university-size-full-1-1" id="scStudnetList" style="margin: auto">
-            <thead>
-            <tr>
-                <td class="university-size-1-4">Enter Challan Number</td>
-                <td class="university-size-1-4"> <input type="text" name="searchChallanNo"id="searchChallanNo"   value=""/></td>
-                <td class="university-size-1-4"><input type="button" value="Show Students" onclick="showMiscFeeListOfStudents()"/> </td>
-                <td class="university-size-1-4"></td>
-            </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <g:form controller="feeDetails" action="payMiscFeeChallan" name="paychallanForStudyCenter"
+                id="paychallanForStudyCenter">
+            <table class="inner university-size-full-1-1" style="margin: auto">
+                <thead>
+                <tr>
+                    <td class="university-size-1-4">Enter Challan Number</td>
+                    <td class="university-size-1-4"><input type="text" name="searchChallanNo" id="searchChallanNo"
+                                                           value=""/></td>
+                    <td class="university-size-1-4"><input type="button" value="Show Students"
+                                                           onclick="showMiscFeeListOfStudents()"/></td>
+                    <td class="university-size-1-4"></td>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <table class="inner university-size-full-1-1" id="scStudnetList" style="margin: auto">
+                <thead>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div style="text-align: center;visibility: hidden;" id="paginationDiv" class="university-size-full-1-1">
+                <br/>
 
+                <div class="pagination">
+                    <a href="#" class="first" data-action="first">&laquo;</a>
+                    <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                    <input type="text" readonly="readonly"/>
+                    <a href="#" class="next" data-action="next">&rsaquo;</a>
+                    <a href="#" class="last" data-action="last">&raquo;</a>
+                </div>
+            </div>
             <table id="studentPayList" class="university-size-full-1-1" style="visibility: hidden">
                 <tr>
                     <td class="university-size-1-3">Payment Mode</td>
-                    <td  class="university-size-2-3"><g:select name="paymentMode" class="university-size-1-2" id="paymentMode" optionKey="id"
-                                  optionValue="paymentModeName"
-                                  from="${paymentMode}" noSelection="['': ' Select Payment Mode']"
-                                  onchange=""/></td>
+                    <td class="university-size-2-3"><g:select name="paymentMode" class="university-size-1-2"
+                                                              id="paymentMode" optionKey="id"
+                                                              optionValue="paymentModeName"
+                                                              from="${paymentMode}"
+                                                              noSelection="['': ' Select Payment Mode']"
+                                                              onchange=""/></td>
                 </tr>
                 <tr>
-                    <td  class="university-size-1-3">Payment Date</td>
-                    <td  class="university-size-2-3"> <input type="text" name="paymentDate" maxlength="10" class="university-size-1-2" id="datepicker"
-                                                             value=""></td>
+                    <td class="university-size-1-3">Payment Date</td>
+                    <td class="university-size-2-3"><input type="text" name="paymentDate" maxlength="10"
+                                                           class="university-size-1-2" id="datepicker"
+                                                           value=""></td>
                 </tr>
                 <tr>
-                    <td  class="university-size-1-3">Payment Ref. No</td>
-                    <td  class="university-size-2-3"> <input type="text" name="paymentReferenceNumber" maxlength="10" onkeypress="return isNumber(event)" class="university-size-1-2" id="paymentReferenceNumber"
-                                                             value=""></td>
+                    <td class="university-size-1-3">Payment Ref. No</td>
+                    <td class="university-size-2-3"><input type="text" name="paymentReferenceNumber" maxlength="10"
+                                                           onkeypress="return isNumber(event)"
+                                                           class="university-size-1-2" id="paymentReferenceNumber"
+                                                           value=""></td>
                 </tr>
                 <tr>
                     <td>Bank</td>
@@ -67,7 +90,8 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3" value="Pay" style="visibility: hidden"/> </td>
+                    <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3" value="Pay"
+                               style="visibility: hidden"/></td>
                 </tr>
             </table>
         </g:form>

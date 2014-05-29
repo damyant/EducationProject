@@ -266,7 +266,11 @@ function saveFeeData(index) {
             data: {programId: $('#programId').val(), bankId: $('#bankName' + index).val(), paymentModeId: $('#paymentMode' + index).val(), branchId: $('#branch' + index).val(),
                 paymentDate: $('#datePick' + index).val(), paymentReferenceNumber: $('#referenceNumber' + index).val(), studentId: $('#studentId' + index).val(), feeTypeId: $('#feeType' + index).val()},
             success: function (data) {
+
+
                 appendStudentList(data)
+
+
             }
 
         })
@@ -278,38 +282,77 @@ function saveFeeData(index) {
 
 
 function appendStudentList(data) {
-    var type = $('#paramType').val()
-    $('#studyCenterFeeEntryTable').attr('hidden', false);
-    $('#rangeRadioButtons').attr('hidden', false);
-    $("#studyCenterFeeEntryTable tbody tr").remove()
-    var count = 1
-    for (var i = 0; i < data.studentList.length; i++) {
+    if (data.studentList.length > 0) {
+        $('#noStudentMsg').html("")
+        var type = $('#paramType').val()
+        $('#studyCenterFeeEntryTable').attr('hidden', false);
+        $('#rangeRadioButtons').attr('hidden', false);
+        $("#studyCenterFeeEntryTable tbody tr").remove()
+        var count = 1
+        for (var i = 0; i < data.studentList.length; i++) {
 
-        $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID' + i + '"><td><input type="hidden" value="' + count + '" id="' + data.studentList[i].rollNo + '"/><input name="studentCheckbox" hidden="hidden" class="studentCheckbox" type="checkbox" id=' + data.studentList[i].id + '>' + count + '</td>' +
-            '<td><input type="text" hidden="hidden" id="studentId' + i + '" value="' + data.studentList[i].id + '" >' +
-            '<input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td>' +
-            '<td>' + data.studentList[i].firstName + ' ' + data.studentList[i].lastName + '</td>' +
-            '<td><input type="text" id="feeAmount' + i + '" name="feeAmount" readonly/></td>' +
-            '<td><input type="text" id="semester' + i + '" name="semester" value="' + data.studentList[i].semester + '" readonly/></td></tr>');
-        if (type == '') {
-            $("#feeType" + i).empty().append('<option value="1">Education Fee</option>')
-            $("#feeAmount" + i).val(data.feeAmount[i])
-        }
-        else {
-
-            $("#feeType" + i).empty().append('<option value="">Select Fee Type</option>')
-            for (var l = 0; l < data.feeList.length; l++) {
-                $("#feeType" + i).append('<option value="' + data.feeList[l].id + '">' + data.feeList[l].type + '</option>')
+            $("#studyCenterFeeEntryTable tbody").append('<tr id="rowID' + i + '"><td><input type="hidden" value="' + count + '" id="' + data.studentList[i].rollNo + '"/><input name="studentCheckbox" hidden="hidden" class="studentCheckbox" type="checkbox" id=' + data.studentList[i].id + '>' + count + '</td>' +
+                '<td><input type="text" hidden="hidden" id="studentId' + i + '" value="' + data.studentList[i].id + '" >' +
+                '<input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td>' +
+                '<td>' + data.studentList[i].firstName + ' ' + data.studentList[i].lastName + '</td>' +
+                '<td><input type="text" id="feeAmount' + i + '" name="feeAmount" readonly/></td>' +
+                '<td><input type="text" id="semester' + i + '" name="semester" value="' + data.studentList[i].semester + '" readonly/></td></tr>');
+            if (type == '') {
+                $("#feeType" + i).empty().append('<option value="1">Education Fee</option>')
+                $("#feeAmount" + i).val(data.feeAmount[i])
             }
+            else {
+
+                $("#feeType" + i).empty().append('<option value="">Select Fee Type</option>')
+                for (var l = 0; l < data.feeList.length; l++) {
+                    $("#feeType" + i).append('<option value="' + data.feeList[l].id + '">' + data.feeList[l].type + '</option>')
+                }
+            }
+            count++;
         }
-        count++;
+        document.getElementById("paginationDiv").style.visibility = "visible";
+        $table_rows = $('#studyCenterFeeEntryTable tbody tr');
+
+        var table_row_limit = 10;
+
+        var page_table = function(page) {
+
+            // calculate the offset and limit values
+            var offset = (page - 1) * table_row_limit,
+                limit = page * table_row_limit;
+
+            // hide all table rows
+            $table_rows.hide();
+
+            // show only the n rows
+            $table_rows.slice(offset, limit).show();
+
+        }
+        var pageNo=0
+        if($table_rows.length % table_row_limit){
+            pageNo=parseInt($table_rows.length / table_row_limit)+1
+        }
+        else{
+            pageNo=parseInt($table_rows.length / table_row_limit)
+        }
+//                alert(5%5)
+        $('.pagination').jqPagination({
+            max_page: pageNo,
+            paged: page_table
+        });
+        page_table(1);
+        $(".datePickers").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd/mm/yy",
+            maxDate: 0
+        });
+
     }
-    $(".datePickers").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: "dd/mm/yy",
-        maxDate: 0
-    });
+    else {
+        document.getElementById("paginationDiv").style.visibility = "hidden";
+        $('#noStudentMsg').html("No Student Available")
+    }
 
 }
 function putAmount(studentId, index) {
@@ -332,13 +375,13 @@ $(document).ready(function () {
         document.getElementById("paymentDetails").style.visibility = "visible";
         if ($('#rangeEntry').is(':checked')) {
             $("#paymentDetails").append('<tr><th class="university-size-full-1-1" style="text-align: center;">Serial No.</th></tr>');
-            $("#paymentDetails").append('<tr><td  style="text-align: center;"><input type="text" class="university-size-1-7"  id="serialNoFrom" name="serialNoFrom"> - <input type="text" class="university-size-1-7" id="serialNoTo" name="serialNoTo"></td>' +
+            $("#paymentDetails").append('<tr><td  style="text-align: center;"><input type="text" class="university-size-1-7"  onchange="checkRange()"  id="serialNoFrom" name="serialNoFrom"> - <input type="text" class="university-size-1-7"  onchange="checkRange()"  id="serialNoTo" name="serialNoTo"><label id="rollNoError" class="error4"></label></td>' +
                 '</tr>');
         }
         if ($('#individualEntry').is(':checked')) {
             $("#paymentDetails").append('<tr><th class="university-size-1-1" style="text-align: center;">Roll No</th>' +
                 '</tr>');
-            $("#paymentDetails").append('<tr><td style="text-align: center;"><input type="text" class="university-size-1-3" name="rollNoSearch" id="rollNo" onchange="enterSrNo(this)">' +
+            $("#paymentDetails").append('<tr><td style="text-align: center;"><input type="text" class="university-size-1-3" style="text-align: center;" name="rollNoSearch" id="rollNo" onchange="enterSrNo(this)"><label id="rollNoError" class="error4"></label>' +
                 '<input type="hidden" class="university-size-1-7"  id="serialNoFrom" name="serialNoFrom"><input type="hidden" class="university-size-1-7" id="serialNoTo" name="serialNoTo">' +
                 '</td>' +
                 '</tr>')
@@ -346,13 +389,22 @@ $(document).ready(function () {
 
     });
 });
-
+function checkRange() {
+    $('#rollNoError').html("")
+}
 function enterSrNo(t) {
+    $('#rollNoError').html("")
     var rollNo = $(t).val();
-    var value = $('#' + rollNo).val();
+    if($('#' + rollNo).length>0) {
+        var value = $('#' + rollNo).val();
 //    alert(value)
-    $('#serialNoFrom').val(value);
-    $('#serialNoTo').val(value);
+        $('#serialNoFrom').val(value);
+        $('#serialNoTo').val(value);
+    }
+    else{
+        $('#rollNoError').html("Roll Number is Unavailable For Challan Generation. Please Select one From the above List.")
+        return false;
+    }
 }
 
 function populateStudentList() {
@@ -425,29 +477,29 @@ function populateStudentListForMiscFee() {
 function filterProgram(t) {
     var type = $(t).val();
 
- alert(type)
-    if(type){
-    $.ajax({
-        type: "post",
-        url: url('admin', 'loadProgram', ''),
-        data: {type: type},
-        success: function (data) {
-            $('#datepicker').prop("disabled", false)
-            $("#courseList thead").empty().append('<tr><th class="university-size-1-3">' + '<input type="checkbox" id="chkAll" name="all" onclick="selectAllCheck(this)">Select All</input>' + '</th><th class="university-size-1-3">' + "Course Name" + '</th><th class="university-size-1-3"></th></tr>')
-            $("#courseList tbody").empty()
+    alert(type)
+    if (type) {
+        $.ajax({
+            type: "post",
+            url: url('admin', 'loadProgram', ''),
+            data: {type: type},
+            success: function (data) {
+                $('#datepicker').prop("disabled", false)
+                $("#courseList thead").empty().append('<tr><th class="university-size-1-3">' + '<input type="checkbox" id="chkAll" name="all" onclick="selectAllCheck(this)">Select All</input>' + '</th><th class="university-size-1-3">' + "Course Name" + '</th><th class="university-size-1-3"></th></tr>')
+                $("#courseList tbody").empty()
 
-            for (var i = 0; i < data.programList.length; i++) {
+                for (var i = 0; i < data.programList.length; i++) {
 
 //                var date=$.datepicker.formatDate('dd/MM/yy', data.programList[i].lateFeeDate)
-                $("#courseList tbody").append('<tr><td><input type="checkbox" name="programs" class="course" onchange="enableTextField(this)" value="' + data.programList[i].id + '" id="course' + data.programList[i].id + '"/></td>' + '<td>' + data.programList[i].courseName + '</td><td><input type="text" readonly value="' + data.dateList[i] + '" name="assignDate' + data.programList[i].id + '" class="assignDate" id="' + data.programList[i].id + '"><input type="hidden" id="hidden' + data.programList[i].id + '" value="' + data.dateList[i] + '" name="hidden' + i + '"/></td></tr>')
+                    $("#courseList tbody").append('<tr><td><input type="checkbox" name="programs" class="course" onchange="enableTextField(this)" value="' + data.programList[i].id + '" id="course' + data.programList[i].id + '"/></td>' + '<td>' + data.programList[i].courseName + '</td><td><input type="text" readonly value="' + data.dateList[i] + '" name="assignDate' + data.programList[i].id + '" class="assignDate" id="' + data.programList[i].id + '"><input type="hidden" id="hidden' + data.programList[i].id + '" value="' + data.dateList[i] + '" name="hidden' + i + '"/></td></tr>')
 
+                }
             }
-        }
 
 
-    });
+        });
     }
-    else{
+    else {
         $('#datepicker').prop("disabled", true)
         $("#courseList thead").empty()
         $("#courseList tbody").empty()
@@ -501,14 +553,14 @@ function enableTextField(t) {
     }
 
 }
-function clearFields(){
+function clearFields() {
     $('#programCategory').val('')
     $('#programList').val('')
     $('#semesterList').val('')
     $('#studyCenterFeeEntryTable').prop('hidden', true);
     $('#rangeRadioButtons').prop('hidden', true);
-    document.getElementById("paymentDetails").style.visibility="hidden"
-    document.getElementById("generateFeeChallan").style.visibility="hidden"
+    document.getElementById("paymentDetails").style.visibility = "hidden"
+    document.getElementById("generateFeeChallan").style.visibility = "hidden"
 //    $('#generateFeeChallan').prop('hidden', true);
 }
 
@@ -517,8 +569,8 @@ function loadProgram(t) {
     $('#studyCenterFeeEntryTable').prop('hidden', true)
     $('#allProgram').prop('checked', false)
     $('#rangeRadioButtons').prop('hidden', true)
-    document.getElementById("paymentDetails").style.visibility="hidden"
-    document.getElementById("generateFeeChallan").style.visibility="hidden"
+    document.getElementById("paymentDetails").style.visibility = "hidden"
+    document.getElementById("generateFeeChallan").style.visibility = "hidden"
 //    $('#generateFeeChallan').prop('hidden', true)
     var type = $(t).val();
 //    alert(type)

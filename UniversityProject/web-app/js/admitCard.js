@@ -294,12 +294,44 @@ function getStudentsForAdmitCard(){
                   $('#studentListPrintButton').prop('hidden', false)
                   var count=1;
                  for(var i=0;i<data.length;i++){
-                       $('#admitCardTab').append('<tr id="rowID'+i+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].firstName+' '+data[i].lastName+'</td></tr>')
+                       $('#admitCardTab tbody').append('<tr id="rowID'+i+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].firstName+' '+data[i].lastName+'</td></tr>')
                     ++count;
                 }
                   totalRows=count;
+                  document.getElementById("paginationDiv").style.visibility = "visible";
+                  $table_rows = $('#admitCardTab tbody tr');
+
+                  var table_row_limit = 10;
+
+                  var page_table = function(page) {
+
+                      // calculate the offset and limit values
+                      var offset = (page - 1) * table_row_limit,
+                          limit = page * table_row_limit;
+
+                      // hide all table rows
+                      $table_rows.hide();
+
+                      // show only the n rows
+                      $table_rows.slice(offset, limit).show();
+
+                  }
+                  var pageNo=0
+                  if($table_rows.length % table_row_limit){
+                      pageNo=parseInt($table_rows.length / table_row_limit)+1
+                  }
+                  else{
+                      pageNo=parseInt($table_rows.length / table_row_limit)
+                  }
+//                alert(5%5)
+                  $('.pagination').jqPagination({
+                      max_page: pageNo,
+                      paged: page_table
+                  });
+                  page_table(1);
             }
             else{
+                  document.getElementById("paginationDiv").style.visibility = "hidden";
                   $('#showErrorMessage').prop('hidden', false)
                   $('#showErrorMessage').text('No Students Found');
 //                  setTimeout(function(){  $('#showErrorMessage').hide(); }, 8000);

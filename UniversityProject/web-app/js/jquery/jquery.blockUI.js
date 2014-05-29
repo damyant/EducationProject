@@ -615,5 +615,8 @@
     } else {
         setup(jQuery);
     }
+//    $.blockUI.defaults.overlayCSS.backgroundColor = '#ff0';
+//    $.blockUI.defaults.overlayCSS.opacity = .2;
+    $.blockUI.defaults.message = "Please Wait...";
 
 })();

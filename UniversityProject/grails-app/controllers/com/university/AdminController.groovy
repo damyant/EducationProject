@@ -33,7 +33,7 @@ class AdminController {
     def viewProvisionalStudents() {
 
         def studyCenterList = StudyCenter.list(sort: 'name')
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         [studyCenterList: studyCenterList, programList: programList]
     }
 
@@ -166,12 +166,12 @@ class AdminController {
 
     @Secured("ROLE_ADMIN")
     def assignExaminationDate = {
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         [programList: programList]
     }
     @Secured("ROLE_ADMIN")
     def assignExaminationVenue={
-        def programList = ProgramDetail.list(sort:'courseName')
+        def programList = ProgramDetail.list(sort:'courseCode')
         def obj=City.createCriteria()
         def examCenterList=obj.list {
             eq('isExamCentre',1)
@@ -238,6 +238,7 @@ class AdminController {
                 response.outputStream << myFile.bytes
                 response.outputStream.flush()
                 myFile.delete()
+                redirect(action: 'downloadAttendanceSheet')
             } else {
                 flash.message = "${message(code: 'student.not.found.message')}"
                 redirect(action: 'downloadAttendanceSheet')
@@ -291,17 +292,20 @@ class AdminController {
     def getFeeAmount = {
         def resultMap = [:]
         def lateFee=0
-        def programIns= ProgramDetail.findById(Integer.parseInt(params.program))
-        def lateFeeDate=programIns.lateFeeDate
-        def today=new Date()
-//        println("********############## "+today.compareTo(lateFeeDate))
-        if(today.compareTo(lateFeeDate) > 0){
-            lateFee=AdmissionFee.findByProgramDetail(programIns).lateFeeAmount
+        def payableFee=0
+        try {
+            def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
+            def lateFeeDate = programIns.lateFeeDate
+            def today = new Date()
+            if (today.compareTo(lateFeeDate) > 0) {
+               lateFee = AdmissionFee.findByProgramDetail(programIns).lateFeeAmount
+            }
+            def feeAmount = AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
+            payableFee = feeAmount.feeAmountAtIDOL + lateFee
         }
-//        println("%%%%%%%%%%%%%%%%%%% "+lateFee)
-        def feeAmount = AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
-//        println("%%%%%%%%%%%%%%%%%%%<<<<<<<<< "+feeAmount)
-        def payableFee=feeAmount.feeAmountAtIDOL+lateFee
+        catch(NullPointerException e){
+            payableFee=0
+        }
         resultMap.feeAmount = payableFee
         render resultMap as JSON
     }
@@ -309,9 +313,9 @@ class AdminController {
         def returnMap=[:]
         def lateFee=0
         def courseNameList=[],courseFee=[]
-        def stuList=  Student.findAllByChallanNo(params.challanNo)
+        def stuList=  Student.findAllByChallanNoAndStatus(params.challanNo,Status.findById(2))
         def currentUser = springSecurityService.currentUser
-        println("username = :"+StudyCenter.findAllById(currentUser.studyCentreId).centerCode)
+//        println("username = :"+StudyCenter.findAllById(currentUser.studyCentreId).centerCode)
         stuList.each{
             lateFee=0
             def lateFeeDate=it.programDetail.lateFeeDate[0]
@@ -385,10 +389,11 @@ class AdminController {
     }
 
     def updateCourses = {
-        println("AdminController-->updateCourses Action")
+        println("AdminController-->updateCourses Action" + params)
+        def programDetail = ProgramDetail.findById(Integer.parseInt(params.CourseId))
+        println("Inside Admin Controller Action "+programDetail)
+        [programDetail:programDetail]
     }
-//}
-
 
     def assignRollNoGenerationDate={
         def rollDateInst = RollNoGenerationFixture.findById(1)

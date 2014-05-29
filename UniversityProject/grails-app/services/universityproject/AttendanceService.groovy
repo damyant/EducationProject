@@ -250,7 +250,7 @@ class AttendanceService {
                 status = writeAttendanceSheet(studentList, params, semester, courseSubject,  examinationVenueIns, workbook, sheetNo)
                 workbook.write();
                 workbook.close();
-            println('back to first service '+ status)
+                 println('back to first service '+ status)
                 return status
         }
 

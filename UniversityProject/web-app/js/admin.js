@@ -1,6 +1,6 @@
 
 var studentIdList = [];
-var subjectIdList=[],selectedStudentId=[];
+var subjectIdList=[];
 var feeTypeList=[];
 $(document).ready(function () {
 
@@ -26,7 +26,7 @@ $(document).ready(function () {
     $(document).on('click', '#assignRollNo', function () {
 //        alert("hi")
         if ($("input[name=rollno_checkbox]:checked").length != 0) {
-            $.blockUI({ message: '<h1><img src="busy.gif" /> Please Wait...</h1>' });
+//            $.blockUI({ message: '<h1><img src="busy.gif" /> Please Wait...</h1>' });
             $("input[name=rollno_checkbox]:checked").each(function (i) {
 
                 if ($(this).attr("checked", true)) {
@@ -44,7 +44,10 @@ $(document).ready(function () {
                     }
                     else {
                             alert("Roll No Generation Date has Expired/Date Are Not Set Yet.")
+                            $.unblockUI();
                             $('#generateRollNo').reset();
+
+                            return false;
                     }
                 }
             })
@@ -155,13 +158,7 @@ function generateRollNo(value) {
         url: url('admin', 'generateRollNo', ''),
         data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(), studentList: $("#studentId").val(), pageType: value},
         success: function (data) {
-            if(data.length>0){
-                alert('hello java')
-                $('#successMessage').show()
-            }
-            $.unblockUI();
             appendTable(data)
-
         }
     });
 
@@ -176,11 +173,33 @@ function appendTable(data) {
     if (data.stuList.length > 0) {
         $('#msg').html("")
         document.getElementById("studentList").style.visibility = "visible";
+        document.getElementById("paginationDiv").style.visibility = "visible";
         $('#studentList thead').append('<tr><th><input type="checkbox" name="chkbox" onchange="toggleChecked(this.checked)"/> <label for="chkbox">Select All</label> </th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th></tr>')
         for (var i = 0; i < data.stuList.length; i++) {
             $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName+' '+data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
         }
-        $('#studentList tbody').append('<tr><td colspan="3"><input type="button" value="Assign Roll No" id="assignRollNo"></td></tr>')
+        $table_rows = $('#studentList tbody tr');
+        var table_row_limit = 10;
+        var page_table = function(page) {
+            var offset = (page - 1) * table_row_limit,
+                limit = page * table_row_limit;
+            $table_rows.hide();
+            $table_rows.slice(offset, limit).show();
+        }
+        var pageNo=0
+        if($table_rows.length % table_row_limit){
+            pageNo=parseInt($table_rows.length / table_row_limit)+1
+        }
+        else{
+            pageNo=parseInt($table_rows.length / table_row_limit)
+        }
+        $('.pagination').jqPagination({
+            max_page: pageNo,
+            paged: page_table
+        });
+        page_table(1);
+        $('#studentListButton tbody').empty()
+        $('#studentListButton tbody').append('<tr><td colspan="3"><input type="button" value="Assign Roll No" id="assignRollNo"></td></tr>')
 
     }
     else {
@@ -336,13 +355,47 @@ function generateStudentsList() {
 //                alert(data[0].firstName);
                 $('#msg').html("");
                 document.getElementById("studentList").style.visibility = "visible";
+                document.getElementById("paginationDiv").style.visibility = "visible";
                 $('#studentList thead').append('<tr><th>' + "Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Roll Number" + '</th><th>' + "Mobile No" + '</th><th>&nbsp;</th><th>&nbsp;</th></tr>')
                 for (var i = 0; i < data.length; i++) {
                     $('#studentList tbody').append('<tr><td>' + data[i].firstName+' '+data[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data[i].id + ')"/></td><td style="text-align: center;"><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data[i].id + ')"/></td></tr>')
                 }
+                $('#studentList tbody tr:not(:first)').hide();
+                $table_rows = $('#studentList tbody tr');
+
+                var table_row_limit = 15;
+
+                var page_table = function(page) {
+
+                    // calculate the offset and limit values
+                    var offset = (page - 1) * table_row_limit,
+                        limit = page * table_row_limit;
+
+                    // hide all table rows
+                    $table_rows.hide();
+
+                    // show only the n rows
+                    $table_rows.slice(offset, limit).show();
+
+                }
+                var pageNo=0
+                if($table_rows.length % table_row_limit){
+                    pageNo=parseInt($table_rows.length / table_row_limit)+1
+                }
+                else{
+                    pageNo=parseInt($table_rows.length / table_row_limit)
+                }
+//                alert(5%5)
+                $('.pagination').jqPagination({
+                    max_page: pageNo,
+                    paged: page_table
+                });
+                page_table(1);
+
 
             }
             else {
+                document.getElementById("paginationDiv").style.visibility = "hidden";
                 document.getElementById("studentList").style.visibility = "hidden";
                 $('#msg').html("<div class='university-status-message'>No Students Found</div>")
             }
@@ -490,23 +543,31 @@ function updateProgramFee(){
 
 
 function generateChallanForRange(){
-
+var selectedStudentId=[]
+    $('#rollNoError').html("")
     var from=$("#serialNoFrom").val()
     var to = $("#serialNoTo").val()
 
     if(from!=undefined){
     if(from.length==0){
-        alert("Please Enter from Sr No.")
+        $('#rollNoError').html("Please Enter Range/Roll Number From Above List.")
+        return false
     }
     var selectedRange=0;
     if(to>=from){
         selectedRange = (to-from)
     }else{
-        alert("Please enter range correctly")
+        $('#rollNoError').html("Please enter range correctly")
         return false
     }
 
     var rangeCount = parseInt(from)+selectedRange;
+    var srNoCount =$('input[name="studentCheckbox"]').length;
+    if(rangeCount>srNoCount){
+        $('#rollNoError').html("Please enter range correctly")
+        return false
+    }
+
     for(i=from-1;i<rangeCount;i++)
         $('#studyCenterFeeEntryTable').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', true)
 
@@ -514,9 +575,12 @@ function generateChallanForRange(){
         $('#studyCenterFeeEntryTable').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
     for(i=from-2;i>=0;i--)
         $('#studyCenterFeeEntryTable').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
+//        selectedStudentId.clean()
     $('input[name="studentCheckbox"]:checked').each(function() {
+
         selectedStudentId.push($(this).attr('id'));
     });
+//    $("#studentListId").val("")
     $("#studentListId").val(selectedStudentId)
 
     if(selectedStudentId!=null){
@@ -565,13 +629,37 @@ function showListOfStudents(){
             if(data.stuList.length>0) {
                 document.getElementById("studentPayList").style.visibility = "visible";
                 document.getElementById("paySubmit").style.visibility = "visible";
+                document.getElementById("payClear").style.visibility = "visible";
+                $("#scStudnetList thead").empty().append('')
+                $("#scStudnetList thead").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
                 $("#scStudnetList tbody").empty().append('')
-                $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
                 for (var i = 0; i < data.stuList.length; i++) {
                     $("#scStudnetList tbody").append('<tr><td>' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td><input type="text" readonly name="rollNo' + i + '" value="' + data.stuList[i].rollNo + '"/></td><td>' + data.courseNameList[i] + '</td><td>' + data.courseFee[i] + '</td></tr>')
                 }
+                document.getElementById("paginationDiv").style.visibility = "visible";
+                $table_rows = $('#scStudnetList tbody tr');
+                var table_row_limit = 10;
+                var page_table = function(page) {
+                    var offset = (page - 1) * table_row_limit,
+                        limit = page * table_row_limit;
+                    $table_rows.hide();
+                    $table_rows.slice(offset, limit).show();
+                }
+                var pageNo=0
+                if($table_rows.length % table_row_limit){
+                    pageNo=parseInt($table_rows.length / table_row_limit)+1
+                }
+                else{
+                    pageNo=parseInt($table_rows.length / table_row_limit)
+                }
+                $('.pagination').jqPagination({
+                    max_page: pageNo,
+                    paged: page_table
+                });
+                page_table(1);
             }
             else{
+                document.getElementById("paginationDiv").style.visibility = "hidden";
                 $('#msgDiv').html("Challan is already paid or Invalid Challan.")
             }
         }
@@ -581,6 +669,7 @@ function showListOfStudents(){
 function showMiscFeeListOfStudents(){
     document.getElementById("studentPayList").style.visibility = "visible";
     document.getElementById("paySubmit").style.visibility = "visible";
+    document.getElementById("paginationDiv").style.visibility = "hidden";
     $.ajax({
         type: "post",
         url: url('admin', 'searchMiscFeeListByChallanNo', ''),
@@ -588,11 +677,43 @@ function showMiscFeeListOfStudents(){
 
         success: function (data) {
 //            alert(data[0].programDetail.id)
+            $("#scStudnetList thead").empty().append('')
             $("#scStudnetList tbody").empty().append('')
-            $("#scStudnetList tbody").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
+            $("#scStudnetList thead").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
             for(var i=0;i<data.stuList.length;i++){
                 $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
             }
+            document.getElementById("paginationDiv").style.visibility = "visible";
+            $table_rows = $('#scStudnetList tbody tr');
+
+            var table_row_limit = 10;
+
+            var page_table = function(page) {
+
+                // calculate the offset and limit values
+                var offset = (page - 1) * table_row_limit,
+                    limit = page * table_row_limit;
+
+                // hide all table rows
+                $table_rows.hide();
+
+                // show only the n rows
+                $table_rows.slice(offset, limit).show();
+
+            }
+            var pageNo=0
+            if($table_rows.length % table_row_limit){
+                pageNo=parseInt($table_rows.length / table_row_limit)+1
+            }
+            else{
+                pageNo=parseInt($table_rows.length / table_row_limit)
+            }
+//                alert(5%5)
+            $('.pagination').jqPagination({
+                max_page: pageNo,
+                paged: page_table
+            });
+            page_table(1);
         }
     })
 }
@@ -631,10 +752,37 @@ function populateChallanDetail(){
         return false
     }
 }
+//Added By DIgvijay on 22 May 2014
+function populateCourseDetail(){
+    var courseId = $("#courseId").val();
+    alert("courseId--->"+courseId)
+
+    $.ajax({
+        type: "post",
+        url: url('admin', 'updateCourses', ''),
+        data: {courseId: courseId},
+
+        success: function (data) {
+            alert("Inside ajax call.....")
+            if(data.programDetail) {
+                $("#allCourseList tbody").empty().append('<tr><th>Course Id</th><th>Course Code</th><th>Course Name</th></tr>')
+                for (var i = 0; i < data.programDetail.length; i++) {
+                    $("#allCourseList tbody").append('<tr><td><input type="text" name="courseListId" hidden="hidden" value="' + data.programDetail[i].courseId + '"/> ' + data.programDetail[i].courseCode + ' &nbsp;' + data.programDetail[i].courseName + '</td></tr>')
+                }
+                $("#allCourseList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
+                $("#error").hide()
+            }else{
+                $("#error").show()
+            }
+        }
+    });
+}
 
 function submitStudents(){
     $("#approvePayInSlip").submit()
 }
+
+
 
 $( document ).ready(function() {
    $("#rollNoGenerationDate").ready(function(){
