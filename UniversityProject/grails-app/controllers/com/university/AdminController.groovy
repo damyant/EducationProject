@@ -401,6 +401,7 @@ class AdminController {
     }
 
     //ADDED BY DIGVIJAY ON 19 May 2014
+    @Secured(["ROLE_ADMIN"])
     def addCourses = {
         def programTypeList = ProgramType.list()
 //        println("AdminController-->addCourses"+programTypeList);
