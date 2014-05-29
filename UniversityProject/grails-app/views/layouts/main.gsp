@@ -35,6 +35,7 @@
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'base.js')}'></script>
     <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'validation.js')}'></script>
 
+
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-en.js')}"></script>--}%
     %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery/validation-engine.js')}"></script>--}%
     %{--<script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery-1.10.2.js')}"></script>--}%
@@ -49,9 +50,24 @@
     %{--<script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.core.js')}"></script>--}%
     <script type="text/javascript" src="${resource(dir: 'js', file: 'registerPage.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
+    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js/jquery', file: 'jquery.blockUI.js')}'></script>
+
     %{--<script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.ui.dialog.js')}"></script>--}%
 
  <g:layoutHead/>
+    <script>
+        $(document).ajaxStart(function(){
+         $.blockUI({ css: {
+             border: 'none',
+             padding: '15px',
+             backgroundColor: '#000',
+             '-webkit-border-radius': '10px',
+             '-moz-border-radius': '10px',
+             opacity: 5,
+             color: '#fff'
+         } });
+        }).ajaxStop($.unblockUI);
+    </script>
 
 </head>
 

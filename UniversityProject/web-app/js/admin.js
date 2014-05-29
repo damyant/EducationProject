@@ -26,6 +26,7 @@ $(document).ready(function () {
     $(document).on('click', '#assignRollNo', function () {
 //        alert("hi")
         if ($("input[name=rollno_checkbox]:checked").length != 0) {
+//            $.blockUI({ message: '<h1><img src="busy.gif" /> Please Wait...</h1>' });
             $("input[name=rollno_checkbox]:checked").each(function (i) {
 
                 if ($(this).attr("checked", true)) {
@@ -43,7 +44,10 @@ $(document).ready(function () {
                     }
                     else {
                             alert("Roll No Generation Date has Expired/Date Are Not Set Yet.")
+                            $.unblockUI();
                             $('#generateRollNo').reset();
+
+                            return false;
                     }
                 }
             })
@@ -149,14 +153,16 @@ function toggleChecked(status) {
 }
 
 function generateRollNo(value) {
+<<<<<<< HEAD
+=======
 alert("hi")
+>>>>>>> c5875873edea0c54852a4e41582ba35a64e88b6f
     $.ajax({
         type: "post",
         url: url('admin', 'generateRollNo', ''),
         data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(), studentList: $("#studentId").val(), pageType: value},
         success: function (data) {
             appendTable(data)
-
         }
     });
 
@@ -196,6 +202,7 @@ function appendTable(data) {
             paged: page_table
         });
         page_table(1);
+        $('#studentListButton tbody').empty()
         $('#studentListButton tbody').append('<tr><td colspan="3"><input type="button" value="Assign Roll No" id="assignRollNo"></td></tr>')
 
     }

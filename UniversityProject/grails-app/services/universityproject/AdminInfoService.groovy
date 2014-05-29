@@ -4,23 +4,19 @@ import examinationproject.Bank
 import examinationproject.Branch
 import examinationproject.City
 import examinationproject.CourseSubject
-
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
 import examinationproject.RollNoGenerationFixture
-
 import examinationproject.ProgramSession
-
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
 import examinationproject.StudyMaterial
 import examinationproject.Subject
 import grails.transaction.Transactional
-
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 

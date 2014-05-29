@@ -48,6 +48,7 @@ class Student {
         gender(nullable: true)
         nationality(nullable: true)
         state(nullable: true)
+        examinationVenue(nullable: true)
         mobileNo(nullable: true)
         registrationNo1(nullable: true)
         registrationNo2(nullable: true)

@@ -293,6 +293,37 @@ class StudentRegistrationService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 ////       At Study Center
+
+        for (int i = 1; i <= 300; i++) {
+            println("Student Number is "+i)
+            students = new Student()
+            students.firstName = "StudentAtStudy"+i
+            students.lastName="Test"
+            students.gender = "Male"
+            students.category = "GEN"
+            students.programSession = ProgramSession.get(1)
+            students.referenceNumber = getStudentReferenceNumber()
+            students.challanNo = getChallanNumber()
+            params.programId="23"
+            students.rollNo = getStudentRollNumber(params)
+            students.dob = new Date()
+            students.admissionDate = new Date()
+            students.programDetail = programDetails
+            students.status = Status.findById(2)
+            students.studyCentre = StudyCenter.findAllById(73)
+            students.admitCardGenerated = false
+            students.semester=1
+            students.city=City.findAllById(8)
+            students.programDetail = programDetails
+            students.registrationYear = year
+            students.city= City.findAllById(1)
+            try{
+            students.save(flush: true,failOnError: true)
+            }catch (Exception e){
+                println("????????"+e.printStackTrace())
+            }
+        }
+
 //        for (int i = 1; i < 300; i++) {
 //            println("Student Number is "+i)
 //            students = new Student()
@@ -320,6 +351,7 @@ class StudentRegistrationService {
 //                println("????????"+e.printStackTrace())
 //            }
 //        }
+
 
 
 //        //At IDOL
