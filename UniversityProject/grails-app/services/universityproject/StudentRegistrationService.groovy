@@ -215,7 +215,7 @@ class StudentRegistrationService {
     def seedStudent(params) {
         println("Start Time"+new Date())
         def students
-        Set<ProgramDetail> programDetails = ProgramDetail.findAllById(1)
+        Set<ProgramDetail> programDetails = ProgramDetail.findAllById(21)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 ////       At Study Center
@@ -226,10 +226,10 @@ class StudentRegistrationService {
             students.lastName="Test"
             students.gender = "Male"
             students.category = "GEN"
-            students.programSession = ProgramSession.get(1)
-            students.referenceNumber = getStudentReferenceNumber()
+            students.programSession = ProgramSession.get(21)
+//            students.referenceNumber = getStudentReferenceNumber()
             students.challanNo = getChallanNumber()
-            params.programId="23"
+            params.programId="21"
             students.rollNo = getStudentRollNumber(params)
             students.dob = new Date()
             students.admissionDate = new Date()
