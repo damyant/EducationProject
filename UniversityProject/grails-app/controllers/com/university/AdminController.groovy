@@ -66,13 +66,15 @@ class AdminController {
         } else {
             println("Start    "+new Date())
             def studentIdList = params.studentList.split(",")
-            studentIdList.each { i ->
-                rollNumber = studentRegistrationService.getStudentRollNumber(params)
-                stuObj = Student.findById(i)
-                stuObj.rollNo = rollNumber
-                stuObj.status = Status.findById(Long.parseLong("3"))
-                stuObj.save(flush: true, failOnError: true)
-            }
+//            studentIdList.each { i ->
+//                rollNumber = studentRegistrationService.getStudentRollNumber(params)
+//                stuObj = Student.findById(i)
+//                stuObj.rollNo = rollNumber
+//                stuObj.status = Status.findById(Long.parseLong("3"))
+//                stuObj.save(flush: true, failOnError: true)
+//            }
+            rollNumber = studentRegistrationService.getUpdatedStudentRollNumber(params)
+
             println("End    "+new Date())
         }
 

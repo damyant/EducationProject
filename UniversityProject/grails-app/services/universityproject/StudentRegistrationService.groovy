@@ -156,16 +156,17 @@ class StudentRegistrationService {
             }
 
                 if (studentByYearAndCourse.size()>0) {
-                    if (studentByYearAndCourse.get(0).rollNo) {
-                            rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
-                            rollTemp1 = Integer.parseInt(rollTemp) + 1
-                            rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
-                    } else {
-                        rollNumber = courseCodeStr + yearCode + rollStr
-                    }
+                if (studentByYearAndCourse.get(0).rollNo) {
+                    rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
+                    rollTemp1 = Integer.parseInt(rollTemp) + 1
+                    rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
                 } else {
                     rollNumber = courseCodeStr + yearCode + rollStr
                 }
+            } else {
+                rollNumber = courseCodeStr + yearCode + rollStr
+            }
+
 
         } else {
             rollNumber = courseCodeStr + yearCode + rollStr
@@ -175,6 +176,78 @@ class StudentRegistrationService {
            println("Problem in roll number generation")
         }
     }
+    def getUpdatedStudentRollNumber(params){
+
+        def status = false
+        try{
+            Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
+            int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
+            String courseCodeStr = course[0].courseCode.toString()
+            String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2, 4)
+            int rollNo = 1001
+            String rollTemp = null
+            int rollTemp1 = 0
+            String rollStr = Integer.toString(rollNo)
+
+            if (courseCodeStr.length() > 2) {
+                courseCodeStr = courseCodeStr.substring(courseCodeStr.length() - 2, courseCodeStr.length())
+            }
+            String rollNumber = null;
+            Map<String> rollNoList =[:]
+            def obj = Student.createCriteria()
+            def studentByYearAndCourse = obj.list {
+                programDetail {
+                    eq('id', Long.parseLong(params.programId))
+                }
+                and {
+                    eq('registrationYear', year)
+                }
+                maxResults(1)
+                order("rollNo", "desc")
+            }
+               def studentIdList = params.studentList.split(",")
+                if (studentByYearAndCourse.get(0).rollNo) {
+                    println("In if")
+                    rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
+                    for(int i=1;i<=studentIdList.size();i++){
+                        rollTemp1 =Integer.parseInt(rollTemp) + i
+                        rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
+                        rollNoList.put(i.toString(),rollNumber)
+                    }
+                } else {
+                    println("In Else")
+                    int j=1
+                    rollNoList.put(j.toString(),(courseCodeStr + yearCode + rollNo.toString()))
+                    for(int i=1;i<=studentIdList.size();i++){
+                        rollTemp1=rollNo+i
+                        rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
+                        rollNoList.put((i+1).toString(),rollNumber)
+                    }
+                }
+            Student stuObj;
+            int j=0
+            ArrayList<String> rollNoKeyList = new ArrayList<String>(rollNoList.keySet());
+            println("keys"+rollNoKeyList)
+            studentIdList.each { i ->
+                rollNumber =rollNoList.get(rollNoKeyList.get(j))
+                stuObj = Student.findById(i)
+                if(!stuObj.rollNo)
+                stuObj.rollNo = rollNumber
+                stuObj.status = Status.findById(Long.parseLong("3"))
+                stuObj.save(flush: true, failOnError: true)
+                j++
+            }
+
+
+
+
+            return rollNumber
+        }catch(Exception e){
+            println("Problem in roll number generation")
+        }
+    }
+
 
     /**
      * Service to generate the reference no.
@@ -212,7 +285,7 @@ class StudentRegistrationService {
 
     def seedStudent(params) {
         def students
-        Set<ProgramDetail> programDetails = ProgramDetail.findAllById(25)
+        Set<ProgramDetail> programDetails = ProgramDetail.findAllById(17)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 ////       At Study Center
@@ -245,14 +318,14 @@ class StudentRegistrationService {
 //        }
 
 //        //At IDOL
-        for (int i = 1; i < 350; i++) {
+        for (int i = 1; i < 300; i++) {
             println("Student Number is "+i)
             students = new Student()
             students.firstName = "StudentAtIDOL"+i
             students.lastName="Test"
             students.gender = "Male"
             students.category = "GEN"
-            students.programSession = ProgramSession.get(25)
+            students.programSession = ProgramSession.get(17)
             students.referenceNumber = getStudentReferenceNumber()
             students.challanNo = getChallanNumber()
             students.dob = new Date()

@@ -34,8 +34,14 @@ class AttendanceService {
     private WritableCellFormat times1;
 
     Boolean getStudentList(params, excelPath) {
+        File file
         boolean status= false
-        File file = new File(excelPath);
+        try{
+
+         file = new File(excelPath);
+        }catch(Exception e){
+            e.printStackTrace()
+        }
         WorkbookSettings wbSettings = new WorkbookSettings();
         wbSettings.setLocale(new Locale("en", "EN"));
         WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
@@ -88,6 +94,7 @@ class AttendanceService {
             workbook.write();
             workbook.close();
             }
+
             return status
 
         }
@@ -221,6 +228,7 @@ class AttendanceService {
         }
 
         else{
+                println("************************************************88")
                 def obj = Student.createCriteria()
                 def studentList = obj.list {
                     programDetail {
