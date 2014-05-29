@@ -149,7 +149,7 @@ function toggleChecked(status) {
 }
 
 function generateRollNo(value) {
-alert("hi")
+//alert("hi")
     $.ajax({
         type: "post",
         url: url('admin', 'generateRollNo', ''),
@@ -165,9 +165,11 @@ alert("hi")
 
 function appendTable(data) {
 
-
+    document.getElementById("studentList").style.visibility = "hidden";
+    document.getElementById("paginationDiv").style.visibility = "hidden"
     $('#studentList thead tr').remove()
     $('#studentList tbody tr').remove()
+    $('#studentListButton tbody tr').remove()
     if (data.stuList.length > 0) {
         $('#msg').html("")
         document.getElementById("studentList").style.visibility = "visible";
@@ -177,7 +179,7 @@ function appendTable(data) {
             $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName+' '+data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
         }
         $table_rows = $('#studentList tbody tr');
-        var table_row_limit = 10;
+        var table_row_limit = 1;
         var page_table = function(page) {
             var offset = (page - 1) * table_row_limit,
                 limit = page * table_row_limit;
@@ -196,7 +198,7 @@ function appendTable(data) {
             paged: page_table
         });
         page_table(1);
-        $('#studentListButton tbody').append('<tr><td colspan="3"><input type="button" value="Assign Roll No" id="assignRollNo"></td></tr>')
+        $('#studentListButton tbody').empty().append('<tr><td colspan="3"><input type="button" value="Assign Roll No" id="assignRollNo"></td></tr>')
 
     }
     else {
