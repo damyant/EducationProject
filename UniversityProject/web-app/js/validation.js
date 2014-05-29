@@ -10,6 +10,12 @@ function validate() {
             subjectName: {required: true,
                 lettersnumberswithbasicpunc: true
             },
+            registrationNo1:{
+                minlength:5
+            },
+            registrationNo2:{
+                minlength:5
+            },
             //studyMaterialPageFields
             studyMaterialText: {
                 required: true,
@@ -324,6 +330,12 @@ function validate() {
             subjectName: {required: "Please Enter Course Name",
                 lettersnumberswithbasicpunc: "Letters or numbers or punctuation only please"
             },
+            registrationNo1:{
+                minlength:"Please Enter 5 Character"
+            },
+            registrationNo2:{
+                minlength:"Please Enter 7 Character"
+            },
             studyMaterialText:{
                 required:'Please Enter Roll Number',
                 number: "Only accepts Numbers"
@@ -545,6 +557,15 @@ function isNumber(evt) {
     }
     return false;
 }
+function isNumberWithDash(evt) {
+
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if ((charCode > 47 && charCode < 58) || charCode == 8 || charCode == 45) {
+        return true;
+    }
+    return false;
+}
 function onlyAlphabets(e, t) {
     try {
         if (window.event) {
@@ -629,10 +650,25 @@ function clearPayAdmission(){
 }
 function checkValidation() {
 //    alert("hi")
-    $("#paychallanForStudyCenter").validate({
+    $("#paychallanForStudyCenter,#assignLateFeeDate,#assignAdmissionPeriod").validate({
         rules: {
             paymentMode:"required",
             paymentDate:"required",
+            programCategory:"required",
+            program:"required",
+            startAdmission_D:{
+                required:true,
+                minlength:10
+            },
+            endAdmission_D:{
+                required:true,
+                minlength:10
+            },
+            programs:"required",
+            lateFeeDate:{
+                required: true,
+                minlength:10
+            },
             paymentReferenceNumber: {required: true,
                 number:true
             },
@@ -640,13 +676,35 @@ function checkValidation() {
             branchLocation:"required"
         },
         messages: {
+            programCategory:"Please Select Program Category",
+            program:"Please Select Program",
             paymentMode:"Please  Select Payment Mode",
             paymentDate:"Select Payment Date",
+            programs:"Please Select A Program",
+            lateFeeDate:{
+                required: "Please Enter Late Fee Date",
+                minlength:"Please Enter Correct Date"
+            },
+            startAdmission_D:{
+                required: "Please Enter Start Date",
+                minlength:"Please Enter Correct Date"
+            },
+            endAdmission_D:{
+                required: "Please Enter End Date",
+                minlength:"Please Enter Correct Date"
+            },
             paymentReferenceNumber: {required: "Please Enter Ref. Number",
                 number: "Accepts Number Only"
             },
             bankName:"Please Select Bank Name",
             branchLocation:"Please Select Branch Name"
+        },
+        errorPlacement: function (error, element) {
+            if (element.is("input:checkbox[name=programs]")) {
+                element.parents("#courseListDiv").after(error);
+            } else {
+                element.after(error);
+            }
         }
     })
 }

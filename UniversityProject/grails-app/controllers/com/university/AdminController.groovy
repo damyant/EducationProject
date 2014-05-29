@@ -432,8 +432,6 @@ class AdminController {
         programs.each {
 
             if (it.lateFeeDate == null) {
-//                println(it)
-//                println("?????????????????" + it.lateFeeDate)
                 programList.add(it)
             }
         }
@@ -500,6 +498,38 @@ class AdminController {
         else{
             returnMap.status="false"
         }
+        render returnMap as JSON
+    }
+    @Secured("ROLE_ADMIN")
+    def assignAdmissionPeriod(){
+        def programList = []
+        def programs = ProgramDetail.list(sort: 'courseName')
+        programs.each {
+
+            if (it.lateFeeDate == null) {
+                programList.add(it)
+            }
+        }
+
+        def programCategory = ProgramType.list(sort: 'type')
+        [programList: programList, programCategory: programCategory]
+    }
+    def saveAdmissionFeePeriod(){
+        def status=adminInfoService.saveAdmissionPeriod(params)
+        if(status) {
+            flash.message = "Admission Period Saved Successfully"
+        }
+        else {
+            flash.message = "Unable Save Successfully"
+        }
+        redirect(action: "assignAdmissionPeriod")
+    }
+    def getAdmissionDate={
+        def returnMap=[:]
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+        def progmInst=ProgramDetail.findById(params.programCode)
+        returnMap.startDate=df.format(progmInst.startAdmission_D)
+        returnMap.endDate=df.format(progmInst.endAdmission_D)
         render returnMap as JSON
     }
 }

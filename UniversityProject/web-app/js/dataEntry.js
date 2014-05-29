@@ -506,6 +506,61 @@ function filterProgram(t) {
     }
 
 }
+
+function filterProgramsForSelect(t) {
+    var type = $(t).val();
+
+//    alert(type)
+    if (type) {
+        $.ajax({
+            type: "post",
+            url: url('admin', 'loadProgram', ''),
+            data: {type: type},
+            success: function (data) {
+
+                $("#program").empty().append('<option value="">Select Program</option>')
+                 for (var i = 0; i < data.programList.length; i++) {
+                    $("#program").append('<option value="' + data.programList[i].id + '">' + data.programList[i].courseName + '</option>')
+
+                }
+            }
+        });
+    }
+    else {
+        $("#program").empty()
+    }
+
+}
+
+function loadAdmissionDate(t){
+//    alert("sdsds")
+    var programCode = $(t).val()
+    if (programCode) {
+        $.ajax({
+            type: "post",
+            url: url('admin', 'getAdmissionDate', ''),
+            data: {programCode: programCode},
+            success: function (data) {
+                if(data.startDate) {
+                    $("#startAdmission_D").datepicker({ dateFormat: "dd/mm/yy" }).val(data.startDate)
+                }
+                else{
+                    $("#startAdmission_D").val("")
+                }
+                if(data.endDate) {
+                    $("#endAdmission_D").datepicker({ dateFormat: "dd/mm/yy" }).val(data.endDate)
+                }
+                else{
+                    $("#endAdmission_D").val("")
+                }
+            }
+
+        });
+    }
+    else {
+        $("#program").empty()
+    }
+}
 function loadAssignDate(t) {
     var valueDate = $(t).val()
     $('input[name="programs"]:checked').each(function () {
@@ -579,7 +634,7 @@ function loadProgram(t) {
         url: url('feeDetails', 'loadProgram', ''),
         data: {type: type},
         success: function (data) {
-            $("#programList").empty().append('data <option value="">Select Program</option>')
+            $("#programList").empty().append('<option value="">Select Program</option>')
             for (var i = 0; i < data.programList.length; i++) {
                 $("#programList").append('<option value="' + data.programList[i].id + '">' + data.programList[i].courseName + '</option>')
             }

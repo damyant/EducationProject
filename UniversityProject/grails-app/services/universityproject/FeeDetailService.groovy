@@ -163,10 +163,10 @@ class FeeDetailService {
          println("this is the size "+stuList.size())
         for (int i=0;i<stuList.size();i++){
             def lateFeeDate=stuList[i].programDetail.lateFeeDate[0]
-            println("this is late fee Date "+stuList[i].programDetail.courseName)
+//            println("this is late fee Date "+stuList[i].programDetail.courseName)
             def today=new Date()
             def amount=AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
-            println("this is the amount "+ amount)
+//            println("this is the amount "+ amount)
             if(today.compareTo(lateFeeDate) > 0){
                 lateFee=amount[0].lateFeeAmount
             }
@@ -318,7 +318,6 @@ class FeeDetailService {
         returnMap.paymentReferenceNumber=feeDetails.paymentReferenceNumber
         returnMap.bank=feeDetails.bankId.bankName
         returnMap.branch=feeDetails.branchId.branchLocation
-//        println("vvvvvvvvv"+returnMap)
         return returnMap
 
     }
