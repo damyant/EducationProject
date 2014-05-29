@@ -65,14 +65,18 @@ class AdminController {
         if (params.pageType == "Approve RollNo") {
             status = studentRegistrationService.approvedStudents(params)
         } else {
+            println("Start    "+new Date())
             def studentIdList = params.studentList.split(",")
-            studentIdList.each { i ->
-                rollNumber = studentRegistrationService.getStudentRollNumber(params)
-                stuObj = Student.findById(i)
-                stuObj.rollNo = rollNumber
-                stuObj.status = Status.findById(Long.parseLong("3"))
-                stuObj.save(flush: true, failOnError: true)
-            }
+//            studentIdList.each { i ->
+//                rollNumber = studentRegistrationService.getStudentRollNumber(params)
+//                stuObj = Student.findById(i)
+//                stuObj.rollNo = rollNumber
+//                stuObj.status = Status.findById(Long.parseLong("3"))
+//                stuObj.save(flush: true, failOnError: true)
+//            }
+            rollNumber = studentRegistrationService.getUpdatedStudentRollNumber(params)
+
+            println("End    "+new Date())
         }
 
         if (stuObj) {
@@ -425,6 +429,7 @@ class AdminController {
     def generateRollIsAllow={
         def returnMap = [:]
         Boolean status=false
+
         def genRollNoIns=RollNoGenerationFixture.findById(1)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        try {

@@ -2,34 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4160cf6c-6634-4f74-96e2-3c48ee9d0b8c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/admin/assignAdmissionPeriod.gsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/Attendance/Output.xls" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/AdmitCardController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/AdmitCardController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/CourseController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/CourseController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ExaminationCenterController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ExaminationCenterController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/ProgramDetail.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/ProgramDetail.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ProgramFeeController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ProgramFeeController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/RollNoGenerationFixture.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/RollNoGenerationFixture.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/AttendanceService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/AttendanceService.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudyCenterController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudyCenterController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/com/university/UserController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/com/university/UserController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" afterPath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admin.js" afterPath="$PROJECT_DIR$/web-app/js/admin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/assignLateFeeDate.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/assignLateFeeDate.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/dataEntry.js" afterPath="$PROJECT_DIR$/web-app/js/dataEntry.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/enrollmentAtIdol.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/enrollmentAtIdol.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/feeVoucher.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/feeVoucher.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/i18n/messages.properties" afterPath="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/registerPage.js" afterPath="$PROJECT_DIR$/web-app/js/registerPage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/registration.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/registration.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/validation.js" afterPath="$PROJECT_DIR$/web-app/js/validation.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UniversityProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -107,23 +85,26 @@
       <file leaf-file-name="AdminController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="185" column="61" selection-start="6431" selection-end="6431" vertical-scroll-proportion="-4.26" vertical-offset="2382" max-vertical-offset="8220">
+            <state line="189" column="61" selection-start="6620" selection-end="6620" vertical-scroll-proportion="-4.26" vertical-offset="2442" max-vertical-offset="8295">
               <folding>
-                <marker date="1401362685777" expanded="true" signature="3086:4360" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="3106:4205" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="3512:3831" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="3837:4034" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="4227:4325" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="5218:5556" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="5362:5422" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="5585:5676" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="15965:16325" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="15992:16187" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="16101:16177" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="17509:18652" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="18750:19202" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="18880:18921" placeholder="{...}" />
-                <marker date="1401362685777" expanded="true" signature="18983:19111" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="2227:2680" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="2377:2642" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="3275:4549" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="3295:4394" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="3701:4020" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="4026:4223" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="4416:4514" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="5407:5745" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="5551:5611" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="5774:5865" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="15445:16051" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="16155:16515" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="16182:16377" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="16291:16367" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="17699:18842" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="18940:19392" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="19070:19111" placeholder="{...}" />
+                <marker date="1401363312589" expanded="true" signature="19173:19301" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -150,7 +131,7 @@
       <file leaf-file-name="AttendanceService.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/AttendanceService.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="252" column="16" selection-start="12305" selection-end="12305" vertical-scroll-proportion="0.0" vertical-offset="3150" max-vertical-offset="5550">
+            <state line="230" column="0" selection-start="10711" selection-end="10711" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5655">
               <folding>
                 <element signature="n#!!block;n#addCaption#0;n#!!block;n#AttendanceService#0" expanded="false" />
               </folding>
@@ -158,10 +139,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StudentController.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="StudentController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="69" selection-start="3613" selection-end="3613" vertical-scroll-proportion="0.5809859" vertical-offset="1035" max-vertical-offset="4365">
+            <state line="85" column="69" selection-start="3613" selection-end="3613" vertical-scroll-proportion="-7.173913" vertical-offset="1035" max-vertical-offset="4365">
               <folding />
             </state>
           </provider>
@@ -188,6 +169,15 @@
                 <marker date="1401362685773" expanded="true" signature="4085:4360" placeholder="{...}" />
                 <marker date="1401362685773" expanded="true" signature="4397:5651" placeholder="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StudentRegistrationService.groovy" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="287" column="29" selection-start="12155" selection-end="12155" vertical-scroll-proportion="-4.520408" vertical-offset="5409" max-vertical-offset="6390">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -257,13 +247,13 @@
         <option value="$PROJECT_DIR$/web-app/js/jquery/jquery.blockUI.js" />
         <option value="$PROJECT_DIR$/web-app/js/admin.js" />
         <option value="$PROJECT_DIR$/grails-app/views/student/registration.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/admin/downloadAttendanceSheet.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/services/universityproject/AttendanceService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/AdmitCardController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/report/reportIndex.gsp" />
         <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/services/universityproject/AttendanceService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
       </list>
     </option>
   </component>
@@ -961,12 +951,12 @@
       <workItem from="1401165640044" duration="5494000" />
       <workItem from="1401177204783" duration="11248000" />
       <workItem from="1401251704674" duration="21389000" />
-      <workItem from="1401338198707" duration="11347000" />
+      <workItem from="1401338198707" duration="12002000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="230381000" />
+    <option name="totallyTimeSpent" value="231036000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="743" extended-state="0" />
@@ -987,7 +977,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28372434" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39473686" sideWeight="0.18914956" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4148607" sideWeight="0.18914956" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1322,13 +1312,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="0" selection-start="4730" selection-end="4730" vertical-scroll-proportion="0.0" vertical-offset="924" max-vertical-offset="4725">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/admin/downloadAttendanceSheet.gsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="27" column="20" selection-start="887" selection-end="887" vertical-scroll-proportion="-3.2340426" vertical-offset="253" max-vertical-offset="1515">
@@ -1356,15 +1339,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/AttendanceService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="252" column="16" selection-start="12305" selection-end="12305" vertical-scroll-proportion="0.0" vertical-offset="3150" max-vertical-offset="5550">
-          <folding>
-            <element signature="n#!!block;n#addCaption#0;n#!!block;n#AttendanceService#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/admitCard/bulkCreationOfAdmitCard.gsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="9.574468" vertical-offset="450" max-vertical-offset="2220">
@@ -1388,23 +1362,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="185" column="61" selection-start="6431" selection-end="6431" vertical-scroll-proportion="-4.26" vertical-offset="2382" max-vertical-offset="8220">
+        <state line="189" column="61" selection-start="6620" selection-end="6620" vertical-scroll-proportion="-4.26" vertical-offset="2442" max-vertical-offset="8295">
           <folding>
-            <marker date="1401362685777" expanded="true" signature="3086:4360" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="3106:4205" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="3512:3831" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="3837:4034" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="4227:4325" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="5218:5556" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="5362:5422" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="5585:5676" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="15965:16325" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="15992:16187" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="16101:16177" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="17509:18652" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="18750:19202" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="18880:18921" placeholder="{...}" />
-            <marker date="1401362685777" expanded="true" signature="18983:19111" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="2227:2680" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="2377:2642" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="3275:4549" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="3295:4394" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="3701:4020" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="4026:4223" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="4416:4514" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="5407:5745" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="5551:5611" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="5774:5865" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="15445:16051" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="16155:16515" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="16182:16377" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="16291:16367" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="17699:18842" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="18940:19392" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="19070:19111" placeholder="{...}" />
+            <marker date="1401363312589" expanded="true" signature="19173:19301" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -1425,7 +1402,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="69" selection-start="3613" selection-end="3613" vertical-scroll-proportion="0.5809859" vertical-offset="1035" max-vertical-offset="4365">
+        <state line="85" column="69" selection-start="3613" selection-end="3613" vertical-scroll-proportion="-7.173913" vertical-offset="1035" max-vertical-offset="4365">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/AttendanceService.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="230" column="0" selection-start="10711" selection-end="10711" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5655">
+          <folding>
+            <element signature="n#!!block;n#addCaption#0;n#!!block;n#AttendanceService#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="287" column="29" selection-start="12155" selection-end="12155" vertical-scroll-proportion="-4.520408" vertical-offset="5409" max-vertical-offset="6390">
           <folding />
         </state>
       </provider>

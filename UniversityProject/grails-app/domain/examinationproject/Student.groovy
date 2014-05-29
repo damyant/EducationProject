@@ -33,6 +33,7 @@ class Student {
     Boolean admitCardGenerated
     ExaminationVenue examinationVenue
     Date admissionDate =new Date()
+    
     String challanNo
 
 
