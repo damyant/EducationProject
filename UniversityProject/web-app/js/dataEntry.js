@@ -285,6 +285,7 @@ function appendStudentList(data) {
     if (data.studentList.length > 0) {
         $('#noStudentMsg').html("")
         var type = $('#paramType').val()
+        document.getElementById("paginationDiv").style.visibility = "hidden";
         $('#studyCenterFeeEntryTable').attr('hidden', false);
         $('#rangeRadioButtons').attr('hidden', false);
         $("#studyCenterFeeEntryTable tbody tr").remove()
@@ -614,13 +615,14 @@ function clearFields() {
     $('#semesterList').val('')
     $('#studyCenterFeeEntryTable').prop('hidden', true);
     $('#rangeRadioButtons').prop('hidden', true);
+    document.getElementById("paginationDiv").style.visibility = "hidden";
     document.getElementById("paymentDetails").style.visibility = "hidden"
     document.getElementById("generateFeeChallan").style.visibility = "hidden"
 //    $('#generateFeeChallan').prop('hidden', true);
 }
 
 function loadProgram(t) {
-
+    document.getElementById("paginationDiv").style.visibility = "hidden";
     $('#studyCenterFeeEntryTable').prop('hidden', true)
     $('#allProgram').prop('checked', false)
     $('#rangeRadioButtons').prop('hidden', true)
