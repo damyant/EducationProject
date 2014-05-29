@@ -128,6 +128,17 @@ function checkApplicationNumber(t) {
         }
     });
 }
+
+function checkLastDate(t){
+    var data = $(t).val();
+    $.ajax({
+        type: "post",
+        url: url('student', 'checkLastDate', ''),
+        data: {applicationNo: data},
+        success: function (data) {
+        }
+    })
+}
 function submitTempRegistration() {
     validate();
     var result = $('#tempEnrollment').valid()
@@ -156,8 +167,8 @@ function confirmGenerateChallan(rollno) {
                 var confirmOK = confirm("Do you want to Generate Challan for Roll No " + rollno + " ?");
                 if (confirmOK) {
 
-//                    window.open('/UniversityProject/admin/generateFeeVoucher?rollNo=' + rollno+'&feeType=1');
-                        window.location.href = '/UniversityProject/admin/generateFeeVoucher?rollNo=' + rollno+"&idol="+"idol&feeType="+"0";
+                    window.open('/UniversityProject/admin/generateFeeVoucher?rollNo=' + rollno+"&idol="+"idol&feeType="+"0");
+//                        window.location.href = '/UniversityProject/admin/generateFeeVoucher?rollNo=' + rollno+"&idol="+"idol&feeType="+"0";
                 }
                 else {
                     alert('Student Registered Successfully & Roll No is ' + rollno);

@@ -1,6 +1,7 @@
 package examinationproject
 
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -31,8 +32,9 @@ class AdmitCardController {
         [programList: programList, studyCentreList: studyCentreList, examinationCentre: examinationCentre]
 
     }
+    @Secured(["ROLE_ADMIN"])
     def bulkCreationOfAdmitCard ={
-        def programList = ProgramDetail.list(sort:'courseName')
+        def programList = ProgramDetail.list(sort:'courseCode')
         def studyCentreList = StudyCenter.list()
         def examinationCenter=City.findAllByIsExamCentre(1,[sort: 'cityName'])
 //        def examinationCenter=ExaminationVenue.list()*.city as Set
@@ -46,7 +48,7 @@ class AdmitCardController {
 
 
     def getSemesterList={
-        println("gettinf semsster wise subjects"+params)
+//        println("gettinf semsster wise subjects"+params)
         try{
             if(params.data=='allProgram'){
                 def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
@@ -137,7 +139,7 @@ class AdmitCardController {
         if(stuList[0]){
             def programSessionIns=ProgramSession.findById(Long.parseLong(params.programSessionId))
 
-            println(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession))
+//            println(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession))
         def subjectList=CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession),programSessionIns)*.subject
 
             def dateList=[]

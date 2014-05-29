@@ -12,8 +12,8 @@ class Student {
     String nationality
     String state
     BigInteger mobileNo
-    BigInteger registrationNo1
-    BigInteger registrationNo2
+    String registrationNo1
+    String registrationNo2
     String studentAddress
     String addressTown
     String addressPO
@@ -33,6 +33,7 @@ class Student {
     Boolean admitCardGenerated
     ExaminationVenue examinationVenue
     Date admissionDate =new Date()
+    
     String challanNo
 
 
@@ -47,6 +48,7 @@ class Student {
         gender(nullable: true)
         nationality(nullable: true)
         state(nullable: true)
+        examinationVenue(nullable: true)
         mobileNo(nullable: true)
         registrationNo1(nullable: true)
         registrationNo2(nullable: true)

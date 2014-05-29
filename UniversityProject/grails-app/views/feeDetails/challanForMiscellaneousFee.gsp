@@ -69,7 +69,7 @@
                 </tr>
             </table>
             <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1"> <input type="button" value="Show Students" onclick="populateStudentListForMiscFee()" class="ui-button university-size-1-4" style="margin: auto;"></div>
-            <table id="studyCenterFeeEntryTable" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd; " hidden="hidden">
+            <table id="studyCenterFeeEntryTable" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd; ">
                 <thead>
                 <tr>
                     %{--<th style="width: 10%;padding-left: 10px;"><input type="checkbox" name="selectAll" id="selectAll"><label for="selectAll">Select All</label></th>--}%

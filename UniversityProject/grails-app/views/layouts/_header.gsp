@@ -137,14 +137,25 @@
 <li><a href="#"><g:message code="default.mainMenu5"/></a></li>
 <li><a href="#"><g:message code="default.mainMenu6"/></a>
     <ul>
+        <li><a href="#"><g:message code="default.mainMenu6.subMenu11"/></a>
+        <ul>
+            <li><g:link controller="admin"
+                        action="assignAdmissionPeriod"><g:message
+                        code="default.mainMenu3.subMenu7.subMenu8"/></g:link></li>
+            <li><g:link controller="admin"
+                        action="assignLateFeeDate"><g:message
+                        code="default.mainMenu3.subMenu7.subMenu7"/></g:link></li>
+            <li><g:link controller="admin"
+                        action="assignExaminationDate"><g:message
+                        code="default.mainMenu6.subMenu4"/></g:link></li>
+            <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
+
+                    code="default.mainMenu6.subMenu9"/></g:link></li>
+        </ul>
+        </li>
         <li><g:link controller="admin" action="viewProvisionalStudents"><g:message
                 code="default.mainMenu6.subMenu1"/></g:link></li>
-        <li><g:link controller="admin"
-                    action="assignLateFeeDate"><g:message
-                    code="default.mainMenu3.subMenu7.subMenu7"/></g:link></li>
-        <li><g:link controller="admin"
-                    action="assignExaminationDate"><g:message
-                    code="default.mainMenu6.subMenu4"/></g:link></li>
+
         <li><g:link controller="admin"
                     action="assignExaminationVenue"><g:message
                     code="default.mainMenu6.subMenu5"/></g:link></li>
@@ -159,9 +170,7 @@
         %{--Added By Digvijay on 19 June 2014--}%
 
 
-        <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
 
-                code="default.mainMenu6.subMenu9"/></g:link></li>
         <li><g:link controller="admin"
                     action="studyMaterial"><g:message
                     code="default.mainMenu6.subMenu10"/></g:link></li>

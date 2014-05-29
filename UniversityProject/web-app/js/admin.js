@@ -26,6 +26,7 @@ $(document).ready(function () {
     $(document).on('click', '#assignRollNo', function () {
 //        alert("hi")
         if ($("input[name=rollno_checkbox]:checked").length != 0) {
+//            $.blockUI({ message: '<h1><img src="busy.gif" /> Please Wait...</h1>' });
             $("input[name=rollno_checkbox]:checked").each(function (i) {
 
                 if ($(this).attr("checked", true)) {
@@ -43,7 +44,10 @@ $(document).ready(function () {
                     }
                     else {
                             alert("Roll No Generation Date has Expired/Date Are Not Set Yet.")
+                            $.unblockUI();
                             $('#generateRollNo').reset();
+
+                            return false;
                     }
                 }
             })
@@ -149,14 +153,12 @@ function toggleChecked(status) {
 }
 
 function generateRollNo(value) {
-alert("hi")
     $.ajax({
         type: "post",
         url: url('admin', 'generateRollNo', ''),
         data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(), studentList: $("#studentId").val(), pageType: value},
         success: function (data) {
             appendTable(data)
-
         }
     });
 
@@ -165,9 +167,11 @@ alert("hi")
 
 function appendTable(data) {
 
-
+    document.getElementById("studentList").style.visibility = "hidden";
+    document.getElementById("paginationDiv").style.visibility = "hidden"
     $('#studentList thead tr').remove()
     $('#studentList tbody tr').remove()
+    $('#studentListButton tbody tr').remove()
     if (data.stuList.length > 0) {
         $('#msg').html("")
         document.getElementById("studentList").style.visibility = "visible";
@@ -177,7 +181,7 @@ function appendTable(data) {
             $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName+' '+data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
         }
         $table_rows = $('#studentList tbody tr');
-        var table_row_limit = 10;
+        var table_row_limit = 1;
         var page_table = function(page) {
             var offset = (page - 1) * table_row_limit,
                 limit = page * table_row_limit;
@@ -196,7 +200,8 @@ function appendTable(data) {
             paged: page_table
         });
         page_table(1);
-        $('#studentListButton tbody').append('<tr><td colspan="3"><input type="button" value="Assign Roll No" id="assignRollNo"></td></tr>')
+        $('#studentListButton tbody').empty().append('<tr><td colspan="3"><input type="button" value="Assign Roll No" id="assignRollNo"></td></tr>')
+
 
     }
     else {
@@ -613,8 +618,16 @@ function showStudents(){
     })
 
 }
-function showListOfStudents(){
+function clearTable(){
+    document.getElementById("scStudnetList").style.visibility = "hidden";
+    document.getElementById("studentPayList").style.visibility = "hidden";//
+    document.getElementById("paySubmit").style.visibility = "hidden";
+    document.getElementById("payClear").style.visibility = "hidden";
+}
 
+
+function showListOfStudents(){
+    document.getElementById("paginationDiv").style.visibility = "hidden";
     $.ajax({
         type: "post",
         url: url('admin', 'searchListStudentByChallanNo', ''),
@@ -622,9 +635,10 @@ function showListOfStudents(){
 
         success: function (data) {
             $('#msgDiv').html("")
-//            alert(data[0].programDetail.id)
+//            alert(data.stuList.length)
             if(data.stuList.length>0) {
                 document.getElementById("studentPayList").style.visibility = "visible";
+//
                 document.getElementById("paySubmit").style.visibility = "visible";
                 document.getElementById("payClear").style.visibility = "visible";
                 $("#scStudnetList thead").empty().append('')
@@ -752,7 +766,7 @@ function populateChallanDetail(){
 //Added By DIgvijay on 22 May 2014
 function populateCourseDetail(){
     var courseId = $("#courseId").val();
-    alert("courseId--->"+courseId)
+//    alert("courseId--->"+courseId)
 
     $.ajax({
         type: "post",
@@ -760,7 +774,7 @@ function populateCourseDetail(){
         data: {courseId: courseId},
 
         success: function (data) {
-            alert("Inside ajax call.....")
+//            alert("Inside ajax call.....")
             if(data.programDetail) {
                 $("#allCourseList tbody").empty().append('<tr><th>Course Id</th><th>Course Code</th><th>Course Name</th></tr>')
                 for (var i = 0; i < data.programDetail.length; i++) {

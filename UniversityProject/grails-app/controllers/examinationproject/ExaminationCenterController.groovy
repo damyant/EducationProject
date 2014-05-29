@@ -198,7 +198,7 @@ class ExaminationCenterController {
             def examCenterList = null
             if (district != null) {
                 examCenterList = City.findAllByDistrictAndIsExamCentre(district,1,[sort: 'cityName'])
-                println(examCenterList)
+//                println(examCenterList)
                 render examCenterList as JSON
             } else {
                 render null

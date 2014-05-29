@@ -17,28 +17,9 @@ class StudyCenterController {
     @Secured("ROLE_ADMIN")
         def createNewStudyCenter() {
         def config = SpringSecurityUtils.securityConfig
-
-//        if (springSecurityService.isLoggedIn()) {
-//            try {
-//                studyCenterInfoService.studyCenterDetailInfo(params)
-//                return [view: "examinationCenter/createNewStudyCenter"]
-//            }
-//            catch (Exception e) {
-//                println("<<<<<<<<<<<There is some problem in saving new study center" + e)
-//            }
-//
-//        }else{
-//
-//        String view = '/login/auth'
-//        String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
-//        render view: view, model: [postUrl: postUrl,
-//                rememberMeParameter: config.rememberMe.parameter]
-//        }
         try {
          def studyCentreInstance=   studyCenterInfoService.studyCenterDetailInfo(params)
             def districtIns=District.list(sort:'districtName' )
-
-//            return [view: "examinationCenter/createNewStudyCenter"]
             [studyCentreInstance:studyCentreInstance,districtIns:districtIns,]
         }
         catch (Exception e) {

@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="java.text.SimpleDateFormat; examinationproject.ExaminationCentre; javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.text.SimpleDateFormat; javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Student Registration</title>
@@ -78,6 +78,18 @@
         </div>
     </fieldset>
 </g:if>
+<g:elseif test="${!programList}">
+    <fieldset class="form">
+        <div class='body'>
+            <div class='errors'><div class="university-not-authorized">
+                <p><img src="${resource(dir: 'images', file: 'cancel.png')}" alt="Not Authorized"
+                        style="margin: auto;"/></p>
+
+                <p><g:message code="Admission.denied.message"/></p>
+            </div></div>
+        </div>
+    </fieldset>
+</g:elseif>
 <g:else>
 <fieldset class="form">
 <g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data"
@@ -263,10 +275,10 @@
 <!----- GU Registration Number( If already registered in GU) ---------------------------------------------------------->
 <td>GU Registration Number (if already registered in GU)</td>
 <td>
-<input type="text" name="registrationNo1" maxlength="9" class="university-size-1-3"
+<input type="text" name="registrationNo1" maxlength="5" class="university-size-1-3"
 onkeypress="return isNumber(event)"/> Of
-<input type="text" name="registrationNo2" maxlength="6" class="university-size-1-3"
-onkeypress="return isNumber(event)"/>
+<input type="text" name="registrationNo2" maxlength="7" class="university-size-1-3"
+onkeypress="return isNumberWithDash(event)"/>
 </td>
 </tr>
 

@@ -1,8 +1,8 @@
 package examinationproject
 
 class RollNoGenerationFixture {
-    Date startD
-    Date endD
+    Date startD=new  Date()
+    Date endD=new  Date()
 
     static constraints = {
         startD(nullable: true)
