@@ -34,7 +34,7 @@ class AdminController {
     def viewProvisionalStudents() {
 
         def studyCenterList = StudyCenter.list(sort: 'name')
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         [studyCenterList: studyCenterList, programList: programList]
     }
 
@@ -65,14 +65,18 @@ class AdminController {
         if (params.pageType == "Approve RollNo") {
             status = studentRegistrationService.approvedStudents(params)
         } else {
+            println("Start    "+new Date())
             def studentIdList = params.studentList.split(",")
-            studentIdList.each { i ->
-                rollNumber = studentRegistrationService.getStudentRollNumber(params)
-                stuObj = Student.findById(i)
-                stuObj.rollNo = rollNumber
-                stuObj.status = Status.findById(Long.parseLong("3"))
-                stuObj.save(flush: true, failOnError: true)
-            }
+//            studentIdList.each { i ->
+//                rollNumber = studentRegistrationService.getStudentRollNumber(params)
+//                stuObj = Student.findById(i)
+//                stuObj.rollNo = rollNumber
+//                stuObj.status = Status.findById(Long.parseLong("3"))
+//                stuObj.save(flush: true, failOnError: true)
+//            }
+            rollNumber = studentRegistrationService.getUpdatedStudentRollNumber(params)
+
+            println("End    "+new Date())
         }
 
         if (stuObj) {
@@ -178,12 +182,12 @@ class AdminController {
 
     @Secured("ROLE_ADMIN")
     def assignExaminationDate = {
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         [programList: programList]
     }
     @Secured("ROLE_ADMIN")
     def assignExaminationVenue={
-        def programList = ProgramDetail.list(sort:'courseName')
+        def programList = ProgramDetail.list(sort:'courseCode')
         def obj=City.createCriteria()
         def examCenterList=obj.list {
             eq('isExamCentre',1)
@@ -235,11 +239,11 @@ class AdminController {
 
     def downloadAttendanceSheet = {
         if (params.programSession) {
-
             def webRootDir = servletContext.getRealPath("/")
             def userDir = new File(webRootDir, '/Attendance')
             userDir.mkdirs()
             def excelPath = servletContext.getRealPath("/") + 'Attendance' + System.getProperty('file.separator') + 'Output' + '.xls'
+            try{
             def status = attendanceService.getStudentList(params, excelPath)
 //            println("hello kuldeep u r back in controller " + status)
             if (status) {
@@ -250,8 +254,15 @@ class AdminController {
                 response.outputStream << myFile.bytes
                 response.outputStream.flush()
                 myFile.delete()
+                redirect(action: 'downloadAttendanceSheet')
             } else {
                 flash.message = "${message(code: 'student.not.found.message')}"
+                redirect(action: 'downloadAttendanceSheet')
+            }
+            }
+            catch(Exception e){
+                println("This is the exception "+ e)
+                flash.message = "${message(code: 'student.exception.found.message')}"
                 redirect(action: 'downloadAttendanceSheet')
             }
         } else {
@@ -420,6 +431,7 @@ class AdminController {
     def generateRollIsAllow={
         def returnMap = [:]
         Boolean status=false
+
         def genRollNoIns=RollNoGenerationFixture.findById(1)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        try {
