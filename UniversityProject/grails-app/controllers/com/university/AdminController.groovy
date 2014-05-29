@@ -313,8 +313,10 @@ class AdminController {
             def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
             def lateFeeDate = programIns.lateFeeDate
             def today = new Date()
-            if (today.compareTo(lateFeeDate) > 0) {
-               lateFee = AdmissionFee.findByProgramDetail(programIns).lateFeeAmount
+            if(lateFeeDate!=null) {
+                if (today.compareTo(lateFeeDate) > 0) {
+                    lateFee = AdmissionFee.findByProgramDetail(programIns).lateFeeAmount
+                }
             }
             def feeAmount = AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
             payableFee = feeAmount.feeAmountAtIDOL + lateFee
@@ -418,10 +420,10 @@ class AdminController {
     def saveRollNoGenerationDate={
             def status=adminInfoService.saveRollNoGenDate(params)
         if(status) {
-            flash.message = "Date Generated Successfully"
+            flash.message = "Roll Number Generation Date Assigned Successfully"
         }
         else {
-            flash.message = "Unable to Generate Date Successfully"
+            flash.message = "Unable to Assign Date Successfully"
         }
             redirect(action: "assignRollNoGenerationDate")
 

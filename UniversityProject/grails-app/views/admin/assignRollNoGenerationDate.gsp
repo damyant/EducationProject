@@ -17,7 +17,11 @@
 <div id="main">
 
     <fieldset class="form">
+
         <h3>Assign Roll Number Generation Date</h3>
+        <g:if test="${flash.message}">
+            <div class="message"><div class="university-status-message">${flash.message}</div></div>
+        </g:if>
         <g:form controller="admin" action="saveRollNoGenerationDate" id="rollNoGenerationDate" name="rollNoGenerationDate">
         <table class="inner">
             <tr>
