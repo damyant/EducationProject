@@ -1,6 +1,7 @@
 package examinationproject
 
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -31,6 +32,7 @@ class AdmitCardController {
         [programList: programList, studyCentreList: studyCentreList, examinationCentre: examinationCentre]
 
     }
+    @Secured(["ROLE_ADMIN"])
     def bulkCreationOfAdmitCard ={
         def programList = ProgramDetail.list(sort:'courseCode')
         def studyCentreList = StudyCenter.list()
