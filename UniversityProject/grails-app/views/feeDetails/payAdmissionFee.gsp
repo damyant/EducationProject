@@ -13,6 +13,8 @@
     <g:javascript src='admin.js'/>
     <g:javascript src='admitCard.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
 
 </head>
 
@@ -56,6 +58,7 @@
             </div>
             <div class="university-status-message"><div id="msgDiv"></div></div>
             <table id="studentPayList" class="university-size-full-1-1" style="visibility: hidden">
+            %{--<table id="studentPayList" class="university-size-full-1-1">--}%
                 <tr>
                     <td class="university-size-1-3">Payment Mode</td>
                     <td class="university-size-2-3"><g:select name="paymentMode" class="university-size-1-2"
@@ -95,14 +98,12 @@
                 <tr>
                     <td></td>
                     <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3"
-                               onclick="checkValidation()" value="Pay" style="visibility: hidden"/> <input type="reset"
-                                                                                                           id="payClear"
-                                                                                                           class="ui-button university-size-1-3"
-                                                                                                           onclick="clearPayAdmission()"
-                                                                                                           value="Clear"
-                                                                                                           style="visibility: hidden"/>
+                               onclick="checkValidation()" value="Pay" style="visibility: hidden"/>
+                        <input type="reset" id="payClear" class="ui-button university-size-1-3" onclick="clearTable()"
+                         value="Clear" style="visibility: hidden"/>
                     </td>
                 </tr>
+                <tbody></tbody>
             </table>
         </g:form>
     </fieldset>

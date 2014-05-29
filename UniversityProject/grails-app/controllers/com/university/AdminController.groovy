@@ -339,8 +339,10 @@ class AdminController {
             def lateFeeDate=it.programDetail.lateFeeDate[0]
             def today=new Date()
 //            def amount=AdmissionFee.findByProgramDetail(it.programDetail[0])
-            if(today.compareTo(lateFeeDate) > 0){
-                lateFee=AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
+            if(lateFeeDate!=null) {
+                if (today.compareTo(lateFeeDate) > 0) {
+                    lateFee = AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
+                }
             }
             courseNameList<<it.programDetail[0].courseName
             //if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
