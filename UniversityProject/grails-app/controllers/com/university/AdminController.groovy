@@ -12,6 +12,7 @@ import examinationproject.ProgramType
 import examinationproject.RollNoGenerationFixture
 import examinationproject.Student
 import examinationproject.Status
+import examinationproject.StudentController
 import examinationproject.StudyCenter
 import grails.converters.JSON
 import javax.activation.MimetypesFileTypeMap
@@ -133,9 +134,10 @@ class AdminController {
     @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
     def generateFeeVoucher = {
 
-//        println(">>>>>>>>????????>>" + params)
+        println(">>>>>>>>????????>>" + params)
         def student = Student.findByRollNo(params.rollNo)
-        def program = student.programDetail[0]
+        println("program"+student.programDetail)
+        def program = student.programDetail
         def feeTypeId
         def feeType = null
         def args
@@ -145,14 +147,21 @@ class AdminController {
             try{
             def lateFeeDate=student.programDetail.lateFeeDate[0]
             def today=new Date()
-            if(today.compareTo(lateFeeDate) > 0){
-                lateFee=AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
-            }
+                if(lateFeeDate!=null) {
+                    if (today.compareTo(lateFeeDate) > 0) {
+                        lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+                    }
+                }
             feeType = null
             programFeeAmount = programFee.feeAmountAtIDOL+lateFee
         }catch(NullPointerException e){
         flash.message="Late Fee Date is not asigned! "
-                redirect(controller: params.controller,action: params.action)
+                if (params.idol == "idol") {
+                    redirect(controller: student, action:enrollmentAtIdol)
+                }
+                else{
+                    redirect(controller: params.controller, action: feeVoucher)
+                }
         }
 
         if (params.idol == "idol")

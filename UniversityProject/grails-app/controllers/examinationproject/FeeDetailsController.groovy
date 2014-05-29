@@ -224,9 +224,11 @@ class FeeDetailsController {
 
             Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
             def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtSC
-            if(today.compareTo(lateFeeDate) > 0){
-                lateFee=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).lateFeeAmount
-            }
+           if(lateFeeDate!=null) {
+               if (today.compareTo(lateFeeDate) > 0) {
+                   lateFee = AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0], stuIns.programSession).lateFeeAmount
+               }
+           }
 //            println("@@@@@@@@@@@@@@@@@"+lateFee)
             feeForStudent=feeForStudent+lateFee
             totalFee=totalFee+ feeForStudent
@@ -246,9 +248,11 @@ class FeeDetailsController {
 
                 Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
                 def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtIDOL
-                if(today.compareTo(lateFeeDate) > 0){
-                    lateFee=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).lateFeeAmount
-                }
+               if(lateFeeDate!=null) {
+                   if (today.compareTo(lateFeeDate) > 0) {
+                       lateFee = AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0], stuIns.programSession).lateFeeAmount
+                   }
+               }
                 feeForStudent=feeForStudent+lateFee
 //                println("@@@@@@@@@@@@@@@@@"+lateFee)
                 totalFee=totalFee+ feeForStudent
@@ -334,8 +338,10 @@ class FeeDetailsController {
 //            println("==="+it.programDetail[0])
             def lateFeeDate=it.programDetail.lateFeeDate[0]
             def today=new Date()
-            if(today.compareTo(lateFeeDate) > 0){
-                lateFee=AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
+            if(lateFeeDate!=null) {
+                if (today.compareTo(lateFeeDate) > 0) {
+                    lateFee = AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
+                }
             }
             courseNameList<<it.programDetail[0].courseName
 

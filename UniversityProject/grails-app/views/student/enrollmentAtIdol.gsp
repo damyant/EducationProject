@@ -64,7 +64,7 @@
                     <tr>
                         <td>Program<span class="university-obligatory">*</span></td>
                         <td>
-                            <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
+                            <g:select name="programId" id="programId" optionKey="id" onchange="checkLastDate(this)" class="university-size-1-2"
                                       optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"/>
                             <g:hiddenField name="idol" value="idol"/>
                         </td>

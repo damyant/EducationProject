@@ -116,8 +116,10 @@ class StudentController {
 //            def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
             def lateFeeDate = student.programDetail.lateFeeDate[0]
             def today = new Date()
-            if (today.compareTo(lateFeeDate) > 0) {
-                lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+            if(lateFeeDate!=null) {
+                if (today.compareTo(lateFeeDate) > 0) {
+                    lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+                }
             }
             def feeAmount = AdmissionFee.findByProgramDetail(student.programDetail);
             payableFee = feeAmount.feeAmountAtIDOL + lateFee
