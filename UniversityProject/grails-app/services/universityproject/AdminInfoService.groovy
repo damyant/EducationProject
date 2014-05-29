@@ -236,9 +236,18 @@ def springSecurityService
          saveObj=   StudyMaterial.create(stuIns,Subject.findById(Long.parseLong(it.toString())))
         }
         return saveObj
-
-
     }
-
-
+    def saveAdmissionPeriod(params){
+        Boolean status=false;
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+        def startAdmission_D = df.parse(params.startAdmission_D)
+        def endAdmission_D = df.parse(params.endAdmission_D)
+        def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
+        programIns.endAdmission_D=endAdmission_D
+        programIns.startAdmission_D=startAdmission_D
+        if(programIns.save(flush: true, failOnError: true)){
+            status=true
+        }
+        return status
+    }
 }

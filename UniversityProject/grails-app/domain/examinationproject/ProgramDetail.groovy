@@ -14,6 +14,8 @@ class ProgramDetail {
     int marksPerPaper
     int totalCreditPoints
     Date lateFeeDate
+    Date startAdmission_D
+    Date endAdmission_D
     static hasMany = [student: Student]
     static belongsTo = [Student]
     static mapping = {
@@ -30,6 +32,8 @@ class ProgramDetail {
         marksPerPaper column: "MarksPerPaper"
         totalCreditPoints column: "TotalCreditPoints"
         lateFeeDate column: "LateFeeDate"
+        endAdmission_D column: "endAdmission_D"
+        startAdmission_D column: "startAdmission_D"
 
 
     }
@@ -47,5 +51,7 @@ class ProgramDetail {
         marksPerPaper(nullable: false)
         totalCreditPoints(nullable:false)
         lateFeeDate(nullable: true)
+        endAdmission_D(nullable: true)
+        startAdmission_D(nullable: true)
     }
 }

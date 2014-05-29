@@ -116,11 +116,11 @@ class UserController {
 
             def roles=Role.getAll()
             def studyCentre = null
-            println("^^^^^^^^^^&&&&&&  "+userInstance.studyCentreId)
+//            println("^^^^^^^^^^&&&&&&  "+userInstance.studyCentreId)
             if(userInstance.studyCentreId!=0) {
                 studyCentre = StudyCenter.findById(userInstance.studyCentreId).id
 //            println(roles.id)
-                println("&&&&&&&&&&&&&&&&&&" + studyCentre)
+//                println("&&&&&&&&&&&&&&&&&&" + studyCentre)
             }
             return [userInstance: userInstance,roles:roles, userRoles:userRoles, compare:compare, studyCentreList:studyCentreList, studyCentre:studyCentre]
         }

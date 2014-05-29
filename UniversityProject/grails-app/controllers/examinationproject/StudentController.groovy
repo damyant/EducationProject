@@ -4,6 +4,9 @@ import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 import org.apache.commons.lang.ObjectUtils.Null
 
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 //@Secured("ROLE_STUDYCENTRE")
 class StudentController {
     def studentRegistrationService
@@ -14,6 +17,8 @@ class StudentController {
 
     def registration= {
         def studyCentre
+        def programList=[]
+        def count=0
         if (springSecurityService.isLoggedIn()) {
             def currentUser = springSecurityService.currentUser.username
             if (springSecurityService.currentUser.studyCentreId != 0) {
@@ -25,7 +30,36 @@ class StudentController {
             studyCentre = StudyCenter.findByCenterCode('11111')
         }
         def studInstance = Student.get(params.studentId)
-        def programList = ProgramDetail.list(sort: 'courseCode')
+
+        def allProgramList = ProgramDetail.list(sort: 'courseCode')
+        try {
+            DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+            def today =df.parse(df.format(new Date()))
+            allProgramList.each {
+
+                if(it.startAdmission_D!=null && it.endAdmission_D !=null) {
+                    def start =df.parse(df.format(it.startAdmission_D))
+                    def end =df.parse(df.format(it.endAdmission_D))
+//                    println("start>>>----"+start)
+//                    println("End>>>----"+end)
+//                    println("today>>>----"+today)
+//                    println(it.courseName)
+//                    println("start"+start.compareTo(today))
+//                    println("end"+today.compareTo(end))
+                    if (start.compareTo(today) <= 0 && end.compareTo(today) >=0) {
+                        programList.add(it)
+                        count++
+                    }
+                }
+            }
+            println("total "+count)
+            if(count==0){
+                flash.message="Admission Period Not Started Yet"
+            }
+        }
+        catch(NullPointerException e){
+            flash.message="Please Assign Admission Date"
+        }
         def districtList=District.list(sort: 'districtName')
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
@@ -72,7 +106,7 @@ class StudentController {
 
 
     def applicationPrintPreview = {
-        println("params" + params)
+//        println("params" + params)
         def student = Student.findById(params.studentID)
         def lateFee=0
         def payableFee=0
@@ -80,8 +114,10 @@ class StudentController {
 //            def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
             def lateFeeDate = student.programDetail.lateFeeDate[0]
             def today = new Date()
-            if (today.compareTo(lateFeeDate) > 0) {
-                lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+            if(lateFeeDate!=null) {
+                if (today.compareTo(lateFeeDate) > 0) {
+                    lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+                }
             }
             def feeAmount = AdmissionFee.findByProgramDetail(student.programDetail);
             payableFee = feeAmount.feeAmountAtIDOL + lateFee
@@ -139,6 +175,8 @@ class StudentController {
     @Secured(["ROLE_IDOL_USER"])
     def enrollmentAtIdol={
         def studyCentre
+        def programList =[]
+        def count=0
 
         if (springSecurityService.isLoggedIn()) {
 
@@ -154,7 +192,37 @@ class StudentController {
             studyCentre = StudyCenter.findByCenterCode('11111')
 
         }
-        def programList = ProgramDetail.list(sort: 'courseCode')
+
+        def allProgramList = ProgramDetail.list(sort: 'courseName')
+        try {
+            DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+            def today =df.parse(df.format(new Date()))
+            allProgramList.each {
+
+                if(it.startAdmission_D!=null && it.endAdmission_D !=null) {
+                    def start =df.parse(df.format(it.startAdmission_D))
+                    def end =df.parse(df.format(it.endAdmission_D))
+//                    println("start>>>----"+start)
+//                    println("End>>>----"+end)
+//                    println("today>>>----"+today)
+//                    println(it.courseName)
+//                    println("start"+start.compareTo(today))
+//                    println("end"+today.compareTo(end))
+                    if (start.compareTo(today) <= 0 && end.compareTo(today) >=0) {
+                        programList.add(it)
+                        count++
+                    }
+                }
+            }
+            println("total "+count)
+            if(count==0){
+                flash.message="Admission Period Not Started Yet"
+            }
+        }
+        catch(NullPointerException e){
+            flash.message="Please Assign Admission Date"
+        }
+
 //        def districtList=District.list(sort: 'districtName')
         def districtList=City.list()*.district as Set
         def finalDistrictList= districtList.sort{a,b->
@@ -197,7 +265,7 @@ class StudentController {
     }
 
   def  updateStudent={
-      println(params)
+//      println(params)
       try{
        def student = Student.findByRollNo(params.rollNo)
           if(student){

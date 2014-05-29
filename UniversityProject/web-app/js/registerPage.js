@@ -128,6 +128,17 @@ function checkApplicationNumber(t) {
         }
     });
 }
+
+function checkLastDate(t){
+    var data = $(t).val();
+    $.ajax({
+        type: "post",
+        url: url('student', 'checkLastDate', ''),
+        data: {applicationNo: data},
+        success: function (data) {
+        }
+    })
+}
 function submitTempRegistration() {
     validate();
     var result = $('#tempEnrollment').valid()

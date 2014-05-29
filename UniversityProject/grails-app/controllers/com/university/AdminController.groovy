@@ -12,6 +12,7 @@ import examinationproject.ProgramType
 import examinationproject.RollNoGenerationFixture
 import examinationproject.Student
 import examinationproject.Status
+import examinationproject.StudentController
 import examinationproject.StudyCenter
 import grails.converters.JSON
 import javax.activation.MimetypesFileTypeMap
@@ -109,6 +110,7 @@ class AdminController {
             def mFee
 
             if (Integer.parseInt(params.feeType) > 0) {
+
                 feeType = FeeType.findById(params.feeType)
                 mFee = MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(feeType, program, student.programSession)
                 if (mFee)
@@ -124,7 +126,9 @@ class AdminController {
             response = [id: student.id, feeStatus: status, program: programName, feeType: feeType]
         } catch (Exception ex) {
             println("problem in checking the existence of roll number" + ex)
-
+//            flash.message="Roll No not available in database."
+//            redirect(action: "feeVoucher", params: [abc :"error"])
+              response = [error:'error']
         }
 
         render response as JSON
@@ -135,7 +139,8 @@ class AdminController {
 
         println(">>>>>>>>????????>>" + params)
         def student = Student.findByRollNo(params.rollNo)
-        def program = student.programDetail[0]
+        println("program"+student.programDetail)
+        def program = student.programDetail
         def feeTypeId
         def feeType = null
         def args
@@ -145,14 +150,21 @@ class AdminController {
             try{
             def lateFeeDate=student.programDetail.lateFeeDate[0]
             def today=new Date()
-            if(today.compareTo(lateFeeDate) > 0){
-                lateFee=AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
-            }
+                if(lateFeeDate!=null) {
+                    if (today.compareTo(lateFeeDate) > 0) {
+                        lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+                    }
+                }
             feeType = null
             programFeeAmount = programFee.feeAmountAtIDOL+lateFee
         }catch(NullPointerException e){
         flash.message="Late Fee Date is not asigned! "
-                redirect(controller: params.controller,action: params.action)
+                if (params.idol == "idol") {
+                    redirect(controller: student, action:enrollmentAtIdol)
+                }
+                else{
+                    redirect(controller: params.controller, action: feeVoucher)
+                }
         }
 
         if (params.idol == "idol")
@@ -229,9 +241,9 @@ class AdminController {
             def excelPath = servletContext.getRealPath("/") + 'Attendance' + System.getProperty('file.separator') + 'Output' + '.xls'
             try{
             def status = attendanceService.getStudentList(params, excelPath)
-            println("hello kuldeep u r back in controller " + status)
+//            println("hello kuldeep u r back in controller " + status)
             if (status) {
-                println("hello kuldeep u r back in controller " + status)
+//                println("hello kuldeep u r back in controller " + status)
                 File myFile = new File(servletContext.getRealPath("/") + 'Attendance' + System.getProperty('file.separator') + 'Output' + '.xls')
                 response.setHeader "Content-disposition", "attachment; filename=" + 'Output' + ".xls"
                 response.contentType = new MimetypesFileTypeMap().getContentType(myFile)
@@ -358,13 +370,13 @@ class AdminController {
     }
     def searchByChallanNo(){
         def returnMap = [:]
-        println("???????/" + params)
+//        println("???????/" + params)
         returnMap = feeDetailService.studentDetailByChallanNumber(params)
         render returnMap as JSON
     }
 
     def approveFeeForStudents = {
-        println(">>>>>>>>>>>>>" + params.studentListId)
+//        println(">>>>>>>>>>>>>" + params.studentListId)
         def student
         def studentListId=[]
         studentListId.addAll(params.studentListId)
@@ -384,14 +396,14 @@ class AdminController {
     //ADDED BY DIGVIJAY ON 19 May 2014
     def addCourses = {
         def programTypeList = ProgramType.list()
-        println("AdminController-->addCourses"+programTypeList);
+//        println("AdminController-->addCourses"+programTypeList);
         [programTypeList:programTypeList]
     }
 
     def updateCourses = {
-        println("AdminController-->updateCourses Action" + params)
+//        println("AdminController-->updateCourses Action" + params)
         def programDetail = ProgramDetail.findById(Integer.parseInt(params.CourseId))
-        println("Inside Admin Controller Action "+programDetail)
+//        println("Inside Admin Controller Action "+programDetail)
         [programDetail:programDetail]
     }
 
@@ -439,8 +451,6 @@ class AdminController {
         programs.each {
 
             if (it.lateFeeDate == null) {
-                println(it)
-                println("?????????????????" + it.lateFeeDate)
                 programList.add(it)
             }
         }
@@ -451,7 +461,7 @@ class AdminController {
     }
 
     def loadProgram = {
-        println("params" + params)
+//        println("params" + params)
         def programList = [], dateList = []
         def programType = ProgramType.findById(Long.parseLong(params.type))
         def programs = ProgramDetail.findAllByProgramType(programType)
@@ -489,24 +499,56 @@ class AdminController {
     }
 
     def getStudentForStudyMaterial(){
-        println("???????????"+params)
+//        println("???????????"+params)
         def returnMap=[:]
         returnMap= adminInfoService.studentForStudyMaterial(params)
-        println('this is the returning map '+returnMap)
+//        println('this is the returning map '+returnMap)
         render returnMap as JSON
     }
 
     def saveStudyMaterial(){
-        println("inn"+params)
+//        println("inn"+params)
         def returnMap=[:]
         def resultMap= adminInfoService.saveStudentForStudyMaterial(params)
-        println("********"+resultMap)
+//        println("********"+resultMap)
         if(resultMap){
           returnMap.status="true"
         }
         else{
             returnMap.status="false"
         }
+        render returnMap as JSON
+    }
+    @Secured("ROLE_ADMIN")
+    def assignAdmissionPeriod(){
+        def programList = []
+        def programs = ProgramDetail.list(sort: 'courseName')
+        programs.each {
+
+            if (it.lateFeeDate == null) {
+                programList.add(it)
+            }
+        }
+
+        def programCategory = ProgramType.list(sort: 'type')
+        [programList: programList, programCategory: programCategory]
+    }
+    def saveAdmissionFeePeriod(){
+        def status=adminInfoService.saveAdmissionPeriod(params)
+        if(status) {
+            flash.message = "Admission Period Saved Successfully"
+        }
+        else {
+            flash.message = "Unable Save Successfully"
+        }
+        redirect(action: "assignAdmissionPeriod")
+    }
+    def getAdmissionDate={
+        def returnMap=[:]
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+        def progmInst=ProgramDetail.findById(params.programCode)
+        returnMap.startDate=df.format(progmInst.startAdmission_D)
+        returnMap.endDate=df.format(progmInst.endAdmission_D)
         render returnMap as JSON
     }
 }
