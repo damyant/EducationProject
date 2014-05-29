@@ -37,7 +37,7 @@
                 <tr>
                     <td class="university-size-1-3"><label>Select a Program</label></td>
                     <td class="university-size-2-3">
-                        <div class="mainContent3 university-scrollable-y university-size-2-3" style="border: 1px solid #dddddd;">
+                        <div id="courseListDiv" class="mainContent3 university-scrollable-y university-size-2-3" style="border: 1px solid #dddddd;">
                         <table id="courseList" class="inner university-size-full-1-1" >
                             <thead></thead>
                             <tbody></tbody>
@@ -46,12 +46,12 @@
                     </td>
                     </tr>
                     <tr><td><label>Assign Examination Date</label></td>
-                    <td><input type="text" name="lateFeeDate" maxlength="10" disabled onchange="loadAssignDate(this)" class="university-size-1-2" id="datepicker"
+                    <td><input type="text" name="lateFeeDate" maxlength="10" disabled onkeypress="disableKeyInput(this)" onchange="loadAssignDate(this)" class="university-size-1-2" id="datepicker"
                                value=""></td>
                     </tr>
             </table>
 
-            <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1"> <g:submitButton name="submit" value="Assign LateFee Date" class="ui-button university-size-1-4" style="margin: auto;"/></div>
+            <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1"> <g:submitButton name="submit" value="Assign LateFee Date" onclick="checkValidation()" class="ui-button university-size-1-4" style="margin: auto;"/></div>
 
             <br/>
             </table>

@@ -1,6 +1,7 @@
 import com.university.Role
 import com.university.User
 import com.university.UserRole
+import examinationproject.RollNoGenerationFixture
 
 class BootStrap {
 
@@ -24,6 +25,11 @@ class BootStrap {
         if (!adminUser.authorities.contains(adminRole)) {
             UserRole.create adminUser, adminRole
         }
+        RollNoGenerationFixture gb = new RollNoGenerationFixture (
+                startD:new Date(),
+                endD:new  Date(),
+        ).save()
+
     }
     def destroy = {
     }

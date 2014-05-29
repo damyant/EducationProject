@@ -24,20 +24,20 @@ class ReportController {
     }
    def generateReport={
 
-       println("in generate Report "+ params)
-       println('params value '+ params.value)
+//       println("in generate Report "+ params)
+//       println('params value '+ params.value)
        if(params.value=='session' && params.session){
-           println("getting the printable report of students of all course of session "+ params.session)
+//           println("getting the printable report of students of all course of session "+ params.session)
            if(params.inExcel){
                def webRootDir = servletContext.getRealPath("/")
                def userDir = new File(webRootDir,'/Report')
                userDir.mkdirs()
                def excelPath = servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_.xls'
-               println('this is the real path '+excelPath)
+//               println('this is the real path '+excelPath)
                def status = reportService.getReportDataSession(params, excelPath)
 
                if(status){
-                   println("hello kuldeep u r back in controller "+ status)
+//                   println("hello kuldeep u r back in controller "+ status)
                    File myFile = new File(servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_.xls')
                    response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.session+".xls"
                    response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
@@ -50,7 +50,7 @@ class ReportController {
            def totalList = reportService.getReportDataSession(params, null)
            def sessionVal= Integer.parseInt(params.session)+1
            sessionVal= params.session+'-'+sessionVal
-           println("back in controller with this "+ totalList)
+//           println("back in controller with this "+ totalList)
            def args = [template: "generate", model: [totalListBySession :totalList, sessionVal:sessionVal],filename:params.session+'_All_Course'+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
            }
@@ -58,11 +58,11 @@ class ReportController {
        }
       else if(params.value=='sessions' && params.fromSession && params.toSession){
 
-           println("getting the printable report of students of all course of sessions "+ params.fromSession+" and "+ params.toSession)
+//           println("getting the printable report of students of all course of sessions "+ params.fromSession+" and "+ params.toSession)
            def startSession=Integer.parseInt(params.fromSession)
            def endSession = Integer.parseInt(params.toSession)
            def totalList = reportService.getReportDataSessions(startSession, endSession)
-           println("back in controller with this "+ totalList)
+//           println("back in controller with this "+ totalList)
            def sessionList=[]
            for(int i= startSession; i<=endSession;i++){
                def sessionVal= i+1
@@ -79,11 +79,11 @@ class ReportController {
            def userDir = new File(webRootDir,'/Report')
            userDir.mkdirs()
            def excelPath = servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.courseSession+'.xls'
-           println('this is the real path '+excelPath)
+//           println('this is the real path '+excelPath)
            def status = reportService.getReportDataCourse(params, excelPath)
 
            if(status){
-               println("hello kuldeep u r back in controller "+ status)
+//               println("hello kuldeep u r back in controller "+ status)
                File myFile = new File(servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.courseSession+'.xls')
                response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.courseSession+".xls"
                response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
@@ -101,11 +101,11 @@ class ReportController {
                def userDir = new File(webRootDir,'/Report')
                userDir.mkdirs()
                def excelPath = servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.studyCentreSession+'.xls'
-               println('this is the real path '+excelPath)
+//               println('this is the real path '+excelPath)
                def status = reportService.getReportDataStudyCentre(params, excelPath)
 
                if(status){
-                   println("hello kuldeep u r back in controller "+ status)
+//                   println("hello kuldeep u r back in controller "+ status)
                    File myFile = new File(servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.studyCentreSession+'.xls')
                    response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.studyCentreSession+".xls"
                    response.contentType = new MimetypesFileTypeMap().getContentType(myFile )

@@ -140,6 +140,9 @@
         <li><g:link controller="admin" action="viewProvisionalStudents"><g:message
                 code="default.mainMenu6.subMenu1"/></g:link></li>
         <li><g:link controller="admin"
+                    action="assignAdmissionPeriod"><g:message
+                    code="default.mainMenu3.subMenu7.subMenu8"/></g:link></li>
+        <li><g:link controller="admin"
                     action="assignLateFeeDate"><g:message
                     code="default.mainMenu3.subMenu7.subMenu7"/></g:link></li>
         <li><g:link controller="admin"

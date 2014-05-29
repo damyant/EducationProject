@@ -46,7 +46,7 @@ class AdmitCardController {
 
 
     def getSemesterList={
-        println("gettinf semsster wise subjects"+params)
+//        println("gettinf semsster wise subjects"+params)
         try{
             if(params.data=='allProgram'){
                 def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
@@ -137,7 +137,7 @@ class AdmitCardController {
         if(stuList[0]){
             def programSessionIns=ProgramSession.findById(Long.parseLong(params.programSessionId))
 
-            println(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession))
+//            println(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession))
         def subjectList=CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession),programSessionIns)*.subject
 
             def dateList=[]

@@ -45,10 +45,12 @@ class StudentRegistrationService {
             studentRegistration.addressState = params.addressState
             studentRegistration.addressPinCode = params.addressPinCode
             studentRegistration.addressPO = params.addressPO
+            studentRegistration.registrationNo1 = params.registrationNo1
+            studentRegistration.registrationNo2 = params.registrationNo2
             studentRegistration.addressTown = params.addressTown
             studentRegistration.studentAddress = params.studentAddress
             studentRegistration.addressDistrict = params.addressDistrict
-            studentRegistration.challanNo = getChallanNumber()
+//            studentRegistration.challanNo = getChallanNumber()
 
         } else {
             studentRegistration = new Student(params)
@@ -61,10 +63,10 @@ class StudentRegistrationService {
             } else {
                 studentRegistration.referenceNumber = getStudentReferenceNumber()
                 studentRegistration.status = Status.findById(1)
+                studentRegistration.challanNo = getChallanNumber()
             }
         }
         studentRegistration.dob = df.parse(params.d_o_b)
-        studentRegistration.challanNo = getChallanNumber()
         Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
         studentRegistration.studyCentre = studyCentre
         Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
@@ -284,7 +286,9 @@ class StudentRegistrationService {
     }
 
     def seedStudent(params) {
+        println("Start Time"+new Date())
         def students
+
         Set<ProgramDetail> programDetails = ProgramDetail.findAllById(17)
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
@@ -317,33 +321,35 @@ class StudentRegistrationService {
 //            }
 //        }
 
+
 //        //At IDOL
-        for (int i = 1; i < 300; i++) {
-            println("Student Number is "+i)
-            students = new Student()
-            students.firstName = "StudentAtIDOL"+i
-            students.lastName="Test"
-            students.gender = "Male"
-            students.category = "GEN"
-            students.programSession = ProgramSession.get(17)
-            students.referenceNumber = getStudentReferenceNumber()
-            students.challanNo = getChallanNumber()
-            students.dob = new Date()
-            students.city = City.findAllById(12)
-            students.admissionDate = new Date()
-            students.programDetail = programDetails
-            students.status = Status.findById(1)
-            students.studyCentre = StudyCenter.findAllById(1)
-            students.admitCardGenerated = false
-            students.semester=1
-            students.programDetail = programDetails
-            students.registrationYear = year
-            try{
-                students.save(flush: true,failOnError: true)
-            }catch (Exception e){
-                println("????????"+e.printStackTrace())
-            }
-        }
+//        for (int i = 1; i < 750; i++) {
+//            println("Student Number is "+i)
+//            students = new Student()
+//            students.firstName = "StudentAtIDOL"+i
+//            students.lastName="Test"
+//            students.gender = "Male"
+//            students.category = "GEN"
+//            students.programSession = ProgramSession.get(33)
+//            students.referenceNumber = getStudentReferenceNumber()
+//            students.challanNo = getChallanNumber()
+//            students.dob = new Date()
+//            students.admissionDate = new Date()
+//            students.programDetail = programDetails
+//            students.status = Status.findById(1)
+//            students.studyCentre = StudyCenter.findAllById(1)
+//            students.admitCardGenerated = false
+//            students.semester=1
+//            students.city=City.findAllById(8)
+//            students.programDetail = programDetails
+//            students.registrationYear = year
+//            try{
+//                students.save(flush: true,failOnError: true)
+//            }catch (Exception e){
+//                println("????????"+e.printStackTrace())
+//            }
+//        }
+        println("End Time"+new Date())
     }
 
     def getChallanNumber(){

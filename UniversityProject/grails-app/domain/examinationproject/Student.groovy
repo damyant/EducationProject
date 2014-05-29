@@ -12,8 +12,8 @@ class Student {
     String nationality
     String state
     BigInteger mobileNo
-    BigInteger registrationNo1
-    BigInteger registrationNo2
+    String registrationNo1
+    String registrationNo2
     String studentAddress
     String addressTown
     String addressPO

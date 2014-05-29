@@ -149,7 +149,7 @@ function toggleChecked(status) {
 }
 
 function generateRollNo(value) {
-//alert("hi")
+alert("hi")
     $.ajax({
         type: "post",
         url: url('admin', 'generateRollNo', ''),
@@ -752,7 +752,7 @@ function populateChallanDetail(){
 //Added By DIgvijay on 22 May 2014
 function populateCourseDetail(){
     var courseId = $("#courseId").val();
-    alert("courseId--->"+courseId)
+//    alert("courseId--->"+courseId)
 
     $.ajax({
         type: "post",
@@ -760,7 +760,7 @@ function populateCourseDetail(){
         data: {courseId: courseId},
 
         success: function (data) {
-            alert("Inside ajax call.....")
+//            alert("Inside ajax call.....")
             if(data.programDetail) {
                 $("#allCourseList tbody").empty().append('<tr><th>Course Id</th><th>Course Code</th><th>Course Name</th></tr>')
                 for (var i = 0; i < data.programDetail.length; i++) {
