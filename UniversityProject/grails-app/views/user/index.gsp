@@ -15,7 +15,7 @@
                     alt="Create User"/></image>Create User</g:link>
             </div>
 
-            <div class="university-User-List"><g:link class="create" action="userList"><img
+            <div class="university-User-List"><g:link class="create" action="userlist"><img
                     src="${resource(dir: 'images', file: 'users-icon.png')}" alt="User List"/>User List</g:link>
             </div>
         </div>

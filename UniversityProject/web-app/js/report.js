@@ -11,7 +11,11 @@ $(function() {
         height: 210,
         modal: true,
         title:'Enter Details',
-        close: function(ev, ui) { getStudentsList()}
+        close: function(ev, ui) {
+            alert('in close funtion')
+            $.unblockUI();
+//            getStudentsList()
+        }
 
     });
     $("#feeToDate").datepicker({

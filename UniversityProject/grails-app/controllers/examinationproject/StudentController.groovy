@@ -52,9 +52,9 @@ class StudentController {
                     }
                 }
             }
-            println("total "+count)
+//            println("total "+count)
             if(count==0){
-                flash.message="Admission Period Not Started Yet"
+//                flash.message="Admission Period Not Started Yet"
             }
         }
         catch(NullPointerException e){
@@ -216,7 +216,7 @@ class StudentController {
             }
             println("total "+count)
             if(count==0){
-                flash.message="Admission Period Not Started Yet"
+//                flash.message="Admission Period Not Started Yet"
             }
         }
         catch(NullPointerException e){

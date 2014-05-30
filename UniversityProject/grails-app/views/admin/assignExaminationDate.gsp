@@ -4,7 +4,7 @@
   Date: 4/11/2014
   Time: 4:57 PM
 --%>
-<%@ page import="examinationproject.ExaminationCentre; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+<%@ page import="examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>

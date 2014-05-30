@@ -294,7 +294,7 @@ class StudentRegistrationService {
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 ////       At Study Center
 
-        for (int i = 1; i <= 300; i++) {
+        for (int i = 1; i <= 20000; i++) {
             println("Student Number is "+i)
             students = new Student()
             students.firstName = "StudentAtStudy"+i

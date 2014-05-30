@@ -153,14 +153,6 @@ function toggleChecked(status) {
 }
 
 function generateRollNo(value) {
-<<<<<<< HEAD
-//alert("hi")
-=======
-<<<<<<< HEAD
-=======
-alert("hi")
->>>>>>> c5875873edea0c54852a4e41582ba35a64e88b6f
->>>>>>> 5c020d04a2884e34764264098d68bf4848ce7f8e
     $.ajax({
         type: "post",
         url: url('admin', 'generateRollNo', ''),
@@ -208,12 +200,8 @@ function appendTable(data) {
             paged: page_table
         });
         page_table(1);
-<<<<<<< HEAD
         $('#studentListButton tbody').empty().append('<tr><td colspan="3"><input type="button" value="Assign Roll No" id="assignRollNo"></td></tr>')
-=======
-        $('#studentListButton tbody').empty()
-        $('#studentListButton tbody').append('<tr><td colspan="3"><input type="button" value="Assign Roll No" id="assignRollNo"></td></tr>')
->>>>>>> 5c020d04a2884e34764264098d68bf4848ce7f8e
+
 
     }
     else {
@@ -630,8 +618,16 @@ function showStudents(){
     })
 
 }
-function showListOfStudents(){
+function clearTable(){
+    document.getElementById("scStudnetList").style.visibility = "hidden";
+    document.getElementById("studentPayList").style.visibility = "hidden";//
+    document.getElementById("paySubmit").style.visibility = "hidden";
+    document.getElementById("payClear").style.visibility = "hidden";
+}
 
+
+function showListOfStudents(){
+    document.getElementById("paginationDiv").style.visibility = "hidden";
     $.ajax({
         type: "post",
         url: url('admin', 'searchListStudentByChallanNo', ''),
@@ -639,9 +635,10 @@ function showListOfStudents(){
 
         success: function (data) {
             $('#msgDiv').html("")
-//            alert(data[0].programDetail.id)
+//            alert(data.stuList.length)
             if(data.stuList.length>0) {
                 document.getElementById("studentPayList").style.visibility = "visible";
+//
                 document.getElementById("paySubmit").style.visibility = "visible";
                 document.getElementById("payClear").style.visibility = "visible";
                 $("#scStudnetList thead").empty().append('')

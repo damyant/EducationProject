@@ -236,7 +236,7 @@ class AdminController {
         render studList as JSON
     }
 
-
+    @Secured(["ROLE_ADMIN"])
     def downloadAttendanceSheet = {
         if (params.programSession) {
             def webRootDir = servletContext.getRealPath("/")
@@ -275,6 +275,7 @@ class AdminController {
         def programList = ProgramDetail.list(sort: 'courseName')
         [programList: programList, studyCentreList: studyCentreList]
     }
+    @Secured(["ROLE_ADMIN"])
     def approvePayInSlip = {
         def bankList = Bank.list(sort: 'bankName');
         def feeTypeList = FeeType.list(sort: 'type');
@@ -339,8 +340,10 @@ class AdminController {
             def lateFeeDate=it.programDetail.lateFeeDate[0]
             def today=new Date()
 //            def amount=AdmissionFee.findByProgramDetail(it.programDetail[0])
-            if(today.compareTo(lateFeeDate) > 0){
-                lateFee=AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
+            if(lateFeeDate!=null) {
+                if (today.compareTo(lateFeeDate) > 0) {
+                    lateFee = AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
+                }
             }
             courseNameList<<it.programDetail[0].courseName
             //if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
@@ -400,6 +403,7 @@ class AdminController {
     }
 
     //ADDED BY DIGVIJAY ON 19 May 2014
+    @Secured(["ROLE_ADMIN"])
     def addCourses = {
         def programTypeList = ProgramType.list()
 //        println("AdminController-->addCourses"+programTypeList);
@@ -412,7 +416,7 @@ class AdminController {
 //        println("Inside Admin Controller Action "+programDetail)
         [programDetail:programDetail]
     }
-
+    @Secured(["ROLE_ADMIN"])
     def assignRollNoGenerationDate={
         def rollDateInst = RollNoGenerationFixture.findById(1)
         [rollDateInst:rollDateInst]
@@ -450,7 +454,7 @@ class AdminController {
         render  returnMap as JSON
     }
 
-
+    @Secured(["ROLE_ADMIN"])
     def assignLateFeeDate = {
 
         def programList = []
@@ -500,7 +504,7 @@ class AdminController {
         redirect(action: "assignLateFeeDate")
     }
 
-
+    @Secured(["ROLE_ADMIN"])
     def studyMaterial={
 
     }

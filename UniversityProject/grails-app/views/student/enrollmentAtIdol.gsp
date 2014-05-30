@@ -20,9 +20,35 @@
 </head>
 
 <body>
-    <div id="main">
+
+<div id="main">
+<g:if test="${!studyCentre}">
+    <fieldset class="form">
+        <div class='body'>
+            <div class='errors'><div class="university-not-authorized">
+                <p><img src="${resource(dir: 'images', file: 'cancel.png')}" alt="Not Authorized"
+                        style="margin: auto;"/></p>
+
+                <p><g:message code="registration.denied.message"/></p>
+            </div></div>
+        </div>
+    </fieldset>
+</g:if>
+<g:elseif test="${!programList}">
+    <fieldset class="form">
+        <div class='body'>
+            <div class='errors'><div class="university-not-authorized">
+                <p><img src="${resource(dir: 'images', file: 'cancel.png')}" alt="Not Authorized"
+                        style="margin: auto;"/></p>
+
+                <p><g:message code="Admission.denied.message"/></p>
+            </div></div>
+        </div>
+    </fieldset>
+</g:elseif>
+<g:else>
         <fieldset class="form">
-            <h3>Student Enrollment</h3>
+           <h3>Student Enrollment</h3>
             <g:if test="${flash.message}">
                 <div class="message"><div class="university-status-message">${flash.message}</div></div>
             </g:if>
@@ -148,8 +174,9 @@
                     </tr>
                 </table>
             </form>
+
         </fieldset>
-    </div>
+
 <script type="text/javascript">
     $(function () {
         $(function () {
@@ -162,5 +189,7 @@
         });
     });
 </script>
+            </g:else>
+</div>
 </body>
 </html>
