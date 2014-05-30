@@ -106,7 +106,7 @@ class FeeDetailService {
         def currentUser=springSecurityService.getCurrentUser()
         def stuList=[]
         if(params.program!='All' && params.semester!='All'){
-            println("!!!!!ALl=!!!All")
+//            println("!!!!!ALl=!!!All")
             stuList = obj.list {
                 programDetail {
                     eq('id', Long.parseLong(params.program))
@@ -117,11 +117,12 @@ class FeeDetailService {
                 and {
                     eq('status', Status.findById(2))
                     eq('semester', Integer.parseInt(params.semester))
+//                    eq('challanNo', null)
                 }
             }
         }
         else if(params.program=='All' && params.semester!='All'){
-            println("ALl=!!!All")
+//            println("ALl=!!!All")
             stuList = obj.list {
                 studyCentre {
                     eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
@@ -129,12 +130,13 @@ class FeeDetailService {
                 and {
                     eq('status', Status.findById(2))
                     eq('semester', Long.parseLong(params.semester))
+//                    eq('challanNo', null)
                 }
             }
 
         }
         else if(params.program!='All' && params.semester=='All'){
-            println("!!!ALl=All")
+//            println("!!!ALl=All")
             stuList = obj.list {
                 programDetail {
                     eq('id', Long.parseLong(params.program))
@@ -144,20 +146,23 @@ class FeeDetailService {
                 }
                 and {
                     eq('status', Status.findById(2))
+//                    eq('challanNo', null)
                 }
             }
         }
         else {
-            println("ALl=All")
+//            println("ALl=All")
             stuList = obj.list {
                 studyCentre {
                     eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
                 }
                 and {
                     eq('status', Status.findById(2))
+//                    eq('challanNo', null)
                 }
             }
         }
+        println(stuList)
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
         def feeList = FeeType.list(sort:'type')

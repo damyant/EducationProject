@@ -286,8 +286,8 @@ function appendStudentList(data) {
         $('#noStudentMsg').html("")
         var type = $('#paramType').val()
         document.getElementById("paginationDiv").style.visibility = "hidden";
-        document.getElementById("studyCenterFeeEntryTable").style.visibility = "visible";
-//        $('#studyCenterFeeEntryTable').attr('hidden', false);
+//        document.getElementById("studyCenterFeeEntryTable").style.visibility = "visible";
+        $('#studyCenterFeeEntryTable').attr('hidden', false);
         $('#rangeRadioButtons').attr('hidden', false);
         $("#studyCenterFeeEntryTable tbody tr").remove()
         var count = 1

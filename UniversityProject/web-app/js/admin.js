@@ -260,8 +260,8 @@ function appendSubjects(obj){
 
 
             $("#subjectList").append('<tr id="subjectRows'+counter+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
-                '<input type="text"  name="examinationDate" id="examDate'+counter+'"  onchange="clearError(this)" class="datePickers university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError'+counter+'" class="error3">&nbsp;</label></td>'+
-                '<td class="university-size-1-3"><input type="text" id="examTime'+counter+'"  onchange="clearError(this)"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+examTime+'" /><label id="timeError'+counter+'" class="error4">&nbsp;</label></td>'+
+                '<input type="text"  name="examinationDate" maxlength="10" onkeypress="disableKeyInput(this)" id="examDate'+counter+'"  onchange="clearError(this)" class="datePickers university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError'+counter+'" class="error3">&nbsp;</label></td>'+
+                '<td class="university-size-1-3"><input type="text" maxlength="8" id="examTime'+counter+'" onkeypress="disableKeyInput(this)"  onchange="clearError(this)"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+examTime+'" /><label id="timeError'+counter+'" class="error4">&nbsp;</label></td>'+
                 '</tr>')
             ++counter;
         }
@@ -290,8 +290,16 @@ function validateFields(counter){
                 $('#dateError'+i).text("Please Select Examination Date")
                 bool=false
             }
+            else if(date.length != 10){
+                $('#dateError'+i).text("Please Enter Proper Date")
+                bool=false
+            }
             if ((time == "null" || time == "")) {
                 $('#timeError'+i).text("Please Select Examination Time")
+                bool=false
+            }
+            else if(time.length != 8){
+                $('#timeError'+i).text("Please Enter Proper Date")
                 bool=false
             }
     }
