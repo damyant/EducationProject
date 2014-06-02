@@ -25,6 +25,32 @@ class BootStrap {
         if (!adminUser.authorities.contains(adminRole)) {
             UserRole.create adminUser, adminRole
         }
+        def iuser=User.findByUsername('idol') ?:new User(
+                username:'idol',
+                password:'admin',
+                email:'idol@idolgu.com',
+                studyCentreId:1,
+                enabled:true,
+                accountExpired:false,
+                accountLocked:false,
+                passwordExpired:false,
+        ).save()
+        if (!iuser.authorities.contains(idolUserRole)) {
+            UserRole.create iuser, idolUserRole
+        }
+        def studyC=User.findByUsername('studycentre') ?:new User(
+                username:'studycentre',
+                password:'admin',
+                email:'idol@email.com',
+                studyCentreId:73,
+                enabled:true,
+                accountExpired:false,
+                accountLocked:false,
+                passwordExpired:false,
+        ).save()
+        if (!studyC.authorities.contains(studyCentreRole)) {
+            UserRole.create studyC, studyCentreRole
+        }
         RollNoGenerationFixture gb = new RollNoGenerationFixture (
                 startD:new Date(),
                 endD:new  Date(),

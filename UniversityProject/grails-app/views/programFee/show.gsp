@@ -1,5 +1,5 @@
 
-<%@ page  %>
+
 <!DOCTYPE html>
 <html>
 	<head>

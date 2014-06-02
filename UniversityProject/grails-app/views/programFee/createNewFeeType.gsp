@@ -9,24 +9,24 @@
     <title><g:message code="default.create.label" args="[entityName]"/></title>
 
     <script type="text/javascript">
-        $(function () {
-            $("#session").blur(function () {
-                var programDetail = $("#programDetail").val()
-                if ($(this).length > 0) {
-                    var url = "${createLink(controller:'programFee', action:'isFeeCreated')}"
-                    $.getJSON(url, {programDetail: programDetail,session:$(this).val()}, function (json) {
-                        if (json.feeStatus) {
-                            $("#submit").prop('disabled', false);
-                        }else{
-                            $("#feeError").html(json.feeType.type+" not yet created");
-                            $("#submit").prop('disabled', true);
+        %{--$(function () {--}%
+            %{--$("#session").blur(function () {--}%
+                %{--var programDetail = $("#programDetail").val()--}%
+                %{--if ($(this).length > 0) {--}%
+                    %{--var url = "${createLink(controller:'programFee', action:'isFeeCreated')}"--}%
+                    %{--$.getJSON(url, {programDetail: programDetail,session:$(this).val()}, function (json) {--}%
+                        %{--if (json.feeStatus) {--}%
+                            %{--$("#submit").prop('disabled', false);--}%
+                        %{--}else{--}%
+                            %{--$("#feeError").html(json.feeType.type+" not yet created");--}%
+                            %{--$("#submit").prop('disabled', true);--}%
 
 
-                        }
-                    });
-                }
-            });
-        });
+                        %{--}--}%
+                    %{--});--}%
+                %{--}--}%
+            %{--});--}%
+        %{--});--}%
     </script>
 </head>
 
@@ -140,7 +140,7 @@
                     </div>
                 </div>
 
-                <g:each in="${feeType}" var="fee">
+                <g:each in="${feeType}" var="fee" status="i">
                 <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">
                     <div class="university-size-1-3">
                         <label for="feeType">
@@ -150,7 +150,7 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField name="feeTypeAmount" class="university-size-1-2" type="number" onkeypress="return isNumber(event)"
+                        <g:textField name="feeTypeAmount" id="feeTypeAmount${i}" class="university-size-1-2" type="number" onkeypress="return isNumber(event)"
                                      value=""/>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                     <div class="university-size-1-3">&nbsp;</div>
 
                     <div class="university-size-2-3" style="margin: auto;">
-                        <input type="button" id="submit" name="create" class="save university-button" onclick="submitProgramFee()" value="${message(code: 'default.button.create.label', default: 'Create')}"/>
+                        <input type="button"  name="create" class="save university-button" onclick="submitProgramFee()" value="${message(code: 'default.button.create.label', default: 'Create')}"/>
                         %{--<g:submitButton name="create" class="save university-button"--}%
                                         %{--onclick="validate()" value="${message(code: 'default.button.create.label', default: 'Create')}"/>--}%
                         <g:link controller="programFee" class="university-text-decoration-none"

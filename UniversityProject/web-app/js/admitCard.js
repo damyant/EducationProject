@@ -349,7 +349,6 @@ function getStudentsForAdmitCard(){
 function showExamVenueList1(){
     $('#addExamCentre').empty();
     var data = $('#examinationCentre').val();
-    alert(data)
     $('#CentreForExamVenue').html($('#examinationCentre option:selected').text());
     if(data){
     $.ajax({

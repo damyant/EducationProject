@@ -41,7 +41,7 @@
             var fee = "${params.admissionFeeAmount}"
             if (flag == 'registered') {
 
-                url = "/UniversityProject/student/registration"
+                url = "/UniversityProject/student/registration" ;
                 window.location.href = url;
                // window.open('/UniversityProject/admin/generateFeeVoucher/?rollNo='+rollNo+'&feeType='+feeType);
                 window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId+'&fee='+fee);
@@ -78,6 +78,18 @@
         </div>
     </fieldset>
 </g:if>
+<g:elseif test="${!programList}">
+    <fieldset class="form">
+        <div class='body'>
+            <div class='errors'><div class="university-not-authorized">
+                <p><img src="${resource(dir: 'images', file: 'cancel.png')}" alt="Not Authorized"
+                        style="margin: auto;"/></p>
+
+                <p><g:message code="Admission.denied.message"/></p>
+            </div></div>
+        </div>
+    </fieldset>
+</g:elseif>
 <g:else>
 <fieldset class="form">
 <g:uploadForm controller="student" action="submitRegistration" method='post' enctype="multipart/form-data"

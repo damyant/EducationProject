@@ -169,16 +169,20 @@ class FeeDetailService {
          println("this is the size "+stuList.size())
         if(params.program=='All' && params.semester=='All') {
             for (int i = 0; i < stuList.size(); i++) {
+
                 if(prevProgram!=stuList[i].programDetail.courseName) {
                     def lateFeeDate = stuList[i].programDetail.lateFeeDate[0]
                     def amount = AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
-                }
-                if (lateFeeDate != null) {
-                    if (today.compareTo(lateFeeDate) > 0) {
-                        lateFee = amount[0].lateFeeAmount
+                    prevProgram=stuList[i].programDetail.courseName
+                    if (lateFeeDate != null) {
+                        if (today.compareTo(lateFeeDate) > 0) {
+                            lateFee = amount[0].lateFeeAmount
+                        }
                     }
+                    payableAmount = amount[0].feeAmountAtSC + lateFee
                 }
-                payableAmount = amount[0].feeAmountAtSC + lateFee
+
+
                 feeAmountList.add(payableAmount)
             }
         }
@@ -206,7 +210,7 @@ class FeeDetailService {
     }
 
     def StudentListForMFee(params){
-
+        println(params)
         def resultMap=[:]
         def obj = Student.createCriteria()
         def currentUser=springSecurityService.getCurrentUser()
@@ -266,7 +270,7 @@ class FeeDetailService {
         def feeAmountList=[]
         for (int i=0;i<stuList.size();i++){
             def amount=MiscellaneousFee.findAllByProgramDetailAndFeeType(stuList[i].programDetail,FeeType.findById(params.feeType))
-            println(amount)
+//            println(amount)
             feeAmountList.add(amount.amount)
         }
         resultMap.studentList=stuList
