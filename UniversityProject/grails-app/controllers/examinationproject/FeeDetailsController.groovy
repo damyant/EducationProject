@@ -126,7 +126,7 @@ class FeeDetailsController {
 //        println(response.programList[0].courseName)
         render response as JSON
     }
-    @Secured(["ROLE_ADMIN"])
+    @Secured("ROLE_STUDY_CENTRE")
     def challanForMiscellaneousFee={
         def programList = ProgramDetail.list(sort:'courseName')
         def programCategory=ProgramType.list(sort:'type')
