@@ -54,7 +54,7 @@ function examinationCenterDiv() {
     $('#VenueDiv' + index).append(
             '<div class="Venue">' +
             '<label class="Venue-label">Contact No <span class="university-obligatory">*</span></label>' +
-            '<input type="text"  onkeypress="return isNumber(event))" onkeyup="clearErrorMsg(this)" style="" class="" maxlength="10" name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /><label id="centerContactNoMsg' + index + '" class="error2" ></label></div>' +
+            '<input type="text"  onkeypress="return isNumber(event)" onkeyup="clearErrorMsg(this)" style="" class="" maxlength="10" name="examinationCentreContactNo" id="examinationCentreContactNo' + index + '"  /><label id="centerContactNoMsg' + index + '" class="error2" ></label></div>' +
             '<div class="Venue"><label style="vertical-align: top"  class="Venue-label">Address <span class="university-obligatory">*</span></label>' +
             '<textarea style="margin-left: 50px; width: 250px" rows="4" cols="4" class=""   style="" maxlength="100" name="examinationCentreAddress" onkeyup="clearErrorMsg(this)" id="examinationCentreAddress' + index + '" "/><label id="centerAddressMsg' + index + '" class="error2" ></label>' +
             '</div>');

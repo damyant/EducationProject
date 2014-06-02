@@ -5,7 +5,7 @@
   Time: 1:17 PM
 --%>
 
-<%@ page import=" javax.validation.constraints.Null; examinationproject.City;examinationproject.ExaminationCentre;examinationproject.ProgramDetail; examinationproject.District" contentType="text/html;charset=UTF-8" %>
+<%@ page import=" javax.validation.constraints.Null; examinationproject.City;examinationproject.ProgramDetail; examinationproject.District" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Download Attendance Sheet</title>
@@ -28,7 +28,7 @@
                 <tr>
                     <td style="width: 50%">
                        <g:select name="district" id="district" optionKey="id"
-                          value="${studInstance?.examinationCentre?.city?.district?.id?.get(0)}" class="university-size-1-1"
+                          value="" class="university-size-1-1"
                           onChange="showCityList()" optionValue="districtName"
                           from="${District.list(sort:'districtName')}" noSelection="['': ' Select District']"/>
                     </td>
@@ -89,5 +89,8 @@
   </table>
   </g:form>
 </div>
+<script type="text/javascript">
+
+</script>
 </body>
 </html>

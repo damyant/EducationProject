@@ -105,7 +105,7 @@
                        <label for="session">Select Session:</label>
                    </td>
                    <td style="width: 18%" >
-                       <g:select name="session" class="university-size-1-1 allSession" id="session"
+                       <g:select name="session" class="university-size-1-1 allSession" id="sessionVal"
                                  from="${filterType}" optionKey="" optionValue=""
                                  noSelection="['null': ' Select Session']" />
                    </td>
@@ -163,7 +163,7 @@
                    </td>
                    <td style="width: 25%" >
                        <g:select name="course" class="university-size-1-1" id="course"
-                                 from="${ProgramDetail.list([sort: 'courseName'])}" optionKey="id" optionValue="courseName"
+                                 from="${ProgramDetail.list([sort: 'courseCode'])}" optionKey="id" optionValue="courseName"
                                  noSelection="[0: ' Select Course']" />
                    </td>
                    <td style="width: 10%" >
@@ -179,7 +179,7 @@
                </td>
                <td style="width: 25%" >
                    <g:select name="courseUnapproved" class="university-size-1-1" id="courseUnapproved"
-                             from="${ProgramDetail.list([sort: 'courseName'])}" optionKey="id" optionValue="courseName"
+                             from="${ProgramDetail.list([sort: 'courseCode'])}" optionKey="id" optionValue="courseName"
                              noSelection="['null': ' Select Course']" />
                </td>
                <td style="width: 10%" >
@@ -196,7 +196,7 @@
                </td>
                <td style="width: 25%" >
                    <g:select name="courseApproved" class="university-size-1-1" id="courseApproved"
-                             from="${ProgramDetail.list([sort: 'courseName'])}" optionKey="id" optionValue="courseName"
+                             from="${ProgramDetail.list([sort: 'courseCode'])}" optionKey="id" optionValue="courseName"
                              noSelection="['null': ' Select Course']" />
                </td>
                <td style="width: 10%" >
@@ -481,7 +481,7 @@
         var val= $('#flagValue').val()
         var check1= null, check2=null, check3=null, check4=null;
         if(val=='session'){
-             check1 =$('#session').val()
+             check1 =$('#sessionVal').val()
              if(check1==0){
                 alert("please select values")
                 return false;

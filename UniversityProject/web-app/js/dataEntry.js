@@ -285,6 +285,8 @@ function appendStudentList(data) {
     if (data.studentList.length > 0) {
         $('#noStudentMsg').html("")
         var type = $('#paramType').val()
+        document.getElementById("paginationDiv").style.visibility = "hidden";
+//        document.getElementById("studyCenterFeeEntryTable").style.visibility = "visible";
         $('#studyCenterFeeEntryTable').attr('hidden', false);
         $('#rangeRadioButtons').attr('hidden', false);
         $("#studyCenterFeeEntryTable tbody tr").remove()
@@ -444,7 +446,8 @@ function populateStudentListForMiscFee() {
 //    alert("dffffffffff")
     var program = $('#programList').val();
     var semester = $('#semesterList').val();
-    var feeType = $('#programCategory').val();
+    var feeType = $('#feeCategory').val();
+//    alert(feeType)
     var chkBox1 = document.getElementById('allProgram');
 //    alert(chkBox1.checked)
     if (program != '' && semester != '' && chkBox1.checked == false) {
@@ -487,10 +490,7 @@ function filterProgram(t) {
                 $('#datepicker').prop("disabled", false)
                 $("#courseList thead").empty().append('<tr><th class="university-size-1-3">' + '<input type="checkbox" id="chkAll" name="all" onclick="selectAllCheck(this)">Select All</input>' + '</th><th class="university-size-1-3">' + "Course Name" + '</th><th class="university-size-1-3"></th></tr>')
                 $("#courseList tbody").empty()
-
                 for (var i = 0; i < data.programList.length; i++) {
-
-//                var date=$.datepicker.formatDate('dd/MM/yy', data.programList[i].lateFeeDate)
                     $("#courseList tbody").append('<tr><td><input type="checkbox" name="programs" class="course" onchange="enableTextField(this)" value="' + data.programList[i].id + '" id="course' + data.programList[i].id + '"/></td>' + '<td>' + data.programList[i].courseName + '</td><td><input type="text" readonly value="' + data.dateList[i] + '" name="assignDate' + data.programList[i].id + '" class="assignDate" id="' + data.programList[i].id + '"><input type="hidden" id="hidden' + data.programList[i].id + '" value="' + data.dateList[i] + '" name="hidden' + i + '"/></td></tr>')
 
                 }
@@ -614,13 +614,14 @@ function clearFields() {
     $('#semesterList').val('')
     $('#studyCenterFeeEntryTable').prop('hidden', true);
     $('#rangeRadioButtons').prop('hidden', true);
+    document.getElementById("paginationDiv").style.visibility = "hidden";
     document.getElementById("paymentDetails").style.visibility = "hidden"
     document.getElementById("generateFeeChallan").style.visibility = "hidden"
 //    $('#generateFeeChallan').prop('hidden', true);
 }
 
 function loadProgram(t) {
-
+    document.getElementById("paginationDiv").style.visibility = "hidden";
     $('#studyCenterFeeEntryTable').prop('hidden', true)
     $('#allProgram').prop('checked', false)
     $('#rangeRadioButtons').prop('hidden', true)

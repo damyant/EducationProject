@@ -5,7 +5,7 @@
   Time: 10:37 AM
 --%>
 
-<%@ page import="examinationproject.ExaminationVenue; examinationproject.ExaminationCentre; javax.validation.constraints.Null; examinationproject.City; examinationproject.District" contentType="text/html;charset=UTF-8" %>
+<%@ page import="examinationproject.ExaminationVenue;javax.validation.constraints.Null; examinationproject.City; examinationproject.District" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="main"/>

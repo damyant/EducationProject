@@ -126,7 +126,7 @@ class FeeDetailsController {
 //        println(response.programList[0].courseName)
         render response as JSON
     }
-
+    @Secured("ROLE_STUDY_CENTRE")
     def challanForMiscellaneousFee={
         def programList = ProgramDetail.list(sort:'courseName')
         def programCategory=ProgramType.list(sort:'type')
@@ -237,7 +237,6 @@ class FeeDetailsController {
         stuList=params.studentListId.split(",")
             for(def i=0;i<stuList.size();i++){
                lateFee=0
-//                println("**********"+stuList[i]);
                 def stuIns=Student.findById(Long.parseLong(stuList[i]))
                 stuIns.rollNo
                 stuIns.challanNo=challanNo
@@ -247,7 +246,7 @@ class FeeDetailsController {
 
 
                 Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
-                def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtIDOL
+                def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtSC
                if(lateFeeDate!=null) {
                    if (today.compareTo(lateFeeDate) > 0) {
                        lateFee = AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0], stuIns.programSession).lateFeeAmount
@@ -360,14 +359,14 @@ class FeeDetailsController {
         def feeDetailsInstance=FeeDetails.findAllByChallanNo(params.searchChallanNo)
         if(feeDetailsInstance){
             flash.message = "Pay Challan Already Created For this Challan"
-            redirect(action: "payAdmissionFee")
+            redirect(controller: "feeDetails",action: "payAdmissionFee")
 
         }
         else {
             feeDetailsInstance=new FeeDetails()
             feeDetailsInstance.challanNo=params.searchChallanNo
             feeDetailsInstance.paymentModeId = PaymentMode.findById(params.paymentMode)
-            feeDetailsInstance.paymentReferenceNumber = PaymentMode.findById(params.paymentReferenceNumber)
+            feeDetailsInstance.paymentReferenceNumber = params.paymentReferenceNumber
             feeDetailsInstance.bankId = Bank.findById(params.bankName)
             feeDetailsInstance.isAdmission= true
             feeDetailsInstance.branchId = Branch.findById(params.branchLocation)

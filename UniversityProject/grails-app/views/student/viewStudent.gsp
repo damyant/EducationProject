@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="java.text.SimpleDateFormat; examinationproject.ExaminationCentre; javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.text.SimpleDateFormat;javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Student Registration</title>
@@ -271,11 +271,9 @@
                     %{--</tr>--}%
                     <tr>
                         <td>Payment Mode</td>
-<<<<<<< HEAD
+
                         <td><input type="text" value="${feeDetails?.paymentModeId?.paymentModeName}" readonly/></td>
-=======
-                        <td><input type="text" value="${feeDetails?.paymentModeId.paymentModeName}" readonly/></td>
->>>>>>> aca7d3be9a7c9ec11125a82b8f8eb96f06b67c89
+
                     </tr>
                     %{--<tr>--}%
                         %{--<td>Reference Number</td>--}%

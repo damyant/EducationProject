@@ -30,7 +30,8 @@ class StudentController {
             studyCentre = StudyCenter.findByCenterCode('11111')
         }
         def studInstance = Student.get(params.studentId)
-        def allProgramList = ProgramDetail.list(sort: 'courseName')
+
+        def allProgramList = ProgramDetail.list(sort: 'courseCode')
         try {
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
             def today =df.parse(df.format(new Date()))
@@ -51,9 +52,9 @@ class StudentController {
                     }
                 }
             }
-            println("total "+count)
+//            println("total "+count)
             if(count==0){
-                flash.message="Admission Period Not Started Yet"
+//                flash.message="Admission Period Not Started Yet"
             }
         }
         catch(NullPointerException e){
@@ -71,10 +72,8 @@ class StudentController {
 
     }
     def submitRegistration = {
-
             def signature = request.getFile('signature')
             def photographe = request.getFile("photograph")
-
            def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe )
 
         if (studentRegistration) {
@@ -83,7 +82,6 @@ class StudentController {
                     flash.message = "${message(code: 'register.updated.message')}"
                     redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
                 }else{
-//                    println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"+params.fee)
                     flash.message = "${message(code: 'register.updated.message')}"
                     redirect(action: "registration", params: [ fee:fee,studentID: studentRegistration.id,registered:"registered"])
                 }
@@ -164,7 +162,7 @@ class StudentController {
     @Secured(["ROLE_ADMIN"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
-        def programList=ProgramDetail.list(sort: 'courseName')
+        def programList=ProgramDetail.list(sort: 'courseCode')
         [studyCenterList:studyCenterList,programList:programList]
     }
     def show = {
@@ -218,12 +216,13 @@ class StudentController {
             }
             println("total "+count)
             if(count==0){
-                flash.message="Admission Period Not Started Yet"
+//                flash.message="Admission Period Not Started Yet"
             }
         }
         catch(NullPointerException e){
             flash.message="Please Assign Admission Date"
         }
+
 //        def districtList=District.list(sort: 'districtName')
         def districtList=City.list()*.district as Set
         def finalDistrictList= districtList.sort{a,b->

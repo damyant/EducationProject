@@ -101,12 +101,12 @@ class FeeDetailService {
     }
 
     def StudentList(params){
-
         def resultMap=[:]
         def obj = Student.createCriteria()
         def currentUser=springSecurityService.getCurrentUser()
         def stuList=[]
         if(params.program!='All' && params.semester!='All'){
+//            println("!!!!!ALl=!!!All")
             stuList = obj.list {
                 programDetail {
                     eq('id', Long.parseLong(params.program))
@@ -117,10 +117,12 @@ class FeeDetailService {
                 and {
                     eq('status', Status.findById(2))
                     eq('semester', Integer.parseInt(params.semester))
+//                    eq('challanNo', null)
                 }
             }
         }
         else if(params.program=='All' && params.semester!='All'){
+//            println("ALl=!!!All")
             stuList = obj.list {
                 studyCentre {
                     eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
@@ -128,11 +130,13 @@ class FeeDetailService {
                 and {
                     eq('status', Status.findById(2))
                     eq('semester', Long.parseLong(params.semester))
+//                    eq('challanNo', null)
                 }
             }
 
         }
         else if(params.program!='All' && params.semester=='All'){
+//            println("!!!ALl=All")
             stuList = obj.list {
                 programDetail {
                     eq('id', Long.parseLong(params.program))
@@ -142,39 +146,65 @@ class FeeDetailService {
                 }
                 and {
                     eq('status', Status.findById(2))
+//                    eq('challanNo', null)
                 }
             }
         }
         else {
+//            println("ALl=All")
             stuList = obj.list {
                 studyCentre {
                     eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
                 }
                 and {
                     eq('status', Status.findById(2))
+//                    eq('challanNo', null)
                 }
             }
         }
+        println(stuList)
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
         def feeList = FeeType.list(sort:'type')
         def feeAmountList=[]
         def lateFee=0
+        def prevProgram=null
+        def payableAmount=0
+        def today = new Date()
          println("this is the size "+stuList.size())
-        for (int i=0;i<stuList.size();i++){
-            def lateFeeDate=stuList[i].programDetail.lateFeeDate[0]
-//            println("this is late fee Date "+stuList[i].programDetail.courseName)
-            def today=new Date()
-            def amount=AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
+        if(params.program=='All' && params.semester=='All') {
+            for (int i = 0; i < stuList.size(); i++) {
+
+                if(prevProgram!=stuList[i].programDetail.courseName) {
+                    def lateFeeDate = stuList[i].programDetail.lateFeeDate[0]
+                    def amount = AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
+                    prevProgram=stuList[i].programDetail.courseName
+                    if (lateFeeDate != null) {
+                        if (today.compareTo(lateFeeDate) > 0) {
+                            lateFee = amount[0].lateFeeAmount
+                        }
+                    }
+                    payableAmount = amount[0].feeAmountAtSC + lateFee
+                }
+
+
+                feeAmountList.add(payableAmount)
+            }
+        }
+        else{
+            def lateFeeDate = stuList[0].programDetail.lateFeeDate[0]
+            def amount = AdmissionFee.findAllByProgramDetail(stuList[0].programDetail)
 //            println("this is the amount "+ amount)
 
-            if(lateFeeDate!=null) {
+            if (lateFeeDate != null) {
                 if (today.compareTo(lateFeeDate) > 0) {
                     lateFee = amount[0].lateFeeAmount
                 }
             }
-            def payableAmount=amount[0].feeAmountAtSC+lateFee
-            feeAmountList.add(payableAmount)
+            payableAmount = amount[0].feeAmountAtSC + lateFee
+            for (int i = 0; i < stuList.size(); i++) {
+                feeAmountList.add(payableAmount)
+            }
         }
         resultMap.studentList=stuList
         resultMap.bankName=bankName
@@ -185,7 +215,7 @@ class FeeDetailService {
     }
 
     def StudentListForMFee(params){
-
+        println(params)
         def resultMap=[:]
         def obj = Student.createCriteria()
         def currentUser=springSecurityService.getCurrentUser()
@@ -245,7 +275,7 @@ class FeeDetailService {
         def feeAmountList=[]
         for (int i=0;i<stuList.size();i++){
             def amount=MiscellaneousFee.findAllByProgramDetailAndFeeType(stuList[i].programDetail,FeeType.findById(params.feeType))
-            println(amount)
+//            println(amount)
             feeAmountList.add(amount.amount)
         }
         resultMap.studentList=stuList

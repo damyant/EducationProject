@@ -1,12 +1,14 @@
 package examinationproject
 
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
 import javax.activation.MimetypesFileTypeMap
 
 class ReportController {
     def reportService
     def pdfRenderingService
+    @Secured(["ROLE_ADMIN", "ROLE_STUDY_CENTRE"])
     def reportIndex = {
 //        println('in report Index')
 

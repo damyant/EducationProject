@@ -118,11 +118,15 @@ function hideAll(){
     $('#allProgram').prop('checked', false)
     $('#rangeRadioButtons').prop('hidden', true)
 //    $('#paymentDetails').prop('hidden', true)
+    document.getElementById("paginationDiv").style.visibility = "hidden";
     document.getElementById("paymentDetails").style.visibility="hidden"
     document.getElementById("generateFeeChallan").style.visibility="hidden"
 //    $('#generateFeeChallan').prop('hidden', true)
 }
 function getSemester(t){
+    if($("#paginationDiv").length>0) {
+        document.getElementById("paginationDiv").style.visibility = "hidden";
+    }
     $('#studyCenterFeeEntryTable').prop('hidden', true)
     $('#allProgram').prop('checked', false)
     $('#rangeRadioButtons').prop('hidden', true)

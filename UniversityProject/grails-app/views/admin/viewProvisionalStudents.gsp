@@ -18,13 +18,16 @@
 <body>
 <div id="main">
     <fieldset class="form">
+        <h3>Assign Roll Number</h3>
         <g:if test="${flash.message}">
             <div class="message"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
     %{--<h3>Generate Roll Number</h3>--}%
         <g:if test="${params.rollNo == 'generated'}">
-            <div class="message"><div class="university-status-message"><g:message
-                    code="rollNo.Generated.message"/></div></div>
+            <div class="message"></div>
+            <div class="university-status-message" id="successMessage" hidden="hidden">
+                Roll No Successfully Assigned
+            </div>
         </g:if>
         <g:form id="generateRollNo" name="generateRollNo">
             <g:hiddenField name="studentId" id="studentId"/>
@@ -36,14 +39,13 @@
                         <td style="min-width: 10%">
                             <label for="programId">Select Program</label>
                         </td>
-                        <td style="width: 33%">
+                        <td style="width: 30%">
                             <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}"
                                       optionKey="id" optionValue="courseName" noSelection="['null': ' Select Program']"
                                       onchange="getStudents()"/>
                         </td>
-                        <td></td>
-                        <td></td>
-                        <td style="width: 10%"></td>
+                        <td  style="width: 30%"></td>
+                        <td  style="width: 30%"></td>
                     </sec:ifAnyGranted>
                 </tr>
             </table>
