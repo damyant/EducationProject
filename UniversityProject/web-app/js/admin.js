@@ -510,6 +510,7 @@ function approvePayInSlip(){
 }
 
 function submitProgramFee(){
+
     validateProgramFee()
     var status = $("#createNewFee").valid();
 //    alert(status)
@@ -528,6 +529,7 @@ function submitProgramFee(){
                     document.getElementById("statusMessage").style.visibility = "visible";
                     $('#statusMessage').html("Saved Successfully")
                 }
+
             }
 
         })

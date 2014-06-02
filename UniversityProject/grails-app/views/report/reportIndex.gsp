@@ -215,7 +215,7 @@
                        <label for="studyCentre">Select Study Centre:</label>
                    </td>
                    <td style="width: 30%" >
-                       <g:select name="studyCentre" class="university-size-1-1" id="studyCentre"
+                       <g:select name="studyCentre" class="university-size-1-1" id="studyCentreVal"
                                  from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
                                  noSelection="['null': ' Select Study Centre']" />
                    </td>
@@ -507,7 +507,7 @@
 //            return true;
         }
         else if(val=='studyCentre'){
-            check1 =$('#studyCentre').val()
+            check1 =$('#studyCentreVal').val()
             check2 =$('#studyCentreSession').val()
             if(check1==0 || check2==0){
                 alert("please select values")
@@ -553,6 +553,7 @@
             }
 //            return true;
         }
+
     }
 </script>
 </body>

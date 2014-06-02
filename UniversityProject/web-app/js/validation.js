@@ -2,7 +2,9 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
+
     $("#studyMaterialPage,#addCoursesFrmId,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
+
         rules: {
 
             //Add Course

@@ -6,7 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 
+<<<<<<< HEAD
+<%@ page import="java.text.SimpleDateFormat;  javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+=======
 <%@ page import="java.text.SimpleDateFormat;javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+>>>>>>> a0de782d437ace62bc83678b04572d2ec2feab6e
 <html>
 <head>
     <title>Student Registration</title>
