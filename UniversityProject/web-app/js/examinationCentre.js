@@ -211,7 +211,9 @@ function validateAndSubmitForm() {
 }
 function clearErrorMsg(t) {
     $(t).next("label").text("");
-    $('#removeButton1').prop('disabled', false)
+    if($('#removeButton1').length>0) {
+        $('#removeButton1').prop('disabled', false)
+    }
 }
 
 

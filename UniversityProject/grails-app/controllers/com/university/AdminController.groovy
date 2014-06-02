@@ -499,7 +499,9 @@ class AdminController {
 //            println("############################3 "+it )
             def program = ProgramDetail.findById(Integer.parseInt(it))
             program.lateFeeDate = date
-            program.save(flush: true, failOnError: true)
+            if(program.save(flush: true, failOnError: true)){
+                flash.message="Succesfully Assigned Late Fee Date."
+            }
         }
         redirect(action: "assignLateFeeDate")
     }

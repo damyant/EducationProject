@@ -366,19 +366,28 @@ class StudentRegistrationService {
         def challanSr
         def length
         def challanNo
+        println("Student.count"+Student.count)
+        println(Student.count)
         if(Student.count()>0){
             def obj = Student.createCriteria()
             def studentByChallanNo = obj.list {
                 maxResults(1)
-                order("challanNo", "desc")
+                order("id", "desc")
             }
+            println(studentByChallanNo)
+            def lastChallanDate
+            if(studentByChallanNo[0].challanNo!=null) {
+                lastChallanDate = studentByChallanNo[0].challanNo.substring(0, 6)
 
-            def lastChallanDate = studentByChallanNo[0].challanNo.substring(0,6)
-            if(lastChallanDate.equalsIgnoreCase(challan)){
-                serialNo = Integer.parseInt(studentByChallanNo[0].challanNo.substring(6,10))
-                serialNo =serialNo+1
-            }else{
-                serialNo =1
+                if (lastChallanDate.equalsIgnoreCase(challan)) {
+                    serialNo = Integer.parseInt(studentByChallanNo[0].challanNo.substring(6, 10))
+                    serialNo = serialNo + 1
+                } else {
+                    serialNo = 1
+                }
+            }
+            else {
+                serialNo = 1
             }
             length = serialNo.toString().length()
             switch(length){
