@@ -5,7 +5,7 @@
   Time: 12:56 PM
 --%>
 <%@ page import="examinationproject.City" contentType="text/html;charset=UTF-8" %>
-<%@ page import="examinationproject.ExaminationCentre; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+<%@ page import="examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title></title>

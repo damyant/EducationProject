@@ -1,5 +1,4 @@
 
-<%@ page import="examinationproject.ProgramFee" %>
 <!DOCTYPE html>
 <html>
 	<head>

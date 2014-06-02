@@ -40,7 +40,7 @@ class UserController {
 //             mailerService.sendForgetPassword(newPassword,userInstance)
 
         flash.message = "${message(code:'password.reset.msg',args:[userInstance.username,userInstance.email])}"
-        redirect(action: "userList")
+        redirect(action: "userlist")
 //         }
         /* flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
          redirect(action: "userList")*/
@@ -55,7 +55,7 @@ class UserController {
     }
 
 
-    def userList(Integer max){
+    def userlist(Integer max){
         params.max = Math.min(max ?: 10, 100)
         respond User.list(params), model:[userInstanceCount: User.count()]
 
