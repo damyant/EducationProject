@@ -237,6 +237,7 @@ function clearField() {
 }
 function save() {
 //    alert("dfdfdfd")
+    checkCourseCode()
     validate();
     var status = $("#createCourse").valid();
     if (!fireMultiValidate()) {
@@ -285,9 +286,11 @@ function checkCourseCode() {
             if (data.courseCode == "true") {
                 $('#errorMsg').text("Program Code is already registered")
                 $('#errorMsg').attr('display', true)
+                return false
             }
             else {
                 $('#errorMsg').text("")
+                return true
             }
 
         },

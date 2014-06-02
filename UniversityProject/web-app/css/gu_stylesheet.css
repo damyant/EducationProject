@@ -612,22 +612,22 @@ table#multiSelectTab, table#studyCenterTab, #multiSelectTab {
 }
 
 input::-webkit-input-placeholder {
-    font-size: 10px;
+    font-size: 11px;
     color: #555;
 }
 
 input::-moz-placeholder {
-    font-size: 10px;
+    font-size: 11px;
     color: #555;
 }
 
 input:-ms-input-placeholder {
-    font-size: 10px;
+    font-size: 11px;
     color: #555;
 }
 
 input:-moz-placeholder {
-    font-size: 10px;
+    font-size: 11px;
     color: #555;
 }
 

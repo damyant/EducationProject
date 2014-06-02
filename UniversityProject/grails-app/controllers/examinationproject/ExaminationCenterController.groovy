@@ -192,13 +192,11 @@ class ExaminationCenterController {
     }
 
 
-    def getExamCenterList() {
-
+    def getExamCenterName() {
         try{
             District district = District.get(params.int('data'));
-            def examCenterList = null
             if (district != null) {
-                examCenterList = City.findAllByDistrictAndIsExamCentre(district,1,[sort: 'cityName'])
+                def examCenterList = City.findAllByDistrictAndIsExamCentre(district,1,[sort: 'cityName'])
 //                println(examCenterList)
                 render examCenterList as JSON
             } else {
