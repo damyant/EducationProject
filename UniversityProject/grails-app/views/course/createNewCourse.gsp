@@ -60,7 +60,7 @@
                 <tr>
                     <td style="width: 40%"><label>Program Name :<span class="university-obligatory">*</span></label>
                     </td>
-                    <td style="width: 60%"><input type="text" id="courseName" name="courseName" maxlength=""
+                    <td style="width: 60%"><input type="text" id="courseName" name="courseName" maxlength="50"
                                                   class="university-size-1-2"
                                                   onkeypress="return onlyAlphabetsWithSplChar(event);"/></td>
 
@@ -107,7 +107,7 @@
                 </tr>
                 <tr>
                     <td><label>Program Code :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="courseCode" name="courseCode" maxlength="" onchange="checkCourseCode()"
+                    <td><input type="text" id="courseCode" name="courseCode" maxlength="10" onchange="checkCourseCode()"
                                class="university-size-1-2" onkeypress="return isNumber(event)"/>
                         <label id="errorMsg" class="error1"></label>
                     </td>
@@ -115,28 +115,28 @@
                 <tr>
                     <td><label>Number of maximum available academic year :<span class="university-obligatory">*</span>
                     </label></td>
-                    <td><input type="text" id="noOfAcademicYears" name="noOfAcademicYears" maxlength=""
+                    <td><input type="text" id="noOfAcademicYears" name="noOfAcademicYears" maxlength="10"
                                class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
                 </tr>
 
                 <tr>
                     <td><label>Number of papers :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="noOfPapers" name="noOfPapers" maxlength="" class="university-size-1-2"
+                    <td><input type="text" id="noOfPapers" name="noOfPapers" maxlength="5" class="university-size-1-2"
                                onkeypress="return isNumber(event)"/></td>
                 </tr>
                 <tr>
                     <td><label>Total Marks :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="totalMarks" name="totalMarks" maxlength="" class="university-size-1-2"
+                    <td><input type="text" id="totalMarks" name="totalMarks" maxlength="5" class="university-size-1-2"
                                onkeypress="return isNumber(event)"/></td>
                 </tr>
                 <tr>
                     <td><label>Pass Marks(per paper) :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="marksPerPaper" name="marksPerPaper" class="university-size-1-2"
+                    <td><input type="text" id="marksPerPaper" name="marksPerPaper" class="university-size-1-2" maxlength="5"
                                onkeypress="return isNumber(event)"/></td>
                 </tr>
                 <tr>
                     <td><label>Total Credit Points :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="totalCreditPoints" name="totalCreditPoints" class="university-size-1-2"
+                    <td><input type="text" id="totalCreditPoints" name="totalCreditPoints" class="university-size-1-2" maxlength="5"
                                onkeypress="return isNumber(event)"/></td>
                 </tr>
                 <tr>
