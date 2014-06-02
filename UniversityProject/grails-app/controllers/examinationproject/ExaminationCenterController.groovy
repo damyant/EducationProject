@@ -43,6 +43,7 @@ class ExaminationCenterController {
             centre.name = result.name
             centre.id = result.id
             centre.assocaitedExamVenue=associatedExamVenue
+            println("???????????")
             render centre as JSON
         } else {
             render "<h5>No Examination Centre Found</h5>"
