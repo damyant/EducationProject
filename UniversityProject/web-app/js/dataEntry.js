@@ -6,26 +6,25 @@
 var studentList = [];
 // document ready function............................................
 
-$(document).ready(function () {
 
-
-})
 
 
 $(function () {
-    $("#dialog").dialog({
-        autoOpen: false,
+    if($("#dialog").length>0) {
+        $("#dialog").dialog({
+            autoOpen: false,
 //        maxWidth:600,
 //        maxHeight: 500,
-        width: 1000,
-        height: 650,
-        modal: true,
-        title: 'Enter Fee Details',
-        close: function (ev, ui) {
-            getStudentsList()
-        }
+            width: 1000,
+            height: 650,
+            modal: true,
+            title: 'Enter Fee Details',
+            close: function (ev, ui) {
+                getStudentsList()
+            }
 
-    });
+        });
+    }
 });
 
 function nextStudent() {
