@@ -101,7 +101,7 @@
                 </tr>
                 <tr>
                     <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="" class="university-size-1-2"
+                    <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="10" class="university-size-1-2"
                                onkeypress="return isNumber(event)" onblur="semesterList()" readonly/></td>
 
                 </tr>
