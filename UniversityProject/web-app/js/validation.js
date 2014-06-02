@@ -2,7 +2,9 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-      $("#studyMaterialPage,#addCoursesFrmId,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher,#createNewFee, #createFeeDetail").validate({
+
+    $("#studyMaterialPage,#addCoursesFrmId,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
+
         rules: {
 
             //Add Course
@@ -645,9 +647,6 @@ function admissionFeeValidation(index){
 
 }
 
-function clearPayAdmission(){
-
-}
 function checkValidation() {
 //    alert("hi")
     $("#paychallanForStudyCenter,#assignLateFeeDate,#assignAdmissionPeriod").validate({
@@ -707,6 +706,36 @@ function checkValidation() {
             }
         }
     })
+}
+function validateProgramFee() {
+//    alert("hi")
+    $("#createNewFee").validate({
+        rules: {
+            programDetail:"required",
+            programSession:"required",
+            feeAmountAtIDOL:"required",
+            feeAmountAtSC:"required",
+            lateFeeAmount:"required"
+        },
+        messages: {
+            programDetail:"Please Select Program Detail",
+            programSession:"Please Select Program Session",
+            feeAmountAtIDOL:"Please  Enter Program Fee At Idol",
+            feeAmountAtSC:"Please  Enter Program Fee At Study Centre",
+            lateFeeAmount:"Please Enter Late Fee Amount"
+
+        }
+    })
+//    alert($("input[name='feeTypeAmount']").length)
+    $("input[name='feeTypeAmount']").each(function(){
+
+        $(this).rules("add", {
+            required: true,
+            messages: {
+                required: "Please Enter The Fee Amount"
+            }
+        } );
+    });
 }
 function disableKeyInput(t){
     $(t).keydown(false);

@@ -126,7 +126,7 @@ class FeeDetailsController {
 //        println(response.programList[0].courseName)
         render response as JSON
     }
-    @Secured(["ROLE_ADMIN"])
+    @Secured("ROLE_STUDY_CENTRE")
     def challanForMiscellaneousFee={
         def programList = ProgramDetail.list(sort:'courseName')
         def programCategory=ProgramType.list(sort:'type')
@@ -237,7 +237,6 @@ class FeeDetailsController {
         stuList=params.studentListId.split(",")
             for(def i=0;i<stuList.size();i++){
                lateFee=0
-//                println("**********"+stuList[i]);
                 def stuIns=Student.findById(Long.parseLong(stuList[i]))
                 stuIns.rollNo
                 stuIns.challanNo=challanNo
@@ -247,7 +246,7 @@ class FeeDetailsController {
 
 
                 Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
-                def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtIDOL
+                def feeForStudent=AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0],stuIns.programSession).feeAmountAtSC
                if(lateFeeDate!=null) {
                    if (today.compareTo(lateFeeDate) > 0) {
                        lateFee = AdmissionFee.findByProgramDetailAndProgramSession(programDetails[0], stuIns.programSession).lateFeeAmount

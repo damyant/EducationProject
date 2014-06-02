@@ -260,8 +260,8 @@ function appendSubjects(obj){
 
 
             $("#subjectList").append('<tr id="subjectRows'+counter+'"><td class="university-size-1-3">'+obj.allSubjects[i][j].subjectName+'</td><td class="university-size-1-3">'+
-                '<input type="text"  name="examinationDate" id="examDate'+counter+'"  onchange="clearError(this)" class="datePickers university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError'+counter+'" class="error3">&nbsp;</label></td>'+
-                '<td class="university-size-1-3"><input type="text" id="examTime'+counter+'"  onchange="clearError(this)"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+examTime+'" /><label id="timeError'+counter+'" class="error4">&nbsp;</label></td>'+
+                '<input type="text"  name="examinationDate" maxlength="10" onkeypress="disableKeyInput(this)" id="examDate'+counter+'"  onchange="clearError(this)" class="datePickers university-size-1-2 "  value='+datesInNewFormat+'></input><label id="dateError'+counter+'" class="error3">&nbsp;</label></td>'+
+                '<td class="university-size-1-3"><input type="text" maxlength="8" id="examTime'+counter+'" onkeypress="disableKeyInput(this)"  onchange="clearError(this)"  name="examinationTime" style="width: 70px;" class="timePicker_6" value="'+examTime+'" /><label id="timeError'+counter+'" class="error4">&nbsp;</label></td>'+
                 '</tr>')
             ++counter;
         }
@@ -290,8 +290,16 @@ function validateFields(counter){
                 $('#dateError'+i).text("Please Select Examination Date")
                 bool=false
             }
+            else if(date.length != 10){
+                $('#dateError'+i).text("Please Enter Proper Date")
+                bool=false
+            }
             if ((time == "null" || time == "")) {
                 $('#timeError'+i).text("Please Select Examination Time")
+                bool=false
+            }
+            else if(time.length != 8){
+                $('#timeError'+i).text("Please Enter Proper Date")
                 bool=false
             }
     }
@@ -360,7 +368,7 @@ function generateStudentsList() {
                 document.getElementById("paginationDiv").style.visibility = "visible";
                 $('#studentList thead').append('<tr><th>' + "Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Roll Number" + '</th><th>' + "Mobile No" + '</th><th>&nbsp;</th><th>&nbsp;</th></tr>')
                 for (var i = 0; i < data.length; i++) {
-                    $('#studentList tbody').append('<tr><td>' + data[i].firstName+' '+data[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data[i].id + ')"/></td><td style="text-align: center;"><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data[i].id + ')"/></td></tr>')
+                    $('#studentList tbody').append('<tr><td>' + data[i].firstName+' ' + data[i].middleName+' '+data[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data[i].id + ')"/></td><td style="text-align: center;"><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data[i].id + ')"/></td></tr>')
                 }
                 $('#studentList tbody tr:not(:first)').hide();
                 $table_rows = $('#studentList tbody tr');
@@ -502,26 +510,30 @@ function approvePayInSlip(){
 }
 
 function submitProgramFee(){
-  var status=  $("#createNewFee").valid()
-    alert(status)
-   var programId = $("#programDetail").val()
-//    alert(programId)
 
-    $.ajax({
-        type: "post",
-        url: url('programFee', 'saveProgramFee', ''),
-        data: $("#createNewFee").serialize()+"&feeTypeList="+feeTypeList+"&programDetail="+programId,
+    validateProgramFee()
+    var status = $("#createNewFee").valid();
+//    alert(status)
+    if(status) {
+        var programId = $("#programDetail").val()
+//        alert(programId)
 
-        success: function (data) {
-            if(data.status){
-                $('#createNewFee')[0].reset();
-                document.getElementById("statusMessage").style.visibility = "visible";
-                $('#statusMessage').html("Saved Successfully")
-                location.reload();
+        $.ajax({
+            type: "post",
+            url: url('programFee', 'saveProgramFee', ''),
+            data: $("#createNewFee").serialize() + "&feeTypeList=" + feeTypeList + "&programDetail=" + programId,
+
+            success: function (data) {
+                if (data.status) {
+                    $('#createNewFee')[0].reset();
+                    document.getElementById("statusMessage").style.visibility = "visible";
+                    $('#statusMessage').html("Saved Successfully")
+                }
+
             }
-        }
 
-    })
+        })
+    }
 
 }
 

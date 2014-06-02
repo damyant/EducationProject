@@ -218,7 +218,7 @@ class StudentRegistrationService {
                         rollNoList.put(i.toString(),rollNumber)
                     }
                 } else {
-                    println("In Else")
+//                    println("In Else")
                     int j=1
                     rollNoList.put(j.toString(),(courseCodeStr + yearCode + rollNo.toString()))
                     for(int i=1;i<=studentIdList.size();i++){
@@ -230,7 +230,7 @@ class StudentRegistrationService {
             Student stuObj;
             int j=0
             ArrayList<String> rollNoKeyList = new ArrayList<String>(rollNoList.keySet());
-            println("keys"+rollNoKeyList)
+//            println("keys"+rollNoKeyList)
             studentIdList.each { i ->
                 rollNumber =rollNoList.get(rollNoKeyList.get(j))
                 stuObj = Student.findById(i)
@@ -294,7 +294,7 @@ class StudentRegistrationService {
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
 ////       At Study Center
 
-        for (int i = 1; i <= 300; i++) {
+        for (int i = 1; i <= 20000; i++) {
             println("Student Number is "+i)
             students = new Student()
             students.firstName = "StudentAtStudy"+i
@@ -303,7 +303,7 @@ class StudentRegistrationService {
             students.category = "GEN"
             students.programSession = ProgramSession.get(21)
 //            students.referenceNumber = getStudentReferenceNumber()
-            students.challanNo = getChallanNumber()
+//            students.challanNo = getChallanNumber()
             params.programId="21"
             students.rollNo = getStudentRollNumber(params)
             students.dob = new Date()
@@ -366,19 +366,28 @@ class StudentRegistrationService {
         def challanSr
         def length
         def challanNo
+        println("Student.count"+Student.count)
+        println(Student.count)
         if(Student.count()>0){
             def obj = Student.createCriteria()
             def studentByChallanNo = obj.list {
                 maxResults(1)
-                order("challanNo", "desc")
+                order("id", "desc")
             }
+            println(studentByChallanNo)
+            def lastChallanDate
+            if(studentByChallanNo[0].challanNo!=null) {
+                lastChallanDate = studentByChallanNo[0].challanNo.substring(0, 6)
 
-            def lastChallanDate = studentByChallanNo[0].challanNo.substring(0,6)
-            if(lastChallanDate.equalsIgnoreCase(challan)){
-                serialNo = Integer.parseInt(studentByChallanNo[0].challanNo.substring(6,10))
-                serialNo =serialNo+1
-            }else{
-                serialNo =1
+                if (lastChallanDate.equalsIgnoreCase(challan)) {
+                    serialNo = Integer.parseInt(studentByChallanNo[0].challanNo.substring(6, 10))
+                    serialNo = serialNo + 1
+                } else {
+                    serialNo = 1
+                }
+            }
+            else {
+                serialNo = 1
             }
             length = serialNo.toString().length()
             switch(length){

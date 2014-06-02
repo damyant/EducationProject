@@ -124,7 +124,9 @@ function hideAll(){
 //    $('#generateFeeChallan').prop('hidden', true)
 }
 function getSemester(t){
-    document.getElementById("paginationDiv").style.visibility = "hidden";
+    if($("#paginationDiv").length>0) {
+        document.getElementById("paginationDiv").style.visibility = "hidden";
+    }
     $('#studyCenterFeeEntryTable').prop('hidden', true)
     $('#allProgram').prop('checked', false)
     $('#rangeRadioButtons').prop('hidden', true)

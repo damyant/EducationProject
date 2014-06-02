@@ -3,7 +3,7 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'programFee.label', default: 'ProgramFee')}"/>
-    <g:javascript src='validate.js'/>
+    %{--<g:javascript src='validate.js'/>--}%
     <g:javascript src='admin.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
@@ -150,7 +150,7 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField name="feeTypeAmount" id="feeTypeAmount${i}" class="university-size-1-2" type="number" onkeypress="return isNumber(event)"
+              <g:textField name="feeTypeAmount" id="feeTypeAmount${fee?.id}" class="university-size-1-2" type="number" onkeypress="return isNumber(event)"
                                      value=""/>
                     </div>
                 </div>

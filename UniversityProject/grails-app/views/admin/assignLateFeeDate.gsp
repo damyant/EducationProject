@@ -20,7 +20,10 @@
 
     <fieldset class="form">
         <h3>Assign Admission Fee Date</h3>
-        <g:form name="assignLateFeeDate" id="assignLateFeeDate" controller="admin" action="saveLateFeeDate">
+        <g:if test="${flash.message}">
+            <div class="message"><div class="university-status-message">${flash.message}</div></div>
+        </g:if>
+        <g:form  controller="admin" action="saveLateFeeDate" name="assignLateFeeDate" id="assignLateFeeDate">
             <g:hiddenField name="studentListId" id="programId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
             <table class="inner university-size-full-1-1" style="margin: auto">
@@ -45,7 +48,7 @@
                         </div>
                     </td>
                     </tr>
-                    <tr><td><label>Assign Examination Date</label></td>
+                    <tr><td><label>Assign Late Fee Date</label></td>
                     <td><input type="text" name="lateFeeDate" maxlength="10" disabled onkeypress="disableKeyInput(this)" onchange="loadAssignDate(this)" class="university-size-1-2" id="datepicker"
                                value=""></td>
                     </tr>

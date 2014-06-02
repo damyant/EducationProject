@@ -17,6 +17,19 @@
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
 </head>
 <body>
+<script>
+    $(document).ajaxStart(function(){
+        $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: 5,
+            color: '#fff'
+        } });
+    }).ajaxStop($.unblockUI);
+</script>
 <div id="main">
 
     <fieldset class="form">
@@ -59,7 +72,7 @@
         </table>
        <div style="text-align: center; margin: 10px auto;"  class="university-size-full-1-1"> <input type="button" value="Show Students" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;"></div>
         <div id="noStudentMsg" class="university-status-message"></div>
-        <table id="studyCenterFeeEntryTable" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd; " hidden="hidden">
+        <table id="studyCenterFeeEntryTable" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd;" hidden="true">
             <thead>
             <tr>
                 %{--<th style="width: 10%;padding-left: 10px;"><input type="checkbox" name="selectAll" id="selectAll"><label for="selectAll">Select All</label></th>--}%

@@ -12,7 +12,19 @@
     <title></title>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'admin.js')}"></script>
 </head>
-
+<script>
+    $(document).ajaxStart(function(){
+        $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: 5,
+            color: '#fff'
+        } });
+    }).ajaxStop($.unblockUI);
+</script>
 <body>
 <div id="main">
     <fieldset class="form">

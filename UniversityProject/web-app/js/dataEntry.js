@@ -6,12 +6,10 @@
 var studentList = [];
 // document ready function............................................
 
-$(document).ready(function () {
 
 
-})
 
-
+<<<<<<< HEAD
 //$(function () {
 //    $("#dialog").dialog({
 //        autoOpen: false,
@@ -27,6 +25,25 @@ $(document).ready(function () {
 //
 //    });
 //});
+=======
+$(function () {
+    if($("#dialog").length>0) {
+        $("#dialog").dialog({
+            autoOpen: false,
+//        maxWidth:600,
+//        maxHeight: 500,
+            width: 1000,
+            height: 650,
+            modal: true,
+            title: 'Enter Fee Details',
+            close: function (ev, ui) {
+                getStudentsList()
+            }
+
+        });
+    }
+});
+>>>>>>> 9296206226f1f36b2d442d54452364a2216c7f94
 
 function nextStudent() {
     var nextValue = $('#nextStudentId').val()
@@ -286,8 +303,8 @@ function appendStudentList(data) {
         $('#noStudentMsg').html("")
         var type = $('#paramType').val()
         document.getElementById("paginationDiv").style.visibility = "hidden";
-        document.getElementById("studyCenterFeeEntryTable").style.visibility = "visible";
-//        $('#studyCenterFeeEntryTable').attr('hidden', false);
+//        document.getElementById("studyCenterFeeEntryTable").style.visibility = "visible";
+        $('#studyCenterFeeEntryTable').attr('hidden', false);
         $('#rangeRadioButtons').attr('hidden', false);
         $("#studyCenterFeeEntryTable tbody tr").remove()
         var count = 1
