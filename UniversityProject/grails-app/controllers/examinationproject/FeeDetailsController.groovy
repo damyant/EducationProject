@@ -389,7 +389,6 @@ class FeeDetailsController {
             pdfRenderingService.render(args + [controller: this], response)
 
         }
-        redirect(action: payAdmissionFee)
     }
 
     def payMiscFeeChallan={
