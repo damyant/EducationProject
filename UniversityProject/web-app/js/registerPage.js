@@ -49,6 +49,7 @@ $('#profile-image').on('click', function () {
 function readURL(input, type) {
     if (input.files && input.files[0]) {
         var FileUploadPath = $("#profileImage").val()
+        alert($('#imageValidate').val())
         var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
         var imgkbytes = Math.round(parseInt(input.files[0].size) / 1024)
         if (imgkbytes <= 50 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg")) {
@@ -67,6 +68,13 @@ function readURL(input, type) {
                         .width(150)
                         .height(200);
                 };
+            if (type == 'picture2')
+                reader.onload = function (e) {
+                    $('#picture2')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
             if (type == 'signature')
                 reader.onload = function (e) {
                     $('#signature')
@@ -74,8 +82,15 @@ function readURL(input, type) {
                         .width(250)
                         .height(80);
                 };
+            if($('#imageValidate').length>0){
+                $('#imageValidate').val("eeeee")
+            }
+            alert($('#imageValidate').val())
         }
         else {
+            if($('#imageValidate').length>0){
+                $('#imageValidate').val("")
+            }
             $("#profileImage").val('')
             $("#picture").attr('src', ' ')
             alert("Please upload an image of size less then 50kb and image Extension should be gif/png/bmp/jpeg/jpg.")

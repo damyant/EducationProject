@@ -9,6 +9,7 @@ function validate() {
 
             //Add Course
             programTypeId:"required",
+            imageValidate:"required",
             subjectName: {required: true,
                 lettersnumberswithbasicpunc: true
             },
@@ -329,6 +330,7 @@ function validate() {
         },
         messages: {
             programTypeId:"Please Select Program Type",
+            imageValidate:"Please Upload Image",
             subjectName: {required: "Please Enter Course Name",
                 lettersnumberswithbasicpunc: "Letters or numbers or punctuation only please"
             },
