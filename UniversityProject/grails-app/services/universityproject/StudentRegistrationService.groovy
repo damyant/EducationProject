@@ -373,6 +373,7 @@ class StudentRegistrationService {
         if(Student.count()>0){
             def obj = Student.createCriteria()
             def studentByChallanNo = obj.list {
+                isNotNull("challanNo")
                 maxResults(1)
                 order("id", "desc")
             }

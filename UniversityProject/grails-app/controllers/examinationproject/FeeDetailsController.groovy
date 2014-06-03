@@ -360,13 +360,12 @@ class FeeDetailsController {
         if(feeDetailsInstance){
             flash.message = "Pay Challan Already Created For this Challan"
             redirect(controller: "feeDetails",action: "payAdmissionFee")
-
         }
         else {
             feeDetailsInstance=new FeeDetails()
             feeDetailsInstance.challanNo=params.searchChallanNo
             feeDetailsInstance.paymentModeId = PaymentMode.findById(params.paymentMode)
-            feeDetailsInstance.paymentReferenceNumber = params.paymentReferenceNumber
+            feeDetailsInstance.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
             feeDetailsInstance.bankId = Bank.findById(params.bankName)
             feeDetailsInstance.isAdmission= true
             feeDetailsInstance.branchId = Branch.findById(params.branchLocation)
@@ -390,7 +389,6 @@ class FeeDetailsController {
             pdfRenderingService.render(args + [controller: this], response)
 
         }
-        redirect(action: payAdmissionFee)
     }
 
     def payMiscFeeChallan={

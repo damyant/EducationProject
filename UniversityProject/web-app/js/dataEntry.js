@@ -10,23 +10,24 @@ var studentList = [];
 
 
 
-$(function () {
-    if($("#dialog").length>0) {
-        $("#dialog").dialog({
-            autoOpen: false,
-//        maxWidth:600,
-//        maxHeight: 500,
-            width: 1000,
-            height: 650,
-            modal: true,
-            title: 'Enter Fee Details',
-            close: function (ev, ui) {
-                getStudentsList()
-            }
 
-        });
-    }
-});
+//$(function () {
+//    if($("#dialog").length>0) {
+//        $("#dialog").dialog({
+//            autoOpen: false,
+////        maxWidth:600,
+////        maxHeight: 500,
+//            width: 1000,
+//            height: 650,
+//            modal: true,
+//            title: 'Enter Fee Details',
+//            close: function (ev, ui) {
+//                getStudentsList()
+//            }
+//
+//        });
+//    }
+//});
 
 
 function nextStudent() {
@@ -507,6 +508,35 @@ function filterProgram(t) {
     }
 
 }
+function filterProgramforRemove(t) {
+    var type = $(t).val();
+
+//    alert(type)
+    if (type) {
+        $.ajax({
+            type: "post",
+            url: url('admin', 'loadProgram', ''),
+            data: {type: type},
+            success: function (data) {
+                $('#datepicker').prop("disabled", false)
+                $("#courseList thead").empty().append('<tr><th class="university-size-1-3">' + '<input type="checkbox" id="chkAll" name="all" onclick="selectAllCheckforRemove(this)">Select All</input>' + '</th><th class="university-size-1-3">' + "Course Name" + '</th><th class="university-size-1-3"></th></tr>')
+                $("#courseList tbody").empty()
+                for (var i = 0; i < data.programList.length; i++) {
+                    $("#courseList tbody").append('<tr><td><input type="checkbox" name="programs" class="course" value="' + data.programList[i].id + '" id="course' + data.programList[i].id + '"/></td>' + '<td>' + data.programList[i].courseName + '</td><td><input type="text" readonly value="' + data.dateList[i] + '" name="assignDate' + data.programList[i].id + '" class="assignDate" id="' + data.programList[i].id + '"></td></tr>')
+
+                }
+            }
+
+
+        });
+    }
+    else {
+        $('#datepicker').prop("disabled", true)
+        $("#courseList thead").empty()
+        $("#courseList tbody").empty()
+    }
+
+}
 
 function filterProgramsForSelect(t) {
     var type = $(t).val();
@@ -593,7 +623,26 @@ function selectAllCheck(t) {
     }
 
 }
+function selectAllCheckforRemove(t) {
+    $(".course").prop("checked", $("#chkAll").prop("checked"))
+//    if ($(t).is(':checked')) {
+////        $(".assignDate").prop("readonly", false)
+//        if ($('#datepicker').val() != "") {
+//            $(".assignDate").val($('#datepicker').val())
+//        }
+//        $('input[name="programs"]:checked').each(function () {
+//            var checkboxValue = $(this).val()
+//        })
+//    }
+//    else {
+//        $(".assignDate").prop("readonly", true)
+//        $('input[name="programs"]').each(function () {
+//            var checkboxValue = $(this).val()
+//            $("#" + checkboxValue).val($("#hidden" + checkboxValue).val())
+//        })
+//    }
 
+}
 function enableTextField(t) {
     var txtId = $(t).val()
 //    alert(txtId)

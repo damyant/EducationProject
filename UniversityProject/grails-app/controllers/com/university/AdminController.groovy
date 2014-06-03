@@ -15,6 +15,8 @@ import examinationproject.Status
 import examinationproject.StudentController
 import examinationproject.StudyCenter
 import grails.converters.JSON
+import grails.util.Holders
+
 import javax.activation.MimetypesFileTypeMap
 import grails.plugins.springsecurity.Secured
 
@@ -31,7 +33,7 @@ class AdminController {
     def attendanceService
 
     @Secured(["ROLE_GENERATE_ROLL_NO"])
-    def viewProvisionalStudents() {
+    def viewListGenerateRollNumber() {
 
         def studyCenterList = StudyCenter.list(sort: 'name')
         def programList = ProgramDetail.list(sort: 'courseCode')
@@ -469,6 +471,32 @@ class AdminController {
         [programList: programList, programCategory: programCategory]
 
     }
+    def removeLateFeeDate = {
+
+        def programList = []
+        def programs = ProgramDetail.list(sort: 'courseName')
+        programs.each {
+
+            if (it.lateFeeDate == null) {
+                programList.add(it)
+            }
+        }
+
+        def programCategory = ProgramType.list(sort: 'type')
+        [programList: programList, programCategory: programCategory]
+
+    }
+    def deleteLateFeeDate={
+//        println(params)
+        def status=adminInfoService.removeDateLateFee(params)
+        if(status) {
+            flash.message = "Late Fee Date Removed Successfully"
+        }
+        else {
+            flash.message = "Unable Remove Late Fee Date"
+        }
+        redirect(action: "removeLateFeeDate")
+    }
 
     def loadProgram = {
 //        println("params" + params)
@@ -562,5 +590,11 @@ class AdminController {
         returnMap.startDate=df.format(progmInst.startAdmission_D)
         returnMap.endDate=df.format(progmInst.endAdmission_D)
         render returnMap as JSON
+    }
+    def individualStudentUpdate={
+//        def grailsApplication = Holders.getGrailsApplication()
+//        def rootImageFolder =  grailsApplication.config.my.global.variable;
+//        grailsApplication.config.my.global.variable=grailsApplication.config.my.global.variable+1
+//        [rootImageFolder:rootImageFolder]
     }
 }

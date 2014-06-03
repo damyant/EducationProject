@@ -19,11 +19,11 @@
 <div id="main">
 
     <fieldset class="form">
-        <h3>Assign Late Fee Date</h3>
+        <h3>Remove Late Fee Date</h3>
         <g:if test="${flash.message}">
             <div class="message"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
-        <g:form  controller="admin" action="saveLateFeeDate" name="assignLateFeeDate" id="assignLateFeeDate">
+        <g:form  controller="admin" action="deleteLateFeeDate" name="assignLateFeeDate" id="assignLateFeeDate">
             <g:hiddenField name="studentListId" id="programId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
             <table class="inner university-size-full-1-1" style="margin: auto">
@@ -32,7 +32,7 @@
                         <g:select name="programCategory" class="university-size-2-3" id="programCategory" optionKey="id"
                                   optionValue="type"
                                   from="${programCategory}" noSelection="['': ' Select Program Category']"
-                                  onchange="filterProgram(this)"/>
+                                  onchange="filterProgramforRemove(this)"/>
                     </td>
                     <td  style="text-align: center;"></td>
                     <td></td>
@@ -48,13 +48,9 @@
                         </div>
                     </td>
                     </tr>
-                    <tr><td><label>Assign Late Fee Date</label></td>
-                    <td><input type="text" name="lateFeeDate" maxlength="10" disabled onkeypress="disableKeyInput(this)" onchange="loadAssignDate(this)" class="university-size-1-2" id="datepicker"
-                               value=""></td>
-                    </tr>
             </table>
 
-            <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1"> <g:submitButton name="submit" value="Assign LateFee Date" onclick="checkValidation()" class="ui-button university-size-1-4" style="margin: auto;"/></div>
+            <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1"> <g:submitButton name="submit" value="Remove Late Fee Date" onclick="checkValidation()" class="ui-button university-size-1-4" style="margin: auto;"/></div>
 
             <br/>
             </table>

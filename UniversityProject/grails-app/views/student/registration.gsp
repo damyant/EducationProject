@@ -339,28 +339,56 @@ onkeypress="return isNumberWithDash(event)"/>
         </table>
     </td>
 </tr>
-<tr>
-    <td>
-        Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 50KB )
-    </td>
-    <td>
-    %{--<input type='file' onchange="readURL(this);" />--}%
+<sec:ifNotLoggedIn>
+    <tr>
+        <td>
+            Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 50KB )<span class="university-obligatory">*</span>
+        </td>
+        <td>
+        %{--<input type='file' onchange="readURL(this);" />--}%
 
-        <g:if test="${studInstance}">
-            <img src="${createLink(controller: 'student', action: 'show', id: studInstance?.id
-                    , mime: 'image/jpeg')}" class="university-registration-photo" id="picture1"/>
-            <input type='file' id="profileImage" onchange="readURL(this, 'picture1');" class="university-button"
-                   name="photograph"/>
-        </g:if>
-        <g:else>
-            <div id="profile-image"><img src="" alt="Space for Photograph "
-                                         class="university-registration-photo" id="picture"/></div>
-            <input type='file' id="profileImage" onchange="readURL(this, 'picture');" class="university-button"
-                   name="photograph"/>
-        </g:else>
+            <g:if test="${studInstance}">
+                <img src="${createLink(controller: 'student', action: 'show', id: studInstance?.id
+                        , mime: 'image/jpeg')}" class="university-registration-photo" id="picture1"/>
+                <input type='file' id="profileImage" onchange="readURL(this, 'picture1');" class="university-button"
+                       name="photograph"/>
+            </g:if>
+            <g:else>
+                <div id="profile-image"><img src="" alt="Space for Photograph "
+                                             class="university-registration-photo" id="picture2"/></div>
+                <input type='file' id="profileImage" onchange="readURL(this, 'picture2');" class="university-button"
+                       name="photograph"/>
+            </g:else>
+            <input type="text" id="imageValidate" name="imageValidate" style="width: 0px;height: 0px;"/>
 
-    </td>
-</tr>
+        </td>
+    </tr>
+</sec:ifNotLoggedIn>
+<sec:ifLoggedIn>
+    <tr>
+        <td>
+            Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 50KB )
+        </td>
+        <td>
+        %{--<input type='file' onchange="readURL(this);" />--}%
+
+            <g:if test="${studInstance}">
+                <img src="${createLink(controller: 'student', action: 'show', id: studInstance?.id
+                        , mime: 'image/jpeg')}" class="university-registration-photo" id="picture1"/>
+                <input type='file' id="profileImage" onchange="readURL(this, 'picture1');" class="university-button"
+                       name="photograph"/>
+            </g:if>
+            <g:else>
+                <div id="profile-image"><img src="" alt="Space for Photograph "
+                                             class="university-registration-photo" id="picture"/></div>
+                <input type='file' id="profileImage" onchange="readURL(this, 'picture');" class="university-button"
+                       name="photograph"/>
+            </g:else>
+
+        </td>
+    </tr>
+</sec:ifLoggedIn>
+
 <sec:ifNotLoggedIn>
     <tr>
 

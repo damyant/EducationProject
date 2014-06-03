@@ -13,11 +13,26 @@
     <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
 </head>
-
+<script>
+    $(document).ajaxStart(function(){
+        $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: 5,
+            color: '#fff'
+        } });
+    }).ajaxStop($.unblockUI);
+</script>
 <body>
 <div id="main">
     <fieldset>
         <h3>STUDENT ADMIT CARD</h3>
+        <g:if test="${flash.message}">
+            <div class="university-status-message"> <label class="error">${flash.message}</label></div>
+        </g:if>
     <g:form name="admitCardForm" id="admitCardForm" >
             <g:hiddenField name="studentList" id="studentList"/>
             <div>
@@ -120,8 +135,7 @@
                  hidden="">
 
                 <label class="university-left-right-margin">
-                    <img src="${resource(dir: 'images', file: 'Download (7).ico')}"
-                         style="width: 30px;vertical-align: bottom; margin: auto 20px;" class="logo-image"/>
+                    Download Range
                 </label>
                 <label class="university-left-margin" style="color: #000; font-size: 17px;"><b>From</b></label>
                 <input type="text" name="from" id="from" placeholder="Enter SrNo" width="7" onclick="this.value = ''" onkeypress="return isNumber(event)"
