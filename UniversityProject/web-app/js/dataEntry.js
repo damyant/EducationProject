@@ -9,23 +9,7 @@ var studentList = [];
 
 
 
-<<<<<<< HEAD
-//$(function () {
-//    $("#dialog").dialog({
-//        autoOpen: false,
-////        maxWidth:600,
-////        maxHeight: 500,
-//        width: 1000,
-//        height: 650,
-//        modal: true,
-//        title: 'Enter Fee Details',
-//        close: function (ev, ui) {
-//            getStudentsList()
-//        }
-//
-//    });
-//});
-=======
+
 $(function () {
     if($("#dialog").length>0) {
         $("#dialog").dialog({
@@ -43,7 +27,7 @@ $(function () {
         });
     }
 });
->>>>>>> 9296206226f1f36b2d442d54452364a2216c7f94
+
 
 function nextStudent() {
     var nextValue = $('#nextStudentId').val()

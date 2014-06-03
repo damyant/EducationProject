@@ -149,9 +149,25 @@ function submitTempRegistration() {
             url: url('student', 'tempRegistration', ''),
             data: $("#tempEnrollment").serialize(),
             success: function (data) {
-//                alert(data.rollNo)
                 document.getElementById("tempEnrollment").reset();
-                confirmGenerateChallan(data.rollNo);
+                //kuldeep's code start from here................................................
+//                alert("hello kuldeep"+data.student.rollNo+''+data.student.firstName)
+                $('#studentName').text(''+data.student.firstName+' '+ data.student.lastName+' '+data.student.middleName)
+                $('#studentRollNo').text(''+data.student.rollNo)
+                $('#challanNo').text(''+data.student.challanNo)
+                $('#feeType').text('Admission Fee for '+data.programFee.programDetail.courseName)
+                $('#amount').text(''+data.programFeeAmount)
+                $('#lateFee').text('(with late fee '+data.lateFee+')')
+                var confirmOK = confirm("Do you want to Generate Challan for Roll No " + data.student.rollNo + " ?");
+                if(confirmOK){
+                    $('#challanDiv').dialog('open')
+                }
+                else {
+                    alert('Student Registered Successfully & Roll No is ' + data.student.rollNo);
+                }
+
+                //................................................................................................................
+//                confirmGenerateChallan(data.rollNo);
             }
         });
     }
@@ -193,3 +209,21 @@ function loadProgramFeeAmount(t){
         }
     });
 }
+
+//
+    function printFeeChallan(elem){
+        Popup1($(elem).html());
+        location.reload();
+    }
+    function Popup1(data)
+    {
+        var mywindow = window.open('', 'fee voucher', 'height=400,width=600');
+        mywindow.document.write('<html><head><title>fee voucher</title>');
+        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+        mywindow.print();
+        mywindow.close();
+        return true;
+    }
