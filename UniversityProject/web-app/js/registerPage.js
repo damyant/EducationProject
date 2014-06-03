@@ -49,7 +49,7 @@ $('#profile-image').on('click', function () {
 function readURL(input, type) {
     if (input.files && input.files[0]) {
         var FileUploadPath = $("#profileImage").val()
-        alert($('#imageValidate').val())
+//        alert($('#imageValidate').val())
         var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
         var imgkbytes = Math.round(parseInt(input.files[0].size) / 1024)
         if (imgkbytes <= 50 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg")) {
@@ -83,9 +83,9 @@ function readURL(input, type) {
                         .height(80);
                 };
             if($('#imageValidate').length>0){
-                $('#imageValidate').val("eeeee")
+                $('#imageValidate').val("uploded")
             }
-            alert($('#imageValidate').val())
+//            alert($('#imageValidate').val())
         }
         else {
             if($('#imageValidate').length>0){
