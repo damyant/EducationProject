@@ -117,7 +117,7 @@ class FeeDetailService {
                 and {
                     eq('status', Status.findById(2))
                     eq('semester', Integer.parseInt(params.semester))
-//                    eq('challanNo', null)
+                    isNull('challanNo')
                 }
             }
         }
@@ -130,7 +130,7 @@ class FeeDetailService {
                 and {
                     eq('status', Status.findById(2))
                     eq('semester', Long.parseLong(params.semester))
-//                    eq('challanNo', null)
+                    isNull('challanNo')
                 }
             }
 
@@ -146,7 +146,7 @@ class FeeDetailService {
                 }
                 and {
                     eq('status', Status.findById(2))
-//                    eq('challanNo', null)
+                    isNull('challanNo')
                 }
             }
         }
@@ -158,7 +158,7 @@ class FeeDetailService {
                 }
                 and {
                     eq('status', Status.findById(2))
-//                    eq('challanNo', null)
+                    isNull('challanNo')
                 }
             }
         }

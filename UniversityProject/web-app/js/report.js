@@ -12,7 +12,6 @@ $(function() {
         modal: true,
         title:'Enter Details',
         close: function(ev, ui) {
-            alert('in close funtion')
             $.unblockUI();
 //            getStudentsList()
         }

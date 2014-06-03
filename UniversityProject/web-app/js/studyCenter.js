@@ -50,10 +50,10 @@ function showCityList() {
 }
 function showExamCenterList() {
     var data = $('#district').val();
-
+    debugger;
     $.ajax({
         type: "post",
-        url: url('examinationCenter', 'getExamCenterList', ''),
+        url: url('examinationCenter', 'getExamCenterName', ''),
         data: {data: data},
         success: function (data) {
             $("#examinationCentre").empty().append('<option value="">Select Examination Centre</option>')

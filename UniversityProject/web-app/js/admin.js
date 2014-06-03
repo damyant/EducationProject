@@ -368,7 +368,7 @@ function generateStudentsList() {
                 document.getElementById("paginationDiv").style.visibility = "visible";
                 $('#studentList thead').append('<tr><th>' + "Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Roll Number" + '</th><th>' + "Mobile No" + '</th><th>&nbsp;</th><th>&nbsp;</th></tr>')
                 for (var i = 0; i < data.length; i++) {
-                    $('#studentList tbody').append('<tr><td>' + data[i].firstName+' '+data[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data[i].id + ')"/></td><td style="text-align: center;"><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data[i].id + ')"/></td></tr>')
+                    $('#studentList tbody').append('<tr><td>' + data[i].firstName+' ' + data[i].middleName+' '+data[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data[i].id + ')"/></td><td style="text-align: center;"><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data[i].id + ')"/></td></tr>')
                 }
                 $('#studentList tbody tr:not(:first)').hide();
                 $table_rows = $('#studentList tbody tr');
@@ -511,23 +511,29 @@ function approvePayInSlip(){
 
 function submitProgramFee(){
 
-   var programId = $("#programDetail").val()
-    alert(programId)
+    validateProgramFee()
+    var status = $("#createNewFee").valid();
+//    alert(status)
+    if(status) {
+        var programId = $("#programDetail").val()
+//        alert(programId)
 
-    $.ajax({
-        type: "post",
-        url: url('programFee', 'saveProgramFee', ''),
-        data: $("#createNewFee").serialize()+"&feeTypeList="+feeTypeList+"&programDetail="+programId,
+        $.ajax({
+            type: "post",
+            url: url('programFee', 'saveProgramFee', ''),
+            data: $("#createNewFee").serialize() + "&feeTypeList=" + feeTypeList + "&programDetail=" + programId,
 
-        success: function (data) {
-            if(data.status){
-                $('#createNewFee')[0].reset();
-                document.getElementById("statusMessage").style.visibility = "visible";
-                $('#statusMessage').html("Saved Successfully")
+            success: function (data) {
+                if (data.status) {
+                    $('#createNewFee')[0].reset();
+                    document.getElementById("statusMessage").style.visibility = "visible";
+                    $('#statusMessage').html("Saved Successfully")
+                }
+
             }
-        }
 
-    })
+        })
+    }
 
 }
 

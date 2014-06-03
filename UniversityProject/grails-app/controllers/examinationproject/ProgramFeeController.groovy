@@ -33,7 +33,14 @@ class ProgramFeeController {
         def feeType=null
         if(FeeType.count()>0)
             feeType = FeeType.list()
-        def programDetailList = ProgramDetail.list()
+        def admissionFee = AdmissionFee.list()
+        def admissionFeeList=[]
+        admissionFee.each{
+            admissionFeeList.add(it.programDetail.id)
+        }
+        println("::::::::::::::::::::::::::::::: "+admissionFeeList)
+        def programDetailList = ProgramDetail.findAllByIdNotInList(admissionFeeList)
+        println("::::::::::::::::::::::::::::::: "+programDetailList)
 
 //        def newProgramDetailList =[]
 //        programDetailList.each{
