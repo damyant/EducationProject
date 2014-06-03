@@ -57,6 +57,10 @@ grails.project.dependency.resolution = {
 
     plugins {
         // plugins for the build system only
+
+        runtime( "org.grails.plugins:export:0.7") {
+            excludes "itext"
+        }
         build ":tomcat:7.0.50"
         compile ":rendering:0.4.4"
 
