@@ -144,7 +144,9 @@ def springSecurityService
     }
     def updateStudentList(params){
 //        println("==========="+springSecurityService.principal.id)
+        def subjectMap=[:]
         def studyCenterId=0
+        def status=[]
         def statusObj
         if(params.studyCenterId){
             studyCenterId=params.studyCenterId
@@ -156,15 +158,35 @@ def springSecurityService
         }
 
          def obj=Student .createCriteria()
-         def studList= obj.list{
-            programDetail{
-                eq('id', Long.parseLong(params.programId))
-            }
-            studyCentre {
-                eq('id', Long.parseLong(studyCenterId.toString()))
+//        println("session<<<<<<<<<<<"+ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,ProgramDetail.findById(Long.parseLong(params.programId))))
+        def studList = obj.list {
+            if (params.session) {
+
+                programDetail {
+                    eq('id', Long.parseLong(params.programId))
+                }
+                studyCentre {
+                    eq('id', Long.parseLong(studyCenterId.toString()))
+                }
+                and {
+                            eq('programSession', ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,ProgramDetail.findById(Long.parseLong(params.programId))))
+                        }
+            } else {
+                programDetail {
+                    eq('id', Long.parseLong(params.programId))
+                }
+                studyCentre {
+                    eq('id', Long.parseLong(studyCenterId.toString()))
+                }
             }
         }
-        return  studList
+        subjectMap.studList=studList
+        studList.each {
+           status<<it.status.status
+        }
+        subjectMap.status=status
+        println(status)
+        return  subjectMap
     }
     def savePayInSlip(params){
         Boolean status=false;
@@ -245,6 +267,15 @@ def springSecurityService
         def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
         programIns.endAdmission_D=endAdmission_D
         programIns.startAdmission_D=startAdmission_D
+        if(programIns.save(flush: true, failOnError: true)){
+            status=true
+        }
+        return status
+    }
+    def removeDateLateFee(params){
+        Boolean status=false;
+        def programIns = ProgramDetail.findById(Integer.parseInt(params.programs))
+        programIns.lateFeeDate=null
         if(programIns.save(flush: true, failOnError: true)){
             status=true
         }
