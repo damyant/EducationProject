@@ -119,12 +119,17 @@ function getStudents() {
 }
 
 function viewStudentByRollNo(){
+//    alert("dfdfdf")
+    validateProgramFee()
     var rollNo= $("#StudentRollNo").val()
-   if(rollNo.length==8){
-    window.location.href = '/UniversityProject/student/updateStudent?rollNo=' + rollNo;
-    }
-    else{
-    alert("Please enter 8 digit roll number!")
+//    alert($('#individualStudentUpdate').valid())
+    if($('#individualStudentUpdate').valid()) {
+        if (rollNo.length == 8) {
+            window.location.href = '/UniversityProject/student/updateStudent?rollNo=' + rollNo;
+        }
+        else {
+            alert("Please enter 8 digit roll number!")
+        }
     }
 
 }
@@ -357,18 +362,34 @@ function generateStudentsList() {
     $.ajax({
         type: "post",
         url: url('admin', 'generateStudentList', ''),
-        data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val()},
+        data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(),session:$('#session').val()},
         success: function (data) {
             $('#studentList thead tr').remove()
             $('#studentList tbody tr').remove()
-            if (data.length>0) {
-//                alert(data[0].firstName);
+            if (data.studList.length>0) {
+//                alert(data.studList[0].firstName);
                 $('#msg').html("");
                 document.getElementById("studentList").style.visibility = "visible";
                 document.getElementById("paginationDiv").style.visibility = "visible";
-                $('#studentList thead').append('<tr><th>' + "Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Roll Number" + '</th><th>' + "Mobile No" + '</th><th>&nbsp;</th><th>&nbsp;</th></tr>')
-                for (var i = 0; i < data.length; i++) {
-                    $('#studentList tbody').append('<tr><td>' + data[i].firstName+' ' + data[i].middleName+' '+data[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data[i].id + ')"/></td><td style="text-align: center;"><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data[i].id + ')"/></td></tr>')
+//                $('#paginationDiv').after(data.studList[0].firstName)
+                $('#studentList thead').append('<tr><th>'+"Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Roll Number" + '</th><th>' + "Mobile No" + '</th><th>Status</th><th>&nbsp;</th></tr>')
+                for (var i = 0; i < data.studList.length; i++) {
+                    if(data.studList[i].middleName!=null) {
+                        if(data.studList[i].rollNo!=null){
+                        $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                        }
+                        else{
+                            $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>Not Generated Yet</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                        }
+                    }
+                    else{
+                        if(data.studList[i].rollNo!=null){
+                            $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                        }
+                        else{
+                            $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>Not Generated Yet</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                        }
+                    }
                 }
                 $('#studentList tbody tr:not(:first)').hide();
                 $table_rows = $('#studentList tbody tr');
@@ -480,8 +501,7 @@ function loadSession(t){
             data: {program: program},
             success: function (data) {
                 //document.location.reload();
-                $("#session").empty().append('');
-                $("#session").append('Select Session');
+                $("#session").empty().append('<option value="">Choose Session</option>');
                 for (var i = 0; i < data.length-1; i++) {
                     $("#session").append('<option value="' + data[i].sessionOfProgram + '">' + data[i].sessionOfProgram + '</option>')
                 }

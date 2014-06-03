@@ -9,6 +9,7 @@ function validate() {
 
             //Add Course
             programTypeId:"required",
+            imageValidate:"required",
             subjectName: {required: true,
                 lettersnumberswithbasicpunc: true
             },
@@ -329,6 +330,7 @@ function validate() {
         },
         messages: {
             programTypeId:"Please Select Program Type",
+            imageValidate:"Please Upload Image",
             subjectName: {required: "Please Enter Course Name",
                 lettersnumberswithbasicpunc: "Letters or numbers or punctuation only please"
             },
@@ -709,20 +711,28 @@ function checkValidation() {
 }
 function validateProgramFee() {
 //    alert("hi")
-    $("#createNewFee").validate({
+    $("#createNewFee, #individualStudentUpdate").validate({
         rules: {
             programDetail:"required",
             programSession:"required",
             feeAmountAtIDOL:"required",
             feeAmountAtSC:"required",
-            lateFeeAmount:"required"
+            lateFeeAmount:"required",
+            rollNo: {
+                required: true,
+                number: true,
+                minlength: 8
+            }
         },
         messages: {
             programDetail:"Please Select Program Detail",
             programSession:"Please Select Program Session",
             feeAmountAtIDOL:"Please  Enter Program Fee At Idol",
             feeAmountAtSC:"Please  Enter Program Fee At Study Centre",
-            lateFeeAmount:"Please Enter Late Fee Amount"
+            lateFeeAmount:"Please Enter Late Fee Amount",
+            rollNo:{ required:"Please Enter a Roll Number",
+                minlength:"Please Enter 8 digit Roll Number"
+            }
 
         }
     })
