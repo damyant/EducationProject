@@ -111,7 +111,7 @@ class AdmitCardController {
 
     }
     def printAdmitCard={
-//        println("?????????????????========"+params)
+        println("?????????????????========"+params)
 
         def stuList = []
         def status
@@ -137,7 +137,13 @@ class AdmitCardController {
           status=  admitCardService.updateStudentRecord(stuList,params.examinationVenue)
         }
         if(stuList[0]){
-            def programSessionIns=ProgramSession.findById(Long.parseLong(params.programSessionId))
+            def programSessionIns
+            if(params.programSessionId) {
+                programSessionIns = ProgramSession.findById(Long.parseLong(params.programSessionId))
+            }
+            else{
+                programSessionIns = ProgramSession.findById(stuList[0].programSession.id)
+            }
 
 //            println(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession))
         def subjectList=CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession),programSessionIns)*.subject
@@ -145,6 +151,10 @@ class AdmitCardController {
             def dateList=[]
             subjectList.each{
                dateList<< CourseSubject.findBySubjectAndProgramSession(it,programSessionIns).examDate
+            }
+            if(dateList.size()==0){
+                flash.message="Examination Date Not Assigned Yet"
+                redirect(controller:'admitCard', action: 'bulkCreationOfAdmitCard')
             }
 
             dateList.each{
