@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
+    <g:javascript src='admin.js'/>
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
 
 </head>
@@ -62,9 +63,9 @@
 
                     <td><g:formatBoolean boolean="${userInstance.passwordExpired}"/></td>
 
-                    <td><button class="university-button"> <g:link class="university-text-decoration-none" action="editUser" id="${userInstance.id}">Edit</g:link></button></td>
+                    <td><input type="button" class="university-button" onclick="editUser(${userInstance.id})" value="Edit"/> </td>
 
-                <td><button class="university-button"><g:link class="university-text-decoration-none" controller="user" action="resetPassword" params="[id:userInstance.id]">Reset Password</g:link></button></td>
+                <td><input type="button" class="university-button" onclick="resetPassword(${userInstance.id})" value="Reset Password"/></td>
 
             </tr>
         </g:each>

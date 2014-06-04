@@ -980,3 +980,10 @@ var rollNo=$('#rollNoForFeeStatus').val()
         $('#errorLabel').html("Please Enter Correct Roll Number")
     }
 }
+
+function editUser(userId){
+    window.open ('/UniversityProject/user/editUser/'+userId,'_self',false)
+}
+function resetPassword(userId){
+    window.open ('/UniversityProject/user/resetPassword/'+userId,'_self',false)
+}

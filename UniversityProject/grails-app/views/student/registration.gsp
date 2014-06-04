@@ -33,8 +33,8 @@
             $(".radioInput[name='gender'][value=" + gender + "]").attr('checked', 'checked');
             $(".radioInput[name='state'][value=" + state + "]").attr('checked', 'checked');
         });
-
-        $(window).bind("load", function () {
+        $(document).ready(function(){
+//        window.onload=function () {
 
             var flag = "${registered}"
             var studentId = "${studentID}"
