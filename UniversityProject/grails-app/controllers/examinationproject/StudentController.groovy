@@ -262,28 +262,35 @@ class StudentController {
             def args
             def lateFee=0
             def programFeeAmount = 0
+            println('hello now going to get program fee'+ program+' and this is the session '+student.programSession)
             def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
+            println('this is the programFee '+programFee)
             try{
                 def lateFeeDate=student.programDetail.lateFeeDate[0]
                 def today=new Date()
                 if(lateFeeDate!=null) {
+                    println('in if block ')
                     if (today.compareTo(lateFeeDate) > 0) {
                         lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+                        println('in if block and late fee is '+lateFee)
                     }
                 }
                 feeType = null
                 programFeeAmount = programFee.feeAmountAtIDOL+lateFee
-            }catch(NullPointerException e){
-                flash.message="Late Fee Date is not asigned! "
+            }catch(Exception e){
+                println("this exception occurred here "+ e)
+                flash.message="Late Fee Date is not assigned! "
                 redirect(controller: student, action:enrollmentAtIdol)
 
             }
              infoMap.student=student
              infoMap.programFee=programFee
              infoMap.lateFee=lateFee
+
              infoMap.programFeeAmount=programFeeAmount
              infoMap.feeType=feeType
-             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
+//             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
+            println('now sending the response back to js')
              render infoMap as JSON
 
 
