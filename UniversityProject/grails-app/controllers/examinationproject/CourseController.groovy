@@ -27,7 +27,15 @@ class CourseController {
 
         [courseDetail: courseDetail as JSON, subjList: subObj as JSON, updateFlag: updateFlag, programSessions:programSessions]
     }
+    def getCourseByCategory(){
+        println("these are the params "+ params)
+        def subObj = Subject.findAllByProgramTypeId(ProgramType.findById(Long.parseLong(params.courseType)))
+        println("------------"+subObj)
+        render subObj as JSON
 
+
+
+    }
 
     def viewCourses() {
         def courseDetails = courseDetailService.getFullDetailOfCourse(params)

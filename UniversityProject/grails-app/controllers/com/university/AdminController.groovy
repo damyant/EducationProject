@@ -144,7 +144,6 @@ class AdminController {
 
     @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
     def generateFeeVoucher = {
-
         println(">>>>>>>>????????>>" + params)
         def student = Student.findByRollNo(params.rollNo)
         println("program"+student.programDetail)

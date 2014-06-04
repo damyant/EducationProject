@@ -45,7 +45,9 @@ class StudentRegistrationService {
             studentRegistration.addressState = params.addressState
             studentRegistration.addressPinCode = params.addressPinCode
             studentRegistration.addressPO = params.addressPO
+            if(params.registrationNo1)
             studentRegistration.registrationNo1 = params.registrationNo1
+            if(params.registrationNo2)
             studentRegistration.registrationNo2 = params.registrationNo2
             studentRegistration.addressTown = params.addressTown
             studentRegistration.studentAddress = params.studentAddress
