@@ -446,4 +446,7 @@ class FeeDetailsController {
         resultMap.studentId=studentId
         render resultMap as JSON
     }
+    def feeStatusForRollNumber={
+
+    }
 }

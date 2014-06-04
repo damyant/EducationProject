@@ -18,7 +18,7 @@
         <table>
             <tr>
                 <td class="university-size-1-4">Enter Roll Number</td>
-                <td class="university-size-1-4"><input </td>
+                <td class="university-size-1-4"><input type="text" class="university-size-1-1" name="rollNoForFeeStatus" id="rollNoForFeeStatus"/> </td>
                 <td class="university-size-1-4"></td>
                 <td class="university-size-1-4"></td>
             </tr>
