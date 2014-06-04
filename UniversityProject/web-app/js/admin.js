@@ -778,7 +778,7 @@ function populateChallanDetail(){
         data: {challanNo: challanNo},
 
         success: function (data) {
-            if(data.stuList) {
+            if(data.stuList.length>0) {
                 console.log("error")
                 $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Payment Ref. No.</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
                 for (var i = 0; i < data.stuList.length; i++) {
@@ -787,8 +787,7 @@ function populateChallanDetail(){
                 $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
                 $("#error").hide()
             }else{
-                console.log("error")
-                $("#error").show()
+                $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">Already Approved or Wrong Challan Number</td></tr>')
             }
         }
     });
@@ -915,4 +914,32 @@ function assignStudyMaterial(){
         return false;
     }
 
+}
+function loadPayInSlipDetails(t){
+    var pMode=$(t).val()
+    var challanNo=$('#searchChallanNo').val()
+
+    $.ajax({
+        type: "post",
+        url: url('admin', 'loadPayInSlipDetail', ''),
+        data: {pMode: pMode,challanNo:challanNo},
+        success: function (data) {
+            if(data.admissionDate){
+                $('#datepicker').val(data.admissionDate)
+                $('#paymentReferenceNumber').val(data.refNo)
+                $('#bankName').val(data.bank)
+                $('#bankName').empty().append('<option value="'+data.bank+'">'+data.bankName+'</option>')
+                $('#branchLocation').empty().append('<option value="'+data.branch+'">'+data.branchName+'</option>')
+                $('#datepicker').prop('readonly',true)
+                $('#paymentReferenceNumber').prop('readonly',true)
+            }
+            else{
+                $(t).val('')
+                $('#datepicker').prop('readonly',false)
+                $('#paymentReferenceNumber').prop('readonly',false)
+                $('#bankName').prop('readonly',false)
+                $('#branchLocation').prop('readonly',false)
+            }
+        }
+    })
 }

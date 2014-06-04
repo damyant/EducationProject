@@ -113,5 +113,19 @@
         </fieldset>
 
 </div>
+<script>
+    $('#generateFeeChallan').click(function(){
+//        alert("--------")
+        setTimeout(function(){
+//            alert("fddfdfd")
+            $('#challanForStudyCenter')[0].reset();
+//            document.getElementById("scStudnetList").style.visibility = "hidden";//
+            document.getElementById("studyCenterFeeEntryTable").style.visibility = "hidden";
+            document.getElementById("paginationDiv").style.visibility = "hidden";
+            document.getElementById("generateFeeChallan").style.visibility = "hidden";
+            document.getElementById("paymentDetails").style.visibility = "hidden";
+        },500)
+    })
+</script>
 </body>
 </html>

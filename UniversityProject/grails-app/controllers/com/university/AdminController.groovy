@@ -2,11 +2,13 @@ package com.university
 
 import examinationproject.AdmissionFee
 import examinationproject.Bank
+import examinationproject.Branch
 import examinationproject.City
 
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
 import examinationproject.MiscellaneousFeeChallan
+import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramType
 import examinationproject.RollNoGenerationFixture
@@ -597,5 +599,27 @@ class AdminController {
 //        def rootImageFolder =  grailsApplication.config.my.global.variable;
 //        grailsApplication.config.my.global.variable=grailsApplication.config.my.global.variable+1
 //        [rootImageFolder:rootImageFolder]
+    }
+    def loadPayInSlipDetail={
+        def returnMap=[:]
+        def status=false
+        def payMode=PaymentMode.findById(Integer.parseInt(params.pMode))
+        def studentInst
+        if(payMode.paymentModeName=='Pay In Slip'){
+            studentInst=Student.findByChallanNo(params.challanNo)
+           if(StudyCenter.findById(studentInst.studyCentre[0].id).centerCode=='11111'){
+               status=true
+           }
+        }
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+        if(status) {
+            returnMap.admissionDate = df.format(studentInst.admissionDate)
+            returnMap.refNo = studentInst.challanNo
+            returnMap.bank = Bank.findByBankName('State Bank Of India').id
+            returnMap.bankName = Bank.findByBankName('State Bank Of India').bankName
+            returnMap.branch = Branch.findByBranchLocation('Gauhati University').id
+            returnMap.branchName = Branch.findByBranchLocation('Gauhati University').branchLocation
+        }
+        render returnMap as JSON
     }
 }
