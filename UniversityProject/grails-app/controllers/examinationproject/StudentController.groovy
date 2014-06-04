@@ -286,9 +286,10 @@ class StudentController {
              infoMap.student=student
              infoMap.programFee=programFee
              infoMap.lateFee=lateFee
-
+             infoMap.courseName=programFee.programDetail.courseName
              infoMap.programFeeAmount=programFeeAmount
              infoMap.feeType=feeType
+             println('name of the program is '+programFee.programDetail.courseName)
 //             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
             println('now sending the response back to js')
              render infoMap as JSON

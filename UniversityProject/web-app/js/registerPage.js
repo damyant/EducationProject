@@ -165,13 +165,14 @@ function submitTempRegistration() {
             success: function (data) {
                 document.getElementById("tempEnrollment").reset();
                 //kuldeep's code start from here................................................
-                $('#studentName').text(''+data.student.firstName+' '+ data.student.lastName+' '+data.student.middleName)
+                $('#studentName').text(''+data.student.firstName+' '+ data.student.lastName+' '+(data.student.middleName? data.student.middleName:''))
                 $('#studentRollNo').text(''+data.student.rollNo)
                 $('#challanNo').text(''+data.student.challanNo)
-                $('#feeType').text('Admission Fee for '+data.programFee.programDetail.courseName)
+                $('#feeType').text('Admission Fee for '+data.courseName)
                 $('#amount').text(''+data.programFeeAmount)
+                if(data.lateFee>0)
                 $('#lateFee').text('(with late fee '+data.lateFee+')')
-                var confirmOK = confirm("Do you want kuldeep to Generate Challan for Roll No " + data.student.rollNo + " ?");
+                var confirmOK = confirm("Do you want to Generate Challan for Roll No " + data.student.rollNo + " ?");
                 if(confirmOK){
                     $('#challanDiv').dialog('open')
                 }
