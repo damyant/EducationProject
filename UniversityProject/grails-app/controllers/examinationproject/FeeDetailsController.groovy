@@ -449,4 +449,10 @@ class FeeDetailsController {
     def feeStatusForRollNumber={
 
     }
+    def checkRollNoFeeStatus={
+        def resultMap=[:]
+        resultMap= feeDetailService.rollNumberFeeStatus(params)
+//        println(resultMap)
+        render resultMap as JSON
+    }
 }
