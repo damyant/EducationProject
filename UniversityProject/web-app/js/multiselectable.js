@@ -1,5 +1,11 @@
 
 function semesterList() {
+    var courseType= $('#programType').val()
+    alert('this is  the courseType '+ courseType)
+    if(courseType){
+
+    }
+
     $('#multiSelectTab tbody tr').remove()
     for (var j = 1; j <= $('#noOfTerms').val(); j++) {
         $('#multiSelectTab tbody').append('<tr><td style="width:40% "></div> <label>All Course <span class="university-obligatory">*</span></label><select style="width: 60%" name="allsubjectList' + j + '" id="allsubjectList' + j + '"  multiple="true"  /></td>' +

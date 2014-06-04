@@ -126,8 +126,9 @@ class StudentController {
             payableFee=0
         }
         def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
-        def args = [template: "applicationPrintPreview", model: [studentInstance: student,feeDetails:feeDetails,payableFee:payableFee]]
-        pdfRenderingService.render(args + [controller: this], response)
+        render template: 'applicationPrintPreview', model: [studentInstance: student,feeDetails:feeDetails,payableFee:payableFee]
+//        def args = [template: "applicationPrintPreview", model: [studentInstance: student,feeDetails:feeDetails,payableFee:payableFee]]
+//        pdfRenderingService.render(args + [controller: this], response)
 
 
     }
@@ -251,7 +252,43 @@ class StudentController {
     def tempRegistration() {
        def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, "", "")
         if (studentRegistration) {
-            render studentRegistration as JSON
+         // kuldeep's code for pop up start from here..............................................................
+            def infoMap =[:]
+            def student = Student.findByRollNo(studentRegistration.rollNo)
+            println("program"+student.programDetail)
+            def program = student.programDetail
+            def feeTypeId
+            def feeType = null
+            def args
+            def lateFee=0
+            def programFeeAmount = 0
+            def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
+            try{
+                def lateFeeDate=student.programDetail.lateFeeDate[0]
+                def today=new Date()
+                if(lateFeeDate!=null) {
+                    if (today.compareTo(lateFeeDate) > 0) {
+                        lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+                    }
+                }
+                feeType = null
+                programFeeAmount = programFee.feeAmountAtIDOL+lateFee
+            }catch(NullPointerException e){
+                flash.message="Late Fee Date is not asigned! "
+                redirect(controller: student, action:enrollmentAtIdol)
+
+            }
+             infoMap.student=student
+             infoMap.programFee=programFee
+             infoMap.lateFee=lateFee
+             infoMap.programFeeAmount=programFeeAmount
+             infoMap.feeType=feeType
+             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
+             render infoMap as JSON
+
+
+         //ends here.................................................................................................
+//            render studentRegistration as JSON
         } else {
             flash.message = "${message(code: 'register.notCreated.message')}"
             redirect(action: "enrollmentAtIdol")

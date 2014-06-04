@@ -49,6 +49,7 @@ $('#profile-image').on('click', function () {
 function readURL(input, type) {
     if (input.files && input.files[0]) {
         var FileUploadPath = $("#profileImage").val()
+//        alert($('#imageValidate').val())
         var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
         var imgkbytes = Math.round(parseInt(input.files[0].size) / 1024)
         if (imgkbytes <= 50 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg")) {
@@ -67,6 +68,13 @@ function readURL(input, type) {
                         .width(150)
                         .height(200);
                 };
+            if (type == 'picture2')
+                reader.onload = function (e) {
+                    $('#picture2')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
             if (type == 'signature')
                 reader.onload = function (e) {
                     $('#signature')
@@ -74,8 +82,15 @@ function readURL(input, type) {
                         .width(250)
                         .height(80);
                 };
+            if($('#imageValidate').length>0){
+                $('#imageValidate').val("uploded")
+            }
+//            alert($('#imageValidate').val())
         }
         else {
+            if($('#imageValidate').length>0){
+                $('#imageValidate').val("")
+            }
             $("#profileImage").val('')
             $("#picture").attr('src', ' ')
             alert("Please upload an image of size less then 50kb and image Extension should be gif/png/bmp/jpeg/jpg.")
@@ -149,9 +164,25 @@ function submitTempRegistration() {
             url: url('student', 'tempRegistration', ''),
             data: $("#tempEnrollment").serialize(),
             success: function (data) {
-//                alert(data.rollNo)
                 document.getElementById("tempEnrollment").reset();
-                confirmGenerateChallan(data.rollNo);
+                //kuldeep's code start from here................................................
+//                alert("hello kuldeep"+data.student.rollNo+''+data.student.firstName)
+                $('#studentName').text(''+data.student.firstName+' '+ data.student.lastName+' '+data.student.middleName)
+                $('#studentRollNo').text(''+data.student.rollNo)
+                $('#challanNo').text(''+data.student.challanNo)
+                $('#feeType').text('Admission Fee for '+data.programFee.programDetail.courseName)
+                $('#amount').text(''+data.programFeeAmount)
+                $('#lateFee').text('(with late fee '+data.lateFee+')')
+                var confirmOK = confirm("Do you want to Generate Challan for Roll No " + data.student.rollNo + " ?");
+                if(confirmOK){
+                    $('#challanDiv').dialog('open')
+                }
+                else {
+                    alert('Student Registered Successfully & Roll No is ' + data.student.rollNo);
+                }
+
+                //................................................................................................................
+//                confirmGenerateChallan(data.rollNo);
             }
         });
     }
@@ -193,3 +224,21 @@ function loadProgramFeeAmount(t){
         }
     });
 }
+
+//
+    function printFeeChallan(elem){
+        Popup1($(elem).html());
+        location.reload();
+    }
+    function Popup1(data)
+    {
+        var mywindow = window.open('', 'fee voucher', 'height=400,width=600');
+        mywindow.document.write('<html><head><title>fee voucher</title>');
+        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+        mywindow.print();
+        mywindow.close();
+        return true;
+    }

@@ -26,7 +26,7 @@
 <li><a href="#"><g:message code="default.mainMenu2"/></a>
     <ul>
         <li><g:link controller="student" action="registration"><g:message
-                    code="default.mainMenu2.subMenu1"/></g:link></li>
+                code="default.mainMenu2.subMenu1"/></g:link></li>
         <li><g:link controller="student" action="enrollmentAtIdol"><g:message
                 code="default.mainMenu2.enrollAtIdol"/></g:link></li>
         %{--<li><a class="viewResulttopopup"><g:message code="default.mainMenu2.subMenu2"/></a></li>--}%
@@ -88,33 +88,33 @@
                             action="addCourses"><g:message
                             code="default.mainMenu6.subMenu7"/></g:link></li>
                 %{--<li><g:link controller="admin"--}%
-                            %{--action="updateCourses"><g:message--}%
-                            %{--code="default.mainMenu6.subMenu8"/></g:link></li>--}%
+                %{--action="updateCourses"><g:message--}%
+                %{--code="default.mainMenu6.subMenu8"/></g:link></li>--}%
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>
             <ul>
-                    <li><a href="#" class="newAdmitCardPopup"><g:message
-                            code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
-                    <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message
+                <li><a href="#" class="newAdmitCardPopup"><g:message
+                        code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
+                <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message
                         code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
 
-            </li>
+                </li>
             </ul>
         </li>
         %{--<li><a href="#"><g:message code="default.mainMenu3.subMenu8"/></a>--}%
 
-            %{--<ul>--}%
-                %{--<li><g:link controller="admin" action="uploadInternalMarks"><g:message--}%
-                        %{--code="default.mainMenu3.subMenu8.subMenu1"/></g:link>--}%
-                %{--</li>--}%
-                %{--<li><g:link controller="course"--}%
-                %{--action="listOfCourses"><g:message--}%
-                %{--code="default.mainMenu3.subMenu8.subMenu2"/></g:link></li>--}%
-                %{--<li><g:link controller="course"--}%
-                %{--action="updateCourses"><g:message--}%
-                %{--code="default.mainMenu3.subMenu8.subMenu3"/></g:link></li>--}%
-            %{--</ul>--}%
+        %{--<ul>--}%
+        %{--<li><g:link controller="admin" action="uploadInternalMarks"><g:message--}%
+        %{--code="default.mainMenu3.subMenu8.subMenu1"/></g:link>--}%
+        %{--</li>--}%
+        %{--<li><g:link controller="course"--}%
+        %{--action="listOfCourses"><g:message--}%
+        %{--code="default.mainMenu3.subMenu8.subMenu2"/></g:link></li>--}%
+        %{--<li><g:link controller="course"--}%
+        %{--action="updateCourses"><g:message--}%
+        %{--code="default.mainMenu3.subMenu8.subMenu3"/></g:link></li>--}%
+        %{--</ul>--}%
         %{--</li>--}%
         %{--<!----}%
         %{--<li>--}%
@@ -153,22 +153,28 @@
 <li><a href="#"><g:message code="default.mainMenu6"/></a>
     <ul>
         <li><a href="#"><g:message code="default.mainMenu6.subMenu11"/></a>
-        <ul>
-            <li><g:link controller="admin"
-                        action="assignAdmissionPeriod"><g:message
-                        code="default.mainMenu3.subMenu7.subMenu8"/></g:link></li>
-            <li><g:link controller="admin"
-                        action="assignLateFeeDate"><g:message
-                        code="default.mainMenu3.subMenu7.subMenu7"/></g:link></li>
-            <li><g:link controller="admin"
-                        action="assignExaminationDate"><g:message
-                        code="default.mainMenu6.subMenu4"/></g:link></li>
-            <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
+            <ul>
+                <li><g:link controller="admin"
+                            action="assignAdmissionPeriod"><g:message
+                            code="default.mainMenu3.subMenu7.subMenu8"/></g:link></li>
+                <li><a href="#"><g:message code="default.mainMenu3.subMenu7.subMenu7"/></a>
+                    <ul>
+                        <li><g:link controller="admin" action="assignLateFeeDate">
+                            <g:message code="default.mainMenu3.subMenu7.subMenu7.subMenu1"/></g:link>
+                        </li>
+                        <li><g:link controller="admin" action="removeLateFeeDate">
+                            <g:message code="default.mainMenu3.subMenu7.subMenu7.subMenu2"/></g:link></li>
+                    </ul>
+                </li>
+                <li><g:link controller="admin"
+                            action="assignExaminationDate"><g:message
+                            code="default.mainMenu6.subMenu4"/></g:link></li>
+                <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
 
-                    code="default.mainMenu6.subMenu9"/></g:link></li>
-        </ul>
+                        code="default.mainMenu6.subMenu9"/></g:link></li>
+            </ul>
         </li>
-        <li><g:link controller="admin" action="viewProvisionalStudents"><g:message
+        <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message
                 code="default.mainMenu6.subMenu1"/></g:link></li>
 
         <li><g:link controller="admin"
@@ -176,15 +182,12 @@
                     code="default.mainMenu6.subMenu5"/></g:link></li>
         <li><g:link controller="student" action="studentListView"><g:message
                 code="default.mainMenu2.subMenu6"/></g:link></li>
+        <li><g:link controller="admin" action="individualStudentUpdate"><g:message
+                code="default.mainMenu2.subMenu12"/></g:link></li>
 
         <li><g:link controller="admin"
                     action="downloadAttendanceSheet"><g:message
                     code="default.mainMenu6.subMenu6"/></g:link></li>
-
-
-        %{--Added By Digvijay on 19 June 2014--}%
-
-
 
         <li><g:link controller="admin"
                     action="studyMaterial"><g:message
@@ -226,7 +229,7 @@
         <li><a href="#"><g:message
                 code="default.mainMenu8.subMenu3"/></a>
             <ul>
-               <li>
+                <li>
                     <g:link controller="feeDetails"
                             action="generateChallanSCAdmissionFee"><g:message
                             code="default.mainMenu8.subMenu3.subMenu1"/></g:link>
@@ -265,48 +268,48 @@
         <li><g:link controller="admin"
                     action="approvePayInSlip"><g:message
                     code="default.mainMenu7.subMenu2"/></g:link></li>
-</ul>
+    </ul>
 </li>
 
 %{--<li><a href="#"><g:message code="default.mainMenu8"/></a>--}%
-    %{--<ul>--}%
-        %{--<li><g:link controller="feeDetails"--}%
-        %{--action="createFeeDetails"><g:message--}%
-        %{--code="default.mainMenu8.subMenu1"/></g:link></li>--}%
-        %{--<li><g:link controller="feeDetails"--}%
-        %{--action="bulkFeeEntry"><g:message--}%
-        %{--code="default.mainMenu8.subMenu2"/></g:link></li>--}%
-        %{--<li><a href="#"><g:message--}%
-                %{--code="default.mainMenu8.subMenu3"/></a>--}%
-            %{--<ul>--}%
-                %{--<li>--}%
-                    %{--<g:link controller="feeDetails"--}%
-                            %{--action="generateChallanSCAdmissionFee"><g:message--}%
-                            %{--code="default.mainMenu8.subMenu3.subMenu1"/></g:link>--}%
-                %{--</li>--}%
-                %{--<li>--}%
-                    %{--<g:link controller="feeDetails"--}%
-                            %{--action="payAdmissionFee"><g:message--}%
-                            %{--code="default.mainMenu8.subMenu3.subMenu3"/></g:link>--}%
-                %{--</li>--}%
+%{--<ul>--}%
+%{--<li><g:link controller="feeDetails"--}%
+%{--action="createFeeDetails"><g:message--}%
+%{--code="default.mainMenu8.subMenu1"/></g:link></li>--}%
+%{--<li><g:link controller="feeDetails"--}%
+%{--action="bulkFeeEntry"><g:message--}%
+%{--code="default.mainMenu8.subMenu2"/></g:link></li>--}%
+%{--<li><a href="#"><g:message--}%
+%{--code="default.mainMenu8.subMenu3"/></a>--}%
+%{--<ul>--}%
+%{--<li>--}%
+%{--<g:link controller="feeDetails"--}%
+%{--action="generateChallanSCAdmissionFee"><g:message--}%
+%{--code="default.mainMenu8.subMenu3.subMenu1"/></g:link>--}%
+%{--</li>--}%
+%{--<li>--}%
+%{--<g:link controller="feeDetails"--}%
+%{--action="payAdmissionFee"><g:message--}%
+%{--code="default.mainMenu8.subMenu3.subMenu3"/></g:link>--}%
+%{--</li>--}%
 
-            %{--</ul>--}%
-        %{--</li>--}%
-        %{--<li><a href="#"><g:message--}%
-                %{--code="default.mainMenu8.subMenu4"/></a>--}%
-            %{--<ul>--}%
-                %{--<li>--}%
-                    %{--<g:link controller="feeDetails"--}%
-                            %{--action="challanForMiscellaneousFee"><g:message--}%
-                            %{--code="default.mainMenu8.subMenu4.subMenu1"/></g:link></li>--}%
-                %{--<li>--}%
-                    %{--<g:link controller="feeDetails"--}%
-                            %{--action="payMiscellaneousFee"><g:message--}%
-                            %{--code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>--}%
-            %{--</ul>--}%
-        %{--</li>--}%
+%{--</ul>--}%
+%{--</li>--}%
+%{--<li><a href="#"><g:message--}%
+%{--code="default.mainMenu8.subMenu4"/></a>--}%
+%{--<ul>--}%
+%{--<li>--}%
+%{--<g:link controller="feeDetails"--}%
+%{--action="challanForMiscellaneousFee"><g:message--}%
+%{--code="default.mainMenu8.subMenu4.subMenu1"/></g:link></li>--}%
+%{--<li>--}%
+%{--<g:link controller="feeDetails"--}%
+%{--action="payMiscellaneousFee"><g:message--}%
+%{--code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>--}%
+%{--</ul>--}%
+%{--</li>--}%
 
-    %{--</ul>--}%
+%{--</ul>--}%
 %{--</li>--}%
 <li><g:link controller="report" action="reportIndex"><g:message code="default.mainMenu9"/></g:link></li>
 

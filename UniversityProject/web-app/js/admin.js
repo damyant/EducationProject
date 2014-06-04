@@ -119,12 +119,17 @@ function getStudents() {
 }
 
 function viewStudentByRollNo(){
+//    alert("dfdfdf")
+    validateProgramFee()
     var rollNo= $("#StudentRollNo").val()
-   if(rollNo.length==8){
-    window.location.href = '/UniversityProject/student/updateStudent?rollNo=' + rollNo;
-    }
-    else{
-    alert("Please enter 8 digit roll number!")
+//    alert($('#individualStudentUpdate').valid())
+    if($('#individualStudentUpdate').valid()) {
+        if (rollNo.length == 8) {
+            window.location.href = '/UniversityProject/student/updateStudent?rollNo=' + rollNo;
+        }
+        else {
+            alert("Please enter 8 digit roll number!")
+        }
     }
 
 }
@@ -357,18 +362,34 @@ function generateStudentsList() {
     $.ajax({
         type: "post",
         url: url('admin', 'generateStudentList', ''),
-        data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val()},
+        data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(),session:$('#session').val()},
         success: function (data) {
             $('#studentList thead tr').remove()
             $('#studentList tbody tr').remove()
-            if (data.length>0) {
-//                alert(data[0].firstName);
+            if (data.studList.length>0) {
+//                alert(data.studList[0].firstName);
                 $('#msg').html("");
                 document.getElementById("studentList").style.visibility = "visible";
                 document.getElementById("paginationDiv").style.visibility = "visible";
-                $('#studentList thead').append('<tr><th>' + "Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Roll Number" + '</th><th>' + "Mobile No" + '</th><th>&nbsp;</th><th>&nbsp;</th></tr>')
-                for (var i = 0; i < data.length; i++) {
-                    $('#studentList tbody').append('<tr><td>' + data[i].firstName+' ' + data[i].middleName+' '+data[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data[i].dob)) + '</td><td>' + data[i].gender + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].mobileNo + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data[i].id + ')"/></td><td style="text-align: center;"><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data[i].id + ')"/></td></tr>')
+//                $('#paginationDiv').after(data.studList[0].firstName)
+                $('#studentList thead').append('<tr><th>'+"Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Roll Number" + '</th><th>' + "Mobile No" + '</th><th>Status</th><th>&nbsp;</th></tr>')
+                for (var i = 0; i < data.studList.length; i++) {
+                    if(data.studList[i].middleName!=null) {
+                        if(data.studList[i].rollNo!=null){
+                        $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                        }
+                        else{
+                            $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>Not Generated Yet</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                        }
+                    }
+                    else{
+                        if(data.studList[i].rollNo!=null){
+                            $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                        }
+                        else{
+                            $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>Not Generated Yet</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                        }
+                    }
                 }
                 $('#studentList tbody tr:not(:first)').hide();
                 $table_rows = $('#studentList tbody tr');
@@ -480,8 +501,7 @@ function loadSession(t){
             data: {program: program},
             success: function (data) {
                 //document.location.reload();
-                $("#session").empty().append('');
-                $("#session").append('Select Session');
+                $("#session").empty().append('<option value="">Choose Session</option>');
                 for (var i = 0; i < data.length-1; i++) {
                     $("#session").append('<option value="' + data[i].sessionOfProgram + '">' + data[i].sessionOfProgram + '</option>')
                 }
@@ -706,7 +726,7 @@ function showMiscFeeListOfStudents(){
             $("#scStudnetList tbody").empty().append('')
             $("#scStudnetList thead").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
             for(var i=0;i<data.stuList.length;i++){
-                $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
+                $("#scStudnetList tbody").append('<tr><td>'+data.stuList[i].firstName+' &nbsp;' +data.stuList[i].lastName+'</td><td><input type="text" readonly="true" name="rollNo'+i+'" value="'+data.stuList[i].rollNo+'"</td><td>'+data.courseNameList[i]+'</td><td>'+data.courseFee[i]+'</td></tr>')
             }
             document.getElementById("paginationDiv").style.visibility = "visible";
             $table_rows = $('#scStudnetList tbody tr');
@@ -758,7 +778,7 @@ function populateChallanDetail(){
         data: {challanNo: challanNo},
 
         success: function (data) {
-            if(data.stuList) {
+            if(data.stuList.length>0) {
                 console.log("error")
                 $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Payment Ref. No.</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
                 for (var i = 0; i < data.stuList.length; i++) {
@@ -767,8 +787,7 @@ function populateChallanDetail(){
                 $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
                 $("#error").hide()
             }else{
-                console.log("error")
-                $("#error").show()
+                $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">Already Approved or Wrong Challan Number</td></tr>')
             }
         }
     });
@@ -895,4 +914,33 @@ function assignStudyMaterial(){
         return false;
     }
 
+}
+function loadPayInSlipDetails(t){
+    var pMode=$(t).val()
+    var challanNo=$('#searchChallanNo').val()
+    if(pMode=='5') {
+        $.ajax({
+            type: "post",
+            url: url('admin', 'loadPayInSlipDetail', ''),
+            data: {pMode: pMode, challanNo: challanNo},
+            success: function (data) {
+                if (data.admissionDate) {
+                    $('#datepicker').val(data.admissionDate)
+                    $('#paymentReferenceNumber').val(data.refNo)
+                    $('#bankName').val(data.bank)
+                    $('#bankName').empty().append('<option value="' + data.bank + '">' + data.bankName + '</option>')
+                    $('#branchLocation').empty().append('<option value="' + data.branch + '">' + data.branchName + '</option>')
+                    $('#datepicker').prop('readonly', true)
+                    $('#paymentReferenceNumber').prop('readonly', true)
+                }
+                else {
+                    $(t).val('')
+                    $('#datepicker').prop('readonly', false)
+                    $('#paymentReferenceNumber').prop('readonly', false)
+                    $('#bankName').prop('readonly', false)
+                    $('#branchLocation').prop('readonly', false)
+                }
+            }
+        })
+    }
 }

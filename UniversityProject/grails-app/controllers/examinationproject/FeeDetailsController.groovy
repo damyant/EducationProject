@@ -371,10 +371,20 @@ class FeeDetailsController {
             feeDetailsInstance.branchId = Branch.findById(params.branchLocation)
             feeDetailsInstance.challanDate = new Date()
             feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
-            if (feeDetailsInstance.save(flush: true, failOnError: true)) {
-                for (int j = 0; j < stuList.size(); j++) {
-                    stuList[j].status = Status.findById(3)
-                    stuList[j].save(flush: true, failOnError: true)
+            if(PaymentMode.findById(params.paymentMode).paymentModeName!='Pay In Slip') {
+                if (feeDetailsInstance.save(flush: true, failOnError: true)) {
+                    for (int j = 0; j < stuList.size(); j++) {
+                        stuList[j].status = Status.findById(3)
+                        stuList[j].save(flush: true, failOnError: true)
+                    }
+                }
+            }
+            else{
+                if (feeDetailsInstance.save(flush: true, failOnError: true)) {
+                    for (int j = 0; j < stuList.size(); j++) {
+                        stuList[j].status = Status.findById(4)
+                        stuList[j].save(flush: true, failOnError: true)
+                    }
                 }
             }
             def challanNo = params.searchChallanNo
@@ -389,7 +399,6 @@ class FeeDetailsController {
             pdfRenderingService.render(args + [controller: this], response)
 
         }
-        redirect(action: payAdmissionFee)
     }
 
     def payMiscFeeChallan={

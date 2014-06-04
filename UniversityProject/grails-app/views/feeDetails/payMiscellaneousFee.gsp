@@ -13,6 +13,8 @@
     <g:javascript src='admin.js'/>
     <g:javascript src='admitCard.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
 </head>
 
 <body>
@@ -32,7 +34,7 @@
 <div id="main">
 
     <fieldset class="form">
-        <h3>Pay Admission Fee Entry</h3>
+        <h3>Pay Miscellaneous Fee Entry</h3>
         <g:form controller="feeDetails" action="payMiscFeeChallan" name="paychallanForStudyCenter"
                 id="paychallanForStudyCenter">
             <table class="inner university-size-full-1-1" style="margin: auto">
@@ -103,7 +105,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3" value="Pay"
+                    <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3" value="Pay"  onclick="checkValidation()"
                                style="visibility: hidden"/></td>
                 </tr>
             </table>
@@ -121,6 +123,20 @@
             });
         });
     });
+    $('#paySubmit').click(function(){
+//        alert("--------")
+        if($('#paychallanForStudyCenter').valid()) {
+            setTimeout(function () {
+//            alert("fddfdfd")
+                $('#paychallanForStudyCenter')[0].reset();
+                document.getElementById("scStudnetList").style.visibility = "hidden";//
+                document.getElementById("paySubmit").style.visibility = "hidden";
+                document.getElementById("paginationDiv").style.visibility = "hidden";
+                document.getElementById("studentPayList").style.visibility = "hidden";
+                document.getElementById("payClear").style.visibility = "hidden";
+            }, 500)
+        }
+    })
 </script>
 </body>
 </html>

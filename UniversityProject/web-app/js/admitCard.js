@@ -338,6 +338,9 @@ function getStudentsForAdmitCard(){
                   document.getElementById("paginationDiv").style.visibility = "hidden";
                   $('#showErrorMessage').prop('hidden', false)
                   $('#showErrorMessage').text('No Students Found');
+                  $('#studentListTable').prop('hidden', true)
+                  $('#studentListPrint').prop('hidden', true)
+                  $('#studentListPrintButton').prop('hidden', true)
 //                  setTimeout(function(){  $('#showErrorMessage').hide(); }, 8000);
               }
         },

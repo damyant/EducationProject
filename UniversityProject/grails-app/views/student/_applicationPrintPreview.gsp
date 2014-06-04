@@ -16,6 +16,22 @@
 <%@ page import="javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <script>
+
+          function funload(){
+
+            var status= window.confirm('Do You Want to Print The Application')
+            if(status){
+               var printing = window.print();
+                if(printing){
+                    window.close();
+                }
+            }
+          }
+
+
+
+    </script>
     <title>Student Registration</title>
     <meta name="layout" content="main"/>
     <g:javascript src='validate.js'/>
@@ -27,7 +43,7 @@
     </style>
 </head>
 
-<body>
+<body onload="funload()">
 <div id="main" style="text-transform: capitalize">
     <div>
         <table align="center" cellpadding="15" style="width: 100%;height:150px">

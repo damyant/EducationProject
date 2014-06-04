@@ -2,11 +2,13 @@ package com.university
 
 import examinationproject.AdmissionFee
 import examinationproject.Bank
+import examinationproject.Branch
 import examinationproject.City
 
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
 import examinationproject.MiscellaneousFeeChallan
+import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramType
 import examinationproject.RollNoGenerationFixture
@@ -15,6 +17,8 @@ import examinationproject.Status
 import examinationproject.StudentController
 import examinationproject.StudyCenter
 import grails.converters.JSON
+import grails.util.Holders
+
 import javax.activation.MimetypesFileTypeMap
 import grails.plugins.springsecurity.Secured
 
@@ -31,7 +35,7 @@ class AdminController {
     def attendanceService
 
     @Secured(["ROLE_GENERATE_ROLL_NO"])
-    def viewProvisionalStudents() {
+    def viewListGenerateRollNumber() {
 
         def studyCenterList = StudyCenter.list(sort: 'name')
         def programList = ProgramDetail.list(sort: 'courseCode')
@@ -140,7 +144,6 @@ class AdminController {
 
     @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
     def generateFeeVoucher = {
-
         println(">>>>>>>>????????>>" + params)
         def student = Student.findByRollNo(params.rollNo)
         println("program"+student.programDetail)
@@ -470,6 +473,32 @@ class AdminController {
         [programList: programList, programCategory: programCategory]
 
     }
+    def removeLateFeeDate = {
+
+        def programList = []
+        def programs = ProgramDetail.list(sort: 'courseName')
+        programs.each {
+
+            if (it.lateFeeDate == null) {
+                programList.add(it)
+            }
+        }
+
+        def programCategory = ProgramType.list(sort: 'type')
+        [programList: programList, programCategory: programCategory]
+
+    }
+    def deleteLateFeeDate={
+//        println(params)
+        def status=adminInfoService.removeDateLateFee(params)
+        if(status) {
+            flash.message = "Late Fee Date Removed Successfully"
+        }
+        else {
+            flash.message = "Unable Remove Late Fee Date"
+        }
+        redirect(action: "removeLateFeeDate")
+    }
 
     def loadProgram = {
 //        println("params" + params)
@@ -562,6 +591,34 @@ class AdminController {
         def progmInst=ProgramDetail.findById(params.programCode)
         returnMap.startDate=df.format(progmInst.startAdmission_D)
         returnMap.endDate=df.format(progmInst.endAdmission_D)
+        render returnMap as JSON
+    }
+    def individualStudentUpdate={
+//        def grailsApplication = Holders.getGrailsApplication()
+//        def rootImageFolder =  grailsApplication.config.my.global.variable;
+//        grailsApplication.config.my.global.variable=grailsApplication.config.my.global.variable+1
+//        [rootImageFolder:rootImageFolder]
+    }
+    def loadPayInSlipDetail={
+        def returnMap=[:]
+        def status=false
+        def payMode=PaymentMode.findById(Integer.parseInt(params.pMode))
+        def studentInst
+        if(payMode.paymentModeName=='Pay In Slip'){
+            studentInst=Student.findByChallanNo(params.challanNo)
+           if(StudyCenter.findById(studentInst.studyCentre[0].id).centerCode=='11111'){
+               status=true
+           }
+        }
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+        if(status) {
+            returnMap.admissionDate = df.format(studentInst.admissionDate)
+            returnMap.refNo = studentInst.challanNo
+            returnMap.bank = Bank.findByBankName('State Bank Of India').id
+            returnMap.bankName = Bank.findByBankName('State Bank Of India').bankName
+            returnMap.branch = Branch.findByBranchLocation('Gauhati University').id
+            returnMap.branchName = Branch.findByBranchLocation('Gauhati University').branchLocation
+        }
         render returnMap as JSON
     }
 }
