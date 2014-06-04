@@ -365,7 +365,7 @@ class FeeDetailService {
             def admissionChallanIns = FeeDetails.findByChallanNo(studInst.challanNo)
             def admissionChallanStatus = studInst.status.status
             def miscFeeList = MiscellaneousFeeChallan.findAllByStudent(studInst)
-            println(miscFeeList)
+//            println(miscFeeList)
             def miscFeeStatus = []
             def miscFeetype = []
             miscFeeList.each {
