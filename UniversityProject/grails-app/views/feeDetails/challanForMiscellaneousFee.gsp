@@ -121,7 +121,20 @@
             </div>
         </g:form>
     </fieldset>
-
+    <script>
+        $('#generateFeeChallan').click(function(){
+            if($('#challanForStudyCenter').valid()) {
+                setTimeout(function () {
+                    $('#challanForStudyCenter')[0].reset();
+                    document.getElementById("rangeRadioButtons").style.visibility = "hidden";//
+                    document.getElementById("studyCenterFeeEntryTable").style.visibility = "hidden";
+                    document.getElementById("paginationDiv").style.visibility = "hidden";
+                    document.getElementById("generateFeeChallan").style.visibility = "hidden";
+                    document.getElementById("paymentDetails").style.visibility = "hidden";
+                }, 500)
+            }
+        })
+    </script>
 </div>
 </body>
 </html>

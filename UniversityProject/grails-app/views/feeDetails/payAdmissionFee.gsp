@@ -134,15 +134,17 @@
     });
     $('#paySubmit').click(function(){
 //        alert("--------")
-        setTimeout(function(){
+        if($('#paychallanForStudyCenter').valid()) {
+            setTimeout(function () {
 //            alert("fddfdfd")
-            $('#paychallanForStudyCenter')[0].reset();
-            document.getElementById("scStudnetList").style.visibility = "hidden";//
-            document.getElementById("paySubmit").style.visibility = "hidden";
-            document.getElementById("paginationDiv").style.visibility = "hidden";
-            document.getElementById("studentPayList").style.visibility = "hidden";
-            document.getElementById("payClear").style.visibility = "hidden";
-        },500)
+                $('#paychallanForStudyCenter')[0].reset();
+                document.getElementById("scStudnetList").style.visibility = "hidden";//
+                document.getElementById("paySubmit").style.visibility = "hidden";
+                document.getElementById("paginationDiv").style.visibility = "hidden";
+                document.getElementById("studentPayList").style.visibility = "hidden";
+                document.getElementById("payClear").style.visibility = "hidden";
+            }, 500)
+        }
     })
 </script>
 </body>
