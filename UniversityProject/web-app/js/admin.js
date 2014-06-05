@@ -3,6 +3,18 @@ var studentIdList = [];
 var subjectIdList=[];
 var feeTypeList=[];
 $(document).ready(function () {
+    $(document).ajaxStart(function(){
+
+        $.blockUI({ css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: 5,
+            color: '#fff'
+        } });
+    }).ajaxStop($.unblockUI);
 
         $("#submit").click(function(){
             var rollNo = $("#rollNo").val()
@@ -101,6 +113,7 @@ function saveExamDate(){
 }
 function getStudents() {
     var program =$('#programId').val()
+//    alert("*******"+program)
     if(program=='null'){
         $('#studentList thead tr').remove()
         $('#studentList tbody tr').remove()
@@ -163,7 +176,8 @@ function generateRollNo(value) {
         url: url('admin', 'generateRollNo', ''),
         data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(), studentList: $("#studentId").val(), pageType: value},
         success: function (data) {
-            appendTable(data)
+            getStudents()
+//            appendTable(data)
         }
     });
 
