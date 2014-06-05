@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta name="layout" content="main">
@@ -245,12 +245,17 @@
 
                 %{--</tr>--}%
                     <div class="fieldcontain ${hasErrors(bean: roleInstance, field: 'authority', 'error')} ">
-                        <div class="university-size-1-4">
+                        <div class="university-size-1-4" >
                             <label>${fieldValue(bean: roleInstance, field: "authority")}</label>
                         </div>
 
-                        <div class="university-size-1-3"><g:checkBox name="myCheckbox" value="${roleInstance.id}"
+                        <div class="university-size-1-3" ><g:checkBox name="myCheckbox" value="${roleInstance.id}"
                                                                      checked=""/></div>
+                        <g:if test="${roleInstance.authority=='TABULATOR1' || roleInstance.authority=='TABULATOR2'}">
+                        <div class="university-size-1-3" style="width: 10%">
+                        <button onclick='assignCourses(this)' id="${roleInstance.id}">Assign Courses</button>
+                        </div>
+                        </g:if>
                     </div>
                 </g:each>
 
@@ -297,6 +302,7 @@
                 $('#studyCentreId').prop('disabled', false);
                 $('#studyCentreId').prop('required', true);
             }
+
         }
         else{
             if ($(this).val() == 3) {
@@ -306,6 +312,10 @@
             }
         }
     })
+    function assignCourses(val){
+        alert('helo kuldeep'+val.id)
+        window.open("/UniversityProject/user/assignCourse?userId="+val.id,'_self', false)
+    }
 </script>
 </body>
 

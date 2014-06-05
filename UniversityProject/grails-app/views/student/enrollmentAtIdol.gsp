@@ -188,7 +188,7 @@
                             <div class="university-clear-both"></div>
                         </div>
 
-                        <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
+                        <div style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
 
                         <div>State Bank of India</div>
 
@@ -199,15 +199,15 @@
                         <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
 
                         <div>GAUHATI UNIVERSITY</div>
-                    </p>
+                    </div>
                         <div style="clear: both; margin-bottom: 10px;"></div>
                         <table width="100%" class="university-table-1-2">
                             <tr><td><lable>Name:</lable></td><td><label id="studentName"></label></td></tr>
                             <tr><td><lable>Roll No:</lable></td><td><label id="studentRollNo"></label></td></tr>
                             <tr><td>Type Of Fee:</td><td><label id="feeType"></label></td></tr>
-                            <tr><td><lable>Amount:</lable></td><td><label id="amount">${programFeeAmount}</label>
+                            <tr><td><lable>Amount:</lable></td><td><label id="amount"></label>
                                 %{--<g:if test="${lateFee!=0}">--}%
-                                    <label style="font-size: 13px;display: block" id="lateFee">(with late fee ${lateFee})</label>
+                                    <label style="font-size: 13px;display: block" id="lateFee"></label>
                                 %{--</g:if>--}%
                             </td></tr>
 

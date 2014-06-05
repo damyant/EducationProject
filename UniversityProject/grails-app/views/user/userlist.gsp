@@ -65,6 +65,7 @@
 
                     <td><input type="button" class="university-button" onclick="editUser(${userInstance.id})" value="Edit"/> </td>
 
+
                 <td><input type="button" class="university-button" onclick="resetPassword(${userInstance.id})" value="Reset Password"/></td>
 
             </tr>
