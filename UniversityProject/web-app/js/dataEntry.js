@@ -403,6 +403,7 @@ function enterSrNo(t) {
     }
     else {
         $('#rollNoError').html("Roll Number is Unavailable For Challan Generation. Please Select one From the above List.")
+        $('#challanForStudyCenter').valid(false)
         return false;
     }
 }

@@ -418,6 +418,7 @@ function validate() {
             date_of_birth: "Please Enter Date of birth",
             centerCode: "Please Enter Center Code",
             d_o_b: {required: "Please Enter Date of birth",
+
                 minlength:"Please Enter Correct Date"
             },
             programId: "Please select Program",
@@ -666,6 +667,8 @@ function checkValidation() {
             paymentMode:"required",
             paymentDate:"required",
             programCategory:"required",
+            rollNoSearch:"required",
+            serialNoTo:"required",
             program:"required",
             startAdmission_D:{
                 required:true,
@@ -690,6 +693,8 @@ function checkValidation() {
             programCategory:"Please Select Program Category",
             program:"Please Select Program",
             paymentMode:"Please  Select Payment Mode",
+            rollNoSearch:"Please Enter valid Roll No",
+            serialNoTo:"Please Enter valid Serial No",
             paymentDate:"Select Payment Date",
             programs:"Please Select A Program",
             lateFeeDate:{

@@ -18,7 +18,12 @@
 
     <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
 
+    <g:if test="${studyCentre.centerCode[0]!='11111'}">
+        <div>${studyCentre.name[0]}</div>
+    </g:if>
+    <g:else>
         <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
+    </g:else>
         <div>GAUHATI UNIVERSITY</div>
         <div>Guwahati, Assam</div>
     </p>

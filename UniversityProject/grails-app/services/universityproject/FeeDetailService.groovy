@@ -319,7 +319,7 @@ class FeeDetailService {
         def returnMap=[:]
         def stuList =[]
         def lateFee=0
-        def courseNameList=[],courseFee=[]
+        def courseNameList=[],courseFee=[],studyCentreList=[]
         def tempStuList=  Student.findAllByChallanNo(params.challanNo)
 //        if(!tempStuList){
 //            return null
@@ -341,6 +341,8 @@ class FeeDetailService {
                 }
             }
             courseNameList<<it.programDetail[0].courseName
+            studyCentreList<<StudyCenter.findById(it.studyCentre.id).name
+
             //if(StudyCenter.findAllById(.studyCentreId).centerCode[0]=="11111") {
             if(it.studyCentre.centerCode[0]=="11111"){
             courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL+lateFee
@@ -348,7 +350,9 @@ class FeeDetailService {
                 courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC+lateFee
             }
         }
+        println(studyCentreList)
         returnMap.stuList=stuList
+        returnMap.studyCentreList=studyCentreList
         returnMap.courseNameList=courseNameList
         returnMap.courseFee=courseFee
         returnMap.paymentReferenceNumber=feeDetails.paymentReferenceNumber
