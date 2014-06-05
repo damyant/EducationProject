@@ -158,7 +158,6 @@ function submitTempRegistration() {
     validate();
     var result = $('#tempEnrollment').valid()
     if (result) {
-
         $.ajax({
             type: "post",
             url: url('student', 'tempRegistration', ''),
@@ -166,12 +165,12 @@ function submitTempRegistration() {
             success: function (data) {
                 document.getElementById("tempEnrollment").reset();
                 //kuldeep's code start from here................................................
-//                alert("hello kuldeep"+data.student.rollNo+''+data.student.firstName)
-                $('#studentName').text(''+data.student.firstName+' '+ data.student.lastName+' '+data.student.middleName)
+                $('#studentName').text(''+data.student.firstName+' '+(data.student.middleName? data.student.middleName:'')+' '+ data.student.lastName)
                 $('#studentRollNo').text(''+data.student.rollNo)
                 $('#challanNo').text(''+data.student.challanNo)
-                $('#feeType').text('Admission Fee for '+data.programFee.programDetail.courseName)
+                $('#feeType').text('Admission Fee for '+data.courseName)
                 $('#amount').text(''+data.programFeeAmount)
+                if(data.lateFee>0)
                 $('#lateFee').text('(with late fee '+data.lateFee+')')
                 var confirmOK = confirm("Do you want to Generate Challan for Roll No " + data.student.rollNo + " ?");
                 if(confirmOK){
@@ -188,7 +187,6 @@ function submitTempRegistration() {
     }
 }
 function confirmGenerateChallan(rollno) {
-
         $.ajax({
         type: "post",
         url: url('admin', 'checkFeeByRollNo', ''),

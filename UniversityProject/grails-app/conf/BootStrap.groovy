@@ -14,6 +14,9 @@ class BootStrap {
         def generateRollNoRole = Role.findByAuthority('ROLE_GENERATE_ROLL_NO')?:new Role(authority: 'ROLE_GENERATE_ROLL_NO').save(failOnError: true)
         def idolUserRole = Role.findByAuthority('ROLE_IDOL_USER')?:new Role(authority: 'ROLE_IDOL_USER').save(failOnError: true)
         def adminRole =Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
+        def tabulatorRole1 =Role.findByAuthority('TABULATOR1') ?: new Role(authority: 'TABULATOR1').save(failOnError: true)
+        def tabulatorRole2 =Role.findByAuthority('TABULATOR2') ?: new Role(authority: 'TABULATOR2').save(failOnError: true)
+        def homeAssignmentRole =Role.findByAuthority('HOME_ASSIGNMENT_ROLE') ?: new Role(authority: 'HOME_ASSIGNMENT_ROLE').save(failOnError: true)
 
         def adminUser = User.findByUsername('admin') ?: new User(
                 username: 'admin',

@@ -272,7 +272,7 @@
 
 
 <g:elseif test="${totalListApprovedUnapprovedRollNo}">
-%{--<h3> Total Students In ${totalListByCourse.getAt(0).programDetail[0].courseName} For ${admissionUnapprovedSession} Session</h3>--}%
+<h3> Total ${type} Students In ${totalListApprovedUnapprovedRollNo.getAt(0).studyCentre[0].name} For ${approvedUnapprovedSessionVal} Session</h3>
     <table style=" text-align: center" class="gridtable">
         <th>Roll No</th>
         <th>Name</th>
@@ -281,7 +281,7 @@
         <g:each in="${totalListApprovedUnapprovedRollNo}" var="student">
             <tr >
                 <td >${student.rollNo}</td>
-                <td >${student.firstName}  ${student.lastName}</td>
+                <td >${student.firstName} ${student.middleName} ${student.lastName}</td>
                 <td >${student.city[0].cityName}</td>
                 <td >91${student.mobileNo}</td>
             </tr>

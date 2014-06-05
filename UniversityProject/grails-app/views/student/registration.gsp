@@ -110,17 +110,17 @@
             <tr>
                 <td>
                     <input type="text" placeholder="First Name" name="firstName" style="margin-left: -10px;text-transform: capitalize;"
-                           onkeypress="return onlyAlphabets(event, this);"
+                           onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.firstName}"/>
                 </td>
                 <td style="vertical-align: top;">
                     <input type="text" placeholder="Middle Name" name="middleName" style="margin-left: -10px;text-transform: capitalize;"
-                           onkeypress="return onlyAlphabets(event, this);"
+                           onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.middleName}"/>
                 </td>
                 <td>
                     <input type="text" placeholder="Last Name" name="lastName" style="margin-left: -10px;text-transform: capitalize;"
-                           onkeypress="return onlyAlphabets(event, this);"
+                           onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.lastName}"/>
                 </td>
             </tr>
@@ -297,7 +297,7 @@ onkeypress="return isNumberWithDash(event)"/>
     <td>Parent's Name<span class="university-obligatory">*</span></td>
     <td><input type="text" id="parentsName" class="university-size-1-2" name="parentsName" maxlength="100"
                value="${studInstance?.parentsName}"
-               onkeypress="return onlyAlphabets(event, this);"/>
+               onkeypress="return onlyAlphabets(event);"/>
     </td>
 </tr>
 <tr>
@@ -320,7 +320,7 @@ onkeypress="return isNumberWithDash(event)"/>
             <tr>
 
                 <td style="width: 30%;">Post Office:</td>
-                <td style="width: 70%;"><input type="text" id="poAddress" name="addressPO" onkeypress="return onlyAlphabets(event, this);" value="${studInstance?.addressPO}"
+                <td style="width: 70%;"><input type="text" id="poAddress" name="addressPO" onkeypress="return onlyAlphabets(event);" value="${studInstance?.addressPO}"
                                                maxlength="30" class="university-size-1-2"/>
                 </td>
             </tr>
@@ -328,12 +328,12 @@ onkeypress="return isNumberWithDash(event)"/>
                 <td style="width: 30%;">District:</td>
 
                 <td style="width: 70%;"><input type="text" value="${studInstance?.addressDistrict}"
-                                               name="addressDistrict" onkeypress="return onlyAlphabets(event, this);" maxlength="30" id="addDistrict"
+                                               name="addressDistrict" onkeypress="return onlyAlphabets(event);" maxlength="30" id="addDistrict"
                                                class="university-size-1-2"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">State:</td>
-                <td style="width: 70%;"><input type="text" value="${studInstance?.addressState}" name="addressState" onkeypress="return onlyAlphabets(event, this);"
+                <td style="width: 70%;"><input type="text" value="${studInstance?.addressState}" name="addressState" onkeypress="return onlyAlphabets(event);"
                                                maxlength="30" id="stateAddress"
                                                class="university-size-1-2"/>
                 </td>

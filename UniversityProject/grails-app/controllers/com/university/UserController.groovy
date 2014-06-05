@@ -1,6 +1,7 @@
 
 package com.university
 
+import examinationproject.ProgramDetail
 import examinationproject.StudyCenter
 
 import javax.validation.constraints.Null
@@ -228,6 +229,14 @@ class UserController {
             }
             '*'{ render status: NOT_FOUND }
         }
+    }
+
+    def assignCourse(){
+        println('these are the parameters '+params)
+
+
+        def programList = ProgramDetail.list(sort: 'courseCode')
+        [programList: programList]
     }
 }
 
