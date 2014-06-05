@@ -145,7 +145,7 @@
 
     <td>
         %{--<input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datePick"/>--}%
-        <input type="text" name="d_o_b" maxlength="10" onkeypress="disableKeyInput(this)" class="university-size-1-2" id="datepicker"
+        <input type="text" name="d_o_b" maxlength="10" PLACEHOLDER="MM/DD/YYYY" class="university-size-1-2" id="datepicker"
                value="<g:formatDate format="MM/dd/yyyy" date="${studInstance?.dob}"/>">
 
     </td>
@@ -185,8 +185,7 @@
 
             <label><span>ST</span><input type="radio" name="category" value="S.T" class="radioInput"/></label>
 
-            <label><span>MINORITY</span><input type="radio" name="category" value="MINORITY COMMUNITY"
-                                               class="radioInput"/>
+            <label><span>MINORITY</span><input type="radio" name="category" value="MINORITY COMMUNITY" class="radioInput"/>
             </label>
         </div>
     </td>

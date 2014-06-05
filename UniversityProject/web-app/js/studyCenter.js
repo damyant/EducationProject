@@ -50,7 +50,6 @@ function showCityList() {
 }
 function showExamCenterList() {
     var data = $('#district').val();
-    debugger;
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExamCenterName', ''),
