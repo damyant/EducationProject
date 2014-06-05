@@ -212,12 +212,15 @@ class FeeDetailsController {
         stuList.clear()
         def totalFee=0;
         def lateFee=0
+        def studyCentre
         def challanNo=studentRegistrationService.getChallanNumber()
         def today=new Date()
         if(params.rollNoSearch){
             lateFee=0
            def stuIns= Student.findByRollNo(params.rollNoSearch)
             stuIns.challanNo=challanNo
+            studyCentre=stuIns.studyCentre
+            println(stuIns.studyCentre.name)
             stuIns.save(failOnError: true)
             studList.add(stuIns)
             def lateFeeDate=stuIns.programDetail.lateFeeDate[0]
@@ -238,7 +241,9 @@ class FeeDetailsController {
             for(def i=0;i<stuList.size();i++){
                lateFee=0
                 def stuIns=Student.findById(Long.parseLong(stuList[i]))
-                stuIns.rollNo
+                if(i==0){
+                    studyCentre=stuIns.studyCentre
+                }
                 stuIns.challanNo=challanNo
                 stuIns.save(failOnError: true)
                 studList.add(stuIns)
@@ -260,7 +265,7 @@ class FeeDetailsController {
 
         }
 //        println(studList)
-        def args = [template: "printChallan", model: [studList: studList,addmissionFee:addmissionFee,totalFee:totalFee,lateFee:lateFee],filename:challanNo+".pdf"]
+        def args = [template: "printChallan", model: [studList: studList,studyCentre:studyCentre,addmissionFee:addmissionFee,totalFee:totalFee,lateFee:lateFee],filename:challanNo+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
     }
     def generateChallanForMiscellaneousFee={
@@ -271,10 +276,12 @@ class FeeDetailsController {
         miscellaneousFee.clear()
         def stuList=[]
         def totalFee=0;
+        def studyCentre
         def challanNo=studentRegistrationService.getChallanNumber()
         if(params.rollNoSearch){
             def feeType=FeeType.findById(params.feeCategory)
             def stuIns= Student.findByRollNo(params.rollNoSearch)
+            studyCentre=stuIns.studyCentre
             def mFeeInstance = new MiscellaneousFeeChallan()
             mFeeInstance.challanNo=challanNo
             mFeeInstance.feeType=feeType
@@ -295,6 +302,10 @@ class FeeDetailsController {
 //                println("**********"+stuList[i]);
                 def mFeeInstance = new MiscellaneousFeeChallan()
                 def stuIns=Student.findById(Long.parseLong(stuList[i]))
+                if(i==0){
+                    studyCentre=stuIns.studyCentre
+                }
+                println(stuIns.studyCentre.name)
                 def feeType=FeeType.findById(params.feeCategory)
                 mFeeInstance.challanNo=challanNo
                 mFeeInstance.feeType=feeType
@@ -307,9 +318,11 @@ class FeeDetailsController {
                 totalFee=totalFee+ feeForStudent
                 miscellaneousFee.add(feeForStudent)
             }
-//            println(studList)
+
         }
-        def args = [template: "printMiscFeeChallan", model: [studList: studList,challanNo:challanNo,miscellaneousFee:miscellaneousFee,totalFee:totalFee],filename:challanNo+".pdf"]
+
+//        println("sdsdsdsdsds"+Student.findById(Long.parseLong(stuList[0])).studyCentre.name)
+        def args = [template: "printMiscFeeChallan", model: [studList: studList,studyCentre:studyCentre,challanNo:challanNo,miscellaneousFee:miscellaneousFee,totalFee:totalFee],filename:challanNo+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
     }
 
@@ -332,6 +345,8 @@ class FeeDetailsController {
         def currentUser = springSecurityService.currentUser
         def totalFee=0;
         def lateFee=0
+        def studyCentre
+        studyCentre=stuList[0].studyCentre
         stuList.each{
             lateFee=0
 //            println("==="+it.programDetail[0])
@@ -395,7 +410,7 @@ class FeeDetailsController {
 //            println("std" + stuList[0])
 //            println("fee" + courseFee.size() + " >>>>>>>>>>>> " + courseFee)
 
-            def args = [template: "printPayChallan", model: [bank: bank, lateFee: lateFee, branch: branch,paymentReferenceNumber:paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
+            def args = [template: "printPayChallan", model: [bank: bank, lateFee: lateFee,studyCentre:studyCentre, branch: branch,paymentReferenceNumber:paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
 
         }
@@ -405,6 +420,7 @@ class FeeDetailsController {
 //        println("***************"+params)
         def courseNameList=[],courseFee=[]
         def stuList= []
+        def studyCentre
         def miscFeeChallanList=  MiscellaneousFeeChallan.findAllByChallanNo(params.searchChallanNo)
         miscFeeChallanList.each{
 //            println("==="+it.student.programDetail)
@@ -428,6 +444,7 @@ class FeeDetailsController {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         feeDetailsInstance.challanDate=new Date()
         feeDetailsInstance.paymentDate=df.parse(params.paymentDate)
+        studyCentre=stuList[0].studyCentre
         def status=false
         if (feeDetailsInstance.save(flush: true, failOnError: true)) {
             status=true
@@ -436,7 +453,7 @@ class FeeDetailsController {
         def paymentDate=params.paymentDate
         def paymentReferenceNumber=params.paymentReferenceNumber
 
-        def args = [template: "printPayMiscFeeChallan", model: [bank:bank,branch:branch,paymentReferenceNumber:paymentReferenceNumber,paymentModeName:paymentModeName,paymentDate:paymentDate,stuList:stuList,courseFee:courseFee,totalFee:totalFee,courseNameList:courseNameList,challanNo:challanNo,],filename:challanNo+".pdf"]
+        def args = [template: "printPayMiscFeeChallan", model: [bank:bank,studyCentre:studyCentre, branch:branch,paymentReferenceNumber:paymentReferenceNumber,paymentModeName:paymentModeName,paymentDate:paymentDate,stuList:stuList,courseFee:courseFee,totalFee:totalFee,courseNameList:courseNameList,challanNo:challanNo,],filename:challanNo+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
 
     }
@@ -444,6 +461,15 @@ class FeeDetailsController {
         def resultMap=[:]
         def studentId=Student.findByRollNo(params.rollNo).id
         resultMap.studentId=studentId
+        render resultMap as JSON
+    }
+    def feeStatusForRollNumber={
+
+    }
+    def checkRollNoFeeStatus={
+        def resultMap=[:]
+        resultMap= feeDetailService.rollNumberFeeStatus(params)
+//        println(resultMap)
         render resultMap as JSON
     }
 }

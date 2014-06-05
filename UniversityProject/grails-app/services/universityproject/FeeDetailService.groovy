@@ -5,6 +5,7 @@ import examinationproject.Bank
 import examinationproject.FeeDetails
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
+import examinationproject.MiscellaneousFeeChallan
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 
@@ -318,7 +319,7 @@ class FeeDetailService {
         def returnMap=[:]
         def stuList =[]
         def lateFee=0
-        def courseNameList=[],courseFee=[]
+        def courseNameList=[],courseFee=[],studyCentreList=[]
         def tempStuList=  Student.findAllByChallanNo(params.challanNo)
 //        if(!tempStuList){
 //            return null
@@ -340,6 +341,8 @@ class FeeDetailService {
                 }
             }
             courseNameList<<it.programDetail[0].courseName
+            studyCentreList<<StudyCenter.findById(it.studyCentre.id).name
+
             //if(StudyCenter.findAllById(.studyCentreId).centerCode[0]=="11111") {
             if(it.studyCentre.centerCode[0]=="11111"){
             courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL+lateFee
@@ -347,7 +350,9 @@ class FeeDetailService {
                 courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC+lateFee
             }
         }
+        println(studyCentreList)
         returnMap.stuList=stuList
+        returnMap.studyCentreList=studyCentreList
         returnMap.courseNameList=courseNameList
         returnMap.courseFee=courseFee
         returnMap.paymentReferenceNumber=feeDetails.paymentReferenceNumber
@@ -355,6 +360,38 @@ class FeeDetailService {
         returnMap.branch=feeDetails.branchId.branchLocation
         return returnMap
 
+    }
+
+    def rollNumberFeeStatus(params){
+        def returnMap=[:]
+        def studInst=Student.findByRollNo(params.rollNo)
+        if(studInst.challanNo!=null) {
+            def admissionChallanIns = FeeDetails.findByChallanNo(studInst.challanNo)
+            def admissionChallanStatus = studInst.status.status
+            def miscFeeList = MiscellaneousFeeChallan.findAllByStudent(studInst)
+//            println(miscFeeList)
+            def miscFeeStatus = []
+            def miscFeetype = []
+            miscFeeList.each {
+                def status = FeeDetails.findByChallanNo(it.challanNo)
+                if (status) {
+                    miscFeeStatus.add('Approved')
+                } else {
+                    miscFeeStatus.add('Not Approved')
+                }
+                miscFeetype.add(it.feeType.type)
+            }
+            returnMap.studInst = studInst
+            returnMap.admissionChallanIns = admissionChallanIns
+            returnMap.miscFeeList = miscFeeList
+            returnMap.miscFeeStatus = miscFeeStatus
+            returnMap.miscFeetype = miscFeetype
+            returnMap.admissionChallanStatus = admissionChallanStatus
+        }
+        else{
+            returnMap.error = "No Challan Generated Yet"
+        }
+        return returnMap
     }
 }
 

@@ -186,7 +186,7 @@ function appendTable(data) {
             $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName+' '+data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
         }
         $table_rows = $('#studentList tbody tr');
-        var table_row_limit = 1;
+        var table_row_limit = 10;
         var page_table = function(page) {
             var offset = (page - 1) * table_row_limit,
                 limit = page * table_row_limit;
@@ -620,7 +620,10 @@ var selectedStudentId=[]
     $("#studentListId").val(selectedStudentId)
 
     if(selectedStudentId!=null){
-        $("#challanForStudyCenter").submit()
+        checkValidation()
+        if($("#challanForStudyCenter").valid()) {
+            $("#challanForStudyCenter").submit()
+        }
       }
     }
     else{
@@ -780,9 +783,9 @@ function populateChallanDetail(){
         success: function (data) {
             if(data.stuList.length>0) {
                 console.log("error")
-                $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Payment Ref. No.</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
+                $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Study Center</th><th>Roll Number</th><th>Course Name</th><th>Payment Ref. No.</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
                 for (var i = 0; i < data.stuList.length; i++) {
-                    $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.stuList[i].id + '"/> ' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td>' + data.stuList[i].rollNo + '</td><td>' + data.courseNameList[i] + '</td><td>' + data.paymentReferenceNumber + '</td><td>' + data.bank + '</td><td>' + data.branch + '</td><td>' + data.courseFee[i] + '</td></tr>')
+                    $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.stuList[i].id + '"/> ' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].middleName ?data.stuList[i].middleName:"" + '&nbsp;' + data.stuList[i].lastName + '</td><td>' + data.studyCentreList[i] + '</td><td>' + data.stuList[i].rollNo + '</td><td>' + data.courseNameList[i] + '</td><td>' + data.paymentReferenceNumber + '</td><td>' + data.bank + '</td><td>' + data.branch + '</td><td>' + data.courseFee[i] + '</td></tr>')
                 }
                 $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
                 $("#error").hide()
@@ -943,4 +946,47 @@ function loadPayInSlipDetails(t){
             }
         })
     }
+}
+
+function checkFeeStatusForRollNo(){
+var rollNo=$('#rollNoForFeeStatus').val()
+    if(rollNo.length==8){
+        $('#errorLabel').html("")
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'checkRollNoFeeStatus', ''),
+            data: {rollNo:rollNo},
+            success: function (data) {
+                if(!data.error){
+                    $('#showStatusForRollNo').empty().append('<table class="university-size-full-1-1" id="statusTable"></table>')
+                    $('#statusTable').append('<tr><th>Challan No</th><th>Fee Type</th><th>Status</th></tr>')
+                    if(data.admissionChallanIns) {
+                        $('#statusTable').append('<tr><td>' + data.admissionChallanIns.challanNo + '</td><td>Admission Fee</td><td>' + data.admissionChallanStatus + '</td></tr>')
+                    }
+                    if(data.miscFeeList.length>0){
+                        for(var i=0;i<=data.miscFeeList.length;i++){
+                            $('#statusTable').append('<tr><td>' + data.miscFeeList[i].challanNo + '</td><td>'+data.miscFeetype[i]+'</td><td>' + data.miscFeeStatus[i] + '</td></tr>')
+
+                        }
+
+                    }
+                }
+                else{
+                    $('#showStatusForRollNo').empty()
+                    $('#errorLabel').html(data.error)
+                }
+
+            }
+        })
+    }
+    else{
+        $('#errorLabel').html("Please Enter Correct Roll Number")
+    }
+}
+
+function editUser(userId){
+    window.open ('/UniversityProject/user/editUser/'+userId,'_self',false)
+}
+function resetPassword(userId){
+    window.open ('/UniversityProject/user/resetPassword/'+userId,'_self',false)
 }

@@ -7,10 +7,6 @@ var studentList = [];
 // document ready function............................................
 
 
-
-
-
-
 //$(function () {
 //    if($("#dialog").length>0) {
 //        $("#dialog").dialog({
@@ -319,7 +315,7 @@ function appendStudentList(data) {
 
         var table_row_limit = 10;
 
-        var page_table = function(page) {
+        var page_table = function (page) {
 
             // calculate the offset and limit values
             var offset = (page - 1) * table_row_limit,
@@ -332,12 +328,12 @@ function appendStudentList(data) {
             $table_rows.slice(offset, limit).show();
 
         }
-        var pageNo=0
-        if($table_rows.length % table_row_limit){
-            pageNo=parseInt($table_rows.length / table_row_limit)+1
+        var pageNo = 0
+        if ($table_rows.length % table_row_limit) {
+            pageNo = parseInt($table_rows.length / table_row_limit) + 1
         }
-        else{
-            pageNo=parseInt($table_rows.length / table_row_limit)
+        else {
+            pageNo = parseInt($table_rows.length / table_row_limit)
         }
 //                alert(5%5)
         $('.pagination').jqPagination({
@@ -399,14 +395,15 @@ function checkRange() {
 function enterSrNo(t) {
     $('#rollNoError').html("")
     var rollNo = $(t).val();
-    if($('#' + rollNo).length>0) {
+    if ($('#' + rollNo).length > 0) {
         var value = $('#' + rollNo).val();
 //    alert(value)
         $('#serialNoFrom').val(value);
         $('#serialNoTo').val(value);
     }
-    else{
+    else {
         $('#rollNoError').html("Roll Number is Unavailable For Challan Generation. Please Select one From the above List.")
+        $('#challanForStudyCenter').valid(false)
         return false;
     }
 }
@@ -550,7 +547,7 @@ function filterProgramsForSelect(t) {
             success: function (data) {
 
                 $("#program").empty().append('<option value="">Select Program</option>')
-                 for (var i = 0; i < data.programList.length; i++) {
+                for (var i = 0; i < data.programList.length; i++) {
                     $("#program").append('<option value="' + data.programList[i].id + '">' + data.programList[i].courseName + '</option>')
 
                 }
@@ -563,7 +560,7 @@ function filterProgramsForSelect(t) {
 
 }
 
-function loadAdmissionDate(t){
+function loadAdmissionDate(t) {
 //    alert("sdsds")
     var programCode = $(t).val()
     if (programCode) {
@@ -572,16 +569,16 @@ function loadAdmissionDate(t){
             url: url('admin', 'getAdmissionDate', ''),
             data: {programCode: programCode},
             success: function (data) {
-                if(data.startDate) {
+                if (data.startDate) {
                     $("#startAdmission_D").datepicker({ dateFormat: "dd/mm/yy" }).val(data.startDate)
                 }
-                else{
+                else {
                     $("#startAdmission_D").val("")
                 }
-                if(data.endDate) {
+                if (data.endDate) {
                     $("#endAdmission_D").datepicker({ dateFormat: "dd/mm/yy" }).val(data.endDate)
                 }
-                else{
+                else {
                     $("#endAdmission_D").val("")
                 }
             }
@@ -680,6 +677,7 @@ function loadProgram(t) {
 //    $('#generateFeeChallan').prop('hidden', true)
     var type = $(t).val();
 //    alert(type)
+
     $.ajax({
         type: "post",
         url: url('feeDetails', 'loadProgram', ''),

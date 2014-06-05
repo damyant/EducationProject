@@ -138,7 +138,7 @@
             setTimeout(function () {
 //            alert("fddfdfd")
                 $('#paychallanForStudyCenter')[0].reset();
-                document.getElementById("scStudnetList").style.visibility = "hidden";//
+                $('#scStudnetList').attr('hidden', true);
                 document.getElementById("paySubmit").style.visibility = "hidden";
                 document.getElementById("paginationDiv").style.visibility = "hidden";
                 document.getElementById("studentPayList").style.visibility = "hidden";
