@@ -10,6 +10,7 @@ var studentList = [];
 
 
 
+
 //$(function () {
 //    if($("#dialog").length>0) {
 //        $("#dialog").dialog({
@@ -27,6 +28,7 @@ var studentList = [];
 //        });
 //    }
 //});
+
 
 function nextStudent() {
     var nextValue = $('#nextStudentId').val()

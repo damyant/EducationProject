@@ -62,7 +62,7 @@
 
                     <td><g:formatBoolean boolean="${userInstance.passwordExpired}"/></td>
 
-                    <td><button class="university-button"> <g:link class="university-text-decoration-none" action="editUser" id="${userInstance.id}">Edit</g:link></button></td>
+                    <td> <g:link class="university-text-decoration-none" action="editUser" id="${userInstance.id}">Edit</g:link></td>
 
                 <td><button class="university-button"><g:link class="university-text-decoration-none" controller="user" action="resetPassword" params="[id:userInstance.id]">Reset Password</g:link></button></td>
 

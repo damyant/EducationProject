@@ -118,7 +118,10 @@ class AdmitCardController {
         def user=springSecurityService.currentUser
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         StringBuilder examDate = new StringBuilder()
-        def byte [] logo= new File("web-app/images/gu-logo.jpg").bytes
+        def webRootDir = servletContext.getRealPath("/")
+        println('*******************************************************'+webRootDir)
+        def byte [] logo= new File(webRootDir+"/images/gu-logo.jpg").bytes
+        println("these are the logo bytes "+ logo);
 
         if(params.rollNumber && springSecurityService.currentUser){
         stuList=admitCardService.getStudentByRollNo(user,params)
