@@ -556,7 +556,7 @@ function isNumber(evt) {
 
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode > 47 && charCode < 58) || charCode == 8) {
+    if ((charCode > 47 && charCode < 58) || charCode == 9 ||charCode == 8) {
         return true;
     }
     return false;
@@ -565,7 +565,7 @@ function isNumberWithDash(evt) {
 
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode > 47 && charCode < 58) || charCode == 8 || charCode == 45) {
+    if ((charCode > 47 && charCode < 58) || charCode == 9 ||charCode == 8 || charCode == 45) {
         return true;
     }
     return false;
@@ -581,7 +581,7 @@ function onlyAlphabets(e, t) {
         else {
             return true;
         }
-        if (charCode == 8 || charCode == 32 || charCode == 46 || charCode == 45 || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+        if ( charCode == 9 ||charCode == 8 || charCode == 32 || charCode == 46 || charCode == 45 || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
             return true;
         else
             return false;
@@ -594,7 +594,7 @@ function onlyAlphabets(e, t) {
 function isAlphaNumeric(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode == 8 || (charCode > 47 && charCode < 58) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
+    if ((charCode == 9 ||charCode == 8 || (charCode > 47 && charCode < 58) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
         return true;
     }
     return false;
@@ -603,7 +603,7 @@ function isAlphaNumeric(evt) {
 function isTime(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode == 58 || charCode == 8 || charCode == 32 || ( charCode > 47 && charCode < 58) || charCode == 65 || charCode == 97 || charCode == 77 || charCode == 109 || charCode == 80 || charCode == 112)) {
+    if ((charCode == 58 || charCode == 9 ||charCode == 8 || charCode == 32 || ( charCode > 47 && charCode < 58) || charCode == 65 || charCode == 97 || charCode == 77 || charCode == 109 || charCode == 80 || charCode == 112)) {
         return true;
     }
     return false;
@@ -612,7 +612,7 @@ function isTime(evt) {
 function onlyAlphabetsWithSplChar(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode == 8 || charCode == 32 || charCode == 40 || charCode == 41 || ( charCode > 64 && charCode < 91 ) || ( charCode > 96 && charCode < 123 ) ||  charCode == 45 || charCode == 46 || charCode == 47 )
+    if (charCode == 9 ||charCode == 8 || charCode == 32 || charCode == 40 || charCode == 41 || ( charCode > 64 && charCode < 91 ) || ( charCode > 96 && charCode < 123 ) ||  charCode == 45 || charCode == 46 || charCode == 47 )
         return true;
     else
         return false;

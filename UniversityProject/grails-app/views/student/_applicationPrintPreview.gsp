@@ -19,8 +19,7 @@
     <script>
 
           function funload(){
-
-            var status= window.confirm('Do You Want to Print The Application')
+            var status= window.confirm('Do you want to print this Application ?')
             if(status){
                var printing = window.print();
                 if(printing){

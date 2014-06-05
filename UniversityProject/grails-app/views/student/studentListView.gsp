@@ -101,10 +101,10 @@
             <div id="msg"></div>
             <div></div>
         </fieldset>
-        <fieldset style="margin-bottom: 20px">
+        %{--<fieldset style="margin-bottom: 20px">--}%
 
 
-        </fieldset>
+        %{--</fieldset>--}%
     </div>
 <script>
     $(document).ready(function () {

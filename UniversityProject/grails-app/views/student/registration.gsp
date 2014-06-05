@@ -33,8 +33,8 @@
             $(".radioInput[name='gender'][value=" + gender + "]").attr('checked', 'checked');
             $(".radioInput[name='state'][value=" + state + "]").attr('checked', 'checked');
         });
-
-        $(window).bind("load", function () {
+        $(document).ready(function(){
+//        window.onload=function () {
 
             var flag = "${registered}"
             var studentId = "${studentID}"
@@ -128,6 +128,15 @@
 
     </td>
 </tr>
+<sec:ifLoggedIn>
+    <tr>
+        <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
+        <td class="university-size-2-3">
+            <input type="text" name="applicationNo" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
+            <label id="errorMsg" class="error1"></label>
+        </td>
+    </tr>
+</sec:ifLoggedIn>
 <!----- Date Of Birth -------------------------------------------------------->
 <tr>
     <td>Date of Birth <span class="university-obligatory">*</span></td>

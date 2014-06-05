@@ -79,7 +79,7 @@
                                                               optionValue="paymentModeName"
                                                               from="${paymentMode}"
                                                               noSelection="['': ' Select Payment Mode']"
-                                                              onchange=""/></td>
+                                                              onchange="loadPayInSlipDetails(this)"/></td>
                 </tr>
                 <tr>
                     <td class="university-size-1-3">Payment Date</td>
@@ -132,6 +132,20 @@
             });
         });
     });
+    $('#paySubmit').click(function(){
+//        alert("--------")
+        if($('#paychallanForStudyCenter').valid()) {
+            setTimeout(function () {
+//            alert("fddfdfd")
+                $('#paychallanForStudyCenter')[0].reset();
+                document.getElementById("scStudnetList").style.visibility = "hidden";//
+                document.getElementById("paySubmit").style.visibility = "hidden";
+                document.getElementById("paginationDiv").style.visibility = "hidden";
+                document.getElementById("studentPayList").style.visibility = "hidden";
+                document.getElementById("payClear").style.visibility = "hidden";
+            }, 500)
+        }
+    })
 </script>
 </body>
 </html>

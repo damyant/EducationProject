@@ -253,6 +253,9 @@
         <li><g:link controller="admin"
                     action="approvePayInSlip"><g:message
                     code="default.mainMenu7.subMenu2"/></g:link></li>
+        <li><g:link controller="feeDetails"
+                    action="feeStatusForRollNumber"><g:message
+                    code="default.mainMenu7.subMenu3"/></g:link></li>
     </ul>
 </li>
 
