@@ -53,8 +53,11 @@ class ReportController {
            def totalList = reportService.getReportDataSession(params, null)
            def sessionVal= Integer.parseInt(params.session)+1
            sessionVal= params.session+'-'+sessionVal
+               def currentUser=springSecurityService.getCurrentUser()
+               def studyCenterId = currentUser.studyCentreId
+               def studyCenter= StudyCenter.findById(studyCenterId)
 //           println("back in controller with this "+ totalList)
-           def args = [template: "generate", model: [totalListBySession :totalList, sessionVal:sessionVal],filename:params.session+'_All_Course'+".pdf"]
+           def args = [template: "generate", model: [totalListBySession :totalList, sessionVal:sessionVal, studyCentreName: studyCenter.name],filename:params.session+'_All_Course'+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
            }
 
@@ -244,9 +247,6 @@ class ReportController {
 
       else if(params.value=='courseUnapproved' && params.courseUnapprovedSession || params.value=='courseApproved' && params.courseApprovedSession){
            println("this function is called")
-           def currentUser=springSecurityService.getCurrentUser()
-           def studyCenterId = currentUser.studyCentreId
-           def studyCenter= StudyCenter.findById(studyCenterId)
            def totalList = reportService.getReportDataCourseApprovedUnapproved(params)
            def sessionVal= Integer.parseInt(params.courseApprovedSession)+1
            sessionVal= params.courseApprovedSession+'-'+sessionVal
@@ -255,7 +255,7 @@ class ReportController {
                 type = 'Unapproved'
            else
                 type='Approved'
-           def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal, studyCentreName:studyCenter.name, type:type],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal, type:type],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
       }
 

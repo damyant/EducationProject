@@ -49,7 +49,7 @@ class ReportService {
                         eq('registrationYear' , Integer.parseInt(params.session))
                     }
                 }
-                status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook)
+                status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCenter.name)
                 sheetNo= sheetNo+1
              }
              workbook.write();

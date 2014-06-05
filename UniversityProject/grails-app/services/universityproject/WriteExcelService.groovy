@@ -27,13 +27,13 @@ class WriteExcelService {
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
     private WritableCellFormat times1;
-   Boolean excelReport(params, finalList, course, sheetNo, WritableWorkbook workbook){
+   Boolean excelReport(params, finalList, course, sheetNo, WritableWorkbook workbook, studyCentreName){
        println("creating this sheet "+ sheetNo)
        WritableSheet sheet= null
        WritableSheet excelSheet=null
        sheet = workbook.createSheet(""+course.courseName, sheetNo);
        excelSheet = workbook.getSheet(sheetNo);
-      createLabel(excelSheet, params, course);
+      createLabel(excelSheet, params, course, studyCentreName);
       createContent(excelSheet, finalList);
 //       workbook.write();
 //      workbook.close();
@@ -42,7 +42,7 @@ class WriteExcelService {
   }
 
 
-    private void createLabel(WritableSheet sheet, params, course)
+    private void createLabel(WritableSheet sheet, params, course, studyCentreName )
             throws WriteException {
         println("calling this method")
         def formatSession = Integer.parseInt(params.courseSession)+1
@@ -74,7 +74,7 @@ class WriteExcelService {
         cv.setAutosize(true);
         int row = 0
         int cols = 6
-        WritableCell titleCell = new Label(0, row, "Total Students In "+course.courseName +" For "+ params.session+"-"+formatSession +" Session ");
+        WritableCell titleCell = new Label(0, row, "Total Students In "+course.courseName +" For "+ params.session+"-"+formatSession +" Session In "+studyCentreName);
         titleCell.setCellFormat(times)
         sheet.addCell(titleCell);
         sheet.mergeCells(0, row, cols, row);

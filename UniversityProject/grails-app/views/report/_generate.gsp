@@ -40,7 +40,7 @@
 <body>
 <div id="main">
       <g:if test="${totalListBySession}">
-          <h3> Total Students In All Courses For ${sessionVal} Session</h3>
+          <h3> Total Students In All Courses For ${sessionVal} Session In ${studyCentreName}</h3>
           <table style=" text-align: center" class="gridtable">
                      <th>Course Name</th>
                      <th>No. Of Students</th>
