@@ -25,6 +25,7 @@
 <li><a href="#"><g:message code="default.mainMenu1"/></a></li>
 <li><a href="#"><g:message code="default.mainMenu2"/></a>
     <ul>
+
         <li><g:link controller="student" action="registration"><g:message
                 code="default.mainMenu2.subMenu1"/></g:link></li>
         <li><g:link controller="student" action="enrollmentAtIdol"><g:message

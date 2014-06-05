@@ -8,6 +8,7 @@ import javax.activation.MimetypesFileTypeMap
 class ReportController {
     def reportService
     def pdfRenderingService
+    def springSecurityService
     @Secured(["ROLE_ADMIN", "ROLE_STUDY_CENTRE"])
     def reportIndex = {
 //        println('in report Index')
@@ -243,10 +244,18 @@ class ReportController {
 
       else if(params.value=='courseUnapproved' && params.courseUnapprovedSession || params.value=='courseApproved' && params.courseApprovedSession){
            println("this function is called")
+           def currentUser=springSecurityService.getCurrentUser()
+           def studyCenterId = currentUser.studyCentreId
+           def studyCenter= StudyCenter.findById(studyCenterId)
            def totalList = reportService.getReportDataCourseApprovedUnapproved(params)
            def sessionVal= Integer.parseInt(params.courseApprovedSession)+1
            sessionVal= params.courseApprovedSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           def type
+           if(params.value=='courseUnapproved')
+                type = 'Unapproved'
+           else
+                type='Approved'
+           def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal, studyCentreName:studyCenter.name, type:type],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
       }
 

@@ -1,9 +1,7 @@
 
 function semesterList() {
     var courseType= $('#programType').val()
-    alert('this is  the courseType '+ courseType)
     if(courseType){
-
     }
 
     $('#multiSelectTab tbody tr').remove()

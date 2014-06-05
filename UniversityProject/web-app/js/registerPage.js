@@ -165,7 +165,7 @@ function submitTempRegistration() {
             success: function (data) {
                 document.getElementById("tempEnrollment").reset();
                 //kuldeep's code start from here................................................
-                $('#studentName').text(''+data.student.firstName+' '+ data.student.lastName+' '+(data.student.middleName? data.student.middleName:''))
+                $('#studentName').text(''+data.student.firstName+' '+(data.student.middleName? data.student.middleName:'')+' '+ data.student.lastName)
                 $('#studentRollNo').text(''+data.student.rollNo)
                 $('#challanNo').text(''+data.student.challanNo)
                 $('#feeType').text('Admission Fee for '+data.courseName)
