@@ -123,11 +123,11 @@
     </fieldset>
     <script>
         $('#generateFeeChallan').click(function(){
-            if($('#challanForStudyCenter').valid()) {
+            if($('#serialNoTo').val()!="") {
                 setTimeout(function () {
                     $('#challanForStudyCenter')[0].reset();
-                    document.getElementById("rangeRadioButtons").style.visibility = "hidden";//
-                    document.getElementById("studyCenterFeeEntryTable").style.visibility = "hidden";
+                    $('#studyCenterFeeEntryTable').attr('hidden', true);
+                    $('#rangeRadioButtons').attr('hidden', true);
                     document.getElementById("paginationDiv").style.visibility = "hidden";
                     document.getElementById("generateFeeChallan").style.visibility = "hidden";
                     document.getElementById("paymentDetails").style.visibility = "hidden";

@@ -88,7 +88,7 @@ class StudentController {
             }
             else{
                 if(springSecurityService.isLoggedIn()){
-                    flash.message = "${message(code: 'register.created.message')}"
+                    flash.message = "${message(code: 'register.created.message')} & Roll Number is "+studentRegistration.rollNo
                     redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
                 }else{
                     flash.message = "${message(code: 'register.created.message')}"
