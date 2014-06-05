@@ -49,6 +49,7 @@
     </fieldset>
 </g:elseif>
 <g:else>
+    %{--<g:set var="index" value="1"/>--}%
         <fieldset class="form">
            <h3>Student Enrollment</h3>
             <g:if test="${flash.message}">
@@ -64,19 +65,20 @@
                             <table class="inner university-table-1-3 university-size-1-1" style="vertical-align: top;">
                                 <tr>
                                     <td>
-                                        <input type="text" placeholder="First Name" name="firstName" style="margin-left: -10px;text-transform: capitalize;"
-                                               onkeypress="return onlyAlphabets(event, this);"
-                                               maxlength="50" class="university-size-1-1" value=""/>
+                                        <input type="text" tabindex="2" name="firstName" style="margin-left: -10px;text-transform: capitalize;"
+                                               onkeypress="return onlyAlphabets(event);"
+                                               maxlength="50" class="university-size-1-1" value="" placeholder="First Name"/>
+
                                     </td>
                                     <td style="vertical-align: top;">
-                                        <input type="text" placeholder="Middle Name" name="middleName" style="margin-left: -10px;text-transform: capitalize;"
-                                               onkeypress="return onlyAlphabets(event, this);"
-                                               maxlength="50" class="university-size-1-1" value=""/>
+                                        <input type="text" tabindex="2" name="middleName" style="margin-left: -10px;text-transform: capitalize;"
+                                               onkeypress="return onlyAlphabets(event);"
+                                               maxlength="50" class="university-size-1-1" value="" placeholder="Middle Name"/>
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="Last Name" name="lastName" style="margin-left: -10px;text-transform: capitalize;"
-                                               onkeypress="return onlyAlphabets(event, this);"
-                                               maxlength="50" class="university-size-1-1" value=""/>
+                                        <input type="text" tabindex="3" name="lastName" style="margin-left: -10px;text-transform: capitalize;"
+                                               onkeypress="return onlyAlphabets(event);"
+                                               maxlength="50" class="university-size-1-1" value=""  placeholder="Last Name"/>
                                     </td>
                                 </tr>
                             </table>
@@ -85,14 +87,14 @@
                     <tr>
                         <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
                         <td class="university-size-2-3">
-                            <input type="text" name="applicationNo" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
+                            <input type="text" name="applicationNo" tabindex="4" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
                             <label id="errorMsg" class="error1"></label>
                         </td>
                     </tr>
                     <tr>
                         <td>Program<span class="university-obligatory">*</span></td>
                         <td>
-                            <g:select name="programId" id="programId" optionKey="id" onchange="checkLastDate(this)" class="university-size-1-2"
+                            <g:select name="programId" id="programId" optionKey="id" tabindex="5" onchange="checkLastDate(this)" class="university-size-1-2"
                                       optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"/>
                             <g:hiddenField name="idol" value="idol"/>
                         </td>
@@ -101,7 +103,7 @@
                         <td>Date of Birth <span class="university-obligatory">*</span></td>
                         <td>
                             %{--<input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datePick"/>--}%
-                            <input type="text" name="d_o_b" maxlength="10" PLACEHOLDER="MM/DD/YYYY" class="university-size-1-2" id="datepicker2">
+                            <input type="text" name="d_o_b" maxlength="10" tabindex="6" PLACEHOLDER="MM/DD/YYYY" class="university-size-1-2" id="datepicker2">
 
                         </td>
                     </tr>
@@ -117,7 +119,7 @@
                         <td>Category <span class="university-obligatory">*</span></td>
                         <td>
                             <div class="radio_options">
-                                <label><span>General</span><input type="radio" name="category" value="General" class="radioInput"/></label>
+                                <label><span>General</span><input type="radio" tabindex="7" name="category" value="General" class="radioInput"/></label>
 
                                 <label><span>MOBC</span><input type="radio" name="category" value="MOBC" class="radioInput"/></label>
 
@@ -137,7 +139,7 @@
                         <td>Gender <span class="university-obligatory">*</span></td>
                         <td>
                             <div class="radio_options">
-                                <label><span>Male</span><input type="radio" name="gender" value="Male" class="radioInput"/></label>
+                                <label><span>Male</span><input type="radio" tabindex="8" name="gender" value="Male" class="radioInput"/></label>
                                 <label><span>Female</span><input type="radio" name="gender" value="Female" class="radioInput"/></label>
                             </div>
                         </td>
@@ -145,15 +147,15 @@
                     <tr>
                         <td>Mobile Number <span class="university-obligatory">*</span></td>
                         <td>
-                            <input type="text" id="mobileNoCntryCode" name="mobileNoCntryCode" maxlength="3" value="+91" readonly> - <input
-                                type="text" id="mobileNo" name="mobileNo" maxlength="10"
+                            <input type="text" id="mobileNoCntryCode"  name="mobileNoCntryCode" maxlength="3" value="+91" readonly> - <input
+                                type="text" id="mobileNo" name="mobileNo" maxlength="10" tabindex="9"
                                 onkeypress="return isNumber(event)"/>
                         </td>
                     </tr>
                     <tr>
                         <td>Select District<span class="university-obligatory">*</span></td>
                         <td>
-                            <g:select name="examDistrict" id="district" optionKey="id"
+                            <g:select name="examDistrict" id="district" tabindex="10" optionKey="id"
                                       value=""
                                       class="university-size-1-2"
                                       onChange="showExamCenterList()" optionValue="districtName"
@@ -163,15 +165,15 @@
                     <tr>
                         <td>Select Preference of examination Centre <span class="university-obligatory">*</span></td>
                         <td>
-                            <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-2" from=" " noSelection="['': 'Select Examination Centre']"/>
+                            <g:select name="examinationCentre" tabindex="11" id="examinationCentre" class="university-size-1-2" from=" " noSelection="['': 'Select Examination Centre']"/>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
 
-                            <input type="button" value="Submit" onclick="submitTempRegistration()" class="university-button">
-                            <input type="reset" value="Reset" onclick="resetImage()" class="university-button">
+                            <input type="button" value="Submit" tabindex="12" onclick="submitTempRegistration()" class="university-button">
+                            <input type="reset" value="Reset" tabindex="13" onclick="resetImage()" class="university-button">
                         </td>
                     </tr>
                 </table>

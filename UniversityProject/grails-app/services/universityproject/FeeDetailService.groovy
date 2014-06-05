@@ -5,6 +5,7 @@ import examinationproject.Bank
 import examinationproject.FeeDetails
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
+import examinationproject.MiscellaneousFeeChallan
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 
@@ -355,6 +356,38 @@ class FeeDetailService {
         returnMap.branch=feeDetails.branchId.branchLocation
         return returnMap
 
+    }
+
+    def rollNumberFeeStatus(params){
+        def returnMap=[:]
+        def studInst=Student.findByRollNo(params.rollNo)
+        if(studInst.challanNo!=null) {
+            def admissionChallanIns = FeeDetails.findByChallanNo(studInst.challanNo)
+            def admissionChallanStatus = studInst.status.status
+            def miscFeeList = MiscellaneousFeeChallan.findAllByStudent(studInst)
+//            println(miscFeeList)
+            def miscFeeStatus = []
+            def miscFeetype = []
+            miscFeeList.each {
+                def status = FeeDetails.findByChallanNo(it.challanNo)
+                if (status) {
+                    miscFeeStatus.add('Approved')
+                } else {
+                    miscFeeStatus.add('Not Approved')
+                }
+                miscFeetype.add(it.feeType.type)
+            }
+            returnMap.studInst = studInst
+            returnMap.admissionChallanIns = admissionChallanIns
+            returnMap.miscFeeList = miscFeeList
+            returnMap.miscFeeStatus = miscFeeStatus
+            returnMap.miscFeetype = miscFeetype
+            returnMap.admissionChallanStatus = admissionChallanStatus
+        }
+        else{
+            returnMap.error = "No Challan Generated Yet"
+        }
+        return returnMap
     }
 }
 

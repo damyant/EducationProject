@@ -104,7 +104,7 @@
             class="university-obligatory">*</span> </label></td>
         <td class="university-size-2-3">
             <input type="text" name="name" id="name" value="${studyCentreInstance?.name}"
-                   class="university-size-1-2" onkeypress="return onlyAlphabets(event, this);" maxlength="50"/>
+                   class="university-size-1-2" onkeypress="return onlyAlphabets(event);" maxlength="50"/>
         </td>
                 </tr>
         <tr>
@@ -179,7 +179,7 @@
         <tr>
             <td><label><g:message code="default.createStudy.nameOfCoordinator"/> <span
                     class="university-obligatory">*</span></label></td>
-            <td><input type="text" name="nameOfCoordinator" onkeypress="return onlyAlphabets(event, this);"
+            <td><input type="text" name="nameOfCoordinator" onkeypress="return onlyAlphabets(event);"
                        value="${studyCentreInstance?.nameOfCoordinator}"
                        class="university-size-1-2"/></td>
         </tr>
@@ -199,7 +199,7 @@
         <tr>
             <td><label><g:message code="default.createStudy.nameOfAsstCoordinator"/> <span
                     class="university-obligatory">*</span></label></td>
-            <td><input type="text" name="asstCoordinator" onkeypress="return onlyAlphabets(event, this);"
+            <td><input type="text" name="asstCoordinator" onkeypress="return onlyAlphabets(event);"
                        value="${studyCentreInstance?.asstCoordinator}"
                        class="university-size-1-2"/></td>
         </tr>

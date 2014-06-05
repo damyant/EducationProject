@@ -944,3 +944,46 @@ function loadPayInSlipDetails(t){
         })
     }
 }
+
+function checkFeeStatusForRollNo(){
+var rollNo=$('#rollNoForFeeStatus').val()
+    if(rollNo.length==8){
+        $('#errorLabel').html("")
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'checkRollNoFeeStatus', ''),
+            data: {rollNo:rollNo},
+            success: function (data) {
+                if(!data.error){
+                    $('#showStatusForRollNo').empty().append('<table class="university-size-full-1-1" id="statusTable"></table>')
+                    $('#statusTable').append('<tr><th>Challan No</th><th>Fee Type</th><th>Status</th></tr>')
+                    if(data.admissionChallanIns) {
+                        $('#statusTable').append('<tr><td>' + data.admissionChallanIns.challanNo + '</td><td>Admission Fee</td><td>' + data.admissionChallanStatus + '</td></tr>')
+                    }
+                    if(data.miscFeeList.length>0){
+                        for(var i=0;i<=data.miscFeeList.length;i++){
+                            $('#statusTable').append('<tr><td>' + data.miscFeeList[i].challanNo + '</td><td>'+data.miscFeetype[i]+'</td><td>' + data.miscFeeStatus[i] + '</td></tr>')
+
+                        }
+
+                    }
+                }
+                else{
+                    $('#showStatusForRollNo').empty()
+                    $('#errorLabel').html(data.error)
+                }
+
+            }
+        })
+    }
+    else{
+        $('#errorLabel').html("Please Enter Correct Roll Number")
+    }
+}
+
+function editUser(userId){
+    window.open ('/UniversityProject/user/editUser/'+userId,'_self',false)
+}
+function resetPassword(userId){
+    window.open ('/UniversityProject/user/resetPassword/'+userId,'_self',false)
+}

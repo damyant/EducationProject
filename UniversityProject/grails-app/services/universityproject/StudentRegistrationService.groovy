@@ -5,6 +5,7 @@ import examinationproject.Branch
 import examinationproject.City
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
+import examinationproject.MiscellaneousFeeChallan
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.Status
@@ -370,12 +371,24 @@ class StudentRegistrationService {
         def challanNo
         println("Student.count"+Student.count)
         println(Student.count)
+        def studentByChallanNo
         if(Student.count()>0){
-            def obj = Student.createCriteria()
-            def studentByChallanNo = obj.list {
+            def stdObj = Student.createCriteria()
+            def studentTableByChallanNo = stdObj.list {
                 isNotNull("challanNo")
                 maxResults(1)
                 order("id", "desc")
+            }
+            def mscObj = MiscellaneousFeeChallan.createCriteria()
+            def MiscByChallanNo = mscObj.list {
+                maxResults(1)
+                order("id", "desc")
+            }
+            if(Integer.parseInt(MiscByChallanNo[0].challanNo)>Integer.parseInt(studentTableByChallanNo[0].challanNo)){
+                studentByChallanNo=MiscByChallanNo
+            }
+            else{
+                studentByChallanNo=studentTableByChallanNo
             }
             println(studentByChallanNo)
             def lastChallanDate
