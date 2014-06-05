@@ -137,7 +137,7 @@ class StudentRegistrationService {
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
         String courseCodeStr = course[0].courseCode.toString()
         String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2, 4)
-        int rollNo = 1001
+        int rollNo = 1
         String rollTemp = null
         int rollTemp1 = 0
         String rollStr = Integer.toString(rollNo)
@@ -164,22 +164,43 @@ class StudentRegistrationService {
                 if (studentByYearAndCourse.get(0).rollNo) {
                     rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
                     rollTemp1 = Integer.parseInt(rollTemp) + 1
-                    rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
+                    rollNumber = courseCodeStr + yearCode + this.prepareSequenceForRollNo(rollTemp1.toString())
                 } else {
-                    rollNumber = courseCodeStr + yearCode + rollStr
+                    rollNumber = courseCodeStr + yearCode + this.prepareSequenceForRollNo(rollStr)
                 }
             } else {
-                rollNumber = courseCodeStr + yearCode + rollStr
+                rollNumber = courseCodeStr + yearCode + this.prepareSequenceForRollNo(rollStr)
             }
 
 
         } else {
-            rollNumber = courseCodeStr + yearCode + rollStr
+            rollNumber = courseCodeStr + yearCode + this.prepareSequenceForRollNo(rollStr)
         }
         return rollNumber
         }catch(Exception e){
            println("Problem in roll number generation")
         }
+    }
+
+    private String prepareSequenceForRollNo(String serial){
+        int length
+        String rollNoSr
+        length = serial.toString().length()
+        switch(length){
+            case 1:
+                rollNoSr = "000"+serial.toString()
+                break;
+            case 2:
+                rollNoSr = "00"+serial.toString()
+                break;
+            case 3:
+                rollNoSr = "0"+serial.toString()
+                break;
+            default:
+                rollNoSr = serial.toString()
+        }
+        return rollNoSr
+
     }
     def getUpdatedStudentRollNumber(params){
 
@@ -190,7 +211,7 @@ class StudentRegistrationService {
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
             String courseCodeStr = course[0].courseCode.toString()
             String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2, 4)
-            int rollNo = 1001
+            int rollNo = 1
             String rollTemp = null
             int rollTemp1 = 0
             String rollStr = Integer.toString(rollNo)
@@ -217,16 +238,16 @@ class StudentRegistrationService {
                     rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
                     for(int i=1;i<=studentIdList.size();i++){
                         rollTemp1 =Integer.parseInt(rollTemp) + i
-                        rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
+                        rollNumber = courseCodeStr + yearCode + this.prepareSequenceForRollNo(rollTemp1.toString())
                         rollNoList.put(i.toString(),rollNumber)
                     }
                 } else {
 //                    println("In Else")
                     int j=1
-                    rollNoList.put(j.toString(),(courseCodeStr + yearCode + rollNo.toString()))
+                    rollNoList.put(j.toString(),(courseCodeStr + yearCode + this.prepareSequenceForRollNo(rollNo.toString())))
                     for(int i=1;i<=studentIdList.size();i++){
                         rollTemp1=rollNo+i
-                        rollNumber = courseCodeStr + yearCode + rollTemp1.toString()
+                        rollNumber = courseCodeStr + yearCode + this.prepareSequenceForRollNo(rollTemp1.toString())
                         rollNoList.put((i+1).toString(),rollNumber)
                     }
                 }
@@ -291,73 +312,73 @@ class StudentRegistrationService {
     def seedStudent(params) {
         println("Start Time"+new Date())
         def students
-        Set<ProgramDetail> programDetails = ProgramDetail.findAllById(21)
+        Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
-////       At Study Center
-
-        for (int i = 1; i <= 20000; i++) {
-            println("Student Number is "+i)
-            students = new Student()
-            students.firstName = "StudentAtStudy"+i
-            students.lastName="Test"
-            students.gender = "Male"
-            students.category = "GEN"
-            students.programSession = ProgramSession.get(21)
-//            students.referenceNumber = getStudentReferenceNumber()
-//            students.challanNo = getChallanNumber()
-            params.programId="21"
-            students.rollNo = getStudentRollNumber(params)
-            students.dob = new Date()
-            students.admissionDate = new Date()
-            students.programDetail = programDetails
-            students.status = Status.findById(2)
-            students.studyCentre = StudyCenter.findAllById(73)
-            students.admitCardGenerated = false
-            students.semester=1
-            students.city=City.findAllById(8)
-            students.programDetail = programDetails
-            students.registrationYear = year
-            students.city= City.findAllById(1)
-            try{
-            students.save(flush: true,failOnError: true)
-            }catch (Exception e){
-                println("????????"+e.printStackTrace())
-            }
-        }
-
-
-
-
-
-//        //At IDOL
-//        for (int i = 1; i < 750; i++) {
+//////       At Study Center
+//
+//        for (int i = 1; i <= 20000; i++) {
 //            println("Student Number is "+i)
 //            students = new Student()
-//            students.firstName = "StudentAtIDOL"+i
+//            students.firstName = "StudentAtStudy"+i
 //            students.lastName="Test"
 //            students.gender = "Male"
 //            students.category = "GEN"
-//            students.programSession = ProgramSession.get(33)
-//            students.referenceNumber = getStudentReferenceNumber()
-//            students.challanNo = getChallanNumber()
+//            students.programSession = ProgramSession.get(21)
+////            students.referenceNumber = getStudentReferenceNumber()
+////            students.challanNo = getChallanNumber()
+//            params.programId="21"
+//            students.rollNo = getStudentRollNumber(params)
 //            students.dob = new Date()
 //            students.admissionDate = new Date()
 //            students.programDetail = programDetails
-//            students.status = Status.findById(1)
-//            students.studyCentre = StudyCenter.findAllById(1)
+//            students.status = Status.findById(2)
+//            students.studyCentre = StudyCenter.findAllById(73)
 //            students.admitCardGenerated = false
 //            students.semester=1
 //            students.city=City.findAllById(8)
 //            students.programDetail = programDetails
 //            students.registrationYear = year
+//            students.city= City.findAllById(1)
 //            try{
-//                students.save(flush: true,failOnError: true)
+//            students.save(flush: true,failOnError: true)
 //            }catch (Exception e){
 //                println("????????"+e.printStackTrace())
 //            }
 //        }
+
+
+
+
+
+        //At IDOL
+        for (int i = 250; i < 750; i++) {
+            println("Student Number is "+i)
+            students = new Student()
+            students.firstName = "StudentAtIDOL"+i
+            students.lastName="Test"
+            students.gender = "Male"
+            students.category = "GEN"
+            students.programSession = ProgramSession.get(23)
+            students.referenceNumber = getStudentReferenceNumber()
+            //students.challanNo = getChallanNumber()
+            students.dob = new Date()
+            students.admissionDate = new Date()
+            students.programDetail = programDetails
+            students.status = Status.findById(1)
+            students.studyCentre = StudyCenter.findAllById(1)
+            students.admitCardGenerated = false
+            students.semester=1
+            students.city=City.findAllById(8)
+            students.programDetail = programDetails
+            students.registrationYear = year
+            try{
+                students.save(flush: true,failOnError: true)
+            }catch (Exception e){
+                println("????????"+e.printStackTrace())
+            }
+        }
         println("End Time"+new Date())
     }
 
