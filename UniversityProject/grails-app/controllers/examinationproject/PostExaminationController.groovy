@@ -10,7 +10,7 @@ import static examinationproject.ProgramSession.*
  * Created by Digvijay on 3/6/14.
  */
 class PostExaminationController {
-
+    def pdfRenderingService
     def createMarksFoil = {
         println("Inside PostExaminationController-->Params = "+params)
         def programList = ProgramDetail.list()
@@ -40,8 +40,15 @@ def getCourseData={
     println("Program Session--"+ProgramSession.findBySessionOfProgram(params.session))
     println("Program Details--"+ProgramDetail.findById(params.program))
 
-    println("Inside PostExamination Controller-22->subjectList=="+subjectList)
+    println("Inside PostExamination Controller-22->subjectList=="+subjectList[0].id)
     render subjectList as JSON
 }
 
+    def generateMarksFoilSheet={
+        println("Inside Controller's Action ------")
+        println('Params === ' +params)
+
+        def args = [template: "generateMarksFoil"]
+        pdfRenderingService.render(args + [controller: this], response)
+    }
 }// CLOSING BRACKETS

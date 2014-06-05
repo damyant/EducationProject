@@ -82,8 +82,12 @@ function loadCourse() {
         url: url('postExamination', 'getCourseData', ''),
         data: {program: program,session: session,semester: semester},
         success: function (data) {
+//            alert("aaaaaaaaaaaaaaaaaa")
+            console.log(data)
+            $('#courseCode').empty().append('<option value="">Select Course</option>')
                for(i=0; i<data.length;i++){
-                   $('#courseCode').empty().append('<option value="' + data[i].subject.id + '">' + data[i].subject.subjectName + '</option>')
+//                   alert("bbbbbbbbbbbbbb")
+                   $('#courseCode').empty().append('<option value="' + data[i].id + '">' + data[i].subjectName + '</option>')
                }
 
 //            if(data.courseCode==true){
