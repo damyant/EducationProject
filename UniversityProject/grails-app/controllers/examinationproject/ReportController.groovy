@@ -57,7 +57,7 @@ class ReportController {
                def studyCenterId = currentUser.studyCentreId
                def studyCenter= StudyCenter.findById(studyCenterId)
 //           println("back in controller with this "+ totalList)
-           def args = [template: "generate", model: [totalListBySession :totalList, sessionVal:sessionVal, studyCentreName: studyCenter.name],filename:params.session+'_All_Course'+".pdf"]
+           def args = [template: "generate", model: [totalListBySession :totalList, sessionVal:sessionVal, studyCentreName: studyCenter?studyCenter.name:''],filename:params.session+'_All_Course'+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
            }
 
@@ -122,9 +122,10 @@ class ReportController {
            }
            else{
            def totalList = reportService.getReportDataStudyCentre(params, null)
+           def studyCentre= StudyCenter.findById(Long.parseLong(params.studyCentre))
            def sessionVal= Integer.parseInt(params.studyCentreSession)+1
            sessionVal= params.studyCentreSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByStudyCentre :totalList, studyCentreSession:sessionVal],filename:'Student_List_'+params.studyCentreSession+".pdf"]
+           def args = [template: "generate", model: [totalListByStudyCentre :totalList, studyCentreSession:sessionVal, studyCentreName: studyCentre.name],filename:'Student_List_'+params.studyCentreSession+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
            }
        }

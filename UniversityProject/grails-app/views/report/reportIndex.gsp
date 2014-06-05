@@ -162,7 +162,7 @@
                        <label for="course">Select Course:</label>
                    </td>
                    <td style="width: 25%" >
-                       <g:select name="course" class="university-size-1-1" id="course"
+                       <g:select name="course" class="university-size-1-1" id="courseVal"
                                  from="${ProgramDetail.list([sort: 'courseCode'])}" optionKey="id" optionValue="courseName"
                                  noSelection="[0: ' Select Course']" />
                    </td>
@@ -498,7 +498,7 @@
 //            return true;
         }
         else if(val=='course'){
-            check1 =$('#course').val()
+            check1 =$('#courseVal').val()
             check2 =$('#courseSession').val()
             if(check1==0 || check2==0){
                 alert("please select values")
