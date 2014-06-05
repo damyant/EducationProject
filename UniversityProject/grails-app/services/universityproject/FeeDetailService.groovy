@@ -350,7 +350,7 @@ class FeeDetailService {
                 courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC+lateFee
             }
         }
-        println(studyCentreList)
+        println("Study"+studyCentreList[0])
         returnMap.stuList=stuList
         returnMap.studyCentreList=studyCentreList
         returnMap.courseNameList=courseNameList
