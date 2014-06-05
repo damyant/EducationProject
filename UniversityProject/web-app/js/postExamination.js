@@ -21,7 +21,7 @@ function loadSession(t){
 }
 
 function loadSemester(){
-    alert("Inside Load Semester")
+    //alert("Inside Load Semester")
     var data = $('#programId').val();
 //    $('#semesterList').prop('disabled',false)
 //    $('#SessionList').prop('disabled',false)
@@ -73,22 +73,27 @@ function getSemesterAndSubjectList(){
 
 function loadCourse() {
     alert("Inside Load Course..")
-    var data = $('#semesterList').val();
-    alert("-------"+data)
+    var program = $('#programId').val();
+    var session = $('#session').val();
+    var semester = $('#semesterList').val();
+    alert("-------"+semester)
     $.ajax({
         type: "post",
-        url: url('course', 'checkCourseCode', ''),
-        data: {courseCode: data},
+        url: url('postExamination', 'getCourseData', ''),
+        data: {program: program,session: session,semester: semester},
         success: function (data) {
+               for(i=0; i<data.length;i++){
+                   $('#courseCode').empty().append('<option value="' + data[i].subject.id + '">' + data[i].subject.subjectName + '</option>')
+               }
 
-            if(data.courseCode==true){
-                $("#semesterList tr").remove()
-                $("#msgDiv").html("There is no Course associated with the program")
-            }
-            else{
-                $("#msgDiv").html("")
-                appendSubjects(data)
-            }
+//            if(data.courseCode==true){
+//                $("#semesterList tr").remove()
+//                $("#msgDiv").html("There is no Course associated with the program")
+//            }
+//            else{
+//                $("#msgDiv").html("")
+//                appendSubjects(data)
+//            }
         }
     });
 }

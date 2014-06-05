@@ -1,5 +1,6 @@
 package examinationproject
 
+import grails.converters.JSON
 import universityproject.PostExaminationService
 
 import static examinationproject.ProgramDetail.*
@@ -11,9 +12,12 @@ import static examinationproject.ProgramSession.*
 class PostExaminationController {
 
     def createMarksFoil = {
-        println("Inside PostExaminationController 1"+params)
+        println("Inside PostExaminationController-->Params = "+params)
         def programList = ProgramDetail.list()
+        println("Inside PostExaminationController-->programList = "+programList)
         [programList:programList]
+
+
 
 //        try{
 //            def program = ProgramDetail.findById(Integer.parseInt(params.programDetail))
@@ -29,5 +33,15 @@ class PostExaminationController {
 //        println("Inside PostExaminationController 3"+params)
     }
 
+def getCourseData={
+    println('Params === ' +params)
+    def subjectList=CourseSubject.findAllBySemesterAndProgramSessionAndCourseDetail(Semester.findById(Integer.parseInt(params.semester)),ProgramSession.findBySessionOfProgram(params.session),ProgramDetail.findById(params.program))*.subject
+    println("Semester--"+Semester.findById(Integer.parseInt(params.semester)))
+    println("Program Session--"+ProgramSession.findBySessionOfProgram(params.session))
+    println("Program Details--"+ProgramDetail.findById(params.program))
+
+    println("Inside PostExamination Controller-22->subjectList=="+subjectList)
+    render subjectList as JSON
+}
 
 }// CLOSING BRACKETS

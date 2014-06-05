@@ -6,7 +6,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+%{--<%@ page import="examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>--}%
 
 <html>
 <head>
@@ -97,19 +97,19 @@
 
         </table>
 
-        <table id="studyCenterTab" class="university-table-1-4">
-            <thead>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <g:if test="${params.city}">
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    showStudyCenterList()
-                })
-            </script>
-        </g:if>
+        %{--<table id="studyCenterTab" class="university-table-1-4">--}%
+            %{--<thead>--}%
+            %{--</thead>--}%
+            %{--<tbody>--}%
+            %{--</tbody>--}%
+        %{--</table>--}%
+        %{--<g:if test="${params.city}">--}%
+            %{--<script type="text/javascript">--}%
+                %{--$(document).ready(function () {--}%
+                    %{--showStudyCenterList()--}%
+                %{--})--}%
+            %{--</script>--}%
+        %{--</g:if>--}%
         <div id="msgDiv"></div>
     </fieldset>
 </div>
