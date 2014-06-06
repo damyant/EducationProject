@@ -131,7 +131,7 @@ function getStudents() {
     }
 }
 
-function viewStudentByRollNo(){
+function updateStudentByRollNo(){
 //    alert("dfdfdf")
     validateProgramFee()
     var rollNo= $("#StudentRollNo").val()
@@ -146,7 +146,19 @@ function viewStudentByRollNo(){
     }
 
 }
-
+function viewStudentByRollNo(){
+    validateProgramFee()
+    var rollNo= $("#StudentRollNo").val()
+//    alert($('#individualStudentUpdate').valid())
+    if($('#individualStudentUpdate').valid()) {
+        if (rollNo.length == 8) {
+            window.location.href = '/UniversityProject/student/viewStudent?studentId=' + rollNo;
+        }
+        else {
+            alert("Please enter 8 digit roll number!")
+        }
+    }
+}
 function enableProgram(t) {
     var op = $(t).val();
     $('#programId').val('');
@@ -385,22 +397,22 @@ function generateStudentsList() {
                 document.getElementById("studentList").style.visibility = "visible";
                 document.getElementById("paginationDiv").style.visibility = "visible";
 //                $('#paginationDiv').after(data.studList[0].firstName)
-                $('#studentList thead').append('<tr><th>'+"Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Roll Number" + '</th><th>' + "Mobile No" + '</th><th>Fee Status</th><th>Admission Status</th><th>&nbsp;</th></tr>')
+                $('#studentList thead').append('<tr><th>' + "Roll Number" + '</th><th>'+"Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Mobile No" + '</th><th>Fee Status</th><th>Admission Status</th><th>&nbsp;</th></tr>')
                 for (var i = 0; i < data.studList.length; i++) {
                     if(data.studList[i].middleName!=null) {
                         if(data.studList[i].rollNo!=null){
-                        $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.feeStatus[i]+'</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                        $('#studentList tbody').append('<tr><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.feeStatus[i]+'</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
                         }
                         else{
-                            $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>Not Generated Yet</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.feeStatus[i]+'</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                            $('#studentList tbody').append('<tr><td>'+"Not Generated Yet"+'</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.feeStatus[i]+'</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
                         }
                     }
                     else{
                         if(data.studList[i].rollNo!=null){
-                            $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.feeStatus[i]+'</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                            $('#studentList tbody').append('<tr><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.feeStatus[i]+'</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
                         }
                         else{
-                            $('#studentList tbody').append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>Not Generated Yet</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.feeStatus[i]+'</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                            $('#studentList tbody').append('<tr><td>'+"Not Generated Yet"+ '</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">'+data.feeStatus[i]+'</td><td style="text-align: center;">'+data.status[i]+'</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
                         }
                     }
                 }
