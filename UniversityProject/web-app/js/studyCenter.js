@@ -11,7 +11,6 @@
 
 
 function showCityList() {
-//    alert('in show city list')
     var data;
     data = $('#district').val();
     if(data){
@@ -28,7 +27,6 @@ function showCityList() {
         success: function (data) {
             $("#city").prop("disabled", false)
             $("#city").empty().append('<option value="">Select Examination Centre</option>');
-
             $("#examCityCumulative").empty().append('<option value="">Select Examination Centre</option>');
             for (var i = 0; i < data.length; i++) {
 
@@ -133,7 +131,6 @@ function viewStudyCenter(studyCenterId) {
 
 }
 function showCentreList(t) {
-//    alert('now getting centres'+ t)
     var data = $(t).val();
     if(data){
     $.ajax({

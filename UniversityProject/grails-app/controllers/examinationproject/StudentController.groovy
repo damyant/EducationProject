@@ -36,7 +36,6 @@ class StudentController {
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
             def today =df.parse(df.format(new Date()))
             allProgramList.each {
-
                 if(it.startAdmission_D!=null && it.endAdmission_D !=null) {
                     def start =df.parse(df.format(it.startAdmission_D))
                     def end =df.parse(df.format(it.endAdmission_D))

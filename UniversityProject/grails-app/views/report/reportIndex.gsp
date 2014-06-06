@@ -382,7 +382,7 @@
                        <tr>
                            <td style="width: 50%">
 
-                               <g:select name="examDistrict" id="examDistrict" optionKey="id"
+                               <g:select name="examDistrict" id="district" optionKey="id"
                                          value="" class="university-size-1-1"
                                          onChange="showCityList()" optionValue="districtName"
                                          from="${District.list([sort: 'districtName'])}" noSelection="['': ' Select District']"/>
@@ -391,7 +391,7 @@
                            <td style="width: 50%">
 
 
-                                   <g:select name="examCity" id="examCity" optionKey="id" class="university-size-1-1"
+                                   <g:select name="examCity" id="city" optionKey="id" class="university-size-1-1"
                                              optionValue="cityName"
                                              from="" onchange="showCentreList(this)"
                                              noSelection="['': 'Select Examination Centre']"/>

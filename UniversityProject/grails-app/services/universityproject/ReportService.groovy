@@ -320,6 +320,7 @@ class ReportService {
                 finalStudentMap.put(it.courseName, count.getAt(0))
             }
             finalStudentMap.put("TOTAL STUDENTS", totalForSession)
+            println("oye kuldeep "+ params)
             return finalStudentMap
         }
     }
@@ -496,16 +497,15 @@ class ReportService {
         def studentList = stuObj.list{
                 eq('registrationYear' , Integer.parseInt(params.admissionSelfRegistrationSession))
 
-             and{
-                eq('status', Status.findById(1))
-             }
+//             and{
+//                eq('status', Status.findById(1))
+//             }
             and{
               isNotNull('referenceNumber')
             }
         }
-
         println("this is the list--------------- "+studentList)
-
+        return studentList
     }
 
 

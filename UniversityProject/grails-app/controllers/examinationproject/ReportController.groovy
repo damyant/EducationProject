@@ -194,11 +194,12 @@ class ReportController {
 
 
       else if(params.value=='admissionSelfRegistration' && params.admissionSelfRegistrationSession){
-           println("this function is called")
+           println("this function is called "+ params)
            def totalList = reportService.getReportDataAdmissionSelfRegistration(params)
-           def sessionVal= Integer.parseInt(params.admissionUnapprovedSession)+1
-           sessionVal= params.admissionUnapprovedSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByAdmissionUnapproved :totalList, admissionUnapprovedSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           def sessionVal= Integer.parseInt(params.admissionSelfRegistrationSession)+1
+           sessionVal= params.admissionSelfRegistrationSession+'-'+sessionVal
+           println('this is the list '+ totalList)
+           def args = [template: "generate", model: [totalListBySelfRegistration :totalList, admissionSelfRegistrationSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
       }
 
@@ -259,7 +260,7 @@ class ReportController {
            def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal, type:type],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
       }
-
+//have to complete*****************************************************************
       else if(params.value=='examinationCentreCumulative' && params.examinationCentreCumulativeSchedule){
            println("this cumulative function is called")
            def totalList = reportService.getReportDataExaminationCentreCumulative(params)
@@ -269,6 +270,7 @@ class ReportController {
            pdfRenderingService.render(args + [controller: this], response)
 
        }
+//************************************************************************************
        //Added By Digvijay on 13 May
        else if(params.value=='dailyFeePaid' && params.feeFromDate && params.feeToDate){
            println("Report Controller --> Daily Fee Report")
