@@ -139,7 +139,22 @@
 
     </ul>
 </li>
-<li><a href="#"><g:message code="default.mainMenu4"/></a></li>
+
+<li><a href="#"><g:message code="default.mainMenu4"/></a>
+ %{--ADDED BY DIGVIJAY ON 3rd JUNE 2014--}%
+    <ul>
+        <li>
+            %{--<g:message code="default.mainMenu4.subMenu1"/>--}%
+            %{--<a href="#">--}%
+            <g:link controller="postExamination"
+                    action="createMarksFoil"><g:message
+                    code="default.mainMenu4.subMenu1"/>
+            </g:link>
+            %{--</a>--}%
+        </li>
+    </ul>
+</li>
+
 <li><a href="#"><g:message code="default.mainMenu5"/></a></li>
 <li><a href="#"><g:message code="default.mainMenu6"/></a>
     <ul>
