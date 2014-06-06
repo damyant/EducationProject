@@ -49,7 +49,7 @@ class ReportService {
                         eq('registrationYear' , Integer.parseInt(params.session))
                     }
                 }
-                status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook)
+                status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCenter.name)
                 sheetNo= sheetNo+1
              }
              workbook.write();
@@ -193,7 +193,7 @@ class ReportService {
 
         println('--------------------------'+studentList)
 //        return studentList
-       def status=  writeExcelService.excelReport(params, studentList, course, sheetNo, workbook)
+       def status=  writeExcelService.excelReport(params, studentList, course, sheetNo, workbook, null)
         workbook.write();
         workbook.close();
         return status
@@ -211,6 +211,7 @@ class ReportService {
             WorkbookSettings  wbSettings = new WorkbookSettings();
             wbSettings.setLocale(new Locale("en", "EN"));
             WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
+            def studyCentreName = StudyCenter.findById(Long.parseLong(params.studyCentre))
             int sheetNo=0
             programList.each {
                 def pId= it.id
@@ -227,7 +228,7 @@ class ReportService {
                     }
                 }
                 println("--------------"+count)
-                 status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook)
+                 status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCentreName.name)
                 sheetNo= sheetNo+1
             }
           workbook.write();
@@ -288,7 +289,7 @@ class ReportService {
                     }
                 }
                 println("--------------"+count)
-                status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook)
+                status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, null)
                 sheetNo= sheetNo+1
             }
             workbook.write();
@@ -319,6 +320,7 @@ class ReportService {
                 finalStudentMap.put(it.courseName, count.getAt(0))
             }
             finalStudentMap.put("TOTAL STUDENTS", totalForSession)
+            println("oye kuldeep "+ params)
             return finalStudentMap
         }
     }
@@ -495,16 +497,15 @@ class ReportService {
         def studentList = stuObj.list{
                 eq('registrationYear' , Integer.parseInt(params.admissionSelfRegistrationSession))
 
-             and{
-                eq('status', Status.findById(1))
-             }
+//             and{
+//                eq('status', Status.findById(1))
+//             }
             and{
               isNotNull('referenceNumber')
             }
         }
-
         println("this is the list--------------- "+studentList)
-
+        return studentList
     }
 
 
@@ -642,7 +643,7 @@ class ReportService {
                 }
             }
             println("--------------"+count)
-            status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook)
+            status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, null)
             sheetNo= sheetNo+1
         }
         workbook.write();

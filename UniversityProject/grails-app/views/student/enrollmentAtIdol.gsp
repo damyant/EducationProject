@@ -141,6 +141,7 @@
                             <div class="radio_options">
                                 <label><span>Male</span><input type="radio" tabindex="8" name="gender" value="Male" class="radioInput"/></label>
                                 <label><span>Female</span><input type="radio" name="gender" value="Female" class="radioInput"/></label>
+                                <label><span>Other</span><input type="radio" name="gender" value="Other" class="radioInput"/></label>
                             </div>
                         </td>
                     </tr>
