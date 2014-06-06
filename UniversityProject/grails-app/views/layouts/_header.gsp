@@ -25,9 +25,14 @@
 <li><a href="#"><g:message code="default.mainMenu1"/></a></li>
 <li><a href="#"><g:message code="default.mainMenu2"/></a>
     <ul>
-
+      <sec:ifLoggedIn>
         <li><g:link controller="student" action="registration"><g:message
-                code="default.mainMenu2.subMenu1"/></g:link></li>
+                code="default.mainMenu2.subMenuStudyCentre"/></g:link></li>
+      </sec:ifLoggedIn>
+     <sec:ifNotLoggedIn>
+     <li><g:link controller="student" action="registration"><g:message
+             code="default.mainMenu2.subMenu1"/></g:link></li>
+         </sec:ifNotLoggedIn>
         <li><g:link controller="student" action="enrollmentAtIdol"><g:message
                 code="default.mainMenu2.enrollAtIdol"/></g:link></li>
         %{--<li><a class="viewResulttopopup"><g:message code="default.mainMenu2.subMenu2"/></a></li>--}%

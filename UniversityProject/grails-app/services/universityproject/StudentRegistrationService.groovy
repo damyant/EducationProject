@@ -405,8 +405,13 @@ class StudentRegistrationService {
                 maxResults(1)
                 order("id", "desc")
             }
-            if(Integer.parseInt(MiscByChallanNo[0].challanNo)>Integer.parseInt(studentTableByChallanNo[0].challanNo)){
-                studentByChallanNo=MiscByChallanNo
+            if(MiscByChallanNo){
+                if(Integer.parseInt(MiscByChallanNo[0].challanNo)>Integer.parseInt(studentTableByChallanNo[0].challanNo)){
+                    studentByChallanNo=MiscByChallanNo
+                }
+                else{
+                    studentByChallanNo=studentTableByChallanNo
+                }
             }
             else{
                 studentByChallanNo=studentTableByChallanNo

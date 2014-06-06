@@ -53,8 +53,11 @@ class ReportController {
            def totalList = reportService.getReportDataSession(params, null)
            def sessionVal= Integer.parseInt(params.session)+1
            sessionVal= params.session+'-'+sessionVal
+               def currentUser=springSecurityService.getCurrentUser()
+               def studyCenterId = currentUser.studyCentreId
+               def studyCenter= StudyCenter.findById(studyCenterId)
 //           println("back in controller with this "+ totalList)
-           def args = [template: "generate", model: [totalListBySession :totalList, sessionVal:sessionVal],filename:params.session+'_All_Course'+".pdf"]
+           def args = [template: "generate", model: [totalListBySession :totalList, sessionVal:sessionVal, studyCentreName: studyCenter?studyCenter.name:''],filename:params.session+'_All_Course'+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
            }
 
@@ -119,9 +122,10 @@ class ReportController {
            }
            else{
            def totalList = reportService.getReportDataStudyCentre(params, null)
+           def studyCentre= StudyCenter.findById(Long.parseLong(params.studyCentre))
            def sessionVal= Integer.parseInt(params.studyCentreSession)+1
            sessionVal= params.studyCentreSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByStudyCentre :totalList, studyCentreSession:sessionVal],filename:'Student_List_'+params.studyCentreSession+".pdf"]
+           def args = [template: "generate", model: [totalListByStudyCentre :totalList, studyCentreSession:sessionVal, studyCentreName: studyCentre.name],filename:'Student_List_'+params.studyCentreSession+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
            }
        }
@@ -190,11 +194,12 @@ class ReportController {
 
 
       else if(params.value=='admissionSelfRegistration' && params.admissionSelfRegistrationSession){
-           println("this function is called")
+           println("this function is called "+ params)
            def totalList = reportService.getReportDataAdmissionSelfRegistration(params)
-           def sessionVal= Integer.parseInt(params.admissionUnapprovedSession)+1
-           sessionVal= params.admissionUnapprovedSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByAdmissionUnapproved :totalList, admissionUnapprovedSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           def sessionVal= Integer.parseInt(params.admissionSelfRegistrationSession)+1
+           sessionVal= params.admissionSelfRegistrationSession+'-'+sessionVal
+           println('this is the list '+ totalList)
+           def args = [template: "generate", model: [totalListBySelfRegistration :totalList, admissionSelfRegistrationSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
       }
 
@@ -244,9 +249,6 @@ class ReportController {
 
       else if(params.value=='courseUnapproved' && params.courseUnapprovedSession || params.value=='courseApproved' && params.courseApprovedSession){
            println("this function is called")
-           def currentUser=springSecurityService.getCurrentUser()
-           def studyCenterId = currentUser.studyCentreId
-           def studyCenter= StudyCenter.findById(studyCenterId)
            def totalList = reportService.getReportDataCourseApprovedUnapproved(params)
            def sessionVal= Integer.parseInt(params.courseApprovedSession)+1
            sessionVal= params.courseApprovedSession+'-'+sessionVal
@@ -255,10 +257,10 @@ class ReportController {
                 type = 'Unapproved'
            else
                 type='Approved'
-           def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal, studyCentreName:studyCenter.name, type:type],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal, type:type],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
       }
-
+//have to complete*****************************************************************
       else if(params.value=='examinationCentreCumulative' && params.examinationCentreCumulativeSchedule){
            println("this cumulative function is called")
            def totalList = reportService.getReportDataExaminationCentreCumulative(params)
@@ -268,6 +270,7 @@ class ReportController {
            pdfRenderingService.render(args + [controller: this], response)
 
        }
+//************************************************************************************
        //Added By Digvijay on 13 May
        else if(params.value=='dailyFeePaid' && params.feeFromDate && params.feeToDate){
            println("Report Controller --> Daily Fee Report")

@@ -11,7 +11,6 @@
 
 
 function showCityList() {
-//    alert('in show city list')
     var data;
     data = $('#district').val();
     if (data) {
@@ -20,6 +19,7 @@ function showCityList() {
         data = $('#districtCumulative').val()
 //        alert("in else "+ data)
     }
+
     if (data) {
         $.ajax({
             type: "post",
@@ -31,6 +31,7 @@ function showCityList() {
 
                 $("#examCityCumulative").empty().append('<option value="">Select Examination Centre</option>');
                 for (var i = 0; i < data.length; i++) {
+
 
                     $("#city").append('<option value="' + data[i].id + '">' + data[i].cityName + '</option>');
 
@@ -169,7 +170,6 @@ function viewStudyCenter(studyCenterId) {
 
 }
 function showCentreList(t) {
-//    alert('now getting centres'+ t)
     var data = $(t).val();
     if (data) {
         $.ajax({

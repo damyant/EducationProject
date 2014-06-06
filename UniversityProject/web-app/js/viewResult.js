@@ -4,6 +4,7 @@ jQuery(function($) {
 
     $("a.viewResulttopopup").click(function() {
 
+
         loading(); // loading
         setTimeout(function(){ // then show popup, deley in .5 second
             loadPopup(); // function show popup

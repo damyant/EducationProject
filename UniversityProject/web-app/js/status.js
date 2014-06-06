@@ -152,6 +152,7 @@ function showStatus(){
         success: function (data) {
 //            alert(data.response2)
             if(data.response1){
+                $('#statusofApp').html("")
                 document.getElementById("statusofApp").style.display = "block";
                 if(data.response2!=0){
                 $('#statusofApp').append('<div>Status of Application is '+data.response1 +' and The Roll Number is  '+ data.response2+'.</div>')
