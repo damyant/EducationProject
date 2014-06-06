@@ -118,13 +118,14 @@
 //        alert("--------")
         if($('#serialNoTo').val()!="") {
             setTimeout(function () {
-                $('#challanForStudyCenter')[0].reset();
+//                $('#challanForStudyCenter')[0].reset();
                 $('#studyCenterFeeEntryTable').attr('hidden', true);
                 $('#rangeRadioButtons').attr('hidden', true);
                 document.getElementById("paginationDiv").style.visibility = "hidden";
                 document.getElementById("generateFeeChallan").style.visibility = "hidden";
                 document.getElementById("paymentDetails").style.visibility = "hidden";
-            }, 500)
+                populateStudentList()
+            }, 5000)
         }
     })
 
