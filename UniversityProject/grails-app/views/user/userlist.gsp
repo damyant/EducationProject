@@ -40,11 +40,11 @@
                                   title="${message(code: 'user.enabled.label', default: 'Enabled')}"/>
 
 
-            <g:sortableColumn property="passwordExpired" title="${message(code: 'user.passwordExpired.label', default: 'Password Expired')}" />
+                <g:sortableColumn property="passwordExpired" title="${message(code: 'user.passwordExpired.label', default: 'Password Expired')}" />
 
-            <th title="${message(code: 'user.enabledited.label', default: 'Edit')}"></th>
+                <th title="${message(code: 'user.enabledited.label', default: 'Edit')}"></th>
 
-            <th title="${message(code: 'user.reset.label', default: 'Reset Password')}" />
+                <th title="${message(code: 'user.reset.label', default: 'Reset Password')}" />
             </tr>
             </thead>
             <tbody>
@@ -66,16 +66,16 @@
                     <td><input type="button" class="university-button" onclick="editUser(${userInstance.id})" value="Edit"/> </td>
 
 
-                <td><input type="button" class="university-button" onclick="resetPassword(${userInstance.id})" value="Reset Password"/></td>
+                    <td><input type="button" class="university-button" onclick="resetPassword(${userInstance.id})" value="Reset Password"/></td>
 
-            </tr>
-        </g:each>
-        </tbody>
-    </table>
-    <div class="pagination">
-        <g:paginate total="${userInstanceCount ?: 0}" />
+                </tr>
+            </g:each>
+            </tbody>
+        </table>
+        <div class="pagination">
+            <g:paginate total="${userInstanceCount ?: 0}" />
 
+        </div>
     </div>
-</div>
 </body>
 </html>
