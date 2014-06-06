@@ -21,10 +21,7 @@ function loadSession(t){
 }
 
 function loadSemester(){
-    //alert("Inside Load Semester")
     var data = $('#programId').val();
-//    $('#semesterList').prop('disabled',false)
-//    $('#SessionList').prop('disabled',false)
     if(data){
         $.ajax({
             type: "post",
@@ -46,58 +43,20 @@ function loadSemester(){
     }
 }
 
-function getSemesterAndSubjectList(){
-    var session= $('#SessionList').val()
-    var sessionType= $("#sessionType").val()
-    if(session && sessionType!='0'){
-        $.ajax({
-            type: "post",
-            url: url('admin', 'getSubjectList', ''),
-            data: {sessionId: $('#SessionList').val(),sessionTypeId:$("#sessionType").val()},
-            success: function (data) {
-                if(data.noSubjects==true){
-                    $("#subjectList tr").remove()
-                    $("#msgDiv").html("There is no Course associated with the program")
-                }
-                else{
-                    $("#msgDiv").html("")
-                    appendSubjects(data)
-                }
-            }
-        });
-    }
-    else{
-        $("#subjectList").empty();
-    }
-}
-
 function loadCourse() {
-    alert("Inside Load Course..")
     var program = $('#programId').val();
     var session = $('#session').val();
     var semester = $('#semesterList').val();
-    alert("-------"+semester)
     $.ajax({
         type: "post",
         url: url('postExamination', 'getCourseData', ''),
         data: {program: program,session: session,semester: semester},
         success: function (data) {
-//            alert("aaaaaaaaaaaaaaaaaa")
-            console.log(data)
-            $('#courseCode').empty().append('<option value="">Select Course</option>')
+               console.log(data)
+               $('#courseCode').empty().append('<option value="">Select Course</option>')
                for(i=0; i<data.length;i++){
-//                   alert("bbbbbbbbbbbbbb")
                    $('#courseCode').empty().append('<option value="' + data[i].id + '">' + data[i].subjectName + '</option>')
                }
-
-//            if(data.courseCode==true){
-//                $("#semesterList tr").remove()
-//                $("#msgDiv").html("There is no Course associated with the program")
-//            }
-//            else{
-//                $("#msgDiv").html("")
-//                appendSubjects(data)
-//            }
         }
     });
 }
