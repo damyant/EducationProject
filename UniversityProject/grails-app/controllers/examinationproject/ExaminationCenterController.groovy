@@ -75,10 +75,17 @@ class ExaminationCenterController {
     def editExaminationCentre ={
 //        println("========="+params.id)
         def examinationVenueInstance = ExaminationVenue.findById(params.id)
-//        println("========="+examinationVenueInstance)
-//        println(examinationVenueInstance.properties)
-//        println("location of examination centre is "+ examinationCentreInstance.city.district.districtName)
-        return [examinationVenueInstance: examinationVenueInstance]
+        def examCenterList = City.findAllByIsExamCentre(1,[sort: 'cityName'])
+        Set <ExaminationVenue> exmVenue=ExaminationVenue.findAllById(params.id)
+        def obj=City.createCriteria()
+        def examCentre=obj.list {
+            examVenue{
+                eq('id', examinationVenueInstance.id)
+            }
+
+
+        }
+        return [examinationVenueInstance: examinationVenueInstance, examCenterList:examCenterList, examCentre:examCentre]
     }
     def updateCentre ={
 //        println("?????????/"+params)

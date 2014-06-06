@@ -53,10 +53,12 @@
                 <td class="university-size-1-5">
                 </td>
                 <td class="university-size-1-3">
-                    <input type="button" name="view" id="rollNo" value="Update" class="university-size-1-2" onclick="viewStudentByRollNo()" />
+                    <input type="button" name="view" id="rollNo" value="Update" class="university-size-1-2" onclick="updateStudentByRollNo()" />
+                    <input type="button" class="university-button" id="view" value="View" onclick="viewStudentByRollNo()"/>
                 </td>
 
                 <td class="university-size-1-4">
+
                 </td>
                 <td class="university-size-1-4"></td>
             </tr>
