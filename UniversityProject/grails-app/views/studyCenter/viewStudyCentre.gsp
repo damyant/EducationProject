@@ -46,7 +46,7 @@
         <div class="university-location-select">
             <div class="university-label-location-select">Select District:</div>
             <g:select name="districtList" id="district" optionKey="id" optionValue="districtName"
-                      noSelection="['null': ' Select District']" value="${District?.findById(params?.district)?.id}" from="${districtList}" onchange="showCityList()"/>
+                      noSelection="['null': ' Select District']" value="${District?.findById(params?.district)?.id}" from="${districtList}" onchange="showStudyCenterListByDistrict()"/>
         </div>
 
         <div id="cityList" class="university-location-select">
@@ -62,7 +62,7 @@
         </g:else>
             <input type="hidden" value="${params.type}" id="ParameterType"/>
         </div>
-        <table id="studyCenterTab" class="university-table-1-4">
+        <table id="studyCenterTab" class="university-size-full-1-1">
             <thead>
             </thead>
             <tbody>
