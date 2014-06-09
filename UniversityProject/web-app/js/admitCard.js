@@ -322,7 +322,7 @@ function getStudentsForAdmitCard(){
                   }
                   var pageNo=0
                   if($table_rows.length % table_row_limit){
-                      pageNo=parseInt($table_rows.length / table_row_limit)+1
+                      pageNo=parseInt(parseInt($table_rows.length) / table_row_limit)+1
                   }
                   else{
                       pageNo=parseInt($table_rows.length / table_row_limit)
@@ -447,6 +447,7 @@ function setCourseLabel(t){
     $('#examCenterList').empty();
     $('#addExamCentre').empty();
     $("#examinationCentre").val(0)
+    $("#examinationCentre").prop("disabled", false)
 
 }
 

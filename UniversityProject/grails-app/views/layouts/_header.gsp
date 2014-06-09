@@ -74,19 +74,29 @@
             </ul>
         </li>
 
-        <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>
+        <li><a href="#"><g:message code="default.mainMenu3.subMenu11"/></a>
 
             <ul>
-                <li><g:link controller="course" action="createNewCourse"><g:message
-                        code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
-                <li><g:link controller="course"
-                            action="listOfCourses"><g:message
-                            code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>
-                <li><g:link controller="course"
-                            action="updateCourses"><g:message
-                            code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
+                %{--<li><g:link controller="examinationCenter" action="createNewCity"><g:message--}%
+                        %{--code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>--}%
+                %{--<li><g:link controller="examinationCenter"--}%
+                            %{--action="listOfCity"><g:message--}%
+                            %{--code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>--}%
             </ul>
         </li>
+        <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>
+
+        <ul>
+            <li><g:link controller="course" action="createNewCourse"><g:message
+                    code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
+            <li><g:link controller="course"
+                        action="listOfCourses"><g:message
+                        code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>
+            <li><g:link controller="course"
+                        action="updateCourses"><g:message
+                        code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
+        </ul>
+    </li>
         <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
 
             <ul>

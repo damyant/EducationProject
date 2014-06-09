@@ -93,18 +93,18 @@ function validate() {
                 minlength: 10,
                 number: true
             },
-            asstCoordinator: {
-                required: true
-            },
-            asstMobile: {
-                required: true,
-                minlength: 10,
-                number: true
-            },
-            asstEmail: {
-                required: true,
-                email: true
-            },
+//            asstCoordinator: {
+//                required: true
+//            },
+//            asstMobile: {
+//                required: true,
+//                minlength: 10,
+//                number: true
+//            },
+//            asstEmail: {
+//                required: true,
+//                email: true
+//            },
 
 //            Study Center
 
@@ -400,12 +400,12 @@ function validate() {
                 required: "Please enter Email of Coordinator",
                 email: "Please Enter Valid Email"
             },
-            asstCoordinator: "Please enter Name of Asst. Coordinator",
-            asstMobile: "Please enter Phone No of Asst. Coordinator",
-            asstEmail:{
-                required:"Please enter Email of Asst. Coordinator",
-                email: "Please Enter Valid Email"
-            },
+//            asstCoordinator: "Please enter Name of Asst. Coordinator",
+//            asstMobile: "Please enter Phone No of Asst. Coordinator",
+//            asstEmail:{
+//                required:"Please enter Email of Asst. Coordinator",
+//                email: "Please Enter Valid Email"
+//            },
             websiteUrl:{
                 required: "Please Enter Website URL",
                 url: "Please Enter Valid website Url(eg:http://www.idolgu.in)‎"
