@@ -103,7 +103,7 @@
                         <td>Date of Birth <span class="university-obligatory">*</span></td>
                         <td>
                             %{--<input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datePick"/>--}%
-                            <input type="text" name="d_o_b" maxlength="10" tabindex="6" PLACEHOLDER="MM/DD/YYYY" class="university-size-1-2" id="datepicker2">
+                            <input type="text" name="d_o_b" maxlength="10" tabindex="6" PLACEHOLDER="DD/MM/YYYY" class="university-size-1-2" id="datepicker2">
 
                         </td>
                     </tr>
@@ -229,7 +229,7 @@
             $("#datepicker2").datepicker({
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: "mm/dd/yy",
+                dateFormat: "dd/mm/yy",
                 maxDate: 0
             });
         });
