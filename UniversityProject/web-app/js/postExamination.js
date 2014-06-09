@@ -52,11 +52,28 @@ function loadCourse() {
         url: url('postExamination', 'getCourseData', ''),
         data: {program: program,session: session,semester: semester},
         success: function (data) {
-               console.log(data)
-               $('#courseCode').empty().append('<option value="">Select Course</option>')
+//               console.log(data)
+               $("#courseCode").empty().append('data <option value="">Select Course</option>')
+//               $('#courseCode').empty().append('<option value="">Select Course</option>')
                for(i=0; i<data.length;i++){
                    $('#courseCode').empty().append('<option value="' + data[i].id + '">' + data[i].subjectName + '</option>')
                }
         }
     });
 }
+
+$(document).ready(function(){
+    $('#pdfid').on('click', function(){
+        alert("clicked pdf")
+        $("#btn").val("pdf")
+        $("#marksFoilId").submit()
+    })
+
+    $('#excelid').on('click', function(){
+        alert("clicked excel")
+        $("#btn").val("excel")
+        $("#marksFoilId").submit()
+    })
+
+})
+
