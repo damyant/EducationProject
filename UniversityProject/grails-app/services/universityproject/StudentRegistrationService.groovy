@@ -53,6 +53,20 @@ class StudentRegistrationService {
             studentRegistration.addressTown = params.addressTown
             studentRegistration.studentAddress = params.studentAddress
             studentRegistration.addressDistrict = params.addressDistrict
+            println("roll number is "+params.rollNo)
+            if(params.rollNo){
+                println("roll number is "+params.rollNo)
+                def studentToBeUpdate
+                try{
+                 studentToBeUpdate = Student.findByRollNo(params.rollNo)
+                }catch(Exception e){
+                    println("hello"+e.printStackTrace())
+                }
+
+               if(!(studentToBeUpdate.programDetail[0].id==(Integer.parseInt(params.programId)))){
+                  studentRegistration.rollNo=getStudentRollNumber(params)
+               }
+            }
 //            studentRegistration.challanNo = getChallanNumber()
 
         } else {
@@ -132,6 +146,7 @@ class StudentRegistrationService {
     def getStudentRollNumber(params) {
         def status = false
         try {
+          //  println("programId is "+Long.parseLong(params.programId))
             Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
@@ -178,7 +193,7 @@ class StudentRegistrationService {
             }
             return rollNumber
         } catch (Exception e) {
-            println("Problem in roll number generation")
+            println("Problem in roll number generation"+e.printStackTrace())
         }
     }
 

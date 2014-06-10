@@ -11,4 +11,6 @@ class Bank {
     static constraints = {
         bankName(nullable: false)
     }
+
+
 }
