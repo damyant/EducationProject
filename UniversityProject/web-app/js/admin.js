@@ -221,7 +221,7 @@ function appendTable(data) {
         }
         var pageNo=0
         if($table_rows.length % table_row_limit){
-            pageNo=parseInt($table_rows.length / table_row_limit)+1
+            pageNo=parseInt(parseInt($table_rows.length) / table_row_limit)+1
         }
         else{
             pageNo=parseInt($table_rows.length / table_row_limit)
@@ -378,6 +378,7 @@ function saveExamVenue(){
             $('#CentreForExamVenue').html('');
             $('#examCenterList').empty();
             $('#addExamCentre').empty();
+            $("#examinationCentre").prop("disabled", false)
             $('#successMessage').html('Successfully Assigned Examination Venue');
         }
     });
@@ -436,7 +437,7 @@ function generateStudentsList() {
                 }
                 var pageNo=0
                 if($table_rows.length % table_row_limit){
-                    pageNo=parseInt($table_rows.length / table_row_limit)+1
+                    pageNo=parseInt(parseInt($table_rows.length) / table_row_limit)+1
                 }
                 else{
                     pageNo=parseInt($table_rows.length / table_row_limit)
@@ -720,7 +721,7 @@ function showListOfStudents(){
                 }
                 var pageNo=0
                 if($table_rows.length % table_row_limit){
-                    pageNo=parseInt($table_rows.length / table_row_limit)+1
+                    pageNo=parseInt(parseInt($table_rows.length) / table_row_limit)+1
                 }
                 else{
                     pageNo=parseInt($table_rows.length / table_row_limit)
@@ -776,7 +777,7 @@ function showMiscFeeListOfStudents(){
             }
             var pageNo=0
             if($table_rows.length % table_row_limit){
-                pageNo=parseInt($table_rows.length / table_row_limit)+1
+                pageNo=parseInt(parseInt($table_rows.length) / table_row_limit)+1
             }
             else{
                 pageNo=parseInt($table_rows.length / table_row_limit)
@@ -1019,4 +1020,23 @@ function editUser(userId){
 }
 function resetPassword(userId){
     window.open ('/UniversityProject/user/resetPassword/'+userId,'_self',false)
+}
+function showDistrictsCityList(t){
+    var data=$(t).val()
+    if(data) {
+        $.ajax({
+            type: "post",
+            url: url('studyCenter', 'getCityList', ''),
+            data: {data: data},
+            success: function (data) {
+                var count=1
+                alert(data.length)
+                $('#cityListTable tbody').empty()
+                for (var i = 0; i < data.length; i++) {
+                    $('#cityListTable tbody').append('<tr><td>'+count+'</td><td>'+data[i].cityName+'</td><td><input type="button" class="university-button" onclick="editCity('+data[i].cityName+')" value="Edit"/> </td></tr>')
+                }
+
+            }
+        })
+    }
 }

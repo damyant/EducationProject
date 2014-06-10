@@ -215,5 +215,9 @@ class ExaminationCenterController {
             println("<<<<<<<<<<<Problem in getting exam Center List list" + e)
         }
     }
+    def listOfCity(){
+        def districtList=District.list(sort:'districtName')
+        [districtList:districtList]
+    }
 
 }

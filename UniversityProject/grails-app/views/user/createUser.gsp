@@ -313,7 +313,7 @@
         }
     })
     function assignCourses(val){
-        alert('helo kuldeep'+val.id)
+//        alert('helo kuldeep'+val.id)
         window.open("/UniversityProject/user/assignCourse?userId="+val.id,'_self', false)
     }
 </script>
