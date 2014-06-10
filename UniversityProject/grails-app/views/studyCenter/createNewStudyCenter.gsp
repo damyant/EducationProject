@@ -197,23 +197,20 @@
                        value="${studyCentreInstance?.emailIdOfCoordinator}" class="university-size-1-2"/></td>
         </tr>
         <tr>
-            <td><label><g:message code="default.createStudy.nameOfAsstCoordinator"/> <span
-                    class="university-obligatory">*</span></label></td>
+            <td><label><g:message code="default.createStudy.nameOfAsstCoordinator"/> </label></td>
             <td><input type="text" name="asstCoordinator" onkeypress="return onlyAlphabets(event);"
                        value="${studyCentreInstance?.asstCoordinator}"
                        class="university-size-1-2"/></td>
         </tr>
         <tr>
-            <td><label><g:message code="default.createStudy.phoneNoOfAsstCoordinator"/> <span
-                    class="university-obligatory">*</span></label>
+            <td><label><g:message code="default.createStudy.phoneNoOfAsstCoordinator"/></label>
             </td>
             <td><input type="text" name="asstMobile"
                        value="${studyCentreInstance?.asstMobile}" class="university-size-1-2"
                        maxlength="10" onkeypress="return isNumber(event)"/></td>
         </tr>
         <tr>
-            <td><label><g:message code="default.createStudy.emailIdOfAsstCoordinator"/> <span
-                    class="university-obligatory">*</span></label>
+            <td><label><g:message code="default.createStudy.emailIdOfAsstCoordinator"/></label>
             </td>
             <td><input type="email" name="asstEmail"
                        value="${studyCentreInstance?.asstEmail}" class="university-size-1-2"/>
@@ -232,13 +229,13 @@
                     <input type="reset" value="<g:message
                         code="default.button.clear"/>" class="university-button"></g:if>
                 <g:else>
-                    <a href="/UniversityProject/studyCenter/viewStudyCentre?type=update&district=${studyCentreInstance?.city?.district?.id}&city=${studyCentreInstance?.city?.id}" > <input type="button" class="university-button"  value="Back" /></a>
+                    <input type="button" onclick="histryBack(${studyCentreInstance?.city?.district?.id},'update')" class="university-button"  value="Back" />
                 </g:else></td>
         </tr>
     </g:else>
     </table>
 <g:if test="${params.type == 'view'}">
-    <div class="university-size-full-1-1" style="margin: auto;text-align: center;"><a href="/UniversityProject/studyCenter/viewStudyCentre?district=${studyCentreInstance?.city?.district?.id}&city=${studyCentreInstance?.city?.id}" > <input type="button" class="ui-button"  value="Back" /></a></div>
+    <div class="university-size-full-1-1" style="margin: auto;text-align: center;"> <input type="button"  onclick="histryBack(${studyCentreInstance?.city?.district?.id},'dd')"  class="ui-button"  value="Back" /></div>
 </g:if>
 </g:form>
 </fieldset>

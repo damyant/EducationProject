@@ -97,8 +97,18 @@ class PostExaminationController {
 //        }
     }
 
-    def generateMarksFoilController={
 
+    def marksEntering={
+        println("Inside marksEntering Action.....")
+    }
+
+
+    def resultProcessing={
+        println("Inside resultProcessing Action..")
+    }
+
+    def finalResult={
+        println("Inside finalResult Action")
     }
 
 }// CLOSING BRACKETS

@@ -4,6 +4,7 @@ import com.university.Role
 import com.university.User
 import com.university.UserRole
 import examinationproject.City
+import examinationproject.District
 import examinationproject.StudyCenter
 import grails.transaction.Transactional
 
@@ -63,8 +64,16 @@ class StudyCenterInfoService {
             StudyCenter.findAllByCity(City.findById(params.data))
 
         }
-
-
+    }
+    def districtStudyCenterList(params) {
+        def studyCenterList=[]
+        if (params) {
+           def cityList=City.findAllByDistrict(District.findById(params.data))
+            cityList.each{
+                    studyCenterList << StudyCenter.findAllByCity(it)
+            }          
+        }
+        return  studyCenterList
     }
 
     def studyCenterForECList(params) {

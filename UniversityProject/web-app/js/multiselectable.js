@@ -1,4 +1,4 @@
-
+var checkCourseCodeFlag=false
 function semesterList() {
     var courseType= $('#programType').val()
     if(courseType){
@@ -241,13 +241,14 @@ function clearField() {
 }
 function save() {
 //    alert("dfdfdfd")
-    checkCourseCode()
+//    alert($("#errorMsg").text().length)
+//    checkCourseCode()
     validate();
     var status = $("#createCourse").valid();
     if (!fireMultiValidate()) {
         return;
     }
-    if (status) {
+    if (status && $("#errorMsg").text().length==0) {
         var formObj = $("#createCourse");
         var data = ConvertFormToJSON(formObj);
 
@@ -281,6 +282,7 @@ function syllabusUpload() {
 
 
 function checkCourseCode() {
+
     var data = $('#courseCode').val();
     $.ajax({
         type: "post",

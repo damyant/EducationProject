@@ -25,9 +25,14 @@
 <li><a href="#"><g:message code="default.mainMenu1"/></a></li>
 <li><a href="#"><g:message code="default.mainMenu2"/></a>
     <ul>
-
+      <sec:ifLoggedIn>
         <li><g:link controller="student" action="registration"><g:message
-                code="default.mainMenu2.subMenu1"/></g:link></li>
+                code="default.mainMenu2.subMenuStudyCentre"/></g:link></li>
+      </sec:ifLoggedIn>
+     <sec:ifNotLoggedIn>
+     <li><g:link controller="student" action="registration"><g:message
+             code="default.mainMenu2.subMenu1"/></g:link></li>
+         </sec:ifNotLoggedIn>
         <li><g:link controller="student" action="enrollmentAtIdol"><g:message
                 code="default.mainMenu2.enrollAtIdol"/></g:link></li>
         %{--<li><a class="viewResulttopopup"><g:message code="default.mainMenu2.subMenu2"/></a></li>--}%
@@ -69,19 +74,29 @@
             </ul>
         </li>
 
-        <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>
+        <li><a href="#"><g:message code="default.mainMenu3.subMenu11"/></a>
 
             <ul>
-                <li><g:link controller="course" action="createNewCourse"><g:message
-                        code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
-                <li><g:link controller="course"
-                            action="listOfCourses"><g:message
-                            code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>
-                <li><g:link controller="course"
-                            action="updateCourses"><g:message
-                            code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
+                %{--<li><g:link controller="examinationCenter" action="createNewCity"><g:message--}%
+                        %{--code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>--}%
+                %{--<li><g:link controller="examinationCenter"--}%
+                            %{--action="listOfCity"><g:message--}%
+                            %{--code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>--}%
             </ul>
         </li>
+        <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>
+
+        <ul>
+            <li><g:link controller="course" action="createNewCourse"><g:message
+                    code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
+            <li><g:link controller="course"
+                        action="listOfCourses"><g:message
+                        code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>
+            <li><g:link controller="course"
+                        action="updateCourses"><g:message
+                        code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
+        </ul>
+    </li>
         <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
 
             <ul>
@@ -139,14 +154,30 @@
  %{--ADDED BY DIGVIJAY ON 3rd JUNE 2014--}%
     <ul>
         <li>
-            %{--<g:message code="default.mainMenu4.subMenu1"/>--}%
-            %{--<a href="#">--}%
-            <g:link controller="postExamination"
+           <g:link controller="postExamination"
                     action="createMarksFoil"><g:message
                     code="default.mainMenu4.subMenu1"/>
             </g:link>
-            %{--</a>--}%
         </li>
+    <li>
+            <g:link controller="postExamination"
+                action="marksEntering"><g:message
+                code="default.mainMenu4.subMenu2"/>
+            </g:link>
+    </li>
+
+    <li>
+        <g:link controller="postExamination"
+                action="resultProcessing"><g:message
+                code="default.mainMenu4.subMenu4"/>
+        </g:link>
+    </li>
+    <li>
+        <g:link controller="postExamination"
+                action="finalResult"><g:message
+                code="default.mainMenu4.subMenu5"/>
+        </g:link>
+    </li>
     </ul>
 </li>
 

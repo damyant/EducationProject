@@ -147,6 +147,7 @@ def springSecurityService
         def subjectMap=[:]
         def studyCenterId=0
         def status=[]
+        def feeStatus=[]
         def statusObj
         if(params.studyCenterId){
             studyCenterId=params.studyCenterId
@@ -182,9 +183,25 @@ def springSecurityService
         }
         subjectMap.studList=studList
         studList.each {
-           status<<it.status.status
+            if(it.status.id<4){
+                status<<"UnApproved"
+            }
+            else{
+                status<<"Approved"
+            }
+            if(it.status.id<3){
+                feeStatus<<"Fee Not Paid"
+            }
+            else if(it.status.id==4){
+                feeStatus<<"Fee Approved"
+            }
+            else{
+                feeStatus<<"Fee Paid"
+            }
+
         }
         subjectMap.status=status
+        subjectMap.feeStatus=feeStatus
         println(status)
         return  subjectMap
     }

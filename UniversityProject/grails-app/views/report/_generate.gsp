@@ -40,7 +40,7 @@
 <body>
 <div id="main">
       <g:if test="${totalListBySession}">
-          <h3> Total Students In All Courses For ${sessionVal} Session</h3>
+          <h3> Total Students In All Courses For ${sessionVal} Session In ${studyCentreName? studyCentreName:'All Study Centres'}</h3>
           <table style=" text-align: center" class="gridtable">
                      <th>Course Name</th>
                      <th>No. Of Students</th>
@@ -93,8 +93,8 @@
                     <th>Status</th>
                    <g:each in="${totalListByCourse}" var="student">
                         <tr >
-                            <td >${student.rollNo}</td>
-                            <td >${student?.firstName} ${student?.lastName} ${student?.middleName}</td>
+                            <td >${student.rollNo? student.rollNo:'Not Generated'}</td>
+                            <td >${student?.firstName} ${student?.middleName} ${student?.lastName} </td>
                             <td >${student.studyCentre[0].name}</td>
                             <td >${student.examinationCentre[0].examinationCentreName}</td>
                             <td >91${student.mobileNo}</td>
@@ -104,7 +104,7 @@
            </table>
       </g:elseif>
       <g:elseif test="${totalListByStudyCentre}">
-            <h3> Total Students In All Courses For ${studyCentreSession} Session</h3>
+            <h3> Total Students In All Courses For ${studyCentreSession} Session In ${studyCentreName}</h3>
             <table style=" text-align: center" class="gridtable">
                     <th>Course Name</th>
                     <th>No. Of Students</th>
@@ -211,7 +211,7 @@
             <th>Mobile No.</th>
             <g:each in="${totalListByAdmissionApprovedUnapproved}" var="student">
                 <tr >
-                    <td >${student.rollNo}</td>
+                    <td >${student.rollNo? student.rollNo:'Not Generated'}</td>
                     <td >${student?.firstName} ${student?.lastName} ${student?.middleName}</td>
                     <td >${student.programDetail[0].courseCode}</td>
                     <td >${student.city[0]?.cityName}</td>
@@ -220,6 +220,29 @@
             </g:each>
         </table>
     </g:elseif>
+
+
+
+<g:elseif test="${totalListBySelfRegistration}">
+        <h3> Self Registered Students For ${admissionSelfRegistrationSession} Session</h3>
+
+    <table style=" text-align: center" class="gridtable">
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Course Code</th>
+        <th>Examination Centre</th>
+        <th>Mobile No.</th>
+        <g:each in="${totalListBySelfRegistration}" var="student">
+            <tr >
+                <td >${student.rollNo? student.rollNo:'Not Generated'}</td>
+                <td >${student?.firstName} ${student?.lastName} ${student?.middleName}</td>
+                <td >${student.programDetail[0].courseCode}</td>
+                <td >${student.city[0]?.cityName}</td>
+                <td >91${student.mobileNo}</td>
+            </tr>
+        </g:each>
+    </table>
+</g:elseif>
 
 
 
@@ -280,7 +303,7 @@
         <th>Mobile No.</th>
         <g:each in="${totalListApprovedUnapprovedRollNo}" var="student">
             <tr >
-                <td >${student.rollNo}</td>
+                <td >${student.rollNo? student.rollNo:'Not Generated'}</td>
                 <td >${student.firstName} ${student.middleName} ${student.lastName}</td>
                 <td >${student.city[0].cityName}</td>
                 <td >91${student.mobileNo}</td>
