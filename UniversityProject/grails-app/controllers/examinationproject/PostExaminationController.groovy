@@ -28,7 +28,7 @@ class PostExaminationController {
         println("Program Session--"+ProgramSession.findBySessionOfProgram(params.session))
         println("Program Details--"+ProgramDetail.findById(params.program))
 
-        println("Inside PostExamination Controller-22->subjectList=="+subjectList[0].id)
+//        println("Inside PostExamination Controller-22->subjectList=="+subjectList[0].id)
         render subjectList as JSON
 }
 
@@ -100,6 +100,34 @@ class PostExaminationController {
 
     def marksEntering={
         println("Inside marksEntering Action.....")
+        println('Params === ' +params)
+//        def subjectList=CourseSubject.findAllBySemesterAndProgramSessionAndCourseDetail(Semester.findById(Integer.parseInt(params.semester)),ProgramSession.findBySessionOfProgram(params.session),ProgramDetail.findById(params.program))*.subject
+//        println("Semester--"+Semester.findById(Integer.parseInt(params.semester)))
+//        println("Program Session--"+ProgramSession.findBySessionOfProgram(params.session))
+//        println("Program Details--"+ProgramDetail.findById(params.program))
+//
+//        println("Inside PostExamination Controller-22->subjectList=="+subjectList[0].id)
+//        render subjectList as JSON
+        def programList = ProgramDetail.list()
+        println("Inside PostExaminationController-->programList = "+programList)
+        [programList:programList]
+    }
+
+    def getRollNoList={
+        println("chandan--- "+params)
+        def studentObj = Student.createCriteria()
+        def stuList = studentObj.list{
+            programDetail{
+                eq('id', Long.parseLong(params.program))
+            }
+            and {
+            eq('semester', Integer.parseInt(params.semester) )
+            eq('programSession', ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,ProgramDetail.findById(Long.parseLong(params.program))))
+//            eq('ProgramDetail', ProgramDetail.findById(Long.parseLong(params.program)))
+        }
+    }
+        println('List of students '+ stuList)
+       render stuList as JSON
     }
 
 

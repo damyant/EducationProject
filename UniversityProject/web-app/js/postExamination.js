@@ -77,3 +77,30 @@ $(document).ready(function(){
 
 })
 
+function populateStudentList() {
+    alert("Inside populateStudentList Method.. ")
+    var program = $('#programId').val();
+    var session = $('#session').val();
+    var semester = $('#semesterList').val();
+    var course = $('#courseCode').val();
+    alert("course--"+course)
+//    if (course) {
+        alert("Inside ajax call....")
+        $.ajax({
+            type: "post",
+            url: url('postExamination', 'getRollNoList', ''),
+            data: {program: program, session: session, semester: semester},
+            success: function (data) {
+                if(data.length>0){
+                    $('#selectBox').empty()
+                    for (var i=0;i<data.length;i++){
+                        $('#selectBox').append('<option value="'+data[i].id+'">'+data[i].rollNo+'</option>')
+//                        $('#courseCode').empty().append('<option value="' + data[i].id + '">' + data[i].subjectName + '</option>')
+
+
+                    }
+                }
+            }
+        });
+//    }
+}

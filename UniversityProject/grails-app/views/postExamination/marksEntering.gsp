@@ -49,7 +49,7 @@
                     <td>Program<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
-                                  value="${studInstance?.programDetail?.id?.get(0)}"
+                                  value=""
                                   optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"
                                   onchange="loadSession(this)"
                         />
@@ -89,34 +89,28 @@
                                   optionValue="courseCode" from="" noSelection="['': ' Select Course']"/>
                     </td>
                 </tr>
-
-                <tr>
-                    <td colspan="2">
-                        --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                    </td>
-                </tr>
-
-                <!----------------------------------------- List of Roll No --------------------------------------------->
-                <tr>
-
-                    <td>
-                        <g:select name="courseCode" id="courseCode" optionKey="id" class="university-size-1-2"
-                                  value=""
-                                  optionValue="courseCode" from="" noSelection="['': ' Select Course']"/>
-                    </td>
-                <td><input type="text" name="" class="university-size-1-2"y/></td>
-                </tr>
-
-
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="button" value="Save" onclick="validate()" class="university-button">
-                        <input type="reset" value="Cancel" class="university-button">
-                    </td>
-                </tr>
-
-
             </table>
+
+            <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1">
+                <input type="button" value="Show Students" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;">
+            </div>
+
+            <table border="1" >
+            <tr>
+                <td style="align-self: center">
+                    <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-2" value="" optionValue="" from=""  multiple="true" />
+                </td>
+            </tr>
+            <tr>
+                <td class="university-size-3-4" style="align-self: center">
+                    <input type="text" class="university-size-1-3" id="" name=""/>
+                </td>
+            </tr>
+            </table>
+
+            <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1">
+                <input type="button" value="Save Data" class="ui-button university-size-1-4" style="margin: auto;">
+            </div>
 
         </g:form>
         <div id="msgDiv"></div>

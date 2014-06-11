@@ -80,20 +80,10 @@
                     </td>
                 </tr>
 
-                <!----------------------------------------- Course Name --------------------------------------------->
-                <tr>
-                    <td>Course<span class="university-obligatory">*</span></td>
-                    <td>
-                        <g:select name="courseCode" id="courseCode" optionKey="id" class="university-size-1-2"
-                                  value=""
-                                  optionValue="courseCode" from="" noSelection="['': ' Select Course']"/>
-                    </td>
-                </tr>
-
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="button" id="pdfid" value="Download Marks in pdf" onclick="validate()" class="university-button" tag="1">
-                        <input type="button" id="excelid" value="Download Marks in excel" onclick="validate()" class="university-button" tag="2">
+                        <input type="button" value="Generate Result" onclick="validate()" class="university-button" tag="1">
+                        %{--<input type="button" id="excelid" value="Download Marks in excel" onclick="validate()" class="university-button" tag="2">--}%
                         <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
                     </td>
                 </tr>
