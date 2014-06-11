@@ -10,95 +10,46 @@ class BankController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+    def bankList(Integer max) {
+//        params.max = Math.min(max ?: 20, 100)
         respond Bank.list(params), model: [bankInstanceCount: Bank.count()]
     }
 
-    def show(Bank bankInstance) {
-        respond bankInstance
-    }
 
-    def create() {
+    def createBank() {
         respond new Bank(params)
     }
 
     @Transactional
-    def save(Bank bankInstance) {
-        if (bankInstance == null) {
-            notFound()
-            return
+    def saveBank() {
+          if(new Bank(bankName: params.bankName).save(flush: true)){
+            redirect(action: "bankList")
         }
 
-        if (bankInstance.hasErrors()) {
-            respond bankInstance.errors, view: 'create'
-            return
-        }
 
-        bankInstance.save flush: true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'bankInstance.label', default: 'Bank'), bankInstance.id])
-                redirect bankInstance
-            }
-            '*' { respond bankInstance, [status: CREATED] }
-        }
     }
 
-    def edit(Bank bankInstance) {
+    def editBank() {
+        def bankInstance = Bank.findById(Integer.parseInt(params.bankId))
         respond bankInstance
     }
 
     @Transactional
-    def update(Bank bankInstance) {
-        if (bankInstance == null) {
-            notFound()
-            return
-        }
+    def updateBank() {
 
-        if (bankInstance.hasErrors()) {
-            respond bankInstance.errors, view: 'edit'
-            return
-        }
+      def bankInstance = Bank.findById(Integer.parseInt(params.bankId))
 
-        bankInstance.save flush: true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Bank.label', default: 'Bank'), bankInstance.id])
-                redirect bankInstance
-            }
-            '*' { respond bankInstance, [status: OK] }
-        }
+       if(bankInstance.save(flush: true)){
+           redirect(action: "bankList")
+       }
     }
 
-    @Transactional
-    def delete(Bank bankInstance) {
 
-        if (bankInstance == null) {
-            notFound()
-            return
-        }
-
-        bankInstance.delete flush: true
-
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Bank.label', default: 'Bank'), bankInstance.id])
-                redirect action: "index", method: "GET"
-            }
-            '*' { render status: NO_CONTENT }
-        }
-    }
-
-    protected void notFound() {
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'bankInstance.label', default: 'Bank'), params.id])
-                redirect action: "index", method: "GET"
-            }
-            '*' { render status: NOT_FOUND }
-        }
+    def delete() {
+        println("params"+params)
+        def bankInstance = Bank.findById(Integer.parseInt(params.bankId))
+       if(bankInstance.delete(flush: true)){
+           redirect(action: "bankList")
+       }
     }
 }

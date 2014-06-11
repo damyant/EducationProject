@@ -3,11 +3,12 @@
  */
 function validate() {
 
-    $("#studyMaterialPage,#addCoursesFrmId,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
+    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
 
         rules: {
 
             //Add Course
+            bankName:"required",
             programTypeId:"required",
             imageValidate:"required",
             subjectName: {required: true,
@@ -497,8 +498,8 @@ function validate() {
             issuingBranch: "Please Enter Issuing Branch Name",
             examinationCentreIncharge: "Please Enter Examination Centre Name",
             examinationCentreContactNo: "Please Enter Examination Centre Contact Number",
-            examinationCentreAddress: "Please Enter Examination Centre Address"
-
+            examinationCentreAddress: "Please Enter Examination Centre Address",
+            bankName: "Please Enter Bank Name"
         },
         errorPlacement: function (error, element) {
             if (element.is("input:radio")) {
