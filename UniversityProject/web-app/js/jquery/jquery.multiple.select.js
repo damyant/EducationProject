@@ -110,11 +110,11 @@
                     text = $elm.text(),
                     selected = (that.$el.attr('multiple') != undefined) ? $elm.prop('selected') : ($elm.attr('selected') == 'selected'),
                     style = this.options.styler(value) ? ' style="' + this.options.styler(value) + '"' : '';
-
+                    console.log("hello kuldeep "+ style)
                 disabled = groupDisabled || $elm.prop('disabled');
                 if ((this.options.blockSeparator>"") && (this.options.blockSeparator==$elm.val())) {
 	                html.push(
-		                    '<li' + (multiple ? ' class="multiple"' : '') + style + '>',
+		                    '<li' + (multiple ? ' class="multiple"' : '')+ '>',
 		                        '<label class="' + this.options.blockSeparator + (disabled ? 'disabled' : '') + '">',
 		                            text,
 		                        '</label>',
@@ -122,7 +122,7 @@
 	                );                	
                 } else {
 	                html.push(
-		                    '<li' + (multiple ? ' class="multiple"' : '') + style + '>',
+		                    '<li' + (multiple ? ' class="multiple"' : '') +  '>',
 		                        '<label' + (disabled ? ' class="disabled"' : '') + '>',
 		                            '<input type="' + type + '" ' + this.selectItemName + ' value="' + value + '"' +
 		                                (selected ? ' checked="checked"' : '') +

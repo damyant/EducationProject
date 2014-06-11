@@ -18,6 +18,12 @@ function loadSession(t){
             }
         });
     }
+    else{
+        $("#session").empty().append('');
+        $("#session").append('<option value="">Select Session</option>');
+        $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+        $('#courseCode').empty().append('<option value="">Select Course</option>')
+    }
 }
 
 function loadSemester(){
@@ -29,9 +35,8 @@ function loadSemester(){
             data: {data: data},
             success: function (data) {
                 $("#semesterList").empty().append('data <option value="">Select Semester</option>')
-
                 $("#SessionList").empty().append('data <option value="">Select Session</option>')
-
+                $('#courseCode').empty().append('<option value="">Select Course</option>')
                 for (var i = 1; i <= data.totalSem; i++) {
                     $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
                 }
@@ -40,6 +45,10 @@ function loadSemester(){
                 }
             }
         })
+    }
+    else{
+        $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+        $('#courseCode').empty().append('<option value="">Select Course</option>')
     }
 }
 
@@ -51,12 +60,17 @@ function loadCourse() {
         type: "post",
         url: url('postExamination', 'getCourseData', ''),
         data: {program: program,session: session,semester: semester},
+
         success: function (data) {
-               console.log(data)
                $('#courseCode').empty().append('<option value="">Select Course</option>')
-               for(i=0; i<data.length;i++){
-                   $('#courseCode').empty().append('<option value="' + data[i].id + '">' + data[i].subjectName + '</option>')
+               for(i=0; i<data.subject.length;i++){
+                   $('#courseCode').append('<option value="' + data.subjectList[i].subject.id + '">' + data.subject[i].subjectName + '</option>')
                }
         }
     });
+}
+
+function loadMismatchStudents(){
+    alert("hello kuldeep")
+
 }

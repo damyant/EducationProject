@@ -152,6 +152,17 @@
             </g:link>
             %{--</a>--}%
         </li>
+    <li>
+
+        <g:link controller="postExamination"
+                action="markMismatchReport"><g:message
+                code="default.mainMenu4.subMenu2"/>
+        </g:link>
+        <g:link controller="postExamination"
+                action="marksUpdation"><g:message
+                code="default.mainMenu4.subMenu3"/>
+        </g:link>
+    </li>
     </ul>
 </li>
 
