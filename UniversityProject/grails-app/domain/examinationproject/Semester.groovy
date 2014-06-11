@@ -2,7 +2,6 @@ package examinationproject
 
 class Semester {
     int semesterNo
-
     static belongsTo = [programSession: ProgramSession]
 
     static mapping = {

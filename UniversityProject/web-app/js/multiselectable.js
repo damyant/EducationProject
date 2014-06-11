@@ -225,6 +225,7 @@ function ConvertFormToJSON(form) {
     finalList.push(semesterList);
 
     json["semesterList"] = finalList;
+    console.log("hello java"+json);
 
     return json
 }
