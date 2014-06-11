@@ -43,7 +43,7 @@
                             <g:select name="examinationCentre" id="examinationCentre" optionKey="id" class="university-size-1-1"
                                       optionValue="cityName" from="${examinationCenterList}"
                                       noSelection="['': ' Select Examination Centre']"
-                                      onchange="showExamVenueList1()"/>
+                                      onchange="showExamVenueList1()" disabled=""/>
                         </td>
                         <td class="university-size-1-2"><label id="CentreForExamVenue"
                                                                style="margin-left: 45%;"></label></td>

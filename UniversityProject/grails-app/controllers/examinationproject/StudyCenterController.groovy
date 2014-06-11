@@ -95,6 +95,25 @@ class StudyCenterController {
             println("<<<<<<<<<<<Problem in getting study center list" + e)
         }
     }
+def getDistrictStudyCenterList(){
+        try{
+        def status=[:]
+        def resultMap=[:]
+        def result= studyCenterInfoService.districtStudyCenterList(params)
+        def cityList=City.findAllByDistrict(District.findById(params.data))
+        if(result) {
+            resultMap.result = result
+            resultMap.cityList = cityList
+            render resultMap as JSON
+        }
+        else
+            status.flag="false"
+        render status as JSON
+        }
+        catch (Exception e){
+            println("<<<<<<<<<<<Problem in getting study center list" + e)
+        }
+    }
 
     def getStudyCenterForECList(){
 

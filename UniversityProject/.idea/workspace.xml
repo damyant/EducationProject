@@ -2,20 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4160cf6c-6634-4f74-96e2-3c48ee9d0b8c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/postExamination/markMismatchReport.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/postExamination/marksUpdation.gsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/Report/MarksFoilSheet.xls" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/MarksFoilExcelService.groovy" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/universityproject/MarksFoilExcelServiceSpec.groovy" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/postExamination/finalResult.gsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/examinationCenter/listOfCity.gsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/postExamination/marksEntering.gsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/postExamination/resultProcessing.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ExaminationCenterController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ExaminationCenterController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/ExaminationVenue.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/ExaminationVenue.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/PostExaminationController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/PostExaminationController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/Semester.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/Semester.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/com/university/UserController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/com/university/UserController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/PostExaminationService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/PostExaminationService.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudyCenterController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudyCenterController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/StudyCenterInfoService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/StudyCenterInfoService.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/WriteExcelService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/WriteExcelService.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/postExamination/_generateMarksFoil.gsp" afterPath="$PROJECT_DIR$/grails-app/views/postExamination/_generateMarksFoil.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" afterPath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/user/assignCourse.gsp" afterPath="$PROJECT_DIR$/grails-app/views/user/assignCourse.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admin.js" afterPath="$PROJECT_DIR$/web-app/js/admin.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admitCard.js" afterPath="$PROJECT_DIR$/web-app/js/admitCard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/assignExaminationVenue.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/assignExaminationVenue.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/postExamination/createMarksFoil.gsp" afterPath="$PROJECT_DIR$/grails-app/views/postExamination/createMarksFoil.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/studyCenter/createNewStudyCenter.gsp" afterPath="$PROJECT_DIR$/grails-app/views/studyCenter/createNewStudyCenter.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/user/createUser.gsp" afterPath="$PROJECT_DIR$/grails-app/views/user/createUser.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/jquery/jquery.multiple.select.js" afterPath="$PROJECT_DIR$/web-app/js/jquery/jquery.multiple.select.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/dataEntry.js" afterPath="$PROJECT_DIR$/web-app/js/dataEntry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/examinationCenter/editExaminationCentre.gsp" afterPath="$PROJECT_DIR$/grails-app/views/examinationCenter/editExaminationCentre.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/enrollmentAtIdol.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/enrollmentAtIdol.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/individualStudentUpdate.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/individualStudentUpdate.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/i18n/messages.properties" afterPath="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/css/multiple-select.css" afterPath="$PROJECT_DIR$/web-app/css/multiple-select.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/multiselectable.js" afterPath="$PROJECT_DIR$/web-app/js/multiselectable.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/postExamination.js" afterPath="$PROJECT_DIR$/web-app/js/postExamination.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/registration.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/registration.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/report.js" afterPath="$PROJECT_DIR$/web-app/js/report.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/studyCenter.js" afterPath="$PROJECT_DIR$/web-app/js/studyCenter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/user/userlist.gsp" afterPath="$PROJECT_DIR$/grails-app/views/user/userlist.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/validation.js" afterPath="$PROJECT_DIR$/web-app/js/validation.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/studyCenter/viewStudyCentre.gsp" afterPath="$PROJECT_DIR$/grails-app/views/studyCenter/viewStudyCentre.gsp" />
     </list>
     <ignored path="UniversityProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -96,7 +116,7 @@
       <file leaf-file-name="PostExaminationController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/PostExaminationController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="29" selection-start="2162" selection-end="2162" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="990">
+            <state line="49" column="29" selection-start="2239" selection-end="2239" vertical-scroll-proportion="0.0" vertical-offset="735" max-vertical-offset="2085">
               <folding />
             </state>
           </provider>
@@ -117,7 +137,7 @@
       <file leaf-file-name="postExamination.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web-app/js/postExamination.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="24" selection-start="1003" selection-end="1003" vertical-scroll-proportion="0.61538464" vertical-offset="228" max-vertical-offset="1230">
+            <state line="76" column="26" selection-start="2872" selection-end="2872" vertical-scroll-proportion="1.2386364" vertical-offset="595" max-vertical-offset="1530">
               <folding />
             </state>
           </provider>
@@ -162,13 +182,13 @@
       <file leaf-file-name="dataEntry.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/js/dataEntry.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="694" column="9" selection-start="24090" selection-end="24090" vertical-scroll-proportion="0.0" vertical-offset="10280" max-vertical-offset="10890">
+            <state line="694" column="9" selection-start="24091" selection-end="24091" vertical-scroll-proportion="0.0" vertical-offset="10280" max-vertical-offset="10890">
               <folding>
-                <marker date="1402047316305" expanded="false" signature="12181:12200" placeholder="..." />
-                <marker date="1402047316305" expanded="false" signature="12283:12302" placeholder="..." />
-                <marker date="1402047316305" expanded="false" signature="12753:12772" placeholder="..." />
-                <marker date="1402047316305" expanded="false" signature="12872:12891" placeholder="..." />
-                <marker date="1402047316305" expanded="false" signature="12947:12966" placeholder="..." />
+                <marker date="1402464720469" expanded="false" signature="12182:12201" placeholder="..." />
+                <marker date="1402464720469" expanded="false" signature="12284:12303" placeholder="..." />
+                <marker date="1402464720469" expanded="false" signature="12754:12773" placeholder="..." />
+                <marker date="1402464720469" expanded="false" signature="12873:12892" placeholder="..." />
+                <marker date="1402464720469" expanded="false" signature="12948:12967" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -177,7 +197,7 @@
       <file leaf-file-name="report.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/js/report.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="139" column="31" selection-start="3371" selection-end="3371" vertical-scroll-proportion="0.0" vertical-offset="4318" max-vertical-offset="4905">
+            <state line="141" column="31" selection-start="3379" selection-end="3379" vertical-scroll-proportion="0.0" vertical-offset="4348" max-vertical-offset="4935">
               <folding />
             </state>
           </provider>
@@ -929,12 +949,12 @@
       <workItem from="1402048081752" duration="9250000" />
       <workItem from="1402287679499" duration="22528000" />
       <workItem from="1402377418683" duration="8832000" />
-      <workItem from="1402460183077" duration="682000" />
+      <workItem from="1402460183077" duration="1089000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="388694000" />
+    <option name="totallyTimeSpent" value="389101000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="743" extended-state="0" />
@@ -966,7 +986,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20234604" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44117647" sideWeight="0.18914956" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24303405" sideWeight="0.18914956" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32198143" sideWeight="0.2851906" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1291,7 +1311,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/PostExaminationController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="29" selection-start="2162" selection-end="2162" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="990">
+        <state line="49" column="29" selection-start="2239" selection-end="2239" vertical-scroll-proportion="0.0" vertical-offset="735" max-vertical-offset="2085">
           <folding />
         </state>
       </provider>
@@ -1334,20 +1354,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/report.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="139" column="31" selection-start="3371" selection-end="3371" vertical-scroll-proportion="0.0" vertical-offset="4453" max-vertical-offset="4905">
+        <state line="141" column="31" selection-start="3379" selection-end="3379" vertical-scroll-proportion="0.0" vertical-offset="4348" max-vertical-offset="4935">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/dataEntry.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="694" column="9" selection-start="24090" selection-end="24090" vertical-scroll-proportion="0.0" vertical-offset="10280" max-vertical-offset="10890">
+        <state line="694" column="9" selection-start="24091" selection-end="24091" vertical-scroll-proportion="0.0" vertical-offset="10280" max-vertical-offset="10890">
           <folding>
-            <marker date="1402047316305" expanded="false" signature="12181:12200" placeholder="..." />
-            <marker date="1402047316305" expanded="false" signature="12283:12302" placeholder="..." />
-            <marker date="1402047316305" expanded="false" signature="12753:12772" placeholder="..." />
-            <marker date="1402047316305" expanded="false" signature="12872:12891" placeholder="..." />
-            <marker date="1402047316305" expanded="false" signature="12947:12966" placeholder="..." />
+            <marker date="1402464720469" expanded="false" signature="12182:12201" placeholder="..." />
+            <marker date="1402464720469" expanded="false" signature="12284:12303" placeholder="..." />
+            <marker date="1402464720469" expanded="false" signature="12754:12773" placeholder="..." />
+            <marker date="1402464720469" expanded="false" signature="12873:12892" placeholder="..." />
+            <marker date="1402464720469" expanded="false" signature="12948:12967" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1368,7 +1388,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/postExamination.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="24" selection-start="1003" selection-end="1003" vertical-scroll-proportion="0.61538464" vertical-offset="228" max-vertical-offset="1230">
+        <state line="76" column="26" selection-start="2872" selection-end="2872" vertical-scroll-proportion="1.2386364" vertical-offset="595" max-vertical-offset="1530">
           <folding />
         </state>
       </provider>

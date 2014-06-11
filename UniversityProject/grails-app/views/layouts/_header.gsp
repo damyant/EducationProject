@@ -74,19 +74,29 @@
             </ul>
         </li>
 
-        <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>
+        <li><a href="#"><g:message code="default.mainMenu3.subMenu11"/></a>
 
             <ul>
-                <li><g:link controller="course" action="createNewCourse"><g:message
-                        code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
-                <li><g:link controller="course"
-                            action="listOfCourses"><g:message
-                            code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>
-                <li><g:link controller="course"
-                            action="updateCourses"><g:message
-                            code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
+                %{--<li><g:link controller="examinationCenter" action="createNewCity"><g:message--}%
+                        %{--code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>--}%
+                %{--<li><g:link controller="examinationCenter"--}%
+                            %{--action="listOfCity"><g:message--}%
+                            %{--code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>--}%
             </ul>
         </li>
+        <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>
+
+        <ul>
+            <li><g:link controller="course" action="createNewCourse"><g:message
+                    code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
+            <li><g:link controller="course"
+                        action="listOfCourses"><g:message
+                        code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>
+            <li><g:link controller="course"
+                        action="updateCourses"><g:message
+                        code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
+        </ul>
+    </li>
         <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
 
             <ul>
@@ -144,15 +154,13 @@
  %{--ADDED BY DIGVIJAY ON 3rd JUNE 2014--}%
     <ul>
         <li>
-            %{--<g:message code="default.mainMenu4.subMenu1"/>--}%
-            %{--<a href="#">--}%
-            <g:link controller="postExamination"
+           <g:link controller="postExamination"
                     action="createMarksFoil"><g:message
                     code="default.mainMenu4.subMenu1"/>
             </g:link>
-            %{--</a>--}%
         </li>
     <li>
+<<<<<<< HEAD
 
         <g:link controller="postExamination"
                 action="markMismatchReport"><g:message
@@ -161,6 +169,24 @@
         <g:link controller="postExamination"
                 action="marksUpdation"><g:message
                 code="default.mainMenu4.subMenu3"/>
+=======
+            <g:link controller="postExamination"
+                action="marksEntering"><g:message
+                code="default.mainMenu4.subMenu2"/>
+            </g:link>
+    </li>
+
+    <li>
+        <g:link controller="postExamination"
+                action="resultProcessing"><g:message
+                code="default.mainMenu4.subMenu4"/>
+        </g:link>
+    </li>
+    <li>
+        <g:link controller="postExamination"
+                action="finalResult"><g:message
+                code="default.mainMenu4.subMenu5"/>
+>>>>>>> 49c7936171909e93685dd7977688c4a704572bdc
         </g:link>
     </li>
     </ul>

@@ -32,10 +32,10 @@
 <div id="main">
     <fieldset class="form">
         <h3>Marks Foil Sheet Generation</h3>
-        <g:form name="marksFoilForm" id="marksFoilId" controller="postExamination" action="generateMarksFoilSheet">
+        <g:form name="marksFoilId" id="marksFoilId" controller="postExamination" action="generateMarksFoilSheet">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
-
+            <g:hiddenField name="btn"  id="btn" value=""/>
         <g:if test="${flash.message}">
             <div class="message"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
@@ -92,7 +92,8 @@
 
             <tr>
                 <td colspan="2" align="center">
-                    <input type="submit" value="Download Marks Foil Sheet" onclick="validate()" class="university-button">
+                    <input type="button" id="pdfid" value="Download Marks in pdf" onclick="validate()" class="university-button" tag="1">
+                    <input type="button" id="excelid" value="Download Marks in excel" onclick="validate()" class="university-button" tag="2">
                     <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
                 </td>
             </tr>

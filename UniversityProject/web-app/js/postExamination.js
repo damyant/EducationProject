@@ -62,15 +62,35 @@ function loadCourse() {
         data: {program: program,session: session,semester: semester},
 
         success: function (data) {
+
                $('#courseCode').empty().append('<option value="">Select Course</option>')
                for(i=0; i<data.subject.length;i++){
                    $('#courseCode').append('<option value="' + data.subjectList[i].subject.id + '">' + data.subject[i].subjectName + '</option>')
+
                }
         }
     });
 }
 
+
 function loadMismatchStudents(){
     alert("hello kuldeep")
 
 }
+
+$(document).ready(function(){
+    $('#pdfid').on('click', function(){
+        alert("clicked pdf")
+        $("#btn").val("pdf")
+        $("#marksFoilId").submit()
+    })
+
+    $('#excelid').on('click', function(){
+        alert("clicked excel")
+        $("#btn").val("excel")
+        $("#marksFoilId").submit()
+    })
+
+})
+
+

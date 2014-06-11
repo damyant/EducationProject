@@ -229,11 +229,16 @@
         }
     })
     function assignCourses(val){
+<<<<<<< HEAD
         alert('helo kuldeep'+val.id)
         $('#coursePopup').dialog('open')
 
 
 //        window.open("/UniversityProject/user/assignCourse?userId="+val.id,'_self', false)
+=======
+//        alert('helo kuldeep'+val.id)
+        window.open("/UniversityProject/user/assignCourse?userId="+val.id,'_self', false)
+>>>>>>> 49c7936171909e93685dd7977688c4a704572bdc
     }
 </script>
 </body>
