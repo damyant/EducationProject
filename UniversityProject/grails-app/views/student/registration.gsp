@@ -126,13 +126,27 @@
 
     </td>
 </tr>
+<g:if test="${studInstance?.rollNo}">
+<tr>
+    <td>Roll Number <span class="university-obligatory">*</span></td>
+    <td>
+                    <input type="text"  name="rollNo" readonly
+                           class="university-size-1-1" value="${studInstance?.rollNo}"/>
+
+    </td>
+</tr>
+    </g:if>
 <sec:ifLoggedIn>
     <g:if test="${studInstance}">
         <g:if test="${studInstance.applicationNo}">
     <tr>
         <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
         <td class="university-size-2-3">
+<<<<<<< HEAD
             <input type="text" name="applicationNo" value="${studInstance.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
+=======
+            <input type="text" name="applicationNo" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2" value="${studInstance?.applicationNo}"/>
+>>>>>>> a62a4e02402745c5589677aafd0b24eedbba2fb2
             <label id="errorMsg" class="error1"></label>
         </td>
     </tr>
@@ -300,6 +314,8 @@
 onkeypress="return isNumber(event)"/> Of
 <input type="text" name="registrationNo2" maxlength="7" class="university-size-1-3"
 onkeypress="return isNumberWithDash(event)"/>
+    <input type="checkbox" name="appliedFor"  class="university-size-1-3"
+           />
 </td>
 </tr>
 

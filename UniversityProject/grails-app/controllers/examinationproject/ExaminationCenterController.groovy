@@ -15,6 +15,7 @@ class ExaminationCenterController {
     def saveExaminationCentre = {
 //        println("hello kuldeep in examination centre")
         Boolean flag = examinationCentreService.saveCentres(params)
+        println("*********")
         if(flag){
             render   "${message(code: 'centre.created.message')}"
         }

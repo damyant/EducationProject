@@ -59,6 +59,9 @@ class StudentController {
         catch(NullPointerException e){
             flash.message="Please Assign Admission Date"
         }
+        if(params.studentId){
+            programList = ProgramDetail.list()
+        }
         def districtList=District.list(sort: 'districtName')
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')

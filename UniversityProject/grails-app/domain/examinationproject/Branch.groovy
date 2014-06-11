@@ -14,6 +14,5 @@ class Branch {
     static mapping = {
         id column: 'branchId'
         branchLocation column: 'branchLocation'
-
     }
 }
