@@ -181,23 +181,37 @@ class ExaminationCenterController {
     }
     @Secured("ROLE_ADMIN")
     def createExamCentre={
+        def cityInst=City.findById(params.id)
         def districtList=District.list(sort:'districtName')
-        [districtList:districtList]
+        [districtList:districtList,cityInst:cityInst]
     }
-    def saveExamCentre={
+    def saveExamCentre= {
         int flag = examinationCentreService.saveExamCentres(params)
-        if(flag==2){
-            flash.message =  "Examination Centre Saved Successfully"
+        if (flag == 2) {
+            if (params.isCity) {
+                flash.message = "City Saved Successfully"
+            } else {
+                flash.message = "Examination Centre Saved Successfully"
+            }
+        } else if (flag == 1) {
+            if (params.isCity) {
+                flash.message = "City Already Exist"
+            } else {
+                flash.message = "Examination Centre Already Exist"
+            }
+        } else {
+            if (params.isCity) {
+                flash.message = "City Not Saved"
+            } else {
+                flash.message = "Examination Centre Not Saved"
+            }
         }
-        else if(flag==1){
-            flash.message =  "Examination Centre Already Exist"
+        if (params.isCity) {
+            redirect(action: "createNewCity")
+        } else {
+            redirect(action: "createExamCentre")
         }
-        else{
-            flash.message =  "Examination Centre Not Saved"
-        }
-        redirect(action: "createExamCentre")
     }
-
 
     def getExamCenterName() {
         try{
@@ -214,9 +228,37 @@ class ExaminationCenterController {
             println("<<<<<<<<<<<Problem in getting exam Center List list" + e)
         }
     }
+    @Secured("ROLE_ADMIN")
     def listOfCity(){
         def districtList=District.list(sort:'districtName')
         [districtList:districtList]
     }
+    @Secured("ROLE_ADMIN")
+    def createNewCity(){
+        def cityInst=City.findById(params.id)
+        def districtList=District.list(sort:'districtName')
+        [districtList:districtList,cityInst:cityInst]
+    }
+    @Secured("ROLE_ADMIN")
+    def deleteCity(){
+//        println("dsdsdsds"+params)
+            try {
 
+                def status=examinationCentreService.deletionCity(params)
+                println(status)
+                if(status) {
+                    flash.message = "City Removed Successfully"
+
+                }
+            }
+            catch (Exception e){
+                flash.message = "Unable To Remove City"
+            }
+        redirect(action: "listOfCity")
+    }
+    @Secured("ROLE_ADMIN")
+    def listOfExamCentre(){
+        def districtList=District.list(sort:'districtName')
+        [districtList:districtList]
+    }
 }

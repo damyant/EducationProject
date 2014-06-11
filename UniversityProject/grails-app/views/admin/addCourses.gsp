@@ -35,7 +35,7 @@
             </td>
             <td>
                 <g:select id="programTypeId" name="programTypeId"
-                          from="${programTypeList}" optionKey="id"
+                          from="${programTypeList}" optionKey="id" value="${courseList?.programTypeId?.id}"
                           optionValue="type" class="many-to-one university-size-1-2"
                           noSelection="['': 'Choose Type']"/>
             </td>
@@ -53,9 +53,11 @@
         <tr>
             <td class="university-size-1-3"><p>Course Name <span class="university-obligatory">*</span>
             </p></td>
-            <td class="university-size-2-3"><g:textField name="subjectName" id="subjectName"
-                                                         class="university-size-1-2"
-                                                         /></td>
+            <td class="university-size-2-3"><g:textField name="subjectName" id="subjectName" value="${courseList?.subjectName}"
+                                                         class="university-size-1-2"/>
+                <input type="hidden" value="${courseList?.id}" name="subjectId"/>
+
+            </td>
         </tr>
 
         <tr><td colspan="2" style="text-align: center; ">

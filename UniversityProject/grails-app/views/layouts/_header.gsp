@@ -45,6 +45,30 @@
 </li>
 <li><a href="#"><g:message code="default.mainMenu3"/></a>
     <ul>
+
+        <li><a href="#"><g:message code="default.mainMenu3.subMenu11"/></a>
+
+            <ul>
+                <li><g:link controller="examinationCenter" action="createNewCity"><g:message
+                        code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
+                <li><g:link controller="examinationCenter"
+                            action="listOfCity"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">Examination Centre</a>
+            <ul>
+                <li><g:link controller="examinationCenter" action="createExamCentre"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
+                <li><g:link controller="examinationCenter" action="listOfExamCentre"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
+            </ul>
+        </li>
+        <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
+            <ul>
+                <li><g:link controller="admin" action="addCourses"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
+                <li><g:link controller="admin" action="listOfCourses"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
+            </ul>
+        </li>
+
         <li><a href="#"><g:message code="default.mainMenu3.subMenu3"/></a>
             <ul>
                 <li><g:link controller="studyCenter" action="createNewStudyCenter"><g:message
@@ -55,12 +79,7 @@
                         code="default.mainMenu3.subMenu3.subMenu3"/></g:link></li>
             </ul>
         </li>
-        <li>
-            <a href="#">Examination Centre</a>
-            <ul>
-                <li><g:link controller="examinationCenter" action="createExamCentre">Create</g:link></li>
-            </ul>
-        </li>
+
         <li><a href="#"><g:message code="default.mainMenu3.subMenu1"/></a>
             <ul>
                 <li><g:link controller="examinationCenter" action="create"><g:message
@@ -74,16 +93,7 @@
             </ul>
         </li>
 
-        <li><a href="#"><g:message code="default.mainMenu3.subMenu11"/></a>
 
-            <ul>
-                %{--<li><g:link controller="examinationCenter" action="createNewCity"><g:message--}%
-                        %{--code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>--}%
-                %{--<li><g:link controller="examinationCenter"--}%
-                            %{--action="listOfCity"><g:message--}%
-                            %{--code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>--}%
-            </ul>
-        </li>
         <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>
 
         <ul>
@@ -97,17 +107,7 @@
                         code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
         </ul>
     </li>
-        <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
 
-            <ul>
-                <li><g:link controller="admin"
-                            action="addCourses"><g:message
-                            code="default.mainMenu6.subMenu7"/></g:link></li>
-                %{--<li><g:link controller="admin"--}%
-                %{--action="updateCourses"><g:message--}%
-                %{--code="default.mainMenu6.subMenu8"/></g:link></li>--}%
-            </ul>
-        </li>
         <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>
             <ul>
                 <li><a href="#" class="newAdmitCardPopup"><g:message

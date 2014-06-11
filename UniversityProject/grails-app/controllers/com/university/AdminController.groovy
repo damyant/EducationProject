@@ -16,6 +16,7 @@ import examinationproject.Student
 import examinationproject.Status
 import examinationproject.StudentController
 import examinationproject.StudyCenter
+import examinationproject.Subject
 import grails.converters.JSON
 import grails.util.Holders
 
@@ -409,15 +410,14 @@ class AdminController {
     @Secured(["ROLE_ADMIN"])
     def addCourses = {
         def programTypeList = ProgramType.list()
+        def courseList = Subject.findById(params.id)
 //        println("AdminController-->addCourses"+programTypeList);
-        [programTypeList:programTypeList]
+        [programTypeList:programTypeList,courseList:courseList]
     }
 
-    def updateCourses = {
-//        println("AdminController-->updateCourses Action" + params)
-        def programDetail = ProgramDetail.findById(Integer.parseInt(params.CourseId))
-//        println("Inside Admin Controller Action "+programDetail)
-        [programDetail:programDetail]
+    def listOfCourses = {
+        def programTypeList = ProgramType.list()
+        [programTypeList:programTypeList]
     }
     @Secured(["ROLE_ADMIN"])
     def assignRollNoGenerationDate={
@@ -581,7 +581,7 @@ class AdminController {
             flash.message = "Admission Period Saved Successfully"
         }
         else {
-            flash.message = "Unable Save Successfully"
+            flash.message = "Unable Save Successfully. "
         }
         redirect(action: "assignAdmissionPeriod")
     }
@@ -620,5 +620,29 @@ class AdminController {
             returnMap.branchName = Branch.findByBranchLocation('Gauhati University').branchLocation
         }
         render returnMap as JSON
+    }
+    @Secured("ROLE_ADMIN")
+    def deleteCourse={
+//        println("dsdsdsds"+params)
+        try {
+            def status=adminInfoService.deleteTheCourse(params)
+            println(status)
+            if(status) {
+                flash.message = "Course Removed Successfully"
+
+            }
+        }
+        catch (Exception e){
+            flash.message = "Unable To Remove Course"
+        }
+        redirect(action: "listOfCourse")
+    }
+    @Secured("ROLE_ADMIN")
+    def loadSubject={
+        def programType=ProgramType.findById(Long.parseLong(params.type))
+        def subjectList = Subject.findAllByProgramTypeId(programType)
+        def response =[subjectList:subjectList]
+//        println(response.programList[0].courseName)
+        render response as JSON
     }
 }

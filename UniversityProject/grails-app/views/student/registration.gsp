@@ -43,9 +43,7 @@
 
                 url = "/UniversityProject/student/registration" ;
                 window.location.href = url;
-               // window.open('/UniversityProject/admin/generateFeeVoucher/?rollNo='+rollNo+'&feeType='+feeType);
-                window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId+'&fee='+fee);
-
+                window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId+'&fee='+fee, '');
             }
 
         })
@@ -129,13 +127,26 @@
     </td>
 </tr>
 <sec:ifLoggedIn>
+    <g:if test="${studInstance}">
+        <g:if test="${studInstance.applicationNo}">
     <tr>
         <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
         <td class="university-size-2-3">
-            <input type="text" name="applicationNo" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
+            <input type="text" name="applicationNo" value="${studInstance.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
             <label id="errorMsg" class="error1"></label>
         </td>
     </tr>
+        </g:if>
+    </g:if>
+    <g:else>
+        <tr>
+            <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
+            <td class="university-size-2-3">
+                <input type="text" name="applicationNo" value="${studInstance?.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
+                <label id="errorMsg" class="error1"></label>
+            </td>
+        </tr>
+    </g:else>
 </sec:ifLoggedIn>
 <!----- Date Of Birth -------------------------------------------------------->
 <tr>
