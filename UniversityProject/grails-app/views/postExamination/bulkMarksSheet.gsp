@@ -32,7 +32,7 @@
 <div id="main">
     <fieldset class="form">
         <h3>Batch Marks Generation</h3>
-        <g:form name="marksFoilForm" id="marksFoilId" controller="postExamination" action="generateMarksFoilSheet">
+        <g:form name="" id="" controller="postExamination" action="">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
 
@@ -80,11 +80,9 @@
                     </td>
                 </tr>
 
-                <!----------------------------------------- Course Name --------------------------------------------->
-
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="submit" value="Update Marks" onclick="validate()" class="university-button">
+                        <input type="button" value="Download Marks Sheet" onclick="validate()" class="university-button">
                         <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
                     </td>
                 </tr>

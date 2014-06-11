@@ -115,6 +115,8 @@ function populateStudentList() {
 
 
                     }
+                    document.getElementById("dataTable").style.visibility = "visible";
+                    document.getElementById("buttonDiv").style.visibility = "visible";
                 }
             }
         });

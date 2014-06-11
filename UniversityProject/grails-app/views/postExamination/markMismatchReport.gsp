@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Download Marks Foil Sheet</title>
+    <title>Marks Mismatch Report</title>
     <g:javascript src='postExamination.js'/>
 </head>
 
@@ -31,8 +31,8 @@
 
 <div id="main">
     <fieldset class="form">
-        <h3>Marks Miss Match Report Generation</h3>
-        <g:form name="marksFoilForm" id="marksFoilId" controller="postExamination" action="generateMarksFoilSheet">
+        <h3>Marks Miss Match Report</h3>
+        <g:form name="" id="" controller="postExamination" action="">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
 
@@ -80,11 +80,9 @@
                     </td>
                 </tr>
 
-                <!----------------------------------------- Course Name --------------------------------------------->
-
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="submit" value="Download Miss-Match Report" onclick="validate()" class="university-button">
+                        <input type="button" value="Download Miss-Match Report" onclick="validate()" class="university-button">
                         <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
                     </td>
                 </tr>

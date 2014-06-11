@@ -95,20 +95,22 @@
                 <input type="button" value="Show Students" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;">
             </div>
 
-            <table border="1" >
+            <table class="inner" id="dataTable" style="visibility: hidden">
             <tr>
-                <td style="align-self: center">
-                    <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-2" value="" optionValue="" from=""  multiple="true" />
+                <td>List of Roll Numbers<span class="university-obligatory">*</span></td>
+                <td style="text-align: center">
+                    <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />
                 </td>
             </tr>
             <tr>
-                <td class="university-size-3-4" style="align-self: center">
+                <td>Enter Marks<span class="university-obligatory">*</span></td>
+                <td class="university-size-3-4" style="text-align: center">
                     <input type="text" class="university-size-1-3" id="" name=""/>
                 </td>
             </tr>
             </table>
 
-            <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1">
+            <div style="text-align: center; margin: 10px auto;visibility: hidden;" id="buttonDiv" class="university-size-full-1-1">
                 <input type="button" value="Save Data" class="ui-button university-size-1-4" style="margin: auto;">
             </div>
 

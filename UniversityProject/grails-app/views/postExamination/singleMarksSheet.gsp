@@ -43,21 +43,16 @@
             <div style="margin-left: 10px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 
             <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;" border="0">
-
                 <tr>
-                    <td style="align-self: center">
-                        <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-2" value="" optionValue="" from=""  multiple="true" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="university-size-3-4" style="align-self: center">
-                        <input type="text" class="university-size-1-3" id="" name=""/>
+                    <td>Enter Roll Number<span class="university-obligatory">*</span></td>
+                    <td class="university-size-3-4" style="text-align: left">
+                        <input type="text" class="university-size-1-2" id="" name="" maxlength="15"/>
                     </td>
                 </tr>
             </table>
 
             <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1">
-                <input type="button" value="Save Data" class="ui-button university-size-1-4" style="margin: auto;">
+                <input type="button" value="Download Marks Sheet" class="ui-button university-size-1-4" style="margin: auto;">
             </div>
 
         </g:form>

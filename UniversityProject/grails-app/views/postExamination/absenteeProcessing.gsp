@@ -32,7 +32,7 @@
 <div id="main">
     <fieldset class="form">
         <h3>Absentee Processing</h3>
-        <g:form name="marksFoilForm" id="marksFoilId" controller="postExamination" action="generateMarksFoilSheet">
+        <g:form name="" id="" controller="postExamination" action="">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
 
@@ -42,7 +42,18 @@
 
             <div style="margin-left: 10px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 
-            <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;" border="0">
+            <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;" border="1">
+
+                <!----------------------------------------- Program Name --------------------------------------------->
+                <tr>
+                    <td>Exam Venue<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="examVenue" id="examVenue" optionKey="id" class="university-size-1-2"
+                                  value=""
+                                  optionValue="" from="" noSelection="['': ' Select Exam Venue']"
+                        />
+                    </td>
+                </tr>
 
                 <!----------------------------------------- Program Name --------------------------------------------->
                 <tr>
@@ -81,10 +92,42 @@
                 </tr>
 
                 <!----------------------------------------- Course Name --------------------------------------------->
+                <tr>
+                    <td>Course<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="courseCode" id="courseCode" optionKey="id" class="university-size-1-2"
+                                  value=""
+                                  optionValue="courseCode" from="" noSelection="['': ' Select Course']"/>
+                    </td>
+                </tr>
+
+                %{--<table class="inner" id="dataTable" style="visibility: hidden">--}%
+                <tr>
+                    %{--<td>All Roll Numbers<span class="university-obligatory">*</span></td>--}%
+
+                    <td style="text-align: center">
+                All Roll Numbers
+                        <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />
+                    </td>
+
+                    <td style="text-align: center">
+                        Absentee Roll Numbers
+                        <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />
+                    </td>
+                </tr>
+
+                %{--<tr>--}%
+                    %{--<td>Absentee Roll Numbers<span class="university-obligatory">*</span></td>--}%
+                    %{--Absentee Roll Numbers--}%
+                    %{--<td style="text-align: center">--}%
+                        %{--<g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />--}%
+                    %{--</td>--}%
+                %{--</tr>--}%
+
 
                 <tr>
-                    <td colspan="2" align="center">
-                        <input type="submit" value="Update Marks" onclick="validate()" class="university-button">
+                    <td colspan="2" style="text-align: center">
+                        <input type="button" value="Save" onclick="validate()" class="university-button">
                         <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
                     </td>
                 </tr>
