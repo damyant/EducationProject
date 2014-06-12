@@ -10,6 +10,7 @@ import examinationproject.MiscellaneousFee
 import examinationproject.MiscellaneousFeeChallan
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
+import examinationproject.ProgramSession
 import examinationproject.ProgramType
 import examinationproject.RollNoGenerationFixture
 import examinationproject.Student
@@ -644,5 +645,27 @@ class AdminController {
         def response =[subjectList:subjectList]
 //        println(response.programList[0].courseName)
         render response as JSON
+    }
+    def searchStudentName={
+        def fNameList=Student.list().firstName.unique()
+        def mNameList=Student.list().middleName.unique()
+        def lNameList=Student.list().lastName.unique()
+        def nameList=[]
+        fNameList.each {
+            nameList<<it
+        }
+        mNameList.each {
+            nameList<<it
+        }
+        lNameList.each {
+            nameList<<it
+        }
+        def sessionList=ProgramSession.list().sessionOfProgram.unique()
+        [sessionList:sessionList,nameList:nameList]
+    }
+    def searchStudentList={
+        def studentListByFName=Student.findAllByFirstNameAndProgramSession(params.student,ProgramSession.find)
+        def studentListByMName=Student.findAllByMiddleNameAndProgramSession()
+        def studentListByCName=Student.findAllByLastNameAndProgramSession()
     }
 }

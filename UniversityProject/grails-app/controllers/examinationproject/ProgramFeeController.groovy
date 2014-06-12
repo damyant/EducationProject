@@ -70,17 +70,18 @@ class ProgramFeeController {
         def program = programFeeInstance.programDetail
         def programSession = programFeeInstance.programSession
         def feeType
+        def miscFee
         List<MiscellaneousFee> miscellaneousFeeList = []
         if(FeeType.count()>0){
         feeType = FeeType.list()
             feeType.each {
-//                println("Hello")
+                miscFee=FeeType.list()
                 def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(FeeType.findById(it.id),program,programSession)
                 if(miscellaneousFee)
                 miscellaneousFeeList.add(miscellaneousFee)
 //                println("fdsgfhsdgfsdhf"+miscellaneousFee)
             }
-            [programFeeInstance:programFeeInstance,miscellaneousFeeList:miscellaneousFeeList]
+            [programFeeInstance:programFeeInstance,miscellaneousFeeList:miscellaneousFeeList,miscFee:miscFee]
 
         }else{
             [programFeeInstance:programFeeInstance]

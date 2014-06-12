@@ -821,7 +821,13 @@ function populateChallanDetail(){
                 $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
                 $("#error").hide()
             }else{
+                alert(data.rollStatus)
+                if(!data.rollStatus){
+                    $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">PLease Generate Roll Number Before Approving Pay-In-Slip</td></tr>')
+                }
+                else{
                 $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">Already Approved or Wrong Challan Number</td></tr>')
+            }
             }
         }
     });
@@ -1081,4 +1087,16 @@ function deleteExamCentre(data){
     $('#deleteCityId').val(data)
     alert($('#deleteCityId').val())
     $('#deleteCityInst').submit()
+}
+function searchStudentList(){
+    var session=$('#session').val()
+    var student=$('#searchStudent').val()
+    $.ajax({
+        type: "post",
+        url: url('admin', 'searchStudentList', ''),
+        data: {student: student, session: session},
+        success: function (data) {
+
+        }
+    });
 }

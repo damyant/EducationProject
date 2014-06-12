@@ -32,19 +32,15 @@
     }).ajaxStop($.unblockUI);
 </script>
 <div id="main">
-
     <fieldset class="form">
         <h3>Pay Miscellaneous Fee Entry</h3>
-        <g:form controller="feeDetails" action="payMiscFeeChallan" name="paychallanForStudyCenter"
-                id="paychallanForStudyCenter">
+        <g:form controller="feeDetails" action="payMiscFeeChallan" name="paychallanForStudyCenter" id="paychallanForStudyCenter">
             <table class="inner university-size-full-1-1" style="margin: auto">
                 <thead>
                 <tr>
                     <td class="university-size-1-4">Enter Challan Number</td>
-                    <td class="university-size-1-4"><input type="text" name="searchChallanNo" id="searchChallanNo"
-                                                           value=""/></td>
-                    <td class="university-size-1-4"><input type="button" value="Show Students"
-                                                           onclick="showMiscFeeListOfStudents()"/></td>
+                    <td class="university-size-1-4"><input type="text" name="searchChallanNo" id="searchChallanNo" value=""/></td>
+                    <td class="university-size-1-4"><input type="button" value="Show Students" onclick="showMiscFeeListOfStudents()"/></td>
                     <td class="university-size-1-4"></td>
                 </tr>
                 </thead>
@@ -69,44 +65,27 @@
             <table id="studentPayList" class="university-size-full-1-1" style="visibility: hidden">
                 <tr>
                     <td class="university-size-1-3">Payment Mode</td>
-                    <td class="university-size-2-3"><g:select name="paymentMode" class="university-size-1-2"
-                                                              id="paymentMode" optionKey="id"
-                                                              optionValue="paymentModeName"
-                                                              from="${paymentMode}"
-                                                              noSelection="['': ' Select Payment Mode']"
-                                                              onchange=""/></td>
+                    <td class="university-size-2-3"><g:select name="paymentMode" class="university-size-1-2" id="paymentMode" optionKey="id" optionValue="paymentModeName" from="${paymentMode}" noSelection="['': ' Select Payment Mode']" onchange=""/></td>
                 </tr>
                 <tr>
                     <td class="university-size-1-3">Payment Date</td>
-                    <td class="university-size-2-3"><input type="text" name="paymentDate" maxlength="10"
-                                                           class="university-size-1-2" id="datepicker"
-                                                           value=""></td>
+                    <td class="university-size-2-3"><input type="text" name="paymentDate" maxlength="10" class="university-size-1-2" id="datepicker" value=""></td>
                 </tr>
                 <tr>
                     <td class="university-size-1-3">Payment Ref. No</td>
-                    <td class="university-size-2-3"><input type="text" name="paymentReferenceNumber" maxlength="10"
-                                                           onkeypress="return isNumber(event)"
-                                                           class="university-size-1-2" id="paymentReferenceNumber"
-                                                           value=""></td>
+                    <td class="university-size-2-3"><input type="text" name="paymentReferenceNumber" maxlength="10" onkeypress="return isNumber(event)" class="university-size-1-2" id="paymentReferenceNumber" value=""></td>
                 </tr>
                 <tr>
                     <td>Bank</td>
-                    <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
-                                  optionValue="bankName"
-                                  from="${bankName}" noSelection="['': ' Select Bank']"
-                                  onchange="loadBranch(this)"/></td>
+                    <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id" optionValue="bankName" from="${bankName}" noSelection="['': ' Select Bank']" onchange="loadBranch(this)"/></td>
                 </tr>
                 <tr>
                     <td>Bank</td>
-                    <td><g:select name="branchLocation" class="university-size-1-2" id="branchLocation" optionKey=""
-                                  optionValue=""
-                                  from="" noSelection="['': ' Select Branch']"
-                                  onchange=""/></td>
+                    <td><g:select name="branchLocation" class="university-size-1-2" id="branchLocation" optionKey="" optionValue="" from="" noSelection="['': ' Select Branch']" onchange=""/></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3" value="Pay"  onclick="checkValidation()"
-                               style="visibility: hidden"/></td>
+                    <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3" value="Pay"  onclick="checkValidation()" style="visibility: hidden"/></td>
                 </tr>
             </table>
         </g:form>
@@ -134,7 +113,7 @@
                 document.getElementById("paginationDiv").style.visibility = "hidden";
                 document.getElementById("studentPayList").style.visibility = "hidden";
                 document.getElementById("payClear").style.visibility = "hidden";
-            }, 500)
+            }, 5000)
         }
     })
 </script>

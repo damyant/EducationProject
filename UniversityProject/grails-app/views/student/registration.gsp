@@ -142,11 +142,8 @@
     <tr>
         <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
         <td class="university-size-2-3">
-<<<<<<< HEAD
-            <input type="text" name="applicationNo" value="${studInstance.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
-=======
-            <input type="text" name="applicationNo" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2" value="${studInstance?.applicationNo}"/>
->>>>>>> a62a4e02402745c5589677aafd0b24eedbba2fb2
+            <input type="text" name="applicationNo" value="${studInstance.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="5" class="university-size-1-2"/>
+
             <label id="errorMsg" class="error1"></label>
         </td>
     </tr>
@@ -156,7 +153,7 @@
         <tr>
             <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
             <td class="university-size-2-3">
-                <input type="text" name="applicationNo" value="${studInstance?.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
+                <input type="text" name="applicationNo" value="${studInstance?.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="5" class="university-size-1-2"/>
                 <label id="errorMsg" class="error1"></label>
             </td>
         </tr>
@@ -458,7 +455,7 @@ onkeypress="return isNumberWithDash(event)"/>
                                       from="${paymentMode}" noSelection="['': ' Select PaymentMode']"/></td>
                     </tr>
                     <tr>
-                        <td>Reference Number<span class="university-obligatory">*</span></td>
+                        <td>DD/RTGS/NEFT Number<span class="university-obligatory">*</span></td>
                         <td><input type="text" name="feeReferenceNumber" maxlength="8"  class="university-size-1-2" onkeypress="return isNumber(event)"
                                    id="feeReferenceNumber"/></td>
                     </tr>
