@@ -53,7 +53,7 @@
             %{--<g:select name="cityLocationList" id="city" optionKey="id" value="${City?.findById(params?.city)?.id}" optionValue="cityName"--}%
                       %{--noSelection="['null': ' Select City']" from="" onchange="showStudyCenterList()"/>--}%
         %{--</g:else>--}%
-            %{--<input type="hidden" value="${params.type}" id="ParameterType"/>--}%
+            <input type="hidden" value="${params.type}" id="ParameterType"/>
         %{--</div>--}%
         <table id="studyCenterTab" class="university-size-full-1-1">
             <thead>

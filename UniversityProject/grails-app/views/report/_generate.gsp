@@ -117,7 +117,7 @@
             </table>
       </g:elseif>
       <g:elseif test="${totalListByExaminationCentre}">
-        <h3> Total Students In All Courses For ${examinationCentreSession} Session</h3>
+        <h3> Total Students In All Courses For ${examinationCentreSession} Session In ${examinationCentre} Centre</h3>
         <table style=" text-align: center" class="gridtable">
                 <th>Course Name</th>
                 <th>No. Of Students</th>

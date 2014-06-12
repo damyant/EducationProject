@@ -126,7 +126,7 @@ function showStudyCenterListByDistrict() {
                         for (var j = 0; j < data.result[i].length; j++) {
 //                            count++
                             if (type == 'update') {
-                                $("#studyCenterTab tbody").append('<tr><td>' + data.result[i][j].name + '</td><td>' + data.result[i][j].address + '</td><td>' + data.cityList[i].cityName + '</td><td>' + data.result[i][j].websiteUrl + '</td><td><div class="university-float-right"><input type="submit" value="Update" class="university-button" onclick="updateStudyCenter(' + data.result[i][j].id + ')"/><input type="button" onclick="deleteStudyCenter(' + data.result[i][j].id + ')"  value="Delete" class="university-button" /></div></td></tr>')
+                                $("#studyCenterTab tbody").append('<tr><td>' + data.result[i][j].name + '</td><td>' + data.result[i][j].address + '</td><td>' + data.cityList[i].cityName + '</td><td>' + data.result[i][j].websiteUrl + '</td><td><div class="university-float-right"><input type="submit" value="Update" class="university-button" onclick="updateStudyCenter(' + data.result[i][j].id + ')"/><input type="button" onclick="deleteStudyCenter('+ data.result[i][j].id +')"  value="Delete" class="university-button" /></div></td></tr>')
                             }
                             else {
                                 $("#studyCenterTab tbody").append('<tr><td>' + data.result[i][j].name + '</td><td>' + data.result[i][j].address + '</td><td>' + data.cityList[i].cityName + '</td><td>' + data.result[i][j].websiteUrl + '</td><td><div class="university-float-right"><input type="submit" value="View" class="university-button" onclick="viewStudyCenter(' + data.result[i][j].id + ')"/></td></tr>')

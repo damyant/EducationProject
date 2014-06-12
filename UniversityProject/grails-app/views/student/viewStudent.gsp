@@ -6,11 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<<<<<<< HEAD
-<%@ page import="java.text.SimpleDateFormat;  javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
-=======
+
 <%@ page import="java.text.SimpleDateFormat;javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
->>>>>>> a0de782d437ace62bc83678b04572d2ec2feab6e
+
 <html>
 <head>
     <title>Student Registration</title>
@@ -52,6 +50,7 @@
 
 <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;">
 <!----- First Name ---------------------------------------------------------->
+<g:if test="${studInstance?.firstName}">
 <tr>
     <td>Name of the applicant <span class="university-obligatory"></span></td>
     <td>
@@ -67,7 +66,9 @@
 
     </td>
 </tr>
+</g:if>
 <!----- Date Of Birth -------------------------------------------------------->
+<g:if test="${studInstance?.dob}">
 <tr>
     <td>Date of Birth <span class="university-obligatory"></span></td>
    <td>
@@ -77,34 +78,32 @@
 
     </td>
 </tr>
-
+</g:if>
 <!----- Program Name ---------------------------------------------------------->
+<g:if test="${studInstance?.programDetail[0].courseName}">
 <tr>
     <td>Program<span class="university-obligatory"></span></td>
-    %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
     <td>
-
             <input type="text" class="university-size-1-2" readonly
                       value="${studInstance?.programDetail[0].courseName}"/>
-
-
-
     </td>
 </tr>
+</g:if>
 <!----- category ----------------------------------------------------------->
+<g:if test="${studInstance?.category}">
 <tr>
     <td>Category <span class="university-obligatory"></span></td>
     <td>
         <div class="radio_options">
             <label><span>${studInstance?.category}</span></label>
-
-
         </div>
     </td>
 </tr>
+</g:if>
 
 
 <!----- Nationality ----------------------------------------------------------->
+<g:if test="${studInstance?.nationality}">
 <tr>
     <td>Nationality <span class="university-obligatory"></span></td>
     <td>
@@ -115,10 +114,11 @@
         </div>
     </td>
 </tr>
-
+</g:if>
 
 
 <!----- Gender ----------------------------------------------------------->
+<g:if test="${studInstance?.gender}">
 <tr>
     <td>Gender <span class="university-obligatory"></span></td>
     <td>
@@ -128,7 +128,9 @@
         </div>
     </td>
 </tr>
+</g:if>
 <!----- State of Domicile ----------------------------------------------------------->
+<g:if test="${studInstance?.state}">
 <tr>
     <td>State of Domicile <span class="university-obligatory"></span></td>
     <td>
@@ -138,9 +140,10 @@
         </div>
     </td>
 </tr>
-
+</g:if>
 <tr>
     <!----- Mobile Number ---------------------------------------------------------->
+<g:if test="${studInstance?.mobileNo}">
     <td>Mobile Number <span class="university-obligatory"></span></td>
     <td>
          <input
@@ -148,36 +151,40 @@
            />
     </td>
 </tr>
+</g:if>
 <tr>
 
     <!----- Contact centre/study centre ---------------------------------------------------------->
+<g:if test="${studInstance.studyCentre[0]?.name}">
     <td>Study centre <span class="university-obligatory"></span></td>
     <td>
         <input type="text" readonly class="university-size-1-2" value="${studInstance.studyCentre[0]?.name}" readonly/>
     </td>
 </tr>
+</g:if>
 <tr>
     <!----- Preference of examination centre ---------------------------------------------------------->
+<g:if test="${studInstance.studyCentre[0]?.name}">
     <td>Preference of examination Centre<span class="university-obligatory"></span></td>
     <td>
-
-
             <g:if test="${studInstance?.addressDistrict}">
                     <input type="text"  readonly value="${studInstance?.addressDistrict}"/>
             </g:if>
                     <input type="text"  readonly value="${studInstance?.city[0]?.cityName}"/>
-
-
     </td>
 </tr>
+</g:if>
 
 <g:if test="${studInstance}">
+    <g:if test="${studInstance?.parentsName}">
 <tr>
     <td>Parent's Name</td>
     <td><input type="text" readonly class="university-size-1-2" value="${studInstance?.parentsName}"/>
     </td>
+    </g:if>
 </tr>
    </g:if>
+<g:if test="${studInstance?.studentAddress}">
 <tr>
     <td>Complete Mailing Address of Candidate<br/><br/><br/></td>
     <td>
@@ -237,18 +244,20 @@
         </table>
     </td>
 </tr>
+</g:if>
+<g:if test="${studInstance.studentImage}">
 <tr>
     <td>
-        Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 50KB )
+       Student Image
     </td>
     <td>
     %{--<input type='file' onchange="readURL(this);" />--}%
 
-        <g:if test="${studInstance}">
+
             <img src="${createLink(controller: 'student', action: 'show', id: studInstance?.id
                     , mime: 'image/jpeg')}" class="university-registration-photo" id="picture1"/>
-            <input type='file' id="profileImage" onchange="readURL(this, 'picture1');" class="university-button"
-                   name="photograph"/>
+            %{--<input type='file' id="profileImage" onchange="readURL(this, 'picture1');" class="university-button"--}%
+                   %{--name="photograph"/>--}%
         </g:if>
 
 

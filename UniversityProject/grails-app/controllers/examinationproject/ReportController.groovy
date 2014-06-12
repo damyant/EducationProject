@@ -42,7 +42,7 @@ class ReportController {
                if(status){
 //                   println("hello kuldeep u r back in controller "+ status)
                    File myFile = new File(servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_.xls')
-                   response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.session+".xls"
+                   response.setHeader "Content-disposition", "attachment; filename="+'Student_List_.xls'
                    response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
                    response.outputStream << myFile .bytes
                    response.outputStream.flush()
@@ -153,8 +153,9 @@ class ReportController {
            else{
                def totalList = reportService.getReportDataExaminationCentre(params, null)
                def sessionVal= Integer.parseInt(params.examinationCentreSession)+1
+               def examinationCentre = City.findById(Long.parseLong(params.examCity))
                sessionVal= params.examinationCentreSession+'-'+sessionVal
-               def args = [template: "generate", model: [totalListByExaminationCentre :totalList, examinationCentreSession:sessionVal],filename:'Student_List_'+params.examinationCentreSession+".pdf"]
+               def args = [template: "generate", model: [totalListByExaminationCentre :totalList, examinationCentreSession:sessionVal, examinationCentre: examinationCentre.cityName],filename:'Student_List_'+params.examinationCentreSession+".pdf"]
                pdfRenderingService.render(args + [controller: this], response)
            }
        }

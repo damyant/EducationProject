@@ -37,17 +37,17 @@
                 <div id="studyCentre"> <a href="#">
                     <li>By Study Centre</li>
                     <ul>
-                        <li id="studyCentreNoOfStudents">Course Wise No Of Students </li>
+                        <a href="#"> <li id="studyCentreNoOfStudents">Course Wise No Of Students </li></a>
 
-                        <li id="studyCentreStudentList"> Course Wise Student List</li>
+                        <a href="#">  <li id="studyCentreStudentList"> Course Wise Student List</li></a>
                     </ul></a>
                 </div>
                 <div id="examinationCentreDiv"> <a href="#">
                     <li>By Examination Centre</li>
                     <ul>
-                        <li id="examinationCentreNoOfStudents">Course Wise No Of Students </li>
+                        <a href="#">  <li id="examinationCentreNoOfStudents">Course Wise No Of Students </li></a>
 
-                        <li id="examinationCentreStudentList"> Course Wise Student List</li>
+                        <a href="#">  <li id="examinationCentreStudentList"> Course Wise Student List</li></a>
                     </ul>
                 </a></div>
 

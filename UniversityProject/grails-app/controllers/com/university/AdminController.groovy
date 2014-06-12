@@ -106,6 +106,19 @@ class AdminController {
         [feeType: feeType]
     }
 
+    def getStudentByRollNo ={
+        def studentMap=[:]
+          def student = Student.findByRollNo(params.rollNo)
+          if(student){
+             studentMap.student = student
+              render studentMap as JSON
+          }
+        else{
+              studentMap.noStudent= 'No Student Found'
+              render studentMap as JSON
+          }
+    }
+
     def checkFeeByRollNo = {
         def response
         try {
@@ -593,6 +606,7 @@ class AdminController {
         returnMap.endDate=df.format(progmInst.endAdmission_D)
         render returnMap as JSON
     }
+    @Secured("ROLE_ADMIN")
     def individualStudentUpdate={
 //        def grailsApplication = Holders.getGrailsApplication()
 //        def rootImageFolder =  grailsApplication.config.my.global.variable;
