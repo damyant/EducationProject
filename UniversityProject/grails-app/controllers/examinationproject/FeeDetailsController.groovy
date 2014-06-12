@@ -123,7 +123,7 @@ class FeeDetailsController {
         def programType=ProgramType.findById(Long.parseLong(params.type))
         def programList = ProgramDetail.findAllByProgramType(programType)
         def response =[programList:programList]
-//        println(response.programList[0].courseName)
+        println(response.programList[0].courseName)
         render response as JSON
     }
     @Secured("ROLE_STUDY_CENTRE")

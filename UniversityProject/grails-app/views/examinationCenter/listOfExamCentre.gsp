@@ -16,7 +16,7 @@
 <body>
 <div id="main">
     <fieldset class="form">
-        <h3>List of City</h3>
+        <h3>List of Examination Center</h3>
         <g:if test="${flash.message}">
             <div class="message"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
@@ -27,7 +27,7 @@
                 </td>
                 <td class="university-size-3-4">
                     <g:select name="district" id="district" onselect="" optionKey="id"
-                              class="university-size-1-3" onchange="showDistrictsCityList(this)" optionValue="districtName"
+                              class="university-size-1-3" onchange="showDistrictsExamCentreList(this)" optionValue="districtName"
                               from="${districtList}" noSelection="['':' Select District']"/>
                 </td>
             </tr>

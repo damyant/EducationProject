@@ -15,7 +15,7 @@
 <body>
 <div id="main">
     <fieldset class="form">
-        <h3>Creation of Examination Centre</h3>
+        <h3>Creation of City</h3>
         <g:if test="${flash.message}">
             <div class="message"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
@@ -31,15 +31,19 @@
                     <label>District <span class="university-obligatory">*</span></label>
                 </td>
                 <td class="university-size-3-4">
-                    <g:select name="district" id="district" onselect="" optionKey="id" class="university-size-1-3" value="${cityInst?.district?.id}" optionValue="districtName" from="${districtList}" noSelection="['':' Select District']"/>
+                    <g:select name="district" id="district" onselect="" optionKey="id"
+                              class="university-size-1-3" optionValue="districtName" value="${cityInst?.district?.id}"
+                              from="${districtList}" noSelection="['':' Select District']"/>
+                    <input type="hidden" name="isCity" value="city"/>
                 </td>
             </tr>
             <tr>
                 <td class="university-size-1-4">
-                    <label>Examination Centre Name <span class="university-obligatory">*</span></label>
+                    <label>City  Name <span class="university-obligatory">*</span></label>
                 </td>
                 <td class="university-size-3-4">
                     <input type="text" class="university-size-1-3" id="examCentreName" value="${cityInst?.cityName}" name="examCentreName"/>
+                    <input type="hidden" name="cityId" value="${cityInst?.id}"/>
                 </td>
             </tr>
             <tr>

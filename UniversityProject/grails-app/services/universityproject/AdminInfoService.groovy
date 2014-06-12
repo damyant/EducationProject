@@ -298,4 +298,31 @@ def springSecurityService
         }
         return status
     }
+    def deleteTheCourse(params){
+        Boolean status=false;
+        Boolean dStatus=false;
+        def SubjectIns = Subject.findById(Integer.parseInt(params.id))
+        def subjMapping=CourseSubject.findAllBySubject(SubjectIns)
+        if(subjMapping.size()>0) {
+            subjMapping.each {
+                it.delete()
+                if (it.exists()) {
+                    dStatus = true
+                }
+            }
+            if(!dStatus) {
+                SubjectIns.delete()
+                if (!SubjectIns.exists()) {
+                    status = true
+                }
+            }
+        }
+        else {
+            SubjectIns.delete()
+            if (!SubjectIns.exists()) {
+                status = true
+            }
+        }
+        return status
+    }
 }

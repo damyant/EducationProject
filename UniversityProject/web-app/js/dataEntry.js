@@ -692,6 +692,72 @@ function loadProgram(t) {
     });
 }
 
+function loadProgramList(t) {
+    document.getElementById("courseTable").style.visibility = "hidden"
+    document.getElementById("paginationDiv").style.visibility = "hidden";
+    $('#errorMsg').text('')
+    $('#courseTable tbody').empty()
+    var type = $(t).val();
+    $.ajax({
+        type: "post",
+        url: url('admin', 'loadSubject', ''),
+        data: {type: type},
+        success: function (data) {
+//            alert(data.subjectList.length)
+            if(data.subjectList.length>0) {
+                for (var i=0;i<data.subjectList.length;i++){
+                    var count=i+1
+                    $('#courseTable tbody').append('<tr><td>'+count+'</td><td>'+ data.subjectList[i].subjectName+'</td><td><input type="button" class="university-button" onclick="deleteCourse(' +  data.subjectList[i].id  + ')" value="Delete"/> <input type="button" class="university-button" onclick="editCourse(' + data.subjectList[i].id  + ')" value="Edit"/></td></tr>')
+                }
+                document.getElementById("paginationDiv").style.visibility = "visible";
+                document.getElementById("courseTable").style.visibility = "visible"
+                $table_rows = $('#courseTable tbody tr');
+
+                var table_row_limit = 10;
+
+                var page_table = function(page) {
+
+                    // calculate the offset and limit values
+                    var offset = (page - 1) * table_row_limit,
+                        limit = page * table_row_limit;
+
+                    // hide all table rows
+                    $table_rows.hide();
+
+                    // show only the n rows
+                    $table_rows.slice(offset, limit).show();
+
+                }
+                var pageNo=0
+                if($table_rows.length % table_row_limit){
+                    pageNo=parseInt(parseInt($table_rows.length) / table_row_limit)+1
+                }
+                else{
+                    pageNo=parseInt($table_rows.length / table_row_limit)
+                }
+//                alert(5%5)
+                $('.pagination').jqPagination({
+                    max_page: pageNo,
+                    paged: page_table
+                });
+                page_table(1);
+            }
+            else{
+                document.getElementById("courseTable").style.visibility = "hidden"
+                $('#courseTable tbody').empty()
+                $('#errorMsg').text('No Result Found !')
+            }
+        }
+    });
+}
+function editCourse(data){
+    window.open ('/UniversityProject/admin/addCourses/'+data,'_self',false)
+}
+function deleteCourse(data){
+    $('#deleteCityId').val(data)
+        alert($('#deleteCityId').val())
+        $('#deleteCityInst').submit()
+}
 function loadStudents(t) {
     var challanNo = $(t).value();
 //    alert(challanNo)

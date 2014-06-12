@@ -5,10 +5,12 @@ class Bank {
     String bankName
 
     static hasMany = [
-            branch : Branch,
+            branch : Branch
     ]
 
     static constraints = {
         bankName(nullable: false)
     }
+
+
 }

@@ -846,7 +846,13 @@ function populateChallanDetail(){
                 $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
                 $("#error").hide()
             }else{
+                alert(data.rollStatus)
+                if(!data.rollStatus){
+                    $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">PLease Generate Roll Number Before Approving Pay-In-Slip</td></tr>')
+                }
+                else{
                 $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">Already Approved or Wrong Challan Number</td></tr>')
+            }
             }
         }
     });
@@ -1055,13 +1061,67 @@ function showDistrictsCityList(t){
             data: {data: data},
             success: function (data) {
                 var count=1
-                alert(data.length)
+//                alert(data.length)
                 $('#cityListTable tbody').empty()
                 for (var i = 0; i < data.length; i++) {
-                    $('#cityListTable tbody').append('<tr><td>'+count+'</td><td>'+data[i].cityName+'</td><td><input type="button" class="university-button" onclick="editCity('+data[i].cityName+')" value="Edit"/> </td></tr>')
+                    $('#cityListTable tbody').append('<tr><td>'+ count++ +'</td><td>'+data[i].cityName+'</td><td><input type="button" class="university-button" onclick="deleteCity('+data[i].id+')" value="Delete"/> <input type="button" class="university-button" onclick="editCity('+data[i].id+')" value="Edit"/> </td></tr>')
                 }
-
             }
         })
     }
+}
+function showDistrictsExamCentreList(t){
+    var data=$(t).val()
+    if(data) {
+        $.ajax({
+            type: "post",
+            url: url('examinationCenter', 'getExamCenterName', ''),
+            data: {data: data},
+            success: function (data) {
+                if(data.length!=0) {
+                    var count = 1
+//                alert(data.length)
+                    $('#cityListTable tbody').empty()
+                    for (var i = 0; i < data.length; i++) {
+                        $('#cityListTable tbody').append('<tr><td>' + count++ + '</td><td>' + data[i].cityName + '</td><td><input type="button" class="university-button" onclick="deleteExamCentre(' + data[i].id + ')" value="Delete"/> <input type="button" class="university-button" onclick="editExamCentre(' + data[i].id + ')" value="Edit"/> </td></tr>')
+                    }
+                }
+                else{
+                    $('#cityListTable tbody').empty().append('<tr><td></td><td>No Examination Centre In This District</td><td></td></tr>')
+                }
+            }
+        })
+    }
+}
+
+function editCity(data){
+    window.open ('/UniversityProject/examinationCenter/createNewCity/'+data,'_self',false)
+}
+function deleteCity(data){
+    alert(data)
+   $('#deleteCityId').val(data)
+    alert($('#deleteCityId').val())
+    $('#deleteCityInst').submit()
+}
+
+function editExamCentre(data){
+    window.open ('/UniversityProject/examinationCenter/createExamCentre/'+data,'_self',false)
+}
+function deleteExamCentre(data){
+    alert(data)
+    $('#deleteCityId').val(data)
+    alert($('#deleteCityId').val())
+    $('#deleteCityInst').submit()
+}
+function searchStudentList(){
+    var session=$('#session').val()
+    var student=$('#searchStudent').val()
+    $.ajax({
+        type: "post",
+        url: url('admin', 'searchStudentList', ''),
+        data: {student: student, session: session},
+        success: function (data) {
+
+        }
+    });
 }

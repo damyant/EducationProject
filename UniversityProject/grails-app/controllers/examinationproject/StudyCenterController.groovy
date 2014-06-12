@@ -148,6 +148,10 @@ def getDistrictStudyCenterList(){
         def cityList = null
         if (district != null) {
             cityList = City.findAllByDistrict(district,[sort:'cityName'])
+//            cityList.each {
+//                StudyCenter.findAllByCity(it).size()
+//            }
+
             render cityList as JSON
         } else {
             render null
