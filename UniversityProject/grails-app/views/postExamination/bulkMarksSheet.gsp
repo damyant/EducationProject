@@ -81,7 +81,7 @@
                 </tr>
 
                 <tr>
-                    <td colspan="2" align="center">
+                    <td colspan="2" style="text-align: center">
                         <input type="button" value="Download Marks Sheet" onclick="validate()" class="university-button">
                         <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
                     </td>

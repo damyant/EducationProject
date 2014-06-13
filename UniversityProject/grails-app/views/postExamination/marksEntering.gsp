@@ -97,13 +97,17 @@
 
             <table class="inner" id="dataTable" style="visibility: hidden">
             <tr>
-                <td>List of Roll Numbers<span class="university-obligatory">*</span></td>
+                <td>List of Roll Numbers
+                    %{--<span class="university-obligatory">*</span>--}%
+                </td>
                 <td style="text-align: center">
                     <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />
                 </td>
             </tr>
             <tr>
-                <td>Enter Marks<span class="university-obligatory">*</span></td>
+                <td>Enter Marks
+                    %{--<span class="university-obligatory">*</span>--}%
+                </td>
                 <td class="university-size-3-4" style="text-align: center">
                     <input type="text" class="university-size-1-3" id="" name="" maxlength="10" onkeypress="return isNumber(event)"/>
                 </td>

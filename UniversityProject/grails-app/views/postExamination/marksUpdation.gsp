@@ -82,49 +82,52 @@
                     </td>
                 </tr>
 
-                %{--<!----------------------------------------- Course Name --------------------------------------------->--}%
-                %{--<tr>--}%
-                    %{--<td>Course<span class="university-obligatory">*</span></td>--}%
-                    %{--<td>--}%
-                        %{--<g:select name="courseCode" id="courseCode" optionKey="id" class="university-size-1-2"--}%
-                                  %{--value=""--}%
-                                  %{--optionValue="courseCode" from="" noSelection="['': ' Select Course']"  onchange="loadMismatchStudents()"/>--}%
-                    %{--</td>--}%
-                %{--</tr>--}%
+                <!----------------------------------------- Course Name --------------------------------------------->
+                <tr>
+                    <td>Course<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="courseCode" id="courseCode" optionKey="id" class="university-size-1-2"
+                                  value=""
+                                  optionValue="courseCode" from="" noSelection="['': ' Select Course']"  onchange="loadMismatchStudents()"/>
+                    </td>
+                </tr>
 
                 <tr>
-                    <td>List of  Roll Numbers<span class="university-obligatory">*</span></td>
+                    <td>List of  Roll Numbers
+                        %{--<span class="university-obligatory">*</span>--}%
+                    </td>
                     <td>
                         <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-2" value="" optionValue="" from=""  multiple="true" />
                     </td>
                 </tr>
+
                 <tr>
-                    <td>Name of Course<span class="university-obligatory">*</span></td>
+                    <td>Marks Entered by Tabulator 1
+                        %{--<span class="university-obligatory">*</span>--}%
+                    </td>
                     <td class="university-size-3-4">
                         <input type="text" class="university-size-1-2" id="" name=""/>
                     </td>
                 </tr>
                 <tr>
-                    <td>Marks Entered by Tabulator 1<span class="university-obligatory">*</span></td>
+                    <td>Marks Entered by Tabulator 2
+                        %{--<span class="university-obligatory">*</span>--}%
+                    </td>
                     <td class="university-size-3-4">
                         <input type="text" class="university-size-1-2" id="" name=""/>
                     </td>
                 </tr>
                 <tr>
-                    <td>Marks Entered by Tabulator 2<span class="university-obligatory">*</span></td>
-                    <td class="university-size-3-4">
-                        <input type="text" class="university-size-1-2" id="" name=""/>
+                    <td>Update Entry
+                        %{--<span class="university-obligatory">*</span>--}%
                     </td>
-                </tr>
-                <tr>
-                    <td>Update Entry<span class="university-obligatory">*</span></td>
                     <td class="university-size-3-4">
                         <input type="text" class="university-size-1-2" id="" name=""/>
                     </td>
                 </tr>
 
                 <tr>
-                    <td colspan="2" align="center">
+                    <td colspan="2" style="text-align: center">
                         <input type="button" value="Update Marks" onclick="validate()" class="university-button">
                         <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
                     </td>

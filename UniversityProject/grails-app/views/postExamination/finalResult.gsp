@@ -39,7 +39,7 @@
 <div id="main">
     <fieldset class="form">
         <h3>Final result Sheet</h3>
-        <g:form name="marksFoilId" id="marksFoilId" controller="postExamination" action="generateMarksFoilSheet">
+        <g:form name="" id="" controller="postExamination" action="">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
             <g:hiddenField name="btn"  id="btn" value=""/>
@@ -88,7 +88,7 @@
                 </tr>
 
                <tr>
-                    <td colspan="2" align="center">
+                    <td colspan="2" style="text-align: center">
                         <input type="button" value="Final Result" onclick="validate()" class="university-button" tag="1">
                         %{--<input type="button" id="excelid" value="Download Marks in excel" onclick="validate()" class="university-button" tag="2">--}%
                         <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">

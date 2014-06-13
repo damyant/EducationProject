@@ -81,7 +81,7 @@
                 </tr>
 
                 <tr>
-                    <td colspan="2" align="center">
+                    <td colspan="2" style="text-align: center">
                         <input type="button" value="Generate Result" onclick="validate()" class="university-button" tag="1">
                         %{--<input type="button" id="excelid" value="Download Marks in excel" onclick="validate()" class="university-button" tag="2">--}%
                         <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">

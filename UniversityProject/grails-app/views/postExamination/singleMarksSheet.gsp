@@ -46,13 +46,14 @@
                 <tr>
                     <td>Enter Roll Number<span class="university-obligatory">*</span></td>
                     <td class="university-size-3-4" style="text-align: left">
-                        <input type="text" class="university-size-1-2" id="" name="" maxlength="15"/>
+                        <input type="text" class="university-size-1-2" id="" name="" maxlength="10" onkeypress="return isNumber(event)"/>
                     </td>
                 </tr>
             </table>
 
             <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1">
                 <input type="button" value="Download Marks Sheet" class="ui-button university-size-1-4" style="margin: auto;">
+                <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
             </div>
 
         </g:form>

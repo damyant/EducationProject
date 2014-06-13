@@ -53,7 +53,7 @@
 
             <div style="margin-left: 10px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 
-            <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;" border="1">
+            <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;" border="0">
 
                 <!----------------------------------------- Program Name --------------------------------------------->
                 <tr>
@@ -97,7 +97,7 @@
                         <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2"
                                   value=""
                                   optionValue="" from="" noSelection="['': ' Select Semester']"
-
+                                  onchange="loadCourse()"
                         />
                     </td>
                 </tr>
@@ -114,21 +114,23 @@
 
                 <tr>
                     <td style="text-align: center">
-                    <div>All Roll Numbers
+                    <div>
                         <select id='canselect_code' name='canselect_code' multiple class="university-size-1-3">
+                            <option>All Roll Numbers</option>
                             <option value='1'>11111</option>
                             <option value='2'>22222</option>
                             <option value='3'>33333</option>
                             <option value='4'>44444</option>
                             <option value='5'>55555</option>
                         </select>
-                        <input type='button' id='btnRight_code' value=' ADD >>>  '  onclick="valueInBox()"/>
+                        <input type='button' id='btnRight_code' value=' ADD >>  '  onclick="valueInBox()"/>
                     </div>
                     </td>
                     <td style="text-align: center">
-                    <div>Absentee Roll Numbers
-                        <input type='button' id='btnLeft_code' value=' REMOVE <<<  ' onclick="valueInBox()"/>
+                    <div>
+                        <input type='button' id='btnLeft_code' value=' REMOVE <<  ' onclick="valueInBox()"/>
                         <select id='isselect_code' name='isselect_code' multiple class="university-size-1-3">
+                            <option>Absentee Roll Numbers</option>
                             <option value='6'>66666</option>
                             <option value='7'>77777</option>
                             <option value='8'>88888</option>
