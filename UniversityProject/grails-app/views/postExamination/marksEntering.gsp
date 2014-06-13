@@ -105,7 +105,7 @@
             <tr>
                 <td>Enter Marks<span class="university-obligatory">*</span></td>
                 <td class="university-size-3-4" style="text-align: center">
-                    <input type="text" class="university-size-1-3" id="" name=""/>
+                    <input type="text" class="university-size-1-3" id="" name="" maxlength="10" onkeypress="return isNumber(event)"/>
                 </td>
             </tr>
             </table>

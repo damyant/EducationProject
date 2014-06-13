@@ -16,6 +16,17 @@
 
 <body>
 <script>
+    function valueInBox() {
+    $('#btnRight_code').click(function (e) {
+        $(this).prev('select').find('option:selected').remove().appendTo('#isselect_code');
+    });
+    $('#btnLeft_code').click(function (e) {
+        $(this).next('select').find('option:selected').remove().appendTo('#canselect_code');
+    });
+    }
+</script>
+
+<script>
     $(document).ajaxStart(function(){
         $.blockUI({ css: {
             border: 'none',
@@ -101,29 +112,32 @@
                     </td>
                 </tr>
 
-                %{--<table class="inner" id="dataTable" style="visibility: hidden">--}%
                 <tr>
-                    %{--<td>All Roll Numbers<span class="university-obligatory">*</span></td>--}%
-
                     <td style="text-align: center">
-                All Roll Numbers
-                        <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />
+                    <div>All Roll Numbers
+                        <select id='canselect_code' name='canselect_code' multiple class="university-size-1-3">
+                            <option value='1'>11111</option>
+                            <option value='2'>22222</option>
+                            <option value='3'>33333</option>
+                            <option value='4'>44444</option>
+                            <option value='5'>55555</option>
+                        </select>
+                        <input type='button' id='btnRight_code' value=' ADD >>>  '  onclick="valueInBox()"/>
+                    </div>
                     </td>
-
                     <td style="text-align: center">
-                        Absentee Roll Numbers
-                        <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />
+                    <div>Absentee Roll Numbers
+                        <input type='button' id='btnLeft_code' value=' REMOVE <<<  ' onclick="valueInBox()"/>
+                        <select id='isselect_code' name='isselect_code' multiple class="university-size-1-3">
+                            <option value='6'>66666</option>
+                            <option value='7'>77777</option>
+                            <option value='8'>88888</option>
+                            <option value='9'>99999</option>
+                            <option value='10'>10000</option>
+                        </select>
+                    </div>
                     </td>
                 </tr>
-
-                %{--<tr>--}%
-                    %{--<td>Absentee Roll Numbers<span class="university-obligatory">*</span></td>--}%
-                    %{--Absentee Roll Numbers--}%
-                    %{--<td style="text-align: center">--}%
-                        %{--<g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />--}%
-                    %{--</td>--}%
-                %{--</tr>--}%
-
 
                 <tr>
                     <td colspan="2" style="text-align: center">
