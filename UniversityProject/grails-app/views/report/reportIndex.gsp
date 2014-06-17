@@ -97,7 +97,7 @@
       </sec:ifAnyGranted>
     </div>
    <div id="sessionDialog" class="dialog">
-       <g:form  id="createFeeDetail" controller="report" action="generateReport">
+       <g:form   controller="report" action="generateReport" id="reports">
 
            <table class="inner" style="margin: auto;" id="fee-table">
                <tr id="bySession">

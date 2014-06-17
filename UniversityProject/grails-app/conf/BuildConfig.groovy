@@ -51,6 +51,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         runtime 'mysql:mysql-connector-java:5.1.27'
         runtime 'org.springframework:spring-test:3.1.0.RELEASE'
+//        runtime('com.lowagie:itext:2.1.0')
 
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
     }
@@ -58,11 +59,12 @@ grails.project.dependency.resolution = {
     plugins {
         // plugins for the build system only
 
-        runtime( "org.grails.plugins:export:0.7") {
-            excludes "itext"
-        }
+//        runtime( "org.grails.plugins:export:0.7") {
+//            excludes "itext"
+//        }
         build ":tomcat:7.0.50"
         compile ":rendering:0.4.4"
+//        compile('com.lowagie:itext:2.1.0')
 
         compile ":scaffolding:2.0.1"
         compile ':cache:1.1.1'

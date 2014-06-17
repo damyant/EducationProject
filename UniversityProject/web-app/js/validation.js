@@ -265,7 +265,7 @@ function validate() {
             applicationNo: {
                 required: true,
                 number: true,
-                minlength: 6,
+                minlength: 5,
                 maxlength: 10
             },
             feeType: {
