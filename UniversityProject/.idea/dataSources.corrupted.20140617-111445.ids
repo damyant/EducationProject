@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+<<<<<<< HEAD
+  <data-source source="LOCAL" name="UniversityProject dev" uuid="94db9c14-ff2a-4f82-8be2-71421b4dcfb7">
+=======
+  <data-source source="LOCAL" name="UniversityProject dev" uuid="43652f48-cc72-49d1-956c-fcf9ea2afbee">
+>>>>>>> 5a805295048d5a5f69e3a226aa56fe506b1aac80
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>

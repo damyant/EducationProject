@@ -39,7 +39,7 @@ function loadBranch(t){
                 $("#branchList").append('<tr><th>Branch Name</th><th></th></tr>')
                 alert(data.length)
                 for (var i = 0; i < data.length; i++) {
-                    $("#branchList tbody").append('<tr><td>' +  + ' &nbsp;' + data[i].branchLocation +'</td><td><input type="button" value="Update" onclick="updateBranch(' + data[i].id + ')"/><input type="button" value="Delete" disabled="disabled" onclick="deleteBranch(' + data[i].id + ')"/> </td></tr>')
+                    $("#branchList tbody").append('<tr><td>' + data[i].branchLocation +'</td><td><input type="button" value="Update" onclick="updateBranch(' + data[i].id + ')"/><input type="button" value="Delete"  onclick="deleteBranch(' + data[i].id + ')"/> </td></tr>')
                 }
             }
         });

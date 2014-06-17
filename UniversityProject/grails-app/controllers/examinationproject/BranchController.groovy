@@ -62,6 +62,10 @@ class BranchController {
 
     @Transactional
     def deleteBranch(Branch branchInstance) {
+
+        def tmp=[]
+        studyCenter.student.each { tmp << it }
+        tmp.each { studyCenter.removeFromStudent(it) }
         def branch = Branch.findById(Integer.parseInt(params.branchId))
         branch.delete(flush: true)
     }

@@ -131,6 +131,31 @@ function getStudents() {
     }
 }
 
+function checkRollNo(){
+    $('#msgDiv').html('')
+    var rollNo= $("#StudentRollNo").val()
+    $.ajax({
+        type: "post",
+        url: url('admin', 'getStudentByRollNo', ''),
+        data: {rollNo: rollNo},
+        success: function (data) {
+            if(data.student){
+                $('#rollNo').prop('disabled', false)
+                $('#view').prop('disabled', false)
+                $('#msgDiv').html('')
+
+            }
+            else if(data.noStudent){
+                $('#rollNo').prop('disabled', true)
+                $('#view').prop('disabled', true)
+                $('#msgDiv').html(''+data.noStudent)
+            }
+
+        }
+
+    });
+}
+
 function updateStudentByRollNo(){
 //    alert("dfdfdf")
     validateProgramFee()
@@ -209,7 +234,7 @@ function appendTable(data) {
         document.getElementById("paginationDiv").style.visibility = "visible";
         $('#studentList thead').append('<tr><th><input type="checkbox" name="chkbox" onchange="toggleChecked(this.checked)"/> <label for="chkbox">Select All</label> </th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th></tr>')
         for (var i = 0; i < data.stuList.length; i++) {
-            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName+' '+data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
+            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName+' '+(data.stuList[i].middleName? data.stuList[i].middleName:'') +' '+data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
         }
         $table_rows = $('#studentList tbody tr');
         var table_row_limit = 10;

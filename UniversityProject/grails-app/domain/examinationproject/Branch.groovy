@@ -15,4 +15,5 @@ class Branch {
         id column: 'branchId'
         branchLocation column: 'branchLocation'
     }
+
 }

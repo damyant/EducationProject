@@ -145,7 +145,7 @@
         <li><g:link controller="admin" action="searchStudentName"><g:message code="default.mainMenu6.subMenu2"/></g:link></li>
         <li><a href="#"><g:message code="default.mainMenu6.subMenu16"/></a>
             <ul>
-                <li><g:link controller="bank" action="create"><g:message code="default.mainMenu6.subMenu14" default="Add Bank"/></g:link></li>
+                <li><g:link controller="bank" action="createBank"><g:message code="default.mainMenu6.subMenu14" default="Add Bank"/></g:link></li>
                 <li><g:link controller="bank" action="bankList"><g:message code="default.mainMenu6.subMenu15" default="View Bank"/></g:link></li>
             </ul>
         </li>
