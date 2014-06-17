@@ -10,6 +10,13 @@ class ReportController {
     def pdfRenderingService
     def springSecurityService
     @Secured(["ROLE_ADMIN", "ROLE_STUDY_CENTRE"])
+
+
+    def index ={
+        render 'hello kuldeep'
+    }
+
+
     def reportIndex = {
 //        println('in report Index')
 
@@ -56,9 +63,11 @@ class ReportController {
                def currentUser=springSecurityService.getCurrentUser()
                def studyCenterId = currentUser.studyCentreId
                def studyCenter= StudyCenter.findById(studyCenterId)
-//           println("back in controller with this "+ totalList)
-           def args = [template: "generate", model: [totalListBySession :totalList, sessionVal:sessionVal, studyCentreName: studyCenter?studyCenter.name:''],filename:params.session+'_All_Course'+".pdf"]
-           pdfRenderingService.render(args + [controller: this], response)
+               println("back in controller with this "+ totalList)
+               def args = [template: "generate", model: [totalListBySession :totalList, sessionVal:sessionVal, studyCentreName: studyCenter?studyCenter.name:''],filename:params.session+'_All_Course'+".pdf"]
+               println("now going to render the pdf "+ this)
+               pdfRenderingService.render(args + [controller: this ], response)
+              // redirect( action: reportIndex)
            }
 
        }
@@ -77,6 +86,8 @@ class ReportController {
            }
            def args = [template: "generate", model: [totalListBySessions :totalList, sessionVal: sessionList, ],filename:params.session+'_All_Course'+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
+                  //   redirect( action: reportIndex)
+
 
        }
 
@@ -127,6 +138,8 @@ class ReportController {
            sessionVal= params.studyCentreSession+'-'+sessionVal
            def args = [template: "generate", model: [totalListByStudyCentre :totalList, studyCentreSession:sessionVal, studyCentreName: studyCentre.name],filename:'Student_List_'+params.studyCentreSession+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
+              // redirect( action: reportIndex)
+
            }
        }
 
@@ -157,6 +170,8 @@ class ReportController {
                sessionVal= params.examinationCentreSession+'-'+sessionVal
                def args = [template: "generate", model: [totalListByExaminationCentre :totalList, examinationCentreSession:sessionVal, examinationCentre: examinationCentre.cityName],filename:'Student_List_'+params.examinationCentreSession+".pdf"]
                pdfRenderingService.render(args + [controller: this], response)
+              // redirect( action: reportIndex)
+
            }
        }
 
@@ -174,7 +189,7 @@ class ReportController {
            sessionVal= params.categoryGenderSession+'-'+sessionVal
            def args = [template: "generate", model: [totalListByCategoryGender :totalList, categoryGenderSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
-//           redirect(action: 'reportIndex')
+           //redirect(action: 'reportIndex')
        }
       else if(params.value=='admissionUnapproved' && params.admissionUnapprovedSession || params.value=='admissionApproved' && params.admissionApprovedSession){
            println("this function is called")
@@ -191,6 +206,7 @@ class ReportController {
            println('this is the value of total list '+ totalList)
            def args = [template: "generate", model: [totalListByAdmissionApprovedUnapproved :totalList, admissionApprovedUnapprovedSession:sessionVal, value:params.value],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
+          // redirect(action: 'reportIndex')
       }
 
 
@@ -202,6 +218,7 @@ class ReportController {
            println('this is the list '+ totalList)
            def args = [template: "generate", model: [totalListBySelfRegistration :totalList, admissionSelfRegistrationSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
+          // redirect(action: 'reportIndex')
       }
 
 
@@ -212,6 +229,7 @@ class ReportController {
            sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
            def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, studyCentreFeePaidSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
+         //  redirect(action: 'reportIndex')
       }
 
       else if(params.value=='sessionsComparative' && params.fromSessionComparative && params.toSessionComparative){
@@ -227,6 +245,7 @@ class ReportController {
            }
            def args = [template: "generate", model: [totalListBySessionComprative :totalList, sessionVal:sessionList],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
+           redirect(action: 'reportIndex')
       }
       else if(params.value=='categoryStudentList' && params.categoryStudentListSession){
            def webRootDir = servletContext.getRealPath("/")
@@ -260,6 +279,7 @@ class ReportController {
                 type='Approved'
            def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal, type:type],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
+          // redirect(action: 'reportIndex')
       }
 //have to complete*****************************************************************
       else if(params.value=='examinationCentreCumulative' && params.examinationCentreCumulativeSchedule){
@@ -269,6 +289,7 @@ class ReportController {
            sessionVal= params.courseApprovedSession+'-'+sessionVal
            def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
+         //  redirect(action: 'reportIndex')
 
        }
 //************************************************************************************
@@ -280,6 +301,7 @@ class ReportController {
            sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
            def args = [template: "generate", model: [totalListByDailyFeePaid :totalList, studyCentreFeePaidSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
+          // redirect(action: 'reportIndex')
        }
    }
 

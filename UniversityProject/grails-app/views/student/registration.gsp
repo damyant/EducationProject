@@ -307,12 +307,11 @@
 <!----- GU Registration Number( If already registered in GU) ---------------------------------------------------------->
 <td>GU Registration Number (if already registered in GU)</td>
 <td>
-<input type="text" name="registrationNo1" maxlength="5" class="university-size-1-3"
+<input type="text" name="registrationNo1" id="registrationNo1" maxlength="9" onchange="enableDisableCheckbox()" class="university-size-1-4"
 onkeypress="return isNumber(event)"/> Of
-<input type="text" name="registrationNo2" maxlength="7" class="university-size-1-3"
+<input type="text" name="registrationNo2" id="registrationNo2" maxlength="6" class="university-size-1-4"
 onkeypress="return isNumberWithDash(event)"/>
-    <input type="checkbox" name="appliedFor"  class="university-size-1-3"
-           />
+   &nbsp;&nbsp;&nbsp;Or&nbsp;&nbsp;&nbsp;<label style="text-align: left"><input type="checkbox" value="Y" onclick="enableDisableTextBox()" name="isAppliedFor" id="isAppliedFor"  class="university-size-1-4"/>A/F</label>
 </td>
 </tr>
 
@@ -393,7 +392,7 @@ onkeypress="return isNumberWithDash(event)"/>
                 <input type='file' id="profileImage" onchange="readURL(this, 'picture2');" class="university-button"
                        name="photograph"/>
             </g:else>
-            <input type="text" id="imageValidate" name="imageValidate" style="width: 0px;height: 0px;"/>
+            <input type="text" id="imageValidate" name="imageValidate" style="width: 1px;height: 1px;border: 0px;"/>
 
         </td>
     </tr>

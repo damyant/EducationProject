@@ -17,6 +17,7 @@ class Student {
     String studentAddress
     String addressTown
     String addressPO
+    String isAppliedFor
     String addressDistrict
     String addressState
     String addressPinCode
@@ -44,6 +45,7 @@ class Student {
         middleName(nullable: true)
         parentsName(nullable: true)
         dob(nullable: true)
+        isAppliedFor(nullable: true)
         category(nullable: true)
         gender(nullable: true)
         nationality(nullable: true)
@@ -76,6 +78,7 @@ class Student {
         programDetail cascade: 'none'
 //        examinationCentre cascade:'none'
         firstName column: "firstName"
+        isAppliedFor column: "isAppliedFor"
         lastName column: "lastName"
         middleName column: "middleName"
         parentsName column: "parentsName"
