@@ -12,7 +12,8 @@ function updateBankType(id){
 }
 function deleteBankType(id){
     var bankId = id
-    window.location.href = '/UniversityProject/bank/delete?bankId=' + bankId;
+    alert(bankId)
+    window.location.href = '/UniversityProject/bank/deleteBank?bankId=' + bankId;
 }
 
 function updateBranch(id){
@@ -37,7 +38,7 @@ function loadBranch(t){
                 //document.location.reload();
                 $("#branchList").empty().append('');
                 $("#branchList").append('<tr><th>Branch Name</th><th></th></tr>')
-                alert(data.length)
+               // alert(data.length)
                 for (var i = 0; i < data.length; i++) {
                     $("#branchList tbody").append('<tr><td>' + data[i].branchLocation +'</td><td><input type="button" value="Update" onclick="updateBranch(' + data[i].id + ')"/><input type="button" value="Delete"  onclick="deleteBranch(' + data[i].id + ')"/> </td></tr>')
                 }

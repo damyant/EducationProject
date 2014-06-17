@@ -1,14 +1,16 @@
 package examinationproject
 
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+@Secured("ROLE_ADMIN")
 class BranchController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
 
     def branchList(Integer max) {
         def bankInstanceList = Bank.list()
@@ -17,8 +19,8 @@ class BranchController {
 
     def getBranchList = {
         def list = Bank.findById(Integer.parseInt(params.bank));
-        println(list.branch[0].id)
-        render list.branch as JSON
+         println(list.branch)
+         render list.branch as JSON
     }
 
     def createBranch() {
@@ -29,14 +31,17 @@ class BranchController {
     @Transactional
     def saveBranch() {
        println("params"+params)
-       def branch =  new Branch(branchLocation: params.branchName).save(flush: true)
+       def branch =  new Branch(branchLocation: params.branchName,bank: Integer.parseInt(params.bankId[0])).save(flush: true)
         Set<Branch> branches = new HashSet<Branch>()
         branches.add(branch)
         def bank = Bank.findById(Integer.parseInt(params.bankId[0]))
         bank.branch=branches
        if(bank.save(flush: true)){
-          redirect(action: "branchList")
-      }
+         flash.message ="Branch Added Successfully"
+      }else{
+           flash.message ="Unable To Add Branch"
+       }
+        redirect(action: "createBranch")
     }
 
     def editBranch() {
@@ -62,12 +67,14 @@ class BranchController {
 
     @Transactional
     def deleteBranch(Branch branchInstance) {
-
-        def tmp=[]
-        studyCenter.student.each { tmp << it }
-        tmp.each { studyCenter.removeFromStudent(it) }
         def branch = Branch.findById(Integer.parseInt(params.branchId))
         branch.delete(flush: true)
+        if(!Branch.exists(branch.id)){
+           flash.message="Branch Successfully Deleted"
+        }else{
+            flash.message = "Unable To Delete Branch"
+        }
+        redirect(action: "branchList")
     }
 
 }
