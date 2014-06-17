@@ -153,7 +153,7 @@
         <tr>
             <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
             <td class="university-size-2-3">
-                <input type="text" name="applicationNo" value="${studInstance?.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="5" class="university-size-1-2"/>
+                <input type="text" name="applicationNo" value="${studInstance?.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
                 <label id="errorMsg" class="error1"></label>
             </td>
         </tr>

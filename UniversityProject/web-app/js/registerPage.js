@@ -144,16 +144,16 @@ function checkApplicationNumber(t) {
     });
 }
 
-function checkLastDate(t){
-    var data = $(t).val();
-    $.ajax({
-        type: "post",
-        url: url('student', 'checkLastDate', ''),
-        data: {applicationNo: data},
-        success: function (data) {
-        }
-    })
-}
+//function checkLastDate(t){
+//    var data = $(t).val();
+//    $.ajax({
+//        type: "post",
+//        url: url('student', 'checkLastDate', ''),
+//        data: {applicationNo: data},
+//        success: function (data) {
+//        }
+//    })
+//}
 function submitTempRegistration() {
     validate();
     var result = $('#tempEnrollment').valid()
@@ -210,7 +210,14 @@ function confirmGenerateChallan(rollno) {
     });
 }
 function loadProgramFeeAmount(t){
+    if($('#admissionFeeAmount').length>0){
     $('#admissionFeeAmount').val("");
+    }
+    if($('#ProgrammeNotExist').length>0){
+    $('#ProgrammeNotExist').html("");
+        $("#idolSubmitButton").prop("disabled",false)
+    }
+
     var program=$(t).val();
 //    alert(program)
     $.ajax({
@@ -218,7 +225,20 @@ function loadProgramFeeAmount(t){
         url: url('admin', 'getFeeAmount', ''),
         data: {program: program},
         success: function (program) {
+            if($('#admissionFeeAmount').length>0){
             $('#admissionFeeAmount').val(program.feeAmount);
+            }
+            if($('#ProgrammeNotExist').length>0){
+                if(program.feeAmount==0){
+                $('#ProgrammeNotExist').html("This Programme is not Available At this Study Center")
+//                    $('#tempEnrollment').valid(false)
+                    $("#idolSubmitButton").prop("disabled",true)
+                }
+                else{
+                    $('#ProgrammeNotExist').html("");
+                    $("#idolSubmitButton").prop("disabled",false)
+                }
+            }
         }
     });
 }
@@ -240,21 +260,3 @@ function loadProgramFeeAmount(t){
         mywindow.close();
         return true;
     }
-function enableDisableCheckbox(){
-    if($('#registrationNo1').val()!=''){
-        $('#isAppliedFor').prop('disabled',true)
-    }
-    else{
-        $('#isAppliedFor').prop('disabled',false)
-    }
-}
-function enableDisableTextBox(){
-    if($('#isAppliedFor').is(':checked')){
-        $('#registrationNo1').prop('disabled',true)
-        $('#registrationNo2').prop('disabled',true)
-    }
-    else{
-        $('#registrationNo1').prop('disabled',false)
-        $('#registrationNo2').prop('disabled',false)
-    }
-}
