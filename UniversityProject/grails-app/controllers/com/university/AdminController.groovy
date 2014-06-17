@@ -601,11 +601,13 @@ class AdminController {
     }
     def getAdmissionDate={
         def returnMap=[:]
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+        if(params.programCode){
         def progmInst=ProgramDetail.findById(params.programCode)
-        returnMap.startDate=df.format(progmInst.startAdmission_D)
-        returnMap.endDate=df.format(progmInst.endAdmission_D)
+        returnMap.startDate=sdf.format(progmInst.startAdmission_D)
+        returnMap.endDate=sdf.format(progmInst.endAdmission_D)
         render returnMap as JSON
+        }
     }
     @Secured("ROLE_ADMIN")
     def individualStudentUpdate={
@@ -661,25 +663,32 @@ class AdminController {
         render response as JSON
     }
     def searchStudentName={
-        def fNameList=Student.list().firstName.unique()
-        def mNameList=Student.list().middleName.unique()
-        def lNameList=Student.list().lastName.unique()
-        def nameList=[]
-        fNameList.each {
-            nameList<<it
+//        def fNameList=Student.list().firstName.unique()
+//        def mNameList=Student.list().middleName.unique()
+//        def lNameList=Student.list().lastName.unique()
+//        def nameList=[]
+//        fNameList.each {
+//            nameList<<it
+//        }
+//        mNameList.each {
+//            nameList<<it
+//        }
+//        lNameList.each {
+//            nameList<<it
+//        }
+        def sessionList = Student.createCriteria().list {
+            projections {
+                distinct("registrationYear")
+            }
         }
-        mNameList.each {
-            nameList<<it
-        }
-        lNameList.each {
-            nameList<<it
-        }
-        def sessionList=ProgramSession.list().sessionOfProgram.unique()
-        [sessionList:sessionList,nameList:nameList]
+       println(sessionList)
+        [sessionList:sessionList]
     }
     def searchStudentList={
-        def studentListByFName=Student.findAllByFirstNameAndProgramSession(params.student,ProgramSession.find)
-        def studentListByMName=Student.findAllByMiddleNameAndProgramSession()
-        def studentListByCName=Student.findAllByLastNameAndProgramSession()
+            def studentListByFName=Student.findAllByFirstNameAndProgramSession(params.student,it)
+            def studentListByMName=Student.findAllByMiddleNameAndProgramSession(params.student,it)
+            def studentListByCName=Student.findAllByLastNameAndProgramSession(params.student,it)
+
+
     }
 }

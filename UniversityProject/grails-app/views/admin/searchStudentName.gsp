@@ -11,11 +11,11 @@
     <meta name="layout" content="main"/>
     <title></title>
     <g:javascript src='admin.js'/>
-    <script type="text/javascript">
-    $(function() {
-        var name
-        alert("fgfgf")
-        alert(nameList[0])
+    %{--<script type="text/javascript">--}%
+    %{--$(function() {--}%
+%{--//        var name--}%
+%{--//        alert("fgfgf")--}%
+%{--//        alert(nameList[0])--}%
         %{--for(var i=0;i<${nameList.size()};i++){--}%
            %{--if(i=0) {--}%
                %{--name = "[" + '"${nameList[i]}", '--}%
@@ -28,13 +28,13 @@
            %{--}--}%
 
         %{--}--}%
-        alert (name)
-        var availableTags = name;
-        $("#searchStudent").autocomplete({
-            source: availableTags
-        });
-    })
-    </script>
+%{--//        alert (name)--}%
+        %{--var availableTags = "chandan";--}%
+        %{--$("#searchStudent").autocomplete({--}%
+            %{--source: availableTags--}%
+        %{--});--}%
+    %{--})--}%
+    %{--</script>--}%
 </head>
 
 <body>
@@ -45,7 +45,7 @@
         <table class="inner university-size-full-1-1">
             <tr>
                 <td class="university-size-1-7">Search By Name</td>
-                <td class="university-size-1-4"><input type="search" class="university-size-1-1" id="searchStudent" placeholder="Enter First / Middle / Last Name"/></td>
+                <td class="university-size-1-4"><input type="search"  class="university-size-1-1" id="searchStudent" placeholder="Enter First / Middle / Last Name"/></td>
                 <td class="university-size-1-4"></td>
                 <td class="university-size-1-4"></td>
             </tr>

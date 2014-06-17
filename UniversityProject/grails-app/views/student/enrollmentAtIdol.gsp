@@ -87,16 +87,17 @@
                     <tr>
                         <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
                         <td class="university-size-2-3">
-                            <input type="text" name="applicationNo" tabindex="4" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="5" class="university-size-1-2"/>
+                            <input type="text" name="applicationNo" tabindex="4" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
                             <label id="errorMsg" class="error1"></label>
                         </td>
                     </tr>
                     <tr>
                         <td>Program<span class="university-obligatory">*</span></td>
                         <td>
-                            <g:select name="programId" id="programId" optionKey="id" tabindex="5" onchange="checkLastDate(this)" class="university-size-1-2"
+                            <g:select name="programId" id="programId" optionKey="id" tabindex="5" onchange="loadProgramFeeAmount(this)" class="university-size-1-2"
                                       optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"/>
                             <g:hiddenField name="idol" value="idol"/>
+                            <label id="ProgrammeNotExist" class="error"></label>
                         </td>
                     </tr>
                     <tr>
@@ -173,7 +174,7 @@
                         <td></td>
                         <td>
 
-                            <input type="button" value="Submit" tabindex="12" onclick="submitTempRegistration()" class="university-button">
+                            <input type="button" value="Submit" id="idolSubmitButton" tabindex="12" onclick="submitTempRegistration()" class="university-button">
                             <input type="reset" value="Reset" tabindex="13" onclick="resetImage()" class="university-button">
                         </td>
                     </tr>
@@ -185,28 +186,29 @@
                     %{--<div style="width: 100%; margin: 6px auto; display: inline-block;text-align: center;">----------------------------------------BANK COPY----------------------------------------</div>--}%
 
                     <div style="border: 1px solid; padding: 10px;">
-                        <div class="university-size-full-1-1" style="margin-bottom: 25px;"> <div style="float: right"><lable>Challan. No. </lable><label id="challanNo"></label></div>
+                        <div class="university-size-full-1-1" style="margin-bottom: 25px;"> <div style="float: right;font-size: 11px""><lable>Challan. No. </lable><label id="challanNo"></label></div>
                             <div class="university-clear-both"></div>
                         </div>
 
-                        <div style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
+                        <div style="width:100%; margin-left: 3px; text-align: center;text-transform: uppercase;font-size: 10px">
+                            <div style="width:100%;">&nbsp;</div>
+                        <div style="width:100%;">State Bank of India</div>
 
-                        <div>State Bank of India</div>
 
-                        <div>Gauhati University Branch (CODE-4332)</div>
+                        <div style="width:100%;">Gauhati University Branch (CODE-4332)</div>
 
-                        <div>A/C No. 57846586846</div>
+                        <div style="width:100%;">A/C No. 57846586846</div>
 
-                        <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
+                        <div style="width:100%;">INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
 
-                        <div>GAUHATI UNIVERSITY</div>
+                        <div style="width:100%;">GAUHATI UNIVERSITY</div>
                     </div>
                         <div style="clear: both; margin-bottom: 10px;"></div>
-                        <table width="100%" class="university-table-1-2">
-                            <tr><td><lable>Name:</lable></td><td><label id="studentName"></label></td></tr>
-                            <tr><td><lable>Roll No:</lable></td><td><label id="studentRollNo"></label></td></tr>
-                            <tr><td>Type Of Fee:</td><td><label id="feeType"></label></td></tr>
-                            <tr><td><lable>Amount:</lable></td><td><label id="amount"></label>
+                        <table width="100%" class="university-table-1-2" style="font-size: 10px;">
+                            <tr style="font-size: 10px;><td><lable>Name:</lable></td><td><label id="studentName"></label></td></tr>
+                            <tr style="font-size: 10px;><td><lable>Roll No:</lable></td><td><label id="studentRollNo"></label></td></tr>
+                            <tr style="font-size: 10px;><td>Type Of Fee:</td><td><label id="feeType"></label></td></tr>
+                            <tr style="font-size: 10px;><td><lable>Amount:</lable></td><td><label id="amount"></label>
                                 %{--<g:if test="${lateFee!=0}">--}%
                                     <label style="font-size: 13px;display: block" id="lateFee"></label>
                                 %{--</g:if>--}%
