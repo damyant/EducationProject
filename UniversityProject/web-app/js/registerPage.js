@@ -260,21 +260,3 @@ function loadProgramFeeAmount(t){
         mywindow.close();
         return true;
     }
-function enableDisableCheckbox(){
-    if($('#registrationNo1').val()!=''){
-        $('#isAppliedFor').prop('disabled',true)
-    }
-    else{
-        $('#isAppliedFor').prop('disabled',false)
-    }
-}
-function enableDisableTextBox(){
-    if($('#isAppliedFor').is(':checked')){
-        $('#registrationNo1').prop('disabled',true)
-        $('#registrationNo2').prop('disabled',true)
-    }
-    else{
-        $('#registrationNo1').prop('disabled',false)
-        $('#registrationNo2').prop('disabled',false)
-    }
-}
