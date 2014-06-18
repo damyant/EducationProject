@@ -33,20 +33,24 @@
             $(".radioInput[name='gender'][value=" + gender + "]").attr('checked', 'checked');
             $(".radioInput[name='state'][value=" + state + "]").attr('checked', 'checked');
         });
-        $(document).ready(function(){
-//        window.onload=function () {
+//        $(document).ready(function(){
+//         location.reload()
+%{--//        window.onload=function () {--}%
 
-            var flag = "${registered}"
-            var studentId = "${studentID}"
-            var fee = "${params.admissionFeeAmount}"
-            if (flag == 'registered') {
+            %{--var flag = "${registered}"--}%
+            %{--var studentId = "${studentID}"--}%
+            %{--var fee = "${params.admissionFeeAmount}"--}%
+            %{--if (flag == 'registered') {--}%
 
-                url = "/UniversityProject/student/registration" ;
-                window.location.href = url;
-                window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId+'&fee='+fee, '');
-            }
+%{--//                url = "/UniversityProject/student/registration" ;--}%
+%{--//                window.location.href = url;--}%
+               %{--var abc=  window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId+'&fee='+fee, '');--}%
+%{--//                while(abc==null){--}%
+%{--//                 abc= window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId+'&fee='+fee, '');--}%
+%{--//                }--}%
+//            }
 
-        })
+//        })
     </script>
 
 </head>
@@ -412,7 +416,7 @@ onkeypress="return isNumberWithDash(event)"/>
                        name="photograph"/>
             </g:if>
             <g:else>
-                <div id="profile-image"><img src="" alt="Space for Photograph "
+                <div id="profile-image" class='registration-image-div'><img src="" alt="Space for Photograph "
                                              class="university-registration-photo" id="picture"/></div>
                 <input type='file' id="profileImage" onchange="readURL(this, 'picture');" class="university-button"
                        name="photograph"/>
@@ -481,7 +485,7 @@ onkeypress="return isNumberWithDash(event)"/>
 <!----- Submit and Reset ------------------------------------------------->
 <tr>
     <td colspan="2" align="center">
-        <input type="submit" value="Submit" onclick="validate()" class="university-button">
+        <input type="submit" value="Submit" id="submitButton" onclick="validate()" class="university-button">
         <input type="reset" value="Reset" onclick="resetImage()" class="university-button">
     </td>
 </tr>
@@ -527,6 +531,17 @@ onkeypress="return isNumberWithDash(event)"/>
             });
         });
     });
+      $('#submitButton').on('click', function(){
+          if($('#studentRegister').valid()) {
+              setTimeout(function () {
+                  $('#studentRegister')[0].reset();
+               var abc= $('#picture2').remove();
+                  $('#profile-image').append('<img src="" alt="Space for Photograph " class="university-registration-photo" id="picture2"/>')
+//                  location.reload()
+              }, 1000)
+
+          }
+      })
 </script>
 </body>
 </html>

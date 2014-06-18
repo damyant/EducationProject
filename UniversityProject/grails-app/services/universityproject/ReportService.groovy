@@ -495,14 +495,21 @@ class ReportService {
     def getReportDataAdmissionSelfRegistration(params){
         def stuObj= Student.createCriteria()
         def studentList = stuObj.list{
+            ne('referenceNumber', '0')
+            and{
                 eq('registrationYear' , Integer.parseInt(params.admissionSelfRegistrationSession))
+            }
+//            and{
+//                ne('referenceNumber', 0)
+//            }
 
 //             and{
 //                eq('status', Status.findById(1))
 //             }
-            and{
-              isNotNull('referenceNumber')
-            }
+//            and{
+//              isNotNull('referenceNumber')
+//            }
+
         }
         println("this is the list--------------- "+studentList)
         return studentList

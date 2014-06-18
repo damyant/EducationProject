@@ -107,7 +107,7 @@ class StudentRegistrationService {
         studentRegistration.programDetail = programDetail
         if (params.idol == "idol")
             studentRegistration.challanNo = getChallanNumber()
-        Set<ExaminationVenue> examinationCentreList = ExaminationVenue.findAllById(Integer.parseInt(params.examinationCentre))
+        Set<City> examinationCentreList = City.findAllById(Integer.parseInt(params.examinationCentre))
         studentRegistration.city = examinationCentreList
         if (!params.appNo) {
             if (photographe.bytes)
@@ -198,7 +198,7 @@ class StudentRegistrationService {
         }
     }
 
-    private String prepareSequenceForRollNo(String serial) {
+    private  String  prepareSequenceForRollNo(String serial) {
         int length
         String rollNoSr
         length = serial.toString().length()

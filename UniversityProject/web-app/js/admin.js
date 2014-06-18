@@ -823,6 +823,7 @@ function checkChallan(challan){
     }
 }
 function populateChallanDetail(){
+    $('#statusMessage').html('');
     var challanNo=$("#payInSlipNo").val();
     if(challanNo.length==10){
 //    alert("?????????????")
@@ -846,7 +847,7 @@ function populateChallanDetail(){
                 $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
                 $("#error").hide()
             }else{
-                alert(data.rollStatus)
+//                alert(data.rollStatus)
                 if(!data.rollStatus){
                     $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">PLease Generate Roll Number Before Approving Pay-In-Slip</td></tr>')
                 }

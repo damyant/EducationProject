@@ -94,7 +94,31 @@ class StudentController {
                     redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
                 }else{
                     flash.message = "${message(code: 'register.created.message')}"
-                    redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+                    def student = studentRegistration
+                    def lateFee=0
+                    def payableFee=0
+                    try {
+//            def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
+                        def lateFeeDate = student.programDetail.lateFeeDate[0]
+                        def today = new Date()
+                        if(lateFeeDate!=null) {
+                            if (today.compareTo(lateFeeDate) > 0) {
+                                lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+                            }
+                        }
+                        def feeAmount = AdmissionFee.findByProgramDetail(student.programDetail);
+                        payableFee = feeAmount.feeAmountAtIDOL + lateFee
+                    }
+                    catch(NullPointerException e){
+                        payableFee=0
+                    }
+                    def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
+                    def args = [template: "applicationPrintPreview", model: [studentInstance: studentRegistration,feeDetails:feeDetails,payableFee:payableFee],filename:studentRegistration.firstName+".pdf"]
+                    println('city of the student is '+ studentRegistration.city)
+                    println('hello kuldeep');
+                    pdfRenderingService.render(args + [controller: this], response)
+//                    flash.message = "${message(code: 'register.created.message')}"
+//                    redirect(action: "registration")
                 }
             }
 
