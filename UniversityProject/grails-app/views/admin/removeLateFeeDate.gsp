@@ -27,18 +27,18 @@
             <g:hiddenField name="studentListId" id="programId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
             <table class="inner university-size-full-1-1" style="margin: auto">
-                <tr><td><label>Select Program Category</label></td>
+                <tr><td><label>Select Programme Category</label></td>
                     <td>
                         <g:select name="programCategory" class="university-size-2-3" id="programCategory" optionKey="id"
                                   optionValue="type"
-                                  from="${programCategory}" noSelection="['': ' Select Program Category']"
+                                  from="${programCategory}" noSelection="['': ' Select Programme Category']"
                                   onchange="filterProgramforRemove(this)"/>
                     </td>
                     <td  style="text-align: center;"></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="university-size-1-3"><label>Select a Program</label></td>
+                    <td class="university-size-1-3"><label>Select a Programme</label></td>
                     <td class="university-size-2-3">
                         <div id="courseListDiv" class="mainContent3 university-scrollable-y university-size-2-3" style="border: 1px solid #dddddd;">
                         <table id="courseList" class="inner university-size-full-1-1" >

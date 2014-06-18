@@ -115,14 +115,14 @@
         <li><g:link controller="admin" action="assignExaminationVenue"><g:message code="default.mainMenu6.subMenu5"/></g:link></li>
        <li><g:link controller="admin" action="downloadAttendanceSheet"><g:message code="default.mainMenu6.subMenu6"/></g:link></li>
         <li><g:link controller="admin" action="studyMaterial"><g:message code="default.mainMenu6.subMenu10"/></g:link></li>
-        <li><a href="#"><g:message code="default.mainMenu6.subMenu21"/></a>
+        <li><a href="#"><g:message code="default.mainMenu6.subMenu7"/></a>
             <ul>
                 <li><g:link controller="admin" action="searchStudentName"><g:message code="default.mainMenu6.subMenu2"/></g:link></li>
                 <li><g:link controller="student" action="studentListView"><g:message code="default.mainMenu2.subMenu6"/></g:link></li>
                 <li><g:link controller="admin" action="individualStudentUpdate"><g:message code="default.mainMenu2.subMenu12"/></g:link></li>
             </ul>
         </li>
-        <li><a href="#"><g:message code="default.mainMenu6.subMenu20"/></a>
+        <li><a href="#"><g:message code="default.mainMenu6.subMenu8"/></a>
             <ul>
                 <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message code="default.mainMenu6.subMenu9"/></g:link></li>
                 <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message code="default.mainMenu6.subMenu1"/></g:link></li>

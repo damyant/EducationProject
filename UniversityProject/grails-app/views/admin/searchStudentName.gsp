@@ -55,7 +55,7 @@
                     <select id="session" name="programSession" class="university-size-1-1">
                         <option value="">Choose Session</option>
                         <g:each in="${sessionList}" var="session">
-                            <option value="${session}">${session}</option>
+                            <option value="${session}">${session}-${session+1}</option>
                         </g:each>
                     </select>
                 </td>
@@ -69,9 +69,11 @@
                 <td class="university-size-1-4"></td>
             </tr>
         </table>
-        <table class="university-size-full-1-1 inner" id="studentListTable">
+        <table class="university-size-full-1-1 inner" id="studentListTable" style="visibility:hidden;">
             <thead>
-
+                    <tr>
+                        <th class="university-size-1-4">Name</th><th>Roll Number</th><th>Study Centre</th><th>Programme</th>
+                    </tr>
             </thead>
             <tbody>
 

@@ -35,12 +35,12 @@
             </tr>
             <tr>
                 <td class="university-size-1-4">
-                    <label>Select Program<span class="university-obligatory">*</span></label>
+                    <label>Select Programme<span class="university-obligatory">*</span></label>
                 </td>
                 <td class="university-size-3-4">
                     <g:select name="programList" class="university-size-1-3" optionKey="id"
                               optionValue="courseName"
-                              from="${programList}" noSelection="['': ' Select Program']"
+                              from="${programList}" noSelection="['': ' Select Programme']"
                               onchange="getSemester()"/>
                 </td>
             </tr>

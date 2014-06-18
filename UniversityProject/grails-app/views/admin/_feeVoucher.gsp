@@ -6,20 +6,20 @@
        <div class="university-clear-both"></div>
        </div>
         <div style="clear: both; margin-bottom: 1px;width:100%;">&nbsp;</div>
-        <p style="width:100%; margin-left: 3px; margin-top: 4px; text-align: center;text-transform: uppercase;font-size: 10px">
+        <p style="width:100%; margin-left: 3px; margin-top: 4px; text-align: center;text-transform: uppercase;font-size: 13px">
          <div  style="width:100%;">&nbsp;</div>
         <div style="width:100%;">State Bank of India</div>
 
-        <div style="width:100%;">Gauhati University Branch (CODE-4332)</div>
+        <div style="width:100%;">Gauhati University Branch (CODE-<g:message code="default.Bank.code"/>)</div>
 
-        <div style="width:100%;">A/C No. 57846586846</div>
+        <div style="width:100%;">A/C No.  <g:message code="default.Bank.AcNo"/></div>
 
         <div style="width:100%;">INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
 
         <div style="width:100%;">GAUHATI UNIVERSITY</div>
     </p>
         <div style="clear: both; margin-bottom: 10px;"></div>
-        <table width="100%" class="university-table-1-2" style="font-size: 10px;">
+        <table width="100%" class="university-table-1-2" style="font-size: 13px;">
             <tr><td><lable>Name:</lable></td><td><label>${student?.firstName} ${student?.middleName} ${student?.lastName} </label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
             <tr><td>Type Of Fee:</td><td>${programFee?.programDetail?.courseName} ${feeType?.type}</td></tr>
@@ -38,20 +38,20 @@
             <div class="university-clear-both"></div>
         </div>
 
-        <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 10px">
+        <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 13px">
 
         <div style="width:100%;">State Bank of India</div>
 
-        <div style="width:100%;">Gauhati University Branch (CODE-4332)</div>
+        <div style="width:100%;">Gauhati University Branch (CODE-<g:message code="default.Bank.code"/>)</div>
 
-        <div style="width:100%;">A/C No. 57846586846</div>
+        <div style="width:100%;">A/C No.  <g:message code="default.Bank.AcNo"/></div>
 
         <div style="width:100%;">INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
 
         <div style="width:100%;">GAUHATI UNIVERSITY</div>
     </p>
         <div style="clear: both; margin-bottom: 10px;"></div>
-        <table width="100%" class="university-table-1-2" style="font-size: 10px;">
+        <table width="100%" class="university-table-1-2" style="font-size: 13px;">
             <tr><td><lable>Name:</lable></td><td><label>${student?.firstName}  ${student?.middleName} ${student?.lastName}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
             <tr><td>Type Of Fee:</td><td>${programFee?.programDetail?.courseName} ${feeType?.type}</td></tr>
@@ -70,20 +70,20 @@
         <div class="university-size-full-1-1" style="margin-bottom: 25px;"> <div style="float: right"><lable>Challan. No. </lable><label >${student?.challanNo}</label></div>
             <div class="university-clear-both"></div>
         </div>
-        <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 10px">
+        <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 13px">
 
         <div style="width:100%;">State Bank of India</div>
 
-        <div style="width:100%;">Gauhati University Branch (CODE-4332)</div>
+        <div style="width:100%;">Gauhati University Branch (CODE-<g:message code="default.Bank.code"/>)</div>
 
-        <div style="width:100%;">A/C No. 57846586846</div>
+        <div style="width:100%;">A/C No.  <g:message code="default.Bank.AcNo"/></div>
 
         <div style="width:100%;">INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
 
         <div style="width:100%;">GAUHATI UNIVERSITY</div>
     </p>
         <div style="clear: both; margin-bottom: 10px;"></div>
-        <table width="100%" class="university-table-1-2" style="font-size: 10px;">
+        <table width="100%" class="university-table-1-2" style="font-size: 13px;">
             <tr><td><lable>Name:</lable></td><td><label>${student?.firstName}  ${student?.middleName} ${student?.lastName}</label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
             <tr><td>Type Of Fee:</td><td>${programFee?.programDetail?.courseName} ${feeType?.type}</td></tr>

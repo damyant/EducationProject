@@ -663,19 +663,6 @@ class AdminController {
         render response as JSON
     }
     def searchStudentName={
-//        def fNameList=Student.list().firstName.unique()
-//        def mNameList=Student.list().middleName.unique()
-//        def lNameList=Student.list().lastName.unique()
-//        def nameList=[]
-//        fNameList.each {
-//            nameList<<it
-//        }
-//        mNameList.each {
-//            nameList<<it
-//        }
-//        lNameList.each {
-//            nameList<<it
-//        }
         def sessionList = Student.createCriteria().list {
             projections {
                 distinct("registrationYear")
@@ -685,10 +672,33 @@ class AdminController {
         [sessionList:sessionList]
     }
     def searchStudentList={
-            def studentListByFName=Student.findAllByFirstNameAndProgramSession(params.student,it)
-            def studentListByMName=Student.findAllByMiddleNameAndProgramSession(params.student,it)
-            def studentListByCName=Student.findAllByLastNameAndProgramSession(params.student,it)
-
-
+        def returnMap=[:]
+        def studyOfFName=[],studyOfMName=[],studyOfLName=[]
+        def courseOfFName=[],courseOfMName=[],courseOfLName=[]
+        def studentListByFName=Student.findAllByFirstNameAndRegistrationYear(params.student,params.session)
+        def studentListByMName=Student.findAllByMiddleNameAndRegistrationYear(params.student,params.session)
+        def studentListByLName=Student.findAllByLastNameAndRegistrationYear(params.student,params.session)
+        studentListByFName.each{
+            studyOfFName <<it.studyCentre[0].name
+            courseOfFName <<it.programDetail[0].courseName
+        }
+        studentListByMName.each{
+            studyOfMName <<it.studyCentre[0].name
+            courseOfMName <<it.programDetail[0].courseName
+        }
+        studentListByCName.each{
+            studyOfLName <<it.studyCentre[0].name
+            courseOfLName <<it.programDetail[0].courseName
+        }
+        returnMap.studentListByFName=studentListByFName
+        returnMap.studentListByMName=studentListByMName
+        returnMap.studentListByLName=studentListByLName
+        returnMap.studyOfFName=studyOfFName
+        returnMap.courseOfFName=courseOfFName
+        returnMap.studyOfMName=studyOfMName
+        returnMap.courseOfMName=courseOfMName
+        returnMap.studyOfLName=studyOfLName
+        returnMap.courseOfLName=courseOfLName
+        render returnMap as JSON
     }
 }
