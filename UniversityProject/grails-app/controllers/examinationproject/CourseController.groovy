@@ -16,7 +16,7 @@ class CourseController {
         boolean updateFlag = false
         def courseDetail = [:]
         def subObj = Subject.findAll()
-        def programSessions=   programFeeService.getProgramSessions(params)
+        def programSessions = programFeeService.getProgramSessions(params)
 
 //        println("these are the sessions"+ programSessions)
         if (params.courseSessionId) {
@@ -24,14 +24,14 @@ class CourseController {
             updateFlag = true
         }
 
-        [courseDetail: courseDetail as JSON, subjList: subObj as JSON, updateFlag: updateFlag, programSessions:programSessions]
+        [courseDetail: courseDetail as JSON, subjList: subObj as JSON, updateFlag: updateFlag, programSessions: programSessions]
     }
-    def getCourseByCategory(){
-        println("these are the params "+ params)
-        def subObj = Subject.findAllByProgramTypeId(ProgramType.findById(Long.parseLong(params.courseType)))
-        println("------------"+subObj)
-        render subObj as JSON
 
+    def getCourseByCategory() {
+        println("these are the params " + params)
+        def subObj = Subject.findAllByProgramTypeId(ProgramType.findById(Long.parseLong(params.courseType)))
+        println("------------" + subObj)
+        render subObj as JSON
 
 
     }
@@ -101,13 +101,13 @@ class CourseController {
 //            if(programSession)
 //            courseSessionList.add(programSession)
 //        }
-        def c=ProgramSession.createCriteria()
-        def programList=c.list(params){
+        def c = ProgramSession.createCriteria()
+        def programList = c.list(params) {
 
         }
 
 
-        [courseSessionList:programList, courseInstanceTotal: ProgramSession.count()]
+        [courseSessionList: programList, courseInstanceTotal: ProgramSession.count()]
 
 
     }
@@ -118,12 +118,11 @@ class CourseController {
     }
 
     def deleteCourse() {
-        def result=courseDetailService.deleteCourse(params)
-        if(result){
-            flash.message="Deleted Successfully."
-        }
-        else{
-            flash.message="Unable to Delete Successfully."
+        def result = courseDetailService.deleteCourse(params)
+        if (result) {
+            flash.message = "Deleted Successfully."
+        } else {
+            flash.message = "Unable to Delete Successfully."
         }
         redirect(action: "listOfCourses", params: ['type': "update"])
     }
@@ -181,17 +180,21 @@ class CourseController {
 
     //ADDED BY DIGVIJAY ON 20 May 2014
     def saveCourses() {
-     def subjectIns=new Subject(params)
-
-        if (subjectIns.save(failOnError: true, flush: true)) {
-            flash.message="New Course Saved Successfully."
+        def subjectIns
+        if (params.subjectId) {
+            subjectIns = Subject.findById(params.subjectId)
+        } else {
+            subjectIns = new Subject(params)
         }
-        else{
-            flash.message="Unable to Save Course Successfully."
+        if (subjectIns.save(failOnError: true, flush: true)) {
+            flash.message = "New Course Saved Successfully."
+        } else {
+            flash.message = "Unable to Save Course Successfully."
             subjectIns.errors.each {
                 println it
             }
         }
+
         redirect(controller: 'admin', action: 'addCourses')
     }
 

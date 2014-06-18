@@ -27,11 +27,11 @@
             <g:form method='post' enctype="multipart/form-data" id="assignExamVenue" name="assignExamVenue">
                 <table class="inner" style="width: 95%;margin: auto">
                     <tr>
-                        <td class="university-size-1-4"><label>Select a Program</label></td>
+                        <td class="university-size-1-4"><label>Select a Programme</label></td>
                         <td class="university-size-1-4" style="padding-left: 20px;">
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
-                                      from="${programList}" noSelection="['': ' Select Program']"
+                                      from="${programList}" noSelection="['': ' Select Programme']"
                                       onchange="setCourseLabel(this)"/>
                         </td>
                         <td class="university-size-1-2"><label id="courseForExamVenue"
@@ -43,7 +43,7 @@
                             <g:select name="examinationCentre" id="examinationCentre" optionKey="id" class="university-size-1-1"
                                       optionValue="cityName" from="${examinationCenterList}"
                                       noSelection="['': ' Select Examination Centre']"
-                                      onchange="showExamVenueList1()"/>
+                                      onchange="showExamVenueList1()" disabled=""/>
                         </td>
                         <td class="university-size-1-2"><label id="CentreForExamVenue"
                                                                style="margin-left: 45%;"></label></td>

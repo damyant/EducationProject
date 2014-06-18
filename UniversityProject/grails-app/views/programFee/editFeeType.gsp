@@ -108,23 +108,23 @@
                                          value="${programFeeInstance?.admissionFee?.lateFeeAmount[0]}"/>
                         </div>
                     </div>
-              <g:if test ="${miscellaneousFeeList}">
-                    <g:each in="${miscellaneousFeeList}" var="miscellaneousFee">
+              <g:if test ="${miscFee}">
+                    <g:each in="${0..miscFee.size()-1}" var="index">
                         <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">
                             <div class="university-size-1-3">
                                 <label for="feeType">
-                                    ${miscellaneousFee?.feeType?.type}
+                                    ${miscFee[index]?.type}
                                     <span class="university-obligatory">*</span>
                                 </label>
                             </div>
 
                             <div class="university-size-2-3">
                                 <g:textField name="feeTypeAmount" class="university-size-1-2" type="number" onkeypress="return isNumber(event)"
-                                             value="${miscellaneousFee?.amount}"/>
+                                             value="${miscellaneousFeeList[index]?.amount}"/>
                             </div>
                         </div>
                         <g:javascript>
-                         feeTypeList.push(${miscellaneousFee?.feeType?.id})
+                         feeTypeList.push(${miscellaneousFeeList[index]?.feeType?.id})
                         </g:javascript>
 
                     </g:each>

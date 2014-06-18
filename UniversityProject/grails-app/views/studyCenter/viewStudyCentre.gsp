@@ -12,16 +12,9 @@
     <meta name="layout" content="main"/>
     <title>View Study Center</title>
     <g:javascript src='studyCenter.js'/>
-    <g:if test="${params.city}">
-        <script type="text/javascript">
-            $(document).ready(function () {
-//                showCityList()
-                %{--alert(${City?.findById(params?.city)?.id})--}%
-                %{--$('#city').val(${City?.findById(params?.city)?.id})--}%
-            })
-        </script>
-    </g:if>
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'studyCenter.js')}"></script>--}%
+    <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
+
 </head>
 
 <body>
@@ -49,29 +42,40 @@
                       noSelection="['null': ' Select District']" value="${District?.findById(params?.district)?.id}" from="${districtList}" onchange="showStudyCenterListByDistrict()"/>
         </div>
 
-        <div id="cityList" class="university-location-select">
-            <div class="university-label-location-select">Select City:</div>
-        <g:if test="${params.city}">
+        %{--<div id="cityList" class="university-location-select">--}%
+            %{--<div class="university-label-location-select">Select City:</div>--}%
+        %{--<g:if test="${params.city}">--}%
 
-            <g:select name="cityLocationList" id="city" optionKey="id" value="${City?.findById(params?.city)?.id}" optionValue="cityName"
-                      noSelection="['null': ' Select City']" disabled="true" from="${cityList}" onchange="showStudyCenterList()"/>
-        </g:if>
-        <g:else>
-            <g:select name="cityLocationList" id="city" optionKey="id" value="${City?.findById(params?.city)?.id}" optionValue="cityName"
-                      noSelection="['null': ' Select City']" from="" onchange="showStudyCenterList()"/>
-        </g:else>
+            %{--<g:select name="cityLocationList" id="city" optionKey="id" value="${City?.findById(params?.city)?.id}" optionValue="cityName"--}%
+                      %{--noSelection="['null': ' Select City']" disabled="true" from="${cityList}" onchange="showStudyCenterList()"/>--}%
+        %{--</g:if>--}%
+        %{--<g:else>--}%
+            %{--<g:select name="cityLocationList" id="city" optionKey="id" value="${City?.findById(params?.city)?.id}" optionValue="cityName"--}%
+                      %{--noSelection="['null': ' Select City']" from="" onchange="showStudyCenterList()"/>--}%
+        %{--</g:else>--}%
             <input type="hidden" value="${params.type}" id="ParameterType"/>
-        </div>
+        %{--</div>--}%
         <table id="studyCenterTab" class="university-size-full-1-1">
             <thead>
             </thead>
             <tbody>
             </tbody>
         </table>
-<g:if test="${params.city}">
+        <div style="text-align: center;visibility: hidden;" id="paginationDiv" class="university-size-full-1-1">
+            <br/>
+
+            <div class="pagination">
+                <a href="#" class="first" data-action="first">&laquo;</a>
+                <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                <input type="text" readonly="readonly"/>
+                <a href="#" class="next" data-action="next">&rsaquo;</a>
+                <a href="#" class="last" data-action="last">&raquo;</a>
+            </div>
+        </div>
+<g:if test="${params.district}">
     <script type="text/javascript">
         $(document).ready(function () {
-            showStudyCenterList()
+            showStudyCenterListByDistrict()
         })
     </script>
 </g:if>

@@ -25,21 +25,21 @@
                     class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
             <table class="inner" class="university-size-full-1-1">
                 <tr>
-                    <td class="university-size-1-4">Select Program Category <span class="university-obligatory">*</span></td>
+                    <td class="university-size-1-4">Select Programme Category <span class="university-obligatory">*</span></td>
                     <td class="university-size-1-2">
                         <g:select name="programCategory" class="university-size-1-2" id="programCategory" optionKey="id"
                                   optionValue="type"
-                                  from="${programCategory}" noSelection="['': ' Select Program Category']"
+                                  from="${programCategory}" noSelection="['': ' Select Programme Category']"
                                   onchange="filterProgramsForSelect(this)"/>
                     </td>
                     <td class="university-size-1-4"></td>
                 </tr>
                 <tr>
-                    <td class="university-size-1-4">Select Program <span class="university-obligatory">*</span></td>
+                    <td class="university-size-1-4">Select Programme <span class="university-obligatory">*</span></td>
                     <td class="university-size-1-2">
                         <g:select name="program" class="university-size-1-2" id="program" optionKey="id"
                                   optionValue="type"
-                                  from="" noSelection="['': ' Select Program']"
+                                  from="" noSelection="['': ' Select Programme']"
                                   onchange="loadAdmissionDate(this)"/>
                     </td>
                     <td class="university-size-1-4"></td>

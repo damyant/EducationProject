@@ -69,8 +69,9 @@
                     <div style="margin:auto; height: 150px;width:117px;text-align: center ; vertical-align:middle;border: 1px solid;">
                         <g:if test="${studentInstance?.getStudentImage()}">
                             <rendering:inlineJpeg bytes="${studentInstance?.getStudentImage()}"
-                                                  class="university-registration-photo"
-                                                  style="margin:auto; height: 150px;"/>
+
+                                                  style="margin:auto; height: 150px;width: 117px;border: 1px solid black;    display: block;
+                                                  background-position: bottom; background-size: 100%; text-align: center;"/>
                         </g:if>
                         <g:else>
                             <div style="margin: 68px 0px;">
@@ -78,7 +79,7 @@
                             </div>
                         </g:else>
                     </div>
-                    <div style="margin: 3px auto;padding: 2px; font-size: 12px;border: 1px solid;"><label>Ref No : </label><label>${studentInstance?.referenceNumber}</label>
+                    <div style="margin: 3px auto;padding: 2px;width: 117px; font-size: 12px;border: 1px solid;"><label>Ref No : </label><label>${studentInstance?.referenceNumber}</label>
                     </div>
                 </td>
             </tr>

@@ -3,11 +3,12 @@
  */
 function validate() {
 
-    $("#studyMaterialPage,#addCoursesFrmId,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
+    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
 
         rules: {
 
             //Add Course
+            bankName:"required",
             programTypeId:"required",
             imageValidate:"required",
             subjectName: {required: true,
@@ -93,18 +94,18 @@ function validate() {
                 minlength: 10,
                 number: true
             },
-            asstCoordinator: {
-                required: true
-            },
-            asstMobile: {
-                required: true,
-                minlength: 10,
-                number: true
-            },
-            asstEmail: {
-                required: true,
-                email: true
-            },
+//            asstCoordinator: {
+//                required: true
+//            },
+//            asstMobile: {
+//                required: true,
+//                minlength: 10,
+//                number: true
+//            },
+//            asstEmail: {
+//                required: true,
+//                email: true
+//            },
 
 //            Study Center
 
@@ -264,7 +265,7 @@ function validate() {
             applicationNo: {
                 required: true,
                 number: true,
-                minlength: 6,
+                minlength: 5,
                 maxlength: 10
             },
             feeType: {
@@ -400,12 +401,12 @@ function validate() {
                 required: "Please enter Email of Coordinator",
                 email: "Please Enter Valid Email"
             },
-            asstCoordinator: "Please enter Name of Asst. Coordinator",
-            asstMobile: "Please enter Phone No of Asst. Coordinator",
-            asstEmail:{
-                required:"Please enter Email of Asst. Coordinator",
-                email: "Please Enter Valid Email"
-            },
+//            asstCoordinator: "Please enter Name of Asst. Coordinator",
+//            asstMobile: "Please enter Phone No of Asst. Coordinator",
+//            asstEmail:{
+//                required:"Please enter Email of Asst. Coordinator",
+//                email: "Please Enter Valid Email"
+//            },
             websiteUrl:{
                 required: "Please Enter Website URL",
                 url: "Please Enter Valid website Url(eg:http://www.idolgu.in)‎"
@@ -497,8 +498,8 @@ function validate() {
             issuingBranch: "Please Enter Issuing Branch Name",
             examinationCentreIncharge: "Please Enter Examination Centre Name",
             examinationCentreContactNo: "Please Enter Examination Centre Contact Number",
-            examinationCentreAddress: "Please Enter Examination Centre Address"
-
+            examinationCentreAddress: "Please Enter Examination Centre Address",
+            bankName: "Please Enter Bank Name"
         },
         errorPlacement: function (error, element) {
             if (element.is("input:radio")) {

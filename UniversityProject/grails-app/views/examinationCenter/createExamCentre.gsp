@@ -31,9 +31,7 @@
                     <label>District <span class="university-obligatory">*</span></label>
                 </td>
                 <td class="university-size-3-4">
-                    <g:select name="district" id="district" onselect="" optionKey="id"
-                              class="university-size-1-3" optionValue="districtName"
-                              from="${districtList}" noSelection="['':' Select District']"/>
+                    <g:select name="district" id="district" onselect="" optionKey="id" class="university-size-1-3" value="${cityInst?.district?.id}" optionValue="districtName" from="${districtList}" noSelection="['':' Select District']"/>
                 </td>
             </tr>
             <tr>
@@ -41,7 +39,7 @@
                     <label>Examination Centre Name <span class="university-obligatory">*</span></label>
                 </td>
                 <td class="university-size-3-4">
-                    <input type="text" class="university-size-1-3" id="examCentreName" name="examCentreName"/>
+                    <input type="text" class="university-size-1-3" id="examCentreName" value="${cityInst?.cityName}" name="examCentreName"/>
                 </td>
             </tr>
             <tr>

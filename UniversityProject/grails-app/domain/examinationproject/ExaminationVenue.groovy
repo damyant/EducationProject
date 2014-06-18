@@ -5,7 +5,7 @@ class ExaminationVenue {
     String inchargeName
     String address
     int capacity
-    int centreCode
+    String centreCode
     String contactNo
 
     static belongsTo = City

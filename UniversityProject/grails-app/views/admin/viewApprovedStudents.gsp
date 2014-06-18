@@ -32,11 +32,11 @@
                                   noSelection="['null': ' Select Study Center']" onchange="enableProgram(this)"/>
                     </td>
                     <td style="min-width: 10%">
-                        <label for="programId">Select Program</label>
+                        <label for="programId">Select Programme</label>
                     </td>
                     <td style="width: 33%">
                         <g:select name="programId" id="programId" class="university-size-1-2" from="${programList}"
-                                  optionKey="id" optionValue="courseName" noSelection="['null': ' Select Program']"
+                                  optionKey="id" optionValue="courseName" noSelection="['null': ' Select Programme']"
                                   onchange="getStudents()" disabled="true"/>
                     </td>
                     <td style="width: 10%"></td>

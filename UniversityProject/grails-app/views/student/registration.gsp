@@ -43,9 +43,7 @@
 
                 url = "/UniversityProject/student/registration" ;
                 window.location.href = url;
-               // window.open('/UniversityProject/admin/generateFeeVoucher/?rollNo='+rollNo+'&feeType='+feeType);
-                window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId+'&fee='+fee);
-
+                window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId+'&fee='+fee, '');
             }
 
         })
@@ -128,14 +126,38 @@
 
     </td>
 </tr>
+<g:if test="${studInstance?.rollNo}">
+<tr>
+    <td>Roll Number <span class="university-obligatory">*</span></td>
+    <td>
+                    <input type="text"  name="rollNo" readonly
+                           class="university-size-1-1" value="${studInstance?.rollNo}"/>
+
+    </td>
+</tr>
+    </g:if>
 <sec:ifLoggedIn>
+    <g:if test="${studInstance}">
+        <g:if test="${studInstance.applicationNo}">
     <tr>
         <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
         <td class="university-size-2-3">
-            <input type="text" name="applicationNo" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
+            <input type="text" name="applicationNo" value="${studInstance.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="5" class="university-size-1-2"/>
+
             <label id="errorMsg" class="error1"></label>
         </td>
     </tr>
+        </g:if>
+    </g:if>
+    <g:else>
+        <tr>
+            <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
+            <td class="university-size-2-3">
+                <input type="text" name="applicationNo" value="${studInstance?.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
+                <label id="errorMsg" class="error1"></label>
+            </td>
+        </tr>
+    </g:else>
 </sec:ifLoggedIn>
 <!----- Date Of Birth -------------------------------------------------------->
 <tr>
@@ -145,8 +167,8 @@
 
     <td>
         %{--<input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datePick"/>--}%
-        <input type="text" name="d_o_b" maxlength="10" PLACEHOLDER="MM/DD/YYYY" class="university-size-1-2" id="datepicker"
-               value="<g:formatDate format="MM/dd/yyyy" date="${studInstance?.dob}"/>">
+        <input type="text" name="d_o_b" maxlength="10" PLACEHOLDER="DD/MM/YYYY" class="university-size-1-2" id="datepicker"
+               value="<g:formatDate format="dd/MM/yyyy" date="${studInstance?.dob}"/>">
 
     </td>
 </tr>
@@ -285,10 +307,11 @@
 <!----- GU Registration Number( If already registered in GU) ---------------------------------------------------------->
 <td>GU Registration Number (if already registered in GU)</td>
 <td>
-<input type="text" name="registrationNo1" maxlength="5" class="university-size-1-3"
+<input type="text" name="registrationNo1" id="registrationNo1" maxlength="9" onchange="enableDisableCheckbox()" class="university-size-1-4"
 onkeypress="return isNumber(event)"/> Of
-<input type="text" name="registrationNo2" maxlength="7" class="university-size-1-3"
+<input type="text" name="registrationNo2" id="registrationNo2" maxlength="6" class="university-size-1-4"
 onkeypress="return isNumberWithDash(event)"/>
+   &nbsp;&nbsp;&nbsp;Or&nbsp;&nbsp;&nbsp;<label style="text-align: left"><input type="checkbox" value="Y" onclick="enableDisableTextBox()" name="isAppliedFor" id="isAppliedFor"  class="university-size-1-4"/>A/F</label>
 </td>
 </tr>
 
@@ -369,7 +392,7 @@ onkeypress="return isNumberWithDash(event)"/>
                 <input type='file' id="profileImage" onchange="readURL(this, 'picture2');" class="university-button"
                        name="photograph"/>
             </g:else>
-            <input type="text" id="imageValidate" name="imageValidate" style="width: 0px;height: 0px;"/>
+            <input type="text" id="imageValidate" name="imageValidate" style="width: 1px;height: 1px;border: 0px;"/>
 
         </td>
     </tr>
@@ -431,7 +454,7 @@ onkeypress="return isNumberWithDash(event)"/>
                                       from="${paymentMode}" noSelection="['': ' Select PaymentMode']"/></td>
                     </tr>
                     <tr>
-                        <td>Reference Number<span class="university-obligatory">*</span></td>
+                        <td>DD/RTGS/NEFT Number<span class="university-obligatory">*</span></td>
                         <td><input type="text" name="feeReferenceNumber" maxlength="8"  class="university-size-1-2" onkeypress="return isNumber(event)"
                                    id="feeReferenceNumber"/></td>
                     </tr>
@@ -492,14 +515,14 @@ onkeypress="return isNumberWithDash(event)"/>
             $("#datepicker").datepicker({
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: "mm/dd/yy",
+                dateFormat: "dd/mm/yy",
                 maxDate: 0
             });
 
             $("#paymentDate").datepicker({
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: "mm/dd/yy",
+                dateFormat: "dd/mm/yy",
                 maxDate: 0
             });
         });

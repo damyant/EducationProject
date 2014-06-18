@@ -148,62 +148,58 @@ function validateAndSubmitForm() {
         $("#districtError").text("Please Select District")
         bool = 'false';
     }
-    else {
-        bool = 'true'
-    }
+
     if ($('#examinationCentre').val().length == 0) {
         $("#cityError").text("Please Select Examination Centre")
         bool = 'false';
     }
-    else {
-        bool = 'true'
-    }
+
 
     for (var i = 1; i <= index; i++) {
         if ($('#examinationCentreName' + i).val().length == 0) {
             $("#centerNameMsg" + i).text("Please Enter Examination Centre Name")
             bool = 'false';
         }
-        else {
-            bool = 'true'
-        }
+
         if ($('#examinationCentreCode' + i).val().length == 0) {
             $("#centerCodeMsg" + i).text("Please Enter Examination Centre Code")
             bool = 'false';
         }
-        else {
-            bool = 'true'
+
+        if($("#errorMsg"+i).text().length>0){
+            bool='false';
+            alert(bool)
         }
+
         if ($('#examinationCentreCapacity' + i).val().length == 0) {
             $("#centerCapacityMsg" + i).text("Please Enter Examination Centre Capacity")
             bool = 'false';
         }
-        else {
-            bool = 'true'
-        }
+
         if ($('#examinationCentreIncharge' + i).val().length == 0) {
             $("#centerInchargeMsg" + i).text("Please Enter Examination Centre Incharge Name")
             bool = 'false';
         }
-        else {
-            bool = 'true'
-        }
+
+        alert($('#examinationCentreContactNo' + i).val().length)
         if ($('#examinationCentreContactNo' + i).val().length == 0 || $('#examinationCentreContactNo' + i).val().length < 10) {
             $("#centerContactNoMsg" + i).text("Please Enter Exam Centre Contact Number(Min 10 Character Long)")
             bool = 'false';
+
         }
-        else {
-            bool = 'true'
-        }
+
+
         if ($('#examinationCentreAddress' + i).val().length == 0) {
             $("#centerAddressMsg" + i).text("Please Enter Examination Centre Address")
             bool = 'false';
+            alert(bool)
         }
-        else {
-            bool = 'true'
-        }
+//        else {
+//            bool = 'true'
+//        }
 
     }
+    alert("value of boool=="+bool)
     if (bool == 'true') {
         submitForm();
     }

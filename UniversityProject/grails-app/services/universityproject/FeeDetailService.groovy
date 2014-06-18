@@ -361,9 +361,14 @@ class FeeDetailService {
 //        }
         def currentUser = springSecurityService.currentUser
         def feeDetails = FeeDetails.findByChallanNo(params.challanNo)
+        def rollStatus=true
         tempStuList.each{
-            if(!(it.status.id==4))
+            if((!(it.status.id==4))&&(it.rollNo!=null)) {
                 stuList.add(it)
+            }
+            if(it.rollNo==null){
+                rollStatus=false
+            }
         }
         stuList.each{
 //            println("==="+it.programDetail[0])
@@ -399,6 +404,7 @@ class FeeDetailService {
         }
         println("Study"+studyCentreList[0])
         returnMap.stuList=stuList
+        returnMap.rollStatus=rollStatus
         returnMap.studyCentreList=studyCentreList
         returnMap.courseNameList=courseNameList
         returnMap.courseFee=courseFee

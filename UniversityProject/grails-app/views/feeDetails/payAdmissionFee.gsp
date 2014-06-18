@@ -143,7 +143,7 @@
                 document.getElementById("paginationDiv").style.visibility = "hidden";
                 document.getElementById("studentPayList").style.visibility = "hidden";
                 document.getElementById("payClear").style.visibility = "hidden";
-            }, 500)
+            }, 5000)
         }
     })
 </script>
