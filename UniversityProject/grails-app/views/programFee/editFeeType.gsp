@@ -6,6 +6,13 @@
 		<g:set var="entityName" value="${message(code: 'programFee.label', default: 'ProgramFee')}" />
         <title><g:message code="default.edit.label" args="[entityName]"/></title>
         <g:javascript src='admin.js'/>
+        <script type="text/javascript">
+                $(window).bind("load", function () {
+
+                    fillFeeInfoUpdate("${programFeeInstance.sessionOfFee}")
+                })
+
+        </script>
     </head>
 	<body>
     <div id="main">
@@ -25,7 +32,7 @@
             <g:form id="updateFee" name="updateFee">
                 <g:hiddenField name="version" value="${programFeeInstance?.version}"/>
 				<fieldset class="form">
-                    <div style="margin-left: 5px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
+                    <div style="margin-left: 5px;"><label><h6>All${programFeeInstance.admissionFee[0].id}${programFeeInstance.programDetailId.id} [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
                     <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} ">
                         <div class="university-size-1-3">
                             <label for="programDetail">
@@ -36,11 +43,11 @@
 
                         <div class="university-size-1-3">
                             <g:select id="programDetail" name="programDetail"
-                                      from="${programFeeInstance.programDetail}" optionKey="id" optionValue="courseName"
+                                      from="${programFeeInstance.programDetailId}" optionKey="id" optionValue="courseName"
                                       class="many-to-one university-size-1-2" onchange="loadSession(this)"/>
 
-                            <g:hiddenField name="programId" id="programId" value="${programFeeInstance.programDetail.id}"></g:hiddenField>
-                            <g:hiddenField name="admissionFee" id="admissionFee" value="${programFeeInstance.id}"></g:hiddenField>
+                            <g:hiddenField name="programDetailId" id="programDetailId" value="${programFeeInstance.programDetailId.id}"></g:hiddenField>
+                            <g:hiddenField name="admissionFee" id="admissionFee" value="${programFeeInstance.admissionFee[0].id}"></g:hiddenField>
                         </div>
                     </div>
                     <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} ">
@@ -51,8 +58,13 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:textField id="session" name="programSession" readonly="readonly" value="${programFeeInstance.programSession.sessionOfProgram}"
-                                 />
+                        %{--<g:textField id="session" name="programSession" readonly="readonly" value="${programFeeInstance.sessionOfFee}"/>--}%
+                        <select id="session" name="programSessionId" class="university-size-1-2">
+                            %{--<option value="">Select Session</option>--}%
+                            <g:each in="${programSessions}" var="session">
+                                <option value="${session.sessionOfProgram}">${session.sessionOfProgram}</option>
+                            </g:each>
+                        </select>
                     </div>
                         </div>
                     <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'feeAmountAtIDOL', 'error')} required">
@@ -65,7 +77,7 @@
 
                         <div class="university-size-2-3">
                             <g:textField name="feeAmountAtIDOL" class="university-size-1-2" type="number"
-                                         value="${programFeeInstance.feeAmountAtIDOL}"/>
+                                         value="${programFeeInstance?.admissionFee?.feeAmountAtIDOL[0]}"/>
                         </div>
                     </div>
 
@@ -79,7 +91,7 @@
 
                         <div class="university-size-2-3">
                             <g:textField name="feeAmountAtSC" type="number" class="university-size-1-2"
-                                         value="${programFeeInstance.feeAmountAtSC}"/>
+                                         value="${programFeeInstance?.admissionFee?.feeAmountAtSC[0]}"/>
                         </div>
                     </div>
 
@@ -93,7 +105,7 @@
 
                         <div class="university-size-2-3">
                             <g:textField name="lateFeeAmount" type="number" class="university-size-1-2"
-                                         value="${programFeeInstance.lateFeeAmount}"/>
+                                         value="${programFeeInstance?.admissionFee?.lateFeeAmount[0]}"/>
                         </div>
                     </div>
               <g:if test ="${miscellaneousFeeList}">

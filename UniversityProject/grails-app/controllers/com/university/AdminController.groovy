@@ -4,7 +4,7 @@ import examinationproject.AdmissionFee
 import examinationproject.Bank
 import examinationproject.Branch
 import examinationproject.City
-
+import examinationproject.FeeSession
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
 import examinationproject.MiscellaneousFeeChallan
@@ -111,26 +111,23 @@ class AdminController {
         try {
             def student = Student.findByRollNo(params.rollNo)
             def program = student.programDetail[0]
-            def feeType
+            def feeType,admissionFee
             def programName = program.courseName
             boolean status
-            def admissionFee = AdmissionFee.findByProgramDetail(program)
-            def mFee
 
-            if (Integer.parseInt(params.feeType) > 0) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(cal.YEAR);
+                def sessionVal= year+1
+                sessionVal= year+'-'+sessionVal
 
-                feeType = FeeType.findById(params.feeType)
-                mFee = MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(feeType, program, student.programSession)
-                if (mFee)
-                    status = true
-                else
-                    status = false
-            } else {
+                def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
+                 admissionFee = AdmissionFee.findByFeeSession(feeSessionObj)
+
                 if (admissionFee)
                     status = true
                 else
                     status = false
-            }
+//            }
             response = [id: student.id, feeStatus: status, program: programName, feeType: feeType]
         } catch (Exception ex) {
             println("problem in checking the existence of roll number" + ex)
@@ -153,13 +150,19 @@ class AdminController {
         def args
         def lateFee=0
         def programFeeAmount = 0
-        def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(cal.YEAR);
+        def sessionVal= year+1
+        sessionVal= year+'-'+sessionVal
+        def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
+
+        def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
             try{
             def lateFeeDate=student.programDetail.lateFeeDate[0]
             def today=new Date()
                 if(lateFeeDate!=null) {
                     if (today.compareTo(lateFeeDate) > 0) {
-                        lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+                        lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
                     }
                 }
             feeType = null
@@ -313,16 +316,23 @@ class AdminController {
         def resultMap = [:]
         def lateFee=0
         def payableFee=0
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(cal.YEAR);
+        def sessionVal= year+1
+        sessionVal= year+'-'+sessionVal
+
         try {
             def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
+            def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(programIns,sessionVal)
             def lateFeeDate = programIns.lateFeeDate
             def today = new Date()
             if(lateFeeDate!=null) {
                 if (today.compareTo(lateFeeDate) > 0) {
-                    lateFee = AdmissionFee.findByProgramDetail(programIns).lateFeeAmount
+                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
                 }
             }
-            def feeAmount = AdmissionFee.findByProgramDetail(ProgramDetail.findById(Integer.parseInt(params.program)));
+            def feeAmount = AdmissionFee.findByFeeSession(feeSessionObj);
             payableFee = feeAmount.feeAmountAtIDOL + lateFee
         }
         catch(NullPointerException e){
@@ -338,23 +348,36 @@ class AdminController {
         def stuList=  Student.findAllByChallanNoAndStatus(params.challanNo,Status.findById(2))
         def currentUser = springSecurityService.currentUser
 //        println("username = :"+StudyCenter.findAllById(currentUser.studyCentreId).centerCode)
+
+
+
+
         stuList.each{
             lateFee=0
             def lateFeeDate=it.programDetail.lateFeeDate[0]
             def today=new Date()
 //            def amount=AdmissionFee.findByProgramDetail(it.programDetail[0])
+            println("=================="+it.programDetail[0].id)
+            int year=it.registrationYear
+            def sessionVal= year+1
+            sessionVal= year+'-'+sessionVal
+            def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.get(it.programDetail[0].id),sessionVal.toString())
             if(lateFeeDate!=null) {
                 if (today.compareTo(lateFeeDate) > 0) {
-                    lateFee = AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
+                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+//                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
                 }
             }
             courseNameList<<it.programDetail[0].courseName
             //if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
             if(it.studyCentre.centerCode[0]=="11111"){
-                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
+//                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
+                courseFee<< AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtIDOL
+
 //                +lateFee  -----------If required late fee remove this
             }else{
-                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+//                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
+                courseFee<< AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtSC
 //                +lateFee
             }
 //            courseFee=courseFee
@@ -371,9 +394,14 @@ class AdminController {
         def miscFeeChallanList=  MiscellaneousFeeChallan.findAllByChallanNo(params.challanNo)
         miscFeeChallanList.each{
 //            println("==="+it.student.programDetail)
+            int year=it.student.registrationYear
+            def sessionVal= year+1
+            sessionVal= year+'-'+sessionVal
+            def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.get(it.student.programDetail[0].id),sessionVal.toString())
             stuList<<it.student
             courseNameList<<it.student.programDetail[0].courseName
-            courseFee<<MiscellaneousFee.findByProgramDetailAndFeeType(it.student.programDetail[0],it.feeType).amount
+
+            courseFee<<MiscellaneousFee.findByFeeSessionAndFeeType(feeSessionObj,it.feeType).amount
         }
         returnMap.stuList=stuList
         returnMap.courseNameList=courseNameList
@@ -397,7 +425,13 @@ class AdminController {
           def status = Status.findById(4)
           student.status = status
           student.save(flush: true)
-    }
+          def feeObj= new MiscellaneousFeeChallan()
+          feeObj.challanNo=student.challanNo
+          feeObj.feeType=FeeType.findById(3)
+          feeObj.student=student
+          feeObj.semesterValue=1
+          feeObj.save(flush: true)
+      }
         if(student){
             flash.message = "Approved Successfully"
             redirect(action: "approvePayInSlip")

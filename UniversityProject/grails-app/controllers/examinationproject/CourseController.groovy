@@ -23,7 +23,6 @@ class CourseController {
             courseDetail = courseDetailService.getFullDetailOfCourse(params)
             updateFlag = true
         }
-//        println(updateFlag)
 
         [courseDetail: courseDetail as JSON, subjList: subObj as JSON, updateFlag: updateFlag, programSessions:programSessions]
     }

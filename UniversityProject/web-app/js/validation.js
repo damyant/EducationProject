@@ -728,8 +728,8 @@ function validateProgramFee() {
 //    alert("hi")
     $("#createNewFee, #individualStudentUpdate").validate({
         rules: {
-            programDetail:"required",
-            programSession:"required",
+            programDetailId:"required",
+            programSessionId:"required",
             feeAmountAtIDOL:"required",
             feeAmountAtSC:"required",
             lateFeeAmount:"required",
@@ -740,8 +740,8 @@ function validateProgramFee() {
             }
         },
         messages: {
-            programDetail:"Please Select Program Detail",
-            programSession:"Please Select Program Session",
+            programDetailId:"Please Select Program Detail",
+            programSessionId:"Please Select Program Session",
             feeAmountAtIDOL:"Please  Enter Program Fee At Idol",
             feeAmountAtSC:"Please  Enter Program Fee At Study Centre",
             lateFeeAmount:"Please Enter Late Fee Amount",

@@ -2,24 +2,25 @@ package examinationproject
 
 class MiscellaneousFee {
 
-    ProgramDetail programDetail
+//    ProgramDetail programDetail
     FeeType feeType
     int amount
-    ProgramSession programSession
+//    ProgramSession programSession
+    static belongsTo = [feeSession: FeeSession]
 
     static constraints = {
-        programDetail(nullable: false)
+//        programDetail(nullable: false)
         feeType(nullable:true)
         amount(nullable:true)
-        programSession(nullable:true)
+//        programSession(nullable:true)
 
     }
 
     static mapping = {
-        programDetail column:"ProgramDetailId"
+//        programDetail column:"ProgramDetailId"
         feeType column:"FeeTypeId"
         amount column: "Amount"
-        programSession column: "ProgramSessionId"
+//        programSession column: "ProgramSessionId"
 
     }
 }

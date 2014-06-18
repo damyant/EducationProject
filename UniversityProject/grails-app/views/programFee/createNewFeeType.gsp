@@ -58,28 +58,42 @@
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:select id="programDetail" name="programDetail"
+                       %{-- old code--}%
+                        %{--<g:select id="programDetail" name="programDetail"--}%
+                                  %{--from="${programDetailList}" optionKey="id"--}%
+                                  %{--optionValue="courseName" class="many-to-one university-size-1-2"--}%
+                                  %{--noSelection="['': 'Choose Type']" onchange="loadSession(this)"/>--}%
+
+
+
+                        <g:select id="programDetail" name="programDetailId"
                                   from="${programDetailList}" optionKey="id"
                                   optionValue="courseName" class="many-to-one university-size-1-2"
-                                  noSelection="['': 'Choose Type']" onchange="loadSession(this)"/>
+                                  noSelection="['': 'Select Program']" />
 
 
                     </div>
                 </div>
 
 
-                <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} university-size-1-1">
-                    <div class="university-size-1-3"><label for="programDetail">
+                <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programSession', 'error')} university-size-1-1">
+                    <div class="university-size-1-3"><label for="programSession">
                         <g:message code="programFee.programSession.label" default="Program Session"/><span
                                 class="university-obligatory">*</span>
                     </label>
                     </div>
 
                     <div class="university-size-2-3">
-                        <g:select id="session" name="programSession"
-                                  from="" optionKey=""
-                                  optionValue="" class="many-to-one university-size-1-2"
-                                  noSelection="['': 'Choose Session']" />
+                        %{--<g:select id="session" name="programSession"--}%
+                                  %{--from="${programSessions}" optionKey=""--}%
+                                  %{--optionValue="" class="many-to-one university-size-1-2"--}%
+                                  %{--noSelection="['': 'Choose Session']" />--}%
+                        <select id="session" name="programSessionId" class="university-size-1-2">
+                            <option value="">Select Session</option>
+                            <g:each in="${programSessions}" var="session">
+                                <option value="${session.sessionOfProgram}">${session.sessionOfProgram}</option>
+                            </g:each>
+                        </select>
                     </div>
                 </div>
 
