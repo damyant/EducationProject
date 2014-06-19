@@ -1011,14 +1011,18 @@ function checkFeeStatusForRollNo() {
             data: {rollNo: rollNo},
             success: function (data) {
                 if (!data.error) {
-                    $('#showStatusForRollNo').empty().append('<table class="university-size-full-1-1" id="statusTable"></table>')
-                    $('#statusTable').append('<tr><th>Challan No</th><th>Fee Type</th><th>Status</th></tr>')
-                    if (data.admissionChallanIns) {
-                        $('#statusTable').append('<tr><td>' + data.admissionChallanIns.challanNo + '</td><td>Admission Fee</td><td>' + data.admissionChallanStatus + '</td></tr>')
+
+                    if (data.admissionChallan) {
+                        $('#showStatusForRollNo').empty().append('<table class="university-size-full-1-1 inner" id="statusTable"></table>')
+                        $('#statusTable').append('<tr><th>Challan No</th><th>Fee Type</th><th>Fee Paid Date</th><th>Status</th></tr>')
+                        $('#statusTable').append('<tr><td>' + data.admissionChallan+ '</td><td>Admission Fee</td><td>'+data.aPayDate+'</td><td>' + data.admissionChallanStatus + '</td></tr>')
+                    }
+                    else{
+                        $('#showStatusForRollNo').empty().append('<h4>No Result Found!</h4>')
                     }
                     if (data.miscFeeList.length > 0) {
                         for (var i = 0; i <= data.miscFeeList.length; i++) {
-                            $('#statusTable').append('<tr><td>' + data.miscFeeList[i].challanNo + '</td><td>' + data.miscFeetype[i] + '</td><td>' + data.miscFeeStatus[i] + '</td></tr>')
+                            $('#statusTable').append('<tr><td>' + data.miscFeeList[i].challanNo + '</td><td>' + data.miscFeetype[i] + '</td><td>'+data.mPayDate[i]+'</td><td>' + data.miscFeeStatus[i] + '</td></tr>')
 
                         }
 
@@ -1123,28 +1127,37 @@ function searchStudentList() {
                         $('#studentListTable tbody').append('<tr><td>' + data.studentListByFName[i].firstName + ' ' + data.studentListByFName[i].lastName + '</td><td>' + data.studentListByFName[i].rollNo + '</td><td>' + data.studyOfFName[i] + '</td><td>' + data.courseOfFName[i] + '</td></tr>')
                     }
                 }
-            }
-            if (data.studentListByMName) {
-                document.getElementById("studentListTable").style.visibility = "visible";
-                for (var i = 0; i < data.studentListByMName.length; i++) {
-                    if (data.studentListByMName[i].middleName != null) {
-                        $('#studentListTable tbody').append('<tr><td>' + data.studentListByMName[i].firstName + ' ' + data.studentListByMName[i].middleName + ' ' + data.studentListByMName[i].lastName + '</td><td>' + data.studentListByMName[i].rollNo + '</td><td>' + data.studyOfMName[i] + '</td><td>' + data.courseOfMName[i] + '</td></tr>')
-                    }
-                    else {
-                        $('#studentListTable tbody').append('<tr><td>' + data.studentListByMName[i].firstName + ' ' + data.studentListByMName[i].lastName + '</td><td>' + data.studentListByMName[i].rollNo + '</td><td>' + data.studyOfMName[i] + '</td><td>' + data.courseOfMName[i] + '</td></tr>')
-                    }
+                document.getElementById("paginationDiv").style.visibility = "visible";
+                $table_rows = $('#studentListTable tbody tr');
+
+                var table_row_limit = 10;
+
+                var page_table = function (page) {
+
+                    // calculate the offset and limit values
+                    var offset = (page - 1) * table_row_limit,
+                        limit = page * table_row_limit;
+
+                    // hide all table rows
+                    $table_rows.hide();
+
+                    // show only the n rows
+                    $table_rows.slice(offset, limit).show();
+
                 }
-            }
-            if (data.studentListByLName) {
-                document.getElementById("studentListTable").style.visibility = "visible";
-                for (var i = 0; i < data.studentListByLName.length; i++) {
-                    if (data.studentListByLName[i].middleName != null) {
-                        $('#studentListTable tbody').append('<tr><td>' + data.studentListByLName[i].firstName + ' ' + data.studentListByFName[i].middleName + ' ' + data.studentListByLName[i].lastName + '</td><td>' + data.studentListByLName[i].rollNo + '</td><td>' + data.studyOfLName[i] + '</td><td>' + data.courseOfLName[i] + '</td></tr>')
-                    }
-                    else {
-                        $('#studentListTable tbody').append('<tr><td>' + data.studentListByLName[i].firstName + ' ' + data.studentListByFName[i].lastName + '</td><td>' + data.studentListByLName[i].rollNo + '</td><td>' + data.studyOfLName[i] + '</td><td>' + data.courseOfLName[i] + '</td></tr>')
-                    }
+                var pageNo = 0
+                if ($table_rows.length % table_row_limit) {
+                    pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
                 }
+                else {
+                    pageNo = parseInt($table_rows.length / table_row_limit)
+                }
+//                alert(5%5)
+                $('.pagination').jqPagination({
+                    max_page: pageNo,
+                    paged: page_table
+                });
+                page_table(1);
             }
         }
     });
