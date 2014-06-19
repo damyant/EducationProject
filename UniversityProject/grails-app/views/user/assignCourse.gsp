@@ -38,7 +38,7 @@
         %{--</tr>--}%
     %{--</table>--}%
     <div class="form-group">
-        <label>Select Program</label>
+        <label>Select Programme</label>
         <g:select id="ms" multiple="multiple" name="ms" class="university-size-1-7 form-control" onchange="select(this)"
                   optionKey="id" optionValue="courseName"
                    from="${ProgramDetail.findAll()}">

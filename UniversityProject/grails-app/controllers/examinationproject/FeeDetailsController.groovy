@@ -292,8 +292,9 @@ class FeeDetailsController {
         def totalFee=0;
         def studyCentre
         def challanNo=studentRegistrationService.getChallanNumber()
+        def feeType=FeeType.findById(params.feeCategory)
         if(params.rollNoSearch){
-            def feeType=FeeType.findById(params.feeCategory)
+//            def feeType=FeeType.findById(params.feeCategory)
             def stuIns= Student.findByRollNo(params.rollNoSearch)
             studyCentre=stuIns.studyCentre
             def mFeeInstance = new MiscellaneousFeeChallan()
@@ -327,7 +328,7 @@ class FeeDetailsController {
                     studyCentre=stuIns.studyCentre
                 }
                 println(stuIns.studyCentre.name)
-                def feeType=FeeType.findById(params.feeCategory)
+//                def feeType=FeeType.findById(params.feeCategory)
                 mFeeInstance.challanNo=challanNo
                 mFeeInstance.feeType=feeType
                 mFeeInstance.student=stuIns
@@ -351,7 +352,7 @@ class FeeDetailsController {
         }
 
 //        println("sdsdsdsdsds"+Student.findById(Long.parseLong(stuList[0])).studyCentre.name)
-        def args = [template: "printMiscFeeChallan", model: [studList: studList,studyCentre:studyCentre,challanNo:challanNo,miscellaneousFee:miscellaneousFee,totalFee:totalFee],filename:challanNo+".pdf"]
+        def args = [template: "printMiscFeeChallan", model: [studList: studList,feesType:feeType,studyCentre:studyCentre,challanNo:challanNo,miscellaneousFee:miscellaneousFee,totalFee:totalFee],filename:challanNo+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
     }
 
@@ -455,7 +456,7 @@ class FeeDetailsController {
 
     def payMiscFeeChallan={
 //        println("***************"+params)
-        def courseNameList=[],courseFee=[]
+        def courseNameList=[],courseFee=[],feeType=[]
         def stuList= []
         def studyCentre
         def miscFeeChallanList=  MiscellaneousFeeChallan.findAllByChallanNo(params.searchChallanNo)
@@ -466,7 +467,6 @@ class FeeDetailsController {
             int year=it.student.registrationYear
             def sessionVal= year+1
             sessionVal= year+'-'+sessionVal
-
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(it.student.programDetail[0].id),sessionVal)
             courseFee<<MiscellaneousFee.findByFeeSessionAndFeeType(feeSessionObj,it.feeType).amount
         }
@@ -495,7 +495,7 @@ class FeeDetailsController {
         def paymentDate=params.paymentDate
         def paymentReferenceNumber=params.paymentReferenceNumber
 
-        def args = [template: "printPayMiscFeeChallan", model: [bank:bank,studyCentre:studyCentre, branch:branch,paymentReferenceNumber:paymentReferenceNumber,paymentModeName:paymentModeName,paymentDate:paymentDate,stuList:stuList,courseFee:courseFee,totalFee:totalFee,courseNameList:courseNameList,challanNo:challanNo,],filename:challanNo+".pdf"]
+        def args = [template: "printPayMiscFeeChallan", model: [bank:bank,studyCentre:studyCentre,feeType:feeType, branch:branch,paymentReferenceNumber:paymentReferenceNumber,paymentModeName:paymentModeName,paymentDate:paymentDate,stuList:stuList,courseFee:courseFee,totalFee:totalFee,courseNameList:courseNameList,challanNo:challanNo,],filename:challanNo+".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
 
     }

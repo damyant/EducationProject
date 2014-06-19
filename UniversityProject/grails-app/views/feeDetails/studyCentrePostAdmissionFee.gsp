@@ -32,11 +32,11 @@
         <h3>Study Centre Post Admission Fee Entry</h3>
         <table class="inner university-size-full-1-1" style="margin: auto">
             <tr>
-                <td class="university-size-1-3"><label>Select a Program</label></td>
+                <td class="university-size-1-3"><label>Select a Programme</label></td>
                 <td class="university-size-2-3" style="padding-left: 20px;">
                     <g:select name="programList" class="university-size-1-2" optionKey="id"
                               optionValue="courseName"
-                              from="${programList}" noSelection="['': ' Select Program']"
+                              from="${programList}" noSelection="['': ' Select Programme']"
                               onchange="populateStudents(this)"/>
                 </td>
             </tr>

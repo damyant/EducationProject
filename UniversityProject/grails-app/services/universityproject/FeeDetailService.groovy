@@ -107,7 +107,7 @@ class FeeDetailService {
         def obj = Student.createCriteria()
         def currentUser=springSecurityService.getCurrentUser()
         def stuList=[]
-        if(params.program!='All' && params.semester!='All'){
+        if(params.program!='All'){
 //            println("!!!!!ALl=!!!All")
             stuList = obj.list {
                 programDetail {
@@ -118,39 +118,22 @@ class FeeDetailService {
                 }
                 and {
                     eq('status', Status.findById(2))
-                    eq('semester', Integer.parseInt(params.semester))
+//                    eq('semester', Integer.parseInt(params.semester))
                     isNull('challanNo')
                 }
             }
         }
-        else if(params.program=='All' && params.semester!='All'){
-//            println("ALl=!!!All")
+        else if(params.program=='All'){
             stuList = obj.list {
                 studyCentre {
                     eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
                 }
                 and {
                     eq('status', Status.findById(2))
-                    eq('semester', Long.parseLong(params.semester))
                     isNull('challanNo')
                 }
             }
 
-        }
-        else if(params.program!='All' && params.semester=='All'){
-//            println("!!!ALl=All")
-            stuList = obj.list {
-                programDetail {
-                    eq('id', Long.parseLong(params.program))
-                }
-                studyCentre {
-                    eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
-                }
-                and {
-                    eq('status', Status.findById(2))
-                    isNull('challanNo')
-                }
-            }
         }
         else {
 //            println("ALl=All")
@@ -420,22 +403,43 @@ class FeeDetailService {
         def studInst=Student.findByRollNo(params.rollNo)
         if(studInst.challanNo!=null) {
             def admissionChallanIns = FeeDetails.findByChallanNo(studInst.challanNo)
-            def admissionChallanStatus = studInst.status.status
+            def admissionChallanStatus
+            if(studInst.status.id==4){
+                admissionChallanStatus=studInst.status.status
+            }
+            else{
+                admissionChallanStatus='Not Approved'
+            }
             def miscFeeList = MiscellaneousFeeChallan.findAllByStudent(studInst)
 //            println(miscFeeList)
             def miscFeeStatus = []
             def miscFeetype = []
+            def mPayDate = []
             miscFeeList.each {
                 def status = FeeDetails.findByChallanNo(it.challanNo)
                 if (status) {
                     miscFeeStatus.add('Approved')
+                    mPayDate<<status.paymentDate
                 } else {
                     miscFeeStatus.add('Not Approved')
+                    mPayDate<<"Not Paid"
                 }
                 miscFeetype.add(it.feeType.type)
+
             }
+            def aPayDate
+            if(admissionChallanIns){
+                returnMap.admissionChallan = admissionChallanIns.challanNo
+                aPayDate=admissionChallanIns.paymentDate
+            }
+            else{
+                returnMap.admissionChallan = studInst.challanNo
+                aPayDate="Not Paid"
+            }
+            returnMap.aPayDate = aPayDate
+            returnMap.mPayDate = mPayDate
             returnMap.studInst = studInst
-            returnMap.admissionChallanIns = admissionChallanIns
+
             returnMap.miscFeeList = miscFeeList
             returnMap.miscFeeStatus = miscFeeStatus
             returnMap.miscFeetype = miscFeetype

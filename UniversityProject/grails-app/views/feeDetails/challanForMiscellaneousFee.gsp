@@ -49,26 +49,26 @@
                     <td  style="text-align: center;"></td>
                     <td></td>
                 </tr>
-                <tr><td><label>Select Program Catagory</label></td>
+                <tr><td><label>Select Programme Catagory</label></td>
                     <td>
                         <g:select name="programCategory" disabled="true" class="university-size-1-1" id="programCategory" optionKey="id"
                                   optionValue="type"
-                                  from="${programCategory}" noSelection="['': ' Select Program Category']"
+                                  from="${programCategory}" noSelection="['': ' Select Programme Category']"
                                   onchange="loadProgram(this)"/>
                     </td>
                     <td  style="text-align: center;"></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="university-size-1-4"><label>Select a Program</label></td>
+                    <td class="university-size-1-4"><label>Select a Programme</label></td>
                     <td class="university-size-1-4">
                         <g:select name="programList" disabled="true" class="university-size-1-1" id="programList" optionKey="id"
                                   optionValue="courseName"
-                                  from="" noSelection="['': ' Select Program']"
+                                  from="" noSelection="['': ' Select Programme']"
                                   onchange="getSemester(this)"/>
                     </td>
                     <td class="university-size-1-4" style="text-align: center;">OR</td>
-                    <td class="university-size-1-4"><input type="checkbox" id="allProgram" name="allProgram" disabled="true"/><label for="allProgram">All Programs</label></td>
+                    <td class="university-size-1-4"><input type="checkbox" id="allProgram" name="allProgram" disabled="true"/><label for="allProgram">All Programmes</label></td>
                 </tr>
                 <tr><td><label>Select a Term</label></td>
                     <td>

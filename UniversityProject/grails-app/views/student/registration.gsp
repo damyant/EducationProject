@@ -179,19 +179,19 @@
 
 <!----- Program Name ---------------------------------------------------------->
 <tr>
-    <td>Program<span class="university-obligatory">*</span></td>
+    <td>Programme<span class="university-obligatory">*</span></td>
     %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
     <td>
         <sec:ifNotLoggedIn>
             <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                       value="${studInstance?.programDetail?.id?.get(0)}"
                       optionValue="courseName" onchange="loadProgramFeeAmount(this)" from="${programList}"
-                      noSelection="['': ' Select Program']"/>
+                      noSelection="['': ' Select Programme']"/>
         </sec:ifNotLoggedIn>
         <sec:ifLoggedIn>
             <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                       value="${studInstance?.programDetail?.id?.get(0)}"
-                      optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"/>
+                      optionValue="courseName" from="${programList}" noSelection="['': ' Select Programme']"/>
         </sec:ifLoggedIn>
 
     </td>
@@ -313,7 +313,7 @@
 <td>
 <input type="text" name="registrationNo1" id="registrationNo1" maxlength="9" onchange="enableDisableCheckbox()" class="university-size-1-4"
 onkeypress="return isNumber(event)"/> Of
-<input type="text" name="registrationNo2" id="registrationNo2" maxlength="6" class="university-size-1-4"
+<input type="text" name="registrationNo2" id="registrationNo2" maxlength="7" class="university-size-1-4"
 onkeypress="return isNumberWithDash(event)"/>
    &nbsp;&nbsp;&nbsp;Or&nbsp;&nbsp;&nbsp;<label style="text-align: left"><input type="checkbox" value="Y" onclick="enableDisableTextBox()" name="isAppliedFor" id="isAppliedFor"  class="university-size-1-4"/>A/F</label>
 </td>

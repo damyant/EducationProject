@@ -155,9 +155,9 @@ function showStatus(){
                 $('#statusofApp').html("")
                 document.getElementById("statusofApp").style.display = "block";
                 if(data.response2!=0){
-                $('#statusofApp').append('<div>Status of Application is '+data.response1 +' and The Roll Number is  '+ data.response2+'.</div>')
+                $('#statusofApp').append('<div>Approved : Roll No '+ data.response2+'.</div>')
                 }else{
-                $('#statusofApp').append('<div>Status of Application is '+data.response1 +'.</div>')
+                $('#statusofApp').append('<div>Pending for Approval.</div>')
                 }
             }            else{
                 document.getElementById("statusofApp").style.display = "block";

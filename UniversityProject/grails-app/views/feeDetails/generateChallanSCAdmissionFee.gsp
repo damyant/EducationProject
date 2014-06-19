@@ -38,37 +38,37 @@
         <g:hiddenField name="studentListId" id="studentListId" value="" />
         <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
         <table class="inner university-size-full-1-1" style="margin: auto">
-            <tr><td><label>Select Program Catagory</label></td>
+            <tr><td><label>Select Programme Catagory</label></td>
                 <td>
                     <g:select name="programCategory" class="university-size-1-1" id="programCategory" optionKey="id"
                               optionValue="type"
-                              from="${programCategory}" noSelection="['': ' Select Program Category']"
+                              from="${programCategory}" noSelection="['': ' Select Programme Category']"
                               onchange="loadProgram(this)"/>
                 </td>
                 <td  style="text-align: center;"></td>
                 <td></td>
             </tr>
             <tr>
-                <td class="university-size-1-4"><label>Select a Program</label></td>
+                <td class="university-size-1-4"><label>Select a Programme</label></td>
                 <td class="university-size-1-4">
                     <g:select name="programList" class="university-size-1-1" id="programList" optionKey="id"
                               optionValue="courseName"
-                              from="" noSelection="['': ' Select Program']"
+                              from="" noSelection="['': ' Select Programme']"
                               onchange="getSemester(this)"/>
                 </td>
                 <td class="university-size-1-4" style="text-align: center;">OR</td>
-                <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" id="allProgram" name="allProgram"/><label for="allProgram">All Programs</label></td>
+                <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" id="allProgram" name="allProgram"/><label for="allProgram">All Programmes</label></td>
             </tr>
-            <tr><td><label>Select a Term</label></td>
-                <td>
+            %{--<tr><td><label>Select a Term</label></td>--}%
+                %{--<td>--}%
 
-                    <select name="semesterList" onchange="hideAll()" class="university-size-1-1" id="semesterList" >
-                        <option value="">Select Semester</option>
-                    </select>
-                </td>
-                <td  style="text-align: center;"></td>
-                <td></td>
-            </tr>
+                    %{--<select name="semesterList" onchange="hideAll()" class="university-size-1-1" id="semesterList" >--}%
+                        %{--<option value="">Select Semester</option>--}%
+                    %{--</select>--}%
+                %{--</td>--}%
+                %{--<td  style="text-align: center;"></td>--}%
+                %{--<td></td>--}%
+            %{--</tr>--}%
         </table>
        <div style="text-align: center; margin: 10px auto;"  class="university-size-full-1-1"> <input type="button" value="Show Students" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;"></div>
         <div id="noStudentMsg" class="university-status-message"></div>

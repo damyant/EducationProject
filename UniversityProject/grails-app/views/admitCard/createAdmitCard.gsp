@@ -33,7 +33,7 @@
                     <td><label>Select a Course :</label></td>
                     <td>
                         <g:select name="programList" class="university-size-2-3" optionKey="id" optionValue="courseName"
-                                  from="${programList}" noSelection="['': ' Select Program']" onchange="getSemester()"/>
+                                  from="${programList}" noSelection="['': ' Select Programme']" onchange="getSemester()"/>
                     </td>
                     <td></td>
                 </tr>

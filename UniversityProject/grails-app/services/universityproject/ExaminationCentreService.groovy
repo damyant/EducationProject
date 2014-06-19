@@ -34,30 +34,30 @@ class ExaminationCentreService {
         def examinationCentreCodeList = []
         examinationCentreCodeList.addAll(params?.examinationCentreCode)
         for (int i = 0; i < examinationCentreNameList.size(); i++) {
-            try{
-            ExaminationVenue examinationVenueIns = new ExaminationVenue()
+            try {
+                ExaminationVenue examinationVenueIns = new ExaminationVenue()
 //            examinationVenueIns.city = City.findById(params.city)
-            examinationVenueIns.address = examinationCentreAddressList[i].toString()
-            examinationVenueIns.capacity = Integer.parseInt(examinationCentreCapacityList[i])
-            examinationVenueIns.contactNo = examinationCentreContactNoList[i]
-            examinationVenueIns.inchargeName = examinationCentreInchargeList[i].toString()
-            examinationVenueIns.name = examinationCentreNameList[i].toString()
-            examinationVenueIns.centreCode = Integer.parseInt(examinationCentreCodeList[i])
-            def examIns = City.findById(Integer.parseInt(params.examinationCentre))
-            examIns.addToExamVenue(examinationVenueIns)
+                examinationVenueIns.address = examinationCentreAddressList[i].toString()
+                examinationVenueIns.capacity = Integer.parseInt(examinationCentreCapacityList[i])
+                examinationVenueIns.contactNo = examinationCentreContactNoList[i]
+                examinationVenueIns.inchargeName = examinationCentreInchargeList[i].toString()
+                examinationVenueIns.name = examinationCentreNameList[i].toString()
+                examinationVenueIns.centreCode = Integer.parseInt(examinationCentreCodeList[i])
+                def examIns = City.findById(Integer.parseInt(params.examinationCentre))
+                examIns.addToExamVenue(examinationVenueIns)
 
 //            examinationVenueIns. = examinationCentreList
-            if (examinationVenueIns.save(flush: true, failOnError: true)) {
-                if (params.Select) {
-                    def studyCenterInst = StudyCenter.get(params.Select)
+                if (examinationVenueIns.save(flush: true, failOnError: true)) {
+                    if (params.Select) {
+                        def studyCenterInst = StudyCenter.get(params.Select)
 //                    println("**********************> "+studyCenterInst)
-                    studyCenterInst.isExamVenue = 0
-                    studyCenterInst.save(flush: true, failOnError: true)
+                        studyCenterInst.isExamVenue = 0
+                        studyCenterInst.save(flush: true, failOnError: true)
+                    }
+                    examinationVenueInsSaved = true;
                 }
-                examinationVenueInsSaved = true;
             }
-            }
-            catch ( Exception e){
+            catch (Exception e) {
                 println("????????????")
             }
         }
@@ -105,21 +105,19 @@ class ExaminationCentreService {
         return examVenue.examVenue
     }
 
-    int saveExamCentres(params) {
+    def saveExamCentres(params) {
         int status = 0;
 
 
         if (params.isCity) {
             def cityInsByName = City.findByCityName(params.examCentreName)
-            if(cityInsByName && !(params.cityId)){
+            if (cityInsByName && !(params.cityId)) {
                 status = 1
             }
             else {
                 if (params.cityId) {
                     def cityIns = City.findById(params.cityId)
                     if (cityIns) {
-                        println("Heeeeeeeeeeeeee")
-//                        cityIns.isExamCentre = 0
                         cityIns.cityName = params.examCentreName
                         cityIns.district = District.findById(Integer.parseInt(params.district))
                         if (cityIns.save(flush: true)) {
@@ -148,7 +146,16 @@ class ExaminationCentreService {
             def examCentreIns = City.findByCityNameAndIsExamCentre(params.examCentreName, 1)
             def cityIns = City.findByCityNameAndIsExamCentre(params.examCentreName, 0)
             if (examCentreIns) {
-                status = 1
+                if(examCentreIns.id==params.district) {
+                    status=1
+                }  else{
+                    cityIns.cityName = params.examCentreName
+                    cityIns.district = District.findById(Integer.parseInt(params.district))
+                    cityIns.isExamCentre = 1
+                    if (cityIns.save(flush: true)) {
+                        status = 2
+                    }
+                }
             } else if (cityIns) {
                 cityIns.isExamCentre = 1
                 if (cityIns.save(flush: true)) {
@@ -184,15 +191,14 @@ class ExaminationCentreService {
         }
     }
 
-    def deletionCity(params)
-    {
+    def deletionCity(params) {
         println(params)
-        def status=false
+        def status = false
         def cityInstance = City.get(params.deleteCityId)
         cityInstance.delete()
-      if(!City.exists(cityInstance.id)) {
-          status=true
-      }
+        if (!City.exists(cityInstance.id)) {
+            status = true
+        }
         return status
     }
 }
