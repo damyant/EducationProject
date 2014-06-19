@@ -210,13 +210,13 @@
                     code="default.mainMenu7.subMenu4"/></g:link></li>
 
             <li>        <g:link controller="feeDetails" action="payMiscellaneousFee"><g:message code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>
-            </ul>
+            %{--</ul>--}%
         </li>
-        <li><g:link controller="admin" action="approvePayInSlip"><g:message code="default.mainMenu7.subMenu2"/></g:link></li>
+        %{--<li><g:link controller="admin" action="approvePayInSlip"><g:message code="default.mainMenu7.subMenu2"/></g:link></li>--}%
         <li><g:link controller="feeDetails" action="feeStatusForRollNumber"><g:message code="default.mainMenu7.subMenu3"/></g:link></li>
 
     </ul>
-</li>
+%{--</li>--}%
 
 %{--<li><a href="#"><g:message code="default.mainMenu8"/></a>--}%
 %{--<ul>--}%
@@ -258,9 +258,9 @@
 
 %{--</ul>--}%
 %{--</li>--}%
+
 <li><g:link controller="report" action="reportIndex"><g:message code="default.mainMenu9"/></g:link></li>
 
-</ul>
 </div>
 %{--</div>--}%
 

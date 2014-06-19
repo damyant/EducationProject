@@ -72,7 +72,7 @@ class ProgramFeeController {
 
         def programSessions=   programFeeService.getProgramSessions(params)
 
-//        def miscFee
+        def miscFee
 //>>>>>>> 012099d8c3b30431547432309139173c8a0c1652
         List<MiscellaneousFee> miscellaneousFeeList = []
         if(FeeType.count()>0){
@@ -80,9 +80,10 @@ class ProgramFeeController {
             feeType.each {
 
 //                println("Hello")
-                def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndFeeSession(FeeType.findById(it.id),programFeeSessionInstance)
 
-//                miscFee=FeeType.list()
+
+                miscFee=FeeType.findAllByShowValue(true)
+                def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndFeeSession(FeeType.findById(it.id),programFeeSessionInstance)
 //                def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(FeeType.findById(it.id),program,programSession)
 //>>>>>>> 012099d8c3b30431547432309139173c8a0c1652
                 if(miscellaneousFee)
@@ -91,7 +92,7 @@ class ProgramFeeController {
             }
 
 //            println("?????????????"+miscellaneousFeeList)
-            [programFeeInstance:programFeeSessionInstance,miscellaneousFeeList:miscellaneousFeeList,programSessions:programSessions]
+            [programFeeInstance:programFeeSessionInstance,miscellaneousFeeList:miscellaneousFeeList,programSessions:programSessions,miscFee:miscFee]
 
 
 
