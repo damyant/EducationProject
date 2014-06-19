@@ -18,7 +18,7 @@
 			
 				<g:if test="${programFeeInstance?.programDetail}">
 				<li class="fieldcontain">
-					<span id="programDetail-label" class="property-label"><g:message code="programFee.programDetail.label" default="Program Detail" /></span>
+					<span id="programDetail-label" class="property-label"><g:message code="programFee.programDetail.label" default="Programme Detail" /></span>
 					
 						<span class="property-value" aria-labelledby="programDetail-label"><g:link controller="programDetail" action="show" id="${programFeeInstance?.programDetail?.id}">${programFeeInstance?.programDetail?.encodeAsHTML()}</g:link></span>
 					

@@ -104,7 +104,7 @@
             </tr>
             <tr>
                 <td>
-                    <label>Program</label>
+                    <label>Programme</label>
                 </td>
                 <td>
                     <label>${studentInstance?.programDetail?.courseName[0]}</label>

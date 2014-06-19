@@ -411,29 +411,23 @@ function enterSrNo(t) {
 function populateStudentList() {
 
     var program = $('#programList').val();
-    var semester = $('#semesterList').val();
+//    var semester = $('#semesterList').val();
     var chkBox1 = document.getElementById('allProgram');
 //    alert(chkBox1.checked)
-    if (program != '' && semester != '' && chkBox1.checked == false) {
+    if (program != '' && chkBox1.checked == false) {
         program = $('#programList').val();
-        semester = $('#semesterList').val();
     }
-    else if (program == '' && semester == '' && chkBox1.checked == true) {
+    else if (program == ''&& chkBox1.checked == true) {
         program = 'All';
-        semester = 'All';
-    }
-    else if (program == '' && semester != '' && chkBox1.checked == true) {
-        program = 'All';
-        semester = $('#semesterList').val();
     }
     else {
-        alert("Please Select Program and Semester.")
+        alert("Please Select Programme and Semester.")
     }
     if (program) {
         $.ajax({
             type: "post",
             url: url('feeDetails', 'populateStudents', ''),
-            data: {program: program, semester: semester},
+            data: {program: program},
             success: function (data) {
                 appendStudentList(data)
             }
@@ -546,7 +540,7 @@ function filterProgramsForSelect(t) {
             data: {type: type},
             success: function (data) {
 
-                $("#program").empty().append('<option value="">Select Program</option>')
+                $("#program").empty().append('<option value="">Select Programme</option>')
                 for (var i = 0; i < data.programList.length; i++) {
                     $("#program").append('<option value="' + data.programList[i].id + '">' + data.programList[i].courseName + '</option>')
 
@@ -683,7 +677,7 @@ function loadProgram(t) {
         url: url('feeDetails', 'loadProgram', ''),
         data: {type: type},
         success: function (data) {
-            $("#programList").empty().append('<option value="">Select Program</option>')
+            $("#programList").empty().append('<option value="">Select Programme</option>')
             for (var i = 0; i < data.programList.length; i++) {
                 $("#programList").append('<option value="' + data.programList[i].id + '">' + data.programList[i].courseName + '</option>')
             }

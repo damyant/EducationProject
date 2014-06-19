@@ -24,7 +24,7 @@ class StudentRegistrationService {
     def springSecurityService
 
     Student saveNewStudentRegistration(params, signature, photographe) {
-    println(params)
+//    println(params)
         Boolean studentRegistrationInsSaved = false;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         String year = sdf.format(Calendar.getInstance().getTime());
@@ -54,9 +54,9 @@ class StudentRegistrationService {
             studentRegistration.addressTown = params.addressTown
             studentRegistration.studentAddress = params.studentAddress
             studentRegistration.addressDistrict = params.addressDistrict
-            println("roll number is "+params.rollNo)
+//            println("roll number is "+params.rollNo)
             if(params.rollNo){
-                println("roll number is "+params.rollNo)
+//                println("roll number is "+params.rollNo)
                 def studentToBeUpdate
                 try{
                  studentToBeUpdate = Student.findByRollNo(params.rollNo)
@@ -113,13 +113,22 @@ class StudentRegistrationService {
             if (photographe.bytes)
                 studentRegistration.studentImage = photographe.bytes
         } else {
-            println("in else true" + params.appNo)
+//            println("in else true" + params.appNo)
             studentRegistration.applicationNo = params.applicationNo
         }
         studentRegistration.semester = 1
         studentRegistration.admitCardGenerated = false
+        def obj1 = Student.createCriteria()
 
+        def studentExistRollNo = obj1.list {
+
+            maxResults(1)
+            order("id", "desc")
+        }
+        def maxId=studentExistRollNo.get(0).id
+         println("maxId >>> "+maxId)
         if (studentRegistration.save(flush: true, failOnError: true)) {
+            println("new Id   >>>>>> "+studentRegistration.id)
             if (!springSecurityService.isLoggedIn()) {
                 def feeDetails = new FeeDetails()
                 feeDetails.bankId = Bank.findById(Integer.parseInt(params.bankName))
@@ -187,9 +196,8 @@ class StudentRegistrationService {
                 } else {
                     rollNumber = courseCodeStr + yearCode + this.prepareSequenceForRollNo(rollStr)
                 }
-
-
-            } else {
+            }
+            else {
                 rollNumber = courseCodeStr + yearCode + this.prepareSequenceForRollNo(rollStr)
             }
             return rollNumber

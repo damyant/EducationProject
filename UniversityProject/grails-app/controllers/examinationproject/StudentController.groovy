@@ -211,7 +211,7 @@ class StudentController {
                     }
                 }
             }
-            println("total "+count)
+//            println("total "+count)
             if(count==0){
 //                flash.message="Admission Period Not Started Yet"
             }
@@ -251,7 +251,7 @@ class StudentController {
          // kuldeep's code for pop up start from here..............................................................
             def infoMap =[:]
             def student = Student.findByRollNo(studentRegistration.rollNo)
-            println("program"+student.programDetail)
+//            println("program"+student.programDetail)
             def program = student.programDetail
             def feeTypeId
             def feeType = null

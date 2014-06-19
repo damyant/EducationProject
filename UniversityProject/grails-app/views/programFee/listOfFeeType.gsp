@@ -19,7 +19,7 @@
                     <thead>
                     <tr>
 					
-						<th><g:message code="programFee.programDetail.label" default="Program Detail" /></th>
+						<th><g:message code="programFee.programDetail.label" default="Programme Detail" /></th>
 
                         <g:sortableColumn property="feeAmountAtIDOL"
                                           title="${message(code: 'programFee.feeAmountAtIDOL.label', default: 'Fee Amount At IDOL')}"/>
