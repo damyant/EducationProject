@@ -129,9 +129,16 @@
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu6.subMenu16"/></a>
+        <ul>
+            <li><g:link controller="bank" action="createBank"><g:message code="default.mainMenu6.subMenu14" default="Add Bank"/></g:link></li>
+            <li><g:link controller="bank" action="bankList"><g:message code="default.mainMenu6.subMenu15" default="View Bank"/></g:link></li>
+        </ul>
+    </li>
+
+        <li><a href="#"><g:message code="default.mainMenu6.subMenu22"/></a>
             <ul>
-                <li><g:link controller="bank" action="createBank"><g:message code="default.mainMenu6.subMenu14" default="Add Bank"/></g:link></li>
-                <li><g:link controller="bank" action="bankList"><g:message code="default.mainMenu6.subMenu15" default="View Bank"/></g:link></li>
+                <li><g:link controller="district" action="createDistrict"><g:message code="default.mainMenu6.subMenu23" default="Add District"/></g:link></li>
+                <li><g:link controller="district" action="districtList"><g:message code="default.mainMenu6.subMenu24" default="View/Update"/></g:link></li>
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu6.subMenu17"/></a>

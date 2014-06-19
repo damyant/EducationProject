@@ -3,7 +3,7 @@
  */
 function validate() {
 
-    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
+    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
 
         rules: {
 
@@ -44,6 +44,7 @@ function validate() {
             },
             district: "required",
             city: "required",
+            districtName: "required",
             parentsName:"required",
             studentAddress:"required",
             addressTown:"required",
@@ -390,6 +391,7 @@ function validate() {
             district: "Please select district",
             city: "Please select city",
             nameOfHeadIns: "Please enter name of the Principal",
+            districtName: "Please Enter District Name",
             phoneNoOfHeadIns: "Please enter Contact No of Principal",
             emailIdOfHeadIns:{
                 required: "Please enter email of Principal",

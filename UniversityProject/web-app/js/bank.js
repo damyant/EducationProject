@@ -1,31 +1,46 @@
 /**
  * Created by damyant on 6/10/14.
  */
+
+var districtId =0;
+var bankId=0;
+var branchId=0;
 $(document).ready(function () {
 
 
 });
 
 function updateBankType(id){
-    var bankId = id
+    bankId = id
     window.location.href = '/UniversityProject/bank/editBank?bankId=' + bankId;
 }
 function deleteBankType(id){
-    var bankId = id
+    bankId = id
     alert(bankId)
     window.location.href = '/UniversityProject/bank/deleteBank?bankId=' + bankId;
 }
 
 function updateBranch(id){
-    var branchId = id
+    branchId = id
     alert(branchId)
     window.location.href = '/UniversityProject/branch/editBranch?branchId=' + branchId;
 }
 
 function deleteBranch(id){
-    var branchId = id
+    branchId = id
     window.location.href = '/UniversityProject/branch/deleteBranch?branchId=' + branchId;
 }
+
+function updateDistrict(id){
+    districtId = id
+    window.location.href = '/UniversityProject/district/editDistrict?districtId=' + districtId;
+}
+function deleteDistrict(id){
+    districtId = id
+    alert(bankId)
+    window.location.href = '/UniversityProject/district/deleteDistrict?districtId=' + districtId;
+}
+
 function loadBranch(t){
     var bank=$(t).val();
 //    alert(bank)
