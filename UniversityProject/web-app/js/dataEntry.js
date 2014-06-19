@@ -785,7 +785,7 @@ function enableAll() {
 
 }
 
-function showChallanNumberStatus(){
+function showChallanNumberStatus() {
 
     $("#challanNoText").val()
 
@@ -804,4 +804,6 @@ function showChallanNumberStatus(){
 
         }
 
+    });
 }
+

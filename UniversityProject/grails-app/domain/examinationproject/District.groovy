@@ -9,10 +9,13 @@ class District {
     }
 
 
+
     static mapping = {
         id column: 'DistrictId'
         stateId column: 'StateId'
         districtName column: 'DistrictName'
 
     }
+
+
 }
