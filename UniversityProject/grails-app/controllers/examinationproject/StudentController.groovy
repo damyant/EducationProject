@@ -265,31 +265,24 @@ class StudentController {
             def args
             def lateFee=0
             def programFeeAmount = 0
-//<<<<<<< HEAD
-//            println('hello now going to get program fee'+ program+' and this is the session '+student.programSession)
-//
-//            Calendar cal = Calendar.getInstance();
-//            int year = cal.get(cal.YEAR);
-//            def sessionVal= year+1
-//            sessionVal= year+'-'+sessionVal
-//
-//            def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
-//            def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
-//            println('this is the programFee '+programFee)
-//=======
-            def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
-//>>>>>>> 012099d8c3b30431547432309139173c8a0c1652
+
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(cal.YEAR);
+            def sessionVal= year+1
+            sessionVal= year+'-'+sessionVal
+
+            def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
+            def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
+            println('this is the programFee '+programFee)
+2
             try{
                 def lateFeeDate=student.programDetail.lateFeeDate[0]
                 def today=new Date()
                 if(lateFeeDate!=null) {
                     if (today.compareTo(lateFeeDate) > 0) {
-//<<<<<<< HEAD
-//                        lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
-//                        println('in if block and late fee is '+lateFee)
-//=======
-                        lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
-//>>>>>>> 012099d8c3b30431547432309139173c8a0c1652
+
+                        lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+
                     }
                 }
                 feeType = null
