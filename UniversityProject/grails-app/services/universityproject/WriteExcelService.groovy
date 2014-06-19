@@ -45,7 +45,8 @@ class WriteExcelService {
     private void createLabel(WritableSheet sheet, params, course, studyCentreName )
             throws WriteException {
         println("calling this method")
-        def formatSession = Integer.parseInt(params.courseSession)+1
+//        def formatSession = Integer.parseInt(params.session)+1
+        def formatSession = (params.session)
         // Lets create a times font
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 12);
         // Define the cell format

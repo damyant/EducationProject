@@ -159,6 +159,7 @@
 .ms-drop ul > li.multiple {
     display: block;
     float: left;
+    width: 100px;
 }
 
 .ms-drop ul > li.group {

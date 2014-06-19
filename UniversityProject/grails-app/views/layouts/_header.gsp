@@ -94,7 +94,85 @@
         </li>
     </ul>
 </li>
-<li><a href="#"><g:message code="default.mainMenu4"/></a></li>
+
+<li><a href="#"><g:message code="default.mainMenu4"/></a>
+ %{--ADDED BY DIGVIJAY ON 3rd JUNE 2014--}%
+    <ul>
+        <li>
+            <g:link controller="postExamination"
+                    action="createMarksFoil"><g:message
+                    code="default.mainMenu4.subMenu1"/>
+            </g:link>
+        </li>
+        <li>
+            <g:link controller="postExamination"
+                    action="marksEntering"><g:message
+                    code="default.mainMenu4.subMenu2"/>
+            </g:link>
+        </li>
+        <li>
+            <g:link controller="postExamination"
+                    action="markMismatchReport"><g:message
+                    code="default.mainMenu4.subMenu3"/>
+            </g:link>
+        </li>
+        <li>
+            <g:link controller="postExamination"
+                    action="absenteeProcessing"><g:message
+                    code="default.mainMenu4.subMenu4"/>
+            </g:link>
+        </li>
+        <li>
+            <g:link controller="postExamination"
+                    action="marksUpdation"><g:message
+                    code="default.mainMenu4.subMenu5"/>
+            </g:link>
+        </li>
+        <li>
+            <g:link controller="postExamination"
+                    action="resultProcessing"><g:message
+                    code="default.mainMenu4.subMenu6"/>
+            </g:link>
+        </li>
+        <li>
+            <g:link controller="postExamination"
+                    action="finalResult"><g:message
+                    code="default.mainMenu4.subMenu7"/>
+            </g:link>
+        </li>
+        %{--<li>--}%
+            %{--<g:link controller="postExamination"--}%
+                    %{--action=""><g:message--}%
+                    %{--code="default.mainMenu4.subMenu8"/>--}%
+            %{--</g:link>--}%
+        %{--</li>--}%
+        %{--<li>--}%
+            %{--<g:link controller="postExamination"--}%
+                    %{--action=""><g:message--}%
+                    %{--code="default.mainMenu4.subMenu9"/>--}%
+            %{--</g:link>--}%
+        %{--</li>--}%
+
+        <li><a href="#"><g:message code="default.mainMenu4.subMenu8"/></a>
+            <ul>
+                <li>
+                    <g:link controller="postExamination"
+                            action="bulkMarksSheet"><g:message
+                            code="default.mainMenu4.subMenu8.submenu1"/>
+                    </g:link>
+                </li>
+                <li>
+                    <g:link controller="postExamination"
+                            action="singleMarksSheet"><g:message
+                            code="default.mainMenu4.subMenu8.submenu2"/>
+                    </g:link>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+</li>
+
 <li><a href="#"><g:message code="default.mainMenu5"/></a></li>
 <li><a href="#"><g:message code="default.mainMenu6"/></a>
     <ul>

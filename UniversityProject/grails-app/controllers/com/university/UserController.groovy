@@ -51,8 +51,9 @@ class UserController {
         def userInstance = new User()
         userInstance.properties = params
         def stydyCentreList=StudyCenter.list(sort: 'name')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         def roleList=userService.getRoleList()
-        [userInstance: userInstance,roles:roleList, stydyCentreList:stydyCentreList]
+        [userInstance: userInstance,roles:roleList, stydyCentreList:stydyCentreList, programList: programList]
     }
 
 
@@ -237,6 +238,26 @@ class UserController {
 
         def programList = ProgramDetail.list(sort: 'courseCode')
         [programList: programList]
+    }
+
+    def saveCourseForTabulator(){
+        println('these are the parameters '+ params)
+        def sizeP = ProgramDetail.list().size()
+//        for(int i=1; i<=sizeP; i++){
+//            def programVar = 'program'+i
+//            println(programVar)
+//            def a = params.(programVar)
+//            println(a)
+//            if(a){
+//                println(params.program+''+i)
+//               def p = params.program+''+i
+//                p.each{
+//                    println('this is the value '+ it)
+//                }
+//            }
+//
+//        }
+
     }
 }
 

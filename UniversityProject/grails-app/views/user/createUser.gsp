@@ -6,119 +6,9 @@
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
 </head>
-%{--<body>
-    --}%%{--<a href="#create-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-    <div class="nav" role="navigation">
-        <ul>
-            <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-            <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-        </ul>
-    </div>--}%%{--
-    <div id="create-user" class="content scaffold-create" role="main">
-        <h1><g:message code="default.create.label" args="[entityName]" /></h1>
-        <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-        </g:if>
-        <g:hasErrors bean="${userInstance}">
-        <ul class="errors" role="alert">
-            <g:eachError bean="${userInstance}" var="error">
-            <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-            </g:eachError>
-        </ul>
-        </g:hasErrors>
-        <g:form url="[resource:userInstance, action:'saveUser']" >
-            <fieldset class="form">
-                --}%%{--<g:render template="form"/>--}%%{--
 
-                <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'username', 'error')} required">
-                    <label for="username">
-                        <g:message code="user.username.label" default="Username" />
-                        <span class="required-indicator">*</span>
-                    </label>
-                    <g:textField name="username" required="" value="${userInstance?.username}"/>
-                </div>
-
-                <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', '')} required">
-                    <label for="password">
-                        <g:message code="user.password.label" default="Password" />
-                        <span class="required-indicator">*</span>
-                    </label>
-                    <g:passwordField name="password" required="" value="${userInstance?.password}"/>
-                </div>
-
-                <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
-
-                    <label for="email">
-                        <g:message code="user.email.label" default="Email"/></label>
-                    <span class="required-indicator">*</span>
-                    <g:textField name="email" required="" value="${userInstance?.email}"/>
-
-                </div>
-
-                <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
-
-                 <label for="role">
-                     <g:message code="role.label" default="Role"/></label>
-                     <span class="required-indicator">*</span>
-                    <g:select from="${roles}" name="userRole" optionKey="authority" optionValue="authority" style="width: 300px;height: 30px"/>
-
-                </div>
-
-                <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'accountExpired', 'error')} ">
-                    <label for="accountExpired">
-                        <g:message code="user.accountExpired.label" default="Account Expired" />
-
-                    </label>
-                    <g:checkBox name="accountExpired" value="${userInstance?.accountExpired}" />
-                </div>
-
-                <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'accountLocked', 'error')} ">
-                    <label for="accountLocked">
-                        <g:message code="user.accountLocked.label" default="Account Locked" />
-
-                    </label>
-                    <g:checkBox name="accountLocked" value="${userInstance?.accountLocked}" />
-                </div>
-
-                <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'enabled', 'error')} ">
-                    <label for="enabled">
-                        <g:message code="user.enabled.label" default="Enabled" />
-
-                    </label>
-                    <g:checkBox name="enabled" value="${userInstance?.enabled}" />
-                </div>
-
-                <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'passwordExpired', 'error')} ">
-                    <label for="passwordExpired">
-                        <g:message code="user.passwordExpired.label" default="Password Expired" />
-
-                    </label>
-                    <g:checkBox name="passwordExpired" value="${userInstance?.passwordExpired}" />
-                </div>
-
-            </fieldset>
-            <fieldset class="buttons">
-                <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Save')}" />
-                <g:link controller="user" action="index"><input type="button" name="create" class="save" value="${message(code: 'default.button.cancel.label', default: 'Cancel')}"/> </g:link>
-            </fieldset>
-        </g:form>
-    </div>
-</body>
-=======
-<head>
-<meta name="layout" content="main">
-<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
-<title><g:message code="default.create.label" args="[entityName]"/></title>
-</head>
---}%
 <body>
-%{--<a href="#create-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-<div class="nav" role="navigation">
-    <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-    </ul>
-</div>--}%
+
 <div id="main">
     <fieldset class="form">
         <div id="create-user" class="content scaffold-create" role="main">
@@ -175,14 +65,7 @@
                         </div>
 
 
-                        %{--<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">--}%
 
-                        %{--<div><label for="role">--}%
-                        %{--<g:message code="user.role.label" default="Role"/></label>--}%
-                        %{--<span class="required-indicator">*</span></div>--}%
-                        %{--<div class="university-size-1-3"> <g:select from="${Role.list()}" class="university-size-2-3" optionKey="authority" optionValue="authority" value="" name="userRole"  noSelection="['':'-Choose role-']"/></div>--}%
-
-                        %{--</div>--}%
 
                         <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'accountExpired', 'error')} ">
                             <div class="university-size-1-4"><label for="accountExpired">
@@ -230,20 +113,9 @@
                            <legend>
                             Please Select Roles
                            </legend>
-            %{--<table class='rolesTable'>--}%
-            %{--<tbody>--}%
+
                 <g:each in="${roles}" status="i" var='roleInstance'>
 
-                %{--<tr class="prop">--}%
-
-                %{--<td valign="middle" class="name">--}%
-                %{--<label> ${fieldValue(bean: roleInstance, field: "authority")} </label>--}%
-                %{--</td>--}%
-                %{--<td valign="middle">--}%
-                %{--<g:checkBox name="myCheckbox" value="${roleInstance.id}" checked=""/>--}%
-                %{--</td>--}%
-
-                %{--</tr>--}%
                     <div class="fieldcontain ${hasErrors(bean: roleInstance, field: 'authority', 'error')} ">
                         <div class="university-size-1-4" >
                             <label>${fieldValue(bean: roleInstance, field: "authority")}</label>
@@ -253,7 +125,7 @@
                                                                      checked=""/></div>
                         <g:if test="${roleInstance.authority=='TABULATOR1' || roleInstance.authority=='TABULATOR2'}">
                         <div class="university-size-1-3" style="width: 10%">
-                        <button onclick='assignCourses(this)' id="${roleInstance.id}">Assign Courses</button>
+                        <input type='button' onclick='assignCourses(this)' id="button${roleInstance.id}" value="Assign Courses" hidden="hidden" />
                         </div>
                         </g:if>
                     </div>
@@ -290,10 +162,42 @@
             </g:form>
         </div>
     </fieldset>
+   <div id="coursePopup" class="dialog">
+    <g:form >
+        <div style="height: 300px; overflow-y: scroll; background: snow; border: 1px solid #000000">
+            <g:each in="${programList}" status="i" var="program">
+                <div>
+                    <label style="color: #0000ff">${program.courseName}</label>
+                </div>
+                <g:each in="${1..program.noOfTerms}" status="j" var="index">
+                    <div id="checkboxes">
+                        <input type="checkbox" id="" name= "${program.id}" value="${index}"/>
+                        <label>${j+1} Semester</label>
+                    </div>
+                </g:each>
+            </g:each>
+        </div>
+        <button name="submit" onclick="return submitCourses()">Submit</button>
+    </g:form>
+ </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
         document.getElementById("studyCentreId").multiple = false;
+        $(".dialog").dialog({
+            autoOpen: false,
+            draggable: false,
+            position: ['center',0],
+            width: 550,
+            resizable: false,
+            height: 400,
+            modal: true,
+            title:'Assign Semesters',
+            close: function(ev, ui) {
+                $.unblockUI();
+            }
+
+        });
     })
     $('input[name="myCheckbox"]').change(function () {
         if ($(this).is(':checked')) {
@@ -301,6 +205,12 @@
                 document.getElementById("studyCentreDiv").style.visibility = "visible";
                 $('#studyCentreId').prop('disabled', false);
                 $('#studyCentreId').prop('required', true);
+            }
+            else if($(this).val() == 8){
+                $('#button8').show();
+            }
+            else if($(this).val() == 9){
+                $('#button9').show();
             }
 
         }
@@ -310,11 +220,25 @@
                 $('#studyCentreId').prop('disabled', true);
                 $('#studyCentreId').prop('required', false);
             }
+            else if($(this).val() == 8){
+                $('#button8').hide();
+            }
+            else if($(this).val() == 9){
+                $('#button9').hide();
+            }
         }
     })
     function assignCourses(val){
+<<<<<<< HEAD
+        alert('helo kuldeep'+val.id)
+        $('#coursePopup').dialog('open')
+
+
+//        window.open("/UniversityProject/user/assignCourse?userId="+val.id,'_self', false)
+=======
 //        alert('helo kuldeep'+val.id)
         window.open("/UniversityProject/user/assignCourse?userId="+val.id,'_self', false)
+>>>>>>> 49c7936171909e93685dd7977688c4a704572bdc
     }
 </script>
 </body>
