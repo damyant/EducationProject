@@ -10,19 +10,20 @@ import grails.transaction.Transactional
 //@Transactional
 class ProgramFeeController {
     def programFeeService
+    def feeDetailService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def listOfFeeType = {
 
 
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        def c=AdmissionFee.createCriteria()
+        def c=FeeSession.createCriteria()
         def programFeeInstanceList=c.list(params){
 
         }
 
 
-        [programFeeInstanceList:programFeeInstanceList, admissionFeeTotal: AdmissionFee.count()]
+        [programFeeInstanceList:programFeeInstanceList, admissionFeeTotal: FeeSession.count()]
     }
 
 //    def show(ProgramFee programFeeInstance) {
@@ -31,31 +32,29 @@ class ProgramFeeController {
 
     def createNewFeeType() {
         def feeType=null
+        def programDetailList
         if(FeeType.count()>0)
-            feeType = FeeType.list()
-        def admissionFee = AdmissionFee.list()
-        def admissionFeeList=[]
-        admissionFee.each{
-            admissionFeeList.add(it.programDetail.id)
+            feeType = FeeType.findAllByShowValue(true)
+
+        def programSessionList=FeeSession.list()
+        if(programSessionList.programDetailId.id){
+           programDetailList = ProgramDetail.findAllByIdNotInList(programSessionList.programDetailId.id)
         }
-        println("::::::::::::::::::::::::::::::: "+admissionFeeList)
-        def programDetailList = ProgramDetail.findAllByIdNotInList(admissionFeeList)
+        else{
+             programDetailList = ProgramDetail.list()
+        }
+
+        def programSessions=   programFeeService.getProgramSessions(params)
         println("::::::::::::::::::::::::::::::: "+programDetailList)
 
-//        def newProgramDetailList =[]
-//        programDetailList.each{
-//          if(!AdmissionFee.findByProgramDetail(it)){
-//              newProgramDetailList.add(it)
-//        }
-       // }
-         [feeType:feeType,programDetailList:programDetailList]
+         [feeType:feeType,programDetailList:programDetailList,programSessions:programSessions]
 
     }
 
 
     def saveProgramFee(){
         def response
-//        println("innnnnnnnnnn=="+params)
+        println("innnnnnnnnnn=="+params)
         def feeTypeList=params.feeTypeList.split(',')
 //        println("innnnnn"+params.programSession+"nnnnn=="+feeTypeList[0])
 
@@ -66,25 +65,39 @@ class ProgramFeeController {
     }
 
     def editFeeType  =  {
-        def programFeeInstance = AdmissionFee.findById(Integer.parseInt(params.id))
-        def program = programFeeInstance.programDetail
-        def programSession = programFeeInstance.programSession
+        def programFeeSessionInstance = FeeSession.findById(Integer.parseInt(params.id))
+        def program = programFeeSessionInstance.programDetailId
+//        def programSession = programFeeInstance.programSession
         def feeType
+
+        def programSessions=   programFeeService.getProgramSessions(params)
+
         def miscFee
+//>>>>>>> 012099d8c3b30431547432309139173c8a0c1652
         List<MiscellaneousFee> miscellaneousFeeList = []
         if(FeeType.count()>0){
         feeType = FeeType.list()
             feeType.each {
-                miscFee=FeeType.list()
-                def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(FeeType.findById(it.id),program,programSession)
+
+//                println("Hello")
+
+
+                miscFee=FeeType.findAllByShowValue(true)
+                def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndFeeSession(FeeType.findById(it.id),programFeeSessionInstance)
+//                def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(FeeType.findById(it.id),program,programSession)
+//>>>>>>> 012099d8c3b30431547432309139173c8a0c1652
                 if(miscellaneousFee)
                 miscellaneousFeeList.add(miscellaneousFee)
 //                println("fdsgfhsdgfsdhf"+miscellaneousFee)
             }
-            [programFeeInstance:programFeeInstance,miscellaneousFeeList:miscellaneousFeeList,miscFee:miscFee]
+
+//            println("?????????????"+miscellaneousFeeList)
+            [programFeeInstance:programFeeSessionInstance,miscellaneousFeeList:miscellaneousFeeList,programSessions:programSessions,miscFee:miscFee]
+
+
 
         }else{
-            [programFeeInstance:programFeeInstance]
+            [programFeeInstance:programFeeSessionInstance,programSessions:programSessions]
         }
 
 
@@ -125,8 +138,9 @@ class ProgramFeeController {
             feeTypeInst = FeeType.findById(Long.parseLong(params.feeId))
 //            println(feeTypeInst.type);
             feeTypeInst.type = params?.type
+            feeTypeInst.showValue=true
            } else {
-            feeTypeInst = new FeeType(type: params.type)
+            feeTypeInst = new FeeType(type: params.type,showValue: true)
         }
         Boolean flag = false
         if (feeTypeInst.save(flush: true)) {
@@ -145,17 +159,24 @@ class ProgramFeeController {
     }
 
     def viewExistingFeeType = {
-        def feeTypeList = FeeType.list(sort: 'type');
+        def feeTypeList = FeeType.findAllByShowValue(true);
         [feeTypeList: feeTypeList]
     }
     @Secured("ROLE_ADMIN")
     def deleteFeesType = {
         try {
 //            println("*&&&&&&&&&"+params.int('data'));
-            FeeType feeType = FeeType.get(params.int('data'))
-            feeType.delete(flush: true)
+
+            def status=feeDetailService.deleteFee(params)
+            if(status==true){
             flash.message = "Deleted Successfully"
             redirect(action: "viewExistingFeeType")
+            }
+            else{
+
+                flash.message = "Problem in deleting Fee Type"
+                redirect(action: "viewExistingFeeType")
+            }
         }
         catch (Exception e) {
             println("<<<<<<<<<<<Problem in deleting study center$e")

@@ -5,6 +5,7 @@ class MiscellaneousFeeChallan {
     String challanNo
     FeeType feeType
     Student student
+    int semesterValue
 
     static constraints = {
     }
@@ -12,5 +13,6 @@ class MiscellaneousFeeChallan {
         challanNo column: "challanNo"
         feeType column: "feeTypeId"
         student column: "studentId"
+        semesterValue column: "semesterValue"
     }
 }

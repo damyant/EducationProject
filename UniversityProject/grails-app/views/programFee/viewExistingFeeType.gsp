@@ -18,7 +18,7 @@
     <fieldset class="form">
         <h3>View Fee Types</h3>
         <g:if test="${flash.message}">
-            <div class="message"><div class="university-status-message">${flash.message}</div></div>
+            <div class="message"><div class="university-status-message">aaaaaaaa</div></div>
         </g:if>
         <table class="university-size-1-1 university-text-align-centre" style="margin: auto;border: 1px solid beige">
             <tr>

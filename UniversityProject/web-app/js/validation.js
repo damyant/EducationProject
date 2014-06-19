@@ -3,7 +3,7 @@
  */
 function validate() {
 
-    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#tempEnrollment,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
+    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
 
         rules: {
 
@@ -44,6 +44,7 @@ function validate() {
             },
             district: "required",
             city: "required",
+            districtName: "required",
             parentsName:"required",
             studentAddress:"required",
             addressTown:"required",
@@ -390,6 +391,7 @@ function validate() {
             district: "Please select district",
             city: "Please select city",
             nameOfHeadIns: "Please enter name of the Principal",
+            districtName: "Please Enter District Name",
             phoneNoOfHeadIns: "Please enter Contact No of Principal",
             emailIdOfHeadIns:{
                 required: "Please enter email of Principal",
@@ -729,8 +731,8 @@ function validateProgramFee() {
 //    alert("hi")
     $("#createNewFee, #individualStudentUpdate").validate({
         rules: {
-            programDetail:"required",
-            programSession:"required",
+            programDetailId:"required",
+            programSessionId:"required",
             feeAmountAtIDOL:"required",
             feeAmountAtSC:"required",
             lateFeeAmount:"required",
@@ -741,8 +743,9 @@ function validateProgramFee() {
             }
         },
         messages: {
-            programDetail:"Please Select Programme Detail",
-            programSession:"Please Select Programme Session",
+
+            programDetailId:"Please Select Programme Detail",
+            programSessionId:"Please Select Programme Session",
             feeAmountAtIDOL:"Please  Enter Programme Fee At Idol",
             feeAmountAtSC:"Please  Enter Programme Fee At Study Centre",
             lateFeeAmount:"Please Enter Late Fee Amount",

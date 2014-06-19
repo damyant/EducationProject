@@ -21,6 +21,8 @@
 					
 						<th><g:message code="programFee.programDetail.label" default="Programme Detail" /></th>
 
+                        <th><g:message code="programFee.session.label" default="Program Fee Session" /></th>
+
                         <g:sortableColumn property="feeAmountAtIDOL"
                                           title="${message(code: 'programFee.feeAmountAtIDOL.label', default: 'Fee Amount At IDOL')}"/>
 
@@ -38,16 +40,13 @@
                 <g:if test="${programFeeInstanceList}">
 				<g:each in="${programFeeInstanceList}" status="i" var="programFeeInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td>${fieldValue(bean: programFeeInstance, field: "programDetail.courseName")}</td>
-					
-						<td>${fieldValue(bean: programFeeInstance, field: "feeAmountAtIDOL")}</td>
-					
-						<td>${fieldValue(bean: programFeeInstance, field: "feeAmountAtSC")}</td>
-					
-						<td>${fieldValue(bean: programFeeInstance, field: "lateFeeAmount")}</td>
 
-                        <td>
+                       <td>${programFeeInstance.programDetailId.courseName}</td>
+                       <td>${programFeeInstance.sessionOfFee}</td>
+			           <td>${programFeeInstance.admissionFee.feeAmountAtIDOL[0]}</td>
+                        <td>${programFeeInstance.admissionFee.feeAmountAtSC[0]}</td>
+                        <td>${programFeeInstance.admissionFee.lateFeeAmount[0]}</td>
+					                        <td>
                             <g:link action="deleteFeeType" id="${programFeeInstance.id}"
                                     class="university-text-decoration-none"><button
                                     class="university-button">Delete</button></g:link>

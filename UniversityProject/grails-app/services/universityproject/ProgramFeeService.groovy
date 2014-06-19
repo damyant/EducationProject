@@ -2,11 +2,13 @@ package universityproject
 
 
 import examinationproject.AdmissionFee
+import examinationproject.FeeSession
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
 import examinationproject.ProgramDetail
 
 import examinationproject.ProgramSession
+import examinationproject.Semester
 import grails.transaction.Transactional
 
 import java.text.SimpleDateFormat
@@ -24,38 +26,55 @@ class ProgramFeeService {
  * @return
  */
     def saveProgramFeeType(params) {
-        println("#######@@@@@@@@@@@@>>>>>>>>>"+params)
+        println(" paramters are ==="+params)
         def status=false
+        def newSessionStatus=false
         def feeTypeList=params.feeTypeList.split(',')
-        def admissionFeeIns
-        def program = ProgramDetail.findById(params.programDetail)
-        if(params.admissionFee) {
-            admissionFeeIns = AdmissionFee.findById(Integer.parseInt(params.admissionFee))
-            println(">>>>>>>>?>>>>>> " +admissionFeeIns)
-        }
-        else {
-            admissionFeeIns = new AdmissionFee()
-        }
-        Set<ProgramDetail> programDetail = ProgramDetail.findAllById(params.programDetail)
-        println(">>>>>>>>?>>>>>>"+programDetail)
-        admissionFeeIns.feeAmountAtIDOL=Integer.parseInt(params.feeAmountAtIDOL)
-        admissionFeeIns.feeAmountAtSC=Integer.parseInt(params.feeAmountAtSC)
-        admissionFeeIns.programDetail = programDetail[0]
-        admissionFeeIns.lateFeeAmount = Integer.parseInt(params.lateFeeAmount)
+        def admissionFeeIns,sessionObj
+//        def program = ProgramDetail.findById(params.programDetail)
+//        println(params.programId)
+        def programDetailIns = ProgramDetail.findById(Integer.parseInt(params.programDetailId))
 
-        def session = ProgramSession.count()
-        def programSessionIns
+
+
+        def session = FeeSession.count()
+        println(programDetailIns)
+        println("<<<<<<<<<<<<<<<<<"+params.programSessionId)
+
         if (session > 0) {
-            println("Session    "+ProgramSession.findBySessionOfProgramAndProgramDetailId(params.programSession,program))
-            if (ProgramSession.findBySessionOfProgramAndProgramDetailId(params.programSession,program)) {
-                programSessionIns = ProgramSession.findBySessionOfProgramAndProgramDetailId(params.programSession,program)
+            if (FeeSession.findByProgramDetailIdAndSessionOfFee(programDetailIns,params.programSessionId)) {
+                println("me in iffff")
+                sessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(programDetailIns,params.programSessionId)
             } else {
-                programSessionIns = new ProgramSession(sessionOfProgram: params.programSession,programDetailId:program).save(flush: true, failOnError: true)
+                println("**********"+programDetailIns)
+                sessionObj = new FeeSession(sessionOfFee: params.programSessionId, programDetailId:programDetailIns).save(flush: true, failOnError: true)
+                newSessionStatus=true
             }
         } else {
-            programSessionIns = new ProgramSession(sessionOfProgram: params.programSession,programDetailId:program ).save(flush: true, failOnError: true)
+            println("me in last els")
+            sessionObj = new FeeSession(sessionOfFee: params.programSessionId, programDetailId:programDetailIns).save(flush: true, failOnError: true)
+            newSessionStatus=true
         }
-        admissionFeeIns.programSession= programSessionIns
+
+        println("???"+params.admissionFee)
+        if(params.admissionFee && newSessionStatus==false) {
+            println(">>>>>>>>?>>>>>> " +admissionFeeIns)
+            admissionFeeIns = AdmissionFee.findById(Integer.parseInt(params.admissionFee))
+
+        }
+        else if(newSessionStatus==true) {
+            println("elssssssssssssss")
+            admissionFeeIns = new AdmissionFee()
+        }
+
+        println(">>>>>>>>?>>>>>>"+programDetailIns)
+        println("adm fee ins=="+admissionFeeIns)
+        admissionFeeIns.feeAmountAtIDOL=Integer.parseInt(params.feeAmountAtIDOL)
+        admissionFeeIns.feeAmountAtSC=Integer.parseInt(params.feeAmountAtSC)
+//        admissionFeeIns.programDetail = programDetail[0]
+        admissionFeeIns.lateFeeAmount = Integer.parseInt(params.lateFeeAmount)
+
+       admissionFeeIns.feeSession= sessionObj
 
         if(admissionFeeIns.save(failOnError: true)){
             status = true
@@ -63,16 +82,17 @@ class ProgramFeeService {
 
         def i=0;
         try{
+            println("******"+sessionObj)
         feeTypeList.each{
-            def misFeeIns  =MiscellaneousFee.findByFeeTypeAndProgramDetail(FeeType.findById(it),program)
+            def misFeeIns  =MiscellaneousFee.findByFeeTypeAndFeeSession(FeeType.findById(it),sessionObj)
             if(!misFeeIns){
                 println("else")
                 misFeeIns=new MiscellaneousFee()
             }
-            misFeeIns.programDetail=ProgramDetail.findById(params.programDetail)
+//            misFeeIns.programDetail=ProgramDetail.findById(params.programDetail)
             misFeeIns.feeType=FeeType.findById(Long.parseLong(it.toString()))
             misFeeIns.amount=Integer.parseInt(params.feeTypeAmount[i])
-            misFeeIns.programSession=programSessionIns
+            misFeeIns.feeSession=sessionObj
             ++i;
            if(misFeeIns.save(failOnError: true)){
                status = true
@@ -92,7 +112,7 @@ class ProgramFeeService {
  */
     boolean deleteFeeType(params) {
         boolean isDeleted = false
-        def programFeeInstance = AdmissionFee.findById(Integer.parseInt(params.id))
+        def programFeeInstance = FeeSession.findById(Integer.parseInt(params.id))
         if (programFeeInstance.delete(flush: true)) {
             isDeleted = true
         } else {
