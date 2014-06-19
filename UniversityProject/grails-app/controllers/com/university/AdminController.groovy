@@ -601,11 +601,13 @@ class AdminController {
     }
     def getAdmissionDate={
         def returnMap=[:]
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+        if(params.programCode){
         def progmInst=ProgramDetail.findById(params.programCode)
-        returnMap.startDate=df.format(progmInst.startAdmission_D)
-        returnMap.endDate=df.format(progmInst.endAdmission_D)
+        returnMap.startDate=sdf.format(progmInst.startAdmission_D)
+        returnMap.endDate=sdf.format(progmInst.endAdmission_D)
         render returnMap as JSON
+        }
     }
     @Secured("ROLE_ADMIN")
     def individualStudentUpdate={
@@ -661,25 +663,42 @@ class AdminController {
         render response as JSON
     }
     def searchStudentName={
-        def fNameList=Student.list().firstName.unique()
-        def mNameList=Student.list().middleName.unique()
-        def lNameList=Student.list().lastName.unique()
-        def nameList=[]
-        fNameList.each {
-            nameList<<it
+        def sessionList = Student.createCriteria().list {
+            projections {
+                distinct("registrationYear")
+            }
         }
-        mNameList.each {
-            nameList<<it
-        }
-        lNameList.each {
-            nameList<<it
-        }
-        def sessionList=ProgramSession.list().sessionOfProgram.unique()
-        [sessionList:sessionList,nameList:nameList]
+       println(sessionList)
+        [sessionList:sessionList]
     }
     def searchStudentList={
-        def studentListByFName=Student.findAllByFirstNameAndProgramSession(params.student,ProgramSession.find)
-        def studentListByMName=Student.findAllByMiddleNameAndProgramSession()
-        def studentListByCName=Student.findAllByLastNameAndProgramSession()
+        def returnMap=[:]
+        def studyOfFName=[],studyOfMName=[],studyOfLName=[]
+        def courseOfFName=[],courseOfMName=[],courseOfLName=[]
+        def studentListByFName=Student.findAllByFirstNameAndRegistrationYear(params.student,params.session)
+        def studentListByMName=Student.findAllByMiddleNameAndRegistrationYear(params.student,params.session)
+        def studentListByLName=Student.findAllByLastNameAndRegistrationYear(params.student,params.session)
+        studentListByFName.each{
+            studyOfFName <<it.studyCentre[0].name
+            courseOfFName <<it.programDetail[0].courseName
+        }
+        studentListByMName.each{
+            studyOfMName <<it.studyCentre[0].name
+            courseOfMName <<it.programDetail[0].courseName
+        }
+        studentListByCName.each{
+            studyOfLName <<it.studyCentre[0].name
+            courseOfLName <<it.programDetail[0].courseName
+        }
+        returnMap.studentListByFName=studentListByFName
+        returnMap.studentListByMName=studentListByMName
+        returnMap.studentListByLName=studentListByLName
+        returnMap.studyOfFName=studyOfFName
+        returnMap.courseOfFName=courseOfFName
+        returnMap.studyOfMName=studyOfMName
+        returnMap.courseOfMName=courseOfMName
+        returnMap.studyOfLName=studyOfLName
+        returnMap.courseOfLName=courseOfLName
+        render returnMap as JSON
     }
 }

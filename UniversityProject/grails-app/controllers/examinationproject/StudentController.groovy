@@ -39,12 +39,6 @@ class StudentController {
                 if(it.startAdmission_D!=null && it.endAdmission_D !=null) {
                     def start =df.parse(df.format(it.startAdmission_D))
                     def end =df.parse(df.format(it.endAdmission_D))
-//                    println("start>>>----"+start)
-//                    println("End>>>----"+end)
-//                    println("today>>>----"+today)
-//                    println(it.courseName)
-//                    println("start"+start.compareTo(today))
-//                    println("end"+today.compareTo(end))
                     if (start.compareTo(today) <= 0 && end.compareTo(today) >=0) {
                         programList.add(it)
                         count++
@@ -93,7 +87,7 @@ class StudentController {
                     flash.message = "${message(code: 'register.created.message')} & Roll Number is "+studentRegistration.rollNo
                     redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
                 }else{
-                    flash.message = "${message(code: 'register.created.message')}"
+//                    flash.message = "${message(code: 'register.created.message')}"
                     def student = studentRegistration
                     def lateFee=0
                     def payableFee=0
@@ -288,17 +282,13 @@ class StudentController {
             def args
             def lateFee=0
             def programFeeAmount = 0
-            println('hello now going to get program fee'+ program+' and this is the session '+student.programSession)
             def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
-            println('this is the programFee '+programFee)
             try{
                 def lateFeeDate=student.programDetail.lateFeeDate[0]
                 def today=new Date()
                 if(lateFeeDate!=null) {
-                    println('in if block ')
                     if (today.compareTo(lateFeeDate) > 0) {
                         lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
-                        println('in if block and late fee is '+lateFee)
                     }
                 }
                 feeType = null
@@ -315,9 +305,8 @@ class StudentController {
              infoMap.courseName=programFee.programDetail.courseName
              infoMap.programFeeAmount=programFeeAmount
              infoMap.feeType=feeType
-             println('name of the program is '+programFee.programDetail.courseName)
 //             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
-            println('now sending the response back to js')
+
              render infoMap as JSON
 
 

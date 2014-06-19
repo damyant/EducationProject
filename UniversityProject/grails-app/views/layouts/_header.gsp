@@ -86,42 +86,18 @@
                 </li>
             </ul>
         </li>
-        %{--<li><a href="#"><g:message code="default.mainMenu3.subMenu8"/></a>--}%
-
-        %{--<ul>--}%
-        %{--<li><g:link controller="admin" action="uploadInternalMarks"><g:message--}%
-        %{--code="default.mainMenu3.subMenu8.subMenu1"/></g:link>--}%
-        %{--</li>--}%
-        %{--<li><g:link controller="course"--}%
-        %{--action="listOfCourses"><g:message--}%
-        %{--code="default.mainMenu3.subMenu8.subMenu2"/></g:link></li>--}%
-        %{--<li><g:link controller="course"--}%
-        %{--action="updateCourses"><g:message--}%
-        %{--code="default.mainMenu3.subMenu8.subMenu3"/></g:link></li>--}%
-        %{--</ul>--}%
-        %{--</li>--}%
-        %{--<!----}%
-        %{--<li>--}%
-        %{--<ul>--}%
-        %{--<li><g:link controller="course" action="createNewCourse"><g:message--}%
-        %{--code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>--}%
-        %{--<li><g:link controller="course"--}%
-        %{--action="viewCourses"><g:message--}%
-        %{--code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>--}%
-        %{--<li><g:link controller="course"--}%
-        %{--action="updateCourses"><g:message--}%
-        %{--code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>--}%
-        %{--</ul>--}%
-        %{--</li>--}%
-        %{---->--}%
-
+        <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
+            <ul>
+                <li><g:link controller="admin" action="addCourses"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
+                <li><g:link controller="admin" action="listOfCourses"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
+            </ul>
+        </li>
     </ul>
 </li>
 <li><a href="#"><g:message code="default.mainMenu4"/></a></li>
 <li><a href="#"><g:message code="default.mainMenu5"/></a></li>
 <li><a href="#"><g:message code="default.mainMenu6"/></a>
     <ul>
-
         <li><a href="#"><g:message code="default.mainMenu6.subMenu11"/></a>
             <ul>
                 <li><g:link controller="admin" action="assignAdmissionPeriod"><g:message code="default.mainMenu3.subMenu7.subMenu8"/></g:link></li>
@@ -133,16 +109,25 @@
                     </ul>
                 </li>
                 <li><g:link controller="admin" action="assignExaminationDate"><g:message code="default.mainMenu6.subMenu4"/></g:link></li>
-                <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message code="default.mainMenu6.subMenu9"/></g:link></li>
             </ul>
         </li>
-        <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message code="default.mainMenu6.subMenu1"/></g:link></li>
+
         <li><g:link controller="admin" action="assignExaminationVenue"><g:message code="default.mainMenu6.subMenu5"/></g:link></li>
-        <li><g:link controller="student" action="studentListView"><g:message code="default.mainMenu2.subMenu6"/></g:link></li>
-        <li><g:link controller="admin" action="individualStudentUpdate"><g:message code="default.mainMenu2.subMenu12"/></g:link></li>
-        <li><g:link controller="admin" action="downloadAttendanceSheet"><g:message code="default.mainMenu6.subMenu6"/></g:link></li>
+       <li><g:link controller="admin" action="downloadAttendanceSheet"><g:message code="default.mainMenu6.subMenu6"/></g:link></li>
         <li><g:link controller="admin" action="studyMaterial"><g:message code="default.mainMenu6.subMenu10"/></g:link></li>
-        <li><g:link controller="admin" action="searchStudentName"><g:message code="default.mainMenu6.subMenu2"/></g:link></li>
+        <li><a href="#"><g:message code="default.mainMenu6.subMenu7"/></a>
+            <ul>
+                <li><g:link controller="admin" action="searchStudentName"><g:message code="default.mainMenu6.subMenu2"/></g:link></li>
+                <li><g:link controller="student" action="studentListView"><g:message code="default.mainMenu2.subMenu6"/></g:link></li>
+                <li><g:link controller="admin" action="individualStudentUpdate"><g:message code="default.mainMenu2.subMenu12"/></g:link></li>
+            </ul>
+        </li>
+        <li><a href="#"><g:message code="default.mainMenu6.subMenu8"/></a>
+            <ul>
+                <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message code="default.mainMenu6.subMenu9"/></g:link></li>
+                <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message code="default.mainMenu6.subMenu1"/></g:link></li>
+            </ul>
+        </li>
         <li><a href="#"><g:message code="default.mainMenu6.subMenu16"/></a>
             <ul>
                 <li><g:link controller="bank" action="create"><g:message code="default.mainMenu6.subMenu14" default="Add Bank"/></g:link></li>
@@ -161,12 +146,7 @@
                 <li><g:link controller="examinationCenter" action="listOfCity"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
             </ul>
         </li>
-        <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
-            <ul>
-                <li><g:link controller="admin" action="addCourses"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
-                <li><g:link controller="admin" action="listOfCourses"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
-            </ul>
-        </li>
+
     </ul>
 </li>
 

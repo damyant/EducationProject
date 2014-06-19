@@ -399,11 +399,10 @@
                            </td>
                        </tr>
                        <tr>
-                       <td>
-                           <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-1" from=" "
-                                     noSelection="['': 'Select Examination Venue']"/>
-
-                       </td>
+                       %{--<td>--}%
+                           %{--<g:select name="examinationCentre" id="examinationCentre" class="university-size-1-1" from=" "--}%
+                                     %{--noSelection="['': 'Select Examination Venue']" />--}%
+                       %{--</td>--}%
                            <td>
                                <g:select name="examinationCentreSession" class="university-size-1-1 allSession" id="examinationCentreSession"
                                from="${filterType}" optionKey="" optionValue=""

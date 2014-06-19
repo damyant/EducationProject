@@ -144,16 +144,16 @@ function checkApplicationNumber(t) {
     });
 }
 
-function checkLastDate(t){
-    var data = $(t).val();
-    $.ajax({
-        type: "post",
-        url: url('student', 'checkLastDate', ''),
-        data: {applicationNo: data},
-        success: function (data) {
-        }
-    })
-}
+//function checkLastDate(t){
+//    var data = $(t).val();
+//    $.ajax({
+//        type: "post",
+//        url: url('student', 'checkLastDate', ''),
+//        data: {applicationNo: data},
+//        success: function (data) {
+//        }
+//    })
+//}
 function submitTempRegistration() {
     validate();
     var result = $('#tempEnrollment').valid()
@@ -172,13 +172,13 @@ function submitTempRegistration() {
                 $('#amount').text(''+data.programFeeAmount)
                 if(data.lateFee>0)
                 $('#lateFee').text('(with late fee '+data.lateFee+')')
-                var confirmOK = confirm("Do you want to Generate Challan for Roll No " + data.student.rollNo + " ?");
-                if(confirmOK){
+//                var confirmOK = confirm("Do you want to Generate Challan for Roll No " + data.student.rollNo + " ?");
+//                if(confirmOK){
                     $('#challanDiv').dialog('open')
-                }
-                else {
-                    alert('Student Registered Successfully & Roll No is ' + data.student.rollNo);
-                }
+//                }
+//                else {
+//                    alert('Student Registered Successfully & Roll No is ' + data.student.rollNo);
+//                }
 
                 //................................................................................................................
 //                confirmGenerateChallan(data.rollNo);
@@ -205,12 +205,19 @@ function confirmGenerateChallan(rollno) {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $("#errorMessage").text('Fees Not Yet Entered For the Program and Roll No is ' + rollno)
+            $("#errorMessage").text('Fees Not Yet Entered For the Programme and Roll No is ' + rollno)
         }
     });
 }
 function loadProgramFeeAmount(t){
+    if($('#admissionFeeAmount').length>0){
     $('#admissionFeeAmount').val("");
+    }
+    if($('#ProgrammeNotExist').length>0){
+    $('#ProgrammeNotExist').html("");
+        $("#idolSubmitButton").prop("disabled",false)
+    }
+
     var program=$(t).val();
 //    alert(program)
     $.ajax({
@@ -218,7 +225,20 @@ function loadProgramFeeAmount(t){
         url: url('admin', 'getFeeAmount', ''),
         data: {program: program},
         success: function (program) {
+            if($('#admissionFeeAmount').length>0){
             $('#admissionFeeAmount').val(program.feeAmount);
+            }
+            if($('#ProgrammeNotExist').length>0){
+                if(program.feeAmount==0){
+                $('#ProgrammeNotExist').html("This Programme is not Available At this Study Center")
+//                    $('#tempEnrollment').valid(false)
+                    $("#idolSubmitButton").prop("disabled",true)
+                }
+                else{
+                    $('#ProgrammeNotExist').html("");
+                    $("#idolSubmitButton").prop("disabled",false)
+                }
+            }
         }
     });
 }
@@ -230,31 +250,16 @@ function loadProgramFeeAmount(t){
     }
     function Popup1(data)
     {
-        var mywindow = window.open('', 'fee voucher', 'height=400,width=600');
-        mywindow.document.write('<html><head><title>fee voucher</title>');
-        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-        mywindow.document.write('</head><body >');
+        var mywindow = window.open('', 'fee voucher','height=500,width=550');
+        mywindow.document.write('<html style="font-family: arial;"><head><title>fee voucher</title>');
+        mywindow.document.write('<style type="text/css" media="print">')
+        mywindow.document.write('@page{size: auto; margin: 0mm; }')
+        mywindow.document.write('body{background-color:#FFFFFF;border: solid 0px black ;margin: 0px; }</style>')
+        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />260');
+        mywindow.document.write('</head><body style="border: 0px solid;font-size: 8px;height:270px">');
         mywindow.document.write(data);
         mywindow.document.write('</body></html>');
         mywindow.print();
         mywindow.close();
         return true;
     }
-function enableDisableCheckbox(){
-    if($('#registrationNo1').val()!=''){
-        $('#isAppliedFor').prop('disabled',true)
-    }
-    else{
-        $('#isAppliedFor').prop('disabled',false)
-    }
-}
-function enableDisableTextBox(){
-    if($('#isAppliedFor').is(':checked')){
-        $('#registrationNo1').prop('disabled',true)
-        $('#registrationNo2').prop('disabled',true)
-    }
-    else{
-        $('#registrationNo1').prop('disabled',false)
-        $('#registrationNo2').prop('disabled',false)
-    }
-}

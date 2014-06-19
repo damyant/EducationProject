@@ -63,7 +63,7 @@ class Student {
         studentImage(nullable: true)
         location(nullable: true)
         applicationNo(nullable: true)
-        rollNo(nullable:true)
+        rollNo(nullable:true,unique: true)
         status(nullable:true)
         admitCardGenerated(nullable: true)
         examinationVenue(nullable: true)

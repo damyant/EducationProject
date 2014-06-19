@@ -27,13 +27,13 @@ class WriteExcelService {
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
     private WritableCellFormat times1;
-   Boolean excelReport(params, finalList, course, sheetNo, WritableWorkbook workbook, studyCentreName){
+   Boolean excelReport(params, finalList, course, sheetNo, WritableWorkbook workbook, studyCentreName, session){
        println("creating this sheet "+ sheetNo)
        WritableSheet sheet= null
        WritableSheet excelSheet=null
        sheet = workbook.createSheet(""+course.courseName, sheetNo);
        excelSheet = workbook.getSheet(sheetNo);
-      createLabel(excelSheet, params, course, studyCentreName);
+      createLabel(excelSheet, params, course, studyCentreName, session);
       createContent(excelSheet, finalList);
 //       workbook.write();
 //      workbook.close();
@@ -42,10 +42,10 @@ class WriteExcelService {
   }
 
 
-    private void createLabel(WritableSheet sheet, params, course, studyCentreName )
+    private void createLabel(WritableSheet sheet, params, course, studyCentreName, session )
             throws WriteException {
         println("calling this method")
-        def formatSession = Integer.parseInt(params.courseSession)+1
+        def formatSession = Integer.parseInt(session)+1
         // Lets create a times font
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 12);
         // Define the cell format
@@ -74,7 +74,7 @@ class WriteExcelService {
         cv.setAutosize(true);
         int row = 0
         int cols = 6
-        WritableCell titleCell = new Label(0, row, "Total Students In "+course.courseName +" For "+ params.session+"-"+formatSession +" Session In "+(studyCentreName? studyCentreName:'All Study Centres'));
+        WritableCell titleCell = new Label(0, row, "Total Students In "+course.courseName +" For "+ session+"-"+formatSession +" Session In "+(studyCentreName? studyCentreName:'All Study Centres'));
         titleCell.setCellFormat(times)
         sheet.addCell(titleCell);
         sheet.mergeCells(0, row, cols, row);

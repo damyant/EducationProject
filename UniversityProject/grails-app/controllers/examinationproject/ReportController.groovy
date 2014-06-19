@@ -143,7 +143,7 @@ class ReportController {
            }
        }
 
-      else if(params.value=='examinationCentre' && params.examinationCentre){
+      else if(params.value=='examinationCentre' && params.examCity){
            if(params.inExcel){
                def webRootDir = servletContext.getRealPath("/")
                def userDir = new File(webRootDir,'/Report')
