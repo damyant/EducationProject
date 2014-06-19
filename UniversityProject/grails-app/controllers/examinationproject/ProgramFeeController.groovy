@@ -84,18 +84,10 @@ class ProgramFeeController {
 
                 miscFee=FeeType.findAllByShowValue(true)
                 def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndFeeSession(FeeType.findById(it.id),programFeeSessionInstance)
-//                def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(FeeType.findById(it.id),program,programSession)
-//>>>>>>> 012099d8c3b30431547432309139173c8a0c1652
                 if(miscellaneousFee)
                 miscellaneousFeeList.add(miscellaneousFee)
-//                println("fdsgfhsdgfsdhf"+miscellaneousFee)
             }
-
-//            println("?????????????"+miscellaneousFeeList)
             [programFeeInstance:programFeeSessionInstance,miscellaneousFeeList:miscellaneousFeeList,programSessions:programSessions,miscFee:miscFee]
-
-
-
         }else{
             [programFeeInstance:programFeeSessionInstance,programSessions:programSessions]
         }
