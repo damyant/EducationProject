@@ -25,14 +25,14 @@
 <li><a href="#"><g:message code="default.mainMenu1"/></a></li>
 <li><a href="#"><g:message code="default.mainMenu2"/></a>
     <ul>
-      <sec:ifLoggedIn>
-        <li><g:link controller="student" action="registration"><g:message
-                code="default.mainMenu2.subMenuStudyCentre"/></g:link></li>
-      </sec:ifLoggedIn>
-     <sec:ifNotLoggedIn>
-     <li><g:link controller="student" action="registration"><g:message
-             code="default.mainMenu2.subMenu1"/></g:link></li>
-         </sec:ifNotLoggedIn>
+        <sec:ifLoggedIn>
+            <li><g:link controller="student" action="registration"><g:message
+                    code="default.mainMenu2.subMenuStudyCentre"/></g:link></li>
+        </sec:ifLoggedIn>
+        <sec:ifNotLoggedIn>
+            <li><g:link controller="student" action="registration"><g:message
+                    code="default.mainMenu2.subMenu1"/></g:link></li>
+        </sec:ifNotLoggedIn>
         <li><g:link controller="student" action="enrollmentAtIdol"><g:message
                 code="default.mainMenu2.enrollAtIdol"/></g:link></li>
         %{--<li><a class="viewResulttopopup"><g:message code="default.mainMenu2.subMenu2"/></a></li>--}%
@@ -129,9 +129,16 @@
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu6.subMenu16"/></a>
+        <ul>
+            <li><g:link controller="bank" action="createBank"><g:message code="default.mainMenu6.subMenu14" default="Add Bank"/></g:link></li>
+            <li><g:link controller="bank" action="bankList"><g:message code="default.mainMenu6.subMenu15" default="View Bank"/></g:link></li>
+        </ul>
+    </li>
+
+        <li><a href="#"><g:message code="default.mainMenu6.subMenu22"/></a>
             <ul>
-                <li><g:link controller="bank" action="create"><g:message code="default.mainMenu6.subMenu14" default="Add Bank"/></g:link></li>
-                <li><g:link controller="bank" action="bankList"><g:message code="default.mainMenu6.subMenu15" default="View Bank"/></g:link></li>
+                <li><g:link controller="district" action="createDistrict"><g:message code="default.mainMenu6.subMenu23" default="Add District"/></g:link></li>
+                <li><g:link controller="district" action="districtList"><g:message code="default.mainMenu6.subMenu24" default="View/Update"/></g:link></li>
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu6.subMenu17"/></a>
@@ -188,13 +195,35 @@
                 <li>
                     <g:link controller="feeDetails" action="challanForMiscellaneousFee"><g:message code="default.mainMenu8.subMenu4.subMenu1"/></g:link></li>
                 <li>
-                    <g:link controller="feeDetails" action="payMiscellaneousFee"><g:message code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>
+
+                    <g:link controller="feeDetails"
+                            action="payMiscellaneousFee"><g:message
+                            code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>
+                <li>
+                    <g:link controller="feeDetails"
+                            action="postAdmissionFeeAtIdol"><g:message
+                            code="default.mainMenu8.subMenu4.subMenu3"/></g:link></li>
             </ul>
         </li>
-        <li><g:link controller="admin" action="approvePayInSlip"><g:message code="default.mainMenu7.subMenu2"/></g:link></li>
+
+        <li><g:link controller="admin"
+                    action="approvePayInSlip"><g:message
+                    code="default.mainMenu7.subMenu2"/></g:link></li>
+        <li><g:link controller="feeDetails"
+                    action="feeStatusForRollNumber"><g:message
+                    code="default.mainMenu7.subMenu3"/></g:link></li>
+        <li><g:link controller="feeDetails"
+                    action="challanNumberStatus"><g:message
+                    code="default.mainMenu7.subMenu4"/></g:link></li>
+
+            <li>        <g:link controller="feeDetails" action="payMiscellaneousFee"><g:message code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>
+            %{--</ul>--}%
+        </li>
+        %{--<li><g:link controller="admin" action="approvePayInSlip"><g:message code="default.mainMenu7.subMenu2"/></g:link></li>--}%
         <li><g:link controller="feeDetails" action="feeStatusForRollNumber"><g:message code="default.mainMenu7.subMenu3"/></g:link></li>
+
     </ul>
-</li>
+%{--</li>--}%
 
 %{--<li><a href="#"><g:message code="default.mainMenu8"/></a>--}%
 %{--<ul>--}%
@@ -236,9 +265,9 @@
 
 %{--</ul>--}%
 %{--</li>--}%
+
 <li><g:link controller="report" action="reportIndex"><g:message code="default.mainMenu9"/></g:link></li>
 
-</ul>
 </div>
 %{--</div>--}%
 

@@ -116,7 +116,7 @@
                    <label for="sessionStudentList">Select Session:</label>
                </td>
                <td style="width: 18%" >
-                   <g:select name="sessionStudentList" class="university-size-1-1 allSession" id="sessionStudentList"
+                   <g:select name="sessionStudentList" class="university-size-1-1 allSession" id="sessionStudentListVal"
                              from="${filterType}" optionKey="" optionValue=""
                              noSelection="['null': ' Select Session']" />
                </td>
@@ -164,7 +164,7 @@
                    <td style="width: 25%" >
                        <g:select name="course" class="university-size-1-1" id="courseVal"
                                  from="${ProgramDetail.list([sort: 'courseCode'])}" optionKey="id" optionValue="courseName"
-                                 noSelection="[0: ' Select Course']" />
+                                 noSelection="['null': ' Select Course']" />
                    </td>
                    <td style="width: 10%" >
                        <g:select name="courseSession" class="university-size-1-1 allSession" id="courseSession"
@@ -385,7 +385,7 @@
                                <g:select name="examDistrict" id="district" optionKey="id"
                                          value="" class="university-size-1-1"
                                          onChange="showCityList()" optionValue="districtName"
-                                         from="${District.list([sort: 'districtName'])}" noSelection="['': ' Select District']"/>
+                                         from="${District.list([sort: 'districtName'])}" noSelection="['null': ' Select District']"/>
 
                            </td>
                            <td style="width: 50%">
@@ -394,7 +394,7 @@
                                    <g:select name="examCity" id="city" optionKey="id" class="university-size-1-1"
                                              optionValue="cityName"
                                              from="" onchange="showCentreList(this)"
-                                             noSelection="['': 'Select Examination Centre']"/>
+                                             noSelection="['null': 'Select Examination Centre']"/>
 
                            </td>
                        </tr>
@@ -426,7 +426,7 @@
                            <g:select name="districtCumulative" id="districtCumulative" optionKey="id"
                                      value="" class="university-size-1-1"
                                      onChange="showCityList()" optionValue="districtName"
-                                     from="${District.list([sort: 'districtName'])}" noSelection="['': ' Select District']"/>
+                                     from="${District.list([sort: 'districtName'])}" noSelection="['null': ' Select District']"/>
 
                        </td>
                        <td style="width: 50%">
@@ -435,14 +435,14 @@
                            <g:select name="examCityCumulative" id="examCityCumulative" optionKey="id" class="university-size-1-1"
                                      optionValue="cityName"
                                      from="" onchange="showCentreList(this)"
-                                     noSelection="['': 'Select Examination Centre']"/>
+                                     noSelection="['null': 'Select Examination Centre']"/>
 
                        </td>
                    </tr>
                    <tr>
                        <td>
                            <g:select name="examinationCentreCumulative" id="examinationCentreCumulative" class="university-size-1-1" from=" "
-                                     noSelection="['': 'Select Examination Venue']"/>
+                                     noSelection="['null': 'Select Examination Venue']"/>
 
                        </td>
                        <td>
@@ -481,7 +481,8 @@
         var check1= null, check2=null, check3=null, check4=null;
         if(val=='session'){
              check1 =$('#sessionVal').val()
-             if(check1==0){
+            check2 = $('#sessionStudentListVal').val()
+             if(check1=='null' && check2== 0){
                 alert("please select values")
                 return false;
              }
@@ -499,7 +500,7 @@
         else if(val=='course'){
             check1 =$('#courseVal').val()
             check2 =$('#courseSession').val()
-            if(check1==0 || check2==0){
+            if(check1=='null' || check2==0){
                 alert("please select values")
                 return false;
             }
@@ -508,18 +509,21 @@
         else if(val=='studyCentre'){
             check1 =$('#studyCentreVal').val()
             check2 =$('#studyCentreSession').val()
-            if(check1==0 || check2==0){
+            alert(';;;;;;;;;;;;'+check1+'............ '+ check2+' ')
+            if(check1=='null' || check2==0){
                 alert("please select values")
                 return false;
             }
 //            return true;
         }
         else if(val=='examinationCentre'){
-            check1 =$('#examDistrict').val()
-            check2 =$('#examCity').val()
+            alert('in this.......................')
+            check1 =$('#district').val()
+            check2 =$('#city').val()
             check3 =$('#examinationCentre').val()
             check4 =$('#examinationCentreSession').val()
-            if(check1==0 || check2==0 || check3==0 || check4==0){
+            alert(check1+' '+ check2+' '+check3+' '+check4)
+            if(check1=='null' || check2=='null' || check4==0){
                 alert("please select values")
                 return false;
             }
@@ -546,7 +550,7 @@
         else if(val=='admissionUnapproved'){
             check1 =$('#admissionUnapprovedStudyCentre').val()
             check2 =$('#admissionUnapprovedSession').val()
-            if(check1==0 || check2==0 ){
+            if(check1=='null' || check2==0 ){
                 alert("please select values")
                 return false;
             }

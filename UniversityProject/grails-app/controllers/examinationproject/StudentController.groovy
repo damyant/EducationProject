@@ -97,10 +97,12 @@ class StudentController {
                         def today = new Date()
                         if(lateFeeDate!=null) {
                             if (today.compareTo(lateFeeDate) > 0) {
-                                lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+//                                lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+                                lateFee = AdmissionFee.findByFeeSession(FeeSession.findByProgramDetailId(student.programDetail[0])).lateFeeAmount
                             }
                         }
-                        def feeAmount = AdmissionFee.findByProgramDetail(student.programDetail);
+                        println(student.programDetail)
+                        def feeAmount = AdmissionFee.findByFeeSession(FeeSession.findByProgramDetailId(student.programDetail[0]));
                         payableFee = feeAmount.feeAmountAtIDOL + lateFee
                     }
                     catch(NullPointerException e){
@@ -131,15 +133,22 @@ class StudentController {
         def lateFee=0
         def payableFee=0
         try {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(cal.YEAR);
+            def sessionVal= year+1
+            sessionVal= year+'-'+sessionVal
 //            def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
             def lateFeeDate = student.programDetail.lateFeeDate[0]
+             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
             def today = new Date()
             if(lateFeeDate!=null) {
                 if (today.compareTo(lateFeeDate) > 0) {
-                    lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+//                    lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
                 }
             }
-            def feeAmount = AdmissionFee.findByProgramDetail(student.programDetail);
+//            def feeAmount = AdmissionFee.findByProgramDetail(student.programDetail);
+            def feeAmount = AdmissionFee.findByFeeSession(feeSessionObj);
             payableFee = feeAmount.feeAmountAtIDOL + lateFee
         }
         catch(NullPointerException e){
@@ -282,13 +291,24 @@ class StudentController {
             def args
             def lateFee=0
             def programFeeAmount = 0
-            def programFee = AdmissionFee.findByProgramDetailAndProgramSession(program, student.programSession)
+
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(cal.YEAR);
+            def sessionVal= year+1
+            sessionVal= year+'-'+sessionVal
+
+            def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
+            def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
+            println('this is the programFee '+programFee)
+2
             try{
                 def lateFeeDate=student.programDetail.lateFeeDate[0]
                 def today=new Date()
                 if(lateFeeDate!=null) {
                     if (today.compareTo(lateFeeDate) > 0) {
-                        lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
+
+                        lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+
                     }
                 }
                 feeType = null
@@ -302,9 +322,11 @@ class StudentController {
              infoMap.student=student
              infoMap.programFee=programFee
              infoMap.lateFee=lateFee
-             infoMap.courseName=programFee.programDetail.courseName
+             infoMap.courseName=programFee.feeSession.programDetailId.courseName
              infoMap.programFeeAmount=programFeeAmount
              infoMap.feeType=feeType
+
+
 //             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
 
              render infoMap as JSON

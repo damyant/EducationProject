@@ -70,7 +70,24 @@ $(document).ready(function () {
     });
 
 
-    $("#feeType").append('<option value="0">' + "Admission Fee" + '</option>')
+
+
+
+//$("#feeType").append('<option value="0">' + "Admission Fee" + '</option>')
+
+
+//    $('#semester').live('change',(function(){
+//        alert("hi")
+//        $('#postFeeType').prop('selectedIndex',0);
+//    });
+//
+//    $('#postFeeType').live('change',(function(){
+//        alert("hi")
+////        $('#postFeeType').prop('selectedIndex',0);
+//    });
+
+//    $("#feeType").append('<option value="0">' + "Admission Fee" + '</option>')
+
 
 
 });
@@ -1158,4 +1175,108 @@ function searchStudentList() {
             }
         }
     });
+}
+
+
+function fillFeeInfoUpdate(sessionOfFee){
+
+    $('#session option[value=' + sessionOfFee+']').attr("selected", "selected");
+    if($("#session option:selected").text()==sessionOfFee){
+        $('#session option[value=' + sessionOfFee+']').attr("selected", "selected");
+    }
+    else{
+        $('#session').prepend('<option value="'+sessionOfFee+'">'+ sessionOfFee+'</option>');
+        $('#session option[value=' + sessionOfFee+']').attr("selected", "selected");
+    }
+
+}
+
+
+function searchByRollNumber(){
+
+    if($('#rollNumberInput').val().length!=0)
+    {
+    $.ajax({
+        type: "post",
+        url: url('feeDetails', 'searchDataByRollNumber', ''),
+        data:'rollNumber='+$('#rollNumberInput').val(),
+        success: function (data) {
+
+            if(data.status==true){
+
+                appendDetail(data)
+
+
+            }
+            else{
+                alert("false")
+                $("#errorMsgForRollNo").html("No record Found")
+            }
+        }
+    })
+
+    }
+}
+
+function appendDetail(data){
+
+    $("#semester").attr('disabled',false)
+    $("#postFeeType").attr('disabled',false)
+
+    $("#course").val(data['courseName'])
+    $("#semester option").remove();
+    $("#postFeeType option").remove();
+
+    $("#postFeeType").append('<option value="'+0+'">Select Fee Type</option>')
+
+    if(data['programType']=='Traditional'){
+        for(var i=1;i<=data['totalYears'];i++){
+        $("#semester").append('<option value='+i+'>'+i+'</option>')
+
+        }
+
+    }
+    else{
+        for(var i=1;i<=data['totalYears']*2;i++){
+            $("#semester").append('<option value='+i+'>'+i+'</option>')
+        }
+    }
+
+    for(var j=0;j<data['feeType'].length;j++){
+        $("#postFeeType").append('<option value="'+data['feeType'][j].id+'">'+data['feeType'][j].type+'</option>')
+    }
+//    $("#postFeeType").append('<option value="3">Admission Fee</option>')
+
+
+}
+
+function checkPreviousRecord(){
+
+    $.ajax({
+        type: "post",
+        url: url('feeDetails', 'checkRollNoPreviousData', ''),
+        data:$("#postExamFee").serialize(),
+        success: function (data) {
+            if(data.feePaid==true){
+                alert("Fees of current Semester/ Year is already paid")
+                $("#savePostFee").attr('disabled',true)
+            }
+            else if(data.feePaid==false){
+            alert("Please pay previous Semester/ Year fees first")
+                $("#savePostFee").attr('disabled',true)
+
+            }
+            else{
+             $("#savePostFee").attr('disabled',false)
+            }
+        }
+    })
+
+
+}
+
+function clearSelectBox(){
+
+    $('#postFeeType').val('')
+
 }

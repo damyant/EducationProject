@@ -1,14 +1,14 @@
 package examinationproject
 
-
+import grails.plugins.springsecurity.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+@Secured("ROLE_ADMIN")
 class BankController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", get:"GET", delete: "DELETE"]
 
     def bankList(Integer max) {
 //        params.max = Math.min(max ?: 20, 100)
@@ -36,20 +36,27 @@ class BankController {
 
     @Transactional
     def updateBank() {
+        println("params"+params)
 
       def bankInstance = Bank.findById(Integer.parseInt(params.bankId))
-
+        bankInstance.bankName = params.bankName
        if(bankInstance.save(flush: true)){
            redirect(action: "bankList")
        }
     }
 
-
-    def delete() {
+@Transactional
+    def deleteBank() {
         println("params"+params)
         def bankInstance = Bank.findById(Integer.parseInt(params.bankId))
-       if(bankInstance.delete(flush: true)){
+       try {
+           bankInstance.delete(flush: true)
            redirect(action: "bankList")
+       }catch(Exception e){
+          // e.printStackTrace()
+         flash.message = "Unable To Delete Bank "
+         redirect(action: "bankList")
        }
+
     }
 }

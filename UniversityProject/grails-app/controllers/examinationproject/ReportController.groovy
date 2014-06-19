@@ -33,11 +33,10 @@ class ReportController {
        render sessionList as JSON
     }
    def generateReport={
-
 //       println("in generate Report "+ params)
 //       println('params value '+ params.value)
-       if(params.value=='session' && params.session){
-//           println("getting the printable report of students of all course of session "+ params.session)
+       if(params.value=='session' && (params.session || params.sessionStudentList)){
+           println("getting the printable report of students of all course of session "+ params)
            if(params.inExcel){
                def webRootDir = servletContext.getRealPath("/")
                def userDir = new File(webRootDir,'/Report')

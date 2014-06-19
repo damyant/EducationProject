@@ -310,7 +310,7 @@ function setSessions(){
         async: false,
         data: '',
         success: function (data) {
-            $(".allSession").empty().append('<option value="">Select Session</option>')
+            $(".allSession").empty().append('')
             for (var i = 0; i < data.length; i++) {
                 $(".allSession").append('<option value="' + data[i] + '">' + data[i]+'-'+ (data[i]+1) + '</option>')
             }

@@ -118,7 +118,6 @@ function validateLength(j) {
 function updateInfo(obj) {
 
     var courseDetailJson = jQuery.parseJSON(obj.replace(/&quot;/g, '"'))
-    console.log(courseDetailJson)
     $('#courseName').val(courseDetailJson['course'].courseName)
     $('#modeName option[value=' + courseDetailJson['course'].courseMode.id + ']').attr("selected", "selected");
     $('#courseTypeName option[value=' + courseDetailJson['course'].courseType.id + ']').attr("selected", "selected");
@@ -132,6 +131,14 @@ function updateInfo(obj) {
     $('#noOfPapers').val(courseDetailJson['course'].noOfPapers)
     $('#courseId').val(courseDetailJson['course'].id)
     $('#session option[value=' + courseDetailJson['sessionOfCourse']+']').attr("selected", "selected");
+
+    if($("#session option:selected").text()==courseDetailJson['sessionOfCourse'].toString()){
+             $('#session option[value=' + courseDetailJson['sessionOfCourse']+']').attr("selected", "selected");
+    }
+    else{
+        $('#session').prepend('<option value="'+courseDetailJson['sessionOfCourse']+'">'+ courseDetailJson['sessionOfCourse']+'</option>');
+        $('#session option[value=' + courseDetailJson['sessionOfCourse']+']').attr("selected", "selected");
+    }
     semesterList()
     for (var i = 1; i <= $('#noOfTerms').val(); i++) {
 
