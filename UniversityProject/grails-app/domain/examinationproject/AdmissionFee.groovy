@@ -1,16 +1,16 @@
 package examinationproject
 
 class AdmissionFee {
-    ProgramDetail programDetail
-    ProgramSession programSession
+//    ProgramDetail programDetail
+//    ProgramSession programSession
     int feeAmountAtIDOL
     int feeAmountAtSC
     int lateFeeAmount
 
-
+    static belongsTo = [feeSession: FeeSession]
     static constraints = {
-        programDetail(nullable: false,unique: true)
-        programSession (nullable:true)
+//        programDetail(nullable: false,unique: true)
+//        programSession (nullable:true)
         feeAmountAtIDOL(nullable:true)
         feeAmountAtSC(nullable:true)
         lateFeeAmount(nullable:true)
@@ -18,8 +18,8 @@ class AdmissionFee {
     }
 
     static mapping = {
-        programDetail column:"ProgramDetailId"
-        programSession column: "ProgramSessionId"
+//        programDetail column:"ProgramDetailId"
+//        programSession column: "ProgramSessionId"
         feeAmountAtIDOL column:"FeeAmountAtIDOL"
         feeAmountAtSC column: "FeeAmountAtSC"
         lateFeeAmount column: "LateFeeAmount"

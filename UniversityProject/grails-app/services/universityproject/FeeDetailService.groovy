@@ -3,6 +3,7 @@ package universityproject
 import examinationproject.AdmissionFee
 import examinationproject.Bank
 import examinationproject.FeeDetails
+import examinationproject.FeeSession
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
 import examinationproject.MiscellaneousFeeChallan
@@ -175,17 +176,28 @@ class FeeDetailService {
          println("this is the size "+stuList.size())
         if(params.program=='All' && params.semester=='All') {
             for (int i = 0; i < stuList.size(); i++) {
+                int year=stuList[i].registrationYear
+                def sessionVal= year+1
+                sessionVal= year+'-'+sessionVal
+
+                def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(stuList[i].programDetail[0].id),sessionVal)
 
                 if(prevProgram!=stuList[i].programDetail.courseName) {
+
+
+
+//                    def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
+
+
                     def lateFeeDate = stuList[i].programDetail.lateFeeDate[0]
-                    def amount = AdmissionFee.findAllByProgramDetail(stuList[i].programDetail)
+                    def amount = AdmissionFee.findByFeeSession(feeSessionObj)
                     prevProgram=stuList[i].programDetail.courseName
                     if (lateFeeDate != null) {
                         if (today.compareTo(lateFeeDate) > 0) {
-                            lateFee = amount[0].lateFeeAmount
+                            lateFee = amount.lateFeeAmount
                         }
                     }
-                    payableAmount = amount[0].feeAmountAtSC + lateFee
+                    payableAmount = amount.feeAmountAtSC + lateFee
                 }
 
 
@@ -193,16 +205,22 @@ class FeeDetailService {
             }
         }
         else{
+            println("??????????"+stuList[0])
             def lateFeeDate = stuList[0].programDetail.lateFeeDate[0]
-            def amount = AdmissionFee.findAllByProgramDetail(stuList[0].programDetail)
-//            println("this is the amount "+ amount)
+            int year=stuList[0].registrationYear
+            def sessionVal= year+1
+            sessionVal= year+'-'+sessionVal
+
+            def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(stuList[0].programDetail[0].id),sessionVal)
+            def amount = AdmissionFee.findByFeeSession(feeSessionObj)
+            println("this is the amount "+ amount)
 
             if (lateFeeDate != null) {
                 if (today.compareTo(lateFeeDate) > 0) {
-                    lateFee = amount[0].lateFeeAmount
+                    lateFee = amount.lateFeeAmount
                 }
             }
-            payableAmount = amount[0].feeAmountAtSC + lateFee
+            payableAmount = amount.feeAmountAtSC + lateFee
             for (int i = 0; i < stuList.size(); i++) {
                 feeAmountList.add(payableAmount)
             }
@@ -274,8 +292,20 @@ class FeeDetailService {
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
         def feeList= FeeType.list(sort:'type')
         def feeAmountList=[]
+
+
+
+
+
+
+
         for (int i=0;i<stuList.size();i++){
-            def amount=MiscellaneousFee.findAllByProgramDetailAndFeeType(stuList[i].programDetail,FeeType.findById(params.feeType))
+            int year=stuList[i].registrationYear
+            def sessionVal= year+1
+            sessionVal= year+'-'+sessionVal
+
+            def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(stuList[i].programDetail[0].id),sessionVal)
+            def amount=MiscellaneousFee.findAllByFeeSessionAndFeeType(feeSessionObj,FeeType.findById(params.feeType))
 //            println(amount)
             feeAmountList.add(amount.amount)
         }
@@ -303,7 +333,12 @@ class FeeDetailService {
         def feeList = FeeType.list(sort:'type')
         def feeAmountList=[]
         for (int i=0;i<stuList.size();i++){
-            def amount=AdmissionFee.findAllByProgramDetail(stuList.programDetail)
+            int year=stuList[i].registrationYear
+            def sessionVal= year+1
+            sessionVal= year+'-'+sessionVal
+
+            def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(stuList[i].programDetail[0].id),sessionVal)
+            def amount=AdmissionFee.findAllByFeeSession(feeSessionObj)
             feeAmountList.add(amount.feeAmountAtSC)
         }
         resultMap.studentList=stuList
@@ -342,17 +377,29 @@ class FeeDetailService {
             def today=new Date()
             if (lateFeeDate!=null) {
                 if (today.compareTo(lateFeeDate) > 0) {
-                    lateFee = AdmissionFee.findByProgramDetail(it.programDetail[0]).lateFeeAmount
+                    int year=it.registrationYear
+                    def sessionVal= year+1
+                    sessionVal= year+'-'+sessionVal
+
+                    def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(it.programDetail[0].id),sessionVal)
+                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
                 }
             }
             courseNameList<<it.programDetail[0].courseName
             studyCentreList<<StudyCenter.findById(it.studyCentre.id).name
 
+
+            int year=it.registrationYear
+            def sessionVal= year+1
+            sessionVal= year+'-'+sessionVal
+
+            def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(it.programDetail[0].id),sessionVal)
+            def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
             //if(StudyCenter.findAllById(.studyCentreId).centerCode[0]=="11111") {
             if(it.studyCentre.centerCode[0]=="11111"){
-            courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL+lateFee
+            courseFee<<AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtIDOL+lateFee
             }else{
-                courseFee<<AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC+lateFee
+                courseFee<<AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtSC+lateFee
             }
         }
         println("Study"+studyCentreList[0])
@@ -398,6 +445,47 @@ class FeeDetailService {
             returnMap.error = "No Challan Generated Yet"
         }
         return returnMap
+    }
+
+    def deleteFee(params){
+        def status=true
+        FeeType feeType = FeeType.get(params.int('data'))
+        def obj=MiscellaneousFee.findByFeeType(feeType)
+        obj.each{
+            it.delete(failOnError:true)
+        }
+        def objMisFeeChallan=MiscellaneousFeeChallan.findByFeeType(feeType)
+        objMisFeeChallan.each{
+            it.delete(failOnError:true)
+        }
+
+        feeType.delete(flush: true,failOnError:true)
+
+        if(feeType.exists(params.int('data'))){
+          status=false
+        }
+     return  status
+
+    }
+
+    def searchByRollNumber(params){
+      def returnMap=[:]
+      def stuIns=Student.findByRollNo(params.rollNumber)
+        if(stuIns){
+            returnMap.courseName=stuIns.programDetail.courseName
+            returnMap.courseId=stuIns.programDetail.id
+            returnMap.totalYears=stuIns.programDetail.noOfAcademicYears
+            returnMap.programType=stuIns.programDetail.programType.type
+            returnMap.currrentSemester=stuIns.semester
+            returnMap.feeType=FeeType.list()
+            returnMap.status=true
+        }
+        else{
+           returnMap.status=false
+        }
+        return returnMap
+
+
     }
 }
 

@@ -172,13 +172,13 @@ function submitTempRegistration() {
                 $('#amount').text(''+data.programFeeAmount)
                 if(data.lateFee>0)
                 $('#lateFee').text('(with late fee '+data.lateFee+')')
-                var confirmOK = confirm("Do you want to Generate Challan for Roll No " + data.student.rollNo + " ?");
-                if(confirmOK){
+//                var confirmOK = confirm("Do you want to Generate Challan for Roll No " + data.student.rollNo + " ?");
+//                if(confirmOK){
                     $('#challanDiv').dialog('open')
-                }
-                else {
-                    alert('Student Registered Successfully & Roll No is ' + data.student.rollNo);
-                }
+//                }
+//                else {
+//                    alert('Student Registered Successfully & Roll No is ' + data.student.rollNo);
+//                }
 
                 //................................................................................................................
 //                confirmGenerateChallan(data.rollNo);
@@ -205,7 +205,7 @@ function confirmGenerateChallan(rollno) {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $("#errorMessage").text('Fees Not Yet Entered For the Program and Roll No is ' + rollno)
+            $("#errorMessage").text('Fees Not Yet Entered For the Programme and Roll No is ' + rollno)
         }
     });
 }
@@ -250,10 +250,13 @@ function loadProgramFeeAmount(t){
     }
     function Popup1(data)
     {
-        var mywindow = window.open('', 'fee voucher', 'height=400,width=600');
-        mywindow.document.write('<html><head><title>fee voucher</title>');
-        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-        mywindow.document.write('</head><body >');
+        var mywindow = window.open('', 'fee voucher','height=500,width=550');
+        mywindow.document.write('<html style="font-family: arial;"><head><title>fee voucher</title>');
+        mywindow.document.write('<style type="text/css" media="print">')
+        mywindow.document.write('@page{size: auto; margin: 0mm; }')
+        mywindow.document.write('body{background-color:#FFFFFF;border: solid 0px black ;margin: 0px; }</style>')
+        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />260');
+        mywindow.document.write('</head><body style="border: 0px solid;font-size: 8px;height:270px">');
         mywindow.document.write(data);
         mywindow.document.write('</body></html>');
         mywindow.print();

@@ -50,11 +50,11 @@
                     <sec:ifAnyGranted roles="ROLE_GENERATE_ROLL_NO">
                         <g:hiddenField name="roleType" id="roleType" value="admin"/>
                         <td style="min-width: 10%">
-                            <label for="programId">Select Program</label>
+                            <label for="programId">Select Programme</label>
                         </td>
                         <td style="width: 30%">
                             <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}"
-                                      optionKey="id" optionValue="courseName" noSelection="['null': ' Select Program']"
+                                      optionKey="id" optionValue="courseName" noSelection="['null': ' Select Programme']"
                                       onchange="getStudents()"/>
                         </td>
                         <td  style="width: 30%"></td>
