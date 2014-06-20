@@ -77,22 +77,22 @@
                        </ul>
                   </a>
                 </div>
-                <div id="feePaidReports">
-                    <a href="#">
-                        <li>Fees Paid Report:
-                        </li>
-                        <ul>
-                            <a href="#">  <li id="feePaidStudyCentre"> Study Centre Wise Fee Paid Statement
-                            </li>      </a>
-                            <a href="#">   <li id="dailyFeeReport">Daily Fees Report
-                            </li></a>
+                %{--<div id="feePaidReports">--}%
+                    %{--<a href="#">--}%
+                        %{--<li>Fees Paid Report:--}%
+                        %{--</li>--}%
+                        %{--<ul>--}%
+                            %{--<a href="#">  <li id="feePaidStudyCentre"> Study Centre Wise Fee Paid Statement--}%
+                            %{--</li>      </a>--}%
+                            %{--<a href="#">   <li id="dailyFeeReport">Daily Fees Report--}%
+                            %{--</li></a>--}%
 
 
-                        </ul>
-                    </a>
-                </div>
-                 <div id="byCumulativeCandidateNo"> <a href="#"> <li>Examination venue Cumulative Candidate No
-                 </a></div>
+                        %{--</ul>--}%
+                    %{--</a>--}%
+                %{--</div>--}%
+                 %{--<div id="byCumulativeCandidateNo"> <a href="#"> <li>Examination venue Cumulative Candidate No--}%
+                 %{--</a></div>--}%
       </ul>
       </sec:ifAnyGranted>
     </div>
@@ -480,7 +480,7 @@
         var val= $('#flagValue').val()
         var check1= null, check2=null, check3=null, check4=null;
         if(val=='session'){
-             check1 =$('#sessionVal').val()
+            check1 =$('#sessionVal').val()
             check2 = $('#sessionStudentListVal').val()
              if(check1=='null' && check2== 0){
                 alert("please select values")
@@ -506,10 +506,25 @@
             }
 //            return true;
         }
+        else if(val=='courseApproved'){
+            check1 =$('#courseApproved').val()
+            if(check1=='null'){
+                alert("please select values")
+                return false;
+            }
+//            return true;
+        }
+        else if(val=='courseUnapproved'){
+            check1 =$('#courseUnapproved').val()
+            if(check1=='null'){
+                alert("please select values")
+                return false;
+            }
+//            return true;
+        }
         else if(val=='studyCentre'){
             check1 =$('#studyCentreVal').val()
             check2 =$('#studyCentreSession').val()
-            alert(';;;;;;;;;;;;'+check1+'............ '+ check2+' ')
             if(check1=='null' || check2==0){
                 alert("please select values")
                 return false;
@@ -517,13 +532,11 @@
 //            return true;
         }
         else if(val=='examinationCentre'){
-            alert('in this.......................')
             check1 =$('#district').val()
             check2 =$('#city').val()
             check3 =$('#examinationCentre').val()
             check4 =$('#examinationCentreSession').val()
-            alert(check1+' '+ check2+' '+check3+' '+check4)
-            if(check1=='null' || check2=='null' || check4==0){
+            if(check1=='null' || check2=='null'|| check2.length==0 || check4==0){
                 alert("please select values")
                 return false;
             }
@@ -531,7 +544,6 @@
         }
         else if(val=='category'){
             check1 =$('#categorySession').val()
-
             if(check1==0){
                 alert("please select values")
                 return false;
@@ -540,7 +552,6 @@
         }
         else if(val=='categoryGender'){
             check1 =$('#categoryGenderSession').val()
-
             if(check1==0){
                 alert("please select values")
                 return false;
@@ -549,13 +560,27 @@
         }
         else if(val=='admissionUnapproved'){
             check1 =$('#admissionUnapprovedStudyCentre').val()
-            check2 =$('#admissionUnapprovedSession').val()
-            if(check1=='null' || check2==0 ){
+            if(check1=='null' ){
                 alert("please select values")
                 return false;
             }
 //            return true;
         }
+       else if(val=="admissionApproved") {
+            check1 =$('#admissionApprovedStudyCentre').val()
+            if(check1=='null' ){
+                alert("please select values")
+                return false;
+            }
+        }
+        else if(val="admissionSelfRegistration") {
+            check1 =$('#admissionSelfRegistrationSession').val()
+            if(check1==0 ){
+                alert("please select values")
+                return false;
+            }
+        }
+
 
     }
 </script>
