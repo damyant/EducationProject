@@ -116,16 +116,22 @@ def springSecurityService
 //            println("@@@@@@@"+Subject.findById(Long.parseLong(it)))
 //            println("@@@@@@@"+sessionObj)
          def courseSubjectObj=CourseSubject.findBySubjectAndProgramSession(Subject.findById(Long.parseLong(it)),sessionObj)
-            println("###33333"+courseSubjectObj)
-         if(params.examinationDate[count]){
-//             println("innnnnnnnnnn")
-         courseSubjectObj.examDate=f1.parse(params.examinationDate[count])
+            println("###33333"+courseSubjectObj.programSession+courseSubjectObj.courseDetail)
+          def dateList =[]
+          def timeList = []
+            dateList.addAll(params.examinationDate)
+          if(dateList[count]){
+             println("innnnnnnnnnn"+params.examinationDate[count])
+            courseSubjectObj.examDate=f1.parse(dateList[count])
+             println("Date is in if"+courseSubjectObj.examDate)
           }
           else{
-             courseSubjectObj.examDate=Date
+             courseSubjectObj.examDate=null
           }
-         courseSubjectObj.examTime=params.examinationTime[count]
-         courseSubjectObj.save(failOnError: true)
+            timeList.addAll(params.examinationTime)
+            courseSubjectObj.examTime=timeList[count]
+            courseSubjectObj.save(failOnError: true)
+
          ++count
         }
 

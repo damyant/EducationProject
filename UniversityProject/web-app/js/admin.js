@@ -356,16 +356,16 @@ function validateFields(counter) {
         date = $('#examDate' + i).val();
         time = $('#examTime' + i).val()
         if ((date == "null" || date.length == 0)) {
-            $('#dateError' + i).text("Please Select Examination Date")
-            bool = false
+            //$('#dateError' + i).text("Please Select Examination Date")
+            bool = true
         }
         else if (date.length != 10) {
             $('#dateError' + i).text("Please Enter Proper Date")
             bool = false
         }
         if ((time == "null" || time == "")) {
-            $('#timeError' + i).text("Please Select Examination Time")
-            bool = false
+           // $('#timeError' + i).text("Please Select Examination Time")
+            bool = true
         }
         else if (time.length != 8) {
             $('#timeError' + i).text("Please Enter Proper Date")
