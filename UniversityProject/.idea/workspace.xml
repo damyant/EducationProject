@@ -2,33 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="077f1796-d040-41bf-b232-8f8d04f12860" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/admin/generateCustomChallan.gsp" />
-      <change type="DELETED" beforePath="D:\GUProject\UniversityProject\UniversityProject\.idea\dataSources.ids" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/ExaminationCentreService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/ExaminationCentreService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/ExaminationVenue.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/ExaminationVenue.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" afterPath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/examinationCenter/_listOfCentre.gsp" afterPath="$PROJECT_DIR$/grails-app/views/examinationCenter/_listOfCentre.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admin.js" afterPath="$PROJECT_DIR$/web-app/js/admin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/user/assignCourse.gsp" afterPath="$PROJECT_DIR$/grails-app/views/user/assignCourse.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/bank.js" afterPath="$PROJECT_DIR$/web-app/js/bank.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/dataEntry.js" afterPath="$PROJECT_DIR$/web-app/js/dataEntry.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/examinationCenter/editExaminationCentre.gsp" afterPath="$PROJECT_DIR$/grails-app/views/examinationCenter/editExaminationCentre.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/examinationCentre.js" afterPath="$PROJECT_DIR$/web-app/js/examinationCentre.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/i18n/messages.properties" afterPath="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/multiselectable.js" afterPath="$PROJECT_DIR$/web-app/js/multiselectable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/registerPage.js" afterPath="$PROJECT_DIR$/web-app/js/registerPage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/validation.js" afterPath="$PROJECT_DIR$/web-app/js/validation.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UniversityProject.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$USER_HOME$/.grails/" />
-    <file path="/Dummy.txt" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403238679805" ignored="false" />
+    <file path="/Dummy.txt" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403265589978" ignored="false" />
     <file path="$USER_HOME$/Project/UniversityProject/UniversityProject/.idea/workspace.xml" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1402966319355" ignored="false" />
     <file path="/a.dummy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403256490593" ignored="false" />
     <file path="/AdminController.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403262197550" ignored="false" />
@@ -972,7 +953,11 @@
       <created>1403178722784</created>
       <updated>1403178722784</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="chandan">
+      <created>1403265998386</created>
+      <updated>1403265998386</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
