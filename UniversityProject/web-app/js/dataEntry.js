@@ -749,7 +749,7 @@ function editCourse(data){
 }
 function deleteCourse(data){
     $('#deleteCityId').val(data)
-        alert($('#deleteCityId').val())
+//        alert($('#deleteCityId').val())
         $('#deleteCityInst').submit()
 }
 function loadStudents(t) {

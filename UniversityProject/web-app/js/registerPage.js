@@ -251,7 +251,7 @@ function loadProgramFeeAmount(t){
     function Popup1(data)
     {
         var mywindow = window.open('', 'fee voucher','height=500,width=550');
-        mywindow.document.write('<html style="font-family: arial;"><head><title>fee voucher</title>');
+        mywindow.document.write('<html style="font-family: arial;"><head><title></title>');
         mywindow.document.write('<style type="text/css" media="print">')
         mywindow.document.write('@page{size: auto; margin: 0mm; }')
         mywindow.document.write('body{background-color:#FFFFFF;border: solid 0px black ;margin: 0px; }</style>')

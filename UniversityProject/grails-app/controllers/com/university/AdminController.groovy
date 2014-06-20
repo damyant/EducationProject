@@ -646,7 +646,7 @@ class AdminController {
             render returnMap as JSON
         }
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
     def individualStudentUpdate = {
 //        def grailsApplication = Holders.getGrailsApplication()
 //        def rootImageFolder =  grailsApplication.config.my.global.variable;
@@ -699,7 +699,8 @@ class AdminController {
 //        println(response.programList[0].courseName)
         render response as JSON
     }
-    @Secured("ROLE_ADMIN")
+
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
     def searchStudentName = {
         def sessionList = Student.createCriteria().list {
             projections {
@@ -709,7 +710,7 @@ class AdminController {
         println(sessionList)
         [sessionList: sessionList]
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
     def searchStudentList = {
         def returnMap = [:]
         def studyOfFName = []
@@ -742,4 +743,9 @@ class AdminController {
 
         render returnMap as JSON
     }
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    def generateCustomChallan={
+
+    }
+
 }

@@ -1120,9 +1120,9 @@ function editCity(data) {
     window.open('/UniversityProject/examinationCenter/createNewCity/' + data, '_self', false)
 }
 function deleteCity(data) {
-    alert(data)
+//    alert(data)
     $('#deleteCityId').val(data)
-    alert($('#deleteCityId').val())
+//    alert($('#deleteCityId').val())
     $('#deleteCityInst').submit()
 }
 
@@ -1130,9 +1130,9 @@ function editExamCentre(data) {
     window.open('/UniversityProject/examinationCenter/createExamCentre/' + data, '_self', false)
 }
 function deleteExamCentre(data) {
-    alert(data)
+//    alert(data)
     $('#deleteCityId').val(data)
-    alert($('#deleteCityId').val())
+//    alert($('#deleteCityId').val())
     $('#deleteCityInst').submit()
 }
 function searchStudentList() {
@@ -1222,7 +1222,7 @@ function searchByRollNumber(){
 
             }
             else{
-                alert("false")
+//                alert("false")
                 $("#errorMsgForRollNo").html("No record Found")
             }
         }
@@ -1292,4 +1292,24 @@ function clearSelectBox(){
 
     $('#postFeeType').val('')
 
+}
+
+function saveCustomChallan(){
+    validateProgramFee()
+    var result = $('#customChallanSave').valid()
+    if (result) {
+        $.ajax({
+            type: "post",
+            url: url('student', 'customChallanSave', ''),
+            data: $("#customChallanSave").serialize(),
+            success: function (data) {
+                document.getElementById("customChallanSave").reset();
+                $('#cName').text(''+data.name)
+                $('#challanNo').text(''+data.challanNo)
+                $('#feeType').text(''+data.feeType)
+                $('#feeAmount').text(''+data.feeAmount)
+                $('#challanDiv').dialog('open')
+            }
+        })
+    }
 }

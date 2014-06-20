@@ -16,13 +16,13 @@ function updateBankType(id){
 }
 function deleteBankType(id){
     bankId = id
-    alert(bankId)
+//    alert(bankId)
     window.location.href = '/UniversityProject/bank/deleteBank?bankId=' + bankId;
 }
 
 function updateBranch(id){
     branchId = id
-    alert(branchId)
+//    alert(branchId)
     window.location.href = '/UniversityProject/branch/editBranch?branchId=' + branchId;
 }
 
@@ -37,7 +37,7 @@ function updateDistrict(id){
 }
 function deleteDistrict(id){
     districtId = id
-    alert(bankId)
+//    alert(bankId)
     window.location.href = '/UniversityProject/district/deleteDistrict?districtId=' + districtId;
 }
 

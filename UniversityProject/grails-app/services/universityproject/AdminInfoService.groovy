@@ -4,6 +4,7 @@ import examinationproject.Bank
 import examinationproject.Branch
 import examinationproject.City
 import examinationproject.CourseSubject
+import examinationproject.CustomChallan
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.PaymentMode
@@ -22,6 +23,7 @@ import java.text.SimpleDateFormat
 
 @Transactional
 class AdminInfoService {
+    def studentRegistrationService
 def springSecurityService
 
     def serviceMethod() {
@@ -325,4 +327,5 @@ def springSecurityService
         }
         return status
     }
+
 }

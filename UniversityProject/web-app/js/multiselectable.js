@@ -325,7 +325,7 @@ function checkFileType(e){
                 txt = "File type : " + sFileExtension + "\n\n";
                 txt += "Size: " + iConvert + " MB \n\n";
                 txt += "Please make sure your file is in pdf or doc format and less than 10 MB.\n\n";
-                alert(txt);
+//                alert(txt);
             }
             else{
                 return false;

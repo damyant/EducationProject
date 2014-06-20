@@ -189,7 +189,8 @@ class StudentController {
     def applicationPreview() {
 
     }
-    @Secured(["ROLE_ADMIN"])
+
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
         def programList=ProgramDetail.list(sort: 'courseCode')
@@ -202,7 +203,7 @@ class StudentController {
         response.setContentType(params.mime)
         response.outputStream << image
     }
-    @Secured(["ROLE_IDOL_USER"])
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
     def enrollmentAtIdol={
         def studyCentre
         def programList =[]
@@ -368,5 +369,22 @@ class StudentController {
 //        println("Challan Number"+student.addressDistrict)
         def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
         [studInstance:student,feeDetails: feeDetails]
+    }
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    def customChallanSave={
+        println(params)
+        def resultMap = studentRegistrationService.saveCChallan(params)
+        if(resultMap.status){
+            def infoMap =[:]
+
+            infoMap.challanNo=resultMap.challanNo
+            infoMap.name=params.challanName
+            infoMap.feeAmount=params.amount
+            infoMap.feeType=params.typeOfFee
+            render infoMap as JSON
+        } else {
+            flash.message = "${message(code: 'register.notCreated.message')}"
+            redirect(controller: 'admin', action: "generateCustomChallan")
+        }
     }
 }
