@@ -450,10 +450,8 @@ class FeeDetailsController {
 
             def args = [template: "printPayChallan", model: [bank: bank, lateFee: lateFee,studyCentre:studyCentre, branch: branch,paymentReferenceNumber:paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
-
         }
     }
-
     def payMiscFeeChallan={
 //        println("***************"+params)
         def courseNameList=[],courseFee=[],feeType=[]

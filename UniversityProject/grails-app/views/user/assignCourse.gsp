@@ -68,7 +68,7 @@
         }).multipleSelect();
     });
     function select(t){
-      alert($(t))
+//      alert($(t))
     }
 </script>
 </body>

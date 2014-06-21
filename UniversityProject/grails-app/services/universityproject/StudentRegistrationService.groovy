@@ -3,6 +3,7 @@ package universityproject
 import examinationproject.Bank
 import examinationproject.Branch
 import examinationproject.City
+//import examinationproject.CustomChallan
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.MiscellaneousFeeChallan
@@ -59,18 +60,18 @@ class StudentRegistrationService {
             studentRegistration.studentAddress = params.studentAddress
             studentRegistration.addressDistrict = params.addressDistrict
 //            println("roll number is "+params.rollNo)
-            if(params.rollNo){
+            if (params.rollNo) {
 //                println("roll number is "+params.rollNo)
                 def studentToBeUpdate
-                try{
-                 studentToBeUpdate = Student.findByRollNo(params.rollNo)
-                }catch(Exception e){
-                    println("hello"+e.printStackTrace())
+                try {
+                    studentToBeUpdate = Student.findByRollNo(params.rollNo)
+                } catch (Exception e) {
+                    println("hello" + e.printStackTrace())
                 }
 
-               if(!(studentToBeUpdate.programDetail[0].id==(Integer.parseInt(params.programId)))){
-                  studentRegistration.rollNo=getStudentRollNumber(params)
-               }
+                if (!(studentToBeUpdate.programDetail[0].id == (Integer.parseInt(params.programId)))) {
+                    studentRegistration.rollNo = getStudentRollNumber(params)
+                }
             }
 //            studentRegistration.challanNo = getChallanNumber()
 
@@ -139,6 +140,8 @@ class StudentRegistrationService {
         studentRegistration.admitCardGenerated = false
         if (studentRegistration.save(flush: true, failOnError: true)) {
 //            println("new Id   >>>>>> "+studentRegistration.id)
+
+
             if (!springSecurityService.isLoggedIn()) {
                 def feeDetails = new FeeDetails()
                 feeDetails.bankId = Bank.findById(Integer.parseInt(params.bankName))
@@ -167,7 +170,7 @@ class StudentRegistrationService {
     def synchronized getStudentRollNumber(params) {
         def status = false
         try {
-          //  println("programId is "+Long.parseLong(params.programId))
+            //  println("programId is "+Long.parseLong(params.programId))
             Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
@@ -207,17 +210,16 @@ class StudentRegistrationService {
                 } else {
                     rollNumber = courseCodeStr + yearCode + this.prepareSequenceForRollNo(rollStr)
                 }
-            }
-            else {
+            } else {
                 rollNumber = courseCodeStr + yearCode + this.prepareSequenceForRollNo(rollStr)
             }
             return rollNumber
         } catch (Exception e) {
-            println("Problem in roll number generation"+e.printStackTrace())
+            println("Problem in roll number generation" + e.printStackTrace())
         }
     }
 
-    private  String  prepareSequenceForRollNo(String serial) {
+    private String prepareSequenceForRollNo(String serial) {
         int length
         String rollNoSr
         length = serial.toString().length()
@@ -421,8 +423,8 @@ class StudentRegistrationService {
         def challanSr
         def length
         def challanNo
-        println("Student.count" + Student.count)
-        println(Student.count)
+//        println("Student.count" + Student.count)
+//        println(Student.count)
         def studentByChallanNo
         if (Student.count() > 0) {
             def stdObj = Student.createCriteria()
@@ -436,15 +438,47 @@ class StudentRegistrationService {
                 maxResults(1)
                 order("id", "desc")
             }
+            def custObj = CustomChallan.createCriteria()
+            def custByChallanNo = custObj.list {
+                maxResults(1)
+                order("id", "desc")
+            }
+            def customChallan = 0
+            println("In Here>>>" + custByChallanNo[0].challanNo)
+            if (custByChallanNo) {
+                customChallan = Integer.parseInt(custByChallanNo[0].challanNo)
+            }
+
             if (studentTableByChallanNo) {
                 if (MiscByChallanNo) {
-                    if (Integer.parseInt(MiscByChallanNo[0].challanNo) > Integer.parseInt(studentTableByChallanNo[0].challanNo)) {
-                        studentByChallanNo = MiscByChallanNo
+                    if (custByChallanNo) {
+                        if (Integer.parseInt(MiscByChallanNo[0].challanNo) > Integer.parseInt(studentTableByChallanNo[0].challanNo) && Integer.parseInt(studentTableByChallanNo[0].challanNo) > Integer.parseInt(custByChallanNo[0].challanNo)) {
+                            studentByChallanNo = MiscByChallanNo
+                            println('11')
+                        } else if (Integer.parseInt(MiscByChallanNo[0].challanNo) < Integer.parseInt(studentTableByChallanNo[0].challanNo) && Integer.parseInt(studentTableByChallanNo[0].challanNo) < Integer.parseInt(custByChallanNo[0].challanNo)) {
+                            studentByChallanNo = custByChallanNo
+                            println('22')
+                        } else {
+                            studentByChallanNo = studentTableByChallanNo
+                            println('33')
+                        }
                     } else {
-                        studentByChallanNo = studentTableByChallanNo
+                        if (Integer.parseInt(MiscByChallanNo[0].challanNo) > Integer.parseInt(studentTableByChallanNo[0].challanNo)) {
+                            studentByChallanNo = MiscByChallanNo
+                            println('111')
+                        } else {
+                            studentByChallanNo = studentTableByChallanNo
+                            println('333')
+                        }
                     }
                 } else {
-                    studentByChallanNo = studentTableByChallanNo
+                    if (Integer.parseInt(studentTableByChallanNo[0].challanNo) < Integer.parseInt(custByChallanNo[0].challanNo)) {
+                        studentByChallanNo = custByChallanNo
+                        println('2222')
+                    } else {
+                        studentByChallanNo = studentTableByChallanNo
+                        println('3333')
+                    }
                 }
                 println(studentByChallanNo)
                 def lastChallanDate
@@ -486,6 +520,21 @@ class StudentRegistrationService {
 
         }
         return challanNo
+    }
+
+    def saveCChallan(params) {
+        def resultMap = [:]
+        def status = false
+//        def challanInst = new CustomChallan(params)
+        def challanNo = getChallanNumber()
+        challanInst.challanNo = challanNo
+        challanInst.challanDate = new Date()
+        if (challanInst.save(flush: true, failOnError: true)) {
+            status = true
+        }
+        resultMap.status = status
+        resultMap.challanNo = challanNo
+        return resultMap
     }
 }
 

@@ -46,7 +46,37 @@
 <li><a href="#"><g:message code="default.mainMenu3"/></a>
     <ul>
         <li>
-            <a href="#">Examination Centre</a>
+            <a href="#"><g:message code="default.mainMenu3.subMenu5"/></a>
+            <ul>
+                <li><a href="#"><g:message code="default.mainMenu6.subMenu16"/></a>
+                    <ul>
+                        <li><g:link controller="bank" action="createBank"><g:message code="default.mainMenu6.subMenu14" default="Add Bank"/></g:link></li>
+                        <li><g:link controller="bank" action="bankList"><g:message code="default.mainMenu6.subMenu15" default="View Bank"/></g:link></li>
+                    </ul>
+                </li>
+
+                <li><a href="#"><g:message code="default.mainMenu6.subMenu22"/></a>
+                    <ul>
+                        <li><g:link controller="district" action="createDistrict"><g:message code="default.mainMenu6.subMenu23" default="Add District"/></g:link></li>
+                        <li><g:link controller="district" action="districtList"><g:message code="default.mainMenu6.subMenu24" default="View/Update"/></g:link></li>
+                    </ul>
+                </li>
+                <li><a href="#"><g:message code="default.mainMenu6.subMenu17"/></a>
+                    <ul>
+                        <li><g:link controller="branch" action="createBranch"><g:message code="default.mainMenu6.subMenu18" default="Add Bank"/></g:link></li>
+                        <li><g:link controller="branch" action="branchList"><g:message code="default.mainMenu6.subMenu19" default="View Bank"/></g:link></li>
+                    </ul>
+                </li>
+                <li><a href="#"><g:message code="default.mainMenu3.subMenu11"/></a>
+                    <ul>
+                        <li><g:link controller="examinationCenter" action="createNewCity"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
+                        <li><g:link controller="examinationCenter" action="listOfCity"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#"><g:message code="default.mainMenu2.subMenu2"/></a>
             <ul>
                 <li><g:link controller="examinationCenter" action="createExamCentre"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
                 <li><g:link controller="examinationCenter" action="listOfExamCentre"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
@@ -128,31 +158,7 @@
                 <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message code="default.mainMenu6.subMenu1"/></g:link></li>
             </ul>
         </li>
-        <li><a href="#"><g:message code="default.mainMenu6.subMenu16"/></a>
-        <ul>
-            <li><g:link controller="bank" action="createBank"><g:message code="default.mainMenu6.subMenu14" default="Add Bank"/></g:link></li>
-            <li><g:link controller="bank" action="bankList"><g:message code="default.mainMenu6.subMenu15" default="View Bank"/></g:link></li>
-        </ul>
-    </li>
-
-        <li><a href="#"><g:message code="default.mainMenu6.subMenu22"/></a>
-            <ul>
-                <li><g:link controller="district" action="createDistrict"><g:message code="default.mainMenu6.subMenu23" default="Add District"/></g:link></li>
-                <li><g:link controller="district" action="districtList"><g:message code="default.mainMenu6.subMenu24" default="View/Update"/></g:link></li>
-            </ul>
-        </li>
-        <li><a href="#"><g:message code="default.mainMenu6.subMenu17"/></a>
-            <ul>
-                <li><g:link controller="branch" action="createBranch"><g:message code="default.mainMenu6.subMenu18" default="Add Bank"/></g:link></li>
-                <li><g:link controller="branch" action="branchList"><g:message code="default.mainMenu6.subMenu19" default="View Bank"/></g:link></li>
-            </ul>
-        </li>
-        <li><a href="#"><g:message code="default.mainMenu3.subMenu11"/></a>
-            <ul>
-                <li><g:link controller="examinationCenter" action="createNewCity"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
-                <li><g:link controller="examinationCenter" action="listOfCity"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
-            </ul>
-        </li>
+        <li><g:link controller="admin" action="generateCustomChallan"><g:message code="default.mainMenu6.subMenu12"/></g:link></li>
 
     </ul>
 </li>

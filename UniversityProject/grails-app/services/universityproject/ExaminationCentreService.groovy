@@ -83,11 +83,14 @@ class ExaminationCentreService {
     }
 
     Boolean updateExaminationCentre(params) {
+        println(params)
         Boolean isSaved = false
         def examCentreIns = ExaminationVenue.get(params.id)
 //        examCentreIns.city = City.findById(Integer.parseInt(params.city))
         examCentreIns.capacity = Integer.parseInt(params.capacity)
         examCentreIns.name = params.centreName
+        examCentreIns.inchargeName = params.examinationCentreIncharge
+        examCentreIns.city = City.findById(params.examinationCentre)
         examCentreIns.contactNo = params.contactNo
         examCentreIns.address = params.address
         if (examCentreIns.save(flush: true)) {
@@ -192,7 +195,7 @@ class ExaminationCentreService {
     }
 
     def deletionCity(params) {
-        println(params)
+//        println(params)
         def status = false
         def cityInstance = City.get(params.deleteCityId)
         cityInstance.delete()

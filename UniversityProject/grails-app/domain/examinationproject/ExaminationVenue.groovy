@@ -8,7 +8,7 @@ class ExaminationVenue {
     String centreCode
     String contactNo
 
-    static belongsTo = City
+    static belongsTo = [city:City]
 
     static constraints = {
         name(nullable: true)

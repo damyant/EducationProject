@@ -734,7 +734,7 @@ function checkValidation() {
 }
 function validateProgramFee() {
 //    alert("hi")
-    $("#createNewFee, #individualStudentUpdate").validate({
+    $("#createNewFee, #individualStudentUpdate, #customChallanSave").validate({
         rules: {
             programDetailId:"required",
             programSessionId:"required",
@@ -745,7 +745,10 @@ function validateProgramFee() {
                 required: true,
                 number: true,
                 minlength: 8
-            }
+            },
+            challanName:'required',
+            typeOfFee:'required',
+            amount:'required'
         },
         messages: {
 
@@ -756,7 +759,10 @@ function validateProgramFee() {
             lateFeeAmount:"Please Enter Late Fee Amount",
             rollNo:{ required:"Please Enter a Roll Number",
                 minlength:"Please Enter 8 digit Roll Number"
-            }
+            } ,
+            challanName:'Please Enter Name',
+            typeOfFee:'Please Enter Payment Type',
+            amount:'Please Enter Amount'
 
         }
     })
