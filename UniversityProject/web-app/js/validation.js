@@ -205,7 +205,7 @@ function validate() {
 
             d_o_b: {
                 required: true,
-                date: true,
+                universityDateFormat: true,
                 minlength:10
             },
 
@@ -515,6 +515,11 @@ function validate() {
 
 
     });
+    $.validator.addMethod("universityDateFormat",function (value, element) {
+            return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+        },
+        "Please enter a date in the format dd/mm/yy"
+    );
 
     jQuery.validator.addMethod("textonly", function (value, element) {
             valid = false;

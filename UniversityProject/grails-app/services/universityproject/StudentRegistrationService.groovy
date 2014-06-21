@@ -13,6 +13,7 @@ import examinationproject.ProgramSession
 import examinationproject.StudyCenter
 import examinationproject.Student
 import grails.transaction.Transactional
+import groovy.transform.Synchronized
 
 import java.security.SecureRandom
 import java.text.DateFormat;
@@ -21,9 +22,11 @@ import java.text.SimpleDateFormat
 @Transactional
 class StudentRegistrationService {
 
+    private final myLock = new Object()
     def springSecurityService
-
-    Student saveNewStudentRegistration(params, signature, photographe) {
+    def springSecurityUtils
+    @Synchronized("myLock")
+     Student  saveNewStudentRegistration(params, signature, photographe) {
 //    println(params)
         Boolean studentRegistrationInsSaved = false;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
@@ -39,6 +42,7 @@ class StudentRegistrationService {
             studentRegistration.lastName = params.lastName
             studentRegistration.middleName = params.middleName
             studentRegistration.gender = params.gender
+            studentRegistration.parentsName = params.parentsName
             studentRegistration.category = params.category
             studentRegistration.isAppliedFor = params.isAppliedFor
             studentRegistration.mobileNo = Long.parseLong(params.mobileNo)
@@ -70,14 +74,14 @@ class StudentRegistrationService {
             }
 //            studentRegistration.challanNo = getChallanNumber()
 
-        } else {
+        }
+        else {
             studentRegistration = new Student(params)
             studentRegistration.registrationYear = Integer.parseInt(year)
             if (springSecurityService.isLoggedIn()) {
                 studentRegistration.referenceNumber = 0
-                studentRegistration.rollNo = getStudentRollNumber(params)
                 studentRegistration.status = Status.findById(2)
-
+                studentRegistration.rollNo = getStudentRollNumber(params)
             } else {
                 studentRegistration.referenceNumber = getStudentReferenceNumber()
                 studentRegistration.status = Status.findById(1)
@@ -85,8 +89,23 @@ class StudentRegistrationService {
             }
         }
         studentRegistration.dob = df.parse(params.d_o_b)
-        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
-        studentRegistration.studyCentre = studyCentre
+        def userDetails = springSecurityService.principal.getAuthorities()
+        boolean  isAdmin = false
+        for(def role in userDetails){ if(role.getAuthority() == "ROLE_ADMIN") //do something }
+            if(role.getAuthority() == "ROLE_ADMIN") {
+                isAdmin=true
+            }
+        }
+        if(isAdmin)   {
+            Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentre))
+            studentRegistration.studyCentre = studyCentre
+        }
+        else{
+            Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
+            studentRegistration.studyCentre = studyCentre
+        }
+//        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
+//        studentRegistration.studyCentre = studyCentre
         Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
         endYear = Integer.parseInt(year) + 1
         programSession = (startYear + "-" + endYear)
@@ -118,17 +137,8 @@ class StudentRegistrationService {
         }
         studentRegistration.semester = 1
         studentRegistration.admitCardGenerated = false
-        def obj1 = Student.createCriteria()
-
-        def studentExistRollNo = obj1.list {
-
-            maxResults(1)
-            order("id", "desc")
-        }
-        def maxId=studentExistRollNo.get(0).id
-         println("maxId >>> "+maxId)
         if (studentRegistration.save(flush: true, failOnError: true)) {
-            println("new Id   >>>>>> "+studentRegistration.id)
+//            println("new Id   >>>>>> "+studentRegistration.id)
             if (!springSecurityService.isLoggedIn()) {
                 def feeDetails = new FeeDetails()
                 feeDetails.bankId = Bank.findById(Integer.parseInt(params.bankName))
@@ -153,7 +163,8 @@ class StudentRegistrationService {
      * @param params
      * @return
      */
-    def getStudentRollNumber(params) {
+
+    def synchronized getStudentRollNumber(params) {
         def status = false
         try {
           //  println("programId is "+Long.parseLong(params.programId))

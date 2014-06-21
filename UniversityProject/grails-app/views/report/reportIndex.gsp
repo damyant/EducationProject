@@ -25,29 +25,29 @@
         </sec:ifAnyGranted>
         <sec:ifAnyGranted roles="ROLE_STUDY_CENTRE ">
             <div id="sessionStudentList"> <a href="#"> <li>By Session Student List</li></a></div>
-            <div id="byCourseUnapproved"> <a href="#"> <li>By Course Unapproved Roll No
+            <div id="byCourseUnapproved"> <a href="#"> <li>By Programme Unapproved Roll No
             </li></a></div>
-            <div id="byCourseApproved"> <a href="#"> <li>By Course Approved Roll No
+            <div id="byCourseApproved"> <a href="#"> <li>By Programme Approved Roll No
             </li></a></div>
         </sec:ifAnyGranted>
         <sec:ifAnyGranted roles="ROLE_IDOL_USER">
                 <div id="sessions"> <a href="#"> <li>By Sessions</li></a></div>
-                <div id="course"> <a href="#"> <li>By Course</li></a></div>
+                <div id="course"> <a href="#"> <li>By Programme</li></a></div>
                 <div id="comparativeReport"> <a href="#">   <li>Comparative Enrolment Report</li></a></div>
                 <div id="studyCentre"> <a href="#">
                     <li>By Study Centre</li>
                     <ul>
-                        <a href="#"> <li id="studyCentreNoOfStudents">Course Wise No Of Students </li></a>
+                        <a href="#"> <li id="studyCentreNoOfStudents">Programme Wise No Of Students </li></a>
 
-                        <a href="#">  <li id="studyCentreStudentList"> Course Wise Student List</li></a>
+                        <a href="#">  <li id="studyCentreStudentList"> Programme Wise Student List</li></a>
                     </ul></a>
                 </div>
                 <div id="examinationCentreDiv"> <a href="#">
                     <li>By Examination Centre</li>
                     <ul>
-                        <a href="#">  <li id="examinationCentreNoOfStudents">Course Wise No Of Students </li></a>
+                        <a href="#">  <li id="examinationCentreNoOfStudents">Programme Wise No Of Students </li></a>
 
-                        <a href="#">  <li id="examinationCentreStudentList"> Course Wise Student List</li></a>
+                        <a href="#">  <li id="examinationCentreStudentList"> Programme Wise Student List</li></a>
                     </ul>
                 </a></div>
 
@@ -55,11 +55,11 @@
                     <a href="#">
                         <li >By Category</li>
                         <ul>
-                            <a href="#">    <li id="categoryDiv">Course Wise </li>         </a>
+                            <a href="#">    <li id="categoryDiv">Programme Wise </li>         </a>
 
-                            <a href="#">  <li id="categoryGenderDiv"> Course Wise With Gender Break-up
+                            <a href="#">  <li id="categoryGenderDiv"> Programme Wise With Gender Break-up
                             </li> </a>
-                            <a href="#">      <li id="categoryGenderStudentList"> Course Wise Students List
+                            <a href="#">      <li id="categoryGenderStudentList"> Programme Wise Students List
                             </li></a>
                         </ul>
                     </a>

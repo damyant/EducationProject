@@ -6,16 +6,14 @@ import grails.plugins.springsecurity.Secured
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured("ROLE_ADMIN")
+
 //@Transactional
 class ProgramFeeController {
     def programFeeService
     def feeDetailService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
+    @Secured("ROLE_ADMIN")
     def listOfFeeType = {
-
-
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         def c=FeeSession.createCriteria()
         def programFeeInstanceList=c.list(params){
@@ -29,7 +27,7 @@ class ProgramFeeController {
 //    def show(ProgramFee programFeeInstance) {
 //        respond programFeeInstance
 //    }
-
+    @Secured("ROLE_ADMIN")
     def createNewFeeType() {
         def feeType=null
         def programDetailList
@@ -51,7 +49,7 @@ class ProgramFeeController {
 
     }
 
-
+    @Secured("ROLE_ADMIN")
     def saveProgramFee(){
         def response
         println("innnnnnnnnnn=="+params)
@@ -63,7 +61,7 @@ class ProgramFeeController {
         render response as JSON
 
     }
-
+    @Secured("ROLE_ADMIN")
     def editFeeType  =  {
         def programFeeSessionInstance = FeeSession.findById(Integer.parseInt(params.id))
         def program = programFeeSessionInstance.programDetailId
@@ -84,18 +82,10 @@ class ProgramFeeController {
 
                 miscFee=FeeType.findAllByShowValue(true)
                 def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndFeeSession(FeeType.findById(it.id),programFeeSessionInstance)
-//                def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndProgramDetailAndProgramSession(FeeType.findById(it.id),program,programSession)
-//>>>>>>> 012099d8c3b30431547432309139173c8a0c1652
                 if(miscellaneousFee)
                 miscellaneousFeeList.add(miscellaneousFee)
-//                println("fdsgfhsdgfsdhf"+miscellaneousFee)
             }
-
-//            println("?????????????"+miscellaneousFeeList)
             [programFeeInstance:programFeeSessionInstance,miscellaneousFeeList:miscellaneousFeeList,programSessions:programSessions,miscFee:miscFee]
-
-
-
         }else{
             [programFeeInstance:programFeeSessionInstance,programSessions:programSessions]
         }
@@ -104,6 +94,7 @@ class ProgramFeeController {
     }
 
     @Transactional
+    @Secured("ROLE_ADMIN")
     def update(AdmissionFee programFeeInstance) {
 
 
@@ -119,18 +110,20 @@ class ProgramFeeController {
     }
 
 //    @Transactional
+    @Secured("ROLE_ADMIN")
     def deleteFeeType= {
         programFeeService.deleteFeeType(params)
         redirect(action: "listOfFeeType")
 
     }
 
-
+    @Secured("ROLE_ADMIN")
     def addFeeType = {
         def feeInstance = FeeType.get(params?.feeTypeId);
         def programList = ProgramDetail.list(sort:'courseName')
         [feeInstance: feeInstance,programList: programList]
     }
+    @Secured("ROLE_ADMIN")
     def saveNewFee = {
 
         def feeTypeInst
@@ -157,7 +150,7 @@ class ProgramFeeController {
         }
         redirect(action: "addFeeType")
     }
-
+    @Secured("ROLE_ADMIN")
     def viewExistingFeeType = {
         def feeTypeList = FeeType.findAllByShowValue(true);
         [feeTypeList: feeTypeList]
@@ -183,12 +176,13 @@ class ProgramFeeController {
         }
     }
 
-
+    @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
     def getProgramSession = {
+        println("hello kuldeep")
      def programSessions=   programFeeService.getProgramSessions(params)
         render programSessions as JSON
     }
-
+    @Secured("ROLE_ADMIN")
     def isFeeCreated = {
         def response
         try{

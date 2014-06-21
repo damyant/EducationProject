@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat
 class StudentController {
     def studentRegistrationService
     def pdfRenderingService
-
     def springSecurityService
 //    @Secured('ROLE_STUDYCENTRE')
 
@@ -55,6 +54,7 @@ class StudentController {
         }
         if(params.studentId){
             programList = ProgramDetail.list()
+            studyCentre = StudyCenter.list()
         }
         def districtList=District.list(sort: 'districtName')
         def bankName=Bank.list(sort:'bankName')
@@ -71,7 +71,6 @@ class StudentController {
             def signature = request.getFile('signature')
             def photographe = request.getFile("photograph")
            def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe )
-
         if (studentRegistration) {
             if(params.studentId){
                 if(springSecurityService.isLoggedIn()){
@@ -189,7 +188,7 @@ class StudentController {
     def applicationPreview() {
 
     }
-    @Secured(["ROLE_ADMIN"])
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
         def programList=ProgramDetail.list(sort: 'courseCode')
