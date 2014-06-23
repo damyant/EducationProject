@@ -221,12 +221,12 @@ class ReportController {
       }
 
 
-      else if(params.value=='studyCentreFeePaid' && params.studyCentreFeePaidSession){
+      else if(params.value=='studyCentreFeePaid' && params.studyCentreFeeFromDate && params.studyCentreFeeToDate ){
            println("this function is called")
            def totalList = reportService.getReportDataStudyCentreFeePaid(params)
-           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
-           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, studyCentreFeePaidSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
+//           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
+//           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
+           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
          //  redirect(action: 'reportIndex')
       }

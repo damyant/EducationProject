@@ -15,6 +15,9 @@ import jxl.write.WritableWorkbook;
 import jxl.Workbook
 import org.codehaus.groovy.classgen.genDgmMath
 
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 @Transactional
 class ReportService {
     def writeExcelService
@@ -540,35 +543,26 @@ class ReportService {
            studyCentre{
                eq('id' , Long.parseLong(params.feePaidStudyCentre))
            }
-           and{
-               eq('registrationYear' , Integer.parseInt(params.studyCentreFeePaidSession))
-           }
-           and{
-               eq('status', Status.findById(4))
-           }
        }
-
-        println("this is the list of students "+ studentList)
-        def chalanNoList=[]
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        def fromDate = df.parse(params.studyCentreFeeFromDate)
+        def toDate = df.parse(params.studyCentreFeeToDate)
+        println('now going to fetch the fee records *** '+ fromDate+ ' and the to date is '+ toDate)
+        def feeDet
+        def studentInstance
         studentList.each{
-            println("----------"+it)
-            chalanNoList.add(it.challanNo)
-        }
-        def feeType= FeeType.list(sort: 'type')
-        feeType.each{
-        def feeList = FeeDetails.findAllByChallanNoInListAnd
-            println("this is the list of fee paid "+ feeList)
-
-           if(feeList){
-               feeList.each {
-                   finalMap.add(it)
+            def feeObj = FeeDetails.createCriteria()
+            println("***** "+it.challanNo)
+             studentInstance = it
+               feeDet = feeObj.list{
+                      eq('challanNo', studentInstance.challanNo)
+                      and{
+                          between('paymentDate', fromDate, toDate)
+                      }
                }
-           }
-
+             println("******* this is the list of fee payment details of students  "+ feeDet)
         }
 
-        println("this is the final map "+ finalMap)
-        return finalMap
     }
 
     def getReportDataComparative(startSession, endSession){

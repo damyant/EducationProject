@@ -3,7 +3,6 @@ package examinationproject
 //import javax.enterprise.inject.Default
 
 class FeeDetails {
-
     String challanNo
     int paidAmount
     Boolean isAdmission=false
