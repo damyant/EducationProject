@@ -1,11 +1,13 @@
 package universityproject
 
+import examinationproject.AdmissionFee
 import examinationproject.Bank
 import examinationproject.Branch
 import examinationproject.City
 import examinationproject.CustomChallan
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
+import examinationproject.FeeSession
 import examinationproject.MiscellaneousFeeChallan
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
@@ -121,6 +123,7 @@ class StudentRegistrationService {
         studentRegistration.admitCardGenerated = false
         if (studentRegistration.save(flush: true, failOnError: true)) {
             if (!springSecurityService.isLoggedIn()) {
+
                 def feeDetails = new FeeDetails()
                 feeDetails.bankId = Bank.findById(Integer.parseInt(params.bankName))
                 feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
@@ -513,6 +516,46 @@ class StudentRegistrationService {
         resultMap.status = status
         resultMap.challanNo = challanNo
         return resultMap
+    }
+    def getAdmissionFeeAmount(studentRegistration)
+    {
+        def infoMap =[:]
+        def student = Student.findByRollNo(studentRegistration.rollNo)
+//            println("program"+student.programDetail)
+        def program = student.programDetail
+        def feeTypeId
+        def feeType = null
+        def args
+        def lateFee=0
+        def programFeeAmount = 0
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(cal.YEAR);
+        def sessionVal= year+1
+        sessionVal= year+'-'+sessionVal
+
+        def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
+        def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
+        println('this is the programFee '+programFee)
+
+        try{
+            def lateFeeDate=student.programDetail.lateFeeDate[0]
+            def today=new Date()
+            if(lateFeeDate!=null) {
+                if (today.compareTo(lateFeeDate) > 0) {
+
+                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+
+                }
+            }
+            feeType = null
+            programFeeAmount = programFee.feeAmountAtIDOL+lateFee
+        }catch(Exception e){
+            println("this exception occurred here "+ e)
+            flash.message="Late Fee Date is not assigned! "
+            redirect(controller: student, action:enrollmentAtIdol)
+
+        }
     }
 }
 

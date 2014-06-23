@@ -113,7 +113,7 @@
                         <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">
                             <div class="university-size-1-3">
                                 <label for="feeType">
-                                    ${miscFee[index]?.type} fff${}
+                                    ${miscFee[index]?.type}
                                     <span class="university-obligatory">*</span>
                                 </label>
                             </div>
@@ -124,8 +124,7 @@
                             </div>
                         </div>
                         <g:javascript>
-alert("j")
-                         feeTypeList.push(${miscellaneousFeeList[index]?.feeType?.id})
+                         feeTypeList.push(${miscFee[index]?.id})
                         </g:javascript>
 
                     </g:each>
