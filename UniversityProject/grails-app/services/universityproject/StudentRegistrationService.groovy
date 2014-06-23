@@ -157,21 +157,19 @@ class StudentRegistrationService {
         studentRegistration.semester = 1
         studentRegistration.admitCardGenerated = false
         if (studentRegistration.save(flush: true, failOnError: true)) {
-//            println("new Id   >>>>>> "+studentRegistration.id)
-
-
             if (!springSecurityService.isLoggedIn()) {
                 def feeDetails = new FeeDetails()
                 feeDetails.bankId = Bank.findById(Integer.parseInt(params.bankName))
                 feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
                 feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
-                feeDetails.isAdmission = 0
+                feeDetails.isAdmission = true
                 feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
                 feeDetails.challanDate = new Date()
+                feeDetails.paidAmount=Integer.parseInt(params.admissionFeeAmount)
                 feeDetails.challanNo = studentRegistration.challanNo
                 feeDetails.paymentDate = df.parse(params.paymentDate)
                 feeDetails.save(flush: true, failOnError: true)
-                params.fee = params.admissionFeeAmount
+//                params.fee = params.admissionFeeAmount
             }
             return studentRegistration
         } else {

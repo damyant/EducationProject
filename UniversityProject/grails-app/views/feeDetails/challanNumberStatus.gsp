@@ -21,17 +21,19 @@
 
 <body>
 <div id="main">
+    <fieldset class="form">
 
 
-<table>
+<table class="university-size-1-2 inner">
     <tr>
-        <td>Enter ChallanNumber</td> <td><input type="text" id="challanNoText"> </td><td><input type="button" value="Show"  onclick="showChallanNumberStatus()"> </td>
+        <td>Enter Challan Number</td> <td><input type="text" id="challanNoText"> </td><td><input type="button" value="Show"  onclick="showChallanNumberStatus()"> </td>
     </tr>
 </table>
 
     <table id="challanStatus">
 
     </table>
+        </fieldset>
 </div>
 
 </body>

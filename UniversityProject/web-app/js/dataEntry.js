@@ -780,9 +780,7 @@ function enableAll() {
 }
 
 function showChallanNumberStatus() {
-
     $("#challanNoText").val()
-
     $.ajax({
         type: "post",
         url: url('feeDetails', 'challanDetails', ''),

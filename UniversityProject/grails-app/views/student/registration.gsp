@@ -38,24 +38,6 @@
              $('#registrationNo2').attr('disabled', true)
             }
         });
-//        $(document).ready(function(){
-//         location.reload()
-%{--//        window.onload=function () {--}%
-
-            %{--var flag = "${registered}"--}%
-            %{--var studentId = "${studentID}"--}%
-            %{--var fee = "${params.admissionFeeAmount}"--}%
-            %{--if (flag == 'registered') {--}%
-
-%{--//                url = "/UniversityProject/student/registration" ;--}%
-%{--//                window.location.href = url;--}%
-               %{--var abc=  window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId+'&fee='+fee, '');--}%
-%{--//                while(abc==null){--}%
-%{--//                 abc= window.open('/UniversityProject/student/applicationPrintPreview/?studentID=' + studentId+'&fee='+fee, '');--}%
-%{--//                }--}%
-//            }
-
-//        })
     </script>
 
 </head>
@@ -107,7 +89,15 @@
 
 <div style="margin-left: 10px;"><label><h6>All [<span
         class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
+<sec:ifNotLoggedIn>
+    <table class="university-size-1-3">
+        <tr>
+            <td>
 
+            </td>
+        </tr>
+    </table>
+</sec:ifNotLoggedIn>
 <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;">
 <!----- First Name ---------------------------------------------------------->
 <tr>
