@@ -15,6 +15,7 @@ class StudentController {
 //    @Secured('ROLE_STUDYCENTRE')
 
     def registration= {
+        def studyCentreList
         def studyCentre
         def programList=[]
         def count=0
@@ -54,14 +55,14 @@ class StudentController {
         }
         if(params.studentId){
             programList = ProgramDetail.list()
-            studyCentre = StudyCenter.list()
+             studyCentreList = StudyCenter.list()
         }
         def districtList=District.list(sort: 'districtName')
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
         def centreList =  City.findAllByIsExamCentre(1)
 //        println("sss"+studInstance.status)
-        [studyCentre: studyCentre,studInstance:studInstance, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode,fee:params.fee]
+        [studyCentre: studyCentre,studInstance:studInstance, studyCenterList: studyCentreList, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode,fee:params.fee]
 
     }
     def viewResult = {
@@ -367,6 +368,7 @@ class StudentController {
         def student = Student.findById(params.studentId)
 //        println("Challan Number"+student.addressDistrict)
         def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
+        def miscellaneousFeeChallan = MiscellaneousFeeChallan.findById(student.id)
         [studInstance:student,feeDetails: feeDetails]
     }
     @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])

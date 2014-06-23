@@ -277,12 +277,12 @@
        <td>
        <g:select name="studyCentre" id="studyCentre" optionKey="id" class="university-size-1-2"
                  value="${studInstance?.studyCentre?.id?.get(0)}"
-                 optionValue="name" from="${studyCentre}" noSelection="['': ' Select StudyCentre']"/>
+                 optionValue="name" from="${studyCenterList}" noSelection="['': ' Select StudyCentre']"/>
        </td>
    </sec:ifAnyGranted>
     <sec:ifNotGranted roles="ROLE_ADMIN" >
     <td>
-        <input type="text" name="studyCentre" class="university-size-1-2" value="${studInstance?.studyCentre?.name?.get(0)}" readonly/>
+        <input type="text" name="studyCentre" class="university-size-1-2" value="${studyCentre?.name}" readonly/>
     </td>
     </sec:ifNotGranted>
 </tr>
@@ -507,7 +507,7 @@ onkeypress="return isNumberWithDash(event)"/>
 </tr>
 <tr>
     <td>
-        <input type="hidden" name="studyCentreCode" value="${studInstance?.studyCentre?.centerCode?.get(0)}">
+        <input type="hidden" name="studyCentreCode" value="${studyCentre?.centerCode}">
     </td>
 </tr>
 </table>

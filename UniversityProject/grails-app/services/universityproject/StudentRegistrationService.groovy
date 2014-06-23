@@ -3,7 +3,7 @@ package universityproject
 import examinationproject.Bank
 import examinationproject.Branch
 import examinationproject.City
-//import examinationproject.CustomChallan
+import examinationproject.CustomChallan
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.MiscellaneousFeeChallan
@@ -26,8 +26,9 @@ class StudentRegistrationService {
     private final myLock = new Object()
     def springSecurityService
     def springSecurityUtils
+
     @Synchronized("myLock")
-     Student  saveNewStudentRegistration(params, signature, photographe) {
+    Student saveNewStudentRegistration(params, signature, photographe) {
 //    println(params)
         Boolean studentRegistrationInsSaved = false;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
@@ -74,9 +75,24 @@ class StudentRegistrationService {
                 }
             }
 //            studentRegistration.challanNo = getChallanNumber()
-
-        }
-        else {
+            if (springSecurityService.isLoggedIn()) {
+                def userDetails = springSecurityService.principal.getAuthorities()
+                boolean isAdmin = false
+                for (def role in userDetails) {
+                    if (role.getAuthority() == "ROLE_ADMIN") //do something }
+                        if (role.getAuthority() == "ROLE_ADMIN") {
+                            isAdmin = true
+                        }
+                }
+                if (isAdmin) {
+                    Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentre))
+                    studentRegistration.studyCentre = studyCentre
+                } else {
+                    Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
+                    studentRegistration.studyCentre = studyCentre
+                }
+            }
+        } else {
             studentRegistration = new Student(params)
             studentRegistration.registrationYear = Integer.parseInt(year)
             if (springSecurityService.isLoggedIn()) {
@@ -88,23 +104,25 @@ class StudentRegistrationService {
                 studentRegistration.status = Status.findById(1)
                 studentRegistration.challanNo = getChallanNumber()
             }
-        }
-        studentRegistration.dob = df.parse(params.d_o_b)
-        def userDetails = springSecurityService.principal.getAuthorities()
-        boolean  isAdmin = false
-        for(def role in userDetails){ if(role.getAuthority() == "ROLE_ADMIN") //do something }
-            if(role.getAuthority() == "ROLE_ADMIN") {
-                isAdmin=true
-            }
-        }
-        if(isAdmin)   {
-            Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentre))
-            studentRegistration.studyCentre = studyCentre
-        }
-        else{
             Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
             studentRegistration.studyCentre = studyCentre
         }
+        studentRegistration.dob = df.parse(params.d_o_b)
+//        def userDetails = springSecurityService.principal.getAuthorities()
+//        boolean  isAdmin = false
+//        for(def role in userDetails){ if(role.getAuthority() == "ROLE_ADMIN") //do something }
+//            if(role.getAuthority() == "ROLE_ADMIN") {
+//                isAdmin=true
+//            }
+//        }
+//        if(isAdmin)   {
+//            Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentre))
+//            studentRegistration.studyCentre = studyCentre
+//        }
+//        else{
+//            Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
+//            studentRegistration.studyCentre = studyCentre
+//        }
 //        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
 //        studentRegistration.studyCentre = studyCentre
         Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
@@ -443,11 +461,11 @@ class StudentRegistrationService {
                 maxResults(1)
                 order("id", "desc")
             }
-            def customChallan = 0
-            println("In Here>>>" + custByChallanNo[0].challanNo)
-            if (custByChallanNo) {
-                customChallan = Integer.parseInt(custByChallanNo[0].challanNo)
-            }
+//            def customChallan = 0
+////            println("In Here>>>" + custByChallanNo[0].challanNo)
+//            if (custByChallanNo) {
+//                customChallan = Integer.parseInt(custByChallanNo[0].challanNo)
+//            }
 
             if (studentTableByChallanNo) {
                 if (MiscByChallanNo) {
@@ -472,9 +490,15 @@ class StudentRegistrationService {
                         }
                     }
                 } else {
-                    if (Integer.parseInt(studentTableByChallanNo[0].challanNo) < Integer.parseInt(custByChallanNo[0].challanNo)) {
-                        studentByChallanNo = custByChallanNo
-                        println('2222')
+                    if (custByChallanNo) {
+                        println("uifuidfuid")
+                        if (Integer.parseInt(studentTableByChallanNo[0].challanNo) < Integer.parseInt(custByChallanNo[0].challanNo)) {
+                            studentByChallanNo = custByChallanNo
+                            println('2222')
+                        } else {
+                            studentByChallanNo = studentTableByChallanNo
+                            println('3333')
+                        }
                     } else {
                         studentByChallanNo = studentTableByChallanNo
                         println('3333')
@@ -525,7 +549,7 @@ class StudentRegistrationService {
     def saveCChallan(params) {
         def resultMap = [:]
         def status = false
-//        def challanInst = new CustomChallan(params)
+        def challanInst = new CustomChallan(params)
         def challanNo = getChallanNumber()
         challanInst.challanNo = challanNo
         challanInst.challanDate = new Date()

@@ -77,20 +77,20 @@
                        </ul>
                   </a>
                 </div>
-                %{--<div id="feePaidReports">--}%
-                    %{--<a href="#">--}%
-                        %{--<li>Fees Paid Report:--}%
-                        %{--</li>--}%
-                        %{--<ul>--}%
-                            %{--<a href="#">  <li id="feePaidStudyCentre"> Study Centre Wise Fee Paid Statement--}%
-                            %{--</li>      </a>--}%
-                            %{--<a href="#">   <li id="dailyFeeReport">Daily Fees Report--}%
-                            %{--</li></a>--}%
+                <div id="feePaidReports">
+                    <a href="#">
+                        <li>Fees Paid Report:
+                        </li>
+                        <ul>
+                            <a href="#">  <li id="feePaidStudyCentre"> Study Centre Wise Fee Paid Statement
+                            </li>      </a>
+                            <a href="#">   <li id="dailyFeeReport">Daily Fees Report
+                            </li></a>
 
 
-                        %{--</ul>--}%
-                    %{--</a>--}%
-                %{--</div>--}%
+                        </ul>
+                    </a>
+                </div>
                  %{--<div id="byCumulativeCandidateNo"> <a href="#"> <li>Examination venue Cumulative Candidate No--}%
                  %{--</a></div>--}%
       </ul>
@@ -228,18 +228,41 @@
                </tr>
 
                <tr id="byStudyCentreFeePaid">
-                   <td style="width: 18%">
-                       <label for="feePaidStudyCentre">Select Study Centre:</label>
-                   </td>
-                   <td style="width: 30%" >
+
+                   <td style="">
+                       <div class="university-size-1-1" style="display: inline">
+                           <div class="university-size-1-3">
+                           <label for="feePaidStudyCentre">Select Study Centre:</label>
+                           %{--</div>--}%
+                   %{--</td>--}%
+                   %{--<td style="width: 30%" >--}%
+                           %{--<div class="university-size-1-2">--}%
                        <g:select name="feePaidStudyCentre" class="university-size-1-1" id="feePaidStudyCentre"
                                  from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
                                  noSelection="['null': ' Select Study Centre']" />
-                   </td>
-                   <td style="width: 10%" >
-                       <g:select name="studyCentreFeePaidSession" class="university-size-1-1 allSession" id="studyCentreFeePaidSession"
-                                 from="${filterType}" optionKey="" optionValue=""
-                                 noSelection="['null': ' Select Session']" />
+                       %{--</div>--}%
+                   </div>
+                   %{--</td>--}%
+                   %{--<td style="width: 10%" >--}%
+                       %{--<g:select name="studyCentreFeePaidSession" class="university-size-1-1 allSession" id="studyCentreFeePaidSession"--}%
+                                 %{--from="${filterType}" optionKey="" optionValue=""--}%
+                                 %{--noSelection="['null': ' Select Session']" />--}%
+                   %{--</td>--}%
+                   %{--<td style="width: 30%">--}%
+                       <div class="university-size-1-1">
+                       <label for="studyCentreFeeFromDate">From Date:</label>
+                   %{--</td>--}%
+                   %{--<td style="width: 30%" >--}%
+                       <input type="text" name="studyCentreFeeFromDate" class="university-size-1-2" id="studyCentreFeeFromDate"/>
+                   </div>
+                   %{--</td>--}%
+                   %{--<td style="width: 18%">--}%
+                       <div class="university-size-1-1">
+                       <label for="StudyCentreFeeToDate">To Date:</label>
+                   %{--</td>--}%
+                   %{--<td style="width: 30%" >--}%
+                       <input type="text" name="StudyCentreFeeToDate" class="university-size-1-2" id="StudyCentreFeeToDate"/>
+                       </div>
                    </td>
 
                </tr>
