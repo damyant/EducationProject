@@ -6,6 +6,8 @@ import examinationproject.City
 import examinationproject.CustomChallan
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
+import examinationproject.FeeType
+import examinationproject.MiscellaneousFee
 import examinationproject.MiscellaneousFeeChallan
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
@@ -169,6 +171,13 @@ class StudentRegistrationService {
                 feeDetails.challanNo = studentRegistration.challanNo
                 feeDetails.paymentDate = df.parse(params.paymentDate)
                 feeDetails.save(flush: true, failOnError: true)
+                def miscellaneousFeeChallanIns = new MiscellaneousFeeChallan()
+                miscellaneousFeeChallanIns.feeType = FeeType.get(3)
+                miscellaneousFeeChallanIns.student = studentRegistration
+                miscellaneousFeeChallanIns.semesterValue=1
+                miscellaneousFeeChallanIns.challanNo = studentRegistration.challanNo
+                miscellaneousFeeChallanIns.save(failOnError: true,flush: true)
+
 //                params.fee = params.admissionFeeAmount
             }
             return studentRegistration
