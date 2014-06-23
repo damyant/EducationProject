@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <td class="university-size-1-4">Amount</td>
-                    <td class="university-size-3-4"><input type="text" class="university-size-1-2" maxlength="15" name="amount" id="amount"></td>
+                    <td class="university-size-3-4"><input type="text" class="university-size-1-2" onkeypress="return isNumber(event)" maxlength="15" name="amount" id="amount"></td>
                 </tr>
                 <tr>
                     <td class="university-size-1-4"></td>
@@ -70,9 +70,7 @@
                 <table  style="width:80%;margin:auto;text-transform:capitalize;border: solid 0px black;letter-spacing:1px;font-family: Times New Roman, Times, serif;font-style: normal;font-weight: bold;">
                     <tr><td style="width: 40%;font-size: 9px;padding-left: 5px;"><lable>Name:</lable></td><td style="width: 60%;font-size: 10px;"><label id="cName"></label></td></tr>
                     <tr><td  style="width: 40%;font-size: 9px;padding-left: 5px;">Type Of Fee:</td><td style="width: 60%;font-size: 10px;"><label id="feeType"></label></td></tr>
-                    <tr><td  style="width: 40%;font-size: 9px;padding-left: 5px;"><lable>Amount:</lable></td><td style="width: 60%;font-size: 11px;font-weight: bolder;letter-spacing:2px;"><label id="feeAmount"></label>
-                        <label style="display: block" id="lateFee"></label>
-                    </td></tr>
+                    <tr><td  style="width: 40%;font-size: 9px;padding-left: 5px;"><lable>Amount:</lable></td><td style="width: 60%;font-size: 11px;font-weight: bolder;letter-spacing:2px;">Rs <label id="feeAmount"></label></td></tr>
                     <tr><td  style="height:60px">&nbsp;</td><td  style="height:60px">&nbsp;</td></tr>
                     <tr><td style="vertical-align: bottom;width: 40%;font-size: 9px;padding-left: 5px;">${new Date()}</td>
                         <td style="vertical-align: bottom;">

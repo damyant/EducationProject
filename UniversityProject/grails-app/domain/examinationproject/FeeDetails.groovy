@@ -5,7 +5,7 @@ package examinationproject
 class FeeDetails {
 
     String challanNo
-//    FeeType feeTypeId
+    int paidAmount
     Boolean isAdmission=false
     PaymentMode paymentModeId
     Date paymentDate
@@ -18,7 +18,7 @@ class FeeDetails {
 
     static constraints = {
         challanNo(nullable: false)
-//        feeTypeId(nullable: true)
+        paidAmount(nullable: true)
         paymentModeId(nullable: false)
         paymentReferenceNumber(nullable: true)
         bankId(nullable: false)
