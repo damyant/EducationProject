@@ -295,7 +295,8 @@
 
 
 <g:elseif test="${totalListApprovedUnapprovedRollNo}">
-<h3> Total ${type} Students In ${totalListApprovedUnapprovedRollNo.getAt(0).studyCentre[0].name} For ${approvedUnapprovedSessionVal} Session</h3>
+<h3> Total ${type} ${totalListApprovedUnapprovedRollNo.getAt(0).studyCentre[0].name} Students In ${totalListApprovedUnapprovedRollNo.getAt(0).studyCentre[0].name} For ${approvedUnapprovedSessionVal} Session</h3><br></br>
+    <h3>Course Name: ${totalListApprovedUnapprovedRollNo.getAt(0).programDetail[0].courseName} </h3>
     <table style=" text-align: center" class="gridtable">
         <th>Roll No</th>
         <th>Name</th>

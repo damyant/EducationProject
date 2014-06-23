@@ -24,7 +24,7 @@
         var gender = "${studInstance?.gender}"
         var category = "${studInstance?.category}"
         var nationality = "${studInstance?.nationality}"
-
+        var isAppliedFor = "${studInstance?.isAppliedFor}"
         var state = "${studInstance?.state}"
         $('#studentRegister').ready(function () {
 //    alert($("input.radioInput[name='nationality'][value="+nationality+"]").val())
@@ -32,6 +32,11 @@
             $("input.radioInput[name='category'][value=" + category + "]").attr('checked', 'checked');
             $(".radioInput[name='gender'][value=" + gender + "]").attr('checked', 'checked');
             $(".radioInput[name='state'][value=" + state + "]").attr('checked', 'checked');
+            if(isAppliedFor)  {
+             $('#isAppliedFor').attr('checked', 'checked')
+             $('#registrationNo1').attr('disabled', true)
+             $('#registrationNo2').attr('disabled', true)
+            }
         });
     </script>
 
@@ -274,9 +279,18 @@
 
     <!----- Contact centre/study centre ---------------------------------------------------------->
     <td>Study centre <span class="university-obligatory">*</span></td>
+   <sec:ifAnyGranted roles="ROLE_ADMIN">
+       <td>
+       <g:select name="studyCentre" id="studyCentre" optionKey="id" class="university-size-1-2"
+                 value="${studInstance?.studyCentre?.id?.get(0)}"
+                 optionValue="name" from="${studyCenterList}" noSelection="['': ' Select StudyCentre']"/>
+       </td>
+   </sec:ifAnyGranted>
+    <sec:ifNotGranted roles="ROLE_ADMIN" >
     <td>
         <input type="text" name="studyCentre" class="university-size-1-2" value="${studyCentre?.name}" readonly/>
     </td>
+    </sec:ifNotGranted>
 </tr>
 <tr>
     <!----- Preference of examination centre ---------------------------------------------------------->
@@ -494,6 +508,7 @@
         </td>
     </tr>
 </sec:ifNotLoggedIn>
+<g:if test="${!studInstance}">
 <tr>
     <td colspan="2">
         <label id="declaration-label"><input type="checkbox" id="declaration" name="declaration"/>
@@ -502,6 +517,7 @@
         </label>
     </td>
 </tr>
+</g:if>
 
 
 

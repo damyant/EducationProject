@@ -556,7 +556,6 @@ function loadBranch(t) {
 
 function loadSession(t) {
     var program = $(t).val();
-//    alert(bank)
     if (program) {
         $.ajax({
             type: "post",

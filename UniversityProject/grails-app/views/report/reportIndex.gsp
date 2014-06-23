@@ -25,29 +25,29 @@
         </sec:ifAnyGranted>
         <sec:ifAnyGranted roles="ROLE_STUDY_CENTRE ">
             <div id="sessionStudentList"> <a href="#"> <li>By Session Student List</li></a></div>
-            <div id="byCourseUnapproved"> <a href="#"> <li>By Course Unapproved Roll No
+            <div id="byCourseUnapproved"> <a href="#"> <li>By Programme Unapproved Roll No
             </li></a></div>
-            <div id="byCourseApproved"> <a href="#"> <li>By Course Approved Roll No
+            <div id="byCourseApproved"> <a href="#"> <li>By Programme Approved Roll No
             </li></a></div>
         </sec:ifAnyGranted>
         <sec:ifAnyGranted roles="ROLE_IDOL_USER">
                 <div id="sessions"> <a href="#"> <li>By Sessions</li></a></div>
-                <div id="course"> <a href="#"> <li>By Course</li></a></div>
+                <div id="course"> <a href="#"> <li>By Programme</li></a></div>
                 <div id="comparativeReport"> <a href="#">   <li>Comparative Enrolment Report</li></a></div>
                 <div id="studyCentre"> <a href="#">
                     <li>By Study Centre</li>
                     <ul>
-                        <a href="#"> <li id="studyCentreNoOfStudents">Course Wise No Of Students </li></a>
+                        <a href="#"> <li id="studyCentreNoOfStudents">Programme Wise No Of Students </li></a>
 
-                        <a href="#">  <li id="studyCentreStudentList"> Course Wise Student List</li></a>
+                        <a href="#">  <li id="studyCentreStudentList"> Programme Wise Student List</li></a>
                     </ul></a>
                 </div>
                 <div id="examinationCentreDiv"> <a href="#">
                     <li>By Examination Centre</li>
                     <ul>
-                        <a href="#">  <li id="examinationCentreNoOfStudents">Course Wise No Of Students </li></a>
+                        <a href="#">  <li id="examinationCentreNoOfStudents">Programme Wise No Of Students </li></a>
 
-                        <a href="#">  <li id="examinationCentreStudentList"> Course Wise Student List</li></a>
+                        <a href="#">  <li id="examinationCentreStudentList"> Programme Wise Student List</li></a>
                     </ul>
                 </a></div>
 
@@ -55,11 +55,11 @@
                     <a href="#">
                         <li >By Category</li>
                         <ul>
-                            <a href="#">    <li id="categoryDiv">Course Wise </li>         </a>
+                            <a href="#">    <li id="categoryDiv">Programme Wise </li>         </a>
 
-                            <a href="#">  <li id="categoryGenderDiv"> Course Wise With Gender Break-up
+                            <a href="#">  <li id="categoryGenderDiv"> Programme Wise With Gender Break-up
                             </li> </a>
-                            <a href="#">      <li id="categoryGenderStudentList"> Course Wise Students List
+                            <a href="#">      <li id="categoryGenderStudentList"> Programme Wise Students List
                             </li></a>
                         </ul>
                     </a>
@@ -91,8 +91,8 @@
                         </ul>
                     </a>
                 </div>
-                 <div id="byCumulativeCandidateNo"> <a href="#"> <li>Examination venue Cumulative Candidate No
-                 </a></div>
+                 %{--<div id="byCumulativeCandidateNo"> <a href="#"> <li>Examination venue Cumulative Candidate No--}%
+                 %{--</a></div>--}%
       </ul>
       </sec:ifAnyGranted>
     </div>
@@ -228,18 +228,41 @@
                </tr>
 
                <tr id="byStudyCentreFeePaid">
-                   <td style="width: 18%">
-                       <label for="feePaidStudyCentre">Select Study Centre:</label>
-                   </td>
-                   <td style="width: 30%" >
+
+                   <td style="">
+                       <div class="university-size-1-1" style="display: inline">
+                           <div class="university-size-1-3">
+                           <label for="feePaidStudyCentre">Select Study Centre:</label>
+                           %{--</div>--}%
+                   %{--</td>--}%
+                   %{--<td style="width: 30%" >--}%
+                           %{--<div class="university-size-1-2">--}%
                        <g:select name="feePaidStudyCentre" class="university-size-1-1" id="feePaidStudyCentre"
                                  from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
                                  noSelection="['null': ' Select Study Centre']" />
-                   </td>
-                   <td style="width: 10%" >
-                       <g:select name="studyCentreFeePaidSession" class="university-size-1-1 allSession" id="studyCentreFeePaidSession"
-                                 from="${filterType}" optionKey="" optionValue=""
-                                 noSelection="['null': ' Select Session']" />
+                       %{--</div>--}%
+                   </div>
+                   %{--</td>--}%
+                   %{--<td style="width: 10%" >--}%
+                       %{--<g:select name="studyCentreFeePaidSession" class="university-size-1-1 allSession" id="studyCentreFeePaidSession"--}%
+                                 %{--from="${filterType}" optionKey="" optionValue=""--}%
+                                 %{--noSelection="['null': ' Select Session']" />--}%
+                   %{--</td>--}%
+                   %{--<td style="width: 30%">--}%
+                       <div class="university-size-1-1">
+                       <label for="studyCentreFeeFromDate">From Date:</label>
+                   %{--</td>--}%
+                   %{--<td style="width: 30%" >--}%
+                       <input type="text" name="studyCentreFeeFromDate" class="university-size-1-2" id="studyCentreFeeFromDate"/>
+                   </div>
+                   %{--</td>--}%
+                   %{--<td style="width: 18%">--}%
+                       <div class="university-size-1-1">
+                       <label for="StudyCentreFeeToDate">To Date:</label>
+                   %{--</td>--}%
+                   %{--<td style="width: 30%" >--}%
+                       <input type="text" name="StudyCentreFeeToDate" class="university-size-1-2" id="StudyCentreFeeToDate"/>
+                       </div>
                    </td>
 
                </tr>
@@ -480,7 +503,7 @@
         var val= $('#flagValue').val()
         var check1= null, check2=null, check3=null, check4=null;
         if(val=='session'){
-             check1 =$('#sessionVal').val()
+            check1 =$('#sessionVal').val()
             check2 = $('#sessionStudentListVal').val()
              if(check1=='null' && check2== 0){
                 alert("please select values")
@@ -506,10 +529,25 @@
             }
 //            return true;
         }
+        else if(val=='courseApproved'){
+            check1 =$('#courseApproved').val()
+            if(check1=='null'){
+                alert("please select values")
+                return false;
+            }
+//            return true;
+        }
+        else if(val=='courseUnapproved'){
+            check1 =$('#courseUnapproved').val()
+            if(check1=='null'){
+                alert("please select values")
+                return false;
+            }
+//            return true;
+        }
         else if(val=='studyCentre'){
             check1 =$('#studyCentreVal').val()
             check2 =$('#studyCentreSession').val()
-            alert(';;;;;;;;;;;;'+check1+'............ '+ check2+' ')
             if(check1=='null' || check2==0){
                 alert("please select values")
                 return false;
@@ -517,13 +555,11 @@
 //            return true;
         }
         else if(val=='examinationCentre'){
-            alert('in this.......................')
             check1 =$('#district').val()
             check2 =$('#city').val()
             check3 =$('#examinationCentre').val()
             check4 =$('#examinationCentreSession').val()
-            alert(check1+' '+ check2+' '+check3+' '+check4)
-            if(check1=='null' || check2=='null' || check4==0){
+            if(check1=='null' || check2=='null'|| check2.length==0 || check4==0){
                 alert("please select values")
                 return false;
             }
@@ -531,7 +567,6 @@
         }
         else if(val=='category'){
             check1 =$('#categorySession').val()
-
             if(check1==0){
                 alert("please select values")
                 return false;
@@ -540,7 +575,6 @@
         }
         else if(val=='categoryGender'){
             check1 =$('#categoryGenderSession').val()
-
             if(check1==0){
                 alert("please select values")
                 return false;
@@ -549,13 +583,27 @@
         }
         else if(val=='admissionUnapproved'){
             check1 =$('#admissionUnapprovedStudyCentre').val()
-            check2 =$('#admissionUnapprovedSession').val()
-            if(check1=='null' || check2==0 ){
+            if(check1=='null' ){
                 alert("please select values")
                 return false;
             }
 //            return true;
         }
+       else if(val=="admissionApproved") {
+            check1 =$('#admissionApprovedStudyCentre').val()
+            if(check1=='null' ){
+                alert("please select values")
+                return false;
+            }
+        }
+        else if(val="admissionSelfRegistration") {
+            check1 =$('#admissionSelfRegistrationSession').val()
+            if(check1==0 ){
+                alert("please select values")
+                return false;
+            }
+        }
+
 
     }
 </script>

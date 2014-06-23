@@ -230,6 +230,9 @@ class ReportService {
                     and{
                         eq('registrationYear' , Integer.parseInt(params.studyCentreSession))
                     }
+                    and{
+                        ne('status', Status.findById(4))
+                    }
                 }
                 println("--------------"+count)
                  status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCentreName.name, session)
@@ -252,6 +255,9 @@ class ReportService {
                 }
                 and{
                     eq('registrationYear' , Integer.parseInt(params.studyCentreSession))
+                }
+                and{
+                    eq('status', Status.findById(4))
                 }
                 projections {
                     rowCount()

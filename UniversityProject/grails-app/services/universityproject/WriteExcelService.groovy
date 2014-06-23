@@ -67,7 +67,7 @@ class WriteExcelService {
         times10ptBoldUnderline.setColour(Colour.BLUE);
         cv.setFormat(timesBoldUnderline);
         for (int i=0;i< 6;i++){
-            int widthInChars = 30;
+            int widthInChars = 25;
             sheet.setColumnView(i, widthInChars);
         }
 
@@ -90,8 +90,9 @@ class WriteExcelService {
         addCaption(sheet, 1, 1, "Name ");
         addCaption(sheet, 2, 1, "Study Centre ");
         addCaption(sheet, 3, 1, "Examination Centre ");
-        addCaption(sheet, 4, 1, "Mobile No.");
-        addCaption(sheet, 5, 1, "Status");
+        addCaption(sheet, 4, 1, "Challan No.");
+        addCaption(sheet, 5, 1, "Mobile No.");
+        addCaption(sheet, 6, 1, "Status");
     }
 
     void addCaption(WritableSheet sheet, int column, int row, String s)
@@ -112,8 +113,9 @@ class WriteExcelService {
             addLabel(sheet, j + 1, i + 2, finalList[i].firstName+' '+(finalList[i].middleName? finalList[i].middleName:'' )+' '+finalList[i].lastName);
             addLabel(sheet, j + 2, i + 2, finalList[i].studyCentre[0].name);
             addLabel(sheet, j + 3, i + 2, finalList[i].city[0]?.cityName);
-            addLabel(sheet, j + 4, i + 2, "91"+finalList[i].mobileNo);
-            addLabel(sheet, j + 5, i + 2, finalList[i].status.status);
+            addLabel(sheet, j + 4, i + 2, finalList[i].challanNo);
+            addLabel(sheet, j + 5, i + 2, "91"+finalList[i].mobileNo);
+            addLabel(sheet, j + 6, i + 2, finalList[i].status.status);
         }
 
     }
