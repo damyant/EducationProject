@@ -188,17 +188,17 @@
             </g:if>
         </table>
         <hr style="border-top: dashed 2px;" />
-        <table cellpadding="8"  class="university-table-1-2"
-               style="width: 100%;margin: auto; border: 1px solid; ">
-            <tr><td style="width: 60%;">Challan Number</td><td style="width: 40%;">${studentInstance.challanNo}</td></tr>
-            <tr><td>Fee</td><td>${payableFee}</td></tr>
+        %{--<table cellpadding="8"  class="university-table-1-2"--}%
+               %{--style="width: 100%;margin: auto; border: 1px solid; ">--}%
+            %{--<tr><td style="width: 60%;">Challan Number</td><td style="width: 40%;">${studentInstance.challanNo}</td></tr>--}%
+            %{--<tr><td>Fee</td><td>${payableFee}</td></tr>--}%
 
-            <tr><td>Payment Mode</td><td>${feeDetails.paymentModeId.paymentModeName}</td></tr>
-            <tr><td>Payment Date</td><td><g:formatDate date="${feeDetails.paymentDate}" format="dd MMM yyyy"/></td></tr>
-            <tr><td>Payment Ref Number</td><td>${feeDetails.paymentReferenceNumber}</td></tr>
-            <tr><td>Bank</td><td>${feeDetails.bankId.bankName}</td></tr>
-            <tr><td>Branch</td><td>${feeDetails.branchId.branchLocation}</td></tr>
-        </table><br/><br/>
+            %{--<tr><td>Payment Mode</td><td>${feeDetails.paymentModeId.paymentModeName}</td></tr>--}%
+            %{--<tr><td>Payment Date</td><td><g:formatDate date="${feeDetails.paymentDate}" format="dd MMM yyyy"/></td></tr>--}%
+            %{--<tr><td>Payment Ref Number</td><td>${feeDetails.paymentReferenceNumber}</td></tr>--}%
+            %{--<tr><td>Bank</td><td>${feeDetails.bankId.bankName}</td></tr>--}%
+            %{--<tr><td>Branch</td><td>${feeDetails.branchId.branchLocation}</td></tr>--}%
+        %{--</table><br/><br/>--}%
         <table style="width:100%;margin: auto;">
             <tr>
                 <td style="width:50%;"><label style="float: left; margin-left:10px;">Date:</label></td>

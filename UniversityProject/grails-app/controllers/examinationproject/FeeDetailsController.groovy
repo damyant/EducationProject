@@ -415,11 +415,15 @@ class FeeDetailsController {
             redirect(controller: "feeDetails",action: "payAdmissionFee")
         }
         else {
+            for(int i=0; i< stuList.size(); i++)  {
             feeDetailsInstance=new FeeDetails()
+            feeDetailsInstance.student= stuList[0]
             feeDetailsInstance.challanNo=params.searchChallanNo
+            feeDetailsInstance.semesterValue=1
             feeDetailsInstance.paymentModeId = PaymentMode.findById(params.paymentMode)
             feeDetailsInstance.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
             feeDetailsInstance.bankId = Bank.findById(params.bankName)
+            feeDetailsInstance.feeType= FeeType.findById(3)
 //            feeDetailsInstance.isAdmission= true
             feeDetailsInstance.branchId = Branch.findById(params.branchLocation)
             feeDetailsInstance.challanDate = new Date()
@@ -450,6 +454,7 @@ class FeeDetailsController {
 
             def args = [template: "printPayChallan", model: [bank: bank, lateFee: lateFee,studyCentre:studyCentre, branch: branch,paymentReferenceNumber:paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
+        }
         }
     }
     def payMiscFeeChallan={

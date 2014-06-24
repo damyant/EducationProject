@@ -103,9 +103,11 @@ class StudentRegistrationService {
             studentRegistration = new Student(params)
             studentRegistration.registrationYear = Integer.parseInt(year)
             if (springSecurityService.isLoggedIn()) {
+                println('executed yaha tak')
                 studentRegistration.referenceNumber = 0
                 studentRegistration.status = Status.findById(2)
                 studentRegistration.rollNo = getStudentRollNumber(params)
+                println('executed yaha tak 2')
             } else {
                 studentRegistration.referenceNumber = getStudentReferenceNumber()
                 studentRegistration.status = Status.findById(1)
@@ -170,19 +172,19 @@ class StudentRegistrationService {
 //                feeDetails.bankId = Bank.findById(Integer.parseInt(params.bankName))
 //                feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
 //                feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
-                feeDetails.feeType = FeeType.findById(3)
+//                feeDetails.feeType = FeeType.findById(3)
 //                feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
 //                feeDetails.challanDate = new Date()
                 feeDetails.paidAmount=Integer.parseInt(params.admissionFeeAmount)
                 feeDetails.challanNo = studentRegistration.challanNo
 //                feeDetails.paymentDate = df.parse(params.paymentDate)
-                feeDetails.save(flush: true, failOnError: true)
-                def miscellaneousFeeChallanIns = new FeeDetails()
-                miscellaneousFeeChallanIns.feeType = FeeType.get(3)
-                miscellaneousFeeChallanIns.student = studentRegistration
-                miscellaneousFeeChallanIns.semesterValue=1
-                miscellaneousFeeChallanIns.challanNo = studentRegistration.challanNo
-                miscellaneousFeeChallanIns.save(failOnError: true,flush: true)
+//                feeDetails.save(flush: true, failOnError: true)
+//                def feeDetails = new FeeDetails()
+                feeDetails.feeType = FeeType.get(3)
+                feeDetails.student = studentRegistration
+                feeDetails.semesterValue=1
+//                feeDetails.challanNo = studentRegistration.challanNo
+                feeDetails.save(failOnError: true,flush: true)
 
 //                params.fee = params.admissionFeeAmount
             }
@@ -447,6 +449,7 @@ class StudentRegistrationService {
     }
 
     def getChallanNumber() {
+        println('getting challan no now')
         int serialNo = 1
         SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd"); // Just the year
         def date = (sdf.format(Calendar.getInstance().getTime()))
@@ -454,18 +457,11 @@ class StudentRegistrationService {
         def challanSr
         def length
         def challanNo
-//        println("Student.count" + Student.count)
-//        println(Student.count)
         def studentByChallanNo
         if (Student.count() > 0) {
             def stdObj = Student.createCriteria()
-            def studentTableByChallanNo = stdObj.list {
-                isNotNull("challanNo")
-                maxResults(1)
-                order("id", "desc")
-            }
             def mscObj = FeeDetails.createCriteria()
-            def MiscByChallanNo = mscObj.list {
+            def feeDetailByChallanNo = mscObj.list {
                 maxResults(1)
                 order("id", "desc")
             }
@@ -474,50 +470,21 @@ class StudentRegistrationService {
                 maxResults(1)
                 order("id", "desc")
             }
-//            def customChallan = 0
-////            println("In Here>>>" + custByChallanNo[0].challanNo)
-//            if (custByChallanNo) {
-//                customChallan = Integer.parseInt(custByChallanNo[0].challanNo)
-//            }
-
-            if (studentTableByChallanNo) {
-                if (MiscByChallanNo) {
+                if (feeDetailByChallanNo) {
                     if (custByChallanNo) {
-                        if (Integer.parseInt(MiscByChallanNo[0].challanNo) > Integer.parseInt(studentTableByChallanNo[0].challanNo) && Integer.parseInt(studentTableByChallanNo[0].challanNo) > Integer.parseInt(custByChallanNo[0].challanNo)) {
-                            studentByChallanNo = MiscByChallanNo
+                        if (Integer.parseInt(feeDetailByChallanNo[0].challanNo)  > Integer.parseInt(custByChallanNo[0].challanNo)) {
+                            studentByChallanNo = feeDetailByChallanNo
                             println('11')
-                        } else if (Integer.parseInt(MiscByChallanNo[0].challanNo) < Integer.parseInt(studentTableByChallanNo[0].challanNo) && Integer.parseInt(studentTableByChallanNo[0].challanNo) < Integer.parseInt(custByChallanNo[0].challanNo)) {
+                        }  else {
                             studentByChallanNo = custByChallanNo
-                            println('22')
-                        } else {
-                            studentByChallanNo = studentTableByChallanNo
                             println('33')
                         }
                     } else {
-                        if (Integer.parseInt(MiscByChallanNo[0].challanNo) > Integer.parseInt(studentTableByChallanNo[0].challanNo)) {
-                            studentByChallanNo = MiscByChallanNo
-                            println('111')
-                        } else {
-                            studentByChallanNo = studentTableByChallanNo
+                            studentByChallanNo = feeDetailByChallanNo
                             println('333')
-                        }
-                    }
-                } else {
-                    if (custByChallanNo) {
-                        println("uifuidfuid")
-                        if (Integer.parseInt(studentTableByChallanNo[0].challanNo) < Integer.parseInt(custByChallanNo[0].challanNo)) {
-                            studentByChallanNo = custByChallanNo
-                            println('2222')
-                        } else {
-                            studentByChallanNo = studentTableByChallanNo
-                            println('3333')
-                        }
-                    } else {
-                        studentByChallanNo = studentTableByChallanNo
-                        println('3333')
+
                     }
                 }
-                println(studentByChallanNo)
                 def lastChallanDate
                 if (studentByChallanNo[0].challanNo != null) {
                     lastChallanDate = studentByChallanNo[0].challanNo.substring(0, 6)
@@ -531,9 +498,7 @@ class StudentRegistrationService {
                 } else {
                     serialNo = 1
                 }
-            } else {
-                serialNo = 1
-            }
+
 
             length = serialNo.toString().length()
             switch (length) {
@@ -556,6 +521,7 @@ class StudentRegistrationService {
             challanNo = challan + challanSr
 
         }
+        println('this is the challan no '+ challanNo)
         return challanNo
     }
 
