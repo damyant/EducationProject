@@ -52,9 +52,7 @@ class ProgramFeeController {
     @Secured("ROLE_ADMIN")
     def saveProgramFee(){
         def response
-        println("innnnnnnnnnn=="+params)
         def feeTypeList=params.feeTypeList.split(',')
-//        println("innnnnn"+params.programSession+"nnnnn=="+feeTypeList[0])
 
         def result=programFeeService.saveProgramFeeType(params)
         response=[status:result]
@@ -71,20 +69,16 @@ class ProgramFeeController {
         def programSessions=   programFeeService.getProgramSessions(params)
 
         def miscFee
-//>>>>>>> 012099d8c3b30431547432309139173c8a0c1652
         List<MiscellaneousFee> miscellaneousFeeList = []
         if(FeeType.count()>0){
         feeType = FeeType.list()
             feeType.each {
-
-//                println("Hello")
-
-
                 miscFee=FeeType.findAllByShowValue(true)
                 def miscellaneousFee= MiscellaneousFee.findByFeeTypeAndFeeSession(FeeType.findById(it.id),programFeeSessionInstance)
                 if(miscellaneousFee)
                 miscellaneousFeeList.add(miscellaneousFee)
             }
+//            println("sddddd>>>>>>>"+miscellaneousFeeList)
             [programFeeInstance:programFeeSessionInstance,miscellaneousFeeList:miscellaneousFeeList,programSessions:programSessions,miscFee:miscFee]
         }else{
             [programFeeInstance:programFeeSessionInstance,programSessions:programSessions]

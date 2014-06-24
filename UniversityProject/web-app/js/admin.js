@@ -629,14 +629,16 @@ function updateProgramFee() {
 
         success: function (data) {
             if (data.status) {
-                $('#updateFee')[0].reset();
+//                $('#updateFee').refresh()
+//                document.location.reload()
+//                $('#updateFee')[0].reset();
                 document.getElementById("statusMessage").style.visibility = "visible";
                 $('#statusMessage').html("Updated Successfully")
             }
         }
 
     })
-
+    document.location.reload()
 }
 
 
@@ -1037,17 +1039,10 @@ function checkFeeStatusForRollNo() {
             data: {rollNo: rollNo},
             success: function (data) {
                 if (!data.error) {
-
-                    if (data.admissionChallan) {
+                    if (data.miscFeeList.length > 0) {
                         $('#showStatusForRollNo').empty().append('<table class="university-size-full-1-1 inner" id="statusTable"></table>')
                         $('#statusTable').append('<tr><th>Challan No</th><th>Fee Type</th><th>Fee Paid Date</th><th>Status</th></tr>')
-                        $('#statusTable').append('<tr><td>' + data.admissionChallan+ '</td><td>Admission Fee</td><td>'+data.aPayDate+'</td><td>' + data.admissionChallanStatus + '</td></tr>')
-                    }
-                    else{
-                        $('#showStatusForRollNo').empty().append('<h4>No Result Found!</h4>')
-                    }
-                    if (data.miscFeeList.length > 0) {
-                        for (var i = 0; i <= data.miscFeeList.length; i++) {
+                        for (var i = 0; i < data.miscFeeList.length; i++) {
                             $('#statusTable').append('<tr><td>' + data.miscFeeList[i].challanNo + '</td><td>' + data.miscFeetype[i] + '</td><td>'+data.mPayDate[i]+'</td><td>' + data.miscFeeStatus[i] + '</td></tr>')
 
                         }

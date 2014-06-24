@@ -301,7 +301,7 @@ class StudentController {
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
             def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
             println('this is the programFee '+programFee)
-2
+
             try{
                 def lateFeeDate=student.programDetail.lateFeeDate[0]
                 def today=new Date()

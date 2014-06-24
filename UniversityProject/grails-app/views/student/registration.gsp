@@ -87,17 +87,24 @@
 
 <g:hiddenField name="studentId" value="${studInstance?.id}"/>
 
-<div style="margin-left: 10px;"><label><h6>All [<span
-        class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 <sec:ifNotLoggedIn>
-    <table class="university-size-1-3">
+    <table class="university-size-1-1" cellpadding="1" style="border: 1px solid brown;margin: 15px auto;font-size: 11px;">
         <tr>
             <td>
-
+              <i>  * Demand Draft in favour of</i><b> IDOL, Gauhati University.</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+               <i>* Take print of the Generated PDF and send to</i>
+                <b>IDOL, Gauhati University</b><i> along with the </i><b>Bank Draft</b>.
             </td>
         </tr>
     </table>
 </sec:ifNotLoggedIn>
+
+<div style="margin-left: 10px;"><label><h6>All [<span
+        class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
 <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;">
 <!----- First Name ---------------------------------------------------------->
 <tr>
@@ -106,17 +113,20 @@
         <table class="inner university-table-1-3 university-size-1-1" style="vertical-align: top;">
             <tr>
                 <td>
-                    <input type="text" placeholder="First Name" name="firstName" style="margin-left: -10px;text-transform: capitalize;"
+                    <input type="text" placeholder="First Name" name="firstName"
+                           style="margin-left: -10px;text-transform: capitalize;"
                            onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.firstName}"/>
                 </td>
                 <td style="vertical-align: top;">
-                    <input type="text" placeholder="Middle Name" name="middleName" style="margin-left: -10px;text-transform: capitalize;"
+                    <input type="text" placeholder="Middle Name" name="middleName"
+                           style="margin-left: -10px;text-transform: capitalize;"
                            onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.middleName}"/>
                 </td>
                 <td>
-                    <input type="text" placeholder="Last Name" name="lastName" style="margin-left: -10px;text-transform: capitalize;"
+                    <input type="text" placeholder="Last Name" name="lastName"
+                           style="margin-left: -10px;text-transform: capitalize;"
                            onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.lastName}"/>
                 </td>
@@ -126,33 +136,37 @@
     </td>
 </tr>
 <g:if test="${studInstance?.rollNo}">
-<tr>
-    <td>Roll Number <span class="university-obligatory">*</span></td>
-    <td>
-                    <input type="text"  name="rollNo" readonly
-                           class="university-size-1-1" value="${studInstance?.rollNo}"/>
+    <tr>
+        <td>Roll Number <span class="university-obligatory">*</span></td>
+        <td>
+            <input type="text" name="rollNo" readonly
+                   class="university-size-1-1" value="${studInstance?.rollNo}"/>
 
-    </td>
-</tr>
-    </g:if>
+        </td>
+    </tr>
+</g:if>
 <sec:ifLoggedIn>
     <g:if test="${studInstance}">
         <g:if test="${studInstance.applicationNo}">
-    <tr>
-        <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
-        <td class="university-size-2-3">
-            <input type="text" name="applicationNo" value="${studInstance.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="5" class="university-size-1-2"/>
+            <tr>
+                <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
+                <td class="university-size-2-3">
+                    <input type="text" name="applicationNo" value="${studInstance.applicationNo}"
+                           onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="5"
+                           class="university-size-1-2"/>
 
-            <label id="errorMsg" class="error1"></label>
-        </td>
-    </tr>
+                    <label id="errorMsg" class="error1"></label>
+                </td>
+            </tr>
         </g:if>
     </g:if>
     <g:else>
         <tr>
             <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
             <td class="university-size-2-3">
-                <input type="text" name="applicationNo" value="${studInstance?.applicationNo}" onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
+                <input type="text" name="applicationNo" value="${studInstance?.applicationNo}"
+                       onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10"
+                       class="university-size-1-2"/>
                 <label id="errorMsg" class="error1"></label>
             </td>
         </tr>
@@ -166,7 +180,8 @@
 
     <td>
         %{--<input type="text" name="d_o_b" maxlength="10" class="university-size-1-2" id="datePick"/>--}%
-        <input type="text" name="d_o_b" maxlength="10" PLACEHOLDER="DD/MM/YYYY" class="university-size-1-2" id="datepicker"
+        <input type="text" name="d_o_b" maxlength="10" PLACEHOLDER="DD/MM/YYYY" class="university-size-1-2"
+               id="datepicker"
                value="<g:formatDate format="dd/MM/yyyy" date="${studInstance?.dob}"/>">
 
     </td>
@@ -206,7 +221,8 @@
 
             <label><span>ST</span><input type="radio" name="category" value="S.T" class="radioInput"/></label>
 
-            <label><span>MINORITY</span><input type="radio" name="category" value="MINORITY COMMUNITY" class="radioInput"/>
+            <label><span>MINORITY</span><input type="radio" name="category" value="MINORITY COMMUNITY"
+                                               class="radioInput"/>
             </label>
         </div>
     </td>
@@ -312,15 +328,21 @@
     </td>
 </tr>
 <tr>
-<!----- GU Registration Number( If already registered in GU) ---------------------------------------------------------->
-<td>GU Registration Number (if already registered in GU)</td>
-<td>
-<input type="text" name="registrationNo1" id="registrationNo1" maxlength="9" onchange="enableDisableCheckbox()" class="university-size-1-4"
-onkeypress="return isNumber(event)"/> Of
-<input type="text" name="registrationNo2" id="registrationNo2" maxlength="7" class="university-size-1-4"
-onkeypress="return isNumberWithDash(event)"/>
-   &nbsp;&nbsp;&nbsp;Or&nbsp;&nbsp;&nbsp;<label style="text-align: left"><input type="checkbox" value="Y" onclick="enableDisableTextBox()" name="isAppliedFor" id="isAppliedFor"  class="university-size-1-4"/>A/F</label>
-</td>
+    <!----- GU Registration Number( If already registered in GU) ---------------------------------------------------------->
+    <td>GU Registration Number (if already registered in GU)</td>
+    <td>
+        <input type="text" name="registrationNo1" id="registrationNo1" maxlength="9" onchange="enableDisableCheckbox()"
+               class="university-size-1-4"
+               onkeypress="return isNumber(event)"/> Of
+        <input type="text" name="registrationNo2" id="registrationNo2" maxlength="7" class="university-size-1-4"
+               onkeypress="return isNumberWithDash(event)"/>
+        &nbsp;&nbsp;&nbsp;Or&nbsp;&nbsp;&nbsp;<label style="text-align: left"><input type="checkbox" value="Y"
+                                                                                     onclick="enableDisableTextBox()"
+                                                                                     name="isAppliedFor"
+                                                                                     id="isAppliedFor"
+                                                                                     class="university-size-1-4"/>A/F
+    </label>
+    </td>
 </tr>
 
 <!----- Address ---------------------------------------------------------->
@@ -346,13 +368,16 @@ onkeypress="return isNumberWithDash(event)"/>
             <tr>
                 <td style="width: 30%;">Village/Town:</td>
                 <td style="width: 70%;"><input type="text" id="townName" name="addressTown" maxlength="30"
-                                               value="${studInstance?.addressTown}" onkeypress="return isAlphaNumeric(event);"
+                                               value="${studInstance?.addressTown}"
+                                               onkeypress="return isAlphaNumeric(event);"
                                                class="university-size-1-2"/></td>
             </tr>
             <tr>
 
                 <td style="width: 30%;">Post Office:</td>
-                <td style="width: 70%;"><input type="text" id="poAddress" name="addressPO" onkeypress="return onlyAlphabets(event);" value="${studInstance?.addressPO}"
+                <td style="width: 70%;"><input type="text" id="poAddress" name="addressPO"
+                                               onkeypress="return onlyAlphabets(event);"
+                                               value="${studInstance?.addressPO}"
                                                maxlength="30" class="university-size-1-2"/>
                 </td>
             </tr>
@@ -360,19 +385,22 @@ onkeypress="return isNumberWithDash(event)"/>
                 <td style="width: 30%;">District:</td>
 
                 <td style="width: 70%;"><input type="text" value="${studInstance?.addressDistrict}"
-                                               name="addressDistrict" onkeypress="return onlyAlphabets(event);" maxlength="30" id="addDistrict"
+                                               name="addressDistrict" onkeypress="return onlyAlphabets(event);"
+                                               maxlength="30" id="addDistrict"
                                                class="university-size-1-2"/></td>
             </tr>
             <tr>
                 <td style="width: 30%;">State:</td>
-                <td style="width: 70%;"><input type="text" value="${studInstance?.addressState}" name="addressState" onkeypress="return onlyAlphabets(event);"
+                <td style="width: 70%;"><input type="text" value="${studInstance?.addressState}" name="addressState"
+                                               onkeypress="return onlyAlphabets(event);"
                                                maxlength="30" id="stateAddress"
                                                class="university-size-1-2"/>
                 </td>
             </tr>
             <tr>
                 <td style="width: 30%;">Pincode:</td>
-                <td style="width: 70%;"><input type="text" value="${studInstance?.addressPinCode}" name="addressPinCode" id="pincode"
+                <td style="width: 70%;"><input type="text" value="${studInstance?.addressPinCode}" name="addressPinCode"
+                                               id="pincode"
                                                maxlength="6"
                                                class="university-size-1-2"
                                                onkeypress="return isNumber(event)"/></td>
@@ -383,7 +411,8 @@ onkeypress="return isNumberWithDash(event)"/>
 <sec:ifNotLoggedIn>
     <tr>
         <td>
-            Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 50KB )<span class="university-obligatory">*</span>
+            Upload recent Passport size Photograph ( black & white, Resolution: [200 X 150] and Size: Less then 50KB )<span
+                class="university-obligatory">*</span>
         </td>
         <td>
         %{--<input type='file' onchange="readURL(this);" />--}%
@@ -421,7 +450,8 @@ onkeypress="return isNumberWithDash(event)"/>
             </g:if>
             <g:else>
                 <div id="profile-image" class='registration-image-div'><img src="" alt="Space for Photograph "
-                                             class="university-registration-photo" id="picture"/></div>
+                                                                            class="university-registration-photo"
+                                                                            id="picture"/></div>
                 <input type='file' id="profileImage" onchange="readURL(this, 'picture');" class="university-button"
                        name="photograph"/>
             </g:else>
@@ -442,7 +472,8 @@ onkeypress="return isNumberWithDash(event)"/>
                         <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
                                       optionValue="bankName"
                                       from="${bankName}" noSelection="['': ' Select Bank']"
-                                      onchange="loadBranch(this)"/></td>
+                                      onchange="loadBranch(this)"/> <label style="margin-left: 10px;"><input type="checkbox" id="bankCheckBox" onclick="putOtherBank()" value="other"/>Other<label>
+                        </td>
                     </tr>
                     <tr>
                         <td>Branch Name<span class="university-obligatory">*</span></td>
@@ -463,12 +494,14 @@ onkeypress="return isNumberWithDash(event)"/>
                     </tr>
                     <tr>
                         <td>DD/RTGS/NEFT Number<span class="university-obligatory">*</span></td>
-                        <td><input type="text" name="feeReferenceNumber" maxlength="8"  class="university-size-1-2" onkeypress="return isNumber(event)"
+                        <td><input type="text" name="feeReferenceNumber" maxlength="8" class="university-size-1-2"
+                                   onkeypress="return isNumber(event)"
                                    id="feeReferenceNumber"/></td>
                     </tr>
                     <tr>
                         <td>Payment Date<span class="university-obligatory">*</span></td>
-                        <td><input type="text" name="paymentDate" onkeypress="disableKeyInput(this)" class="university-size-1-2" id="paymentDate"/></td>
+                        <td><input type="text" name="paymentDate" onkeypress="disableKeyInput(this)"
+                                   class="university-size-1-2" id="paymentDate"/></td>
                     </tr>
                 </table>
             </fieldset>
@@ -537,17 +570,17 @@ onkeypress="return isNumberWithDash(event)"/>
             });
         });
     });
-      $('#submitButton').on('click', function(){
-          if($('#studentRegister').valid()) {
-              setTimeout(function () {
-                  $('#studentRegister')[0].reset();
-               var abc= $('#picture2').remove();
-                  $('#profile-image').append('<img src="" alt="Space for Photograph " class="university-registration-photo" id="picture2"/>')
+    $('#submitButton').on('click', function () {
+        if ($('#studentRegister').valid()) {
+            setTimeout(function () {
+                $('#studentRegister')[0].reset();
+                var abc = $('#picture2').remove();
+                $('#profile-image').append('<img src="" alt="Space for Photograph " class="university-registration-photo" id="picture2"/>')
 //                  location.reload()
-              }, 1000)
+            }, 1000)
 
-          }
-      })
+        }
+    })
 </script>
 </body>
 </html>

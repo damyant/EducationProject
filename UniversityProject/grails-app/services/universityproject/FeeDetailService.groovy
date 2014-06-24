@@ -401,15 +401,7 @@ class FeeDetailService {
     def rollNumberFeeStatus(params){
         def returnMap=[:]
         def studInst=Student.findByRollNo(params.rollNo)
-        if(studInst.challanNo!=null) {
-            def admissionChallanIns = FeeDetails.findByChallanNo(studInst.challanNo)
-            def admissionChallanStatus
-            if(studInst.status.id==4){
-                admissionChallanStatus=studInst.status.status
-            }
-            else{
-                admissionChallanStatus='Not Approved'
-            }
+
             def miscFeeList = FeeDetails.findAllByStudent(studInst)
 //            println(miscFeeList)
             def miscFeeStatus = []
@@ -417,6 +409,7 @@ class FeeDetailService {
             def mPayDate = []
             miscFeeList.each {
                 def status = FeeDetails.findByChallanNo(it.challanNo)
+                println(status.paymentDate)
                 if (status) {
                     miscFeeStatus.add('Approved')
                     mPayDate<<status.paymentDate
@@ -427,27 +420,27 @@ class FeeDetailService {
                 miscFeetype.add(it.feeType.type)
 
             }
-            def aPayDate
-            if(admissionChallanIns){
-                returnMap.admissionChallan = admissionChallanIns.challanNo
-                aPayDate=admissionChallanIns.paymentDate
-            }
-            else{
-                returnMap.admissionChallan = studInst.challanNo
-                aPayDate="Not Paid"
-            }
-            returnMap.aPayDate = aPayDate
+//            def aPayDate
+//            if(admissionChallanIns){
+//                returnMap.admissionChallan = admissionChallanIns.challanNo
+//                aPayDate=admissionChallanIns.paymentDate
+//            }
+//            else{
+//                returnMap.admissionChallan = studInst.challanNo
+//                aPayDate="Not Paid"
+//            }
+//            returnMap.aPayDate = aPayDate
             returnMap.mPayDate = mPayDate
             returnMap.studInst = studInst
 
             returnMap.miscFeeList = miscFeeList
             returnMap.miscFeeStatus = miscFeeStatus
             returnMap.miscFeetype = miscFeetype
-            returnMap.admissionChallanStatus = admissionChallanStatus
-        }
-        else{
-            returnMap.error = "No Challan Generated Yet"
-        }
+//            returnMap.admissionChallanStatus = admissionChallanStatus
+//        }
+//        else{
+//            returnMap.error = "No Challan Generated Yet"
+//        }
         return returnMap
     }
 

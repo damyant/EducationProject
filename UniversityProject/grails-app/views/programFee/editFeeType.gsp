@@ -124,8 +124,7 @@
                             </div>
                         </div>
                         <g:javascript>
-
-                         feeTypeList.push(${miscellaneousFeeList[index]?.feeType?.id})
+                         feeTypeList.push(${miscFee[index]?.id})
                         </g:javascript>
 
                     </g:each>
