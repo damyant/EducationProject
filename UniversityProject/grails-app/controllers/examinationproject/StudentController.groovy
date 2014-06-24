@@ -105,7 +105,22 @@ class StudentController {
                     catch(NullPointerException e){
                         payableFee=0
                     }
-                    def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
+                    def feeDetails=[:]
+                    feeDetails.challanNo=student.challanNo
+                    if(params.bankCheckBox){
+                        feeDetails.bankName=params.bankName
+                        feeDetails.branchName=params.branchName
+                    }
+                    else{
+                        feeDetails.bankName=Bank.findById(params.bankName).bankName
+                        feeDetails.branchName=Branch.findById(params.branchName).branchLocation
+                    }
+
+                    feeDetails.paymentMode=PaymentMode.findById(params.paymentMode).paymentModeName
+                    feeDetails.admissionFeeAmount=params.admissionFeeAmount
+                    feeDetails.feeReferenceNumber=params.feeReferenceNumber
+                    feeDetails.paymentDate=params.paymentDate
+//                    def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
                     def args = [template: "applicationPrintPreview", model: [studentInstance: studentRegistration,feeDetails:feeDetails,payableFee:payableFee],filename:studentRegistration.firstName+".pdf"]
                     pdfRenderingService.render(args + [controller: this], response)
                 }

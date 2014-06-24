@@ -7,18 +7,12 @@ import examinationproject.City
 import examinationproject.CustomChallan
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
-<<<<<<< HEAD
-import examinationproject.FeeSession
-import examinationproject.FeeType
-import examinationproject.MiscellaneousFee
-=======
+
 
 import examinationproject.FeeSession
 
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
-
->>>>>>> c274f26c3cfe9039465fe69783f2fa42e232ff75
 import examinationproject.MiscellaneousFeeChallan
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
@@ -134,7 +128,8 @@ class StudentRegistrationService {
                     programSessionIns = programIns[0]
                 }
             }
-        } else {
+        }
+        else {
             programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
         }
         studentRegistration.programSession = programSessionIns
@@ -147,31 +142,20 @@ class StudentRegistrationService {
             if (photographe.bytes)
                 studentRegistration.studentImage = photographe.bytes
         } else {
-//            println("in else true" + params.appNo)
             studentRegistration.applicationNo = params.applicationNo
         }
         studentRegistration.semester = 1
         studentRegistration.admitCardGenerated = false
         if (studentRegistration.save(flush: true, failOnError: true)) {
             if (!springSecurityService.isLoggedIn()) {
-
                 def feeDetails = new FeeDetails()
-//                feeDetails.bankId = Bank.findById(Integer.parseInt(params.bankName))
-//                feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
-//                feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
                 feeDetails.feeType = FeeType.findById(3)
-//                feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
-//                feeDetails.challanDate = new Date()
-                feeDetails.paidAmount=Integer.parseInt(params.admissionFeeAmount)
+                feeDetails.paidAmount = Integer.parseInt(params.admissionFeeAmount)
                 feeDetails.challanNo = studentRegistration.challanNo
-//                feeDetails.paymentDate = df.parse(params.paymentDate)
-                feeDetails.save(flush: true, failOnError: true)
-                def miscellaneousFeeChallanIns = new FeeDetails()
-                miscellaneousFeeChallanIns.feeType = FeeType.get(3)
-                miscellaneousFeeChallanIns.student = studentRegistration
-                miscellaneousFeeChallanIns.semesterValue=1
-                miscellaneousFeeChallanIns.challanNo = studentRegistration.challanNo
-                miscellaneousFeeChallanIns.save(failOnError: true,flush: true)
+                feeDetails.challanDate = new Date()
+                feeDetails.student = studentRegistration
+                feeDetails.semesterValue = 1
+                feeDetails.save(failOnError: true, flush: true)
             }
             return studentRegistration
         } else {
@@ -359,7 +343,7 @@ class StudentRegistrationService {
         def studentIdList = params.studentList.split(",")
         studentIdList.each { i ->
             def stuObj = Student.findById(Long.parseLong(i.toString()))
-            stuObj.status = Status.findById(Long.parseLong("3"))
+            stuObj.status = Status.findById(Long.parseLong("2"))
             stuObj.save(failOnError: true)
         }
     }
@@ -560,31 +544,31 @@ class StudentRegistrationService {
         resultMap.challanNo = challanNo
         return resultMap
     }
-    def getAdmissionFeeAmount(studentRegistration)
-    {
-        def infoMap =[:]
+
+    def getAdmissionFeeAmount(studentRegistration) {
+        def infoMap = [:]
         def student = Student.findByRollNo(studentRegistration.rollNo)
 //            println("program"+student.programDetail)
         def program = student.programDetail
         def feeTypeId
         def feeType = null
         def args
-        def lateFee=0
+        def lateFee = 0
         def programFeeAmount = 0
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(cal.YEAR);
-        def sessionVal= year+1
-        sessionVal= year+'-'+sessionVal
+        def sessionVal = year + 1
+        sessionVal = year + '-' + sessionVal
 
-        def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
+        def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id), sessionVal)
         def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
-        println('this is the programFee '+programFee)
+        println('this is the programFee ' + programFee)
 
-        try{
-            def lateFeeDate=student.programDetail.lateFeeDate[0]
-            def today=new Date()
-            if(lateFeeDate!=null) {
+        try {
+            def lateFeeDate = student.programDetail.lateFeeDate[0]
+            def today = new Date()
+            if (lateFeeDate != null) {
                 if (today.compareTo(lateFeeDate) > 0) {
 
                     lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
@@ -592,11 +576,11 @@ class StudentRegistrationService {
                 }
             }
             feeType = null
-            programFeeAmount = programFee.feeAmountAtIDOL+lateFee
-        }catch(Exception e){
-            println("this exception occurred here "+ e)
-            flash.message="Late Fee Date is not assigned! "
-            redirect(controller: student, action:enrollmentAtIdol)
+            programFeeAmount = programFee.feeAmountAtIDOL + lateFee
+        } catch (Exception e) {
+            println("this exception occurred here " + e)
+            flash.message = "Late Fee Date is not assigned! "
+            redirect(controller: student, action: enrollmentAtIdol)
 
         }
     }

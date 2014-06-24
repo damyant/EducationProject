@@ -470,7 +470,7 @@
                                       onchange="loadBranch(this)"/>
                             <input type="text" disabled name="bankName" hidden="true" id="otherBank" class="university-size-1-2"/>
                             <label style="margin-left: 10px;">
-                            <input type="checkbox" id="bankCheckBox" onclick="putOtherBank()" value="other"/>Other</label>
+                            <input type="checkbox" id="bankCheckBox" name="bankCheckBox" onclick="putOtherBank()" value="other"/>Other</label>
                         </td>
                     </tr>
                     <tr>
@@ -478,7 +478,7 @@
                         <td><g:select name="branchName" class="university-size-1-2" optionKey=""
                                       optionValue="" id="branchLocation"
                                       from="" noSelection="['': ' Select Branch']"/>
-                            <input type="text" disabled name="bankName" hidden="true" id="otherBankBranch" class="university-size-1-2"/>
+                            <input type="text" disabled name="branchName" hidden="true" id="otherBankBranch" class="university-size-1-2"/>
                         </td>
                     </tr>
                     <tr>
