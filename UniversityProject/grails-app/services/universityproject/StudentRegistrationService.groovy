@@ -300,7 +300,7 @@ class StudentRegistrationService {
                 stuObj = Student.findById(i)
                 if (!stuObj.rollNo)
                     stuObj.rollNo = rollNumber
-                stuObj.status = Status.findById(Long.parseLong("3"))
+                stuObj.status = Status.findById(Long.parseLong("2"))
                 stuObj.save(flush: true, failOnError: true)
                 j++
             }

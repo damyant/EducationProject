@@ -107,8 +107,8 @@ class FeeDetailService {
         def obj = Student.createCriteria()
         def currentUser=springSecurityService.getCurrentUser()
         def stuList=[]
-        if(params.program!='All'){
-//            println("!!!!!ALl=!!!All")
+
+        if(params.program!='All' && params.semester!='All'){
             stuList = obj.list {
                 programDetail {
                     eq('id', Long.parseLong(params.program))
@@ -118,36 +118,50 @@ class FeeDetailService {
                 }
                 and {
                     eq('status', Status.findById(2))
-//                    eq('semester', Integer.parseInt(params.semester))
                     isNull('challanNo')
+                    eq('semester', Integer.parseInt(params.semester))
                 }
             }
         }
-        else if(params.program=='All'){
+        else if(params.program=='All' && params.semester!='All'){
             stuList = obj.list {
                 studyCentre {
                     eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
                 }
                 and {
-                    eq('status', Status.findById(2))
-                    isNull('challanNo')
+                        eq('status', Status.findById(2))
+                        isNull('challanNo')
+                    eq('semester', Long.parseLong(params.semester))
                 }
             }
 
         }
+        else if(params.program!='All' && params.semester=='All'){
+            stuList = obj.list {
+                programDetail {
+                    eq('id', Long.parseLong(params.program))
+                }
+                studyCentre {
+                    eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
+                }
+                and {
+                    eq('status', Status.findById(2))
+                }
+            }
+        }
         else {
-//            println("ALl=All")
             stuList = obj.list {
                 studyCentre {
                     eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
                 }
                 and {
                     eq('status', Status.findById(2))
-                    isNull('challanNo')
                 }
             }
         }
-        println(stuList)
+
+//        println("*******************>> "+stuList)
+        if(stuList.size()>0){
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
         def feeList = FeeType.list(sort:'type')
@@ -166,12 +180,6 @@ class FeeDetailService {
                 def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(stuList[i].programDetail[0].id),sessionVal)
 
                 if(prevProgram!=stuList[i].programDetail.courseName) {
-
-
-
-//                    def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
-
-
                     def lateFeeDate = stuList[i].programDetail.lateFeeDate[0]
                     def amount = AdmissionFee.findByFeeSession(feeSessionObj)
                     prevProgram=stuList[i].programDetail.courseName
@@ -182,13 +190,11 @@ class FeeDetailService {
                     }
                     payableAmount = amount.feeAmountAtSC + lateFee
                 }
-
-
                 feeAmountList.add(payableAmount)
             }
         }
         else{
-            println("??????????"+stuList[0])
+//            println("??????????"+stuList[0])
             def lateFeeDate = stuList[0].programDetail.lateFeeDate[0]
             int year=stuList[0].registrationYear
             def sessionVal= year+1
@@ -196,7 +202,7 @@ class FeeDetailService {
 
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(stuList[0].programDetail[0].id),sessionVal)
             def amount = AdmissionFee.findByFeeSession(feeSessionObj)
-            println("this is the amount "+ amount)
+//            println("this is the amount "+ amount)
 
             if (lateFeeDate != null) {
                 if (today.compareTo(lateFeeDate) > 0) {
@@ -213,6 +219,10 @@ class FeeDetailService {
         resultMap.paymentMode=paymentMode
         resultMap.feeList=feeList
         resultMap.feeAmount=feeAmountList
+        }
+        else{
+            resultMap.error="NO STUDENT AVAILABLE"
+        }
         return resultMap
     }
 

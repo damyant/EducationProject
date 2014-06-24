@@ -130,7 +130,7 @@ function getSemester(t){
     $('#studyCenterFeeEntryTable').prop('hidden', true)
     $('#allProgram').prop('checked', false)
     $('#rangeRadioButtons').prop('hidden', true)
-   var test= $("#paymentDetails").length
+    var test= $("#paymentDetails").length
     if(test>0) {
         document.getElementById("paymentDetails").style.visibility = "hidden"
     }
@@ -142,23 +142,23 @@ function getSemester(t){
     $('#semesterList').prop('disabled',false)
     $('#SessionList').prop('disabled',false)
     if(data){
-    $.ajax({
-        type: "post",
-        url: url('admitCard', 'getSemesterList', ''),
-        data: {data: data},
-        success: function (data) {
-            $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+        $.ajax({
+            type: "post",
+            url: url('admitCard', 'getSemesterList', ''),
+            data: {data: data},
+            success: function (data) {
+                $("#semesterList").empty().append('data <option value="">Select Semester</option>')
 
-            $("#SessionList").empty().append('data <option value="">Select Session</option>')
+                $("#SessionList").empty().append('data <option value="">Select Session</option>')
 
-            for (var i = 1; i <= data.totalSem; i++) {
-                $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+                for (var i = 1; i <= data.totalSem; i++) {
+                    $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+                }
+                for (var i = 0; i < data.session.length; i++) {
+                    $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
+                }
             }
-            for (var i = 0; i < data.session.length; i++) {
-                $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
-            }
-        }
-    })
+        })
     }
     else{
         $("#semesterList").empty().append('data <option value="">Select Semester</option>')
@@ -167,6 +167,31 @@ function getSemester(t){
         $("#subjectList").empty();
 
 
+    }
+
+}
+function getTermByCatagory(t){
+
+    var data = $(t).val();
+    var catagory = $('#programCategory').val();
+    $('#semesterList').prop('disabled',false)
+    $('#SessionList').prop('disabled',false)
+    if(data){
+        $.ajax({
+            type: "post",
+            url: url('admitCard', 'getTermListByCatagory', ''),
+            data: {data: data,catagory:catagory},
+            success: function (data) {
+                $("#semesterList").empty().append('data <option value="">Select Term</option>')
+
+                for (var i = 1; i <= data.totalSem; i++) {
+                    $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+                }
+            }
+        })
+    }
+    else{
+        $("#semesterList").empty().append('data <option value="">Select Semester</option>')
     }
 
 }
