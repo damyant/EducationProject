@@ -410,7 +410,7 @@ class FeeDetailService {
             else{
                 admissionChallanStatus='Not Approved'
             }
-            def miscFeeList = MiscellaneousFeeChallan.findAllByStudent(studInst)
+            def miscFeeList = FeeDetails.findAllByStudent(studInst)
 //            println(miscFeeList)
             def miscFeeStatus = []
             def miscFeetype = []
@@ -458,7 +458,7 @@ class FeeDetailService {
         obj.each{
             it.delete(failOnError:true)
         }
-        def objMisFeeChallan=MiscellaneousFeeChallan.findByFeeType(feeType)
+        def objMisFeeChallan=FeeDetails.findByFeeType(feeType)
         objMisFeeChallan.each{
             it.delete(failOnError:true)
         }

@@ -297,7 +297,7 @@ class FeeDetailsController {
 //            def feeType=FeeType.findById(params.feeCategory)
             def stuIns= Student.findByRollNo(params.rollNoSearch)
             studyCentre=stuIns.studyCentre
-            def mFeeInstance = new MiscellaneousFeeChallan()
+            def mFeeInstance = new FeeDetails()
             mFeeInstance.challanNo=challanNo
             mFeeInstance.feeType=feeType
             mFeeInstance.student=stuIns
@@ -322,7 +322,7 @@ class FeeDetailsController {
             stuList=params.studentListId.split(",")
             for(def i=0;i<stuList.size();i++){
 //                println("**********"+stuList[i]);
-                def mFeeInstance = new MiscellaneousFeeChallan()
+                def mFeeInstance = new FeeDetails()
                 def stuIns=Student.findById(Long.parseLong(stuList[i]))
                 if(i==0){
                     studyCentre=stuIns.studyCentre
@@ -420,7 +420,7 @@ class FeeDetailsController {
             feeDetailsInstance.paymentModeId = PaymentMode.findById(params.paymentMode)
             feeDetailsInstance.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
             feeDetailsInstance.bankId = Bank.findById(params.bankName)
-            feeDetailsInstance.isAdmission= true
+//            feeDetailsInstance.isAdmission= true
             feeDetailsInstance.branchId = Branch.findById(params.branchLocation)
             feeDetailsInstance.challanDate = new Date()
             feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
@@ -457,7 +457,7 @@ class FeeDetailsController {
         def courseNameList=[],courseFee=[],feeType=[]
         def stuList= []
         def studyCentre
-        def miscFeeChallanList=  MiscellaneousFeeChallan.findAllByChallanNo(params.searchChallanNo)
+        def miscFeeChallanList=  FeeDetails.findAllByChallanNo(params.searchChallanNo)
         miscFeeChallanList.each{
 //            println("==="+it.student.programDetail)
             stuList<<it.student
@@ -529,13 +529,13 @@ class FeeDetailsController {
 //        println("params are=="+params)
         def returnMap=[:]
         def studObj=Student.findByRollNo(params.rollNumberInput)
-        def misFeeObj= MiscellaneousFeeChallan.findByStudentAndSemesterValueAndFeeType(studObj,Integer.parseInt(params.semester),FeeType.findById(Long.parseLong(params.postFeeType)))
+        def misFeeObj= FeeDetails.findByStudentAndSemesterValueAndFeeType(studObj,Integer.parseInt(params.semester),FeeType.findById(Long.parseLong(params.postFeeType)))
            println("+++++++++++++++++"+misFeeObj)
             if(misFeeObj){
                 returnMap.feePaid=true
                }
             else if(Integer.parseInt(params.semester)>1){
-                def misFeeObj2= MiscellaneousFeeChallan.findByStudentAndSemesterValueAndFeeType(studObj,Integer.parseInt(params.semester)-1,FeeType.findById(Long.parseLong(params.postFeeType)))
+                def misFeeObj2= FeeDetails.findByStudentAndSemesterValueAndFeeType(studObj,Integer.parseInt(params.semester)-1,FeeType.findById(Long.parseLong(params.postFeeType)))
                 if(misFeeObj2){
 
 
@@ -552,7 +552,7 @@ class FeeDetailsController {
 
     def savePostExamFee={
 
-        def misFeeObj= new MiscellaneousFeeChallan()
+        def misFeeObj= new FeeDetails()
         misFeeObj.semesterValue=Integer.parseInt(params.semester)
         misFeeObj.challanNo=studentRegistrationService.getChallanNumber()
         misFeeObj.feeType=FeeType.findById(Long.parseLong(params.postFeeType))

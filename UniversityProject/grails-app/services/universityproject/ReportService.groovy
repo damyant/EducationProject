@@ -3,6 +3,7 @@ package universityproject
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.FeeType
+import examinationproject.MiscellaneousFeeChallan
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
 import examinationproject.ProgramSession
@@ -548,8 +549,22 @@ class ReportService {
         def fromDate = df.parse(params.studyCentreFeeFromDate)
         def toDate = df.parse(params.studyCentreFeeToDate)
         println('now going to fetch the fee records *** '+ fromDate+ ' and the to date is '+ toDate)
+        def feeType = FeeType.list(sort:'type');
         def feeDet
         def studentInstance
+        studentList.each{
+            studentInstance = it
+            feeType.each{
+                def feeTypeIns = it
+                def misFeeChallan = FeeDetails.createCriteria()
+                def musFeeList = misFeeChallan.list{
+                 eq('student', studentInstance)
+                 and {
+                     eq('feeType', feeTypeIns)
+                 }
+                }
+            }
+        }
         studentList.each{
             def feeObj = FeeDetails.createCriteria()
             println("***** "+it.challanNo)

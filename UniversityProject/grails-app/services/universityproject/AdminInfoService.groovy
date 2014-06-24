@@ -220,7 +220,7 @@ def springSecurityService
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         feeDetailsInstance.challanNo= student.challanNo
         feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
-        feeDetailsInstance.isAdmission =1
+//        feeDetailsInstance.isAdmission =1
         feeDetailsInstance.bankId = Bank.findById(Long.parseLong(params.bankId))
         feeDetailsInstance.branchId = Branch.findById(Long.parseLong(params.branchId))
         feeDetailsInstance.paymentModeId =PaymentMode.findById(Long.parseLong(params.paymentModeId))

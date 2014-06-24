@@ -368,7 +368,7 @@ class StudentController {
         def student = Student.findById(params.studentId)
 //        println("Challan Number"+student.addressDistrict)
         def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
-        def miscellaneousFeeChallan = MiscellaneousFeeChallan.findById(student.id)
+        def miscellaneousFeeChallan = FeeDetails.findById(student.id)
         [studInstance:student,feeDetails: feeDetails]
     }
     @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
