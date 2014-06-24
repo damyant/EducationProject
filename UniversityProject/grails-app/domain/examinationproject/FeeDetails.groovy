@@ -5,7 +5,6 @@ package examinationproject
 class FeeDetails {
     String challanNo
     int paidAmount
-//    Boolean isAdmission=false
     PaymentMode paymentModeId
     Date paymentDate
     Date challanDate
@@ -35,9 +34,9 @@ class FeeDetails {
 
     static mapping = {
         challanNo column: "challanNo"
-//        feeTypeId column: "FeeTypeId",defaultValue: "0"
+        isApproved column: "isApproved"
         paymentModeId column: "PaymentModeId"
-         paymentDate column: "PaymentDate"
+        paymentDate column: "PaymentDate"
         challanDate column: "ChallanDate"
         paymentReferenceNumber column: "ReferenceNumber"
         bankId column: "BankId"

@@ -283,3 +283,25 @@ function enableDisableTextBox(){
         $('#registrationNo2').prop('disabled',false)
     }
 }
+function putOtherBank(){
+    if($("#bankCheckBox").prop('checked')==true){
+        $('#otherBank').prop('disabled',false)
+        $('#otherBankBranch').prop('disabled',false)
+        $('#bankName').prop('disabled',true)
+        $('#branchLocation').prop('disabled',true)
+        $('#otherBank').prop('hidden',false)
+        $('#otherBankBranch').prop('hidden',false)
+        $('#bankName').prop('hidden',true)
+        $('#branchLocation').prop('hidden',true)
+    }
+    else{
+        $('#bankName').prop('disabled',false)
+        $('#branchLocation').prop('disabled',false)
+        $('#otherBank').prop('disabled',true)
+        $('#otherBankBranch').prop('disabled',true)
+        $('#otherBank').prop('hidden',true)
+        $('#otherBankBranch').prop('hidden',true)
+        $('#bankName').prop('hidden',false)
+        $('#branchLocation').prop('hidden',false)
+    }
+}
