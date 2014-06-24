@@ -87,17 +87,14 @@ class StudentController {
                     flash.message = "${message(code: 'register.created.message')} & Roll Number is "+studentRegistration.rollNo
                     redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
                 }else{
-//                    flash.message = "${message(code: 'register.created.message')}"
                     def student = studentRegistration
                     def lateFee=0
                     def payableFee=0
                     try {
-//            def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
                         def lateFeeDate = student.programDetail.lateFeeDate[0]
                         def today = new Date()
                         if(lateFeeDate!=null) {
                             if (today.compareTo(lateFeeDate) > 0) {
-//                                lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
                                 lateFee = AdmissionFee.findByFeeSession(FeeSession.findByProgramDetailId(student.programDetail[0])).lateFeeAmount
                             }
                         }
@@ -110,25 +107,17 @@ class StudentController {
                     }
                     def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
                     def args = [template: "applicationPrintPreview", model: [studentInstance: studentRegistration,feeDetails:feeDetails,payableFee:payableFee],filename:studentRegistration.firstName+".pdf"]
-                    println('city of the student is '+ studentRegistration.city)
-                    println('hello kuldeep');
                     pdfRenderingService.render(args + [controller: this], response)
-//                    flash.message = "${message(code: 'register.created.message')}"
-//                    redirect(action: "registration")
                 }
             }
-
         } else {
-//                println("Cannot Register new Student")
                 flash.message = "${message(code: 'register.notCreated.message')}"
                 redirect(action: "registration")
         }
-
     }
 
 
     def applicationPrintPreview = {
-//        println("params" + params)
         def student = Student.findById(params.studentID)
         def lateFee=0
         def payableFee=0

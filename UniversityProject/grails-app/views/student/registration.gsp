@@ -88,16 +88,12 @@
 <g:hiddenField name="studentId" value="${studInstance?.id}"/>
 
 <sec:ifNotLoggedIn>
-    <table class="university-size-1-1" cellpadding="1" style="border: 1px solid brown;margin: 15px auto;font-size: 11px;">
+    <table class="university-size-1-1" cellspacing="0" cellpadding="0" style="border: 1px solid brown;margin: 15px auto;">
         <tr>
-            <td>
-              <i>  * Demand Draft in favour of</i><b> IDOL, Gauhati University.</b>
-            </td>
-        </tr>
-        <tr>
-            <td>
-               <i>* Take print of the Generated PDF and send to</i>
-                <b>IDOL, Gauhati University</b><i> along with the </i><b>Bank Draft</b>.
+            <td style="line-height:10px;font-size: 10px;">
+              <div><i>  * Demand Draft in favour of</i><b> IDOL, Gauhati University.</b></div>
+              <div style="margin-top: 4px;"><i>* Take print of the Generated PDF and send to</i>
+                <b>IDOL, Gauhati University</b><i> along with the </i><b>Bank Draft</b>.</div>
             </td>
         </tr>
     </table>
@@ -250,7 +246,7 @@
         <div class="radio_options">
             <label><span>Male</span><input type="radio" name="gender" value="Male" class="radioInput"/></label>
             <label><span>Female</span><input type="radio" name="gender" value="Female" class="radioInput"/></label>
-            <label><span>Other</span><input type="radio" name="gender" value="Other" class="radioInput"/></label>
+            %{--<label><span>Other</span><input type="radio" name="gender" value="Other" class="radioInput"/></label>--}%
 
         </div>
     </td>
@@ -462,7 +458,6 @@
 
 <sec:ifNotLoggedIn>
     <tr>
-
         <td colspan="2">
             <fieldset>
                 <legend>Fee Details</legend>
@@ -472,14 +467,19 @@
                         <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
                                       optionValue="bankName"
                                       from="${bankName}" noSelection="['': ' Select Bank']"
-                                      onchange="loadBranch(this)"/> <label style="margin-left: 10px;"><input type="checkbox" id="bankCheckBox" onclick="putOtherBank()" value="other"/>Other<label>
+                                      onchange="loadBranch(this)"/>
+                            <input type="text" disabled name="bankName" hidden="true" id="otherBank" class="university-size-1-2"/>
+                            <label style="margin-left: 10px;">
+                            <input type="checkbox" id="bankCheckBox" onclick="putOtherBank()" value="other"/>Other</label>
                         </td>
                     </tr>
                     <tr>
                         <td>Branch Name<span class="university-obligatory">*</span></td>
                         <td><g:select name="branchName" class="university-size-1-2" optionKey=""
                                       optionValue="" id="branchLocation"
-                                      from="" noSelection="['': ' Select Branch']"/></td>
+                                      from="" noSelection="['': ' Select Branch']"/>
+                            <input type="text" disabled name="bankName" hidden="true" id="otherBankBranch" class="university-size-1-2"/>
+                        </td>
                     </tr>
                     <tr>
                         <td>Admission Fee Amount<span class="university-obligatory">*</span></td>

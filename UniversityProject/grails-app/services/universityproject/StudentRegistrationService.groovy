@@ -7,12 +7,9 @@ import examinationproject.City
 import examinationproject.CustomChallan
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
-<<<<<<< HEAD
 import examinationproject.FeeSession
-=======
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
->>>>>>> 946cd3efd4a070f75fd73e2492c56147dc79ffe5
 import examinationproject.MiscellaneousFeeChallan
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
@@ -115,23 +112,6 @@ class StudentRegistrationService {
             studentRegistration.studyCentre = studyCentre
         }
         studentRegistration.dob = df.parse(params.d_o_b)
-//        def userDetails = springSecurityService.principal.getAuthorities()
-//        boolean  isAdmin = false
-//        for(def role in userDetails){ if(role.getAuthority() == "ROLE_ADMIN") //do something }
-//            if(role.getAuthority() == "ROLE_ADMIN") {
-//                isAdmin=true
-//            }
-//        }
-//        if(isAdmin)   {
-//            Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentre))
-//            studentRegistration.studyCentre = studyCentre
-//        }
-//        else{
-//            Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
-//            studentRegistration.studyCentre = studyCentre
-//        }
-//        Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
-//        studentRegistration.studyCentre = studyCentre
         Set<ProgramDetail> programDetail = ProgramDetail.findAllById(Integer.parseInt(params.programId))
         endYear = Integer.parseInt(year) + 1
         programSession = (startYear + "-" + endYear)
@@ -183,8 +163,6 @@ class StudentRegistrationService {
                 miscellaneousFeeChallanIns.semesterValue=1
                 miscellaneousFeeChallanIns.challanNo = studentRegistration.challanNo
                 miscellaneousFeeChallanIns.save(failOnError: true,flush: true)
-
-//                params.fee = params.admissionFeeAmount
             }
             return studentRegistration
         } else {
