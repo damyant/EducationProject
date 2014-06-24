@@ -551,6 +551,7 @@ class ReportService {
         println('now going to fetch the fee records *** '+ fromDate+ ' and the to date is '+ toDate)
         def feeType = FeeType.list(sort:'type');
         int finalTotal =0
+        int i=1
             feeType.each{
                 def feeTypeIns = it
                 def feeDetails = FeeDetails.createCriteria()
@@ -570,7 +571,8 @@ class ReportService {
                     }
                 }
               finalTotal = finalTotal+ totalForList
-              finalMap.put(it.type, musFeeList)
+              finalMap.put("a"+i, musFeeList)
+                i=i+1
               finalMap.put(it.type+' Total', totalForList)
             }
         finalMap.put('finalTotal', finalTotal)
@@ -728,24 +730,39 @@ class ReportService {
 
     //Added By Digvijay...
     def getReportDataDailyFeePaid(params){
-        def finalMap =[]
+        def finalMap =[:]
         def feeFromDate
         def feeToDate
         println("Report Service --> getReportDataDailyFeePaid--> Parameters Values :: "+ params)
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+         feeFromDate = df.parse(params.feeFromDate)
+         feeToDate = df.parse(params.feeToDate)
+        def feeType = FeeType.list(sort:'type')
+        int i=0
+        int finalTotal = 0
+        feeType.each{
+                def feeTypeIns = it
+                def feeObj = FeeDetails.createCriteria()
+                    def feeList = feeObj.list{
+                        eq('feeType', feeTypeIns)
+                        and{
+                            between('paymentDate', feeFromDate, feeToDate)
+                        }
+                    }
+            int totalForList =0
+            if(feeList){
+                feeList.each{
+                    totalForList = totalForList + it.paidAmount
+                }
+            }
+            finalTotal = finalTotal+ totalForList
+            finalMap.put("a"+i, feeList)
+            i=i+1
+            finalMap.put(it.type+' Total', totalForList)
+                println("List Value --> "+ feeList)
+                return feeList
+        }
 
-        def feeObj = FeeDetails.createCriteria()
-        def feeList = feeObj.list{
-            feeFromDate = new Date().parse("dd/MM/yyyy", params.feeFromDate)
-            feeToDate = new Date().parse("dd/MM/yyyy", params.feeToDate)
-            between('paymentDate', feeFromDate, feeToDate)
-        }
-        println("List Value --> "+ feeList)
-        feeList.each{
-            println("----------"+it.paymentReferenceNumber)
-            println("----------"+it.paymentModeId)
-        }
-        println("Returned List Value --> "+ feeList)
-        return feeList
     }
 
 
