@@ -118,7 +118,7 @@ def springSecurityService
          def courseSubjectObj=CourseSubject.findBySubjectAndProgramSession(Subject.findById(Long.parseLong(it)),sessionObj)
             println("###33333"+courseSubjectObj)
          if(params.examinationDate[count]){
-//             println("innnnnnnnnnn")
+             println("innnnnnnnnnn")
          courseSubjectObj.examDate=f1.parse(params.examinationDate[count])
           }
           else{
