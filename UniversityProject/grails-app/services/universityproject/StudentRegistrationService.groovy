@@ -7,9 +7,18 @@ import examinationproject.City
 import examinationproject.CustomChallan
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
+<<<<<<< HEAD
 import examinationproject.FeeSession
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
+=======
+
+import examinationproject.FeeSession
+
+import examinationproject.FeeType
+import examinationproject.MiscellaneousFee
+
+>>>>>>> c274f26c3cfe9039465fe69783f2fa42e232ff75
 import examinationproject.MiscellaneousFeeChallan
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
@@ -147,17 +156,17 @@ class StudentRegistrationService {
             if (!springSecurityService.isLoggedIn()) {
 
                 def feeDetails = new FeeDetails()
-                feeDetails.bankId = Bank.findById(Integer.parseInt(params.bankName))
-                feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
-                feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
-                feeDetails.isAdmission = true
-                feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
-                feeDetails.challanDate = new Date()
+//                feeDetails.bankId = Bank.findById(Integer.parseInt(params.bankName))
+//                feeDetails.branchId = Branch.findById(Integer.parseInt(params.branchName))
+//                feeDetails.paymentModeId = PaymentMode.findById(Integer.parseInt(params.paymentMode))
+                feeDetails.feeType = FeeType.findById(3)
+//                feeDetails.paymentReferenceNumber = Integer.parseInt(params.feeReferenceNumber)
+//                feeDetails.challanDate = new Date()
                 feeDetails.paidAmount=Integer.parseInt(params.admissionFeeAmount)
                 feeDetails.challanNo = studentRegistration.challanNo
-                feeDetails.paymentDate = df.parse(params.paymentDate)
+//                feeDetails.paymentDate = df.parse(params.paymentDate)
                 feeDetails.save(flush: true, failOnError: true)
-                def miscellaneousFeeChallanIns = new MiscellaneousFeeChallan()
+                def miscellaneousFeeChallanIns = new FeeDetails()
                 miscellaneousFeeChallanIns.feeType = FeeType.get(3)
                 miscellaneousFeeChallanIns.student = studentRegistration
                 miscellaneousFeeChallanIns.semesterValue=1
@@ -442,7 +451,7 @@ class StudentRegistrationService {
                 maxResults(1)
                 order("id", "desc")
             }
-            def mscObj = MiscellaneousFeeChallan.createCriteria()
+            def mscObj = FeeDetails.createCriteria()
             def MiscByChallanNo = mscObj.list {
                 maxResults(1)
                 order("id", "desc")

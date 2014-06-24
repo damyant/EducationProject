@@ -401,16 +401,8 @@ class FeeDetailService {
     def rollNumberFeeStatus(params){
         def returnMap=[:]
         def studInst=Student.findByRollNo(params.rollNo)
-//        if(studInst.challanNo!=null) {
-//            def admissionChallanIns = FeeDetails.findByChallanNo(studInst.challanNo)
-//            def admissionChallanStatus
-//            if(studInst.status.id==4){
-//                admissionChallanStatus=studInst.status.status
-//            }
-//            else{
-//                admissionChallanStatus='Not Approved'
-//            }
-            def miscFeeList = MiscellaneousFeeChallan.findAllByStudent(studInst)
+
+            def miscFeeList = FeeDetails.findAllByStudent(studInst)
 //            println(miscFeeList)
             def miscFeeStatus = []
             def miscFeetype = []
@@ -459,7 +451,7 @@ class FeeDetailService {
         obj.each{
             it.delete(failOnError:true)
         }
-        def objMisFeeChallan=MiscellaneousFeeChallan.findByFeeType(feeType)
+        def objMisFeeChallan=FeeDetails.findByFeeType(feeType)
         objMisFeeChallan.each{
             it.delete(failOnError:true)
         }

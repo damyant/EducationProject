@@ -241,7 +241,7 @@
                                  from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
                                  noSelection="['null': ' Select Study Centre']" />
                        %{--</div>--}%
-                   </div>
+                       </div>
                    %{--</td>--}%
                    %{--<td style="width: 10%" >--}%
                        %{--<g:select name="studyCentreFeePaidSession" class="university-size-1-1 allSession" id="studyCentreFeePaidSession"--}%
@@ -253,7 +253,7 @@
                        <label for="studyCentreFeeFromDate">From Date:</label>
                    %{--</td>--}%
                    %{--<td style="width: 30%" >--}%
-                       <input type="text" name="studyCentreFeeFromDate" class="university-size-1-2" id="studyCentreFeeFromDate"/>
+                       <input type="text" name="studyCentreFeeFromDate" class="" id="studyCentreFeeFromDate"/>
                    </div>
                    %{--</td>--}%
                    %{--<td style="width: 18%">--}%
@@ -261,8 +261,9 @@
                        <label for="StudyCentreFeeToDate">To Date:</label>
                    %{--</td>--}%
                    %{--<td style="width: 30%" >--}%
-                       <input type="text" name="StudyCentreFeeToDate" class="university-size-1-2" id="StudyCentreFeeToDate"/>
+                       <input type="text" name="studyCentreFeeToDate" class="" id="studyCentreFeeToDate"/>
                        </div>
+                           </div>
                    </td>
 
                </tr>
