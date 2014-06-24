@@ -537,7 +537,7 @@ class ReportService {
 
 
     def getReportDataStudyCentreFeePaid(params){
-       def finalMap =[]
+       def finalMap =[:]
        println("these "+ params)
        def stuObj = Student.createCriteria()
        def studentList = stuObj.list{
@@ -550,34 +550,32 @@ class ReportService {
         def toDate = df.parse(params.studyCentreFeeToDate)
         println('now going to fetch the fee records *** '+ fromDate+ ' and the to date is '+ toDate)
         def feeType = FeeType.list(sort:'type');
-        def feeDet
-        def studentInstance
-        studentList.each{
-            studentInstance = it
+        int finalTotal =0
             feeType.each{
                 def feeTypeIns = it
-                def misFeeChallan = FeeDetails.createCriteria()
-                def musFeeList = misFeeChallan.list{
-                 eq('student', studentInstance)
-                 and {
-                     eq('feeType', feeTypeIns)
-                 }
-                }
-            }
-        }
-        studentList.each{
-            def feeObj = FeeDetails.createCriteria()
-            println("***** "+it.challanNo)
-             studentInstance = it
-               feeDet = feeObj.list{
-                      eq('challanNo', studentInstance.challanNo)
-                      and{
-                          between('paymentDate', fromDate, toDate)
-                      }
-               }
-             println("******* this is the list of fee payment details of students  "+ feeDet)
-        }
+                def feeDetails = FeeDetails.createCriteria()
+                def musFeeList = feeDetails.list{
+                 'in'('student', studentList)
+                    and{
+                        between('paymentDate', fromDate, toDate)
+                        eq('feeType', feeTypeIns)
+                    }
 
+                 }
+//                println("hello kuldeep ************************************************"+musFeeList[0].paymentDate)
+                int totalForList =0
+                if(musFeeList){
+                    musFeeList.each{
+                        totalForList = totalForList + it.paidAmount
+                    }
+                }
+              finalTotal = finalTotal+ totalForList
+              finalMap.put(it.type, musFeeList)
+              finalMap.put(it.type+' Total', totalForList)
+            }
+        finalMap.put('finalTotal', finalTotal)
+        println('finalMap is ' + finalMap)
+        return finalMap
     }
 
     def getReportDataComparative(startSession, endSession){

@@ -188,6 +188,7 @@
             </g:if>
         </table>
         <hr style="border-top: dashed 2px;" />
+
         <table cellpadding="4"  class="university-table-1-2"
                style="width: 100%;margin: auto; border: 1px solid; ">
             <tr><td style="width: 60%;">Challan Number</td><td style="width: 40%;">${feeDetails.challanNo}</td></tr>

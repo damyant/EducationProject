@@ -248,11 +248,12 @@
 
     <g:elseif test="${totalListByStudyCentreFeePaid}">
         <h3> Fees Paid Report At ${totalListByStudyCentreFeePaid.getAt(0).studentId.studyCentre[0].name} Study Centre For ${studyCentreFeePaidSession} Session</h3>
+        <g:each in='${feeType}'>
         <table style=" text-align: center" class="gridtable">
             <th>Roll No</th>
             <th>Name</th>
-            <th>Fees Type</th>
-            <th>Payment Date</th>
+            <th>Payment No</th>
+            <th>Amount</th>
             %{--<th>Mobile No.</th>--}%
             <g:each in="${totalListByStudyCentreFeePaid}" var="student">
                 <tr>
@@ -264,6 +265,7 @@
                 </tr>
             </g:each>
         </table>
+       </g:each>
     </g:elseif>
 
 
