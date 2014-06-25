@@ -296,7 +296,7 @@ function appendStudentList(data) {
                 '<input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td>' +
                 '<td>' + data.studentList[i].firstName + ' ' + data.studentList[i].lastName + '</td>' +
                 '<td><input type="text" id="feeAmount' + i + '" name="feeAmount" readonly/></td>' +
-                '<td><input type="text" id="semester' + i + '" name="semester" value="' + data.studentList[i].semester + '" readonly/></td></tr>');
+                '<td><input type="text" id="semester' + i + '" name="semester" value="' + data.term+ '" readonly/></td></tr>');
             if (type == '') {
                 $("#feeType" + i).empty().append('<option value="1">Education Fee</option>')
                 $("#feeAmount" + i).val(data.feeAmount[i])
@@ -412,6 +412,7 @@ function populateStudentList() {
 
     var program = $('#programList').val();
     var semester = $('#semesterList').val();
+    var catagory = $('#programCategory').val();
     var chkBox1 = document.getElementById('allProgram');
 //    alert(chkBox1.checked)
     if (program != '' && semester != '' && chkBox1.checked == false) {
@@ -420,22 +421,26 @@ function populateStudentList() {
     }
     else if (program == '' && semester == '' && chkBox1.checked == true) {
         program = 'All';
-        semester = 'All';
+        semester = '1';
     }
     else if (program == '' && semester != '' && chkBox1.checked == true) {
         program = 'All';
         semester = $('#semesterList').val();
     }
     else {
-        alert("Please Select Program and Semester.")
+        alert("Please Fill the Filters.")
     }
     if (program) {
         $.ajax({
             type: "post",
-            url: url('feeDetails', 'populateStudents', ''),
-            data: {program: program, semester: semester},
+            url: url('feeDetails', 'populateStudentsForStudyCenter', ''),
+            data: {program: program,semester:semester,catagory:catagory},
             success: function (data) {
+                if(data.studentError){
+                        $('#noStudentMsg').html(data.studentError)
+                }else{
                 appendStudentList(data)
+                }
             }
         });
     }
@@ -546,7 +551,7 @@ function filterProgramsForSelect(t) {
             data: {type: type},
             success: function (data) {
 
-                $("#program").empty().append('<option value="">Select Program</option>')
+                $("#program").empty().append('<option value="">Select Programme</option>')
                 for (var i = 0; i < data.programList.length; i++) {
                     $("#program").append('<option value="' + data.programList[i].id + '">' + data.programList[i].courseName + '</option>')
 
@@ -683,7 +688,7 @@ function loadProgram(t) {
         url: url('feeDetails', 'loadProgram', ''),
         data: {type: type},
         success: function (data) {
-            $("#programList").empty().append('<option value="">Select Program</option>')
+            $("#programList").empty().append('<option value="">Select Programme</option>')
             for (var i = 0; i < data.programList.length; i++) {
                 $("#programList").append('<option value="' + data.programList[i].id + '">' + data.programList[i].courseName + '</option>')
             }
@@ -755,7 +760,7 @@ function editCourse(data){
 }
 function deleteCourse(data){
     $('#deleteCityId').val(data)
-        alert($('#deleteCityId').val())
+//        alert($('#deleteCityId').val())
         $('#deleteCityInst').submit()
 }
 function loadStudents(t) {
@@ -785,10 +790,8 @@ function enableAll() {
 
 }
 
-function showChallanNumberStatus(){
-
+function showChallanNumberStatus() {
     $("#challanNoText").val()
-
     $.ajax({
         type: "post",
         url: url('feeDetails', 'challanDetails', ''),
@@ -803,6 +806,6 @@ function showChallanNumberStatus(){
             }
 
         }
-
-});
+    });
 }
+

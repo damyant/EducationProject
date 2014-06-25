@@ -11,30 +11,8 @@
     <meta name="layout" content="main"/>
     <title></title>
     <g:javascript src='admin.js'/>
-    %{--<script type="text/javascript">--}%
-    %{--$(function() {--}%
-%{--//        var name--}%
-%{--//        alert("fgfgf")--}%
-%{--//        alert(nameList[0])--}%
-        %{--for(var i=0;i<${nameList.size()};i++){--}%
-           %{--if(i=0) {--}%
-               %{--name = "[" + '"${nameList[i]}", '--}%
-           %{--}--}%
-            %{--else if(${nameList.size()-1}){--}%
-               %{--name +='"${nameList[i]}"]'--}%
-           %{--}--}%
-            %{--else{--}%
-               %{--name +='"${nameList[i]}", '--}%
-           %{--}--}%
-
-        %{--}--}%
-%{--//        alert (name)--}%
-        %{--var availableTags = "chandan";--}%
-        %{--$("#searchStudent").autocomplete({--}%
-            %{--source: availableTags--}%
-        %{--});--}%
-    %{--})--}%
-    %{--</script>--}%
+    <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
+    <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
 </head>
 
 <body>
@@ -79,6 +57,17 @@
 
             </tbody>
         </table>
+        <div style="text-align: center;visibility: hidden;" id="paginationDiv" class="university-size-full-1-1">
+            <br/>
+
+            <div class="pagination">
+                <a href="#" class="first" data-action="first">&laquo;</a>
+                <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                <input type="text" readonly="readonly"/>
+                <a href="#" class="next" data-action="next">&rsaquo;</a>
+                <a href="#" class="last" data-action="last">&raquo;</a>
+            </div>
+        </div>
     </fieldset>
 </div>
 </body>

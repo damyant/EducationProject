@@ -11,22 +11,33 @@
 
 <div style="border: 1px solid; padding: 10px;">
     <div class="university-size-full-1-1" style="margin-bottom: 25px;"><div
-            style="float: right"><lable>Challan No. </lable><label>${challanNo}</label></div>
+            style="float: right"><lable>Challan No.</lable><label>${challanNo}</label></div>
 
         <div class="university-clear-both"></div>
     </div>
 
     <p style="width:100%; margin-left: 3px; margin-top: -6px; text-align: center;text-transform: uppercase;font-size: 14px">
-        <g:if test="${studyCentre.centerCode[0]!='11111'}">
-            <div>${studyCentre.name[0]}</div>
-        </g:if>
-        <g:else>
-            <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
-        </g:else>
-        <div>GAUHATI UNIVERSITY</div>
-        <div>Guwahati, Assam</div>
-    </p>
+
+    <div>GAUHATI UNIVERSITY</div>
+
+    <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
+
+    <div>Guwahati, Assam</div>
+</p>
+    <div style="font-weight: bold;width: 100%;text-align: center;"><label style="padding-right: 5px;">Fee Type</label><label
+            style="text-decoration: indigo;">${feeType}</label> </div>
     <table style="width: 80%;margin: auto; text-align: center;">
+        <tr>
+            <g:if test="${studyCentre.centerCode[0] != '11111'}">
+                <td><label style="padding-right: 5px;">Study Centre</label></td><td><label
+                    style="text-decoration: underline;font-weight: bolder">${studyCentre.name[0]}</label></td><td></td>
+            </g:if>
+            <g:else>
+                <td><label style="padding-right: 5px;">Study Centre</label></td><td><label
+                    style="text-decoration: underline;font-weight: bolder">IDOL</label></td><td></td>
+
+            </g:else>
+        </tr>
         <tr>
             <th style="width: 33%;">Student Name</th>
             <th style="width: 33%;">Roll No</th>
@@ -46,7 +57,7 @@
     <table style="width: 80%;margin: auto; text-align: center;">
         <tr>
             <td style="width: 33%;">Grand Total</td>
-            <td style="width: 33%;">  </td>
+            <td style="width: 33%;"></td>
             <td style="width: 33%;">${totalFee}</td>
         </tr>
     </table>

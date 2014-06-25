@@ -38,10 +38,12 @@
         %{--</tr>--}%
     %{--</table>--}%
     <div class="form-group">
-        <label>Select Program</label>
-        %{--<g:select id="ms" multiple="multiple" name="ms" class="university-size-1-7 form-control" onchange="select(this)"--}%
-                  %{--optionKey="id" optionValue="courseName" --}%
-                   %{--from="${ProgramDetail.findAll()}">--}%
+
+        <label>Select Programme</label>
+        <g:select id="ms" multiple="multiple" name="ms" class="university-size-1-7 form-control" onchange="select(this)"
+                  optionKey="id" optionValue="courseName"
+                   from="${ProgramDetail.findAll()}">
+
 
             %{--<option value="1">January</option>--}%
             %{--<option value="2">February</option>--}%
@@ -55,7 +57,7 @@
             %{--<option value="10">October</option>--}%
             %{--<option value="11">November</option>--}%
             %{--<option value="12">December</option>--}%
-        %{--</g:select>--}%
+        </g:select>
 
     %{--<select multiple="multiple" style="width: 100%">--}%
        %{--<g:each in="${programList}" status="i" var="program">--}%
@@ -120,39 +122,43 @@
 //        width: '50%'
 //    });
     function select(t){
-      alert($(t).val())
-    }
-    function submitCourses(){
-        alert('in submit function')
-        var n = $( "input:checked" ).length;
-        var data = {};
-        $('#checkboxes input:checked').each(function () {
-            alert('hello kuldeep')
-            var sThisVal = (this.checked ? $(this).val() : "");
-            var name =  $(this).attr('name');
-            var value = $(this).val()
-            data[name]= value
-        });
-        debugger;
-        $.ajax({
-            type: "post",
-            url: url('user', 'saveCourseForTabulator', ''),
-            data: data,
-//            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                if (data.response1=='updated') {
-                    document.getElementById("statusMessage").style.display = "block";
-                }
-                else if(data.response1=='Created'){
-                    document.getElementById("statusMessage").style.display = "block";
-                    clearField()
-                }
-                $("html, body").animate({ scrollTop: 0 }, "slow");
-            }
-        });
-        return false;
-
+//<<<<<<< HEAD
+//      alert($(t).val())
+//    }
+//    function submitCourses(){
+//        alert('in submit function')
+//        var n = $( "input:checked" ).length;
+//        var data = {};
+//        $('#checkboxes input:checked').each(function () {
+//            alert('hello kuldeep')
+//            var sThisVal = (this.checked ? $(this).val() : "");
+//            var name =  $(this).attr('name');
+//            var value = $(this).val()
+//            data[name]= value
+//        });
+//        debugger;
+//        $.ajax({
+//            type: "post",
+//            url: url('user', 'saveCourseForTabulator', ''),
+//            data: data,
+////            contentType: 'application/json; charset=utf-8',
+//            dataType: 'json',
+//            success: function (data) {
+//                if (data.response1=='updated') {
+//                    document.getElementById("statusMessage").style.display = "block";
+//                }
+//                else if(data.response1=='Created'){
+//                    document.getElementById("statusMessage").style.display = "block";
+//                    clearField()
+//                }
+//                $("html, body").animate({ scrollTop: 0 }, "slow");
+//            }
+//        });
+//        return false;
+//
+//=======
+////      alert($(t))
+//>>>>>>> damyant
     }
 </script>
 </body>

@@ -35,14 +35,14 @@
 
                     <td style="min-width: 18%">
                         <div id="programl" hidden="true">
-                        <label for="programId">Select Program:</label>
+                        <label for="programId">Select Programme:</label>
                         </div>
                     </td>
 
                     <td style="width: 18%">
                         <div id="programv" hidden="true">
                         <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}"
-                                  optionKey="id" optionValue="courseName" noSelection="['null': ' Select Program']"
+                                  optionKey="id" optionValue="courseName" noSelection="['null': ' Select Programme']"
                                   onchange="getStudentsList()"  />
                    </div>
                     </td>

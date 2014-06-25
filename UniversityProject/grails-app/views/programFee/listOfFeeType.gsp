@@ -19,7 +19,7 @@
                     <thead>
                     <tr>
 					
-						<th><g:message code="programFee.programDetail.label" default="Program Detail" /></th>
+						<th><g:message code="programFee.programDetail.label" default="Programme Detail" /></th>
 
                         <th><g:message code="programFee.session.label" default="Program Fee Session" /></th>
 

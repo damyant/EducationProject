@@ -19,7 +19,7 @@
 </tr>
 </thead>
 <tbody class='tdclass'>
-%{--${centreList.examVenue[0].name}--}%
+%{--${centreList}--}%
 <g:each in="${centreList}" status="i" var="examVenue">
     %{--${examVenue.name}--}%
     <tr class="${(i % 2) == 0 ? 'odd' : 'even'}" style="cursor: pointer;">

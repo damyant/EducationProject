@@ -205,7 +205,7 @@ function validate() {
 
             d_o_b: {
                 required: true,
-                date: true,
+                universityDateFormat: true,
                 minlength:10
             },
 
@@ -331,7 +331,7 @@ function validate() {
 
         },
         messages: {
-            programTypeId:"Please Select Program Type",
+            programTypeId:"Please Select Programme Type",
             imageValidate:"Please Upload Image",
             subjectName: {required: "Please Enter Course Name",
                 lettersnumberswithbasicpunc: "Letters or numbers or punctuation only please"
@@ -380,7 +380,7 @@ function validate() {
                 maxlength:"Maximum 10 Characters Allowed"
             },
             examCentre: "Please Select Examination Centre",
-            programList: "Please Select Program Name",
+            programList: "Please Select Programme Name",
             semesterList: "Please Select Term",
             internalMarks:{ required:"Please Upload Internal Marks Sheet",
                 accept:'Accepts only Excel and CVS file'},
@@ -414,8 +414,8 @@ function validate() {
                 url: "Please Enter Valid website Url(eg:http://www.idolgu.in)‎"
             },
             admissionFeeAmount:{
-                required: "Please Select Program",
-                min: "Program is unavailable at this Study Centre"
+                required: "Please Select Programme",
+                min: "Programme is unavailable at this Study Centre"
             },
             nameOfApplicant: "Please enter Name of an Applicant",
             date_of_birth: "Please Enter Date of birth",
@@ -424,7 +424,7 @@ function validate() {
 
                 minlength:"Please Enter Correct Date"
             },
-            programId: "Please select Program",
+            programId: "Please select Programme",
             parentsName: "Please Enter Parent's Name",
             studentAddress: "Please Enter Address",
             addressTown: "Please Enter Town Name",
@@ -432,7 +432,7 @@ function validate() {
             addressDistrict: "Please Enter District Name",
             addressState: "Please Enter State Name",
             addressPinCode: "Please Enter Pincode",
-            programDetail: "Please enter Program",
+            programDetail: "Please enter Programme",
             category: "Please select one of these categories",
             nationality: "please select Nationality",
             gender: "Please select your gender",
@@ -515,6 +515,11 @@ function validate() {
 
 
     });
+    $.validator.addMethod("universityDateFormat",function (value, element) {
+            return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+        },
+        "Please enter a date in the format dd/mm/yy"
+    );
 
     jQuery.validator.addMethod("textonly", function (value, element) {
             valid = false;
@@ -693,13 +698,13 @@ function checkValidation() {
             branchLocation:"required"
         },
         messages: {
-            programCategory:"Please Select Program Category",
-            program:"Please Select Program",
+            programCategory:"Please Select Programme Category",
+            program:"Please Select Programme",
             paymentMode:"Please  Select Payment Mode",
             rollNoSearch:"Please Enter valid Roll No",
             serialNoTo:"Please Enter valid Serial No",
             paymentDate:"Select Payment Date",
-            programs:"Please Select A Program",
+            programs:"Please Select A Programme",
             lateFeeDate:{
                 required: "Please Enter Late Fee Date",
                 minlength:"Please Enter Correct Date"
@@ -729,7 +734,7 @@ function checkValidation() {
 }
 function validateProgramFee() {
 //    alert("hi")
-    $("#createNewFee, #individualStudentUpdate").validate({
+    $("#createNewFee, #individualStudentUpdate, #customChallanSave").validate({
         rules: {
             programDetailId:"required",
             programSessionId:"required",
@@ -740,17 +745,24 @@ function validateProgramFee() {
                 required: true,
                 number: true,
                 minlength: 8
-            }
+            },
+            challanName:'required',
+            typeOfFee:'required',
+            amount:'required'
         },
         messages: {
-            programDetailId:"Please Select Program Detail",
-            programSessionId:"Please Select Program Session",
-            feeAmountAtIDOL:"Please  Enter Program Fee At Idol",
-            feeAmountAtSC:"Please  Enter Program Fee At Study Centre",
+
+            programDetailId:"Please Select Programme Detail",
+            programSessionId:"Please Select Programme Session",
+            feeAmountAtIDOL:"Please  Enter Programme Fee At Idol",
+            feeAmountAtSC:"Please  Enter Programme Fee At Study Centre",
             lateFeeAmount:"Please Enter Late Fee Amount",
             rollNo:{ required:"Please Enter a Roll Number",
                 minlength:"Please Enter 8 digit Roll Number"
-            }
+            } ,
+            challanName:'Please Enter Name',
+            typeOfFee:'Please Enter Payment Type',
+            amount:'Please Enter Amount'
 
         }
     })

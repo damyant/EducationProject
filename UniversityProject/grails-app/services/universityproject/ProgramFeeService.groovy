@@ -26,7 +26,7 @@ class ProgramFeeService {
  * @return
  */
     def saveProgramFeeType(params) {
-        println(" paramters are ==="+params)
+//        println(" paramters are ==="+params)
         def status=false
         def newSessionStatus=false
         def feeTypeList=params.feeTypeList.split(',')
@@ -38,37 +38,36 @@ class ProgramFeeService {
 
 
         def session = FeeSession.count()
-        println(programDetailIns)
-        println("<<<<<<<<<<<<<<<<<"+params.programSessionId)
+//        println("<<<<<<<<<<<<<<<<<"+params.programSessionId)
 
         if (session > 0) {
             if (FeeSession.findByProgramDetailIdAndSessionOfFee(programDetailIns,params.programSessionId)) {
-                println("me in iffff")
+//                println("me in iffff")
                 sessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(programDetailIns,params.programSessionId)
             } else {
-                println("**********"+programDetailIns)
+//                println("**********"+programDetailIns)
                 sessionObj = new FeeSession(sessionOfFee: params.programSessionId, programDetailId:programDetailIns).save(flush: true, failOnError: true)
                 newSessionStatus=true
             }
         } else {
-            println("me in last els")
+//            println("me in last els")
             sessionObj = new FeeSession(sessionOfFee: params.programSessionId, programDetailId:programDetailIns).save(flush: true, failOnError: true)
             newSessionStatus=true
         }
 
-        println("???"+params.admissionFee)
+//        println("???"+params.admissionFee)
         if(params.admissionFee && newSessionStatus==false) {
-            println(">>>>>>>>?>>>>>> " +admissionFeeIns)
+//            println(">>>>>>>>?>>>>>> " +admissionFeeIns)
             admissionFeeIns = AdmissionFee.findById(Integer.parseInt(params.admissionFee))
 
         }
         else if(newSessionStatus==true) {
-            println("elssssssssssssss")
+//            println("elssssssssssssss")
             admissionFeeIns = new AdmissionFee()
         }
 
-        println(">>>>>>>>?>>>>>>"+programDetailIns)
-        println("adm fee ins=="+admissionFeeIns)
+//        println(">>>>>>>>?>>>>>>"+programDetailIns)
+//        println("adm fee ins=="+admissionFeeIns)
         admissionFeeIns.feeAmountAtIDOL=Integer.parseInt(params.feeAmountAtIDOL)
         admissionFeeIns.feeAmountAtSC=Integer.parseInt(params.feeAmountAtSC)
 //        admissionFeeIns.programDetail = programDetail[0]
@@ -82,11 +81,11 @@ class ProgramFeeService {
 
         def i=0;
         try{
-            println("******"+sessionObj)
+//            println("******"+sessionObj)
         feeTypeList.each{
             def misFeeIns  =MiscellaneousFee.findByFeeTypeAndFeeSession(FeeType.findById(it),sessionObj)
             if(!misFeeIns){
-                println("else")
+//                println("else")
                 misFeeIns=new MiscellaneousFee()
             }
 //            misFeeIns.programDetail=ProgramDetail.findById(params.programDetail)

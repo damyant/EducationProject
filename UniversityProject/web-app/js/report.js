@@ -20,13 +20,25 @@ $(function() {
     $("#feeToDate").datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: "mm/dd/yy",
+        dateFormat: "dd/mm/yy",
         maxDate: 0
     });
     $("#feeFromDate").datepicker({
         changeMonth: true,
         changeYear: true,
-        dateFormat: "mm/dd/yy",
+        dateFormat: "dd/mm/yy",
+        maxDate: 0
+    });
+    $('#studyCentreFeeFromDate').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        maxDate: 0
+    });
+    $('#studyCentreFeeToDate').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
         maxDate: 0
     });
 
@@ -312,7 +324,7 @@ function setSessions(){
         async: false,
         data: '',
         success: function (data) {
-            $(".allSession").empty().append('<option value="">Select Session</option>')
+            $(".allSession").empty().append('')
             for (var i = 0; i < data.length; i++) {
                 $(".allSession").append('<option value="' + data[i] + '">' + data[i]+'-'+ (data[i]+1) + '</option>')
             }

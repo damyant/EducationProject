@@ -168,7 +168,7 @@ function validateAndSubmitForm() {
 
         if($("#errorMsg"+i).text().length>0){
             bool='false';
-            alert(bool)
+//            alert(bool)
         }
 
         if ($('#examinationCentreCapacity' + i).val().length == 0) {
@@ -181,7 +181,7 @@ function validateAndSubmitForm() {
             bool = 'false';
         }
 
-        alert($('#examinationCentreContactNo' + i).val().length)
+//        alert($('#examinationCentreContactNo' + i).val().length)
         if ($('#examinationCentreContactNo' + i).val().length == 0 || $('#examinationCentreContactNo' + i).val().length < 10) {
             $("#centerContactNoMsg" + i).text("Please Enter Exam Centre Contact Number(Min 10 Character Long)")
             bool = 'false';
@@ -192,14 +192,14 @@ function validateAndSubmitForm() {
         if ($('#examinationCentreAddress' + i).val().length == 0) {
             $("#centerAddressMsg" + i).text("Please Enter Examination Centre Address")
             bool = 'false';
-            alert(bool)
+//            alert(bool)
         }
 //        else {
 //            bool = 'true'
 //        }
 
     }
-    alert("value of boool=="+bool)
+//    alert("value of boool=="+bool)
     if (bool == 'true') {
         submitForm();
     }

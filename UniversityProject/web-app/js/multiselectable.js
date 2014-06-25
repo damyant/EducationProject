@@ -284,7 +284,7 @@ function syllabusUpload() {
 
     }
     else {
-        alert("Enter The Program Name First.");
+        alert("Enter The Programme Name First.");
     }
 }
 
@@ -298,7 +298,7 @@ function checkCourseCode() {
         data: {courseCode: data},
         success: function (data) {
             if (data.courseCode == "true") {
-                $('#errorMsg').text("Program Code is already registered")
+                $('#errorMsg').text("Programme Code is already registered")
                 $('#errorMsg').attr('display', true)
                 return false
             }
@@ -326,7 +326,7 @@ function checkFileType(e){
                 txt = "File type : " + sFileExtension + "\n\n";
                 txt += "Size: " + iConvert + " MB \n\n";
                 txt += "Please make sure your file is in pdf or doc format and less than 10 MB.\n\n";
-                alert(txt);
+//                alert(txt);
             }
             else{
                 return false;

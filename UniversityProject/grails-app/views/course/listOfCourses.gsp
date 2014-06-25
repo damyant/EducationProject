@@ -20,10 +20,10 @@
         </g:else>
         <thead>
         <tr>
-            <th>Program Name</th>
-            <th>Program Session</th>
-            <th>Program Type</th>
-            <th>Program Mode</th>
+            <th>Programme Name</th>
+            <th>Programme Session</th>
+            <th>Programme Type</th>
+            <th>Programme Mode</th>
 
             <th>&nbsp;</th>
         </tr>

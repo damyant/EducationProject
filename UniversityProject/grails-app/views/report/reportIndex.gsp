@@ -25,29 +25,29 @@
         </sec:ifAnyGranted>
         <sec:ifAnyGranted roles="ROLE_STUDY_CENTRE ">
             <div id="sessionStudentList"> <a href="#"> <li>By Session Student List</li></a></div>
-            <div id="byCourseUnapproved"> <a href="#"> <li>By Course Unapproved Roll No
+            <div id="byCourseUnapproved"> <a href="#"> <li>By Programme Unapproved Roll No
             </li></a></div>
-            <div id="byCourseApproved"> <a href="#"> <li>By Course Approved Roll No
+            <div id="byCourseApproved"> <a href="#"> <li>By Programme Approved Roll No
             </li></a></div>
         </sec:ifAnyGranted>
         <sec:ifAnyGranted roles="ROLE_IDOL_USER">
                 <div id="sessions"> <a href="#"> <li>By Sessions</li></a></div>
-                <div id="course"> <a href="#"> <li>By Course</li></a></div>
+                <div id="course"> <a href="#"> <li>By Programme</li></a></div>
                 <div id="comparativeReport"> <a href="#">   <li>Comparative Enrolment Report</li></a></div>
                 <div id="studyCentre"> <a href="#">
                     <li>By Study Centre</li>
                     <ul>
-                        <a href="#"> <li id="studyCentreNoOfStudents">Course Wise No Of Students </li></a>
+                        <a href="#"> <li id="studyCentreNoOfStudents">Programme Wise No Of Students </li></a>
 
-                        <a href="#">  <li id="studyCentreStudentList"> Course Wise Student List</li></a>
+                        <a href="#">  <li id="studyCentreStudentList"> Programme Wise Student List</li></a>
                     </ul></a>
                 </div>
                 <div id="examinationCentreDiv"> <a href="#">
                     <li>By Examination Centre</li>
                     <ul>
-                        <a href="#">  <li id="examinationCentreNoOfStudents">Course Wise No Of Students </li></a>
+                        <a href="#">  <li id="examinationCentreNoOfStudents">Programme Wise No Of Students </li></a>
 
-                        <a href="#">  <li id="examinationCentreStudentList"> Course Wise Student List</li></a>
+                        <a href="#">  <li id="examinationCentreStudentList"> Programme Wise Student List</li></a>
                     </ul>
                 </a></div>
 
@@ -55,11 +55,11 @@
                     <a href="#">
                         <li >By Category</li>
                         <ul>
-                            <a href="#">    <li id="categoryDiv">Course Wise </li>         </a>
+                            <a href="#">    <li id="categoryDiv">Programme Wise </li>         </a>
 
-                            <a href="#">  <li id="categoryGenderDiv"> Course Wise With Gender Break-up
+                            <a href="#">  <li id="categoryGenderDiv"> Programme Wise With Gender Break-up
                             </li> </a>
-                            <a href="#">      <li id="categoryGenderStudentList"> Course Wise Students List
+                            <a href="#">      <li id="categoryGenderStudentList"> Programme Wise Students List
                             </li></a>
                         </ul>
                     </a>
@@ -91,8 +91,8 @@
                         </ul>
                     </a>
                 </div>
-                 <div id="byCumulativeCandidateNo"> <a href="#"> <li>Examination venue Cumulative Candidate No
-                 </a></div>
+                 %{--<div id="byCumulativeCandidateNo"> <a href="#"> <li>Examination venue Cumulative Candidate No--}%
+                 %{--</a></div>--}%
       </ul>
       </sec:ifAnyGranted>
     </div>
@@ -116,7 +116,7 @@
                    <label for="sessionStudentList">Select Session:</label>
                </td>
                <td style="width: 18%" >
-                   <g:select name="sessionStudentList" class="university-size-1-1 allSession" id="sessionStudentList"
+                   <g:select name="sessionStudentList" class="university-size-1-1 allSession" id="sessionStudentListVal"
                              from="${filterType}" optionKey="" optionValue=""
                              noSelection="['null': ' Select Session']" />
                </td>
@@ -164,7 +164,7 @@
                    <td style="width: 25%" >
                        <g:select name="course" class="university-size-1-1" id="courseVal"
                                  from="${ProgramDetail.list([sort: 'courseCode'])}" optionKey="id" optionValue="courseName"
-                                 noSelection="[0: ' Select Course']" />
+                                 noSelection="['null': ' Select Course']" />
                    </td>
                    <td style="width: 10%" >
                        <g:select name="courseSession" class="university-size-1-1 allSession" id="courseSession"
@@ -228,18 +228,42 @@
                </tr>
 
                <tr id="byStudyCentreFeePaid">
-                   <td style="width: 18%">
-                       <label for="feePaidStudyCentre">Select Study Centre:</label>
-                   </td>
-                   <td style="width: 30%" >
+
+                   <td style="">
+                       <div class="university-size-1-1" style="display: inline">
+                           <div class="university-size-1-3">
+                           <label for="feePaidStudyCentre">Select Study Centre:</label>
+                           %{--</div>--}%
+                   %{--</td>--}%
+                   %{--<td style="width: 30%" >--}%
+                           %{--<div class="university-size-1-2">--}%
                        <g:select name="feePaidStudyCentre" class="university-size-1-1" id="feePaidStudyCentre"
                                  from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
                                  noSelection="['null': ' Select Study Centre']" />
-                   </td>
-                   <td style="width: 10%" >
-                       <g:select name="studyCentreFeePaidSession" class="university-size-1-1 allSession" id="studyCentreFeePaidSession"
-                                 from="${filterType}" optionKey="" optionValue=""
-                                 noSelection="['null': ' Select Session']" />
+                       %{--</div>--}%
+                       </div>
+                   %{--</td>--}%
+                   %{--<td style="width: 10%" >--}%
+                       %{--<g:select name="studyCentreFeePaidSession" class="university-size-1-1 allSession" id="studyCentreFeePaidSession"--}%
+                                 %{--from="${filterType}" optionKey="" optionValue=""--}%
+                                 %{--noSelection="['null': ' Select Session']" />--}%
+                   %{--</td>--}%
+                   %{--<td style="width: 30%">--}%
+                       <div class="university-size-1-1">
+                       <label for="studyCentreFeeFromDate">From Date:</label>
+                   %{--</td>--}%
+                   %{--<td style="width: 30%" >--}%
+                       <input type="text" name="studyCentreFeeFromDate" class="" id="studyCentreFeeFromDate"/>
+                   </div>
+                   %{--</td>--}%
+                   %{--<td style="width: 18%">--}%
+                       <div class="university-size-1-1">
+                       <label for="StudyCentreFeeToDate">To Date:</label>
+                   %{--</td>--}%
+                   %{--<td style="width: 30%" >--}%
+                       <input type="text" name="studyCentreFeeToDate" class="" id="studyCentreFeeToDate"/>
+                       </div>
+                           </div>
                    </td>
 
                </tr>
@@ -385,7 +409,7 @@
                                <g:select name="examDistrict" id="district" optionKey="id"
                                          value="" class="university-size-1-1"
                                          onChange="showCityList()" optionValue="districtName"
-                                         from="${District.list([sort: 'districtName'])}" noSelection="['': ' Select District']"/>
+                                         from="${District.list([sort: 'districtName'])}" noSelection="['null': ' Select District']"/>
 
                            </td>
                            <td style="width: 50%">
@@ -394,16 +418,15 @@
                                    <g:select name="examCity" id="city" optionKey="id" class="university-size-1-1"
                                              optionValue="cityName"
                                              from="" onchange="showCentreList(this)"
-                                             noSelection="['': 'Select Examination Centre']"/>
+                                             noSelection="['null': 'Select Examination Centre']"/>
 
                            </td>
                        </tr>
                        <tr>
-                       <td>
-                           <g:select name="examinationCentre" id="examinationCentre" class="university-size-1-1" from=" "
-                                     noSelection="['': 'Select Examination Venue']"/>
-
-                       </td>
+                       %{--<td>--}%
+                           %{--<g:select name="examinationCentre" id="examinationCentre" class="university-size-1-1" from=" "--}%
+                                     %{--noSelection="['': 'Select Examination Venue']" />--}%
+                       %{--</td>--}%
                            <td>
                                <g:select name="examinationCentreSession" class="university-size-1-1 allSession" id="examinationCentreSession"
                                from="${filterType}" optionKey="" optionValue=""
@@ -427,7 +450,7 @@
                            <g:select name="districtCumulative" id="districtCumulative" optionKey="id"
                                      value="" class="university-size-1-1"
                                      onChange="showCityList()" optionValue="districtName"
-                                     from="${District.list([sort: 'districtName'])}" noSelection="['': ' Select District']"/>
+                                     from="${District.list([sort: 'districtName'])}" noSelection="['null': ' Select District']"/>
 
                        </td>
                        <td style="width: 50%">
@@ -436,14 +459,14 @@
                            <g:select name="examCityCumulative" id="examCityCumulative" optionKey="id" class="university-size-1-1"
                                      optionValue="cityName"
                                      from="" onchange="showCentreList(this)"
-                                     noSelection="['': 'Select Examination Centre']"/>
+                                     noSelection="['null': 'Select Examination Centre']"/>
 
                        </td>
                    </tr>
                    <tr>
                        <td>
                            <g:select name="examinationCentreCumulative" id="examinationCentreCumulative" class="university-size-1-1" from=" "
-                                     noSelection="['': 'Select Examination Venue']"/>
+                                     noSelection="['null': 'Select Examination Venue']"/>
 
                        </td>
                        <td>
@@ -481,8 +504,9 @@
         var val= $('#flagValue').val()
         var check1= null, check2=null, check3=null, check4=null;
         if(val=='session'){
-             check1 =$('#sessionVal').val()
-             if(check1==0){
+            check1 =$('#sessionVal').val()
+            check2 = $('#sessionStudentListVal').val()
+             if(check1=='null' && check2== 0){
                 alert("please select values")
                 return false;
              }
@@ -500,7 +524,23 @@
         else if(val=='course'){
             check1 =$('#courseVal').val()
             check2 =$('#courseSession').val()
-            if(check1==0 || check2==0){
+            if(check1=='null' || check2==0){
+                alert("please select values")
+                return false;
+            }
+//            return true;
+        }
+        else if(val=='courseApproved'){
+            check1 =$('#courseApproved').val()
+            if(check1=='null'){
+                alert("please select values")
+                return false;
+            }
+//            return true;
+        }
+        else if(val=='courseUnapproved'){
+            check1 =$('#courseUnapproved').val()
+            if(check1=='null'){
                 alert("please select values")
                 return false;
             }
@@ -509,18 +549,18 @@
         else if(val=='studyCentre'){
             check1 =$('#studyCentreVal').val()
             check2 =$('#studyCentreSession').val()
-            if(check1==0 || check2==0){
+            if(check1=='null' || check2==0){
                 alert("please select values")
                 return false;
             }
 //            return true;
         }
         else if(val=='examinationCentre'){
-            check1 =$('#examDistrict').val()
-            check2 =$('#examCity').val()
+            check1 =$('#district').val()
+            check2 =$('#city').val()
             check3 =$('#examinationCentre').val()
             check4 =$('#examinationCentreSession').val()
-            if(check1==0 || check2==0 || check3==0 || check4==0){
+            if(check1=='null' || check2=='null'|| check2.length==0 || check4==0){
                 alert("please select values")
                 return false;
             }
@@ -528,7 +568,6 @@
         }
         else if(val=='category'){
             check1 =$('#categorySession').val()
-
             if(check1==0){
                 alert("please select values")
                 return false;
@@ -537,7 +576,6 @@
         }
         else if(val=='categoryGender'){
             check1 =$('#categoryGenderSession').val()
-
             if(check1==0){
                 alert("please select values")
                 return false;
@@ -546,13 +584,27 @@
         }
         else if(val=='admissionUnapproved'){
             check1 =$('#admissionUnapprovedStudyCentre').val()
-            check2 =$('#admissionUnapprovedSession').val()
-            if(check1==0 || check2==0 ){
+            if(check1=='null' ){
                 alert("please select values")
                 return false;
             }
 //            return true;
         }
+       else if(val=="admissionApproved") {
+            check1 =$('#admissionApprovedStudyCentre').val()
+            if(check1=='null' ){
+                alert("please select values")
+                return false;
+            }
+        }
+        else if(val="admissionSelfRegistration") {
+            check1 =$('#admissionSelfRegistrationSession').val()
+            if(check1==0 ){
+                alert("please select values")
+                return false;
+            }
+        }
+
 
     }
 </script>

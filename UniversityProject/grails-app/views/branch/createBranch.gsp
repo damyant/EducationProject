@@ -35,7 +35,7 @@
             <g:select name="bankId" id="bankId" optionKey="id" class="university-size-1-2"
                       value=""
                       optionValue="bankName"  from="${bankInstanceList}"
-                      noSelection="['': ' Select Program']"/>
+                      noSelection="['': ' Select Programme']"/>
                 %{--<input type="hidden" value="${bankInstance?.id}" name="bankId"/>--}%
             </td>
         </tr>

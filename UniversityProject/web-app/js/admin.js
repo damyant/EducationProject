@@ -356,16 +356,16 @@ function validateFields(counter) {
         date = $('#examDate' + i).val();
         time = $('#examTime' + i).val()
         if ((date == "null" || date.length == 0)) {
-            $('#dateError' + i).text("Please Select Examination Date")
-            bool = false
+            //$('#dateError' + i).text("Please Select Examination Date")
+            bool = true
         }
         else if (date.length != 10) {
             $('#dateError' + i).text("Please Enter Proper Date")
             bool = false
         }
         if ((time == "null" || time == "")) {
-            $('#timeError' + i).text("Please Select Examination Time")
-            bool = false
+           // $('#timeError' + i).text("Please Select Examination Time")
+            bool = true
         }
         else if (time.length != 8) {
             $('#timeError' + i).text("Please Enter Proper Date")
@@ -544,7 +544,7 @@ function loadBranch(t) {
             success: function (data) {
                 //document.location.reload();
                 $("#branchLocation").empty().append('');
-                $("#branchLocation").append('Select Branch');
+                $("#branchLocation").append('<option value="">Select Branch</option>');
                 for (var i = 0; i < data.length; i++) {
                     $("#branchLocation").append('<option value="' + data[i].id + '">' + data[i].branchLocation + '</option>')
                 }
@@ -556,7 +556,6 @@ function loadBranch(t) {
 
 function loadSession(t) {
     var program = $(t).val();
-//    alert(bank)
     if (program) {
         $.ajax({
             type: "post",
@@ -630,19 +629,22 @@ function updateProgramFee() {
 
         success: function (data) {
             if (data.status) {
-                $('#updateFee')[0].reset();
+//                $('#updateFee').refresh()
+//                document.location.reload()
+//                $('#updateFee')[0].reset();
                 document.getElementById("statusMessage").style.visibility = "visible";
                 $('#statusMessage').html("Updated Successfully")
             }
         }
 
     })
-
+    document.location.reload()
 }
 
 
 function generateChallanForRange() {
     var selectedStudentId = []
+    var selectedSemester = []
     $('#rollNoError').html("")
     var from = $("#serialNoFrom").val()
     var to = $("#serialNoTo").val()
@@ -676,11 +678,17 @@ function generateChallanForRange() {
             $('#studyCenterFeeEntryTable').find('#rowID' + i).find('input[type="checkbox"]').prop('checked', false)
 //        selectedStudentId.clean()
         $('input[name="studentCheckbox"]:checked').each(function () {
-
+            if(document.getElementById('allProgram').checked==true){
+                selectedSemester.push('1');
+            }
+            else{
+                selectedSemester.push($('#semesterList').val());
+            }
             selectedStudentId.push($(this).attr('id'));
         });
 //    $("#studentListId").val("")
         $("#studentListId").val(selectedStudentId)
+        $("#semesterListHidden").val(selectedSemester)
 
         if (selectedStudentId != null) {
             checkValidation()
@@ -831,10 +839,12 @@ function checkChallan(challan) {
         return false
     }
 }
-function populateChallanDetail() {
-    var challanNo = $("#payInSlipNo").val();
-    if (challanNo.length == 10) {
-//    alert("?????????????")
+
+function populateChallanDetail(){
+    $('#statusMessage').html('');
+    var challanNo=$("#payInSlipNo").val();
+    if(challanNo.length==10){
+
         $.ajax({
             type: "post",
             url: url('admin', 'getChallanDetailsforStudent', ''),
@@ -862,6 +872,14 @@ function populateChallanDetail() {
                     else {
                         $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">Already Approved or Wrong Challan Number</td></tr>')
                     }
+
+                $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
+                $("#error").hide()
+//            }else{
+////                alert(data.rollStatus)
+//                if(!data.rollStatus){
+//                    $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">PLease Generate Roll Number Before Approving Pay-In-Slip</td></tr>')
+//
                 }
             }
         });
@@ -1028,14 +1046,11 @@ function checkFeeStatusForRollNo() {
             data: {rollNo: rollNo},
             success: function (data) {
                 if (!data.error) {
-                    $('#showStatusForRollNo').empty().append('<table class="university-size-full-1-1" id="statusTable"></table>')
-                    $('#statusTable').append('<tr><th>Challan No</th><th>Fee Type</th><th>Status</th></tr>')
-                    if (data.admissionChallanIns) {
-                        $('#statusTable').append('<tr><td>' + data.admissionChallanIns.challanNo + '</td><td>Admission Fee</td><td>' + data.admissionChallanStatus + '</td></tr>')
-                    }
                     if (data.miscFeeList.length > 0) {
-                        for (var i = 0; i <= data.miscFeeList.length; i++) {
-                            $('#statusTable').append('<tr><td>' + data.miscFeeList[i].challanNo + '</td><td>' + data.miscFeetype[i] + '</td><td>' + data.miscFeeStatus[i] + '</td></tr>')
+                        $('#showStatusForRollNo').empty().append('<table class="university-size-full-1-1 inner" id="statusTable"></table>')
+                        $('#statusTable').append('<tr><th>Challan No</th><th>Fee Type</th><th>Fee Paid Date</th><th>Status</th></tr>')
+                        for (var i = 0; i < data.miscFeeList.length; i++) {
+                            $('#statusTable').append('<tr><td>' + data.miscFeeList[i].challanNo + '</td><td>' + data.miscFeetype[i] + '</td><td>'+data.mPayDate[i]+'</td><td>' + data.miscFeeStatus[i] + '</td></tr>')
 
                         }
 
@@ -1106,9 +1121,9 @@ function editCity(data) {
     window.open('/UniversityProject/examinationCenter/createNewCity/' + data, '_self', false)
 }
 function deleteCity(data) {
-    alert(data)
+//    alert(data)
     $('#deleteCityId').val(data)
-    alert($('#deleteCityId').val())
+//    alert($('#deleteCityId').val())
     $('#deleteCityInst').submit()
 }
 
@@ -1116,9 +1131,9 @@ function editExamCentre(data) {
     window.open('/UniversityProject/examinationCenter/createExamCentre/' + data, '_self', false)
 }
 function deleteExamCentre(data) {
-    alert(data)
+//    alert(data)
     $('#deleteCityId').val(data)
-    alert($('#deleteCityId').val())
+//    alert($('#deleteCityId').val())
     $('#deleteCityInst').submit()
 }
 function searchStudentList() {
@@ -1140,28 +1155,37 @@ function searchStudentList() {
                         $('#studentListTable tbody').append('<tr><td>' + data.studentListByFName[i].firstName + ' ' + data.studentListByFName[i].lastName + '</td><td>' + data.studentListByFName[i].rollNo + '</td><td>' + data.studyOfFName[i] + '</td><td>' + data.courseOfFName[i] + '</td></tr>')
                     }
                 }
-            }
-            if (data.studentListByMName) {
-                document.getElementById("studentListTable").style.visibility = "visible";
-                for (var i = 0; i < data.studentListByMName.length; i++) {
-                    if (data.studentListByMName[i].middleName != null) {
-                        $('#studentListTable tbody').append('<tr><td>' + data.studentListByMName[i].firstName + ' ' + data.studentListByMName[i].middleName + ' ' + data.studentListByMName[i].lastName + '</td><td>' + data.studentListByMName[i].rollNo + '</td><td>' + data.studyOfMName[i] + '</td><td>' + data.courseOfMName[i] + '</td></tr>')
-                    }
-                    else {
-                        $('#studentListTable tbody').append('<tr><td>' + data.studentListByMName[i].firstName + ' ' + data.studentListByMName[i].lastName + '</td><td>' + data.studentListByMName[i].rollNo + '</td><td>' + data.studyOfMName[i] + '</td><td>' + data.courseOfMName[i] + '</td></tr>')
-                    }
+                document.getElementById("paginationDiv").style.visibility = "visible";
+                $table_rows = $('#studentListTable tbody tr');
+
+                var table_row_limit = 10;
+
+                var page_table = function (page) {
+
+                    // calculate the offset and limit values
+                    var offset = (page - 1) * table_row_limit,
+                        limit = page * table_row_limit;
+
+                    // hide all table rows
+                    $table_rows.hide();
+
+                    // show only the n rows
+                    $table_rows.slice(offset, limit).show();
+
                 }
-            }
-            if (data.studentListByLName) {
-                document.getElementById("studentListTable").style.visibility = "visible";
-                for (var i = 0; i < data.studentListByLName.length; i++) {
-                    if (data.studentListByLName[i].middleName != null) {
-                        $('#studentListTable tbody').append('<tr><td>' + data.studentListByLName[i].firstName + ' ' + data.studentListByFName[i].middleName + ' ' + data.studentListByLName[i].lastName + '</td><td>' + data.studentListByLName[i].rollNo + '</td><td>' + data.studyOfLName[i] + '</td><td>' + data.courseOfLName[i] + '</td></tr>')
-                    }
-                    else {
-                        $('#studentListTable tbody').append('<tr><td>' + data.studentListByLName[i].firstName + ' ' + data.studentListByFName[i].lastName + '</td><td>' + data.studentListByLName[i].rollNo + '</td><td>' + data.studyOfLName[i] + '</td><td>' + data.courseOfLName[i] + '</td></tr>')
-                    }
+                var pageNo = 0
+                if ($table_rows.length % table_row_limit) {
+                    pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
                 }
+                else {
+                    pageNo = parseInt($table_rows.length / table_row_limit)
+                }
+//                alert(5%5)
+                $('.pagination').jqPagination({
+                    max_page: pageNo,
+                    paged: page_table
+                });
+                page_table(1);
             }
         }
     });
@@ -1199,7 +1223,7 @@ function searchByRollNumber(){
 
             }
             else{
-                alert("false")
+//                alert("false")
                 $("#errorMsgForRollNo").html("No record Found")
             }
         }
@@ -1269,4 +1293,24 @@ function clearSelectBox(){
 
     $('#postFeeType').val('')
 
+}
+
+function saveCustomChallan(){
+    validateProgramFee()
+    var result = $('#customChallanSave').valid()
+    if (result) {
+        $.ajax({
+            type: "post",
+            url: url('student', 'customChallanSave', ''),
+            data: $("#customChallanSave").serialize(),
+            success: function (data) {
+                document.getElementById("customChallanSave").reset();
+                $('#cName').text(''+data.name)
+                $('#challanNo').text(''+data.challanNo)
+                $('#feeType').text(''+data.feeType)
+                $('#feeAmount').text(''+data.feeAmount)
+                $('#challanDiv').dialog('open')
+            }
+        })
+    }
 }

@@ -4,6 +4,7 @@ import examinationproject.Bank
 import examinationproject.Branch
 import examinationproject.City
 import examinationproject.CourseSubject
+import examinationproject.CustomChallan
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.PaymentMode
@@ -22,6 +23,7 @@ import java.text.SimpleDateFormat
 
 @Transactional
 class AdminInfoService {
+    def studentRegistrationService
 def springSecurityService
 
     def serviceMethod() {
@@ -116,16 +118,29 @@ def springSecurityService
 //            println("@@@@@@@"+Subject.findById(Long.parseLong(it)))
 //            println("@@@@@@@"+sessionObj)
          def courseSubjectObj=CourseSubject.findBySubjectAndProgramSession(Subject.findById(Long.parseLong(it)),sessionObj)
-            println("###33333"+courseSubjectObj)
-         if(params.examinationDate[count]){
-             println("innnnnnnnnnn")
-         courseSubjectObj.examDate=f1.parse(params.examinationDate[count])
+//<<<<<<< HEAD
+//            println("###33333"+courseSubjectObj)
+//         if(params.examinationDate[count]){
+//             println("innnnnnnnnnn")
+//         courseSubjectObj.examDate=f1.parse(params.examinationDate[count])
+//=======
+//            println("###33333"+courseSubjectObj.programSession+courseSubjectObj.courseDetail)
+          def dateList =[]
+          def timeList = []
+            dateList.addAll(params.examinationDate)
+          if(dateList[count]){
+             println("innnnnnnnnnn"+params.examinationDate[count])
+            courseSubjectObj.examDate=f1.parse(dateList[count])
+             println("Date is in if"+courseSubjectObj.examDate)
+
           }
           else{
-             courseSubjectObj.examDate=Date
+             courseSubjectObj.examDate=null
           }
-         courseSubjectObj.examTime=params.examinationTime[count]
-         courseSubjectObj.save(failOnError: true)
+            timeList.addAll(params.examinationTime)
+            courseSubjectObj.examTime=timeList[count]
+            courseSubjectObj.save(failOnError: true)
+
          ++count
         }
 
@@ -212,7 +227,7 @@ def springSecurityService
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         feeDetailsInstance.challanNo= student.challanNo
         feeDetailsInstance.paymentDate = df.parse(params.paymentDate)
-        feeDetailsInstance.isAdmission =1
+//        feeDetailsInstance.isAdmission =1
         feeDetailsInstance.bankId = Bank.findById(Long.parseLong(params.bankId))
         feeDetailsInstance.branchId = Branch.findById(Long.parseLong(params.branchId))
         feeDetailsInstance.paymentModeId =PaymentMode.findById(Long.parseLong(params.paymentModeId))
@@ -325,4 +340,5 @@ def springSecurityService
         }
         return status
     }
+
 }
