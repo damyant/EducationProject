@@ -14,7 +14,7 @@ class FeeDetails {
     FeeType feeType
     Student student
     int semesterValue
-    Boolean isApproved =false
+    Boolean isApproved = false
 
 
 

@@ -59,16 +59,16 @@
                 <td class="university-size-1-4" style="text-align: center;">OR</td>
                 <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" id="allProgram" name="allProgram"/><label for="allProgram">All Programmes</label></td>
             </tr>
-            %{--<tr><td><label>Select a Term</label></td>--}%
-                %{--<td>--}%
+            <tr><td><label>Select a Term</label></td>
+                <td>
 
-                    %{--<select name="semesterList" onchange="hideAll()" class="university-size-1-1" id="semesterList" >--}%
-                        %{--<option value="">Select Semester</option>--}%
-                    %{--</select>--}%
-                %{--</td>--}%
-                %{--<td  style="text-align: center;"></td>--}%
-                %{--<td></td>--}%
-            %{--</tr>--}%
+                    <select name="semesterList" onchange="hideAll()" class="university-size-1-1" id="semesterList" >
+                        <option value="">Select Semester</option>
+                    </select>
+                </td>
+                <td  style="text-align: center;"></td>
+                <td></td>
+            </tr>
         </table>
        <div style="text-align: center; margin: 10px auto;"  class="university-size-full-1-1"> <input type="button" value="Show Students" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;"></div>
         <div id="noStudentMsg" class="university-status-message"></div>

@@ -411,23 +411,29 @@ function enterSrNo(t) {
 function populateStudentList() {
 
     var program = $('#programList').val();
-//    var semester = $('#semesterList').val();
+    var semester = $('#semesterList').val();
     var chkBox1 = document.getElementById('allProgram');
 //    alert(chkBox1.checked)
-    if (program != '' && chkBox1.checked == false) {
+    if (program != '' && semester != '' && chkBox1.checked == false) {
         program = $('#programList').val();
+        semester = $('#semesterList').val();
     }
-    else if (program == ''&& chkBox1.checked == true) {
+    else if (program == '' && semester == '' && chkBox1.checked == true) {
         program = 'All';
+        semester = 'All';
+    }
+    else if (program == '' && semester != '' && chkBox1.checked == true) {
+        program = 'All';
+        semester = $('#semesterList').val();
     }
     else {
-        alert("Please Select Programme and Semester.")
+        alert("Please Fill the Filters.")
     }
     if (program) {
         $.ajax({
             type: "post",
             url: url('feeDetails', 'populateStudents', ''),
-            data: {program: program},
+            data: {program: program,semester:semester},
             success: function (data) {
                 appendStudentList(data)
             }

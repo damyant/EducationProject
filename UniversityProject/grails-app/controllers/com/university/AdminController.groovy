@@ -73,18 +73,8 @@ class AdminController {
         } else {
             println("Start    " + new Date())
             def studentIdList = params.studentList.split(",")
-//            studentIdList.each { i ->
-//                rollNumber = studentRegistrationService.getStudentRollNumber(params)
-//                stuObj = Student.findById(i)
-//                stuObj.rollNo = rollNumber
-//                stuObj.status = Status.findById(Long.parseLong("3"))
-//                stuObj.save(flush: true, failOnError: true)
-//            }
             rollNumber = studentRegistrationService.getUpdatedStudentRollNumber(params)
-
-            println("End    " + new Date())
         }
-
         if (stuObj) {
             stuList = adminInfoService.provisionalStudentList(params)
         }
@@ -414,7 +404,6 @@ class AdminController {
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.get(it.student.programDetail[0].id),sessionVal.toString())
             stuList<<it.student
             courseNameList<<it.student.programDetail[0].courseName
-
             courseFee<<MiscellaneousFee.findByFeeSessionAndFeeType(feeSessionObj,it.feeType).amount
         }
         returnMap.stuList = stuList
