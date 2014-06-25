@@ -184,7 +184,7 @@ function getTermByCatagory(t){
             success: function (data) {
                 $("#semesterList").empty().append('data <option value="">Select Term</option>')
 
-                for (var i = 1; i <= data.totalSem; i++) {
+                for (var i = 1; i <= data.programlist; i++) {
                     $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
                 }
             }

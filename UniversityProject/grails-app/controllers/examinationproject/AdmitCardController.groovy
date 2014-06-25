@@ -95,6 +95,21 @@ class AdmitCardController {
         }
 
     }
+    def getTermListByCatagory={
+        def resultMap=[:]
+        def programlist
+        def catagory=ProgramType.findById(params.catagory)
+        if(params.catagory=='1'){
+            programlist=ProgramDetail.findByIdAndProgramType(params.data,catagory).noOfAcademicYears
+        }else{
+            programlist=ProgramDetail.findByIdAndProgramType(params.data,catagory).noOfTerms
+        }
+        println("catagory>>>> "+catagory.type)
+        println("programlist>>>> "+programlist)
+        resultMap.programlist=programlist
+        render resultMap as JSON
+
+    }
 
     def getStudentsForAdmitCard={
      def studentList=admitCardService.getStudents(params)
