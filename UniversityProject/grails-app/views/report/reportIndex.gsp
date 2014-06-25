@@ -16,6 +16,9 @@
 
 <body>
 <div id="main">
+<g:if test="${flash.message}">
+    <div class="message"><div class="university-status-message">${flash.message}</div></div>
+</g:if>
  <fieldset class="form">
     <div style="width: 30%">
 
@@ -380,7 +383,7 @@
                <td style="width: 30%" >
                    <g:select name="sessionProgramFeePaidStudyCentre" class="university-size-1-1" id="sessionProgramFeePaidStudyCentre"
                              from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
-                             noSelection="['null': ' Select Study Centre']" />
+                             noSelection="['All': 'All Study Centre']" />
                </td>
                <td style="width: 20%" >
                    <g:select name="sessionProgramFeePaidSession" class="university-size-1-1 allSession" id="sessionProgramFeePaidSession"
@@ -394,26 +397,26 @@
                </td>
            </tr>
 
-           <tr id="sessionProgramFeeNotPaid">
+           %{--<tr id="sessionProgramFeeNotPaid">--}%
                %{--<td style="width: 18%">--}%
                    %{--<label for="sessionProgramFeeNotPaidStudyCentre">Select Study Centre:</label>--}%
                %{--</td>--}%
-               <td style="width: 30%" >
-                   <g:select name="sessionProgramFeeNotPaidStudyCentre" class="university-size-1-1" id="sessionProgramFeeNotPaidStudyCentre"
-                             from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
-                             noSelection="['null': ' Select Study Centre']" />
-               </td>
-               <td style="width: 20%" >
-                   <g:select name="sessionProgramFeeNotPaidSession" class="university-size-1-1 allSession" id="sessionProgramFeeNotPaidSession"
-                             from="${filterType}" optionKey="" optionValue=""
-                             noSelection="['null': ' Select Session']" />
-               </td>
-               <td style="width: 30%" >
-                   <g:select name="sessionProgramFeeNotPaidFeeType" class="university-size-1-1" id="sessionProgramFeeNotPaidFeeType"
-                             from="${FeeType.list([sort: 'type'])}" optionKey="id" optionValue="type"
-                             noSelection="['null': ' Select Fee Type']" />
-               </td>
-           </tr>
+               %{--<td style="width: 30%" >--}%
+                   %{--<g:select name="sessionProgramFeeNotPaidStudyCentre" class="university-size-1-1" id="sessionProgramFeeNotPaidStudyCentre"--}%
+                             %{--from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"--}%
+                             %{--noSelection="['All': 'All Study Centre']" />--}%
+               %{--</td>--}%
+               %{--<td style="width: 20%" >--}%
+                   %{--<g:select name="sessionProgramFeeNotPaidSession" class="university-size-1-1 allSession" id="sessionProgramFeeNotPaidSession"--}%
+                             %{--from="${filterType}" optionKey="" optionValue=""--}%
+                             %{--noSelection="['null': ' Select Session']" />--}%
+               %{--</td>--}%
+               %{--<td style="width: 30%" >--}%
+                   %{--<g:select name="sessionProgramFeeNotPaidFeeType" class="university-size-1-1" id="sessionProgramFeeNotPaidFeeType"--}%
+                             %{--from="${FeeType.list([sort: 'type'])}" optionKey="id" optionValue="type"--}%
+                             %{--noSelection="['null': ' Select Fee Type']" />--}%
+               %{--</td>--}%
+           %{--</tr>--}%
 
 
                <tr id="byExaminationCentre">

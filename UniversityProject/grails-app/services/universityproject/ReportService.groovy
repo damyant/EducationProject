@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat
 
 @Transactional
 class ReportService {
+    def writeExcelForFeeService
     def writeExcelService
     def springSecurityService
     def getReportDataSession(params, excelPath) {
@@ -112,8 +113,6 @@ class ReportService {
         }
 
     }
-
-
     def getReportDataSessions(startSession, endSession) {
         def categoryList =[]
         categoryList
@@ -178,7 +177,6 @@ class ReportService {
         finalStudentMap.put('TOTAL STUDENTS', totalByCategory)
         return finalStudentMap
     }
-
     Boolean getReportDataCourse(params, excelPath){
         def session =params.courseSession
         println("these are the parameters "+ params)
@@ -206,8 +204,6 @@ class ReportService {
         return status
 
     }
-
-
     def getReportDataStudyCentre(params, excelPath){
         def status
         def finalStudentMap = [:]
@@ -341,7 +337,6 @@ class ReportService {
             return finalStudentMap
         }
     }
-
     def getReportDataCategory(params){
         def categoryList=['General', 'MOBC', 'OBC', 'S.T', 'SC', 'MINORITY COMMUNITY']
         println("this function is called "+ params)
@@ -394,9 +389,6 @@ class ReportService {
         finalStudentMap.put('TOTAL STUDENTS', totalByCategory)
         return finalStudentMap
     }
-
-
-
     def getReportDataCategoryGender(params){
         println('params in service '+params)
 
@@ -465,8 +457,6 @@ class ReportService {
         finalStudentMap.put('TOTAL STUDENTS', totalByCategoryGender)
         return finalStudentMap
     }
-
-
     def getReportDataAdmissionApprovedUnapproved(params){
             def stuObj= Student.createCriteria()
            def studentList
@@ -507,8 +497,6 @@ class ReportService {
 
 
     }
-
-
     def getReportDataAdmissionSelfRegistration(params){
         def stuObj= Student.createCriteria()
         def studentList = stuObj.list{
@@ -531,11 +519,6 @@ class ReportService {
         println("this is the list--------------- "+studentList)
         return studentList
     }
-
-
-
-
-
     def getReportDataStudyCentreFeePaid(params){
        def finalMap =[:]
        println("these "+ params)
@@ -579,9 +562,7 @@ class ReportService {
         println('finalMap is ' + finalMap)
         return finalMap
     }
-
     def getReportDataComparative(startSession, endSession){
-
         def categoryList =[]
         categoryList
         def totalByCategory=[]
@@ -646,8 +627,6 @@ class ReportService {
         finalStudentMap.put('TOTAL STUDENTS', totalByCategory)
         return finalStudentMap
     }
-
-
     def getReportDataStudentCategory(params, excelPath){
         println(params.categoryStudentListSession+"--------------------------"+params.studentCategory)
         def session =  params.categoryStudentListSession
@@ -680,7 +659,6 @@ class ReportService {
         workbook.close();
         return status
     }
-
     def getReportDataCourseApprovedUnapproved(params){
         def currentUser=springSecurityService.getCurrentUser()
         def studyCenterId
@@ -726,9 +704,7 @@ class ReportService {
                 return studentList
             }
         }
-    }
-
-    //Added By Digvijay...
+    }    //Added By Digvijay...
     def getReportDataDailyFeePaid(params){
         def finalMap =[:]
         def feeFromDate
@@ -764,8 +740,6 @@ class ReportService {
         }
 
     }
-
-
     def getReportDataExaminationCentreCumulative(params){
         def examinationVenueIns = ExaminationVenue.findById(Long.parseLong(params.examinationCentreCumulative))
         def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
@@ -826,6 +800,78 @@ class ReportService {
                 }
             }
         }
+    }
+    def getReportDataSessionProgramWiseFee(params, excelPath){
+        def session =  params.categoryStudentListSession
+        File file = new File(excelPath);
+        WorkbookSettings  wbSettings = new WorkbookSettings();
+        wbSettings.setLocale(new Locale("en", "EN"));
+        WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
+        int sheetNo=0
+        def status
+        def stuList
+        def studyCentreName
+            if(params.sessionProgramFeePaidStudyCentre!='All')
+                 studyCentreName = StudyCenter.findById(Long.parseLong(params.sessionProgramFeePaidStudyCentre)).name
+            else
+                 studyCentreName = null
+            def programList = ProgramDetail.list(sort: 'courseCode')
+            programList.each {
+                def stuObj = Student.createCriteria()
+                def programIns = it
+                if(params.sessionProgramFeePaidStudyCentre=='All'){
+                    stuList = stuObj.list{
+                        programDetail{
+                            eq('id', programIns.id)
+                        }
+                        and{
+                            eq('registrationYear' , Integer.parseInt(params.sessionProgramFeePaidSession))
+                        }
+                    }
+                }
+                else{
+                    stuList = stuObj.list{
+                        studyCentre{
+                            eq('id' , Long.parseLong(params.sessionProgramFeePaidStudyCentre))
+                        }
+                        programDetail{
+                            eq('id', programIns.id)
+                        }
+                        and{
+                            eq('registrationYear' , Integer.parseInt(params.sessionProgramFeePaidSession))
+                        }
+                    }
+                }
+                println("this is the list of students "+ stuList)
+                if(stuList){
+                    if(params.value =='sessionProgramWiseFeePaid'){
+                            def count = FeeDetails.findAllByStudentInListAndFeeType(stuList,FeeType.findById(Integer.parseInt(params.sessionProgramFeePaidFeeType)))
+                            println("--------------"+count)
+                            if(count){
+                                status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
+                                sheetNo= sheetNo+1
+                            }
+                    }
+                    else if(params.value =='sessionProgramWiseFeeNotPaid'){
+                            def count = FeeDetails.findAllByStudentNotInListAndFeeType(stuList,FeeType.findById(Integer.parseInt(params.sessionProgramFeePaidFeeType)))
+                            println("--------------"+count)
+                            if(count){
+                                status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
+                                sheetNo= sheetNo+1
+                            }
+                    }
+
+                }
+
+            }
+        if(sheetNo>0){
+            workbook.write();
+            workbook.close();
+        }
+            return status
+
+
+
     }
 }
 

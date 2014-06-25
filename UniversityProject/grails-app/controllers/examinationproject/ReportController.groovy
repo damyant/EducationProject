@@ -304,6 +304,29 @@ class ReportController {
            pdfRenderingService.render(args + [controller: this], response)
           // redirect(action: 'reportIndex')
        }
-   }
+       else if(params.value=='sessionProgramWiseFeePaid' || params.value=='sessionProgramWiseFeeNotPaid'){
+           println("these are the parameters for this "+ params)
+           def webRootDir = servletContext.getRealPath("/")
+           def userDir = new File(webRootDir,'/Report')
+           userDir.mkdirs()
+           def excelPath = servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.sessionProgramFeePaidFeeType+'.xls'
+           println('this is the real path '+excelPath)
+           def status  = reportService.getReportDataSessionProgramWiseFee(params, excelPath)
+           println("this is the status "+ status)
+           if(status){
+               println("hello kuldeep u r back in controller "+ status)
+               File myFile = new File(servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.sessionProgramFeePaidFeeType+'.xls')
+               response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.sessionProgramFeePaidFeeType+".xls"
+               response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
+               response.outputStream << myFile .bytes
+               response.outputStream.flush()
+               myFile.delete()
+           }
+           else{
+                  flash.message = "${message(code: 'record.not.found.message')}"
+                   redirect(action: 'reportIndex')
+           }
+}
+}
 
 }
