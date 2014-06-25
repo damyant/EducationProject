@@ -39,6 +39,16 @@
         <g:hiddenField name="semesterListHidden" id="semesterListHidden" value="" />
         <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
         <table class="inner university-size-full-1-1" style="margin: auto">
+            <tr><td><label>Select Fee Catagory</label></td>
+                <td>
+                    <g:select name="feeCategory" class="university-size-1-1" id="feeCategory" optionKey="id"
+                              optionValue="type"
+                              from="${miscFeeType}" noSelection="['': ' Select Fee Category']"
+                              onchange="enableAll()"/>
+                </td>
+                <td  style="text-align: center;"></td>
+                <td></td>
+            </tr>
             <tr><td><label>Select Programme Catagory</label></td>
                 <td>
                     <g:select name="programCategory" class="university-size-1-1" id="programCategory" optionKey="id"
@@ -58,13 +68,13 @@
                               onchange="getTermByCatagory(this)"/>
                 </td>
                 <td class="university-size-1-4" style="text-align: center;">OR</td>
-                <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" id="allProgram" name="allProgram"/><label for="allProgram">All Programmes (Only for Newly Admitted)</label></td>
+                <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" disabled id="allProgram" name="allProgram"/><label for="allProgram">All Programmes (Only for Newly Admitted)</label></td>
             </tr>
-            <tr><td><label>Select a Term</label></td>
+            <tr><td><label>Select Term</label></td>
                 <td>
 
                     <select name="semesterList" onchange="hideAll()" class="university-size-1-1" id="semesterList" >
-                        <option value="">Select Semester</option>
+                        <option value="">Select Term</option>
                     </select>
                 </td>
                 <td  style="text-align: center;"></td>

@@ -12,7 +12,8 @@
     <title></title>
     <g:javascript src='admin.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'dataEntry.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
+    <script type="text/javascript"
+            src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
     <script>
 
@@ -23,17 +24,27 @@
 <div id="main">
     <fieldset class="form">
 
+        <table class="university-size-2-3 inner">
+            <tr>
+                <td>Enter Challan Number</td> <td><input type="text" maxlength="10" id="challanNoText"
+                                                         class="university-size-1-1"></td><td><input type="button"
+                                                                                                     value="Show"
+                                                                                                     class="university-button"
+                                                                                                     onclick="showChallanNumberStatus()">
+            </td>
+            </tr>
+        </table>
 
-<table class="university-size-1-2 inner">
-    <tr>
-        <td>Enter Challan Number</td> <td><input type="text" id="challanNoText"> </td><td><input type="button" value="Show"  onclick="showChallanNumberStatus()"> </td>
-    </tr>
-</table>
+        <div id="errorMsg" class="university-status-message"></div>
+        <table id="challanStatus" class="inner university-size-full-1-1">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+        <br/>
+        <table class="university-size-3-4 CSSTableGenerator" id="challanStatusStaticData" style="margin: auto;">
 
-    <table id="challanStatus">
-
-    </table>
-        </fieldset>
+        </table>
+    </fieldset>
 </div>
 
 </body>

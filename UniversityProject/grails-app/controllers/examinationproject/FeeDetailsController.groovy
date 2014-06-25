@@ -116,7 +116,8 @@ class FeeDetailsController {
     def generateChallanSCAdmissionFee = {
         def programList = ProgramDetail.list(sort: 'courseName')
         def programCategory = ProgramType.list(sort: 'type')
-        [programList: programList, programCategory: programCategory]
+        def miscFeeType = FeeType.list(sort: 'type')
+        [programList: programList, programCategory: programCategory,miscFeeType:miscFeeType]
     }
 
     def loadProgram = {
@@ -457,7 +458,7 @@ class FeeDetailsController {
             it.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
             it.bankId = Bank.findById(params.bankName)
             it.branchId = Branch.findById(params.branchLocation)
-            it.isApproved=true
+            it.isApproved=1
             it.paymentDate = df.parse(params.paymentDate)
             if (PaymentMode.findById(params.paymentMode).paymentModeName != 'Pay In Slip') {
                 if (it.save(flush: true, failOnError: true)) {
@@ -506,7 +507,7 @@ class FeeDetailsController {
             it.paymentModeId = PaymentMode.findById(params.paymentMode)
             it.bankId = bank
             it.branchId = branch
-            it.isApproved=true
+            it.isApproved=1
             it.paymentReferenceNumber = paymentModeName
             it.paymentDate = df.parse(params.paymentDate)
             if (it.save(flush: true, failOnError: true)) {
@@ -528,9 +529,11 @@ class FeeDetailsController {
         resultMap.studentId = studentId
         render resultMap as JSON
     }
+    @Secured(["ROLE_ADMIN"])
     def feeStatusForRollNumber = {
 
     }
+    @Secured(["ROLE_ADMIN"])
     def checkRollNoFeeStatus = {
         def resultMap = [:]
         resultMap = feeDetailService.rollNumberFeeStatus(params)
@@ -555,7 +558,7 @@ class FeeDetailsController {
         def returnMap = [:]
         def studObj = Student.findByRollNo(params.rollNumberInput)
         def misFeeObj = FeeDetails.findByStudentAndSemesterValueAndFeeType(studObj, Integer.parseInt(params.semester), FeeType.findById(Long.parseLong(params.postFeeType)))
-        println("+++++++++++++++++" + misFeeObj)
+//        println("+++++++++++++++++" + misFeeObj)
         if (misFeeObj) {
             returnMap.feePaid = true
         } else if (Integer.parseInt(params.semester) > 1) {
@@ -607,7 +610,8 @@ class FeeDetailsController {
     }
 
     def challanDetails = {
-
-
+        println(params)
+        def result = feeDetailService.getChallanDetails(params)
+        render result as JSON
     }
 }
