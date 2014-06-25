@@ -54,7 +54,7 @@ function loadSemester(){
 
 function loadCourse() {
     var program = $('#programId').val();
-    var session = $('#session').val();
+    var session = $('#SessionList').val();
     var semester = $('#semesterList').val();
     $.ajax({
         type: "post",
@@ -95,8 +95,10 @@ $(document).ready(function(){
 
 function populateStudentList() {
     var program = $('#programId').val();
-    var session = $('#session').val();
+    var session = $('#SessionList').val();
     var semester = $('#semesterList').val();
+    alert(session+"  "+program+"  "+semester)
+
     var course = $('#courseCode').val();
         $.ajax({
             type: "post",

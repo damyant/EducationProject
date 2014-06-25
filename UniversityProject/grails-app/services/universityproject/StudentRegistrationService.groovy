@@ -5,6 +5,7 @@ import examinationproject.Branch
 import examinationproject.City
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
+import examinationproject.FeeType
 import examinationproject.MiscellaneousFeeChallan
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
@@ -130,7 +131,9 @@ class StudentRegistrationService {
                 feeDetails.challanDate = new Date()
                 feeDetails.challanNo = studentRegistration.challanNo
                 feeDetails.paymentDate = df.parse(params.paymentDate)
+                feeDetails = FeeType.get(1)
                 feeDetails.save(flush: true, failOnError: true)
+
                 params.fee = params.admissionFeeAmount
             }
             return studentRegistration

@@ -341,6 +341,14 @@ class AdminController {
             def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(programIns,sessionVal)
             def lateFeeDate = programIns.lateFeeDate
+            if(feeSessionObj==null){
+                def feeObj=FeeSession.createCriteria()
+            feeSessionObj=feeObj.list{
+                eq('programDetailId',programIns)
+                order('id','desc')
+                maxResults(1)
+            }
+        }
             def today = new Date()
             if(lateFeeDate!=null) {
                 if (today.compareTo(lateFeeDate) > 0) {
