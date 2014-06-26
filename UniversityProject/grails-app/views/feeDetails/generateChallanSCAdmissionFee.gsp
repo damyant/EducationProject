@@ -36,6 +36,7 @@
             <h3>Generate Admission Fee Challan</h3>
     <g:form name="challanForStudyCenter" id="challanForStudyCenter" controller="feeDetails" action="challanForStudyCenterStu">
         <g:hiddenField name="studentListId" id="studentListId" value="" />
+        <g:hiddenField name="semesterListHidden" id="semesterListHidden" value="" />
         <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
         <table class="inner university-size-full-1-1" style="margin: auto">
             <tr><td><label>Select Programme Catagory</label></td>
@@ -54,10 +55,10 @@
                     <g:select name="programList" class="university-size-1-1" id="programList" optionKey="id"
                               optionValue="courseName"
                               from="" noSelection="['': ' Select Programme']"
-                              onchange="getSemester(this)"/>
+                              onchange="getTermByCatagory(this)"/>
                 </td>
                 <td class="university-size-1-4" style="text-align: center;">OR</td>
-                <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" id="allProgram" name="allProgram"/><label for="allProgram">All Programmes</label></td>
+                <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" id="allProgram" name="allProgram"/><label for="allProgram">All Programmes (Only for Newly Admitted)</label></td>
             </tr>
             <tr><td><label>Select a Term</label></td>
                 <td>
@@ -80,7 +81,7 @@
                 <th style="width: 26.6%;">Roll No</th>
                 <th style="width: 26.6%;">Student Name</th>
                 <th style="width: 26.6%;">Amount </th>
-                <th style="width: 10%;">Semester</th>
+                <th style="width: 10%;">Term</th>
             </tr>
             </thead>
             <tbody></tbody>

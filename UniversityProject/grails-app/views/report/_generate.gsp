@@ -248,25 +248,30 @@
 
     <g:elseif test="${totalListByStudyCentreFeePaid}">
         %{--<h3> Fees Paid Report At ${totalListByStudyCentreFeePaid.getAt(0).studentId.studyCentre[0].name} Study Centre For ${studyCentreFeePaidSession} Session</h3>--}%
-        <g:each in='${feeType}'>
         <table style=" text-align: center" class="gridtable">
-            <th>Roll No ${totalListByStudyCentreFeePaid.a1.size()}</th>
+            <th>Roll No </th>
             <th>Name</th>
             <th>Payment No</th>
             <th>Amount</th>
-            %{--<th>Mobile No.</th>--}%
-            <g:each in="${totalListByStudyCentreFeePaid}" var="student">
 
-                %{--<tr>--}%
-                    %{--<td >${student.studentId.rollNo}</td>--}%
-                    %{--<td >${student.studentId.studentName}</td>--}%
-                    %{--<td >${student.feeTypeId.type}</td>--}%
-                    %{--<td ><g:formatDate format="yyyy-MM-dd" date="${student.paymentDate}"/></td>--}%
-                    %{--<td >91${student.mobileNo}</td>--}%
-                %{--</tr>--}%
+            %{--<th>Mobile No.</th>--}%
+            <g:each in="${totalListByStudyCentreFeePaid}" var="feeObj" status="i">
+              <g:if test="${ (i % 2) == 0}">
+                  <g:each in="${0..feeObj.size()-1}" var='j'>
+                      <tr style="background: gray">Fee Type: ${feeObj[j].feeType.type}</tr>
+                      <tr>
+                          <td >${feeObj[j].student.firstName}</td>
+                          <td >${feeObj[j].student.rollNo}</td>
+                          <td >${feeObj[j].paymentReferenceNumber}</td>
+                          <td >${feeObj[j].paidAmount}</td>
+                      </tr>
+                  </g:each>
+              </g:if>
+                <g:if test="${ (i % 2) != 0}">
+                <tr><td></td><td></td><td>Total for the group</td><td>${feeObj}</td></tr>
+                </g:if>
             </g:each>
         </table>
-       </g:each>
     </g:elseif>
 
 

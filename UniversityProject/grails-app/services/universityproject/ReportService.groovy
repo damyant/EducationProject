@@ -520,17 +520,28 @@ class ReportService {
         return studentList
     }
     def getReportDataStudyCentreFeePaid(params){
-       def finalMap =[:]
+       def finalMap =[]
+       def studentList
        println("these "+ params)
-       def stuObj = Student.createCriteria()
-       def studentList = stuObj.list{
-           studyCentre{
-               eq('id' , Long.parseLong(params.feePaidStudyCentre))
-           }
-       }
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        def fromDate = df.parse(params.studyCentreFeeFromDate)
-        def toDate = df.parse(params.studyCentreFeeToDate)
+        def fromDate
+        def toDate
+        def stuObj = Student.createCriteria()
+        if(params.value=='dailyFeePaid') {
+                        studentList = Student.list()
+
+              fromDate = df.parse(params.feeFromDate)
+              toDate = df.parse(params.feeToDate)
+        }
+        else{
+                       studentList = stuObj.list{
+                       studyCentre{
+                           eq('id' , Long.parseLong(params.feePaidStudyCentre))
+                       }
+                   }
+              fromDate = df.parse(params.studyCentreFeeFromDate)
+              toDate = df.parse(params.studyCentreFeeToDate)
+        }
         println('now going to fetch the fee records *** '+ fromDate+ ' and the to date is '+ toDate)
         def feeType = FeeType.list(sort:'type');
         int finalTotal =0
@@ -546,19 +557,20 @@ class ReportService {
                     }
 
                  }
-//                println("hello kuldeep ************************************************"+musFeeList[0].paymentDate)
+                println(feeTypeIns.type+"hello kuldeep ************************************************"+musFeeList)
                 int totalForList =0
                 if(musFeeList){
+                    finalMap.add(musFeeList)
                     musFeeList.each{
                         totalForList = totalForList + it.paidAmount
                     }
                 }
               finalTotal = finalTotal+ totalForList
-              finalMap.put("a"+i, musFeeList)
+              if(totalForList > 0)
+              finalMap.add(totalForList)
                 i=i+1
-              finalMap.put(it.type+' Total', totalForList)
             }
-        finalMap.put('finalTotal', finalTotal)
+//        finalMap.add(finalTotal)
         println('finalMap is ' + finalMap)
         return finalMap
     }
@@ -845,7 +857,7 @@ class ReportService {
                 println("this is the list of students "+ stuList)
                 if(stuList){
                     if(params.value =='sessionProgramWiseFeePaid'){
-                            def count = FeeDetails.findAllByStudentInListAndFeeType(stuList,FeeType.findById(Integer.parseInt(params.sessionProgramFeePaidFeeType)))
+                            def count = FeeDetails.findAllByStudentInListAndFeeTypeAnd(stuList,FeeType.findById(Integer.parseInt(params.sessionProgramFeePaidFeeType)))
                             println("--------------"+count)
                             if(count){
                                 status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
@@ -853,7 +865,8 @@ class ReportService {
                             }
                     }
                     else if(params.value =='sessionProgramWiseFeeNotPaid'){
-                            def count = FeeDetails.findAllByStudentNotInListAndFeeType(stuList,FeeType.findById(Integer.parseInt(params.sessionProgramFeePaidFeeType)))
+                            def feeDetailsStudentList = FeeDetails.findAllByFeeType(FeeType.findById(Integer.parseInt(params.sessionProgramFeePaidFeeType))).student.unique()
+                            def count= Student.findAllByIdNotInList(feeDetailsStudentList)
                             println("--------------"+count)
                             if(count){
                                 status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)

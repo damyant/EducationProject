@@ -352,13 +352,10 @@ class AdminController {
         def courseNameList = [], courseFee = []
         def stuList = Student.findAllByChallanNoAndStatus(params.challanNo, Status.findById(2))
         def currentUser = springSecurityService.currentUser
-//        println("username = :"+StudyCenter.findAllById(currentUser.studyCentreId).centerCode)
         stuList.each{
             lateFee=0
             def lateFeeDate=it.programDetail.lateFeeDate[0]
             def today=new Date()
-//            def amount=AdmissionFee.findByProgramDetail(it.programDetail[0])
-            println("=================="+it.programDetail[0].id)
             int year=it.registrationYear
             def sessionVal= year+1
             sessionVal= year+'-'+sessionVal
@@ -366,24 +363,15 @@ class AdminController {
             if(lateFeeDate!=null) {
                 if (today.compareTo(lateFeeDate) > 0) {
                     lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
-//                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
                 }
             }
             courseNameList << it.programDetail[0].courseName
-            //if(StudyCenter.findAllById(currentUser.studyCentreId).centerCode[0]=="11111") {
 
             if(it.studyCentre.centerCode[0]=="11111"){
-//                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtIDOL
                 courseFee<< AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtIDOL
-
-//                +lateFee  -----------If required late fee remove this
             }else{
-//                courseFee << AdmissionFee.findByProgramDetail(it.programDetail[0]).feeAmountAtSC
                 courseFee<< AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtSC
-
-//                +lateFee
             }
-//            courseFee=courseFee
         }
         returnMap.stuList = stuList
         returnMap.courseNameList = courseNameList

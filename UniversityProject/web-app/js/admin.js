@@ -644,6 +644,7 @@ function updateProgramFee() {
 
 function generateChallanForRange() {
     var selectedStudentId = []
+    var selectedSemester = []
     $('#rollNoError').html("")
     var from = $("#serialNoFrom").val()
     var to = $("#serialNoTo").val()
@@ -677,11 +678,17 @@ function generateChallanForRange() {
             $('#studyCenterFeeEntryTable').find('#rowID' + i).find('input[type="checkbox"]').prop('checked', false)
 //        selectedStudentId.clean()
         $('input[name="studentCheckbox"]:checked').each(function () {
-
+            if(document.getElementById('allProgram').checked==true){
+                selectedSemester.push('1');
+            }
+            else{
+                selectedSemester.push($('#semesterList').val());
+            }
             selectedStudentId.push($(this).attr('id'));
         });
 //    $("#studentListId").val("")
         $("#studentListId").val(selectedStudentId)
+        $("#semesterListHidden").val(selectedSemester)
 
         if (selectedStudentId != null) {
             checkValidation()

@@ -2,11 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="077f1796-d040-41bf-b232-8f8d04f12860" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/AdmitCardController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/AdmitCardController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/FeeDetails.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/FeeDetails.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/ReportService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/ReportService.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/report/_generate.gsp" afterPath="$PROJECT_DIR$/grails-app/views/report/_generate.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" afterPath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admin.js" afterPath="$PROJECT_DIR$/web-app/js/admin.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admitCard.js" afterPath="$PROJECT_DIR$/web-app/js/admitCard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/dataEntry.js" afterPath="$PROJECT_DIR$/web-app/js/dataEntry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/generateChallanSCAdmissionFee.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/generateChallanSCAdmissionFee.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/i18n/messages.properties" afterPath="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/report.js" afterPath="$PROJECT_DIR$/web-app/js/report.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/report/reportIndex.gsp" afterPath="$PROJECT_DIR$/grails-app/views/report/reportIndex.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UniversityProject.iws" />
@@ -18,7 +27,7 @@
     <file path="/messages.properties" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403721104364" ignored="false" />
     <file path="/individualStudentUpdate.gsp" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403031307020" ignored="false" />
     <file path="/admin.js" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403309830974" ignored="false" />
-    <file path="/ReportService.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403720571946" ignored="false" />
+    <file path="/ReportService.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403745172156" ignored="false" />
     <file path="/registration.gsp" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403314127686" ignored="false" />
     <file path="/StudentController.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403568889499" ignored="false" />
     <file path="/StudentRegistrationService.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403635893854" ignored="false" />
@@ -29,14 +38,14 @@
     <file path="/WriteExcelService.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403301991337" ignored="false" />
     <file path="/reportIndex.gsp" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403660007423" ignored="false" />
     <file path="/ProgramFeeController.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403310150337" ignored="false" />
-    <file path="/ReportController.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403720759223" ignored="false" />
+    <file path="/ReportController.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403743634392" ignored="false" />
     <file path="/studyCenter.js" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403223789241" ignored="false" />
     <file path="/validation.js" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403294612836" ignored="false" />
-    <file path="/_generate.gsp" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403642934122" ignored="false" />
+    <file path="/_generate.gsp" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403743374250" ignored="false" />
     <file path="/studentListView.gsp" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403310197336" ignored="false" />
-    <file path="/FeeDetails.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403570247125" ignored="false" />
+    <file path="/FeeDetails.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403728948038" ignored="false" />
     <file path="/AdminController.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403568559941" ignored="false" />
-    <file path="/FeeDetailsController.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403634443577" ignored="false" />
+    <file path="/FeeDetailsController.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403742775352" ignored="false" />
     <file path="/FeeDetailService.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403568952049" ignored="false" />
     <file path="/report.js" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403651219918" ignored="false" />
     <file path="/WriteExcelForFeeService.groovy" changelist="077f1796-d040-41bf-b232-8f8d04f12860" time="1403720114877" ignored="false" />
@@ -120,7 +129,7 @@
       <file leaf-file-name="ReportController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="328" column="58" selection-start="19232" selection-end="19232" vertical-scroll-proportion="-8.956522">
+            <state line="237" column="58" selection-start="13250" selection-end="13250" vertical-scroll-proportion="-6.9565215">
               <folding />
             </state>
           </provider>
@@ -132,7 +141,7 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="29" selection-start="1718" selection-end="1718" vertical-scroll-proportion="-4.08">
+            <state line="18" column="29" selection-start="1668" selection-end="1668" vertical-scroll-proportion="-4.08">
               <folding />
             </state>
           </provider>
@@ -147,37 +156,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="registration.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/student/registration.gsp">
+      <file leaf-file-name="FeeDetailsController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="0" selection-start="2097" selection-end="2228" vertical-scroll-proportion="-2.7755103">
+            <state line="358" column="0" selection-start="13508" selection-end="13508" vertical-scroll-proportion="-8.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdminController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy">
+      <file leaf-file-name="postAdmissionFeeAtIdol.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/feeDetails/postAdmissionFeeAtIdol.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="397" column="54" selection-start="14643" selection-end="14643" vertical-scroll-proportion="-2.6666667">
+            <state line="41" column="145" selection-start="1577" selection-end="1577" vertical-scroll-proportion="-3.8979592">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/university/UserController.groovy">
+      <file leaf-file-name="admin.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-app/js/admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="52" selection-start="1397" selection-end="1537" vertical-scroll-proportion="-1.8333334">
-              <folding />
+            <state line="1270" column="55" selection-start="50609" selection-end="50632" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1403721835322" expanded="false" signature="15811:15830" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="15873:15892" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="15932:15951" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="16653:16672" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="16715:16734" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="16774:16793" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="17544:17563" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="17606:17625" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="17665:17684" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="18350:18369" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="18412:18431" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="18471:18490" placeholder="..." />
+                <marker date="1403721835322" expanded="false" signature="38496:38524" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReportService.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ReportService.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/ReportService.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="860" column="60" selection-start="33876" selection-end="33876" vertical-scroll-proportion="0.8614865">
+            <state line="533" column="14" selection-start="20161" selection-end="20161" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#27#69#0" expanded="true" />
                 <element signature="n#!!block;n#getReportDataSession#0;n#!!block;n#ReportService#0" expanded="false" />
@@ -189,42 +212,42 @@
                 <element signature="n#!!block;n#getReportDataCategoryGender#0;n#!!block;n#ReportService#0" expanded="false" />
                 <element signature="n#!!block;n#getReportDataAdmissionApprovedUnapproved#0;n#!!block;n#ReportService#0" expanded="false" />
                 <element signature="n#!!block;n#getReportDataAdmissionSelfRegistration#0;n#!!block;n#ReportService#0" expanded="false" />
-                <element signature="n#!!block;n#getReportDataStudyCentreFeePaid#0;n#!!block;n#ReportService#0" expanded="false" />
                 <element signature="n#!!block;n#getReportDataComparative#0;n#!!block;n#ReportService#0" expanded="false" />
                 <element signature="n#!!block;n#getReportDataStudentCategory#0;n#!!block;n#ReportService#0" expanded="false" />
                 <element signature="n#!!block;n#getReportDataCourseApprovedUnapproved#0;n#!!block;n#ReportService#0" expanded="false" />
                 <element signature="n#!!block;n#getReportDataDailyFeePaid#0;n#!!block;n#ReportService#0" expanded="false" />
                 <element signature="n#!!block;n#getReportDataExaminationCentreCumulative#0;n#!!block;n#ReportService#0" expanded="false" />
+                <element signature="n#!!block;n#getReportDataSessionProgramWiseFee#0;n#!!block;n#ReportService#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WriteExcelForFeeService.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/WriteExcelForFeeService.groovy">
+      <file leaf-file-name="_generate.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/report/_generate.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="216" selection-start="3224" selection-end="3224" vertical-scroll-proportion="0.0">
+            <state line="270" column="61" selection-start="11033" selection-end="11033" vertical-scroll-proportion="-3.3061225">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FeeDetails.groovy" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="FeeDetails.groovy" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grails-app/domain/examinationproject/FeeDetails.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="48" selection-start="367" selection-end="367" vertical-scroll-proportion="-11.826087">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FeeType.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/examinationproject/FeeType.groovy">
           <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="6" selection-start="34" selection-end="34" vertical-scroll-proportion="-0.7083333">
+            <state line="12" column="43" selection-start="271" selection-end="271" vertical-scroll-proportion="0.7574468">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResourcesGrailsPlugin.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/target/work/plugins/resources-1.2.1/ResourcesGrailsPlugin.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="219" column="5" selection-start="8721" selection-end="8721" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -248,22 +271,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/student/_applicationPrintPreview.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/report/_generate.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/domain/examinationproject/FeeDetails.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/WriteExcelServiceForFeeService.groovy" />
         <option value="$PROJECT_DIR$/web-app/js/report.js" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/WriteExcelForFeeService.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/services/universityproject/ReportService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/report/reportIndex.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
+        <option value="$PROJECT_DIR$/target/work/plugins/resources-1.2.1/ResourcesGrailsPlugin.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/domain/examinationproject/FeeDetails.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/report/_generate.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/services/universityproject/ReportService.groovy" />
       </list>
     </option>
   </component>
@@ -856,7 +879,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2991453" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35384616" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2991453" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -869,8 +892,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2871212" sideWeight="0.60854703" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.391453" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23636363" sideWeight="0.5641026" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.43589744" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -939,73 +962,9 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grails-app/views/student/_applicationPrintPreview.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="193" column="104" selection-start="7151" selection-end="7151" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1403640737184" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1403640737184" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1403640737184" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1403640737184" expanded="true" signature="-1:-1" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="576" column="28" selection-start="22598" selection-end="22598" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/feeDetails/payAdmissionFee.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="80" selection-start="1962" selection-end="1962" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/js/admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="730" column="55" selection-start="27935" selection-end="27963" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1403570830801" expanded="false" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/WriteExcelService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="73" selection-start="0" selection-end="5391" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/report.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="335" column="42" selection-start="9350" selection-end="9350" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/examinationproject/FeeDetails.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="48" selection-start="367" selection-end="367" vertical-scroll-proportion="-11.826087">
           <folding />
         </state>
       </provider>
@@ -1029,8 +988,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="397" column="54" selection-start="14643" selection-end="14643" vertical-scroll-proportion="-2.6666667">
-          <folding />
+        <state line="385" column="54" selection-start="13883" selection-end="13883" vertical-scroll-proportion="-2.6666667">
+          <folding>
+            <marker date="1403721835315" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403721835315" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403721835315" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403721835315" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403721835315" expanded="true" signature="-1:-1" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1044,7 +1009,19 @@
     <entry file="file://$PROJECT_DIR$/grails-app/views/student/registration.gsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="47" column="0" selection-start="2097" selection-end="2228" vertical-scroll-proportion="-2.7755103">
-          <folding />
+          <folding>
+            <marker date="1403640640037" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403640640037" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403640640037" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403640640037" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403640640037" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403640640037" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403640640037" expanded="true" signature="-1:-1" placeholder="{&quot;changeMonth&quot;: true...}" />
+            <marker date="1403640640037" expanded="true" signature="-1:-1" placeholder="{&quot;changeMonth&quot;: true...}" />
+            <marker date="1403640640037" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403640640037" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1403640640037" expanded="true" signature="-1:-1" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1055,9 +1032,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy">
+    <entry file="file://$PROJECT_DIR$/target/work/plugins/resources-1.2.1/ResourcesGrailsPlugin.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="328" column="58" selection-start="19232" selection-end="19232" vertical-scroll-proportion="-8.956522">
+        <state line="219" column="5" selection-start="8721" selection-end="8721" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/feeDetails/postAdmissionFeeAtIdol.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="145" selection-start="1577" selection-end="1577" vertical-scroll-proportion="-3.8979592">
           <folding />
         </state>
       </provider>
@@ -1067,14 +1051,56 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="29" selection-start="1718" selection-end="1718" vertical-scroll-proportion="-4.08">
+        <state line="18" column="29" selection-start="1668" selection-end="1668" vertical-scroll-proportion="-4.08">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/js/admin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1270" column="55" selection-start="50609" selection-end="50632" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1403721835322" expanded="false" signature="15811:15830" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="15873:15892" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="15932:15951" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="16653:16672" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="16715:16734" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="16774:16793" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="17544:17563" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="17606:17625" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="17665:17684" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="18350:18369" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="18412:18431" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="18471:18490" placeholder="..." />
+            <marker date="1403721835322" expanded="false" signature="38496:38524" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="358" column="0" selection-start="13508" selection-end="13508" vertical-scroll-proportion="-8.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/report/_generate.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="270" column="61" selection-start="11033" selection-end="11033" vertical-scroll-proportion="-3.3061225">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="237" column="58" selection-start="13250" selection-end="13250" vertical-scroll-proportion="-6.9565215">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/ReportService.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="860" column="60" selection-start="33876" selection-end="33876" vertical-scroll-proportion="0.8614865">
+        <state line="533" column="14" selection-start="20161" selection-end="20161" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#27#69#0" expanded="true" />
             <element signature="n#!!block;n#getReportDataSession#0;n#!!block;n#ReportService#0" expanded="false" />
@@ -1086,13 +1112,23 @@
             <element signature="n#!!block;n#getReportDataCategoryGender#0;n#!!block;n#ReportService#0" expanded="false" />
             <element signature="n#!!block;n#getReportDataAdmissionApprovedUnapproved#0;n#!!block;n#ReportService#0" expanded="false" />
             <element signature="n#!!block;n#getReportDataAdmissionSelfRegistration#0;n#!!block;n#ReportService#0" expanded="false" />
-            <element signature="n#!!block;n#getReportDataStudyCentreFeePaid#0;n#!!block;n#ReportService#0" expanded="false" />
             <element signature="n#!!block;n#getReportDataComparative#0;n#!!block;n#ReportService#0" expanded="false" />
             <element signature="n#!!block;n#getReportDataStudentCategory#0;n#!!block;n#ReportService#0" expanded="false" />
             <element signature="n#!!block;n#getReportDataCourseApprovedUnapproved#0;n#!!block;n#ReportService#0" expanded="false" />
             <element signature="n#!!block;n#getReportDataDailyFeePaid#0;n#!!block;n#ReportService#0" expanded="false" />
             <element signature="n#!!block;n#getReportDataExaminationCentreCumulative#0;n#!!block;n#ReportService#0" expanded="false" />
+            <element signature="n#!!block;n#getReportDataSessionProgramWiseFee#0;n#!!block;n#ReportService#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/examinationproject/FeeDetails.groovy">
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="43" selection-start="271" selection-end="271" vertical-scroll-proportion="0.7574468">
+          <folding />
         </state>
       </provider>
     </entry>
