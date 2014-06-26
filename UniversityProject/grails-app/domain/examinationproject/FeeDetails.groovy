@@ -14,7 +14,8 @@ class FeeDetails {
     FeeType feeType
     Student student
     int semesterValue
-    int isApproved =0
+    int isApproved = 0
+
 
 
 

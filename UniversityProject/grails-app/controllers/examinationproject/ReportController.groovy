@@ -226,11 +226,23 @@ class ReportController {
            println("this function is called")
            def totalList = reportService.getReportDataStudyCentreFeePaid(params)
            def feeType = FeeType.list()
+           totalList.size()
 //           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
 //           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
            def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, feeType: feeType],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
          //  redirect(action: 'reportIndex')
+      }
+      else if( params.value=='dailyFeePaid' && params.feeFromDate && params.feeToDate){
+           println("this function is called")
+           def totalList = reportService.getReportDataStudyCentreFeePaid(params)
+           def feeType = FeeType.list()
+           totalList.size()
+//           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
+//           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
+           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, feeType: feeType],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           pdfRenderingService.render(args + [controller: this], response)
+
       }
 
       else if(params.value=='sessionsComparative' && params.fromSessionComparative && params.toSessionComparative){
@@ -295,15 +307,38 @@ class ReportController {
        }
 //************************************************************************************
        //Added By Digvijay on 13 May
-       else if(params.value=='dailyFeePaid' && params.feeFromDate && params.feeToDate){
-           println("Report Controller --> Daily Fee Report")
-           def totalList = reportService.getReportDataDailyFeePaid(params)
-           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
-           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByDailyFeePaid :totalList, studyCentreFeePaidSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
-           pdfRenderingService.render(args + [controller: this], response)
-          // redirect(action: 'reportIndex')
-       }
-   }
+//       else if(params.value=='dailyFeePaid' && params.feeFromDate && params.feeToDate){
+//           println("Report Controller --> Daily Fee Report")
+//           def totalList = reportService.getReportDataDailyFeePaid(params)
+////           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
+////           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
+//           def args = [template: "generate", model: [totalListByDailyFeePaid :totalList, studyCentreFeePaidSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
+//           pdfRenderingService.render(args + [controller: this], response)
+//          // redirect(action: 'reportIndex')
+//       }
+       else if(params.value=='sessionProgramWiseFeePaid' || params.value=='sessionProgramWiseFeeNotPaid'){
+           println("these are the parameters for this "+ params)
+           def webRootDir = servletContext.getRealPath("/")
+           def userDir = new File(webRootDir,'/Report')
+           userDir.mkdirs()
+           def excelPath = servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.sessionProgramFeePaidFeeType+'.xls'
+           println('this is the real path '+excelPath)
+           def status  = reportService.getReportDataSessionProgramWiseFee(params, excelPath)
+           println("this is the status "+ status)
+           if(status){
+               println("hello kuldeep u r back in controller "+ status)
+               File myFile = new File(servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.sessionProgramFeePaidFeeType+'.xls')
+               response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.sessionProgramFeePaidFeeType+".xls"
+               response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
+               response.outputStream << myFile .bytes
+               response.outputStream.flush()
+               myFile.delete()
+           }
+           else{
+                  flash.message = "${message(code: 'record.not.found.message')}"
+                   redirect(action: 'reportIndex')
+           }
+}
+}
 
 }

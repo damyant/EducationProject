@@ -130,6 +130,14 @@ $(function() {
 //        alert("clicked")
         openPopUp(20)
     })
+    $('#bySessionProgramFeePaid').on('click', function(){
+//        alert("clicked")
+        openPopUp(21)
+    })
+    $('#bySessionProgramFeeNotPaid').on('click', function(){
+//        alert("clicked")
+        openPopUp(22)
+    })
 });
 
 
@@ -307,6 +315,26 @@ function openPopUp(value){
         $('#inExcel').val('')
         $("#byExaminationCentre").show()
         $("#examCenterSelectCumulative tr").show()
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+    else if(value==21){
+        alert('21')
+        $('tr').hide()
+        $('#flagValue').val('sessionProgramWiseFeePaid')
+        $("#sessionProgramFeePaid").show()
+        $('#inExcel').val('true')
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+    else if(value==22){
+        alert('22')
+        $('tr').hide()
+        $('#flagValue').val('sessionProgramWiseFeeNotPaid')
+        $("#sessionProgramFeePaid").show()
+        $('#inExcel').val('true')
         $("#submitButton").show()
 //        alert("condition is true")
         $('#sessionDialog').dialog('open')
