@@ -65,7 +65,7 @@
                         <g:select name="programList" disabled="true" class="university-size-1-1" id="programList" optionKey="id"
                                   optionValue="courseName"
                                   from="" noSelection="['': ' Select Programme']"
-                                  onchange="getSemester(this)"/>
+                                  onchange="getTermByCatagory(this)"/>
                     </td>
                     <td class="university-size-1-4" style="text-align: center;">OR</td>
                     <td class="university-size-1-4"><input type="checkbox" id="allProgram" name="allProgram" disabled="true"/><label for="allProgram">All Programmes</label></td>
@@ -74,7 +74,7 @@
                     <td>
 
                         <select name="semesterList" class="university-size-1-1" disabled="true" id="semesterList" >
-                            <option value="">Select Semester</option>
+                            <option value="">Select Term</option>
                         </select>
                     </td>
                     <td  style="text-align: center;"></td>
@@ -85,12 +85,11 @@
             <table id="studyCenterFeeEntryTable" class="university-size-full-1-1" style="margin: auto;border:1px solid #dddddd; " hidden="true">
                 <thead>
                 <tr>
-                    %{--<th style="width: 10%;padding-left: 10px;"><input type="checkbox" name="selectAll" id="selectAll"><label for="selectAll">Select All</label></th>--}%
                     <th  style="width: 10%;">Serial No</th>
                     <th style="width: 26.6%;">Roll No</th>
                     <th style="width: 26.6%;">Student Name</th>
                     <th style="width: 26.6%;">Amount </th>
-                    <th style="width: 10%;">Semester</th>
+                    <th style="width: 10%;">Term</th>
                 </tr>
                 </thead>
                 <tbody></tbody>

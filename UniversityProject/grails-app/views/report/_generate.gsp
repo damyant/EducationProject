@@ -16,7 +16,7 @@
         font-family: verdana,arial,sans-serif;
         font-size:11px;
         color:#333333;
-        border-width: 1px;
+        border-width:1px;
         border-color: #666666;
         border-collapse: collapse;
     }
@@ -248,27 +248,29 @@
 
     <g:elseif test="${totalListByStudyCentreFeePaid}">
         %{--<h3> Fees Paid Report At ${totalListByStudyCentreFeePaid.getAt(0).studentId.studyCentre[0].name} Study Centre For ${studyCentreFeePaidSession} Session</h3>--}%
-        <table style=" text-align: center" class="gridtable">
-            <th>Roll No </th>
-            <th>Name</th>
-            <th>Payment No</th>
-            <th>Amount</th>
+        <table style=" text-align: center; border: 0px" class="gridtable">
+            <th style="border: 0px">Name</th>
+            <th style="border: 0px">Roll No</th>
+            <th style="border: 0px">Payment No</th>
+            <th style="border: 0px">Amount</th>
 
             %{--<th>Mobile No.</th>--}%
             <g:each in="${totalListByStudyCentreFeePaid}" var="feeObj" status="i">
               <g:if test="${ (i % 2) == 0}">
+                  %{--<tr>${i}</tr>--}%
+                  <tr><b>Fee Type: ${feeObj[0].feeType.type}</b></tr>
                   <g:each in="${0..feeObj.size()-1}" var='j'>
-                      <tr style="background: gray">Fee Type: ${feeObj[j].feeType.type}</tr>
+                      %{--<tr >Fee Type: ${feeObj[j].feeType.type}</tr>--}%
                       <tr>
-                          <td >${feeObj[j].student.firstName}</td>
-                          <td >${feeObj[j].student.rollNo}</td>
-                          <td >${feeObj[j].paymentReferenceNumber}</td>
-                          <td >${feeObj[j].paidAmount}</td>
+                          <td style="border: 0px">${feeObj[j].student.firstName}</td>
+                          <td style="border: 0px" >${feeObj[j].student.rollNo}</td>
+                          <td style="border: 0px">${feeObj[j].paymentReferenceNumber}</td>
+                          <td style="border: 0px">${feeObj[j].paidAmount}</td>
                       </tr>
                   </g:each>
               </g:if>
                 <g:if test="${ (i % 2) != 0}">
-                <tr><td></td><td></td><td>Total for the group</td><td>${feeObj}</td></tr>
+                <tr><td style="border: 0px"></td><td style="border: 0px"></td><td style="border: 0px">Total for the group</td><td style="border: 0px">${feeObj}</td></tr>
                 </g:if>
             </g:each>
         </table>

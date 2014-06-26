@@ -413,6 +413,7 @@ function populateStudentList() {
     var program = $('#programList').val();
     var semester = $('#semesterList').val();
     var catagory = $('#programCategory').val();
+    var feeType = $('#feeCategory').val();
     var chkBox1 = document.getElementById('allProgram');
 //    alert(chkBox1.checked)
     if (program != '' && semester != '' && chkBox1.checked == false) {
@@ -434,7 +435,7 @@ function populateStudentList() {
         $.ajax({
             type: "post",
             url: url('feeDetails', 'populateStudentsForStudyCenter', ''),
-            data: {program: program,semester:semester,catagory:catagory},
+            data: {program: program,semester:semester,catagory:catagory,feeType:feeType},
             success: function (data) {
                 if(data.studentError){
                         $('#noStudentMsg').html(data.studentError)
@@ -664,6 +665,11 @@ function clearFields() {
     $('#programCategory').val('')
     $('#programList').val('')
     $('#semesterList').val('')
+    if($('#allProgram').prop('checked')) {
+        $('#programCategory').prop('disabled',true)
+    }else{
+        $('#programCategory').prop('disabled',false)
+    }
     $('#studyCenterFeeEntryTable').prop('hidden', true);
     $('#rangeRadioButtons').prop('hidden', true);
     document.getElementById("paginationDiv").style.visibility = "hidden";
@@ -791,20 +797,35 @@ function enableAll() {
 }
 
 function showChallanNumberStatus() {
-    $("#challanNoText").val()
+    var challanNo=$("#challanNoText").val()
+//    alert(challanNo)
     $.ajax({
         type: "post",
         url: url('feeDetails', 'challanDetails', ''),
         data: {challanNo: challanNo},
         success: function (data) {
-            $("#studyCenterFeeEntryTable tbody tr").remove()
-            for (var i = 0; i < data.studList.length; i++) {
-                $("#studyCenterFeeEntryTable tbody").append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td>' +
-                    '<td>' + data.studList[i].rollNo + '</td>' +
-                    '<td>' + data.studList[i].rollNo + '</td>' +
-                    '</tr>')
+            if(data.challanError){
+                $('#errorMsg').html(data.challanError)
+                $("#challanStatus thead").empty()
+                $("#challanStatus tbody").empty()
+                $('#challanStatusStaticData').empty()
+                document.getElementById("horizontalLine").style.visibility = "hidden";
             }
-
+            else{
+                $('#errorMsg').html('')
+                $("#challanStatus thead").empty().append('<tr><th>Roll Number</th><th>Course</th><th>Amount</th></tr>')
+                $("#challanStatus tbody").empty()
+                for (var i = 0; i < data.challanInst.length; i++){
+                    $("#challanStatus tbody").append('<tr><td>'+data.rollNo[i]+'</td><td>'+data.program[i]+'</td><td>'+data.feeAmount[i]+'</td></tr>')
+                }
+                $('#challanStatusStaticData').empty().append('<tr><td class="university-size-1-3">Total Amount</td><td class="university-size-2-3">'+data.total+'</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Payment Date</td><td class="university-size-2-3">'+data.paydate+'</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Payment Mode</td><td class="university-size-2-3">'+data.paymentMode+'</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Study Centre</td><td class="university-size-2-3">'+data.studyCentre+'</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Status</td><td class="university-size-2-3">'+data.status+'</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Bank</td><td class="university-size-2-3">'+data.bank+'</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Branch</td><td class="university-size-2-3">'+data.branch+'</td></tr>')
+            }
         }
     });
 }

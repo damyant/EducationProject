@@ -4,6 +4,7 @@ import examinationproject.AdmissionFee
 import examinationproject.Bank
 import examinationproject.Branch
 import examinationproject.City
+import examinationproject.FeeDetails
 import examinationproject.FeeSession
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
@@ -418,15 +419,8 @@ class AdminController {
           def status = Status.findById(4)
           student.status = status
           student.save(flush: true)
-//          def feeObj= new MiscellaneousFeeChallan()
-//          feeObj.challanNo=student.challanNo
-//          feeObj.feeType=FeeType.findById(3)
-//          feeObj.student=student
-//          feeObj.semesterValue=1
-//          feeObj.save(flush: true)
       }
         if(student){
-            flash.message = "Approved Successfully"
             flash.message = "Approved Successfully"
             redirect(action: "approvePayInSlip")
         }

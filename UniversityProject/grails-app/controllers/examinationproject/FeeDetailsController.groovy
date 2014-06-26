@@ -116,7 +116,8 @@ class FeeDetailsController {
     def generateChallanSCAdmissionFee = {
         def programList = ProgramDetail.list(sort: 'courseName')
         def programCategory = ProgramType.list(sort: 'type')
-        [programList: programList, programCategory: programCategory]
+        def miscFeeType = FeeType.list(sort: 'type')
+        [programList: programList, programCategory: programCategory,miscFeeType:miscFeeType]
     }
 
     def loadProgram = {
@@ -507,7 +508,9 @@ class FeeDetailsController {
             it.bankId = bank
             it.branchId = branch
             it.isApproved=1
+
             it.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
+
             it.paymentDate = df.parse(params.paymentDate)
             if (it.save(flush: true, failOnError: true)) {
                 status = true
@@ -528,9 +531,11 @@ class FeeDetailsController {
         resultMap.studentId = studentId
         render resultMap as JSON
     }
+    @Secured(["ROLE_ADMIN"])
     def feeStatusForRollNumber = {
 
     }
+    @Secured(["ROLE_ADMIN"])
     def checkRollNoFeeStatus = {
         def resultMap = [:]
         resultMap = feeDetailService.rollNumberFeeStatus(params)
@@ -554,6 +559,7 @@ class FeeDetailsController {
 //        println("params are=="+params)
         def returnMap = [:]
         def studObj = Student.findByRollNo(params.rollNumberInput)
+
         def feeType = FeeType.findById(Long.parseLong(params.postFeeType))
         //code of ajay.............................
 //        def misFeeObj = FeeDetails.findByStudentAndSemesterValueAndFeeType(studObj, Integer.parseInt(params.semester), FeeType.findById(Long.parseLong(params.postFeeType)))
@@ -577,6 +583,7 @@ class FeeDetailsController {
                 if(currFeeObj){
                     println('fees of curren sem is paid')
                     returnMap.feePaid = true
+
             }
             else{
                 int semValue = Integer.parseInt(params.semester)-1
@@ -669,7 +676,8 @@ class FeeDetailsController {
     }
 
     def challanDetails = {
-
-
+        println(params)
+        def result = feeDetailService.getChallanDetails(params)
+        render result as JSON
     }
 }

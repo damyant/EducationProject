@@ -459,6 +459,7 @@ class StudentRegistrationService {
                     }
                 }
                 def lastChallanDate
+            if(studentByChallanNo){
                 if (studentByChallanNo[0].challanNo != null) {
                     lastChallanDate = studentByChallanNo[0].challanNo.substring(0, 6)
 
@@ -471,6 +472,10 @@ class StudentRegistrationService {
                 } else {
                     serialNo = 1
                 }
+            }else {
+                serialNo = 1
+            }
+
 
 
             length = serialNo.toString().length()

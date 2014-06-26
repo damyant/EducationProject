@@ -18,6 +18,7 @@ class FeeDetails {
 
 
 
+
     static constraints = {
         challanNo(nullable: false)
         paidAmount(nullable: false)
