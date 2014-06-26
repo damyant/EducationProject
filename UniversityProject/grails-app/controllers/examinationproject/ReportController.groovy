@@ -33,11 +33,11 @@ class ReportController {
        render sessionList as JSON
     }
    def generateReport={
-
-//       println("in generate Report "+ params)
+       println('hello ')
+       println("in generate Report "+ params.value)
 //       println('params value '+ params.value)
-       if(params.value=='session' && params.session){
-//           println("getting the printable report of students of all course of session "+ params.session)
+       if(params.value=='session' && (params.session || params.sessionStudentList)){
+           println("getting the printable report of students of all course of session "+ params)
            if(params.inExcel){
                def webRootDir = servletContext.getRealPath("/")
                def userDir = new File(webRootDir,'/Report')
@@ -143,7 +143,7 @@ class ReportController {
            }
        }
 
-      else if(params.value=='examinationCentre' && params.examinationCentre){
+      else if(params.value=='examinationCentre' && params.examCity){
            if(params.inExcel){
                def webRootDir = servletContext.getRealPath("/")
                def userDir = new File(webRootDir,'/Report')
@@ -222,12 +222,13 @@ class ReportController {
       }
 
 
-      else if(params.value=='studyCentreFeePaid' && params.studyCentreFeePaidSession){
+      else if(params.value=='studyCentreFeePaid' && params.studyCentreFeeFromDate && params.studyCentreFeeToDate ){
            println("this function is called")
            def totalList = reportService.getReportDataStudyCentreFeePaid(params)
-           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
-           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, studyCentreFeePaidSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           def feeType = FeeType.list()
+//           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
+//           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
+           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, feeType: feeType],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
          //  redirect(action: 'reportIndex')
       }

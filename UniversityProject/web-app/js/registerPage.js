@@ -251,7 +251,7 @@ function loadProgramFeeAmount(t){
     function Popup1(data)
     {
         var mywindow = window.open('', 'fee voucher','height=500,width=550');
-        mywindow.document.write('<html style="font-family: arial;"><head><title>fee voucher</title>');
+        mywindow.document.write('<html style="font-family: arial;"><head><title></title>');
         mywindow.document.write('<style type="text/css" media="print">')
         mywindow.document.write('@page{size: auto; margin: 0mm; }')
         mywindow.document.write('body{background-color:#FFFFFF;border: solid 0px black ;margin: 0px; }</style>')
@@ -263,3 +263,45 @@ function loadProgramFeeAmount(t){
         mywindow.close();
         return true;
     }
+
+
+function enableDisableCheckbox(){
+    if($('#registrationNo1').val()!=''){
+        $('#isAppliedFor').prop('disabled',true)
+    }
+    else{
+        $('#isAppliedFor').prop('disabled',false)
+    }
+}
+function enableDisableTextBox(){
+    if($('#isAppliedFor').is(':checked')){
+        $('#registrationNo1').prop('disabled',true)
+        $('#registrationNo2').prop('disabled',true)
+    }
+    else{
+        $('#registrationNo1').prop('disabled',false)
+        $('#registrationNo2').prop('disabled',false)
+    }
+}
+function putOtherBank(){
+    if($("#bankCheckBox").prop('checked')==true){
+        $('#otherBank').prop('disabled',false)
+        $('#otherBankBranch').prop('disabled',false)
+        $('#bankName').prop('disabled',true)
+        $('#branchLocation').prop('disabled',true)
+        $('#otherBank').prop('hidden',false)
+        $('#otherBankBranch').prop('hidden',false)
+        $('#bankName').prop('hidden',true)
+        $('#branchLocation').prop('hidden',true)
+    }
+    else{
+        $('#bankName').prop('disabled',false)
+        $('#branchLocation').prop('disabled',false)
+        $('#otherBank').prop('disabled',true)
+        $('#otherBankBranch').prop('disabled',true)
+        $('#otherBank').prop('hidden',true)
+        $('#otherBankBranch').prop('hidden',true)
+        $('#bankName').prop('hidden',false)
+        $('#branchLocation').prop('hidden',false)
+    }
+}

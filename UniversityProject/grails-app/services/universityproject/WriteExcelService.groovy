@@ -27,13 +27,13 @@ class WriteExcelService {
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
     private WritableCellFormat times1;
-   Boolean excelReport(params, finalList, course, sheetNo, WritableWorkbook workbook, studyCentreName){
+   Boolean excelReport(params, finalList, course, sheetNo, WritableWorkbook workbook, studyCentreName, session){
        println("creating this sheet "+ sheetNo)
        WritableSheet sheet= null
        WritableSheet excelSheet=null
        sheet = workbook.createSheet(""+course.courseName, sheetNo);
        excelSheet = workbook.getSheet(sheetNo);
-      createLabel(excelSheet, params, course, studyCentreName);
+      createLabel(excelSheet, params, course, studyCentreName, session);
       createContent(excelSheet, finalList);
 //       workbook.write();
 //      workbook.close();
@@ -42,11 +42,15 @@ class WriteExcelService {
   }
 
 
-    private void createLabel(WritableSheet sheet, params, course, studyCentreName )
+    private void createLabel(WritableSheet sheet, params, course, studyCentreName, session )
             throws WriteException {
         println("calling this method")
-//        def formatSession = Integer.parseInt(params.session)+1
-        def formatSession = (params.session)
+//<<<<<<< HEAD
+////        def formatSession = Integer.parseInt(params.session)+1
+//        def formatSession = (params.session)
+//=======
+        def formatSession = Integer.parseInt(session)+1
+
         // Lets create a times font
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 12);
         // Define the cell format
@@ -68,14 +72,14 @@ class WriteExcelService {
         times10ptBoldUnderline.setColour(Colour.BLUE);
         cv.setFormat(timesBoldUnderline);
         for (int i=0;i< 6;i++){
-            int widthInChars = 30;
+            int widthInChars = 25;
             sheet.setColumnView(i, widthInChars);
         }
 
         cv.setAutosize(true);
         int row = 0
         int cols = 6
-        WritableCell titleCell = new Label(0, row, "Total Students In "+course.courseName +" For "+ params.session+"-"+formatSession +" Session In "+(studyCentreName? studyCentreName:'All Study Centres'));
+        WritableCell titleCell = new Label(0, row, "Total Students In "+course.courseName +" For "+ session+"-"+formatSession +" Session In "+(studyCentreName? studyCentreName:'All Study Centres'));
         titleCell.setCellFormat(times)
         sheet.addCell(titleCell);
         sheet.mergeCells(0, row, cols, row);
@@ -91,8 +95,9 @@ class WriteExcelService {
         addCaption(sheet, 1, 1, "Name ");
         addCaption(sheet, 2, 1, "Study Centre ");
         addCaption(sheet, 3, 1, "Examination Centre ");
-        addCaption(sheet, 4, 1, "Mobile No.");
-        addCaption(sheet, 5, 1, "Status");
+        addCaption(sheet, 4, 1, "Challan No.");
+        addCaption(sheet, 5, 1, "Mobile No.");
+        addCaption(sheet, 6, 1, "Status");
     }
 
     void addCaption(WritableSheet sheet, int column, int row, String s)
@@ -113,8 +118,9 @@ class WriteExcelService {
             addLabel(sheet, j + 1, i + 2, finalList[i].firstName+' '+(finalList[i].middleName? finalList[i].middleName:'' )+' '+finalList[i].lastName);
             addLabel(sheet, j + 2, i + 2, finalList[i].studyCentre[0].name);
             addLabel(sheet, j + 3, i + 2, finalList[i].city[0]?.cityName);
-            addLabel(sheet, j + 4, i + 2, "91"+finalList[i].mobileNo);
-            addLabel(sheet, j + 5, i + 2, finalList[i].status.status);
+            addLabel(sheet, j + 4, i + 2, finalList[i].challanNo);
+            addLabel(sheet, j + 5, i + 2, "91"+finalList[i].mobileNo);
+            addLabel(sheet, j + 6, i + 2, finalList[i].status.status);
         }
 
     }

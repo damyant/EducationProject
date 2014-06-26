@@ -11,11 +11,11 @@ import java.text.SimpleDateFormat
 class StudentController {
     def studentRegistrationService
     def pdfRenderingService
-
     def springSecurityService
 //    @Secured('ROLE_STUDYCENTRE')
 
     def registration= {
+        def studyCentreList
         def studyCentre
         def programList=[]
         def count=0
@@ -55,13 +55,14 @@ class StudentController {
         }
         if(params.studentId){
             programList = ProgramDetail.list()
+             studyCentreList = StudyCenter.list()
         }
         def districtList=District.list(sort: 'districtName')
         def bankName=Bank.list(sort:'bankName')
         def paymentMode=PaymentMode.list(sort:'paymentModeName')
         def centreList =  City.findAllByIsExamCentre(1)
 //        println("sss"+studInstance.status)
-        [studyCentre: studyCentre,studInstance:studInstance, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode,fee:params.fee]
+        [studyCentre: studyCentre,studInstance:studInstance, studyCenterList: studyCentreList, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode,fee:params.fee]
 
     }
     def viewResult = {
@@ -71,7 +72,6 @@ class StudentController {
             def signature = request.getFile('signature')
             def photographe = request.getFile("photograph")
            def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, signature, photographe )
-
         if (studentRegistration) {
             if(params.studentId){
                 if(springSecurityService.isLoggedIn()){
@@ -87,22 +87,52 @@ class StudentController {
                     flash.message = "${message(code: 'register.created.message')} & Roll Number is "+studentRegistration.rollNo
                     redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
                 }else{
-                    flash.message = "${message(code: 'register.created.message')}"
-                    redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"registered"])
+                    def student = studentRegistration
+                    def lateFee=0
+                    def payableFee=0
+                    try {
+                        def lateFeeDate = student.programDetail.lateFeeDate[0]
+                        def today = new Date()
+                        if(lateFeeDate!=null) {
+                            if (today.compareTo(lateFeeDate) > 0) {
+                                lateFee = AdmissionFee.findByFeeSession(FeeSession.findByProgramDetailId(student.programDetail[0])).lateFeeAmount
+                            }
+                        }
+                        println(student.programDetail)
+                        def feeAmount = AdmissionFee.findByFeeSession(FeeSession.findByProgramDetailId(student.programDetail[0]));
+                        payableFee = feeAmount.feeAmountAtIDOL + lateFee
+                    }
+                    catch(NullPointerException e){
+                        payableFee=0
+                    }
+                    def feeDetails=[:]
+                    feeDetails.challanNo=student.challanNo
+                    if(params.bankCheckBox){
+                        feeDetails.bankName=params.bankName
+                        feeDetails.branchName=params.branchName
+                    }
+                    else{
+                        feeDetails.bankName=Bank.findById(params.bankName).bankName
+                        feeDetails.branchName=Branch.findById(params.branchName).branchLocation
+                    }
+
+                    feeDetails.paymentMode=PaymentMode.findById(params.paymentMode).paymentModeName
+                    feeDetails.admissionFeeAmount=params.admissionFeeAmount
+                    feeDetails.feeReferenceNumber=params.feeReferenceNumber
+                    feeDetails.paymentDate=params.paymentDate
+//                    def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
+                    def args = [template: "applicationPrintPreview", model: [studentInstance: studentRegistration,feeDetails:feeDetails,payableFee:payableFee],filename:studentRegistration.firstName+".pdf"]
+                    pdfRenderingService.render(args + [controller: this], response)
                 }
             }
-
         } else {
-//                println("Cannot Register new Student")
                 flash.message = "${message(code: 'register.notCreated.message')}"
                 redirect(action: "registration")
         }
-
     }
 
 
     def applicationPrintPreview = {
-//        println("params" + params)
         def student = Student.findById(params.studentID)
         def lateFee=0
         def payableFee=0
@@ -163,7 +193,8 @@ class StudentController {
     def applicationPreview() {
 
     }
-    @Secured(["ROLE_ADMIN"])
+
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
         def programList=ProgramDetail.list(sort: 'courseCode')
@@ -176,7 +207,7 @@ class StudentController {
         response.setContentType(params.mime)
         response.outputStream << image
     }
-    @Secured(["ROLE_IDOL_USER"])
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
     def enrollmentAtIdol={
         def studyCentre
         def programList =[]
@@ -218,7 +249,7 @@ class StudentController {
                     }
                 }
             }
-            println("total "+count)
+//            println("total "+count)
             if(count==0){
 //                flash.message="Admission Period Not Started Yet"
             }
@@ -258,7 +289,7 @@ class StudentController {
          // kuldeep's code for pop up start from here..............................................................
             def infoMap =[:]
             def student = Student.findByRollNo(studentRegistration.rollNo)
-            println("program"+student.programDetail)
+//            println("program"+student.programDetail)
             def program = student.programDetail
             def feeTypeId
             def feeType = null
@@ -274,7 +305,7 @@ class StudentController {
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
             def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
             println('this is the programFee '+programFee)
-2
+
             try{
                 def lateFeeDate=student.programDetail.lateFeeDate[0]
                 def today=new Date()
@@ -341,6 +372,24 @@ class StudentController {
         def student = Student.findById(params.studentId)
 //        println("Challan Number"+student.addressDistrict)
         def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
+        def miscellaneousFeeChallan = FeeDetails.findById(student.id)
         [studInstance:student,feeDetails: feeDetails]
+    }
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    def customChallanSave={
+        println(params)
+        def resultMap = studentRegistrationService.saveCChallan(params)
+        if(resultMap.status){
+            def infoMap =[:]
+
+            infoMap.challanNo=resultMap.challanNo
+            infoMap.name=params.challanName
+            infoMap.feeAmount=params.amount
+            infoMap.feeType=params.typeOfFee
+            render infoMap as JSON
+        } else {
+            flash.message = "${message(code: 'register.notCreated.message')}"
+            redirect(controller: 'admin', action: "generateCustomChallan")
+        }
     }
 }

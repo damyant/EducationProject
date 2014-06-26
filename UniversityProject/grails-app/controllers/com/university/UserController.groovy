@@ -3,6 +3,7 @@ package com.university
 
 import examinationproject.ProgramDetail
 import examinationproject.StudyCenter
+import grails.plugins.springsecurity.Secured
 
 import javax.validation.constraints.Null
 
@@ -15,6 +16,7 @@ class UserController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
     def userService
     def springSecurityService
+    @Secured(["ROLE_ADMIN"])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond User.list(params), model:[userInstanceCount: User.count()]
@@ -30,6 +32,7 @@ class UserController {
 
 
     @Transactional
+    @Secured(["ROLE_ADMIN"])
     def updatePwd(){
 //        println("?????????????????????"+params)
         def userInstance=User.findById(params.id)
@@ -46,7 +49,7 @@ class UserController {
         /* flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
          redirect(action: "userList")*/
     }
-
+    @Secured(["ROLE_ADMIN"])
     def createUser() {
         def userInstance = new User()
         userInstance.properties = params
@@ -56,7 +59,7 @@ class UserController {
         [userInstance: userInstance,roles:roleList, stydyCentreList:stydyCentreList, programList: programList]
     }
 
-
+    @Secured(["ROLE_ADMIN"])
     def userlist(Integer max){
         params.max = Math.min(max ?: 10, 100)
         respond User.list(params), model:[userInstanceCount: User.count()]
@@ -76,7 +79,7 @@ class UserController {
 //            render(view: "createUser", model: [userInstance: userInstance])
 //        }
 //    }
-
+    @Secured(["ROLE_ADMIN"])
     def save = {
 
         def userInstance = new User(params)
@@ -100,7 +103,7 @@ class UserController {
 
 
 
-
+    @Secured(["ROLE_ADMIN"])
     def editUser= {
         def currentUser= springSecurityService.getCurrentUser().getUsername()
         def studyCentreList=StudyCenter.list(sort: 'name')
@@ -158,9 +161,9 @@ class UserController {
 //        }
 //    }
 
-
+    @Secured(["ROLE_ADMIN"])
     def updateUser = {
-//        println("hello kuldeeppppppppppppppppppppppppppp")
+        println("hello kuldeeppppppppppppppppppppppppppp" + params)
         def UserInstance = User.get(params.id)
         if (UserInstance) {
             if (params.version) {
@@ -205,6 +208,7 @@ class UserController {
     }
 
     @Transactional
+    @Secured(["ROLE_ADMIN"])
     def delete(User userInstance) {
 
         if (userInstance == null) {

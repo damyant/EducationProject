@@ -68,9 +68,7 @@
                 <td style="width: 80%;">
                     <div style="margin:auto; height: 150px;width:117px;text-align: center ; vertical-align:middle;border: 1px solid;">
                         <g:if test="${studentInstance?.getStudentImage()}">
-                            <rendering:inlineJpeg bytes="${studentInstance?.getStudentImage()}"
-
-                                                  style="margin:auto; height: 150px;width: 117px;border: 1px solid black;    display: block;
+                            <rendering:inlineJpeg bytes="${studentInstance?.getStudentImage()}" style="margin:auto; height: 150px;width: 117px;border: 1px solid black;    display: block;
                                                   background-position: bottom; background-size: 100%; text-align: center;"/>
                         </g:if>
                         <g:else>
@@ -84,7 +82,15 @@
                 </td>
             </tr>
         </table>
-        <table align="center" cellpadding="8" id="preview-pdf" class="university-table-1-2"
+        <table class="university-size-1-1" style="border: 1px solid brown;margin:auto;font-size: 9px;">
+            <tr>
+                <td>
+                    <i>* Take print of this PDF and send to</i>
+                    <b>IDOL, Gauhati University</b><i> along with the </i><b>Bank Draft</b>.
+                </td>
+            </tr>
+        </table>
+        <table align="center" cellpadding="4" id="preview-pdf" class="university-table-1-2"
                style="width: 100%;margin: auto; border: 1px solid; ">
             <tr>
                 <td style="width: 60%;">
@@ -104,7 +110,7 @@
             </tr>
             <tr>
                 <td>
-                    <label>Program</label>
+                    <label>Programme</label>
                 </td>
                 <td>
                     <label>${studentInstance?.programDetail?.courseName[0]}</label>
@@ -182,15 +188,23 @@
             </g:if>
         </table>
         <hr style="border-top: dashed 2px;" />
-        <table cellpadding="8"  class="university-table-1-2"
+
+        <table cellpadding="4"  class="university-table-1-2"
                style="width: 100%;margin: auto; border: 1px solid; ">
-            <tr><td style="width: 60%;">Challan Number</td><td style="width: 40%;">${studentInstance.challanNo}</td></tr>
-            <tr><td>Fee</td><td>${payableFee}</td></tr>
-            <tr><td>Payment Mode</td><td>${feeDetails.paymentModeId.paymentModeName}</td></tr>
-            <tr><td>Payment Date</td><td><g:formatDate date="${feeDetails.paymentDate}" format="dd MMM yyyy"/></td></tr>
-            <tr><td>Payment Ref Number</td><td>${feeDetails.paymentReferenceNumber}</td></tr>
-            <tr><td>Bank</td><td>${feeDetails.bankId.bankName}</td></tr>
-            <tr><td>Branch</td><td>${feeDetails.branchId.branchLocation}</td></tr>
+            <tr><td style="width: 60%;">Challan Number</td><td style="width: 40%;">${feeDetails.challanNo}</td></tr>
+            <tr><td>Fee</td><td>${feeDetails.admissionFeeAmount}</td></tr>
+
+            <tr><td>Payment Mode</td><td>${feeDetails.paymentMode}</td></tr>
+            <tr><td>Payment Date</td><td>${feeDetails.paymentDate}</td></tr>
+            <tr><td>Payment Ref Number</td><td>${feeDetails.feeReferenceNumber}</td></tr>
+            <tr><td>Bank</td><td>${feeDetails.bankName}</td></tr>
+            <tr><td>Branch</td><td>${feeDetails.branchName}</td></tr>
+        </table><br/><br/>
+        <table style="width:100%;margin: auto;">
+            <tr>
+                <td style="width:50%;height: 70px;"><label style="float: left; margin-left:10px;">Date:</label></td>
+                <td style="width:50%;"><label style="float: right; margin-right:10px;">Signature</label></td>
+            </tr>
         </table>
 
     </div>

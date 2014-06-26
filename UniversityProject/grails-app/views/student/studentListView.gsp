@@ -52,11 +52,11 @@
                 </tr>
                 <tr>
                     <td class="university-size-1-5">
-                        <label for="programId">Select Program</label>
+                        <label for="programId">Select Programme</label>
                     </td>
                     <td class="university-size-1-4">
                         <g:select name="programId" id="programId" class="university-size-1-1" from="${programList}"
-                                  optionKey="id" optionValue="courseName" noSelection="['null': ' Select Program']"
+                                  optionKey="id" optionValue="courseName" noSelection="['null': ' Select Programme']"
                                   onchange="loadSession(this)" disabled="true"/>
                     </td>
                     <td class="university-size-1-4">
@@ -67,7 +67,7 @@
                 </tr>
                 <tr>
                     <td class="university-size-1-5">
-                        <label for="programId">Select Program Session</label>
+                        <label for="programId">Select Programme Session</label>
                     </td>
                     <td class="university-size-1-4">
                         <g:select id="session" name="programSession"

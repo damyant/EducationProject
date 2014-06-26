@@ -9,7 +9,7 @@
 
 <html>
 <head>
-    <title>Create New Program</title>
+    <title>Create New Programme</title>
     <meta name="layout" content="main"/>
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
@@ -33,10 +33,10 @@
 <div id="main">
     <fieldset class="form">
         <g:if test="${params.courseSessionId}">
-            <h3>Update Program</h3>
+            <h3>Update Programme</h3>
         </g:if>
         <g:else>
-            <h3>Add New Program</h3>
+            <h3>Add New Programme</h3>
         </g:else>
 
         <g:if test="${flash.message}">
@@ -58,7 +58,7 @@
                     class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
             <table class="university-table inner" border="0">
                 <tr>
-                    <td style="width: 40%"><label>Program Name :<span class="university-obligatory">*</span></label>
+                    <td style="width: 40%"><label>Programme Name :<span class="university-obligatory">*</span></label>
                     </td>
                     <td style="width: 60%"><input type="text" id="courseName" name="courseName" maxlength="50"
                                                   class="university-size-1-2"
@@ -88,16 +88,16 @@
                                   from="${CourseMode.findAll()}" noSelection="['': ' Select Mode']"/></td>
                 </tr>
                 <tr>
-                    <td><label>Select Program Type :<span class="university-obligatory">*</span></label></td>
+                    <td><label>Select Programme Type :<span class="university-obligatory">*</span></label></td>
                     <td><g:select name="courseType" id="courseTypeName" optionKey="id" optionValue="courseTypeName"
                                   class="university-size-1-2" from="${CourseType.findAll()}"
-                                  noSelection="['': ' Select Program Type']"/></td>
+                                  noSelection="['': ' Select Programme Type']"/></td>
                 </tr>
                 <tr>
                     <td><label>Select Program Category :<span class="university-obligatory">*</span></label></td>
                     <td><g:select name="programType" id="programType" optionKey="id" optionValue="type"
                                   class="university-size-1-2" from="${examinationproject.ProgramType.findAll()}"
-                                  noSelection="['': ' Select Program Category']"/></td>
+                                  noSelection="['': ' Select Programme Category']"/></td>
                 </tr>
                 <tr>
                     <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
@@ -106,8 +106,9 @@
 
                 </tr>
                 <tr>
-                    <td><label>Program Code :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="courseCode" name="courseCode" maxlength="10" onchange="checkCourseCode()"
+                    <td><label>Programme Code :<span class="university-obligatory">*</span></label></td>
+                    %{--checkCourseCode()--}%
+                    <td><input type="text" id="courseCode" name="courseCode" maxlength="10" onchange=""
                                class="university-size-1-2" onkeypress="return isNumber(event)"/>
                         <label id="errorMsg" class="error1"></label>
                     </td>

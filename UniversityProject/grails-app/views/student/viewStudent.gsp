@@ -82,7 +82,7 @@
 <!----- Program Name ---------------------------------------------------------->
 <g:if test="${studInstance?.programDetail[0].courseName}">
 <tr>
-    <td>Program<span class="university-obligatory"></span></td>
+    <td>Programme<span class="university-obligatory"></span></td>
     <td>
             <input type="text" class="university-size-1-2" readonly
                       value="${studInstance?.programDetail[0].courseName}"/>

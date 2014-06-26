@@ -160,7 +160,7 @@
                     </g:each>
                     </tbody>
                 </table>
-                <g:if test="${studyCentre!=null}">
+                %{--<g:if test="${studyCentre!=null}">--}%
                     <div class="fieldcontain required" id="studyCentreDiv">
 
 
@@ -168,14 +168,18 @@
                             Select Study Centre </label>
                             <span class="required-indicator">*</span></div>
                         <div class="university-size-1-3">
+                            %{--<g:select id="studyCentreId" name="studyCentreId" from="${studyCentreList}"--}%
+                                      %{--optionKey="id" optionValue="name" value="${studyCentre}"--}%
+                                      %{--class="university-size-2-3" noSelection="['0': ' Select Study Centre']"/>--}%
                             <g:select id="studyCentreId" name="studyCentreId" from="${studyCentreList}"
-                                      optionKey="id" optionValue="name" value="${studyCentre}"
-                                      class="university-size-2-3" noSelection="['': ' Select Study Centre']"/>
+                                      optionKey="id" optionValue="name"    value="${studyCentre}"
+                                      class="university-size-2-3" disabled="true"
+                                      noSelection="['': ' Select Study Centre']"/>
                         </div>
 
 
                     </div>
-                </g:if>
+                %{--</g:if>--}%
             </fieldset>
             <fieldset class="buttons">
                <input type="SUBMIT" class="university-button" value="Update" id="updateUser"/>
@@ -197,6 +201,7 @@
                 $('#studyCentreId').prop('disabled', false);
                 $('#studyCentreId').prop('required', true);
             }
+
         }
         else{
             if ($(this).val() == 3) {

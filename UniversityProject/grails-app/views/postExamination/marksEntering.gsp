@@ -51,7 +51,7 @@
                         <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                                   value=""
                                   optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"
-                                  onchange="loadSession(this)"
+                                  onchange="getSemester(this)"
                         />
                     </td>
                 </tr>
@@ -60,10 +60,10 @@
                 <tr>
                     <td>Session<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="session" id="session" optionKey="id" class="university-size-1-2"
+                        <g:select name="SessionList" id="SessionList" optionKey="id" class="university-size-1-2"
                                   value=""
                                   optionValue="session" from="" noSelection="['': ' Select Session']"
-                                  onchange="loadSemester(this)"
+
                         />
                     </td>
                 </tr>
@@ -96,26 +96,26 @@
             </div>
 
             <table class="inner" id="dataTable" style="visibility: hidden">
-            <tr>
-                <td>List of Roll Numbers
+                <tr>
+                    <td>List of Roll Numbers
                     %{--<span class="university-obligatory">*</span>--}%
-                </td>
-                <td style="text-align: center">
-                    <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />
-                </td>
-            </tr>
-            <tr>
-                <td>Enter Marks
+                    </td>
+                    <td style="text-align: center">
+                        <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Enter Marks
                     %{--<span class="university-obligatory">*</span>--}%
-                </td>
-                <td class="university-size-3-4" style="text-align: center">
-                    <input type="text" class="university-size-1-3" id="" name="" maxlength="10" onkeypress="return isNumber(event)"/>
-                </td>
-            </tr>
+                    </td>
+                    <td class="university-size-3-4" style="text-align: center">
+                        <input type="text" class="university-size-1-3" id="" name="" maxlength="10" onkeypress="return isNumber(event)"/>
+                    </td>
+                </tr>
             </table>
 
             <div style="text-align: center; margin: 10px auto;visibility: hidden;" id="buttonDiv" class="university-size-full-1-1">
-                <input type="button" value="Save Data" class="ui-button university-size-1-4" style="margin: auto;">
+                <input type="button" value="Save Data" class="ui-button university-size-1-4" style="margin: auto; " onclick="saveMarks()">
             </div>
 
         </g:form>

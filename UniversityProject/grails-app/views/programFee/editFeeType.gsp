@@ -52,7 +52,7 @@
                     </div>
                     <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} ">
                     <div class="university-size-2-3"><label for="programDetail">
-                        <g:message code="programFee.programSession.label" default="Program Session"/><span
+                        <g:message code="programFee.programSession.label" default="Programme Session"/><span
                                 class="university-obligatory">*</span>
                     </label>
                     </div>
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                         <g:javascript>
-                         feeTypeList.push(${miscellaneousFeeList[index]?.feeType?.id})
+                         feeTypeList.push(${miscFee[index]?.id})
                         </g:javascript>
 
                     </g:each>

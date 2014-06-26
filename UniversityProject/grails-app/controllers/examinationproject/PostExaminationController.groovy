@@ -29,35 +29,24 @@ class PostExaminationController {
 
 
     def getCourseData={
-        println('Params === ' +params)
-//        def subjectList=CourseSubject.findAllBySemesterAndProgramSessionAndCourseDetail(Semester.findById(Integer.parseInt(params.semester)),ProgramSession.findBySessionOfProgram(params.session),ProgramDetail.findById(params.program))*.subject
-//        println("Semester--"+Semester.findById(Integer.parseInt(params.semester)))
-//        println("Program Session--"+ProgramSession.findBySessionOfProgram(params.session))
-//        println("Program Details--"+ProgramDetail.findById(params.program))
-
-//        println("Inside PostExamination Controller-22->subjectList=="+subjectList[0].id)
-//        render subjectList as JSON
-
-//        def subjectList=CourseSubject.findAllBySemesterAndProgramSessionAndCourseDetail(Semester.findById(Integer.parseInt(params.semester)),ProgramSession.findBySessionOfProgram(params.session),ProgramDetail.findById(params.program))*.subject
-          def programDetail= ProgramDetail.findById(params.program)
-        def programSession=  ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session, programDetail)
-        def semester = Semester.findByProgramSessionAndSemesterNo(programSession, Integer.parseInt(params.semester))
-
-        println('this is the program '+ programDetail.id)
-           println(' this is the session '+ programSession.id)
-        println(' this is the  semester '+ semester)
-          def subjectList = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programDetail, semester, programSession)
-//        println("Semester--"+Semester.findById(Integer.parseInt(params.semester)))
-//        println("Program Session--"+ProgramSession.findBySessionOfProgram(params.session))
-//        println("Program Details--"+ProgramDetail.findById(params.program))
-        println('this is the list of subjects '+ subjectList)
-        def resultMap = [:]
-        println("Inside PostExamination Controller-22->subjectList=="+subjectList[0].subject.subjectName)
-        println('these are all subjects '+ subjectList.subject)
-        resultMap.subject = subjectList.subject
-        resultMap.subjectList= subjectList
-        render resultMap as JSON
-}
+        def programDetail
+        def programSession
+        def semester
+        def subjectList
+        try {
+            programDetail = ProgramDetail.findById(params.program)
+            programSession = ProgramSession.get(Integer.parseInt(params.session))
+            semester = Semester.findByProgramSessionAndSemesterNo(programSession, Integer.parseInt(params.semester))
+            subjectList = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programDetail, semester, programSession)
+        }catch(Exception e){
+            flash.message = "Unable To Get SubjectList "
+            redirect(action: "marksEntering")
+        }
+          def resultMap = [:]
+          resultMap.subject = subjectList.subject
+          resultMap.subjectList= subjectList
+          render resultMap as JSON
+    }
 
     def generateMarksFoilSheet={
         if(params.btn=="pdf"){
@@ -149,7 +138,7 @@ class PostExaminationController {
             }
             and {
             eq('semester', Integer.parseInt(params.semester) )
-            eq('programSession', ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,ProgramDetail.findById(Long.parseLong(params.program))))
+            eq('programSession', ProgramSession.get(Integer.parseInt(params.session)))
 //            eq('ProgramDetail', ProgramDetail.findById(Long.parseLong(params.program)))
         }
     }

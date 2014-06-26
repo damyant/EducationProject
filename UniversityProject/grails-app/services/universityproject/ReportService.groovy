@@ -3,6 +3,7 @@ package universityproject
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.FeeType
+import examinationproject.MiscellaneousFeeChallan
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
 import examinationproject.ProgramSession
@@ -15,11 +16,15 @@ import jxl.write.WritableWorkbook;
 import jxl.Workbook
 import org.codehaus.groovy.classgen.genDgmMath
 
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 @Transactional
 class ReportService {
     def writeExcelService
     def springSecurityService
     def getReportDataSession(params, excelPath) {
+        def session = params.session
          def finalStudentMap = [:]
          def totalForSession=0
          def studyCenterId=0
@@ -49,7 +54,7 @@ class ReportService {
                         eq('registrationYear' , Integer.parseInt(params.session))
                     }
                 }
-                status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCenter.name)
+                status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCenter.name, session)
                 sheetNo= sheetNo+1
              }
              workbook.write();
@@ -175,6 +180,8 @@ class ReportService {
     }
 
     Boolean getReportDataCourse(params, excelPath){
+        def session =params.courseSession
+        println("these are the parameters "+ params)
         def course = ProgramDetail.findById(Long.parseLong(params.course))
         def stuObj= Student.createCriteria()
         File file = new File(excelPath);
@@ -193,7 +200,7 @@ class ReportService {
 
         println('--------------------------'+studentList)
 //        return studentList
-       def status=  writeExcelService.excelReport(params, studentList, course, sheetNo, workbook, null)
+       def status=  writeExcelService.excelReport(params, studentList, course, sheetNo, workbook, null, session)
         workbook.write();
         workbook.close();
         return status
@@ -207,6 +214,7 @@ class ReportService {
         def totalForSession=0
         def programList = ProgramDetail.list(sort: 'courseCode')
         if(params.inExcel){
+            def session = params.studyCentreSession
             File file = new File(excelPath);
             WorkbookSettings  wbSettings = new WorkbookSettings();
             wbSettings.setLocale(new Locale("en", "EN"));
@@ -226,9 +234,12 @@ class ReportService {
                     and{
                         eq('registrationYear' , Integer.parseInt(params.studyCentreSession))
                     }
+                    and{
+                        ne('status', Status.findById(4))
+                    }
                 }
                 println("--------------"+count)
-                 status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCentreName.name)
+                 status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCentreName.name, session)
                 sheetNo= sheetNo+1
             }
           workbook.write();
@@ -249,6 +260,9 @@ class ReportService {
                 and{
                     eq('registrationYear' , Integer.parseInt(params.studyCentreSession))
                 }
+                and{
+                    eq('status', Status.findById(4))
+                }
                 projections {
                     rowCount()
                 }
@@ -264,11 +278,13 @@ class ReportService {
 
     }
     def getReportDataExaminationCentre(params, excelPath){
+        println("hello kuldeep u r in this ")
         def status
         def finalStudentMap = [:]
         def totalForSession=0
         def programList = ProgramDetail.list(sort: 'courseCode')
         if(params.inExcel){
+            def session = params.examinationCentreSession
             File file = new File(excelPath);
             WorkbookSettings  wbSettings = new WorkbookSettings();
             wbSettings.setLocale(new Locale("en", "EN"));
@@ -289,7 +305,7 @@ class ReportService {
                     }
                 }
                 println("--------------"+count)
-                status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, null)
+                status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, null, session)
                 sheetNo= sheetNo+1
             }
             workbook.write();
@@ -297,6 +313,7 @@ class ReportService {
             return status
         }
         else{
+            println("in else")
             programList.each {
                 def pId= it.id
                 def stuObj= Student.createCriteria()
@@ -462,8 +479,8 @@ class ReportService {
                     eq('registrationYear' , Integer.parseInt(params.admissionUnapprovedSession))
                 }
                 and{
-                    eq('status', Status.findById(3))
-                }
+                        ne('status', Status.findById(4))
+                    }
 
                 order('programDetail', 'asc')
             }
@@ -495,14 +512,21 @@ class ReportService {
     def getReportDataAdmissionSelfRegistration(params){
         def stuObj= Student.createCriteria()
         def studentList = stuObj.list{
+            ne('referenceNumber', '0')
+            and{
                 eq('registrationYear' , Integer.parseInt(params.admissionSelfRegistrationSession))
+            }
+//            and{
+//                ne('referenceNumber', 0)
+//            }
 
 //             and{
 //                eq('status', Status.findById(1))
 //             }
-            and{
-              isNotNull('referenceNumber')
-            }
+//            and{
+//              isNotNull('referenceNumber')
+//            }
+
         }
         println("this is the list--------------- "+studentList)
         return studentList
@@ -513,41 +537,44 @@ class ReportService {
 
 
     def getReportDataStudyCentreFeePaid(params){
-       def finalMap =[]
+       def finalMap =[:]
        println("these "+ params)
        def stuObj = Student.createCriteria()
        def studentList = stuObj.list{
            studyCentre{
                eq('id' , Long.parseLong(params.feePaidStudyCentre))
            }
-           and{
-               eq('registrationYear' , Integer.parseInt(params.studyCentreFeePaidSession))
-           }
-           and{
-               eq('status', Status.findById(4))
-           }
        }
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        def fromDate = df.parse(params.studyCentreFeeFromDate)
+        def toDate = df.parse(params.studyCentreFeeToDate)
+        println('now going to fetch the fee records *** '+ fromDate+ ' and the to date is '+ toDate)
+        def feeType = FeeType.list(sort:'type');
+        int finalTotal =0
+            feeType.each{
+                def feeTypeIns = it
+                def feeDetails = FeeDetails.createCriteria()
+                def musFeeList = feeDetails.list{
+                 'in'('student', studentList)
+                    and{
+                        between('paymentDate', fromDate, toDate)
+                        eq('feeType', feeTypeIns)
+                    }
 
-        println("this is the list of students "+ studentList)
-        def chalanNoList=[]
-        studentList.each{
-            println("----------"+it)
-            chalanNoList.add(it.challanNo)
-        }
-        def feeType= FeeType.list(sort: 'type')
-        feeType.each{
-        def feeList = FeeDetails.findAllByChallanNoInListAnd
-            println("this is the list of fee paid "+ feeList)
-
-           if(feeList){
-               feeList.each {
-                   finalMap.add(it)
-               }
-           }
-
-        }
-
-        println("this is the final map "+ finalMap)
+                 }
+//                println("hello kuldeep ************************************************"+musFeeList[0].paymentDate)
+                int totalForList =0
+                if(musFeeList){
+                    musFeeList.each{
+                        totalForList = totalForList + it.paidAmount
+                    }
+                }
+              finalTotal = finalTotal+ totalForList
+              finalMap.put(it.type, musFeeList)
+              finalMap.put(it.type+' Total', totalForList)
+            }
+        finalMap.put('finalTotal', finalTotal)
+        println('finalMap is ' + finalMap)
         return finalMap
     }
 
@@ -621,6 +648,7 @@ class ReportService {
 
     def getReportDataStudentCategory(params, excelPath){
         println(params.categoryStudentListSession+"--------------------------"+params.studentCategory)
+        def session =  params.categoryStudentListSession
         File file = new File(excelPath);
         WorkbookSettings  wbSettings = new WorkbookSettings();
         wbSettings.setLocale(new Locale("en", "EN"));
@@ -643,7 +671,7 @@ class ReportService {
                 }
             }
             println("--------------"+count)
-            status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, null)
+            status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, null, session)
             sheetNo= sheetNo+1
         }
         workbook.write();

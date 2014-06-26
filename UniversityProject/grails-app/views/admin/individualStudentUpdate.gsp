@@ -30,7 +30,7 @@
                     <label for="StudentRollNo">Enter Roll Number</label>
                 </td>
                 <td class="university-size-1-3">
-                    <g:textField name="rollNo" id="StudentRollNo" maxlength="8" class="university-size-1-1" onblur="checkRollNo()" onkeypress="return isNumber(event)" />
+                    <g:textField name="rollNo" id="StudentRollNo" maxlength="8" class="university-size-1-1" onchange="checkRollNo()" onkeypress="return isNumber(event)" />
                 </td>
 
                 <td class="university-size-1-4">

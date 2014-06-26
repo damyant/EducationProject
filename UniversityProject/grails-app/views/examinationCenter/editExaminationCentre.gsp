@@ -47,7 +47,7 @@
                     <td><label>Exam Centre
                     </label></td>
                     <td>
-                        <g:select name="examinationCentre" id="examinationCentre" optionKey="id" value="${examCentre[0].id}" class="university-size-1-3"
+                        <g:select name="examinationCentre" id="examinationCentre" optionKey="id" value="${examCentre?.id}" class="university-size-1-3"
                                   optionValue="cityName" from="${examCenterList}" noSelection="['': ' Select Examination Centre']"/>
                     </td>
                 </tr>
@@ -55,13 +55,13 @@
                 <tr>
                     <td><label>Venue Code
                     </label></td>
-                    <td><input type="text" class="university-size-1-3" name="contactNo" maxlength="10"
+                    <td><input type="text" class="university-size-1-3" name="examinationCentreCode" maxlength="10"
                                value="${examinationVenueInstance?.centreCode}" onkeypress="return isNumber(event)"/></td>
                 </tr>
                 <tr>
                     <td><label>Incharge Name
                     </label></td>
-                    <td><input type="text" class="university-size-1-3" name="contactNo" maxlength="10"
+                    <td><input type="text" class="university-size-1-3" name="examinationCentreIncharge" maxlength="10"
                                value="${examinationVenueInstance?.inchargeName}" onkeypress="return isNumber(event)"/></td>
                 </tr>
                 <tr>
@@ -70,13 +70,6 @@
                     <td><input type="text" class="university-size-1-3" name="address" maxlength="100"
                                value="${examinationVenueInstance?.address}"/></td>
                 </tr>
-
-
-                %{--<tr>--}%
-                %{--<td><label><g:message code="default.createExam.nOfRooms" /></label></td>--}%
-                %{--<td><input type="text" name="rooms" value="${examinationCentreInstance?.rooms}"/></td>--}%
-                %{--</tr>--}%
-
 
                 <tr>
                     <td><label><g:message code="default.createExam.studentCapacity"/></label></td>
@@ -96,5 +89,10 @@
         </g:form>
     </fieldset>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        document.getElementById("examinationCentre").multiple = false;
+    })
+</script>
 </body>
 </html>
