@@ -224,12 +224,13 @@ class ReportController {
 
       else if(params.value=='studyCentreFeePaid' && params.studyCentreFeeFromDate && params.studyCentreFeeToDate ){
            println("this function is called")
+           def studyCentreName = StudyCenter.findById(Long.parseLong(params.feePaidStudyCentre)).name
            def totalList = reportService.getReportDataStudyCentreFeePaid(params)
            def feeType = FeeType.list()
            totalList.size()
 //           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
 //           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, feeType: feeType],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, feeType: feeType, studyCentreName:studyCentreName, fromDate:params.studyCentreFeeFromDate, toDate:params.studyCentreFeeToDate],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
          //  redirect(action: 'reportIndex')
       }
@@ -240,7 +241,7 @@ class ReportController {
            totalList.size()
 //           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
 //           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, feeType: feeType],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, feeType: feeType, fromDate:params.feeFromDate, toDate:params.feeToDate],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
 
       }
