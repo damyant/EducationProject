@@ -228,11 +228,17 @@ class FeeDetailService {
         def stuList = []
         def studentsWhoFeePaidPrevious
         def feeObj = FeeDetails.createCriteria()
+        //Students who hv paid and fee Approved
         def studentsWhoFeePaid = feeObj.list {
             eq('feeType', FeeType.findById(params.feeType))
             eq('semesterValue', Integer.parseInt(params.semester))
             eq('isApproved', 1)
         }.student.id.unique()
+        def studentsWhoFeePaidList=[]
+        studentsWhoFeePaid.each{
+            studentsWhoFeePaidList<<Student.findById(it)
+        }
+        println("studentsWhoFeePaid"+studentsWhoFeePaid)
         def feePaidObj = FeeDetails.createCriteria()
 
         if (studentsWhoFeePaid.size() == 0) {
@@ -243,16 +249,21 @@ class FeeDetailService {
             }.student.id.unique()
         } else {
             studentsWhoFeePaidPrevious = feePaidObj.list {
-                eq('feeType', FeeType.findById(params.feeType))
-                eq('semesterValue', Integer.parseInt(params.semester) - 1)
-                eq('isApproved', 1)
-                not('in'('student', studentsWhoFeePaid))
+                not{'in'('student', studentsWhoFeePaidList)}
+                and{
+                    eq('feeType', FeeType.findById(params.feeType))
+                    eq('semesterValue', Integer.parseInt(params.semester) - 1)
+                    eq('isApproved', 1)
+                }
             }.student.id.unique()
         }
-
-        println("dfdfff>>>" + studentsWhoFeePaid)
+        println("studentsWhoFeePaidPrevious"+studentsWhoFeePaidPrevious)
         if (params.semester == '1') {
             if (studentsWhoFeePaid.size() > 0) {
+//                def studentsWhoFeePaidList=[]
+//                studentsWhoFeePaid.each{
+//                    studentsWhoFeePaidList<<Student.findById(it)
+//                }
                 if (params.program != 'All') {
                     stuList = obj.list {
                         programDetail {
@@ -262,7 +273,7 @@ class FeeDetailService {
                             eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
                         }
                         and {
-                            not('in'('student', studentsWhoFeePaid))
+                            not('in'('id', studentsWhoFeePaid))
                         }
 
                     }
@@ -272,7 +283,7 @@ class FeeDetailService {
                             eq('id', Long.parseLong(currentUser.studyCentreId.toString()))
                         }
                         and {
-                            not('in'('student', studentsWhoFeePaid))
+                            not{'in'('id', studentsWhoFeePaid)}
                         }
                     }
                 }
@@ -296,6 +307,7 @@ class FeeDetailService {
                 }
             }
         } else {
+            print("here")
             studentsWhoFeePaidPrevious.each {
                 stuList << Student.findById(it)
             }

@@ -256,17 +256,21 @@ class FeeDetailsController {
             else{
                 feeDetails = new FeeDetails()
             }
+//            println("************************#############"+params.semesterListHidden)
             feeDetails.feeType = FeeType.findById(3)
             feeDetails.paidAmount = feeForStudent
             feeDetails.challanNo = challanNo
             feeDetails.challanDate = new Date()
             feeDetails.student = stuIns
-            feeDetails.semesterValue = params.semesterListHidden
+//            println("params.semesterListHidden>>>>>>>>>>>>"+params.semesterListHidden)
+            feeDetails.semesterValue = Integer.parseInt(params.semesterListHidden)
             feeDetails.save(failOnError: true, flush: true)
             addmissionFee.add(feeForStudent)
         } else {
             stuList = params.studentListId.split(",")
             def semesterList=params.semesterListHidden.split(",")
+
+            println(semesterList)
             for (def i = 0; i < stuList.size(); i++) {
                 lateFee = 0
                 def stuIns = Student.findById(Long.parseLong(stuList[i]))
@@ -297,9 +301,9 @@ class FeeDetailsController {
                 feeForStudent = feeForStudent + lateFee
 //                println("@@@@@@@@@@@@@@@@@"+lateFee)
                 totalFee = totalFee + feeForStudent
-                println(">>>>>  "+stuIns.firstName)
-                println(">>>>>  "+FeeType.findById(3).type)
-                println(">>>>>  "+semesterList[i])
+//                println(">>>>>  "+stuIns.firstName)
+//                println(">>>>>  "+FeeType.findById(3).type)
+//                println(">>>>>  "+semesterList[i])
                 def studInFeeDetails=examinationproject.FeeDetails.findByStudentAndFeeTypeAndSemesterValue(stuIns,FeeType.findById(3),semesterList[i])
                 def feeDetails
                 if(studInFeeDetails){
@@ -313,7 +317,8 @@ class FeeDetailsController {
                 feeDetails.challanNo = challanNo
                 feeDetails.challanDate = new Date()
                 feeDetails.student = stuIns
-                feeDetails.semesterValue = semesterList[i]
+//                println("semesterList>>>>>>>>>>>>"+semesterList[i])
+                feeDetails.semesterValue = Integer.parseInt(semesterList[i])
                 feeDetails.save(failOnError: true, flush: true)
                 addmissionFee.add(feeForStudent)
             }
@@ -453,7 +458,9 @@ class FeeDetailsController {
         def branch = Branch.findById(params.branchLocation)
         def feeDetailsInstance = FeeDetails.findAllByChallanNo(params.searchChallanNo)
 //        println("*************** "+paymentModeName)
+        def termList=[]
         feeDetailsInstance.each {
+            termList<<it.semesterValue
             it.paymentModeId=paymentModeName
             it.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
             it.bankId = Bank.findById(params.bankName)
@@ -475,7 +482,7 @@ class FeeDetailsController {
         def challanNo = params.searchChallanNo
         def paymentDate = params.paymentDate
         def paymentReferenceNumber = params.paymentReferenceNumber
-        def args = [template: "printPayChallan", model: [bank: bank, lateFee: lateFee, studyCentre: studyCentre, branch: branch, paymentReferenceNumber: paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
+        def args = [template: "printPayChallan", model: [bank: bank,termList:termList, lateFee: lateFee, studyCentre: studyCentre, branch: branch, paymentReferenceNumber: paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
 
     }

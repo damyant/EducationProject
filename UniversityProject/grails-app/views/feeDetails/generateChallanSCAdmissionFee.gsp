@@ -33,7 +33,7 @@
 <div id="main">
 
     <fieldset class="form">
-            <h3>Generate Admission Fee Challan</h3>
+            <h3>Generate Fee Challan</h3>
     <g:form name="challanForStudyCenter" id="challanForStudyCenter" controller="feeDetails" action="challanForStudyCenterStu">
         <g:hiddenField name="studentListId" id="studentListId" value="" />
         <g:hiddenField name="semesterListHidden" id="semesterListHidden" value="" />
@@ -68,7 +68,7 @@
                               onchange="getTermByCatagory(this)"/>
                 </td>
                 <td class="university-size-1-4" style="text-align: center;">OR</td>
-                <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" disabled id="allProgram" name="allProgram"/><label for="allProgram">All Programmes (Only for Newly Admitted)</label></td>
+                <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" disabled id="allProgram" name="allProgram"/><label for="allProgram">All Programmes (Only for 1st Term)</label></td>
             </tr>
             <tr><td><label>Select Term</label></td>
                 <td>

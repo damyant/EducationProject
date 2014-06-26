@@ -23,8 +23,22 @@
     <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
 
     <div>Guwahati, Assam</div>
-</p>
-    %{--<div style="font-weight: bold;width: 100%;text-align: center;">Admission Fee </div>--}%
+</p>${termList.getAt(0)}
+    <div style="font-weight: bold;width: 100%;text-align: center;">Admission Fee for
+    <g:if test="${termList.getAt(0)=='1'}">
+        1st
+    </g:if>
+    <g:elseif test="${termList.getAt(0)=='2'}">
+        2nd
+    </g:elseif>
+    <g:elseif test="${termList.getAt(0)=='3'}">
+        3rd
+    </g:elseif>
+        <g:else>
+            ${termList.getAt(0)}th
+        </g:else>
+        Term
+    </div>
     <table style="width: 80%;border: 1px dotted;margin: auto; text-align: center;">
         <tr>
             <g:if test="${studyCentre.centerCode[0] != '11111'}">

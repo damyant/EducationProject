@@ -349,32 +349,16 @@ class AdminController {
 
     def searchListStudentByChallanNo() {
         def returnMap = [:]
-        def lateFee = 0
-        def courseNameList = [], courseFee = []
-        def stuList = Student.findAllByChallanNoAndStatus(params.challanNo, Status.findById(2))
-        def currentUser = springSecurityService.currentUser
-        stuList.each{
-            lateFee=0
-            def lateFeeDate=it.programDetail.lateFeeDate[0]
-            def today=new Date()
-            int year=it.registrationYear
-            def sessionVal= year+1
-            sessionVal= year+'-'+sessionVal
-            def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.get(it.programDetail[0].id),sessionVal.toString())
-            if(lateFeeDate!=null) {
-                if (today.compareTo(lateFeeDate) > 0) {
-                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
-                }
-            }
-            courseNameList << it.programDetail[0].courseName
-
-            if(it.studyCentre.centerCode[0]=="11111"){
-                courseFee<< AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtIDOL
-            }else{
-                courseFee<< AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtSC
-            }
+        def courseNameList = [], courseFee = [],stuList=[],semester=[]
+        def feeDetailsInstance = FeeDetails.findAllByChallanNoAndIsApproved(params.challanNo,0)
+        feeDetailsInstance.each{
+            stuList<<Student.findById(it.student.id)
+            courseNameList<<it.student.programDetail.courseName
+            courseFee<<it.paidAmount
+            semester<<it.semesterValue
         }
         returnMap.stuList = stuList
+        returnMap.semester = semester
         returnMap.courseNameList = courseNameList
         returnMap.courseFee = courseFee
         render returnMap as JSON
