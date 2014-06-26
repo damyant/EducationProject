@@ -31,7 +31,7 @@ class Subject {
 
     static constraints = {
         subjectName(nullable: false)
-        subjectCode (nullable:false)
+        subjectCode (nullable:false, unique: true)
         aliasCode (nullable: false)
         creditPoints (nullable: false)
         theoryMarks (nullable: false)

@@ -14,6 +14,13 @@ function validate() {
             subjectName: {required: true,
                 lettersnumberswithbasicpunc: true
             },
+            subjectCode:{required:true},
+            aliasCode:{required:true},
+            creditPoints:{required:true},
+            theoryMarks:{required:true},
+            homeAssignmentMarks:{required:true},
+            totalMarks:{required:true},
+
             registrationNo1:{
                 minlength:5
             },
@@ -336,6 +343,12 @@ function validate() {
             subjectName: {required: "Please Enter Course Name",
                 lettersnumberswithbasicpunc: "Letters or numbers or punctuation only please"
             },
+            subjectCode:{required: "Please Enter Course Code"},
+            aliasCode:{required:"Please Enter Alias Code"},
+            creditPoints:{required:"Please Enter Credit Points"},
+            theoryMarks:{required:"Please Enter Examination Marks"},
+            homeAssignmentMarks:{required:"Please Enter Home-assignment Marks"},
+            totalMarks:{required:"Please Enter Total Marks"},
             registrationNo1:{
                 minlength:"Please Enter 5 Character"
             },

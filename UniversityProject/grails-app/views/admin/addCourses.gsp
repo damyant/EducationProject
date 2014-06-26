@@ -59,6 +59,57 @@
 
             </td>
         </tr>
+        <tr>
+            <td class="university-size-1-3"><p>Course Code <span class="university-obligatory">*</span>
+            </p></td>
+            <td class="university-size-2-3"><g:textField name="subjectCode" id="subjectCode" value="${courseList?.subjectCode}"
+                                                         class="university-size-1-2"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td class="university-size-1-3"><p>Alias Code <span class="university-obligatory">*</span>
+            </p></td>
+            <td class="university-size-2-3"><g:textField name="aliasCode" id="aliasCode" value="${courseList?.aliasCode}"
+                                                         class="university-size-1-2"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td class="university-size-1-3"><p>Credit Points <span class="university-obligatory">*</span>
+            </p></td>
+            <td class="university-size-2-3"><g:textField name="creditPoints" id="creditPoints" value="${courseList?.creditPoints}"
+                                                         class="university-size-1-2"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td class="university-size-1-3"><p>Examination Marks <span class="university-obligatory">*</span>
+            </p></td>
+            <td class="university-size-2-3"><g:textField name="theoryMarks" id="theoryMarks" value="${courseList?.theoryMarks}"
+                                                         class="university-size-1-2"/>
+           </td>
+        </tr>
+        <tr>
+            <td class="university-size-1-3"><p>Home Assignment Marks <span class="university-obligatory">*</span>
+            </p></td>
+            <td class="university-size-2-3"><g:textField name="homeAssignmentMarks" id="homeAssignmentMarks" value="${courseList?.homeAssignmentMarks}"
+                                                         class="university-size-1-2"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="university-size-1-3"><p>Practical Marks</p></td>
+            <td class="university-size-2-3"><g:textField name="practicalMarks" id="practicalMarks" value="${courseList?.practicalMarks}"
+                                                         class="university-size-1-2"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="university-size-1-3"><p>Total Marks <span class="university-obligatory">*</span>
+            </p></td>
+            <td class="university-size-2-3"><g:textField name="totalMarks" id="totalMarks" value="${courseList?.totalMarks}"
+                                                         class="university-size-1-2"/>
+            </td>
+        </tr>
 
         <tr><td colspan="2" style="text-align: center; ">
             <g:submitButton name="submit" class="university-button" value="Save" onclick="validate()"
