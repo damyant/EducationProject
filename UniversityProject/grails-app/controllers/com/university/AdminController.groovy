@@ -8,19 +8,16 @@ import examinationproject.FeeDetails
 import examinationproject.FeeSession
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
-import examinationproject.MiscellaneousFeeChallan
+
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
-import examinationproject.ProgramSession
 import examinationproject.ProgramType
 import examinationproject.RollNoGenerationFixture
 import examinationproject.Student
 import examinationproject.Status
-import examinationproject.StudentController
 import examinationproject.StudyCenter
 import examinationproject.Subject
 import grails.converters.JSON
-import grails.util.Holders
 
 import javax.activation.MimetypesFileTypeMap
 import grails.plugins.springsecurity.Secured
@@ -350,7 +347,7 @@ class AdminController {
     def searchListStudentByChallanNo() {
         def returnMap = [:]
         def courseNameList = [], courseFee = [],stuList=[],semester=[]
-        def feeDetailsInstance = FeeDetails.findAllByChallanNoAndIsApproved(params.challanNo,0)
+        def feeDetailsInstance = FeeDetails.findAllByChallanNoAndIsApproved(params.challanNo,Status.findById(1))
         feeDetailsInstance.each{
             stuList<<Student.findById(it.student.id)
             courseNameList<<it.student.programDetail.courseName
@@ -366,13 +363,13 @@ class AdminController {
 
     def searchMiscFeeListByChallanNo() {
         def returnMap = [:]
-        def courseNameList = [], courseFee = [], stuList = []
-        def miscFeeChallanList = FeeDetail.findAllByChallanNo(params.challanNo)
+        def courseNameList = [], courseFee = [], stuList = [],feeType=[]
+//        println(params.challanNo)
+        def miscFeeChallanList = FeeDetails.findAllByChallanNo(params.challanNo)
         miscFeeChallanList.each {
-//            println("==="+it.student.programDetail)
-
             int year=it.student.registrationYear
             def sessionVal= year+1
+            feeType<<it.feeType.type
             sessionVal= year+'-'+sessionVal
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.get(it.student.programDetail[0].id),sessionVal.toString())
             stuList<<it.student
@@ -380,6 +377,7 @@ class AdminController {
             courseFee<<MiscellaneousFee.findByFeeSessionAndFeeType(feeSessionObj,it.feeType).amount
         }
         returnMap.stuList = stuList
+        returnMap.feeType = feeType
         returnMap.courseNameList = courseNameList
         returnMap.courseFee = courseFee
         render returnMap as JSON
@@ -393,18 +391,21 @@ class AdminController {
     }
 
     def approveFeeForStudents = {
-//        println(">>>>>>>>>>>>>" + params.studentListId)
-        def student
-        def studentListId = []
-        studentListId.addAll(params.studentListId)
-
-      studentListId.each{
-          student = Student.findById(it)
-          def status = Status.findById(4)
-          student.status = status
-          student.save(flush: true)
-      }
-        if(student){
+        Boolean status=false
+        def feeDetailList=FeeDetails.findAllByChallanNo(params.payInSlipNo)
+        feeDetailList.each {
+            it.isApproved=Status.findById(4)
+            if(it.save(flush: true)){
+                if(it.semesterValue==1 && it.feeType.id==3){
+                    def student = Student.findById(it.student.id)
+                    student.status=Status.findById(4)
+                    if(student.save(flush: true)){
+                        status=true
+                    }
+                }
+            }
+        }
+        if(status){
             flash.message = "Approved Successfully"
             redirect(action: "approvePayInSlip")
         }

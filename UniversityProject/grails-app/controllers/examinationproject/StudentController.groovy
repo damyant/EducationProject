@@ -322,6 +322,7 @@ class StudentController {
             feeDetailInst.paidAmount=programFeeAmount
             feeDetailInst.semesterValue=1
             feeDetailInst.challanDate=new Date()
+            feeDetailInst.isApproved=Status.findById(1)
             feeDetailInst.feeType=FeeType.findById(3)
             feeDetailInst.challanNo = student.challanNo
             feeDetailInst.save(failOnError: true, flush: true)

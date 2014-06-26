@@ -409,11 +409,12 @@ function enterSrNo(t) {
 }
 
 function populateStudentList() {
-
-    var program = $('#programList').val();
-    var semester = $('#semesterList').val();
-    var catagory = $('#programCategory').val();
     var feeType = $('#feeCategory').val();
+    var catagory = $('#programCategory').val();
+    var program = $('#programList').val();
+   if(feeType!='2'){
+       var semester = $('#semesterList').val();
+
     var chkBox1 = document.getElementById('allProgram');
 //    alert(chkBox1.checked)
     if (program != '' && semester != '' && chkBox1.checked == false) {
@@ -431,7 +432,16 @@ function populateStudentList() {
     else {
         alert("Please Fill the Filters.")
     }
-    if (program) {
+   }
+    else{
+       if (program == '' && chkBox1.checked == true) {
+           program = 'All';
+       }
+       else{
+           program = $('#programList').val();
+       }
+   }
+    if (feeType) {
         $.ajax({
             type: "post",
             url: url('feeDetails', 'populateStudentsForStudyCenter', ''),
@@ -792,7 +802,10 @@ function enableAll() {
     $('#programCategory').attr('disabled', false);
     $('#programList').attr('disabled', false);
     $('#allProgram').attr('disabled', false);
-    $('#semesterList').attr('disabled', false);
+    if($('#feeCategory').val()!='2'){
+        $('#semesterList').attr('disabled', false);
+
+    }
 
 }
 
