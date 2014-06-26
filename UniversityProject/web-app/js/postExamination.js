@@ -140,10 +140,11 @@ function setSessions(){
 
 function updateMarksType(id){
     marksTypeId = id
-    window.location.href = '/UniversityProject/marksType/editMarksType?marksTypeId=' + marksTypeId;
+    alert(marksTypeId)
+    window.location.href = '/UniversityProject/marksType/createMarksType?marksTypeId=' + marksTypeId;
 }
 function deleteMarksType(id){
     marksTypeId = id
 //    alert(bankId)
-    window.location.href = '/UniversityProject/marksType/deleteBank?marksTypeId=' + marksTypeId;
+    window.location.href = '/UniversityProject/marksType/deleteMarksType?marksTypeId=' + marksTypeId;
 }

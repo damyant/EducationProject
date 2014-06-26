@@ -10,9 +10,8 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'bank.js')}'></script>
-    <g:set var="entityName" value="${message(code: 'bank.label', default: 'Bank')}" />
-    <title><g:message code="default.list.label" args="[entityName]" /></title>
+    <script type='text/javascript' charset='utf-8' src='${resource(dir: 'js', file: 'postExamination.js')}'></script>
+
 </head>
 
 <body>
