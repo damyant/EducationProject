@@ -58,15 +58,25 @@
 
                 <!----------------------------------------- Session Name --------------------------------------------->
                 <tr>
-                    <td>Session<span class="university-obligatory">*</span></td>
+                    <td>Program Session<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="SessionList" id="SessionList" optionKey="id" class="university-size-1-2"
                                   value=""
-                                  optionValue="session" from="" noSelection="['': ' Select Session']"
+                                  optionValue="session" from="" noSelection="['': ' Select Session']" onchange="setSessions()"
 
                         />
                     </td>
                 </tr>
+
+                <tr>
+                    <td> Session<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="session" class="university-size-1-2 allSession" id="sessionVal"
+                                  from="" optionKey="" optionValue=""
+                                  noSelection="['null': ' Select Session']" />
+                    </td>
+                </tr>
+
 
                 <!----------------------------------------- Semester Name --------------------------------------------->
                 <tr>

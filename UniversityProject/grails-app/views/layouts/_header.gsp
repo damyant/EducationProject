@@ -128,6 +128,23 @@
 <li><a href="#"><g:message code="default.mainMenu4"/></a>
  %{--ADDED BY DIGVIJAY ON 3rd JUNE 2014--}%
     <ul>
+
+    <li><a href="#"><g:message code="default.mainMenu4.subMenu9"/></a>
+        <ul>
+            <li>
+                <g:link controller="marksType"
+                        action="createMarksType"><g:message
+                        code="default.mainMenu4.subMenu9.submenu1"/>
+                </g:link>
+            </li>
+            <li>
+                <g:link controller="marksType"
+                        action="marksTypeList"><g:message
+                        code="default.mainMenu4.subMenu9.submenu2"/>
+                </g:link>
+            </li>
+        </ul>
+    </li>
         <li>
             <g:link controller="postExamination"
                     action="createMarksFoil"><g:message

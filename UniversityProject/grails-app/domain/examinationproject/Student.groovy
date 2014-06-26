@@ -1,5 +1,7 @@
 package examinationproject
 
+import postexamination.StudentMarks
+
 
 class Student {
 

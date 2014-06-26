@@ -3,12 +3,13 @@
  */
 function validate() {
 
-    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
+    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#marksTypeForm,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
 
         rules: {
 
             //Add Course
             bankName:"required",
+            marksTypeName:"required",
             programTypeId:"required",
             imageValidate:"required",
             subjectName: {required: true,
@@ -402,6 +403,7 @@ function validate() {
             name: "Please enter study center name",
             address: "Please enter study center address",
             district: "Please select district",
+            marksTypeName:"Please Enter Marks Type",
             city: "Please select city",
             nameOfHeadIns: "Please enter name of the Principal",
             districtName: "Please Enter District Name",

@@ -139,6 +139,7 @@ class PostExaminationController {
             and {
             eq('semester', Integer.parseInt(params.semester) )
             eq('programSession', ProgramSession.get(Integer.parseInt(params.session)))
+            eq('registrationYear', Integer.parseInt(params.stuSession))
 //            eq('ProgramDetail', ProgramDetail.findById(Long.parseLong(params.program)))
         }
     }

@@ -1,6 +1,8 @@
-package examinationproject
+package postexamination
 
 import com.university.Role
+import examinationproject.Student
+import examinationproject.Subject
 
 class StudentMarks {
 

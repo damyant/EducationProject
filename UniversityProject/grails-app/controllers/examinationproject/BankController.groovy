@@ -23,7 +23,7 @@ class BankController {
     @Transactional
     def saveBank() {
           if(new Bank(bankName: params.bankName).save(flush: true)){
-            redirect(action: "bankList")
+           redirect(action: "bankList")
         }
 
 

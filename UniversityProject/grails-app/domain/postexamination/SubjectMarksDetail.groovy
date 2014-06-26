@@ -1,4 +1,7 @@
-package examinationproject
+package postexamination
+
+import examinationproject.Subject
+import postexamination.MarksType
 
 class SubjectMarksDetail {
 

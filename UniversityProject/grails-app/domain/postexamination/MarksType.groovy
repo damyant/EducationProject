@@ -1,4 +1,4 @@
-package examinationproject
+package postexamination
 
 class MarksType {
 

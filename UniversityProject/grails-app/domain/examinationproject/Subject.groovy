@@ -1,5 +1,7 @@
 package examinationproject
 
+import postexamination.SubjectMarksDetail
+
 class Subject {
 
     String subjectCode

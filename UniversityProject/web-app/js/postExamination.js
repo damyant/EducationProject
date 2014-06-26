@@ -1,7 +1,7 @@
 /**
  * Created by Digvijay on 3/6/14.
  */
-
+var marksTypeId =0;
 function loadSession(t){
     var program=$(t).val();
     if(program){
@@ -97,13 +97,15 @@ function populateStudentList() {
     var program = $('#programId').val();
     var session = $('#SessionList').val();
     var semester = $('#semesterList').val();
+    var stuSession = $('#sessionVal').val();
+    alert(stuSession)
     alert(session+"  "+program+"  "+semester)
 
     var course = $('#courseCode').val();
         $.ajax({
             type: "post",
             url: url('postExamination', 'getRollNoList', ''),
-            data: {program: program, session: session, semester: semester},
+            data: {program: program, session: session, semester: semester,stuSession:stuSession},
             success: function (data) {
                 if(data.length>0){
                     $('#selectBox').empty()
@@ -117,3 +119,31 @@ function populateStudentList() {
         });
 }
 
+function setSessions(){
+    $.ajax({
+        type: "post",
+        url: url('report', 'getSessionList', ''),
+        async: false,
+        data: '',
+        success: function (data) {
+            $(".allSession").empty().append('')
+            for (var i = 0; i < data.length; i++) {
+                $(".allSession").append('<option value="' + data[i] + '">' + data[i]+'-'+ (data[i]+1) + '</option>')
+            }
+        }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log("response in error")
+        }
+
+    });
+}
+
+
+function updateMarksType(id){
+    marksTypeId = id
+    window.location.href = '/UniversityProject/marksType/editMarksType?marksTypeId=' + marksTypeId;
+}
+function deleteMarksType(id){
+    marksTypeId = id
+//    alert(bankId)
+    window.location.href = '/UniversityProject/marksType/deleteBank?marksTypeId=' + marksTypeId;
+}
