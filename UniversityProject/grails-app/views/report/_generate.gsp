@@ -103,6 +103,40 @@
                    </g:each>
            </table>
       </g:elseif>
+
+
+<g:elseif test="${totalListDailyAdmission}">
+    <h3> List Of Students Who Have Taken Admission From Date ${fromDate} To ${toDate} At ${studyCentreName? studyCentreName:'All'} StudyCentre</h3>
+    <table style=" text-align: center" class="gridtable">
+        <th>Roll No</th>
+        <th>Name</th>
+        <g:if test="${!studyCentreName}">
+        <th>Study Centre</th>
+        </g:if>
+        <th>Examination Centre</th>
+        <th>Mobile No.</th>
+        <th>Status</th>
+        <g:each in="${totalListDailyAdmission}" var="student">
+            <tr>
+                <td >${student.rollNo? student.rollNo:'Not Generated'}</td>
+                <td >${student?.firstName} ${student?.middleName} ${student?.lastName} </td>
+                <g:if test="${!studyCentreName}">
+                <td >${student.studyCentre[0].name}</td>
+                </g:if>
+                <td >${student.city[0].cityName}</td>
+                <td >91${student.mobileNo}</td>
+                <td >${student.status.status}</td>
+            </tr>
+        </g:each>
+    </table>
+</g:elseif>
+
+
+
+
+
+
+
       <g:elseif test="${totalListByStudyCentre}">
             <h3> Total Students In All Courses For ${studyCentreSession} Session In ${studyCentreName}</h3>
             <table style=" text-align: center" class="gridtable">

@@ -78,6 +78,13 @@ class AdmitCardController {
         }
 
     }
+    def getSemesterListOnly={
+        def resultMap = [:]
+        def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
+        resultMap.totalSem = course[0]
+        render resultMap as JSON
+    }
+
 
     def examVenueCapacity={
         try{

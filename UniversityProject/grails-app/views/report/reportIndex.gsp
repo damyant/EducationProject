@@ -76,7 +76,7 @@
                            <a href="#">   <li id="admissionReportUnapproved">Unapproved Roll Nos</li></a>
 
                            <a href="#">  <li id="admissionReportSelfRegister"> List of all Self Registrations</li></a>
-
+                           <a href="#">  <li id="dailyAdmissionReport"> Daily Admission Report</li></a>
                        </ul>
                   </a>
                 </div>
@@ -232,6 +232,25 @@
                                  noSelection="['null': ' Select Session']" />
                    </td>
                </tr>
+
+
+           <tr id="byDailyAdmissionReport">
+               <td style="width: 40%" >
+                   <g:select name="dailyAdmissionStudyCentre" class="university-size-1-1" id="feePaidStudyCentre"
+                             from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
+                             noSelection="['All': 'All Study Centre']" />
+               </td>
+               <td style="width: 10%" >
+                   <input type="text" name="dailyAdmissionFromDate" class="" id="dailyAdmissionFromDate" placeholder="From Date"/>
+               </td>
+               <td style="width: 10%" >
+                   <input type="text" name="dailyAdmissionToDate" class="" id="dailyAdmissionToDate" placeholder="To Date"/>
+               </td>
+
+           </tr>
+
+
+
 
                <tr id="byStudyCentreFeePaid">
                    <td style="width: 40%" >
@@ -390,11 +409,16 @@
                              from="${filterType}" optionKey="" optionValue=""
                              noSelection="['null': ' Select Session']" />
                </td>
-               <td style="width: 30%" >
-                   <g:select name="sessionProgramFeePaidFeeType" class="university-size-1-1" id="sessionProgramFeePaidFeeType"
-                             from="${FeeType.list([sort: 'type'])}" optionKey="id" optionValue="type"
-                             noSelection="['null': ' Select Fee Type']" />
+
+                   %{--<g:select name="sessionProgramFeePaidFeeType" class="university-size-1-1" id="sessionProgramFeePaidFeeType"--}%
+                             %{--from="${FeeType.list([sort: 'type'])}" optionKey="id" optionValue="type"--}%
+                             %{--noSelection="['null': ' Select Fee Type']" />--}%
+               <td style="width: 30%">
+                   <select name="programTerm" class="university-size-1-1" id="semesterList"  >
+                       <option value="null">Select Semester</option>
+                   </select>
                </td>
+
            </tr>
 
            %{--<tr id="sessionProgramFeeNotPaid">--}%
@@ -617,13 +641,53 @@
                 return false;
             }
         }
-        else if(val="admissionSelfRegistration") {
+        else if(val=="admissionSelfRegistration") {
             check1 =$('#admissionSelfRegistrationSession').val()
             if(check1==0 ){
                 alert("please select values")
                 return false;
             }
         }
+        else if(val=="dailyAdmissionReport") {
+            check1 =$('#dailyAdmissionFromDate').val()
+            check2 =$('#dailyAdmissionToDate').val()
+            if(!check1 && !check2 && check3=='null' ){
+                alert("please select values")
+                return false;
+            }
+        }
+        else if(val=="studyCentreFeePaid") {
+            check1 =$('#studyCentreFeeFromDate').val()
+            check2 =$('#studyCentreFeeToDate').val()
+            check3= $('#feePaidStudyCentre').val()
+            if(!check1 && !check2 ){
+                alert("please select values")
+                return false;
+            }
+        }
+        else if(val=="dailyFeePaid") {
+            check1 =$('#feeFromDate').val()
+            check2 =$('#feeToDate').val()
+            if(!check1 && !check2 ){
+                alert("please select values")
+                return false;
+            }
+        }
+        else if(val=="sessionProgramWiseFeePaid" || val=="sessionProgramWiseFeeNotPaid" ) {
+            check1 =$('#semesterList').val()
+            if(check1=='null' ){
+                alert("please select values")
+                return false;
+            }
+        }
+//        else if(val=="sessionProgramWiseFeeNotPaid") {
+//            check1 =$('#semesterList').val()
+//            if(check1=='null' ){
+//                alert("please select values")
+//                return false;
+//            }
+//        }
+
 
 
     }

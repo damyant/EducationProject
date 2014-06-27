@@ -41,8 +41,21 @@ $(function() {
         dateFormat: "dd/mm/yy",
         maxDate: 0
     });
+    $('#dailyAdmissionFromDate').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        maxDate: 0
+    });
+    $('#dailyAdmissionToDate').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        maxDate: 0
+    });
 
   setSessions()
+  setTerm()
 
 
     $('#session').on('click', function(){
@@ -137,6 +150,10 @@ $(function() {
     $('#bySessionProgramFeeNotPaid').on('click', function(){
 //        alert("clicked")
         openPopUp(22)
+    })
+    $('#dailyAdmissionReport').on('click', function(){
+//        alert("clicked")
+        openPopUp(23)
     })
 });
 
@@ -320,7 +337,6 @@ function openPopUp(value){
         $('#sessionDialog').dialog('open')
     }
     else if(value==21){
-        alert('21')
         $('tr').hide()
         $('#flagValue').val('sessionProgramWiseFeePaid')
         $("#sessionProgramFeePaid").show()
@@ -330,11 +346,19 @@ function openPopUp(value){
         $('#sessionDialog').dialog('open')
     }
     else if(value==22){
-        alert('22')
         $('tr').hide()
         $('#flagValue').val('sessionProgramWiseFeeNotPaid')
         $("#sessionProgramFeePaid").show()
         $('#inExcel').val('true')
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+    else if(value==23){
+        alert('23')
+        $('tr').hide()
+        $('#flagValue').val('dailyAdmissionReport')
+        $("#byDailyAdmissionReport").show()
         $("#submitButton").show()
 //        alert("condition is true")
         $('#sessionDialog').dialog('open')
@@ -359,4 +383,18 @@ function setSessions(){
         }
 
     });
+}
+
+function setTerm(){
+    $.ajax({
+        type: "post",
+        url: url('admitCard', 'getSemesterListOnly', ''),
+        data: {},
+        success: function (data) {
+            $("#semesterList").empty().append('data <option value="null">Select Term</option>')
+            for (var i = 1; i <= data.totalSem; i++) {
+                $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+            }
+        }
+    })
 }

@@ -306,6 +306,25 @@ class ReportController {
          //  redirect(action: 'reportIndex')
 
        }
+
+
+
+       else if(params.value=='dailyAdmissionReport'){
+           println("this cumulative function is called "+ params.dailyAdmissionStudyCentre)
+           def studyCentreName = null
+
+           if(params.dailyAdmissionStudyCentre =='All'){
+                studyCentreName = null
+           }
+           else  {
+                studyCentreName = StudyCenter.findById(Long.parseLong(params.dailyAdmissionStudyCentre)).name
+           }
+           def totalList = reportService.getReportDataDailyAdmissionReport(params)
+           def args = [template: "generate", model: [totalListDailyAdmission :totalList, fromDate:params.dailyAdmissionFromDate, toDate:params.dailyAdmissionToDate, studyCentreName:studyCentreName],filename:"Daily_Admission_Report.pdf"]
+           pdfRenderingService.render(args + [controller: this], response)
+           //  redirect(action: 'reportIndex')
+
+       }
 //************************************************************************************
        //Added By Digvijay on 13 May
 //       else if(params.value=='dailyFeePaid' && params.feeFromDate && params.feeToDate){

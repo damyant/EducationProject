@@ -533,6 +533,9 @@ class ReportService {
                         between('paymentDate', fromDate, toDate)
                         eq('feeType', feeTypeIns)
                     }
+                    and{
+                        eq('isApproved', Status.findById(4))
+                    }
 
                  }
                 int totalForList =0
@@ -795,59 +798,91 @@ class ReportService {
                  studyCentreName = null
             def programList = ProgramDetail.list(sort: 'courseCode')
             programList.each {
-                def stuObj = Student.createCriteria()
-                def programIns = it
-                if(params.sessionProgramFeePaidStudyCentre=='All'){
-                    stuList = stuObj.list{
-                        programDetail{
-                            eq('id', programIns.id)
-                        }
-                        and{
-                            eq('registrationYear' , Integer.parseInt(params.sessionProgramFeePaidSession))
-                        }
-                    }
-                }
-                else{
-                    stuList = stuObj.list{
-                        studyCentre{
-                            eq('id' , Long.parseLong(params.sessionProgramFeePaidStudyCentre))
-                        }
-                        programDetail{
-                            eq('id', programIns.id)
-                        }
-                        and{
-                            eq('registrationYear' , Integer.parseInt(params.sessionProgramFeePaidSession))
-                        }
-                    }
-                }
-                if(stuList){
-                    if(params.value =='sessionProgramWiseFeePaid'){
-                            def count = FeeDetails.findAllByStudentInListAndFeeTypeAnd(stuList,FeeType.findById(Integer.parseInt(params.sessionProgramFeePaidFeeType)))
-                            if(count){
-                                status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
-                                sheetNo= sheetNo+1
+                if(it.noOfTerms>= Integer.parseInt(params.programTerm)) {
+                        def stuObj = Student.createCriteria()
+                        def programIns = it
+                        if(params.sessionProgramFeePaidStudyCentre=='All'){
+                            stuList = stuObj.list{
+                                programDetail{
+                                    eq('id', programIns.id)
+                                }
+                                and{
+                                    eq('registrationYear' , Integer.parseInt(params.sessionProgramFeePaidSession))
+                                }
                             }
-                    }
-                    else if(params.value =='sessionProgramWiseFeeNotPaid'){
-                            def feeDetailsStudentList = FeeDetails.findAllByFeeType(FeeType.findById(Integer.parseInt(params.sessionProgramFeePaidFeeType))).student.unique()
-                            def count= Student.findAllByIdNotInList(feeDetailsStudentList)
-                            if(count){
-                                status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
-                                sheetNo= sheetNo+1
+                        }
+                        else{
+                            stuList = stuObj.list{
+                                studyCentre{
+                                    eq('id' , Long.parseLong(params.sessionProgramFeePaidStudyCentre))
+                                }
+                                programDetail{
+                                    eq('id', programIns.id)
+                                }
+                                and{
+                                    eq('registrationYear' , Integer.parseInt(params.sessionProgramFeePaidSession))
+                                }
                             }
-                    }
+                        }
+                        if(stuList){
+                            if(params.value =='sessionProgramWiseFeePaid'){
+                                    def count = FeeDetails.findAllByStudentInListAndFeeTypeAndSemesterValueAndIsApproved(stuList,FeeType.findById(3), Integer.parseInt(params.programTerm), Status.findById(4))
+                                println("hello kuldeeppppppppppppppp "+count)
+                                    if(count){
+                                        status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
+                                        sheetNo= sheetNo+1
+                                    }
+                            }
+                            else if(params.value =='sessionProgramWiseFeeNotPaid'){
+                                def count = FeeDetails.findAllByStudentInListAndFeeTypeAndSemesterValueAndIsApprovedNotEqual(stuList,FeeType.findById(3), Integer.parseInt(params.programTerm), Status.findById(4))
+                                if(count){
+                                        status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
+                                        sheetNo= sheetNo+1
+                                }
+                            }
 
+                        }
                 }
-
             }
         if(sheetNo>0){
             workbook.write();
             workbook.close();
         }
             return status
+    }
 
-
-
+    def getReportDataDailyAdmissionReport(params){
+        def stuObj = Student.createCriteria()
+        def stuList
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        def  fromDate = df.parse(params.dailyAdmissionFromDate)
+        def toDate = df.parse(params.dailyAdmissionToDate)
+        if(params.dailyAdmissionStudyCentre=='All')   {
+            stuList = stuObj.list{
+                and{
+                    between('admissionDate', fromDate, toDate)
+                }
+                and{
+                    ne('rollNo', IS_NULL)
+                }
+            }
+        }
+        else{
+            println('in else' +params.dailyAdmissionStudyCentre)
+            stuList = stuObj.list{
+                studyCentre{
+                    eq('id' , Long.parseLong(params.dailyAdmissionStudyCentre))
+                }
+                and{
+                    between('admissionDate', fromDate, toDate)
+                }
+                and{
+                    ne('rollNo', IS_NULL)
+                }
+            }
+        }
+        println("this is the list of students "+ stuList)
+        return stuList
     }
 }
 

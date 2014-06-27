@@ -747,10 +747,10 @@ function showListOfStudents() {
                 document.getElementById("paySubmit").style.visibility = "visible";
                 document.getElementById("payClear").style.visibility = "visible";
                 $("#scStudnetList thead").empty().append('')
-                $("#scStudnetList thead").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
+                $("#scStudnetList thead").append('<tr><th>Student name</th><th>Roll Number</th><th>Term</th><th>Course Name</th><th>Amount</th></tr>')
                 $("#scStudnetList tbody").empty().append('')
                 for (var i = 0; i < data.stuList.length; i++) {
-                    $("#scStudnetList tbody").append('<tr><td>' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td><input type="text" readonly name="rollNo' + i + '" value="' + data.stuList[i].rollNo + '"/></td><td>' + data.courseNameList[i] + '</td><td>' + data.courseFee[i] + '</td></tr>')
+                    $("#scStudnetList tbody").append('<tr><td>' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td><input type="text" readonly name="rollNo' + i + '" value="' + data.stuList[i].rollNo + '"/></td><td><input type="text" readonly name="semester" value="' + data.semester[i] + '"/></td><td>' + data.courseNameList[i] + '</td><td>' + data.courseFee[i] + '</td></tr>')
                 }
                 document.getElementById("paginationDiv").style.visibility = "visible";
                 $table_rows = $('#scStudnetList tbody tr');

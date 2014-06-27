@@ -286,34 +286,27 @@ class StudentController {
     def tempRegistration() {
        def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, "", "")
         if (studentRegistration) {
-         // kuldeep's code for pop up start from here..............................................................
             def infoMap =[:]
             def student = Student.findByRollNo(studentRegistration.rollNo)
-//            println("program"+student.programDetail)
             def program = student.programDetail
             def feeTypeId
             def feeType = null
             def args
             def lateFee=0
             def programFeeAmount = 0
-
             Calendar cal = Calendar.getInstance();
             int year = cal.get(cal.YEAR);
             def sessionVal= year+1
             sessionVal= year+'-'+sessionVal
-
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
             def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
             println('this is the programFee '+programFee)
-
             try{
                 def lateFeeDate=student.programDetail.lateFeeDate[0]
                 def today=new Date()
                 if(lateFeeDate!=null) {
                     if (today.compareTo(lateFeeDate) > 0) {
-
                         lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
-
                     }
                 }
                 feeType = null
@@ -324,21 +317,22 @@ class StudentController {
                 redirect(controller: student, action:enrollmentAtIdol)
 
             }
+            def feeDetailInst=new FeeDetails()
+            feeDetailInst.student=student
+            feeDetailInst.paidAmount=programFeeAmount
+            feeDetailInst.semesterValue=1
+            feeDetailInst.challanDate=new Date()
+            feeDetailInst.feeType=FeeType.findById(3)
+            feeDetailInst.challanNo = student.challanNo
+            feeDetailInst.save(failOnError: true, flush: true)
+
              infoMap.student=student
              infoMap.programFee=programFee
              infoMap.lateFee=lateFee
              infoMap.courseName=programFee.feeSession.programDetailId.courseName
              infoMap.programFeeAmount=programFeeAmount
              infoMap.feeType=feeType
-
-
-//             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
-
              render infoMap as JSON
-
-
-         //ends here.................................................................................................
-//            render studentRegistration as JSON
         } else {
             flash.message = "${message(code: 'register.notCreated.message')}"
             redirect(action: "enrollmentAtIdol")
