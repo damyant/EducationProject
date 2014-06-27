@@ -50,27 +50,35 @@
             <ul>
                 <li><a href="#"><g:message code="default.mainMenu6.subMenu16"/></a>
                     <ul>
-                        <li><g:link controller="bank" action="createBank"><g:message code="default.mainMenu6.subMenu14" default="Add Bank"/></g:link></li>
-                        <li><g:link controller="bank" action="bankList"><g:message code="default.mainMenu6.subMenu15" default="View Bank"/></g:link></li>
+                        <li><g:link controller="bank" action="createBank"><g:message code="default.mainMenu6.subMenu14"
+                                                                                     default="Add Bank"/></g:link></li>
+                        <li><g:link controller="bank" action="bankList"><g:message code="default.mainMenu6.subMenu15"
+                                                                                   default="View Bank"/></g:link></li>
                     </ul>
                 </li>
 
                 <li><a href="#"><g:message code="default.mainMenu6.subMenu22"/></a>
                     <ul>
-                        <li><g:link controller="district" action="createDistrict"><g:message code="default.mainMenu6.subMenu23" default="Add District"/></g:link></li>
-                        <li><g:link controller="district" action="districtList"><g:message code="default.mainMenu6.subMenu24" default="View/Update"/></g:link></li>
+                        <li><g:link controller="district" action="createDistrict"><g:message
+                                code="default.mainMenu6.subMenu23" default="Add District"/></g:link></li>
+                        <li><g:link controller="district" action="districtList"><g:message
+                                code="default.mainMenu6.subMenu24" default="View/Update"/></g:link></li>
                     </ul>
                 </li>
                 <li><a href="#"><g:message code="default.mainMenu6.subMenu17"/></a>
                     <ul>
-                        <li><g:link controller="branch" action="createBranch"><g:message code="default.mainMenu6.subMenu18" default="Add Bank"/></g:link></li>
-                        <li><g:link controller="branch" action="branchList"><g:message code="default.mainMenu6.subMenu19" default="View Bank"/></g:link></li>
+                        <li><g:link controller="branch" action="createBranch"><g:message
+                                code="default.mainMenu6.subMenu18" default="Add Bank"/></g:link></li>
+                        <li><g:link controller="branch" action="branchList"><g:message
+                                code="default.mainMenu6.subMenu19" default="View Bank"/></g:link></li>
                     </ul>
                 </li>
                 <li><a href="#"><g:message code="default.mainMenu3.subMenu11"/></a>
                     <ul>
-                        <li><g:link controller="examinationCenter" action="createNewCity"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
-                        <li><g:link controller="examinationCenter" action="listOfCity"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
+                        <li><g:link controller="examinationCenter" action="createNewCity"><g:message
+                                code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
+                        <li><g:link controller="examinationCenter" action="listOfCity"><g:message
+                                code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
                     </ul>
                 </li>
             </ul>
@@ -78,48 +86,63 @@
         <li>
             <a href="#"><g:message code="default.mainMenu2.subMenu2"/></a>
             <ul>
-                <li><g:link controller="examinationCenter" action="createExamCentre"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
-                <li><g:link controller="examinationCenter" action="listOfExamCentre"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
+                <li><g:link controller="examinationCenter" action="createExamCentre"><g:message
+                        code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
+                <li><g:link controller="examinationCenter" action="listOfExamCentre"><g:message
+                        code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu3.subMenu3"/></a>
             <ul>
-                <li><g:link controller="studyCenter" action="createNewStudyCenter"><g:message code="default.mainMenu3.subMenu3.subMenu1"/></g:link></li>
-                <li><g:link controller="studyCenter" action="viewStudyCentre"><g:message code="default.mainMenu3.subMenu3.subMenu2"/></g:link></li>
-                <li><g:link controller="studyCenter" action="updateStudyCentre"><g:message code="default.mainMenu3.subMenu3.subMenu3"/></g:link></li>
+                <li><g:link controller="studyCenter" action="createNewStudyCenter"><g:message
+                        code="default.mainMenu3.subMenu3.subMenu1"/></g:link></li>
+                <li><g:link controller="studyCenter" action="viewStudyCentre"><g:message
+                        code="default.mainMenu3.subMenu3.subMenu2"/></g:link></li>
+                <li><g:link controller="studyCenter" action="updateStudyCentre"><g:message
+                        code="default.mainMenu3.subMenu3.subMenu3"/></g:link></li>
             </ul>
         </li>
 
         <li><a href="#"><g:message code="default.mainMenu3.subMenu1"/></a>
             <ul>
-                <li><g:link controller="examinationCenter" action="create"><g:message code="default.mainMenu3.subMenu1.subMenu1"/></g:link></li>
-                <li><g:link controller="examinationCenter" action="viewExaminationCentre"><g:message code="default.mainMenu3.subMenu1.subMenu2"/></g:link></li>
-                <li><g:link controller="examinationCenter" action="updateExaminationCentre"><g:message code="default.mainMenu3.subMenu1.subMenu3"/></g:link></li>
+                <li><g:link controller="examinationCenter" action="create"><g:message
+                        code="default.mainMenu3.subMenu1.subMenu1"/></g:link></li>
+                <li><g:link controller="examinationCenter" action="viewExaminationCentre"><g:message
+                        code="default.mainMenu3.subMenu1.subMenu2"/></g:link></li>
+                <li><g:link controller="examinationCenter" action="updateExaminationCentre"><g:message
+                        code="default.mainMenu3.subMenu1.subMenu3"/></g:link></li>
             </ul>
         </li>
 
 
         <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>
 
-        <ul>
-            <li><g:link controller="course" action="createNewCourse"><g:message code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
-            <li><g:link controller="course" action="listOfCourses"><g:message code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>
-            <li><g:link controller="course" action="updateCourses"><g:message code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
-        </ul>
-    </li>
+            <ul>
+                <li><g:link controller="course" action="createNewCourse"><g:message
+                        code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
+                <li><g:link controller="course" action="listOfCourses"><g:message
+                        code="default.mainMenu3.subMenu6.subMenu2"/></g:link></li>
+                <li><g:link controller="course" action="updateCourses"><g:message
+                        code="default.mainMenu3.subMenu6.subMenu3"/></g:link></li>
+            </ul>
+        </li>
 
         <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>
             <ul>
-                <li><a href="#" class="newAdmitCardPopup"><g:message code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
-                <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
+                <li><a href="#" class="newAdmitCardPopup"><g:message
+                        code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
+                <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message
+                        code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
 
                 </li>
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
             <ul>
-                <li><g:link controller="admin" action="addCourses"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
-                <li><g:link controller="admin" action="listOfCourses"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
+                <li><g:link controller="admin" action="addCourses"><g:message
+                        code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
+                <li><g:link controller="admin" action="listOfCourses"><g:message
+                        code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
             </ul>
         </li>
     </ul>
@@ -130,35 +153,49 @@
     <ul>
         <li><a href="#"><g:message code="default.mainMenu6.subMenu11"/></a>
             <ul>
-                <li><g:link controller="admin" action="assignAdmissionPeriod"><g:message code="default.mainMenu3.subMenu7.subMenu8"/></g:link></li>
+                <li><g:link controller="admin" action="assignAdmissionPeriod"><g:message
+                        code="default.mainMenu3.subMenu7.subMenu8"/></g:link></li>
                 <li><a href="#"><g:message code="default.mainMenu3.subMenu7.subMenu7"/></a>
                     <ul>
-                        <li><g:link controller="admin" action="assignLateFeeDate"> <g:message code="default.mainMenu3.subMenu7.subMenu7.subMenu1"/></g:link>
+                        <li><g:link controller="admin" action="assignLateFeeDate"><g:message
+                                code="default.mainMenu3.subMenu7.subMenu7.subMenu1"/></g:link>
                         </li>
-                        <li><g:link controller="admin" action="removeLateFeeDate"> <g:message code="default.mainMenu3.subMenu7.subMenu7.subMenu2"/></g:link></li>
+                        <li><g:link controller="admin" action="removeLateFeeDate"><g:message
+                                code="default.mainMenu3.subMenu7.subMenu7.subMenu2"/></g:link></li>
                     </ul>
                 </li>
-                <li><g:link controller="admin" action="assignExaminationDate"><g:message code="default.mainMenu6.subMenu4"/></g:link></li>
+                <li><g:link controller="admin" action="assignExaminationDate"><g:message
+                        code="default.mainMenu6.subMenu4"/></g:link></li>
             </ul>
         </li>
 
-        <li><g:link controller="admin" action="assignExaminationVenue"><g:message code="default.mainMenu6.subMenu5"/></g:link></li>
-       <li><g:link controller="admin" action="downloadAttendanceSheet"><g:message code="default.mainMenu6.subMenu6"/></g:link></li>
-        <li><g:link controller="admin" action="studyMaterial"><g:message code="default.mainMenu6.subMenu10"/></g:link></li>
+        <li><g:link controller="admin" action="assignExaminationVenue"><g:message
+                code="default.mainMenu6.subMenu5"/></g:link></li>
+        <li><g:link controller="admin" action="downloadAttendanceSheet"><g:message
+                code="default.mainMenu6.subMenu6"/></g:link></li>
+        <li><g:link controller="admin" action="studyMaterial"><g:message
+                code="default.mainMenu6.subMenu10"/></g:link></li>
         <li><a href="#"><g:message code="default.mainMenu6.subMenu7"/></a>
             <ul>
-                <li><g:link controller="admin" action="searchStudentName"><g:message code="default.mainMenu6.subMenu2"/></g:link></li>
-                <li><g:link controller="student" action="studentListView"><g:message code="default.mainMenu2.subMenu6"/></g:link></li>
-                <li><g:link controller="admin" action="individualStudentUpdate"><g:message code="default.mainMenu2.subMenu12"/></g:link></li>
+                <li><g:link controller="admin" action="searchStudentName"><g:message
+                        code="default.mainMenu6.subMenu2"/></g:link></li>
+                <li><g:link controller="student" action="studentListView"><g:message
+                        code="default.mainMenu2.subMenu6"/></g:link></li>
+                <li><g:link controller="admin" action="individualStudentUpdate"><g:message
+                        code="default.mainMenu2.subMenu12"/></g:link></li>
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu6.subMenu8"/></a>
             <ul>
-                <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message code="default.mainMenu6.subMenu9"/></g:link></li>
-                <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message code="default.mainMenu6.subMenu1"/></g:link></li>
+                <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
+                        code="default.mainMenu6.subMenu9"/></g:link></li>
+                <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message
+                        code="default.mainMenu6.subMenu1"/></g:link></li>
             </ul>
         </li>
-        <li><g:link controller="admin" action="generateCustomChallan"><g:message code="default.mainMenu6.subMenu12"/></g:link></li>
+        <li>
+            <g:link controller="admin" action="generateCustomChallan"><g:message code="default.mainMenu6.subMenu12"/></g:link>
+        </li>
 
     </ul>
 </li>
@@ -170,45 +207,53 @@
 
         <li><a href="#"><g:message code="default.mainMenu8.subMenu5"/></a>
             <ul>
-                <li><g:link controller="programFee" action="addFeeType"><g:message code="default.mainMenu3.subMenu7.subMenu4"/></g:link></li>
-                <li><g:link controller="programFee" action="viewExistingFeeType"><g:message code="default.mainMenu3.subMenu7.subMenu5"/></g:link></li>
+                <li><g:link controller="programFee" action="addFeeType"><g:message
+                        code="default.mainMenu3.subMenu7.subMenu4"/></g:link></li>
+                <li><g:link controller="programFee" action="viewExistingFeeType"><g:message
+                        code="default.mainMenu3.subMenu7.subMenu5"/></g:link></li>
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu8.subMenu6"/></a>
             <ul>
-                <li><g:link controller="programFee" action="createNewFeeType"><g:message code="default.mainMenu3.subMenu7.subMenu1"/></g:link></li>
-                <li><g:link controller="programFee" action="listOfFeeType"><g:message code="default.mainMenu3.subMenu7.subMenu2"/></g:link></li>
+                <li><g:link controller="programFee" action="createNewFeeType"><g:message
+                        code="default.mainMenu3.subMenu7.subMenu1"/></g:link></li>
+                <li><g:link controller="programFee" action="listOfFeeType"><g:message
+                        code="default.mainMenu3.subMenu7.subMenu2"/></g:link></li>
+            </ul>
+        </li>
+        <li><a href="#"><g:message code="default.mainMenu7.subMenu4.chandan"/></a>
+            <ul>
+                <li>
+                    <g:link controller="feeDetails"
+                            action="postAdmissionFeeAtIdol"><g:message
+                            code="default.mainMenu8.subMenu4.subMenu3"/></g:link></li>
+                <li><g:link controller="admin" action="feeVoucher"><g:message
+                        code="default.mainMenu7.subMenu1"/></g:link></li>
+
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu8.subMenu3"/></a>
             <ul>
                 <li>
-                    <g:link controller="feeDetails" action="generateChallanSCAdmissionFee"><g:message code="default.mainMenu8.subMenu3.subMenu1"/></g:link>
-                </li>
-                <li>
-                    <g:link controller="feeDetails" action="payAdmissionFee"><g:message code="default.mainMenu8.subMenu3.subMenu3"/></g:link>
+                    <g:link controller="feeDetails" action="generateChallanSCAdmissionFee"><g:message
+                            code="default.mainMenu8.subMenu3.subMenu1"/></g:link>
                 </li>
 
-            </ul>
-        </li>
-        <li><a href="#"><g:message code="default.mainMenu7.subMenu1"/></a>
-            <ul>
-                <li><g:link controller="admin" action="feeVoucher"><g:message code="default.mainMenu7.subMenu1.subMenu1"/></g:link> </li>
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu8.subMenu4"/></a>
             <ul>
+                %{--<li>--}%
+                %{--<g:link controller="feeDetails" action="challanForMiscellaneousFee"><g:message code="default.mainMenu8.subMenu4.subMenu1"/></g:link></li>--}%
                 <li>
-                    <g:link controller="feeDetails" action="challanForMiscellaneousFee"><g:message code="default.mainMenu8.subMenu4.subMenu1"/></g:link></li>
+                    <g:link controller="feeDetails" action="payAdmissionFee"><g:message
+                            code="default.mainMenu8.subMenu3.subMenu3"/></g:link>
+                </li>
                 <li>
-
                     <g:link controller="feeDetails"
                             action="payMiscellaneousFee"><g:message
                             code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>
-                <li>
-                    <g:link controller="feeDetails"
-                            action="postAdmissionFeeAtIdol"><g:message
-                            code="default.mainMenu8.subMenu4.subMenu3"/></g:link></li>
+
             </ul>
         </li>
 
@@ -222,48 +267,48 @@
                     action="challanNumberStatus"><g:message
                     code="default.mainMenu7.subMenu4"/></g:link></li>
     </ul>
-%{--</li>--}%
+    %{--</li>--}%
 
-%{--<li><a href="#"><g:message code="default.mainMenu8"/></a>--}%
-%{--<ul>--}%
-%{--<li><g:link controller="feeDetails"--}%
-%{--action="createFeeDetails"><g:message--}%
-%{--code="default.mainMenu8.subMenu1"/></g:link></li>--}%
-%{--<li><g:link controller="feeDetails"--}%
-%{--action="bulkFeeEntry"><g:message--}%
-%{--code="default.mainMenu8.subMenu2"/></g:link></li>--}%
-%{--<li><a href="#"><g:message--}%
-%{--code="default.mainMenu8.subMenu3"/></a>--}%
-%{--<ul>--}%
-%{--<li>--}%
-%{--<g:link controller="feeDetails"--}%
-%{--action="generateChallanSCAdmissionFee"><g:message--}%
-%{--code="default.mainMenu8.subMenu3.subMenu1"/></g:link>--}%
-%{--</li>--}%
-%{--<li>--}%
-%{--<g:link controller="feeDetails"--}%
-%{--action="payAdmissionFee"><g:message--}%
-%{--code="default.mainMenu8.subMenu3.subMenu3"/></g:link>--}%
-%{--</li>--}%
+    %{--<li><a href="#"><g:message code="default.mainMenu8"/></a>--}%
+    %{--<ul>--}%
+    %{--<li><g:link controller="feeDetails"--}%
+    %{--action="createFeeDetails"><g:message--}%
+    %{--code="default.mainMenu8.subMenu1"/></g:link></li>--}%
+    %{--<li><g:link controller="feeDetails"--}%
+    %{--action="bulkFeeEntry"><g:message--}%
+    %{--code="default.mainMenu8.subMenu2"/></g:link></li>--}%
+    %{--<li><a href="#"><g:message--}%
+    %{--code="default.mainMenu8.subMenu3"/></a>--}%
+    %{--<ul>--}%
+    %{--<li>--}%
+    %{--<g:link controller="feeDetails"--}%
+    %{--action="generateChallanSCAdmissionFee"><g:message--}%
+    %{--code="default.mainMenu8.subMenu3.subMenu1"/></g:link>--}%
+    %{--</li>--}%
+    %{--<li>--}%
+    %{--<g:link controller="feeDetails"--}%
+    %{--action="payAdmissionFee"><g:message--}%
+    %{--code="default.mainMenu8.subMenu3.subMenu3"/></g:link>--}%
+    %{--</li>--}%
 
-%{--</ul>--}%
-%{--</li>--}%
-%{--<li><a href="#"><g:message--}%
-%{--code="default.mainMenu8.subMenu4"/></a>--}%
-%{--<ul>--}%
-%{--<li>--}%
-%{--<g:link controller="feeDetails"--}%
-%{--action="challanForMiscellaneousFee"><g:message--}%
-%{--code="default.mainMenu8.subMenu4.subMenu1"/></g:link></li>--}%
-%{--<li>--}%
-%{--<g:link controller="feeDetails"--}%
-%{--action="payMiscellaneousFee"><g:message--}%
-%{--code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>--}%
-%{--</ul>--}%
-%{--</li>--}%
+    %{--</ul>--}%
+    %{--</li>--}%
+    %{--<li><a href="#"><g:message--}%
+    %{--code="default.mainMenu8.subMenu4"/></a>--}%
+    %{--<ul>--}%
+    %{--<li>--}%
+    %{--<g:link controller="feeDetails"--}%
+    %{--action="challanForMiscellaneousFee"><g:message--}%
+    %{--code="default.mainMenu8.subMenu4.subMenu1"/></g:link></li>--}%
+    %{--<li>--}%
+    %{--<g:link controller="feeDetails"--}%
+    %{--action="payMiscellaneousFee"><g:message--}%
+    %{--code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>--}%
+    %{--</ul>--}%
+    %{--</li>--}%
 
-%{--</ul>--}%
-%{--</li>--}%
+    %{--</ul>--}%
+    %{--</li>--}%
 
 <li><g:link controller="report" action="reportIndex"><g:message code="default.mainMenu9"/></g:link></li>
 

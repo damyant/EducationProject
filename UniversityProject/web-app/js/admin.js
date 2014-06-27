@@ -795,11 +795,12 @@ function showMiscFeeListOfStudents() {
 //            alert(data[0].programDetail.id)
             $("#scStudnetList thead").empty().append('')
             $("#scStudnetList tbody").empty().append('')
-            $("#scStudnetList thead").append('<tr><th>Student name</th><th>Roll Number</th><th>Course Name</th><th>Amount</th></tr>')
+            $("#scStudnetList thead").append('<tr><th>Student name</th><th>Roll Number</th><th>Fee Type</th><th>Course Name</th><th>Amount</th></tr>')
             for (var i = 0; i < data.stuList.length; i++) {
-                $("#scStudnetList tbody").append('<tr><td>' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td><input type="text" readonly="true" name="rollNo' + i + '" value="' + data.stuList[i].rollNo + '"</td><td>' + data.courseNameList[i] + '</td><td>' + data.courseFee[i] + '</td></tr>')
+                $("#scStudnetList tbody").append('<tr><td>' + data.stuList[i].firstName + ' &nbsp;' + data.stuList[i].lastName + '</td><td><input type="text" readonly="true" name="rollNo' + i + '" value="' + data.stuList[i].rollNo + '"</td><td>'+data.feeType[i]+'</td><td>' + data.courseNameList[i] + '</td><td>' + data.courseFee[i] + '</td></tr>')
             }
             document.getElementById("paginationDiv").style.visibility = "visible";
+            document.getElementById("scStudnetList").style.visibility = "visible";
             $table_rows = $('#scStudnetList tbody tr');
 
             var table_row_limit = 10;
@@ -853,13 +854,13 @@ function populateChallanDetail(){
             success: function (data) {
                 if (data.stuList.length > 0) {
 //                console.log("error")
-                    $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Study Center</th><th>Roll Number</th><th>Course Name</th><th>Payment Ref. No.</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
+                    $("#allStudentList tbody").empty().append('<tr><th>Student name</th><th>Study Center</th><th>Roll Number</th><th>Course Name</th><th>Fee Type</th><th>Ref. Number</th><th>Bank</th><th>Branch</th><th>Amount</th></tr>')
                     for (var i = 0; i < data.stuList.length; i++) {
                         if (!data.stuList[i].middleName) {
-                            $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.stuList[i].id + '"/> ' + data.stuList[i].firstName + '&nbsp;' + data.stuList[i].lastName + '</td><td>' + data.studyCentreList[i] + '</td><td>' + data.stuList[i].rollNo + '</td><td>' + data.courseNameList[i] + '</td><td>' + data.paymentReferenceNumber + '</td><td>' + data.bank + '</td><td>' + data.branch + '</td><td>' + data.courseFee[i] + '</td></tr>')
+                            $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.stuList[i].id + '"/> ' + data.stuList[i].firstName + '&nbsp;' + data.stuList[i].lastName + '</td><td>' + data.studyCentreList[i] + '</td><td>' + data.stuList[i].rollNo + '</td><td>' + data.courseNameList[i] + '</td><td>' + data.feeType[i] + '</td><td>' + data.paymentReferenceNumber[i] + '</td><td>' + data.bank[i] + '</td><td>' + data.branch[i] + '</td><td>' + data.courseFee[i] + '</td></tr>')
                         }
                         else {
-                            $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.stuList[i].id + '"/> ' + data.stuList[i].firstName + '&nbsp;' + data.stuList[i].middleName + '&nbsp;' + data.stuList[i].lastName + '</td><td>' + data.studyCentreList[i] + '</td><td>' + data.stuList[i].rollNo + '</td><td>' + data.courseNameList[i] + '</td><td>' + data.paymentReferenceNumber + '</td><td>' + data.bank + '</td><td>' + data.branch + '</td><td>' + data.courseFee[i] + '</td></tr>')
+                            $("#allStudentList tbody").append('<tr><td><input type="text" name="studentListId" hidden="hidden" value="' + data.stuList[i].id + '"/> ' + data.stuList[i].firstName + '&nbsp;' + data.stuList[i].middleName + '&nbsp;' + data.stuList[i].lastName + '</td><td>' + data.studyCentreList[i] + '</td><td>' + data.stuList[i].rollNo + '</td><td>' + data.courseNameList[i] + '</td><td>' + data.feeType[i] + '</td><td>' + data.paymentReferenceNumber[i] + '</td><td>' + data.bank[i] + '</td><td>' + data.branch[i] + '</td><td>' + data.courseFee[i] + '</td></tr>')
                         }
                     }
                     $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')

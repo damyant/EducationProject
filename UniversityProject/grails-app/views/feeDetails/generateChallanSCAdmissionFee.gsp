@@ -51,7 +51,7 @@
             </tr>
             <tr><td><label>Select Programme Catagory</label></td>
                 <td>
-                    <g:select name="programCategory" class="university-size-1-1" id="programCategory" optionKey="id"
+                    <g:select name="programCategory" class="university-size-1-1" id="programCategory" optionKey="id" disabled=""
                               optionValue="type"
                               from="${programCategory}" noSelection="['': ' Select Programme Category']"
                               onchange="loadProgram(this)"/>
@@ -62,7 +62,7 @@
             <tr>
                 <td class="university-size-1-4"><label>Select a Programme</label></td>
                 <td class="university-size-1-4">
-                    <g:select name="programList" class="university-size-1-1" id="programList" optionKey="id"
+                    <g:select name="programList" class="university-size-1-1" id="programList" optionKey="id" disabled=""
                               optionValue="courseName"
                               from="" noSelection="['': ' Select Programme']"
                               onchange="getTermByCatagory(this)"/>
@@ -73,7 +73,7 @@
             <tr><td><label>Select Term</label></td>
                 <td>
 
-                    <select name="semesterList" onchange="hideAll()" class="university-size-1-1" id="semesterList" >
+                    <select name="semesterList" onchange="hideAll()" disabled="" class="university-size-1-1" id="semesterList" >
                         <option value="">Select Term</option>
                     </select>
                 </td>
@@ -126,10 +126,8 @@
 </div>
 <script>
     $('#generateFeeChallan').click(function(){
-//        alert("--------")
         if($('#serialNoTo').val()!="") {
             setTimeout(function () {
-//                $('#challanForStudyCenter')[0].reset();
                 $('#studyCenterFeeEntryTable').attr('hidden', true);
                 $('#rangeRadioButtons').attr('hidden', true);
                 document.getElementById("paginationDiv").style.visibility = "hidden";

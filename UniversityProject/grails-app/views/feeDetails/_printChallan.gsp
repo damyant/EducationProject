@@ -11,7 +11,7 @@
 
 <div style="border: 1px solid; padding: 10px;">
     <div class="university-size-full-1-1" style="margin-bottom: 25px;"><div
-            style="float: right"><lable>Challan No. </lable><label>${studList[0].challanNo}</label></div>
+            style="float: right"><lable>Challan No. </lable><label>${challanNo}</label></div>
 
         <div class="university-clear-both"></div>
     </div>
@@ -25,7 +25,7 @@
     <div>Guwahati, Assam</div>
 
 </p>
-    %{--<div style="font-weight: bold;width: 100%;text-align: center;">Admission Fee </div>--}%
+    <div style="font-weight: bold;width: 100%;text-align: center;">${termMesg}</div>
     <table style="width: 80%;margin: auto; text-align: center;">
         <tr>
             <g:if test="${studyCentre.centerCode[0] != '11111'}">

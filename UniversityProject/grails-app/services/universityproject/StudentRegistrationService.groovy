@@ -1,20 +1,14 @@
 package universityproject
 
 import examinationproject.AdmissionFee
-import examinationproject.Bank
-import examinationproject.Branch
 import examinationproject.City
 import examinationproject.CustomChallan
-import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 
 
 import examinationproject.FeeSession
 
 import examinationproject.FeeType
-import examinationproject.MiscellaneousFee
-import examinationproject.MiscellaneousFeeChallan
-import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.Status
 import examinationproject.ProgramSession
@@ -156,6 +150,7 @@ class StudentRegistrationService {
                 feeDetails.paidAmount = Integer.parseInt(params.admissionFeeAmount)
                 feeDetails.challanNo = studentRegistration.challanNo
                 feeDetails.challanDate = new Date()
+                feeDetails.isApproved=Status.findById(1)
                 feeDetails.student = studentRegistration
                 feeDetails.semesterValue = 1
                 feeDetails.save(failOnError: true, flush: true)

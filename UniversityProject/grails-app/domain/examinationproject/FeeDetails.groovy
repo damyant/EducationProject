@@ -14,10 +14,7 @@ class FeeDetails {
     FeeType feeType
     Student student
     int semesterValue
-    int isApproved = 0
-
-
-
+    Status isApproved
 
     static constraints = {
         challanNo(nullable: false)

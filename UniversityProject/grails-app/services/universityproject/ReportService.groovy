@@ -3,10 +3,9 @@ package universityproject
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.FeeType
-import examinationproject.MiscellaneousFeeChallan
+
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
-import examinationproject.ProgramSession
 import examinationproject.Status
 import examinationproject.Student
 import examinationproject.StudyCenter
@@ -14,7 +13,6 @@ import grails.transaction.Transactional
 import jxl.WorkbookSettings;
 import jxl.write.WritableWorkbook;
 import jxl.Workbook
-import org.codehaus.groovy.classgen.genDgmMath
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
