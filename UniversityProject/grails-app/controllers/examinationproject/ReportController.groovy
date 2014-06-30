@@ -182,6 +182,7 @@ class ReportController {
            def args = [template: "generate", model: [totalListByCategory :totalList, categorySession:sessionVal],filename:params.categorySession+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
        }
+
       else if(params.value=='categoryGender' && params.categoryGenderSession){
            println("this function is called")
            def totalList = reportService.getReportDataCategoryGender(params)
@@ -204,7 +205,7 @@ class ReportController {
                sessionVal= params.admissionApprovedSession+'-'+sessionVal
            }
            println('this is the value of total list '+ totalList)
-           def args = [template: "generate", model: [totalListByAdmissionApprovedUnapproved :totalList, admissionApprovedUnapprovedSession:sessionVal, value:params.value],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           def args = [template: "generate", model: [totalListByAdmissionApprovedUnapproved :totalList, admissionApprovedUnapprovedSession:sessionVal, value:params.value],filename:sessionVal+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
           // redirect(action: 'reportIndex')
       }
@@ -216,7 +217,7 @@ class ReportController {
            def sessionVal= Integer.parseInt(params.admissionSelfRegistrationSession)+1
            sessionVal= params.admissionSelfRegistrationSession+'-'+sessionVal
            println('this is the list '+ totalList)
-           def args = [template: "generate", model: [totalListBySelfRegistration :totalList, admissionSelfRegistrationSession:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
+           def args = [template: "generate", model: [totalListBySelfRegistration :totalList, admissionSelfRegistrationSession:sessionVal],filename:params.admissionSelfRegistrationSession+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
           // redirect(action: 'reportIndex')
       }
@@ -224,12 +225,11 @@ class ReportController {
 
       else if(params.value=='studyCentreFeePaid' && params.studyCentreFeeFromDate && params.studyCentreFeeToDate ){
            println("this function is called")
+           def studyCentreName = StudyCenter.findById(Long.parseLong(params.feePaidStudyCentre)).name
            def totalList = reportService.getReportDataStudyCentreFeePaid(params)
            def feeType = FeeType.list()
-           totalList.size()
-//           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
-//           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, feeType: feeType],filename:params.session+'_All_Course_'+params.value+".pdf"]
+//           totalList.size()
+           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, feeType: feeType, studyCentreName:studyCentreName, fromDate:params.studyCentreFeeFromDate, toDate:params.studyCentreFeeToDate],filename:'StudentList_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
          //  redirect(action: 'reportIndex')
       }
@@ -237,13 +237,21 @@ class ReportController {
            println("this function is called")
            def totalList = reportService.getReportDataStudyCentreFeePaid(params)
            def feeType = FeeType.list()
-           totalList.size()
-//           def sessionVal= Integer.parseInt(params.studyCentreFeePaidSession)+1
-//           sessionVal= params.studyCentreFeePaidSession+'-'+sessionVal
-           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, feeType: feeType],filename:params.session+'_All_Course_'+params.value+".pdf"]
+//           totalList.size()
+           def args = [template: "generate", model: [totalListByStudyCentreFeePaid :totalList, feeType: feeType, fromDate:params.feeFromDate, toDate:params.feeToDate],filename:'StudentList_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
 
       }
+
+
+       else if( params.value=='paymentModeReport' && params.paymentModeFromDate && params.paymentModeToDate){
+           println("this function is called")
+           def totalList = reportService.getReportDataPaymentMode(params)
+           def paymentMode= PaymentMode.findById(Integer.parseInt(params.paymentMode))
+           def args = [template: "generate", model: [totalListByPaymentMode :totalList, fromDate:params.paymentModeFromDate, toDate:params.paymentModeToDate, paymentMode:paymentMode.paymentModeName],filename:'StudentList_'+params.value+".pdf"]
+           pdfRenderingService.render(args + [controller: this], response)
+
+       }
 
       else if(params.value=='sessionsComparative' && params.fromSessionComparative && params.toSessionComparative){
            println("this function is called")
@@ -303,6 +311,25 @@ class ReportController {
            def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
          //  redirect(action: 'reportIndex')
+
+       }
+
+
+
+       else if(params.value=='dailyAdmissionReport'){
+           println("this cumulative function is called "+ params.dailyAdmissionStudyCentre)
+           def studyCentreName = null
+
+           if(params.dailyAdmissionStudyCentre =='All'){
+                studyCentreName = null
+           }
+           else  {
+                studyCentreName = StudyCenter.findById(Long.parseLong(params.dailyAdmissionStudyCentre)).name
+           }
+           def totalList = reportService.getReportDataDailyAdmissionReport(params)
+           def args = [template: "generate", model: [totalListDailyAdmission :totalList, fromDate:params.dailyAdmissionFromDate, toDate:params.dailyAdmissionToDate, studyCentreName:studyCentreName],filename:"Daily_Admission_Report.pdf"]
+           pdfRenderingService.render(args + [controller: this], response)
+           //  redirect(action: 'reportIndex')
 
        }
 //************************************************************************************

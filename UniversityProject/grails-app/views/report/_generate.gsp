@@ -103,6 +103,40 @@
                    </g:each>
            </table>
       </g:elseif>
+
+
+<g:elseif test="${totalListDailyAdmission}">
+    <h3> List Of Students Who Have Taken Admission From Date ${fromDate} To ${toDate} At ${studyCentreName? studyCentreName:'All'} StudyCentre</h3>
+    <table style=" text-align: center" class="gridtable">
+        <th>Roll No</th>
+        <th>Name</th>
+        <g:if test="${!studyCentreName}">
+        <th>Study Centre</th>
+        </g:if>
+        <th>Examination Centre</th>
+        <th>Mobile No.</th>
+        <th>Status</th>
+        <g:each in="${totalListDailyAdmission}" var="student">
+            <tr>
+                <td >${student.rollNo? student.rollNo:'Not Generated'}</td>
+                <td >${student?.firstName} ${student?.middleName} ${student?.lastName} </td>
+                <g:if test="${!studyCentreName}">
+                <td >${student.studyCentre[0].name}</td>
+                </g:if>
+                <td >${student.city[0].cityName}</td>
+                <td >91${student.mobileNo}</td>
+                <td >${student.status.status}</td>
+            </tr>
+        </g:each>
+    </table>
+</g:elseif>
+
+
+
+
+
+
+
       <g:elseif test="${totalListByStudyCentre}">
             <h3> Total Students In All Courses For ${studyCentreSession} Session In ${studyCentreName}</h3>
             <table style=" text-align: center" class="gridtable">
@@ -247,7 +281,7 @@
 
 
     <g:elseif test="${totalListByStudyCentreFeePaid}">
-        %{--<h3> Fees Paid Report At ${totalListByStudyCentreFeePaid.getAt(0).studentId.studyCentre[0].name} Study Centre For ${studyCentreFeePaidSession} Session</h3>--}%
+        <h3> Fees Paid Report At ${studyCentreName? studyCentreName:'All'} Study Centre Between ${fromDate} to ${toDate}</h3>
         <table style=" text-align: center; border: 0px" class="gridtable">
             <th style="border: 0px">Name</th>
             <th style="border: 0px">Roll No</th>
@@ -262,7 +296,7 @@
                   <g:each in="${0..feeObj.size()-1}" var='j'>
                       %{--<tr >Fee Type: ${feeObj[j].feeType.type}</tr>--}%
                       <tr>
-                          <td style="border: 0px">${feeObj[j].student.firstName}</td>
+                          <td style="border: 0px">${feeObj[j].student.firstName} ${feeObj[j].student.middleName? feeObj[j].student.middleName:''} ${feeObj[j].student.lastName? feeObj[j].student.lastName:''}</td>
                           <td style="border: 0px" >${feeObj[j].student.rollNo}</td>
                           <td style="border: 0px">${feeObj[j].paymentReferenceNumber}</td>
                           <td style="border: 0px">${feeObj[j].paidAmount}</td>
@@ -270,11 +304,54 @@
                   </g:each>
               </g:if>
                 <g:if test="${ (i % 2) != 0}">
-                <tr><td style="border: 0px"></td><td style="border: 0px"></td><td style="border: 0px">Total for the group</td><td style="border: 0px">${feeObj}</td></tr>
+                <tr><td style="border: 0px"></td><td style="border: 0px"></td><td style="border: 0px"><b>Total for the group</b></td><td style="border: 0px"><b>${feeObj}</b></td></tr>
                 </g:if>
             </g:each>
         </table>
     </g:elseif>
+
+
+
+<g:elseif test="${totalListByPaymentMode}">
+    <h3> Fees Paid Report Between ${fromDate} to ${toDate} And Payment Mode Is ${paymentMode}</h3>
+    <table style=" text-align: center; border: 0px" class="gridtable">
+        <th style="border: 0px">Name</th>
+        <th style="border: 0px">Roll No</th>
+        <th style="border: 0px">Payment No</th>
+        <th style="border: 0px">Amount</th>
+        <th style="border: 0px">Fee Type</th>
+        <g:each in="${totalListByPaymentMode}" var="feeObj" status="i">
+                    <tr>
+                        <td style="border: 0px">${feeObj.student.firstName} ${feeObj.student.middleName? feeObj.student.middleName:''} ${feeObj.student.lastName? feeObj.student.lastName:''}</td>
+                        <td style="border: 0px" >${feeObj.student.rollNo}</td>
+                        <td style="border: 0px">${feeObj.paymentReferenceNumber}</td>
+                        <td style="border: 0px">${feeObj.paidAmount}</td>
+                        <td style="border: 0px">${feeObj.feeType.type}</td>
+                    </tr>
+        </g:each>
+    </table>
+</g:elseif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

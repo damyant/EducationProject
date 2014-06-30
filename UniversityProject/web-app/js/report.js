@@ -41,8 +41,34 @@ $(function() {
         dateFormat: "dd/mm/yy",
         maxDate: 0
     });
+    $('#dailyAdmissionFromDate').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        maxDate: 0
+    });
+    $('#dailyAdmissionToDate').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        maxDate: 0
+    });
+    $('#paymentModeFromDate').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        maxDate: 0
+    });
+    $('#paymentModeToDate').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        maxDate: 0
+    });
+
 
   setSessions()
+  setTerm()
 
 
     $('#session').on('click', function(){
@@ -138,6 +164,15 @@ $(function() {
 //        alert("clicked")
         openPopUp(22)
     })
+    $('#dailyAdmissionReport').on('click', function(){
+//        alert("clicked")
+        openPopUp(23)
+    })
+    $('#byPaymentMode').on('click', function(){
+//        alert("clicked")
+        openPopUp(24)
+    })
+
 });
 
 
@@ -320,7 +355,6 @@ function openPopUp(value){
         $('#sessionDialog').dialog('open')
     }
     else if(value==21){
-        alert('21')
         $('tr').hide()
         $('#flagValue').val('sessionProgramWiseFeePaid')
         $("#sessionProgramFeePaid").show()
@@ -330,7 +364,6 @@ function openPopUp(value){
         $('#sessionDialog').dialog('open')
     }
     else if(value==22){
-        alert('22')
         $('tr').hide()
         $('#flagValue').val('sessionProgramWiseFeeNotPaid')
         $("#sessionProgramFeePaid").show()
@@ -339,6 +372,24 @@ function openPopUp(value){
 //        alert("condition is true")
         $('#sessionDialog').dialog('open')
     }
+    else if(value==23){
+        $('tr').hide()
+        $('#flagValue').val('dailyAdmissionReport')
+        $("#byDailyAdmissionReport").show()
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+    else if(value==24){
+        alert('24')
+        $('tr').hide()
+        $('#flagValue').val('paymentModeReport')
+        $("#byPaymentModeReport").show()
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+
 }
 
 
@@ -359,4 +410,18 @@ function setSessions(){
         }
 
     });
+}
+
+function setTerm(){
+    $.ajax({
+        type: "post",
+        url: url('admitCard', 'getSemesterListOnly', ''),
+        data: {},
+        success: function (data) {
+            $("#semesterList").empty().append('data <option value="null">Select Term</option>')
+            for (var i = 1; i <= data.totalSem; i++) {
+                $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+            }
+        }
+    })
 }

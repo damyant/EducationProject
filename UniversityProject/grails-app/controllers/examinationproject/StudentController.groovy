@@ -59,7 +59,7 @@ class StudentController {
         }
         def districtList=District.list(sort: 'districtName')
         def bankName=Bank.list(sort:'bankName')
-        def paymentMode=PaymentMode.list(sort:'paymentModeName')
+        def paymentMode=PaymentMode.findById(1)
         def centreList =  City.findAllByIsExamCentre(1)
 //        println("sss"+studInstance.status)
         [studyCentre: studyCentre,studInstance:studInstance, studyCenterList: studyCentreList, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode,fee:params.fee]
@@ -76,7 +76,9 @@ class StudentController {
             if(params.studentId){
                 if(springSecurityService.isLoggedIn()){
                     flash.message = "${message(code: 'register.updated.message')}"
-                    redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
+//                    redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
+                    redirect(controller: 'admin', action: "individualStudentUpdate")
+
                 }else{
                     flash.message = "${message(code: 'register.updated.message')}"
                     redirect(action: "registration", params: [ fee:fee,studentID: studentRegistration.id,registered:"registered"])

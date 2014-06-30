@@ -3,7 +3,7 @@ package universityproject
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.FeeType
-
+import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
 import examinationproject.Status
@@ -116,11 +116,7 @@ class ReportService {
         categoryList
         def totalByCategory=[]
         int j=0
-        println("value of start session "+startSession)
-        println("value of start session "+endSession)
         for(int i=startSession; i<=endSession;i++){
-            println("adding on this index "+j)
-            println("adding on this index "+i)
             categoryList.add(j, i)
             totalByCategory.add(j,0)
             j++
@@ -171,13 +167,11 @@ class ReportService {
             }
             finalStudentMap.put(it.courseName, sizeList)
         }
-        println('totalByCategory is '+ totalByCategory)
         finalStudentMap.put('TOTAL STUDENTS', totalByCategory)
         return finalStudentMap
     }
     Boolean getReportDataCourse(params, excelPath){
         def session =params.courseSession
-        println("these are the parameters "+ params)
         def course = ProgramDetail.findById(Long.parseLong(params.course))
         def stuObj= Student.createCriteria()
         File file = new File(excelPath);
@@ -194,7 +188,6 @@ class ReportService {
             }
         }
 
-        println('--------------------------'+studentList)
 //        return studentList
        def status=  writeExcelService.excelReport(params, studentList, course, sheetNo, workbook, null, session)
         workbook.write();
@@ -214,9 +207,11 @@ class ReportService {
             wbSettings.setLocale(new Locale("en", "EN"));
             WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
             def studyCentreName = StudyCenter.findById(Long.parseLong(params.studyCentre))
+            println("this is the name of studtycentre " + studyCentreName.name)
             int sheetNo=0
             programList.each {
                 def pId= it.id
+                println(params.studyCentreSession+" course name "+ it.courseName)
                 def stuObj= Student.createCriteria()
                 def count = stuObj.list{
                     programDetail{
@@ -229,10 +224,10 @@ class ReportService {
                         eq('registrationYear' , Integer.parseInt(params.studyCentreSession))
                     }
                     and{
-                        ne('status', Status.findById(4))
+                        eq('status', Status.findById(4))
                     }
                 }
-                println("--------------"+count)
+                println(pId+ "--"+params.studyCentre +"------------------"+count)
                  status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCentreName.name, session)
                 sheetNo= sheetNo+1
             }
@@ -272,7 +267,6 @@ class ReportService {
 
     }
     def getReportDataExaminationCentre(params, excelPath){
-        println("hello kuldeep u r in this ")
         def status
         def finalStudentMap = [:]
         def totalForSession=0
@@ -296,6 +290,9 @@ class ReportService {
                     }
                     and{
                         eq('registrationYear' , Integer.parseInt(params.examinationCentreSession))
+                    }
+                    and{
+                        eq('status', Status.findById(4))
                     }
                 }
                 println("--------------"+count)
@@ -321,6 +318,9 @@ class ReportService {
                     and{
                         eq('registrationYear' , Integer.parseInt(params.examinationCentreSession))
                     }
+                    and{
+                        eq('status', Status.findById(4))
+                    }
                     projections {
                         rowCount()
                     }
@@ -331,13 +331,11 @@ class ReportService {
                 finalStudentMap.put(it.courseName, count.getAt(0))
             }
             finalStudentMap.put("TOTAL STUDENTS", totalForSession)
-            println("oye kuldeep "+ params)
             return finalStudentMap
         }
     }
     def getReportDataCategory(params){
         def categoryList=['General', 'MOBC', 'OBC', 'S.T', 'SC', 'MINORITY COMMUNITY']
-        println("this function is called "+ params)
         def finalStudentMap = [:]
         def  totalByCategory= [0,0,0,0,0,0]
         def programList = ProgramDetail.list(sort: 'courseCode')
@@ -358,7 +356,6 @@ class ReportService {
                 }
             }
 
-            println('count is '+ count)
            for(int i=0; i<categoryList.size(); i++){
                 if(count.size()){
                     boolean flag = false
@@ -383,16 +380,12 @@ class ReportService {
             }
             finalStudentMap.put(it.courseName, sizeList)
         }
-        println('totalByCategory is '+ totalByCategory)
         finalStudentMap.put('TOTAL STUDENTS', totalByCategory)
         return finalStudentMap
     }
     def getReportDataCategoryGender(params){
-        println('params in service '+params)
-
         def categoryList=['General', 'MOBC', 'OBC', 'S.T', 'SC', 'MINORITY COMMUNITY']
         def genderList=['Male', 'Female']
-        println("this function is called "+ params)
         def finalStudentMap = [:]
         def  totalByCategoryGender= [0,0,0,0,0,0,0,0,0,0,0,0]
         def programList = ProgramDetail.list(sort: 'courseCode')
@@ -448,10 +441,8 @@ class ReportService {
 //                     println("value of l is "+ l)
                     }
             }
-            println("this is the sizeList "+ sizeList)
             finalStudentMap.put(it.courseName, sizeList)
         }
-        println("total  "+ totalByCategoryGender)
         finalStudentMap.put('TOTAL STUDENTS', totalByCategoryGender)
         return finalStudentMap
     }
@@ -472,7 +463,6 @@ class ReportService {
 
                 order('programDetail', 'asc')
             }
-                   println("this is the result of query "+ studentList)
             return studentList
         }
        else if(params.value=='admissionApproved'){
@@ -489,7 +479,6 @@ class ReportService {
 
                 order('programDetail', 'asc')
             }
-            println("this is the result of query----------- "+ studentList)
             return studentList
         }
 
@@ -514,14 +503,12 @@ class ReportService {
 //            }
 
         }
-        println("this is the list--------------- "+studentList)
         return studentList
     }
     def getReportDataStudyCentreFeePaid(params){
        def finalMap =[]
        def studentList
-       println("these "+ params)
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         def fromDate
         def toDate
         def stuObj = Student.createCriteria()
@@ -540,7 +527,9 @@ class ReportService {
               fromDate = df.parse(params.studyCentreFeeFromDate)
               toDate = df.parse(params.studyCentreFeeToDate)
         }
-        println('now going to fetch the fee records *** '+ fromDate+ ' and the to date is '+ toDate)
+        toDate.setHours(24)
+        println(fromDate)
+        println(" and to date is "+ toDate)
         def feeType = FeeType.list(sort:'type');
         int finalTotal =0
         int i=1
@@ -553,10 +542,13 @@ class ReportService {
                         between('paymentDate', fromDate, toDate)
                         eq('feeType', feeTypeIns)
                     }
+                    and{
+                        eq('isApproved', Status.findById(4))
+                    }
 
                  }
-                println(feeTypeIns.type+"hello kuldeep ************************************************"+musFeeList)
                 int totalForList =0
+                println("this is the count "+  musFeeList)
                 if(musFeeList){
                     finalMap.add(musFeeList)
                     musFeeList.each{
@@ -569,25 +561,43 @@ class ReportService {
                 i=i+1
             }
 //        finalMap.add(finalTotal)
-        println('finalMap is ' + finalMap)
         return finalMap
     }
+
+    def getReportDataPaymentMode(params){
+        println('these are the parameterssssssssssss '+params)
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        def fromDate = df.parse(params.paymentModeFromDate)
+        def toDate = df.parse(params.paymentModeToDate)
+        toDate.setHours(24)
+        def feeDetails = FeeDetails.createCriteria()
+        def feeList = feeDetails.list{
+            eq('paymentModeId', PaymentMode.findById(Integer.parseInt(params.paymentMode)))
+            and{
+                between('paymentDate', fromDate, toDate)
+
+            }
+            and{
+                eq('isApproved', Status.findById(4))
+            }
+
+        }
+        println(",.,.,,.,.,.,.,.,.,..,.,.,. "+feeList)
+        return feeList
+    }
+
+
+
     def getReportDataComparative(startSession, endSession){
         def categoryList =[]
         categoryList
         def totalByCategory=[]
         int j=0
-        println("value of start session "+startSession)
-        println("value of start session "+endSession)
         for(int i=startSession; i<=endSession;i++){
-            println("adding on this index "+j)
-            println("adding on this index "+i)
             categoryList.add(j, i)
             totalByCategory.add(j,0)
             j++
         }
-        println("---------------------------------------------------------------"+ categoryList)
-        println("---------------------------------------------------------------"+ totalByCategory)
 
         def finalStudentMap = [:]
         def programList = StudyCenter.list()
@@ -632,8 +642,6 @@ class ReportService {
             }
             finalStudentMap.put(it.name, sizeList)
         }
-        println('totalByCategory is '+ totalByCategory)
-        println("final Student map "+ finalStudentMap)
         finalStudentMap.put('TOTAL STUDENTS', totalByCategory)
         return finalStudentMap
     }
@@ -661,7 +669,6 @@ class ReportService {
                     eq('category', ''+params.studentCategory)
                 }
             }
-            println("--------------"+count)
             status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, null, session)
             sheetNo= sheetNo+1
         }
@@ -695,7 +702,6 @@ class ReportService {
                 return studentList
             }
             else if(params.value=='courseApproved'){
-                println('hello kuldeep in this')
                 def studentList = stuObj.list{
                     programDetail{
                         eq('id', Long.parseLong(params.courseApproved))
@@ -720,9 +726,10 @@ class ReportService {
         def feeFromDate
         def feeToDate
         println("Report Service --> getReportDataDailyFeePaid--> Parameters Values :: "+ params)
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
          feeFromDate = df.parse(params.feeFromDate)
          feeToDate = df.parse(params.feeToDate)
+        feeToDate.setHours(24)
         def feeType = FeeType.list(sort:'type')
         int i=0
         int finalTotal = 0
@@ -827,62 +834,96 @@ class ReportService {
                  studyCentreName = null
             def programList = ProgramDetail.list(sort: 'courseCode')
             programList.each {
-                def stuObj = Student.createCriteria()
-                def programIns = it
-                if(params.sessionProgramFeePaidStudyCentre=='All'){
-                    stuList = stuObj.list{
-                        programDetail{
-                            eq('id', programIns.id)
-                        }
-                        and{
-                            eq('registrationYear' , Integer.parseInt(params.sessionProgramFeePaidSession))
-                        }
-                    }
-                }
-                else{
-                    stuList = stuObj.list{
-                        studyCentre{
-                            eq('id' , Long.parseLong(params.sessionProgramFeePaidStudyCentre))
-                        }
-                        programDetail{
-                            eq('id', programIns.id)
-                        }
-                        and{
-                            eq('registrationYear' , Integer.parseInt(params.sessionProgramFeePaidSession))
-                        }
-                    }
-                }
-                println("this is the list of students "+ stuList)
-                if(stuList){
-                    if(params.value =='sessionProgramWiseFeePaid'){
-                            def count = FeeDetails.findAllByStudentInListAndFeeTypeAnd(stuList,FeeType.findById(Integer.parseInt(params.sessionProgramFeePaidFeeType)))
-                            println("--------------"+count)
-                            if(count){
-                                status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
-                                sheetNo= sheetNo+1
+                if(it.noOfTerms>= Integer.parseInt(params.programTerm)) {
+                        def stuObj = Student.createCriteria()
+                        def programIns = it
+                        if(params.sessionProgramFeePaidStudyCentre=='All'){
+                            stuList = stuObj.list{
+                                programDetail{
+                                    eq('id', programIns.id)
+                                }
+                                and{
+                                    eq('registrationYear' , Integer.parseInt(params.sessionProgramFeePaidSession))
+                                }
                             }
-                    }
-                    else if(params.value =='sessionProgramWiseFeeNotPaid'){
-                            def feeDetailsStudentList = FeeDetails.findAllByFeeType(FeeType.findById(Integer.parseInt(params.sessionProgramFeePaidFeeType))).student.unique()
-                            def count= Student.findAllByIdNotInList(feeDetailsStudentList)
-                            println("--------------"+count)
-                            if(count){
-                                status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
-                                sheetNo= sheetNo+1
+                        }
+                        else{
+                            stuList = stuObj.list{
+                                studyCentre{
+                                    eq('id' , Long.parseLong(params.sessionProgramFeePaidStudyCentre))
+                                }
+                                programDetail{
+                                    eq('id', programIns.id)
+                                }
+                                and{
+                                    eq('registrationYear' , Integer.parseInt(params.sessionProgramFeePaidSession))
+                                }
                             }
-                    }
+                        }
+                        if(stuList){
+                            if(params.value =='sessionProgramWiseFeePaid'){
+                                    def count = FeeDetails.findAllByStudentInListAndFeeTypeAndSemesterValueAndIsApproved(stuList,FeeType.findById(3), Integer.parseInt(params.programTerm), Status.findById(4))
+                                println("hello kuldeeppppppppppppppp "+count)
+                                    if(count){
+                                        status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
+                                        sheetNo= sheetNo+1
+                                    }
+                            }
+                            else if(params.value =='sessionProgramWiseFeeNotPaid'){
+                                def count = FeeDetails.findAllByStudentInListAndFeeTypeAndSemesterValueAndIsApprovedNotEqual(stuList,FeeType.findById(3), Integer.parseInt(params.programTerm), Status.findById(4))
+                                if(count){
+                                        status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
+                                        sheetNo= sheetNo+1
+                                }
+                            }
 
+                        }
                 }
-
             }
         if(sheetNo>0){
             workbook.write();
             workbook.close();
         }
             return status
+    }
 
-
-
+    def getReportDataDailyAdmissionReport(params){
+        def stuObj = Student.createCriteria()
+        def stuList
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        def  fromDate = df.parse(params.dailyAdmissionFromDate)
+        def toDate = df.parse(params.dailyAdmissionToDate)
+        toDate.setHours(24)
+        if(params.dailyAdmissionStudyCentre=='All')   {
+            stuList = stuObj.list{
+                and{
+                    between('admissionDate', fromDate, toDate)
+                }
+//                and{
+//                    eq('admissionDate', fromDate)
+//                    eq('admissionDate', toDate)
+//                }
+                and{
+                    ne('rollNo', IS_NULL)
+                }
+            }
+        }
+        else{
+            println('in else' +params.dailyAdmissionStudyCentre)
+            stuList = stuObj.list{
+                studyCentre{
+                    eq('id' , Long.parseLong(params.dailyAdmissionStudyCentre))
+                }
+                and{
+                    between('admissionDate', fromDate, toDate)
+                }
+                and{
+                    ne('rollNo', IS_NULL)
+                }
+            }
+        }
+        println("this is the list of students "+ stuList)
+        return stuList
     }
 }
 
