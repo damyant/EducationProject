@@ -85,11 +85,14 @@ class StudentRegistrationService {
                             isAdmin = true
                         }
                 }
-                if (isAdmin) {
-                    Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentre))
+                if (isAdmin){
+                    println("is admin is true"+ params.studyCentre)
+                    Set<StudyCenter> studyCentre = StudyCenter.findAllById(Integer.parseInt(params.studyCentre))
+                    println("this is the study centre will save"+ studyCentre)
                     studentRegistration.studyCentre = studyCentre
                 } else {
-                    Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
+                    println("is admin is false"+ params.studyCentre)
+                    Set<StudyCenter> studyCentre = StudyCenter.findAllById(Integer.parseInt(params.studyCentreCode))
                     studentRegistration.studyCentre = studyCentre
                 }
             }
@@ -142,6 +145,7 @@ class StudentRegistrationService {
         }
         studentRegistration.semester = 1
         studentRegistration.admitCardGenerated = false
+        println('This is the final studycentre going to save '+studentRegistration.studyCentre)
         if (studentRegistration.save(flush: true, failOnError: true)) {
             if (!springSecurityService.isLoggedIn()) {
                 def feeDetails = new FeeDetails()

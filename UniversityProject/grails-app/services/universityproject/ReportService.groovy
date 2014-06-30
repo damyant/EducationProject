@@ -3,7 +3,7 @@ package universityproject
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.FeeType
-
+import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
 import examinationproject.Status
@@ -207,9 +207,11 @@ class ReportService {
             wbSettings.setLocale(new Locale("en", "EN"));
             WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
             def studyCentreName = StudyCenter.findById(Long.parseLong(params.studyCentre))
+            println("this is the name of studtycentre " + studyCentreName.name)
             int sheetNo=0
             programList.each {
                 def pId= it.id
+                println(params.studyCentreSession+" course name "+ it.courseName)
                 def stuObj= Student.createCriteria()
                 def count = stuObj.list{
                     programDetail{
@@ -222,10 +224,10 @@ class ReportService {
                         eq('registrationYear' , Integer.parseInt(params.studyCentreSession))
                     }
                     and{
-                        ne('status', Status.findById(4))
+                        eq('status', Status.findById(4))
                     }
                 }
-                println("--------------"+count)
+                println(pId+ "--"+params.studyCentre +"------------------"+count)
                  status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCentreName.name, session)
                 sheetNo= sheetNo+1
             }
@@ -289,6 +291,9 @@ class ReportService {
                     and{
                         eq('registrationYear' , Integer.parseInt(params.examinationCentreSession))
                     }
+                    and{
+                        eq('status', Status.findById(4))
+                    }
                 }
                 println("--------------"+count)
                 status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, null, session)
@@ -312,6 +317,9 @@ class ReportService {
                     }
                     and{
                         eq('registrationYear' , Integer.parseInt(params.examinationCentreSession))
+                    }
+                    and{
+                        eq('status', Status.findById(4))
                     }
                     projections {
                         rowCount()
@@ -500,7 +508,7 @@ class ReportService {
     def getReportDataStudyCentreFeePaid(params){
        def finalMap =[]
        def studentList
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         def fromDate
         def toDate
         def stuObj = Student.createCriteria()
@@ -519,6 +527,9 @@ class ReportService {
               fromDate = df.parse(params.studyCentreFeeFromDate)
               toDate = df.parse(params.studyCentreFeeToDate)
         }
+        toDate.setHours(24)
+        println(fromDate)
+        println(" and to date is "+ toDate)
         def feeType = FeeType.list(sort:'type');
         int finalTotal =0
         int i=1
@@ -537,6 +548,7 @@ class ReportService {
 
                  }
                 int totalForList =0
+                println("this is the count "+  musFeeList)
                 if(musFeeList){
                     finalMap.add(musFeeList)
                     musFeeList.each{
@@ -551,6 +563,31 @@ class ReportService {
 //        finalMap.add(finalTotal)
         return finalMap
     }
+
+    def getReportDataPaymentMode(params){
+        println('these are the parameterssssssssssss '+params)
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        def fromDate = df.parse(params.paymentModeFromDate)
+        def toDate = df.parse(params.paymentModeToDate)
+        toDate.setHours(24)
+        def feeDetails = FeeDetails.createCriteria()
+        def feeList = feeDetails.list{
+            eq('paymentModeId', PaymentMode.findById(Integer.parseInt(params.paymentMode)))
+            and{
+                between('paymentDate', fromDate, toDate)
+
+            }
+            and{
+                eq('isApproved', Status.findById(4))
+            }
+
+        }
+        println(",.,.,,.,.,.,.,.,.,..,.,.,. "+feeList)
+        return feeList
+    }
+
+
+
     def getReportDataComparative(startSession, endSession){
         def categoryList =[]
         categoryList
@@ -689,9 +726,10 @@ class ReportService {
         def feeFromDate
         def feeToDate
         println("Report Service --> getReportDataDailyFeePaid--> Parameters Values :: "+ params)
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
          feeFromDate = df.parse(params.feeFromDate)
          feeToDate = df.parse(params.feeToDate)
+        feeToDate.setHours(24)
         def feeType = FeeType.list(sort:'type')
         int i=0
         int finalTotal = 0
@@ -852,14 +890,19 @@ class ReportService {
     def getReportDataDailyAdmissionReport(params){
         def stuObj = Student.createCriteria()
         def stuList
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         def  fromDate = df.parse(params.dailyAdmissionFromDate)
         def toDate = df.parse(params.dailyAdmissionToDate)
+        toDate.setHours(24)
         if(params.dailyAdmissionStudyCentre=='All')   {
             stuList = stuObj.list{
                 and{
                     between('admissionDate', fromDate, toDate)
                 }
+//                and{
+//                    eq('admissionDate', fromDate)
+//                    eq('admissionDate', toDate)
+//                }
                 and{
                     ne('rollNo', IS_NULL)
                 }

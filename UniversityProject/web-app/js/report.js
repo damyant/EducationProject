@@ -53,6 +53,19 @@ $(function() {
         dateFormat: "dd/mm/yy",
         maxDate: 0
     });
+    $('#paymentModeFromDate').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        maxDate: 0
+    });
+    $('#paymentModeToDate').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        maxDate: 0
+    });
+
 
   setSessions()
   setTerm()
@@ -155,6 +168,11 @@ $(function() {
 //        alert("clicked")
         openPopUp(23)
     })
+    $('#byPaymentMode').on('click', function(){
+//        alert("clicked")
+        openPopUp(24)
+    })
+
 });
 
 
@@ -355,7 +373,6 @@ function openPopUp(value){
         $('#sessionDialog').dialog('open')
     }
     else if(value==23){
-        alert('23')
         $('tr').hide()
         $('#flagValue').val('dailyAdmissionReport')
         $("#byDailyAdmissionReport").show()
@@ -363,6 +380,16 @@ function openPopUp(value){
 //        alert("condition is true")
         $('#sessionDialog').dialog('open')
     }
+    else if(value==24){
+        alert('24')
+        $('tr').hide()
+        $('#flagValue').val('paymentModeReport')
+        $("#byPaymentModeReport").show()
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+
 }
 
 

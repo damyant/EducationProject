@@ -6,39 +6,10 @@ function uploadImage(input, type) {
 
         }
 
-//        if (iSize / 1024 > 1)
-//        {
-//            if (((iSize / 1024) / 1024) > 1)
-//            {
-//                iSize = (Math.round(((iSize / 1024) / 1024) * 100) / 100);
-//               alert("Image size is "+iSize)
-//               // $("#lblSize").html( iSize + "Gb");
-//            }
-//            else
-//            {
-//                iSize = (Math.round((iSize / 1024) * 100) / 100)
-//                alert("Image size is "+iSize)
-//                //$("#lblSize").html( iSize + "Mb");
-//            }
-//        }
-//        else
-//        {
-//            iSize = (Math.round(iSize * 100) / 100)
-//            alert("Image size is "+iSize)
-//           // $("#lblSize").html( iSize  + "kb");
-//        }
+
     });
 }
 
-//function isNumber(evt) {
-//
-//    evt = (evt) ? evt : window.event;
-//    var charCode = (evt.which) ? evt.which : evt.keyCode;
-//    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-//        return false;
-//    }
-//    return true;
-//}
 
 $('#profile-image').on('click', function () {
 //    alert("click")
@@ -144,16 +115,6 @@ function checkApplicationNumber(t) {
     });
 }
 
-//function checkLastDate(t){
-//    var data = $(t).val();
-//    $.ajax({
-//        type: "post",
-//        url: url('student', 'checkLastDate', ''),
-//        data: {applicationNo: data},
-//        success: function (data) {
-//        }
-//    })
-//}
 function submitTempRegistration() {
     validate();
     var result = $('#tempEnrollment').valid()
@@ -172,16 +133,8 @@ function submitTempRegistration() {
                 $('#amount').text(''+data.programFeeAmount)
                 if(data.lateFee>0)
                 $('#lateFee').text('(with late fee '+data.lateFee+')')
-//                var confirmOK = confirm("Do you want to Generate Challan for Roll No " + data.student.rollNo + " ?");
-//                if(confirmOK){
                     $('#challanDiv').dialog('open')
-//                }
-//                else {
-//                    alert('Student Registered Successfully & Roll No is ' + data.student.rollNo);
-//                }
 
-                //................................................................................................................
-//                confirmGenerateChallan(data.rollNo);
             }
         });
     }

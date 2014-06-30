@@ -2,8 +2,7 @@
  * Created by chandan on 3/12/14.
  */
 function validate() {
-
-    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
+    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail, #crateNewCategory").validate({
 
         rules: {
 
@@ -310,6 +309,9 @@ function validate() {
                 required:true,
                 date: true
             },
+            categoryName:{
+                required:true
+            },
 
             //Exam Centre
 //            examinationCentreName: {required: true, textonly: true},
@@ -336,6 +338,7 @@ function validate() {
             subjectName: {required: "Please Enter Course Name",
                 lettersnumberswithbasicpunc: "Letters or numbers or punctuation only please"
             },
+          categoryName:{required:'Please Enter Category Name'},
             registrationNo1:{
                 minlength:"Please Enter 5 Character"
             },

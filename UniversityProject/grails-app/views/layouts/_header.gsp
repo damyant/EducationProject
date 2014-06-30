@@ -81,6 +81,14 @@
                                 code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
                     </ul>
                 </li>
+                <li><a href="#"><g:message code="default.mainMenu3.subMenu12"/></a>
+                    <ul>
+                        <li><g:link controller="category" action="createNewCategory"><g:message
+                                code="default.mainMenu3.subMenu12.subMenu1"/></g:link></li>
+                        <li><g:link controller="category" action="categoryList"><g:message
+                                code="default.mainMenu3.subMenu12.subMenu2"/></g:link></li>
+                    </ul>
+                </li>
             </ul>
         </li>
         <li>

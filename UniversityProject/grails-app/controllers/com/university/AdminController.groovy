@@ -396,11 +396,15 @@ class AdminController {
         feeDetailList.each {
             it.isApproved=Status.findById(4)
             if(it.save(flush: true)){
+                status=true
                 if(it.semesterValue==1 && it.feeType.id==3){
                     def student = Student.findById(it.student.id)
                     student.status=Status.findById(4)
                     if(student.save(flush: true)){
                         status=true
+                    }
+                    else{
+                        status=false
                     }
                 }
             }

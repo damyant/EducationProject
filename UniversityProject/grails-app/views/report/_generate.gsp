@@ -296,7 +296,7 @@
                   <g:each in="${0..feeObj.size()-1}" var='j'>
                       %{--<tr >Fee Type: ${feeObj[j].feeType.type}</tr>--}%
                       <tr>
-                          <td style="border: 0px">${feeObj[j].student.firstName}</td>
+                          <td style="border: 0px">${feeObj[j].student.firstName} ${feeObj[j].student.middleName? feeObj[j].student.middleName:''} ${feeObj[j].student.lastName? feeObj[j].student.lastName:''}</td>
                           <td style="border: 0px" >${feeObj[j].student.rollNo}</td>
                           <td style="border: 0px">${feeObj[j].paymentReferenceNumber}</td>
                           <td style="border: 0px">${feeObj[j].paidAmount}</td>
@@ -309,6 +309,49 @@
             </g:each>
         </table>
     </g:elseif>
+
+
+
+<g:elseif test="${totalListByPaymentMode}">
+    <h3> Fees Paid Report Between ${fromDate} to ${toDate} And Payment Mode Is ${paymentMode}</h3>
+    <table style=" text-align: center; border: 0px" class="gridtable">
+        <th style="border: 0px">Name</th>
+        <th style="border: 0px">Roll No</th>
+        <th style="border: 0px">Payment No</th>
+        <th style="border: 0px">Amount</th>
+        <th style="border: 0px">Fee Type</th>
+        <g:each in="${totalListByPaymentMode}" var="feeObj" status="i">
+                    <tr>
+                        <td style="border: 0px">${feeObj.student.firstName} ${feeObj.student.middleName? feeObj.student.middleName:''} ${feeObj.student.lastName? feeObj.student.lastName:''}</td>
+                        <td style="border: 0px" >${feeObj.student.rollNo}</td>
+                        <td style="border: 0px">${feeObj.paymentReferenceNumber}</td>
+                        <td style="border: 0px">${feeObj.paidAmount}</td>
+                        <td style="border: 0px">${feeObj.feeType.type}</td>
+                    </tr>
+        </g:each>
+    </table>
+</g:elseif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

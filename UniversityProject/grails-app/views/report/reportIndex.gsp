@@ -5,7 +5,7 @@
   Time: 3:09 PM
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" import="examinationproject.FeeType; examinationproject.District; examinationproject.ProgramDetail;examinationproject.StudyCenter"%>
+<%@ page contentType="text/html;charset=UTF-8" import="examinationproject.PaymentMode; examinationproject.FeeType; examinationproject.District; examinationproject.ProgramDetail;examinationproject.StudyCenter"%>
 <html>
 <head>
     <title></title>
@@ -23,15 +23,17 @@
     <div style="width: 30%">
 
       <ul>
-        <sec:ifAnyGranted roles="ROLE_IDOL_USER, ROLE_STUDY_CENTRE ">
-                <div id="session"> <a href="#"> <li>By Session </li></a></div>
-        </sec:ifAnyGranted>
         <sec:ifAnyGranted roles="ROLE_STUDY_CENTRE ">
-            <div id="sessionStudentList"> <a href="#"> <li>By Session Student List</li></a></div>
+            <div style="">
+            <div id="sessionStudentList"> <a href="#"> <li style="">By Session Student List</li></a></div>
             <div id="byCourseUnapproved"> <a href="#"> <li>By Programme Unapproved Roll No
             </li></a></div>
             <div id="byCourseApproved"> <a href="#"> <li>By Programme Approved Roll No
             </li></a></div>
+            </div>
+        </sec:ifAnyGranted>
+        <sec:ifAnyGranted roles="ROLE_IDOL_USER, ROLE_STUDY_CENTRE ">
+                <div id="session"> <a href="#"> <li>By Session </li></a></div>
         </sec:ifAnyGranted>
         <sec:ifAnyGranted roles="ROLE_IDOL_USER">
                 <div id="sessions"> <a href="#"> <li>By Sessions</li></a></div>
@@ -96,11 +98,13 @@
                 </div>
                  %{--<div id="byCumulativeCandidateNo"> <a href="#"> <li>Examination venue Cumulative Candidate No--}%
         %{--</a></div>--}%
-        <div id="bySessionProgramFeePaid"> <a href="#"> <li>Session, Programme Wise Fees Paid Statement
-        </a></div>
-            <div id="bySessionProgramFeeNotPaid"> <a href="#"> <li>Session, Programme Wise Fees Not Paid Statement
-            </a></div>
-      </ul>
+                <div id="bySessionProgramFeePaid"> <a href="#"> <li>Session, Programme Wise Fees Paid Statement
+                </a></div>
+                <div id="bySessionProgramFeeNotPaid"> <a href="#"> <li>Session, Programme Wise Fees Not Paid Statement
+                </a></div>
+                <div id="byPaymentMode"> <a href="#"> <li>Payment Type Wise Report
+                </a></div>
+        </ul>
       </sec:ifAnyGranted>
     </div>
    <div id="sessionDialog" class="dialog">
@@ -250,6 +254,26 @@
            </tr>
 
 
+           <tr id="byPaymentModeReport">
+               <td style="width: 40%" >
+                   <g:select name="paymentMode" class="university-size-1-1" id="paymentMode"
+                             from="${PaymentMode.list()}" optionKey="id" optionValue="paymentModeName"
+                             noSelection="['null': 'Select Payment Mode']" />
+               </td>
+               <td style="width: 10%" >
+                   <input type="text" name="paymentModeFromDate" class="" id="paymentModeFromDate" placeholder="From Date"/>
+               </td>
+               <td style="width: 10%" >
+                   <input type="text" name="paymentModeToDate" class="" id="paymentModeToDate" placeholder="To Date"/>
+               </td>
+
+           </tr>
+
+
+
+
+
+
 
 
                <tr id="byStudyCentreFeePaid">
@@ -258,20 +282,12 @@
                                  from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
                                  noSelection="['null': ' Select Study Centre']" />
                    </td>
-
-                   %{--<td style="width: 10%">--}%
-                       %{--<label for="studyCentreFeeFromDate">From Date:</label>--}%
-                   %{--</td>--}%
                    <td style="width: 10%" >
                        <input type="text" name="studyCentreFeeFromDate" class="" id="studyCentreFeeFromDate" placeholder="From Date"/>
                    </td>
-                   %{--<td style="width: 10%">--}%
-                       %{--<label for="StudyCentreFeeToDate">To Date:</label>--}%
-                   %{--</td>--}%
                    <td style="width: 10%" >
                        <input type="text" name="studyCentreFeeToDate" class="" id="studyCentreFeeToDate" placeholder="To Date"/>
                     </td>
-
                </tr>
 
                <tr id="byDailyFeeReport">
@@ -444,7 +460,6 @@
 
 
                <tr id="byExaminationCentre">
-
                    <table id="examCenterSelect" style="border: 0px solid black">
                        <tr>
                            <td style="width: 50%">
@@ -651,7 +666,7 @@
         else if(val=="dailyAdmissionReport") {
             check1 =$('#dailyAdmissionFromDate').val()
             check2 =$('#dailyAdmissionToDate').val()
-            if(!check1 && !check2 && check3=='null' ){
+            if(!check1 || !check2){
                 alert("please select values")
                 return false;
             }
@@ -660,7 +675,7 @@
             check1 =$('#studyCentreFeeFromDate').val()
             check2 =$('#studyCentreFeeToDate').val()
             check3= $('#feePaidStudyCentre').val()
-            if(!check1 && !check2 ){
+            if(!check1 || !check2 ){
                 alert("please select values")
                 return false;
             }
@@ -680,16 +695,15 @@
                 return false;
             }
         }
-//        else if(val=="sessionProgramWiseFeeNotPaid") {
-//            check1 =$('#semesterList').val()
-//            if(check1=='null' ){
-//                alert("please select values")
-//                return false;
-//            }
-//        }
-
-
-
+        else if(val=="paymentModeReport") {
+            check1 =$('#paymentModeFromDate').val()
+            check2 =$('#paymentModeToDate').val()
+            check3= $('#paymentMode').val()
+            if(!check1 || !check2 || check3=='null' ){
+                alert("please select values")
+                return false;
+            }
+       }
     }
 </script>
 </body>

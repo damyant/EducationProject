@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="java.text.SimpleDateFormat; javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+<%@ page import="examinationproject.StudyCenter; java.text.SimpleDateFormat; javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Student Registration</title>
@@ -274,21 +274,29 @@
 <tr>
 
     <!----- Contact centre/study centre ---------------------------------------------------------->
-    <td>Study centre <span class="university-obligatory">*</span></td>
-   <sec:ifAnyGranted roles="ROLE_ADMIN">
-       <td>
-       <g:select name="studyCentre" id="studyCentre" optionKey="id" class="university-size-1-2"
-                 value="${studInstance?.studyCentre?.id?.get(0)}"
-                 optionValue="name" from="${studyCenterList}" noSelection="['': ' Select StudyCentre']"/>
-       </td>
-   </sec:ifAnyGranted>
-    <sec:ifNotGranted roles="ROLE_ADMIN" >
-    <td>
-        <input type="text" name="studyCentre" class="university-size-1-2" value="${studyCentre?.name}" readonly/>
-    </td>
-    </sec:ifNotGranted>
+   <td>Study centre <span class="university-obligatory">*</span></td>
+    <g:if test="${studInstance}">
+           <sec:ifAnyGranted roles="ROLE_ADMIN">
+               <td>
+                   <g:select name="studyCentre" id="studyCentre" optionKey="id" class="university-size-1-2"
+                             value="${studInstance?.studyCentre?.id?.get(0)}"
+                             optionValue="name" from="${StudyCenter.list()}" noSelection="['': ' Select StudyCentre']"/>
+               </td>
+           </sec:ifAnyGranted>
+            <sec:ifNotGranted roles="ROLE_ADMIN" >
+                <td>
+                    <input type="text" name="studyCentre" class="university-size-1-2" value="${studInstance?.studyCentre?.name?.get(0)}" readonly/>
+                </td>
+            </sec:ifNotGranted>
+    </g:if>
+    <g:if test="${!studInstance}">
+         <td>
+            <input type="text" name="studyCentre" class="university-size-1-2" value="${studyCentre?.name}" readonly/>
+        </td>
+    </g:if>
 </tr>
 <tr>
+
     <!----- Preference of examination centre ---------------------------------------------------------->
     <td>Select Preference of examination Centre<span class="university-obligatory">*</span></td>
     <td>
@@ -328,16 +336,20 @@
     <td>GU Registration Number (if already registered in GU)</td>
     <td>
         <input type="text" name="registrationNo1" id="registrationNo1" maxlength="9" onchange="enableDisableCheckbox()"
-               class="university-size-1-4"
+               class="university-size-1-4"  value="${studInstance?.registrationNo1}"
                onkeypress="return isNumber(event)"/> Of
         <input type="text" name="registrationNo2" id="registrationNo2" maxlength="7" class="university-size-1-4"
-               onkeypress="return isNumberWithDash(event)"/>
-        &nbsp;&nbsp;&nbsp;Or&nbsp;&nbsp;&nbsp;<label style="text-align: left"><input type="checkbox" value="Y"
-                                                                                     onclick="enableDisableTextBox()"
+               onkeypress="return isNumberWithDash(event)"  value="${studInstance?.registrationNo2}"/>
+
+         <g:if test="${!studInstance?.registrationNo2}">
+             &nbsp;&nbsp;&nbsp;Or&nbsp;&nbsp;&nbsp;
+        <label style="text-align: left">
+        <input type="checkbox" value="Y" onclick="enableDisableTextBox()"
                                                                                      name="isAppliedFor"
                                                                                      id="isAppliedFor"
                                                                                      class="university-size-1-4"/>A/F
     </label>
+             </g:if>
     </td>
 </tr>
 
@@ -529,9 +541,16 @@
     </td>
 </tr>
 <tr>
-    <td>
-        <input type="hidden" name="studyCentreCode" value="${studyCentre?.centerCode}">
-    </td>
+    <g:if test="${studInstance}">
+        <td>
+            <input type="hidden" name="studyCentreCode" value="${studInstance?.studyCentre?.id?.get(0)}">
+        </td>
+    </g:if>
+    <g:else>
+        <td>
+            <input type="hidden" name="studyCentreCode" value="${studyCentre?.centerCode}">
+        </td>
+    </g:else>
 </tr>
 </table>
 
