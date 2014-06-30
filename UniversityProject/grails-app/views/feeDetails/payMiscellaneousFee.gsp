@@ -65,7 +65,7 @@
             <table id="studentPayList" class="university-size-full-1-1" style="visibility: hidden">
                 <tr>
                     <td class="university-size-1-3">Payment Mode</td>
-                    <td class="university-size-2-3"><g:select name="paymentMode" class="university-size-1-2" id="paymentMode" optionKey="id" optionValue="paymentModeName" from="${paymentMode}" noSelection="['': ' Select Payment Mode']" onchange=""/></td>
+                    <td class="university-size-2-3"><g:select name="paymentMode" class="university-size-1-2" id="paymentMode" optionKey="id" optionValue="paymentModeName" from="${paymentMode}" noSelection="['': ' Select Payment Mode']" onchange="loadPayInSlipDetails(this)"/></td>
                 </tr>
                 <tr>
                     <td class="university-size-1-3">Payment Date</td>

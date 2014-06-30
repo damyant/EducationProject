@@ -702,7 +702,8 @@ class FeeDetailsController {
         def feeSessionObj = FeeSession.findByProgramDetailId(progmIns)
         def amount
         if (Integer.parseInt(params.postFeeType) == 3) {
-            amount = feeSessionObj.admissionFee[0].feeAmountAtIDOL
+            def feeAmount= AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,Integer.parseInt(params.semester))
+            amount = feeAmount.feeAmountAtIDOL+feeAmount.lateFeeAmount
         } else {
             def misFee = MiscellaneousFee.findByFeeTypeAndFeeSession(misFeeObj.feeType, feeSessionObj)
             amount = misFee.amount
