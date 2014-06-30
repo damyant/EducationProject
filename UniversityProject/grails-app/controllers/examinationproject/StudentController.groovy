@@ -95,11 +95,11 @@ class StudentController {
                         def today = new Date()
                         if(lateFeeDate!=null) {
                             if (today.compareTo(lateFeeDate) > 0) {
-                                lateFee = AdmissionFee.findByFeeSession(FeeSession.findByProgramDetailId(student.programDetail[0])).lateFeeAmount
+                                lateFee = AdmissionFee.findByFeeSessionAndTerm(FeeSession.findByProgramDetailId(student.programDetail[0]),1).lateFeeAmount
                             }
                         }
                         println(student.programDetail)
-                        def feeAmount = AdmissionFee.findByFeeSession(FeeSession.findByProgramDetailId(student.programDetail[0]));
+                        def feeAmount = AdmissionFee.findByFeeSessionAndTerm(FeeSession.findByProgramDetailId(student.programDetail[0]),1);
                         payableFee = feeAmount.feeAmountAtIDOL + lateFee
                     }
                     catch(NullPointerException e){
@@ -148,11 +148,11 @@ class StudentController {
             if(lateFeeDate!=null) {
                 if (today.compareTo(lateFeeDate) > 0) {
 //                    lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
-                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+                    lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1).lateFeeAmount
                 }
             }
 //            def feeAmount = AdmissionFee.findByProgramDetail(student.programDetail);
-            def feeAmount = AdmissionFee.findByFeeSession(feeSessionObj);
+            def feeAmount = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1);
             payableFee = feeAmount.feeAmountAtIDOL + lateFee
         }
         catch(NullPointerException e){
@@ -299,14 +299,14 @@ class StudentController {
             def sessionVal= year+1
             sessionVal= year+'-'+sessionVal
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
-            def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
+            def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1)
             println('this is the programFee '+programFee)
             try{
                 def lateFeeDate=student.programDetail.lateFeeDate[0]
                 def today=new Date()
                 if(lateFeeDate!=null) {
                     if (today.compareTo(lateFeeDate) > 0) {
-                        lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+                        lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1).lateFeeAmount
                     }
                 }
                 feeType = null

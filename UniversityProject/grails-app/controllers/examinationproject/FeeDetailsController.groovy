@@ -252,10 +252,10 @@ class FeeDetailsController {
                 stuIns.challanNo = challanNo
                 stuIns.save(failOnError: true)
                 def lateFeeDate = stuIns.programDetail.lateFeeDate[0]
-                feeForStudent = AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtSC
+                feeForStudent = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,Integer.parseInt(params.semesterListHidden)).feeAmountAtSC
                 if (lateFeeDate != null) {
                     if (today.compareTo(lateFeeDate) > 0) {
-                        lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+                        lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,Integer.parseInt(params.semesterListHidden)).lateFeeAmount
                     }
                 }
                 feeForStudent = feeForStudent + lateFee
@@ -311,10 +311,10 @@ class FeeDetailsController {
 
                 Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
 
-                 feeForStudent = AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtSC
+                 feeForStudent = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,term).feeAmountAtSC
                 if (lateFeeDate != null) {
                     if (today.compareTo(lateFeeDate) > 0) {
-                        lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+                        lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,term).lateFeeAmount
                     }
                 }
                 feeForStudent = feeForStudent + lateFee
@@ -447,7 +447,12 @@ class FeeDetailsController {
 //       println("***************"+params)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         def courseNameList = [], courseFee = []
-        def stuList = Student.findAllByChallanNo(params.searchChallanNo)
+        def feeDetailsInstance = FeeDetails.findAllByChallanNo(params.searchChallanNo)
+        def stuList
+
+        feeDetailsInstance.each {
+            stuList<<it.student
+        }
         def currentUser = springSecurityService.currentUser
         def totalFee = 0;
         def lateFee = 0
@@ -467,15 +472,15 @@ class FeeDetailsController {
 
             if (lateFeeDate != null) {
                 if (today.compareTo(lateFeeDate) > 0) {
-                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+                    lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,feeDetailsInstance[0].semesterValue).lateFeeAmount
                 }
             }
             courseNameList << it.programDetail[0].courseName
 
             if (it.studyCentre.centerCode[0] == "11111") {
-                courseFee << AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtIDOL + lateFee
+                courseFee << AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,feeDetailsInstance[0].semesterValue).feeAmountAtIDOL + lateFee
             } else {
-                courseFee << AdmissionFee.findByFeeSession(feeSessionObj).feeAmountAtSC + lateFee
+                courseFee << AdmissionFee..findByFeeSessionAndTerm(feeSessionObj,feeDetailsInstance[0].semesterValue).feeAmountAtSC + lateFee
             }
         }
         for (def k = 0; k < courseFee.size(); k++) {
@@ -485,7 +490,7 @@ class FeeDetailsController {
         def paymentModeName = PaymentMode.findById(params.paymentMode)
         def bank = Bank.findById(params.bankName)
         def branch = Branch.findById(params.branchLocation)
-        def feeDetailsInstance = FeeDetails.findAllByChallanNo(params.searchChallanNo)
+
 //        println("*************** "+paymentModeName)
         def termList = []
         feeDetailsInstance.each {
@@ -494,13 +499,15 @@ class FeeDetailsController {
             it.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
             it.bankId = Bank.findById(params.bankName)
             it.branchId = Branch.findById(params.branchLocation)
-            it.isApproved = Status.findById(3)
+
             it.paymentDate = df.parse(params.paymentDate)
             if (PaymentMode.findById(params.paymentMode).paymentModeName != 'Pay In Slip') {
+                it.isApproved = Status.findById(3)
                 if (it.save(flush: true, failOnError: true)) {
                     it.student.status = Status.findById(3)
                 }
             } else {
+                it.isApproved = Status.findById(4)
                 if (it.save(flush: true, failOnError: true)) {
                     it.student.status = Status.findById(4)
                 }
@@ -544,14 +551,25 @@ class FeeDetailsController {
             it.paymentModeId = PaymentMode.findById(params.paymentMode)
             it.bankId = bank
             it.branchId = branch
-            it.isApproved = Status.findById(3)
+//            it.isApproved = Status.findById(3)
 
             it.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
 
             it.paymentDate = df.parse(params.paymentDate)
-            if (it.save(flush: true, failOnError: true)) {
-                status = true
+            if (PaymentMode.findById(params.paymentMode).paymentModeName != 'Pay In Slip') {
+                it.isApproved = Status.findById(3)
+                if (it.save(flush: true, failOnError: true)) {
+                    status = true
+                }
+            } else {
+                it.isApproved = Status.findById(4)
+                if (it.save(flush: true, failOnError: true)) {
+                    status = true
+                }
             }
+//            if (it.save(flush: true, failOnError: true)) {
+//                status = true
+//            }
         }
         studyCentre = stuList[0].studyCentre
         def challanNo = params.searchChallanNo

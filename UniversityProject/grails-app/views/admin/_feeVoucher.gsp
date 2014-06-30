@@ -7,7 +7,6 @@
        </div>
         <div style="clear: both; margin-bottom: 1px;width:100%;">&nbsp;</div>
         <p style="width:100%; margin-left: 3px; margin-top: 4px; text-align: center;text-transform: uppercase;font-size: 13px">
-         <div  style="width:100%;">&nbsp;</div>
         <div style="width:100%;">State Bank of India</div>
 
         <div style="width:100%;">Gauhati University Branch (CODE-<g:message code="default.Bank.code"/>)</div>

@@ -166,6 +166,8 @@
                 </li>
                 <li><g:link controller="admin" action="assignExaminationDate"><g:message
                         code="default.mainMenu6.subMenu4"/></g:link></li>
+                <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
+                        code="default.mainMenu6.subMenu9"/></g:link></li>
             </ul>
         </li>
 
@@ -185,17 +187,10 @@
                         code="default.mainMenu2.subMenu12"/></g:link></li>
             </ul>
         </li>
-        <li><a href="#"><g:message code="default.mainMenu6.subMenu8"/></a>
-            <ul>
-                <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
-                        code="default.mainMenu6.subMenu9"/></g:link></li>
+
                 <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message
                         code="default.mainMenu6.subMenu1"/></g:link></li>
-            </ul>
-        </li>
-        <li>
-            <g:link controller="admin" action="generateCustomChallan"><g:message code="default.mainMenu6.subMenu12"/></g:link>
-        </li>
+
 
     </ul>
 </li>
@@ -215,6 +210,10 @@
         </li>
         <li><a href="#"><g:message code="default.mainMenu8.subMenu6"/></a>
             <ul>
+                <li><g:link controller="programFee" action="createAdmissionFee"><g:message
+                        code="default.mainMenu3.subMenu7.subMenu11"/></g:link></li>
+                <li><g:link controller="programFee" action="listOfAdmissionFee"><g:message
+                        code="default.mainMenu3.subMenu7.subMenu12"/></g:link></li>
                 <li><g:link controller="programFee" action="createNewFeeType"><g:message
                         code="default.mainMenu3.subMenu7.subMenu1"/></g:link></li>
                 <li><g:link controller="programFee" action="listOfFeeType"><g:message
@@ -229,6 +228,9 @@
                             code="default.mainMenu8.subMenu4.subMenu3"/></g:link></li>
                 <li><g:link controller="admin" action="feeVoucher"><g:message
                         code="default.mainMenu7.subMenu1"/></g:link></li>
+                <li>
+                    <g:link controller="admin" action="generateCustomChallan"><g:message code="default.mainMenu6.subMenu12"/></g:link>
+                </li>
 
             </ul>
         </li>

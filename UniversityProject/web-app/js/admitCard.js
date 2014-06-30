@@ -165,13 +165,9 @@ function getSemester(t){
         $("#SessionList").empty().append('data <option value="">Select Session</option>')
         $("#sessionType").val(0)
         $("#subjectList").empty();
-
-
     }
-
 }
 function getTermByCatagory(t){
-
     var data = $(t).val();
     var catagory = $('#programCategory').val();
     $('#semesterList').prop('disabled',false)
@@ -191,7 +187,7 @@ function getTermByCatagory(t){
         })
     }
     else{
-        $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+        $("#semesterList").empty().append('data <option value="">Select Term</option>')
     }
 
 }

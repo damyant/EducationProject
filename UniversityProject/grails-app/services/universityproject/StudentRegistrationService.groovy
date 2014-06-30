@@ -530,7 +530,7 @@ class StudentRegistrationService {
         sessionVal = year + '-' + sessionVal
 
         def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id), sessionVal)
-        def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
+        def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj, 1)
         println('this is the programFee ' + programFee)
 
         try {
@@ -539,7 +539,7 @@ class StudentRegistrationService {
             if (lateFeeDate != null) {
                 if (today.compareTo(lateFeeDate) > 0) {
 
-                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+                    lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1).lateFeeAmount
 
                 }
             }

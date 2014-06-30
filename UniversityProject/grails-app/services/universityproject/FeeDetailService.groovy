@@ -168,7 +168,7 @@ class FeeDetailService {
             def payableAmount = 0
             def today = new Date()
             println("this is the size " + stuList.size())
-            if (params.program == 'All' && params.semester == 'All') {
+            if (params.program == 'All') {
                 for (int i = 0; i < stuList.size(); i++) {
                     int year = stuList[i].registrationYear
                     def sessionVal = year + 1
@@ -178,7 +178,7 @@ class FeeDetailService {
 
                     if (prevProgram != stuList[i].programDetail.courseName) {
                         def lateFeeDate = stuList[i].programDetail.lateFeeDate[0]
-                        def amount = AdmissionFee.findByFeeSession(feeSessionObj)
+                        def amount = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1)
                         prevProgram = stuList[i].programDetail.courseName
                         if (lateFeeDate != null) {
                             if (today.compareTo(lateFeeDate) > 0) {
@@ -197,7 +197,7 @@ class FeeDetailService {
                 sessionVal = year + '-' + sessionVal
 
                 def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(stuList[0].programDetail[0].id), sessionVal)
-                def amount = AdmissionFee.findByFeeSession(feeSessionObj)
+                def amount = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,params.semester)
 //            println("this is the amount "+ amount)
 
                 if (lateFeeDate != null) {
@@ -295,7 +295,7 @@ class FeeDetailService {
             def payableAmount = 0
             def today = new Date()
             println("this is the size " + stuList.size())
-            if (params.program == 'All' && params.semester == 'All') {
+            if (params.program == 'All') {
                 for (int i = 0; i < stuList.size(); i++) {
                     int year = stuList[i].registrationYear
                     def sessionVal = year + 1
@@ -307,7 +307,7 @@ class FeeDetailService {
                         def lateFeeDate = stuList[i].programDetail.lateFeeDate[0]
                         def amount
                         if (params.feeType == '3') {
-                            amount = AdmissionFee.findByFeeSession(feeSessionObj)
+                            amount = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1)
                             prevProgram = stuList[i].programDetail.courseName
                             if (lateFeeDate != null) {
                                 if (today.compareTo(lateFeeDate) > 0) {
@@ -328,7 +328,7 @@ class FeeDetailService {
                 def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(stuList[0].programDetail[0].id), sessionVal)
                 if (params.feeType == '3') {
                     def lateFeeDate = stuList[0].programDetail.lateFeeDate[0]
-                    def amount = AdmissionFee.findByFeeSession(feeSessionObj)
+                    def amount = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,params.semester)
                     if (lateFeeDate != null) {
                         if (today.compareTo(lateFeeDate) > 0) {
                             lateFee = amount.lateFeeAmount
@@ -578,7 +578,7 @@ class FeeDetailService {
         def studInst = Student.findByRollNo(params.rollNo)
 
         def miscFeeList = FeeDetails.findAllByStudent(studInst)
-//            println(miscFeeList)
+            println(miscFeeList)
         DateFormat df = new SimpleDateFormat("dd-MMM-yyyy")
         def miscFeeStatus = []
         def miscFeetype = []
@@ -588,7 +588,7 @@ class FeeDetailService {
         miscFeeList.each {
             status = it.isApproved.status
             challan << it.challanNo
-            println(status)
+            println("ttttttttttttttttttttttt"+status)
             if (it.paymentDate!=null) {
                 mPayDate << df.format(it.paymentDate)
             } else {

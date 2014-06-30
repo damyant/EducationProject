@@ -729,8 +729,81 @@ function clearTable() {
     document.getElementById("paySubmit").style.visibility = "hidden";
     document.getElementById("payClear").style.visibility = "hidden";
 }
+function loadProgramTerm(){
+    var data = $('#programDetail').val();
+    if(data){
+        $.ajax({
+            type: "post",
+            url: url('programFee', 'getTermInList', ''),
+            data: {data: data},
+            success: function (data) {
+                $("#semesterList").empty().append('data <option value="0">All Terms</option>')
 
-
+                for (var i = 1; i <= data.programlist; i++) {
+                    $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+                }
+            }
+        })
+    }
+    else{
+        $("#semesterList").empty().append('data <option value="">Select Term</option>')
+    }
+}
+function loadEditAdmissionFeeDetails(t){
+    var program = $('#programDetail').val();
+    var cValue = $(t).val();
+    var result=checkTerm(cValue)
+    var session = $('#session').val();
+    var term = $('#semesterList').val();
+    if(result){
+    if(program!=''&&session!=''&&term!='0'){
+    $.ajax({
+        type: "post",
+        url: url('programFee', 'getAdmissionFeeDetails', ''),
+        data: {program: program,session:session,term:term},
+        success: function (data) {
+           if(data){
+               $('#feeAmountAtIDOL').val(data.idolFee);
+               $('#feeAmountAtSC').val(data.stFee);
+               $('#lateFeeAmount').val(data.lateFee);
+           }
+        }
+    })
+    }}
+    else{
+        alert("This Term is Invalid!")
+    }
+}
+function loadAdmissionFeeDetails(){
+    var program = $('#programDetail').val();
+    var session = $('#session').val();
+    var term = $('#semesterList').val();
+        if(program!=''&&session!=''&&term!='0'){
+            $.ajax({
+                type: "post",
+                url: url('programFee', 'getAdmissionFeeDetails', ''),
+                data: {program: program,session:session,term:term},
+                success: function (data) {
+                    if(data){
+                        $('#feeAmountAtIDOL').val(data.idolFee);
+                        $('#feeAmountAtSC').val(data.stFee);
+                        $('#lateFeeAmount').val(data.lateFee);
+                    }
+                }
+            })
+        }
+}
+function checkTerm(pId){
+    var term = $('#semesterList').val();
+    $.ajax({
+        type: "post",
+        url: url('programFee', 'isValidTerm', ''),
+        data: {pId: pId,term:term},
+        success: function (data) {
+            return data.status
+        }
+    })
+}
 function showListOfStudents() {
     document.getElementById("paginationDiv").style.visibility = "hidden";
     $.ajax({
@@ -743,6 +816,7 @@ function showListOfStudents() {
 //            alert(data.stuList.length)
             if (data.stuList.length > 0) {
                 document.getElementById("studentPayList").style.visibility = "visible";
+                document.getElementById("scStudnetList").style.visibility = "visible";
 //
                 document.getElementById("paySubmit").style.visibility = "visible";
                 document.getElementById("payClear").style.visibility = "visible";
@@ -1314,4 +1388,44 @@ function saveCustomChallan(){
             }
         })
     }
+}
+function loadAdmissionFeeDetailsView(t){
+    var session=$(t).val()
+    var program=$('#programDetail').val()
+    if(program){
+        $.ajax({
+            type: "post",
+            url: url('programFee', 'loadAdmissionFee', ''),
+            data: {session:session,program:program},
+            success: function (data) {
+                if(data.admissionFeeList.length>0){
+                    $('#admissionFeeTable thead').empty().append('<tr><th>Term</th><th>Fee at Idol</th><th>Fee at Study Centre</th><th>Late Fee</th><th></th></tr>')
+                    $('#admissionFeeTable tbody').empty()
+                    for(var i=0;i<data.admissionFeeList.length;i++){
+                        $('#admissionFeeTable tbody').append('<tr><td>'+data.admissionFeeList[i].term+'</td><td>'+data.admissionFeeList[i].feeAmountAtIDOL+'</td><td>'+data.admissionFeeList[i].feeAmountAtSC+'</td><td>'+data.admissionFeeList[i].lateFeeAmount+'</td><td><input type="button" class="ui-button" value="Edit" onclick="editAdmissionFee('+data.admissionFeeList[i].id+')" </td></tr>')
+                    }
+                }
+            }
+        })
+    }
+
+}
+function editAdmissionFee(admissioFeeId){
+    window.open('/UniversityProject/programFee/createAdmissionFee/' + admissioFeeId, '_self', false)
+}
+function clearAllFields(t){
+    var program=$(t).val()
+    if(program){
+        $('#session').val('')
+        $("#session").attr('disabled',false)
+        $('#admissionFeeTable thead').empty()
+        $('#admissionFeeTable tbody').empty()
+    }
+    else{
+        $('#session').val('')
+        $("#session").attr('disabled',true)
+        $('#admissionFeeTable thead').empty()
+        $('#admissionFeeTable tbody').empty()
+    }
+
 }

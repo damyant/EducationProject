@@ -93,7 +93,7 @@
                         </g:if>
                         <g:else>
                             <g:select id="feeType" name="feeType"
-                                      from="" optionKey="id"
+                                      from="${feeType}" optionKey="id"
                                       optionValue="type" class="many-to-one university-size-1-3"
                                       readonly="true"/>
                         </g:else>

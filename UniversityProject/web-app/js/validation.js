@@ -734,12 +734,13 @@ function checkValidation() {
 }
 function validateProgramFee() {
 //    alert("hi")
-    $("#createNewFee, #individualStudentUpdate, #customChallanSave").validate({
+    $("#createNewFee,#createAdmissionFee, #individualStudentUpdate, #customChallanSave").validate({
         rules: {
             programDetailId:"required",
             programSessionId:"required",
             feeAmountAtIDOL:"required",
             feeAmountAtSC:"required",
+            semesterList:"required",
             lateFeeAmount:"required",
             rollNo: {
                 required: true,
@@ -754,8 +755,9 @@ function validateProgramFee() {
 
             programDetailId:"Please Select Programme Detail",
             programSessionId:"Please Select Programme Session",
-            feeAmountAtIDOL:"Please  Enter Programme Fee At Idol",
-            feeAmountAtSC:"Please  Enter Programme Fee At Study Centre",
+            feeAmountAtIDOL:"Please  Enter Admission Fee at Idol",
+            semesterList:"Please  Select Term",
+            feeAmountAtSC:"Please  Enter Admission Fee at Study Centre",
             lateFeeAmount:"Please Enter Late Fee Amount",
             rollNo:{ required:"Please Enter a Roll Number",
                 minlength:"Please Enter 8 digit Roll Number"
