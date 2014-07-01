@@ -5,7 +5,7 @@ import postexamination.MarksType
 
 class SubjectMarksDetail {
 
-    Integer marksObtained
+    Integer marks
     Integer minPassingMarks
     MarksType marksTypeId
 
@@ -16,7 +16,7 @@ class SubjectMarksDetail {
 
     static mapping = {
      subject column: 'SubjectId'
-     marksObtained column: 'MarksObtained'
+     marks column: 'Marks'
      minPassingMarks column: 'MinPassingMarks'
      marksTypeId column: 'MarksTypeId'
     }

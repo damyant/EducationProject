@@ -104,8 +104,6 @@ class AdmitCardController {
         }else{
             programlist=ProgramDetail.findByIdAndProgramType(params.data,catagory).noOfTerms
         }
-        println("catagory>>>> "+catagory.type)
-        println("programlist>>>> "+programlist)
         resultMap.programlist=programlist
         render resultMap as JSON
 
