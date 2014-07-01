@@ -21,7 +21,7 @@
 
 <body>
 <div id="main">
-    <div id="errorMsgForRollNo"></div>
+    <div id="errorMsgForRollNo" class="university-status-message"></div>
     <g:form controller="feeDetails" action="savePostExamFee" name="postExamFee" id="postExamFee">
     <table>
 

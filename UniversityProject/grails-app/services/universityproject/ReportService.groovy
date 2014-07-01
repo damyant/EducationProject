@@ -407,7 +407,6 @@ class ReportService {
                     rowCount()
                 }
             }
-//            println("result of count is "+count)
             int l=0
             for(int i=0; i<categoryList.size(); i++){
 

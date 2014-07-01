@@ -55,6 +55,10 @@ class ReportController {
                    response.outputStream.flush()
                    myFile.delete()
                }
+               else{
+                   flash.message = "${message(code: 'record.not.found.message')}"
+                   redirect(action: 'reportIndex')
+               }
            }
            else{
            def totalList = reportService.getReportDataSession(params, null)
@@ -108,6 +112,10 @@ class ReportController {
                response.outputStream.flush()
                myFile.delete()
            }
+           else{
+               flash.message = "${message(code: 'record.not.found.message')}"
+               redirect(action: 'reportIndex')
+           }
 
 
        }
@@ -129,6 +137,10 @@ class ReportController {
                    response.outputStream << myFile .bytes
                    response.outputStream.flush()
                    myFile.delete()
+               }
+               else{
+                   flash.message = "${message(code: 'record.not.found.message')}"
+                   redirect(action: 'reportIndex')
                }
            }
            else{
@@ -160,6 +172,10 @@ class ReportController {
                    response.outputStream << myFile .bytes
                    response.outputStream.flush()
                    myFile.delete()
+               }
+               else{
+                   flash.message = "${message(code: 'record.not.found.message')}"
+                   redirect(action: 'reportIndex')
                }
            }
 
@@ -285,6 +301,10 @@ class ReportController {
                response.outputStream.flush()
                myFile.delete()
            }
+           else{
+               flash.message = "${message(code: 'record.not.found.message')}"
+               redirect(action: 'reportIndex')
+           }
 
       }
 
@@ -365,7 +385,10 @@ class ReportController {
                   flash.message = "${message(code: 'record.not.found.message')}"
                    redirect(action: 'reportIndex')
            }
-}
-}
+       }
+       else{
+           redirect(action: 'reportIndex')
+       }
+  }
 
 }

@@ -600,31 +600,20 @@ class FeeDetailsController {
 
     def postAdmissionFeeAtIdol = {
         if(params.amount){
-            println('hello kuldeep')
             def feeDetailIns =  FeeDetails.findById(Integer.parseInt(params.misFeeObject))
             def program = feeDetailIns.student.programDetail[0].courseName
-            println('student is '+ feeDetailIns)
             [misFeeObject:feeDetailIns , amount: params.amount, program:program]
         }
-        else{
-            println('data nhi h kuch b')
-        }
-
     }
 
     def searchDataByRollNumber = {
-
-//        println("***************"+params)
         def status = feeDetailService.searchByRollNumber(params)
         render status as JSON
-
     }
 
     def checkRollNoPreviousData = {
-//        println("params are=="+params)
         def returnMap = [:]
         def studObj = Student.findByRollNo(params.rollNumberInput)
-
         def feeType = FeeType.findById(Long.parseLong(params.postFeeType))
         //code of ajay.............................
 //        def misFeeObj = FeeDetails.findByStudentAndSemesterValueAndFeeType(studObj, Integer.parseInt(params.semester), FeeType.findById(Long.parseLong(params.postFeeType)))
@@ -720,6 +709,7 @@ class FeeDetailsController {
         misFeeObj.paidAmount= amount
         misFeeObj.save(failOnError: true)
         redirect(action: 'postAdmissionFeeAtIdol', params:[misFeeObject: misFeeObj.id, amount: amount])
+//        stoping pdf download and opening popup window..................
 //        def args = [template: "postFeeVoucher", model: [misFeeObject: misFeeObj, amount: amount], filename:misFeeObj.challanNo+".pdf"]
 //        pdfRenderingService.render(args + [controller: this], response)
 

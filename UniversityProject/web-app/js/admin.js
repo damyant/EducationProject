@@ -1285,24 +1285,21 @@ function searchByRollNumber(){
 
     if($('#rollNumberInput').val().length!=0)
     {
-    $.ajax({
-        type: "post",
-        url: url('feeDetails', 'searchDataByRollNumber', ''),
-        data:'rollNumber='+$('#rollNumberInput').val(),
-        success: function (data) {
-
-            if(data.status==true){
-
-                appendDetail(data)
-
-
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'searchDataByRollNumber', ''),
+            data:'rollNumber='+$('#rollNumberInput').val(),
+            success: function (data) {
+                if(data.status==true){
+                    appendDetail(data)
+                    $("#errorMsgForRollNo").html("")
+                }
+                else{
+    //                alert("false")
+                    $("#errorMsgForRollNo").html("No record Found")
+                }
             }
-            else{
-//                alert("false")
-                $("#errorMsgForRollNo").html("No record Found")
-            }
-        }
-    })
+        })
 
     }
 }
