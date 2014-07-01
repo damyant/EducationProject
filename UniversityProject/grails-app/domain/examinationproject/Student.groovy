@@ -24,6 +24,7 @@ class Student {
     String location
     String applicationNo
     String parentsName
+    int migratingStudyCentre
     String rollNo
     int semester
     Status status
@@ -45,6 +46,7 @@ class Student {
         middleName(nullable: true)
         parentsName(nullable: true)
         dob(nullable: true)
+        migratingStudyCentre(nullable: true)
         isAppliedFor(nullable: true)
         category(nullable: true)
         gender(nullable: true)

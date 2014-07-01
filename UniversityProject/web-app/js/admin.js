@@ -15,22 +15,7 @@ $(document).ready(function () {
         } });
     }).ajaxStop($.unblockUI);
 
-    $("#submit").click(function () {
-        var rollNo = $("#rollNo").val()
-        var feeType = $("#feeType").val()
-//            alert(feeType)
-        if (rollNo.length == "") {
-            $("#rollNo").after('<label class="error">Please Enter Roll Number</label>')
-            return false
-        }
-        if (feeType == "") {
-            $("#type").after('<label class="error">Please Select Fee Type</label>')
-            return false
-        }
 
-
-        window.open('/UniversityProject/admin/generateFeeVoucher/?rollNo=' + rollNo + '&feeType=' + feeType);
-    });
 
 
     $(document).on('click', '#assignRollNo', function () {
@@ -123,6 +108,47 @@ function saveExamDate() {
         }
     });
 
+}
+function generateDuplicateChallan() {
+    alert("dfsfs")
+    var rollNo = $("#rollNo").val()
+    var feeType = $("#feeType").val()
+    var term = $("#semesterList").val()
+//            alert(feeType)
+    if (rollNo.length == "") {
+        $("#rollNo").after('<label class="error">Please Enter Roll Number</label>')
+        return false
+    }
+    if (feeType == "") {
+        $("#type").after('<label class="error">Please Select Fee Type</label>')
+        return false
+    }
+    $.ajax({
+        type: "post",
+        url: url('admin', 'generateFeeVoucher', ''),
+        data: {rollNo:rollNo,feeType:feeType,term:term},
+        success: function (data) {
+            if(data.statusError){
+                $('#statusError').html(data.statusError)
+            }else{
+                $('#statusError').html("")
+            $("#rollNo").val('')
+            $("#feeType").val('')
+            $("#semesterList").empty()
+//            document.getElementById("generateFeeVoucher").reset();
+            $('#studentName').text(''+data.student.firstName+' '+(data.student.middleName? data.student.middleName:'')+' '+ data.student.lastName)
+            $('#studentRollNo').text(''+data.student.rollNo)
+            $('#challanNo').text(''+data.challanNo)
+            $('#Check').text(''+data.feeType+' for '+data.courseName+' Term '+data.term)
+            $('#amount').text(''+data.programFeeAmount)
+            if(data.lateFee>0)
+                $('#lateFee').text('(with late fee '+data.lateFee+')')
+            $('#challanDiv').dialog('open')
+            }
+        }
+    })
+//
+//        window.open('/UniversityProject/admin/generateFeeVoucher/?rollNo=' + rollNo + '&feeType=' + feeType+'&term='+term);
 }
 function getStudents() {
     var program = $('#programId').val()

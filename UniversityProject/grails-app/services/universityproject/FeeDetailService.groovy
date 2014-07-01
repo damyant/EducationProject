@@ -246,6 +246,13 @@ class FeeDetailService {
                     eq('isApproved', Status.findById(4))
                 not { 'in'('student', Student.findById(studentsWhoFeePaid)) }
             }.student.id.unique()
+            println("<<<<<<<<<<<"+studentsWhoFeePaidPrevious)
+        }else{
+            studentsWhoFeePaidPrevious = feePaidObj.list {
+                eq('feeType', FeeType.findById(params.feeType))
+                eq('semesterValue', Integer.parseInt(params.semester) - 1)
+                eq('isApproved', Status.findById(4))
+            }.student.id.unique()
         }
         if (params.semester == '1') {
             if (studentsWhoFeePaid.size() > 0) {
@@ -276,8 +283,10 @@ class FeeDetailService {
                 }
             }
         } else {
-            print("here")
+            print("here-----------"+studentsWhoFeePaidPrevious)
             studentsWhoFeePaidPrevious.each {
+                println(">>>>>>>>>>>>>>"+Student.findById(it).studyCentre[0].id)
+                println(">>>>>>>>>>>>>>"+studyCenterId)
                 if (Student.findById(it).studyCentre[0].id == Integer.parseInt(studyCenterId)) {
                     stuList << Student.findById(it)
                 }

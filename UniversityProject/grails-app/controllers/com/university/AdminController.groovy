@@ -143,11 +143,13 @@ class AdminController {
 
     @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
     def generateFeeVoucher = {
+        def response=[:]
         def student = Student.findByRollNo(params.rollNo)
         def program = student.programDetail
         def feeTypeId
-        def feeType = null
-        def args
+        def feeType = FeeType.findById(params.feeType).type
+//        println("FFFFFFFFFFFFFFFFFFFFFF"+feeType)
+        def challanNo
         def lateFee = 0
         def programFeeAmount = 0
 
@@ -155,34 +157,67 @@ class AdminController {
         int year = cal.get(cal.YEAR);
         def sessionVal= year+1
         sessionVal= year+'-'+sessionVal
-        def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
 
-        def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1)
+        def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
+        def currentUser = springSecurityService.getCurrentUser()
+        def studyCenterId = currentUser.studyCentreId
+        if(studyCenterId!=student.studyCentre.id){
+            def feeObj = FeeDetails.createCriteria()
+            def studentsPaidTill= feeObj.list {
+                eq('feeType', FeeType.findById(params.feeType))
+                eq('student', student)
+                eq('isApproved', Status.findById(4))
+                maxResults(1)
+                order("semesterValue", "desc")
+            }
+           println(">>>>>>>>>>>>studentsPaidTill"+studentsPaidTill[0].semesterValue)
+            if(studentsPaidTill[0].semesterValue+1==Integer.parseInt(params.term)){
+        def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,Integer.parseInt(params.term))
             try{
             def lateFeeDate=student.programDetail.lateFeeDate[0]
             def today=new Date()
                 if(lateFeeDate!=null) {
                     if (today.compareTo(lateFeeDate) > 0) {
-                        lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1).lateFeeAmount
+                        lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,Integer.parseInt(params.term)).lateFeeAmount
                     }
             }
-            feeType = null
+//            feeType = null
             programFeeAmount = programFee.feeAmountAtIDOL + lateFee
+
         } catch (NullPointerException e) {
             flash.message = "Late Fee Date is not asigned! "
-            if (params.idol == "idol") {
-                redirect(controller: student, action: enrollmentAtIdol)
-            } else {
-                redirect(controller: params.controller, action: feeVoucher)
+            redirect(controller: admin, action: feeVoucher)
+        }
+            challanNo=studentRegistrationService.getChallanNumber()
+            println(params.term)
+            student.migratingStudyCentre=studyCenterId
+            if(student.save(failOnError: true)){
+                def feeInst=new FeeDetails()
+                feeInst.student=student
+                feeInst.feeType=FeeType.findById(params.feeType)
+                feeInst.isApproved=Status.findById(1)
+                feeInst.challanNo=challanNo
+                feeInst.paidAmount=programFeeAmount
+                feeInst.semesterValue=Integer.parseInt(params.term)
+                feeInst.save(failOnError: true)
+
+                feeInst.challanDate=new Date()
+
+            }
+                response.student=student
+                response.lateFee=lateFee
+                response.term=params.term
+                response.challanNo=challanNo
+                response.courseName=student.programDetail.courseName
+                response.programFeeAmount=programFeeAmount
+                response.feeType=feeType
+            }
+            else{
+                response.statusError="Invalid Semester or Fees Already Paid."
             }
         }
 
-        if (params.idol == "idol")
-            args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee, lateFee: lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
-        else
-            args = [template: "feeVoucher", model: [student: student, lateFee: lateFee, programFee: programFee, programFeeAmount: programFeeAmount, feeType: feeType]]
-        pdfRenderingService.render(args + [controller: this], response)
-
+        render response as JSON
 
     }
 
@@ -395,15 +430,20 @@ class AdminController {
             it.isApproved=Status.findById(4)
             if(it.save(flush: true)){
                 status=true
+                def student = Student.findById(it.student.id)
+                if(student.migratingStudyCentre!=0){
+                    Set<StudyCenter> studyCentre = StudyCenter.findAllById(student.migratingStudyCentre)
+                    student.studyCentre=studyCentre
+                    student.migratingStudyCentre=0
+                }
                 if(it.semesterValue==1 && it.feeType.id==3){
-                    def student = Student.findById(it.student.id)
                     student.status=Status.findById(4)
-                    if(student.save(flush: true)){
-                        status=true
-                    }
-                    else{
-                        status=false
-                    }
+                }
+                if(student.save(flush: true)){
+                    status=true
+                }
+                else{
+                    status=false
                 }
             }
         }
@@ -706,5 +746,18 @@ class AdminController {
     def generateCustomChallan={
 
     }
-
+    def loadTermFromRollNo={
+        def returnMap=[:]
+        def stuInst=Student.findByRollNo(params.data)
+        def catgId=stuInst.programDetail.programType.id
+        def term
+        if(catgId=='1'){
+            term=stuInst.programDetail.noOfAcademicYears
+        }
+        else{
+            term=stuInst.programDetail.noOfTerms
+        }
+        returnMap.term=term
+        render returnMap as JSON
+    }
 }
