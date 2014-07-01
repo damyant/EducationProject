@@ -21,11 +21,11 @@ class AdmitCardController {
         render(view: "viewAdmitCard")
     }
 
-    def editAdmitCard={
+    def editAdmitCard = {
 
     }
 
-    def createAdmitCard ={
+    def createAdmitCard = {
         def programList = ProgramDetail.list()
         def studyCentreList = StudyCenter.list()
         def examinationCentre = ExaminationVenue.list()
@@ -33,10 +33,10 @@ class AdmitCardController {
 
     }
     @Secured(["ROLE_ADMIN"])
-    def bulkCreationOfAdmitCard ={
-        def programList = ProgramDetail.list(sort:'courseCode')
+    def bulkCreationOfAdmitCard = {
+        def programList = ProgramDetail.list(sort: 'courseCode')
         def studyCentreList = StudyCenter.list()
-        def examinationCenter=City.findAllByIsExamCentre(1,[sort: 'cityName'])
+        def examinationCenter = City.findAllByIsExamCentre(1, [sort: 'cityName'])
 //        def examinationCenter=ExaminationVenue.list()*.city as Set
 //        def finalExaminationCenterList= examinationCenter.sort{a,b->
 //            a.cityName<=>b.cityName
@@ -47,189 +47,230 @@ class AdmitCardController {
     }
 
 
-    def getSemesterList={
+    def getSemesterList = {
 //        println("gettinf semsster wise subjects"+params)
-        try{
-            if(params.data=='allProgram'){
-                def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
-                def sessions= ProgramSession.executeQuery( "select distinct  programSession.sessionOfProgram from ProgramSession programSession" );
+        try {
+            if (params.data == 'allProgram') {
+                def course = ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
+                def sessions = ProgramSession.executeQuery("select distinct  programSession.sessionOfProgram from ProgramSession programSession");
                 def resultMap = [:]
                 resultMap.totalSem = course[0]
-                resultMap.session =  sessions
+                resultMap.session = sessions
                 render resultMap as JSON
-            }
-            else{
-                def course=ProgramDetail.findById(Integer.parseInt(params.data))
+            } else {
+                def course = ProgramDetail.findById(Integer.parseInt(params.data))
                 def resultMap = [:]
-                if(course!=null){
+                if (course != null) {
                     def programSession = ProgramSession.findAllByProgramDetailId(course)
                     resultMap.totalSem = course.noOfTerms
-                    resultMap.session=programSession
+                    resultMap.session = programSession
 
                     render resultMap as JSON
-                }
-                else {
+                } else {
                     render null
                 }
             }
-        }catch (Exception e){
-            println("Error in getting Semester Number"+e)
+        } catch (Exception e) {
+            println("Error in getting Semester Number" + e)
 
         }
 
     }
-    def getSemesterListOnly={
+    def getSemesterListOnly = {
         def resultMap = [:]
-        def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
+        def course = ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
         resultMap.totalSem = course[0]
         render resultMap as JSON
     }
 
 
-    def examVenueCapacity={
-        try{
-        def examVenueMap=[:]
+    def examVenueCapacity = {
+        try {
+            def examVenueMap = [:]
 
-            def examVenue=ExaminationVenue.findById(Long.parseLong(params.examVenueId))
-            examVenueMap.capacity=examVenue.capacity
-            def studentAllocated=Student.findAllByExaminationVenue(examVenue).size()
-            examVenueMap.availabelCapacity=examVenue.capacity-studentAllocated
+            def examVenue = ExaminationVenue.findById(Long.parseLong(params.examVenueId))
+            examVenueMap.capacity = examVenue.capacity
+            def studentAllocated = Student.findAllByExaminationVenue(examVenue).size()
+            examVenueMap.availabelCapacity = examVenue.capacity - studentAllocated
 
-        render examVenueMap as JSON
+            render examVenueMap as JSON
         }
-        catch (Exception e){
-            println("Error in getting Examination Center capacity"+e)
+        catch (Exception e) {
+            println("Error in getting Examination Center capacity" + e)
         }
 
     }
-    def getTermListByCatagory={
-        def resultMap=[:]
+    def getTermListByCatagory = {
+        def resultMap = [:]
         def programlist
-        def catagory=ProgramType.findById(params.catagory)
-        if(params.catagory=='1'){
-            programlist=ProgramDetail.findByIdAndProgramType(params.data,catagory).noOfAcademicYears
-        }else{
-            programlist=ProgramDetail.findByIdAndProgramType(params.data,catagory).noOfTerms
+        def catagory = ProgramType.findById(params.catagory)
+        if (params.catagory == '1') {
+            programlist = ProgramDetail.findByIdAndProgramType(params.data, catagory).noOfAcademicYears
+        } else {
+            programlist = ProgramDetail.findByIdAndProgramType(params.data, catagory).noOfTerms
         }
-        println("catagory>>>> "+catagory.type)
-        println("programlist>>>> "+programlist)
-        resultMap.programlist=programlist
+        println("catagory>>>> " + catagory.type)
+        println("programlist>>>> " + programlist)
+        resultMap.programlist = programlist
         render resultMap as JSON
 
     }
 
-    def getStudentsForAdmitCard={
-     def studentList=admitCardService.getStudents(params)
-      if(studentList){
-         render studentList as JSON
-      }
-      else{
-          def resultMap=[:]
-          resultMap.status=false
-          render resultMap as JSON
-      }
-
+    def getStudentsForAdmitCard = {
+        def studentList = admitCardService.getStudents(params)
+        if (studentList) {
+            render studentList as JSON
+        } else {
+            def resultMap = [:]
+            resultMap.status = false
+            render resultMap as JSON
+        }
 
 
     }
 
-    def printAdmitCard={
-        println("?????????????????========"+params)
+    def printAdmitCard = {
+        println("?????????????????========" + params)
 
-        def stuList = []
+        def stuList = [], mode = [], examType = [], courseName = []
         def status
-        def user=springSecurityService.currentUser
+        def admitInst=null
+        def user = springSecurityService.currentUser
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         StringBuilder examDate = new StringBuilder()
+        StringBuilder examTime = new StringBuilder()
         def webRootDir = servletContext.getRealPath("/")
-        println('*******************************************************'+webRootDir)
-        def byte [] logo= new File(webRootDir+"/images/gu-logo.jpg").bytes
-        println("these are the logo bytes "+ logo);
+        println('*******************************************************' + webRootDir)
+        def byte[] logo = new File(webRootDir + "/images/gu-logo.jpg").bytes
+        println("these are the logo bytes " + logo);
 
-        if(params.rollNumber && springSecurityService.currentUser){
-        stuList=admitCardService.getStudentByRollNo(user,params)
-        }
-        else if(params.rollNumber){
-         stuList=   Student.findAllByRollNoAndDobAndAdmitCardGenerated(params.rollNumber.trim(),df.parse(params.dob),true)
-        }
-        else if(params.studyCenterId){
-           stuList=admitCardService.getStudentByStudyCenter(user)
-        }
-        else{
-            def studentList=params.studentList.split(",")
-            studentList.each{
+        if (params.rollNumber && springSecurityService.currentUser) {
+            stuList = admitCardService.getStudentByRollNo(user, params)
+        } else if (params.rollNumber) {
+            stuList = Student.findAllByRollNoAndDobAndAdmitCardGenerated(params.rollNumber.trim(), df.parse(params.dob), true)
+        } else if (params.studyCenterId) {
+            stuList = admitCardService.getStudentByStudyCenter(user)
+        } else {
+            def studentList = params.studentList.split(",")
+            studentList.each {
+                def studentInst = Student.findById(Integer.parseInt(it.toString()))
+                println("AAAAAAAAAAAAAAAAAAAA"+studentInst.studyCentre[0].centerCode)
+                if(studentInst.studyCentre[0].centerCode=='11111'){
+                    admitInst = AdmitCard.findById(1)
+                }
                 stuList << Student.findById(Integer.parseInt(it.toString()))
+
             }
-          status=  admitCardService.updateStudentRecord(stuList,params.examinationVenue)
+            status = admitCardService.updateStudentRecord(stuList, params.examinationVenue)
         }
-        if(stuList[0]){
+        if (stuList[0]) {
             def programSessionIns
-            if(params.programSessionId) {
+            if (params.programSessionId) {
                 programSessionIns = ProgramSession.findById(Long.parseLong(params.programSessionId))
-            }
-            else{
+            } else {
                 programSessionIns = ProgramSession.findById(stuList[0].programSession.id)
             }
+            def subjectList = CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester, stuList[0].programSession), programSessionIns)*.subject
 
-//            println(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession))
-        def subjectList=CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester,stuList[0].programSession),programSessionIns)*.subject
-
-            def dateList=[]
-            subjectList.each{
-               dateList<< CourseSubject.findBySubjectAndProgramSession(it,programSessionIns).examDate
+            def dateList = [], timeList = []
+            subjectList.each {
+                dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
+                timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
             }
-            if(dateList.size()==0){
-                flash.message="Examination Date Not Assigned Yet"
-                redirect(controller:'admitCard', action: 'bulkCreationOfAdmitCard')
+            println("WWWWWWWWWWWWWWWWW"+timeList)
+            if (dateList.size() == 0) {
+                flash.message = "Examination Date Not Assigned Yet"
+                redirect(controller: 'admitCard', action: 'bulkCreationOfAdmitCard')
+            }
+            def count = 1
+            def total = dateList.size()
+            dateList.each {
+                if (it) {
+                    examDate.append(it.format("dd/MM/yyyy"))
+                    if (count != total)
+                        examDate.append(", ")
+                    count++
+                }
+            }
+            def count1 = 1
+            def total1 = dateList.size()
+            timeList.each {
+                if (it) {
+                    examTime.append(it.format("hh:mm a"))
+                    if (count1 != total1)
+                        examTime.append(", ")
+                    count++
+                }
+
+            }
+            println("ffffffffffffff"+examTime)
+            def month = ""
+            if (stuList[0].semester % 2 == 0) {
+                month = "July"
+            } else {
+                month = "December"
             }
 
-            dateList.each{
-            if(it){
-            examDate.append(it.format("dd/MM/yyyy"))
-            examDate.append(", ")
-            }
-        }
+            def session = stuList[0].programSession.sessionOfProgram.split("-")
+            def fileName = stuList[0].programDetail[0].courseName + " " + month + " " + session[0]
 
-        def month=""
-        if(stuList[0].semester%2==0){
-            month="July"
-        }
-        else{
-            month="December"
-        }
-
-        def session=stuList[0].programSession.sessionOfProgram.split("-")
-        def fileName=stuList[0].programDetail[0].courseName+" "+month+" "+session[0]
-
-        def args = [template: "printAdmitCard", model: [studentInstance: stuList,examDate:examDate,guLogo:logo],filename:fileName+".pdf"]
-        pdfRenderingService.render(args + [controller: this], response)
-        }
-        else if (params.studyCenterId){
-            flash.message="Admit Card Not Generated yet"
-            redirect(controller:'admitCard', action: 'studyCenterAdmitCard')
-        }
-        else{
-            flash.message="Admit Card Not Generated yet"
-            redirect(controller:'student', action: 'downloadAdmitCard')
+            def year = new Date().format("yyyy")
+            def args = [template: "printAdmitCard", model: [studentInstance: stuList, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
+            pdfRenderingService.render(args + [controller: this], response)
+        } else if (params.studyCenterId) {
+            flash.message = "Admit Card Not Generated yet"
+            redirect(controller: 'admitCard', action: 'studyCenterAdmitCard')
+        } else {
+            flash.message = "Admit Card Not Generated yet"
+            redirect(controller: 'student', action: 'downloadAdmitCard')
         }
 
     }
 
-    def printPreviewAdmitCard={
+    def printPreviewAdmitCard = {
 
     }
 
-    def studyCenterAdmitCard={
-        def programList = ProgramDetail.list(sort:'courseName')
+    def studyCenterAdmitCard = {
+        def programList = ProgramDetail.list(sort: 'courseName')
         def studyCentreList = StudyCenter.list()
-        def examinationCenter=ExaminationVenue.list()*.city as Set
-        def finalExaminationCenterList= examinationCenter.sort{a,b->
+        def examinationCenter = ExaminationVenue.list()*.city as Set
+        def finalExaminationCenterList = examinationCenter.sort { a, b ->
             a.cityName<=>b.cityName
         }
 
         [programList: programList, studyCentreList: studyCentreList, examinationCenterList: finalExaminationCenterList]
 
     }
+    def loadIdolSignatureInAdmit = {
+        def admitInst = null
+        if (AdmitCard.findById(1)) {
+            admitInst = AdmitCard.findById(1)
+        }
+        [admitInst: admitInst]
 
-
+    }
+    def submitSignatureImage = {
+        def signature = request.getFile('signature')
+        def admitInst
+        if (AdmitCard.get(1)) {
+            admitInst = AdmitCard.get(1)
+        } else {
+            admitInst = new AdmitCard()
+        }
+        if (signature) {
+            admitInst.signatureImg = signature.bytes
+        }
+        if (admitInst.save(flush: true, failOnError: true)) {
+            flash.message = "New Signature For Admit Card is Uploaded."
+        }
+        redirect(controller: 'admitCard', action: 'loadIdolSignatureInAdmit')
+    }
+    def showSignature = {
+        def id = Integer.parseInt(params.id)
+        def something = AdmitCard.get(id)
+        byte[] image = something.signatureImg
+        response.setContentType(params.mime)
+        response.outputStream << image
+    }
 }

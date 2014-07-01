@@ -266,7 +266,17 @@ table.ui-datepicker-calendar {
     text-align: center;
 
 }
+.university-signature {
+    height: 150px;
+    width: 250px;
+    border: 1px solid #b2b2b2;
+    display: block;
+    background: url("../images/signature.jpg") no-repeat;
+    background-position: bottom;
+    background-size: 100%;
+    text-align: center;
 
+}
 #examCenterSelect td {
     vertical-align: top;
 }

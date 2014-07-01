@@ -488,8 +488,8 @@ function generateAdmitCard(){
         var studentList =$("#studentList").val()
         var venue =$("#examCenterList").val()
         var programSessionId=$("#SessionList").val()
-        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue+'&programSessionId='+programSessionId);
-        //$("#admitCardForm").submit();
+//        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue+'&programSessionId='+programSessionId);
+        $("#admitCardForm").submit();
 //        studentsSelected(selectedStudentList)
 
         setTimeout(function(){ getStudentsForAdmitCard()},300);

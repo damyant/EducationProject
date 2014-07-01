@@ -209,6 +209,7 @@ class StudentController {
         response.setContentType(params.mime)
         response.outputStream << image
     }
+
     @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
     def enrollmentAtIdol={
         def studyCentre

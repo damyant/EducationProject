@@ -33,7 +33,7 @@
         <g:if test="${flash.message}">
             <div class="university-status-message"> <label class="error">${flash.message}</label></div>
         </g:if>
-    <g:form name="admitCardForm" id="admitCardForm" >
+    <g:form name="admitCardForm" id="admitCardForm" controller="admitCard" action="printAdmitCard">
             <g:hiddenField name="studentList" id="studentList"/>
             <div>
                 <table class="university-table-1-3 inner" style="width: 80%;margin-left: 20px;">
