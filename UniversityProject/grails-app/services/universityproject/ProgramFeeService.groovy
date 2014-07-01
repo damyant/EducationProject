@@ -81,13 +81,14 @@ class ProgramFeeService {
 
         def i=0;
         try{
-//            println("******"+sessionObj)
+
         feeTypeList.each{
             def misFeeIns  =MiscellaneousFee.findByFeeTypeAndFeeSession(FeeType.findById(it),sessionObj)
             if(!misFeeIns){
 //                println("else")
                 misFeeIns=new MiscellaneousFee()
             }
+            println("******"+params.feeTypeAmount[i])
 //            misFeeIns.programDetail=ProgramDetail.findById(params.programDetail)
             misFeeIns.feeType=FeeType.findById(Long.parseLong(it.toString()))
             misFeeIns.amount=Integer.parseInt(params.feeTypeAmount[i])

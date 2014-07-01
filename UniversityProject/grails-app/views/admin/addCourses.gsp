@@ -83,33 +83,30 @@
 
             </td>
         </tr>
-        <tr>
-            <td class="university-size-1-3"><p>Examination Marks <span class="university-obligatory">*</span>
-            </p></td>
-            <td class="university-size-2-3"><g:textField name="theoryMarks" id="theoryMarks" value="${courseList?.theoryMarks}"
-                                                         class="university-size-1-2"/>
-           </td>
-        </tr>
-        <tr>
-            <td class="university-size-1-3"><p>Home Assignment Marks <span class="university-obligatory">*</span>
-            </p></td>
-            <td class="university-size-2-3"><g:textField name="homeAssignmentMarks" id="homeAssignmentMarks" value="${courseList?.homeAssignmentMarks}"
-                                                         class="university-size-1-2"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="university-size-1-3"><p>Practical Marks</p></td>
-            <td class="university-size-2-3"><g:textField name="practicalMarks" id="practicalMarks" value="${courseList?.practicalMarks}"
-                                                         class="university-size-1-2"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="university-size-1-3"><p>Total Marks <span class="university-obligatory">*</span>
-            </p></td>
-            <td class="university-size-2-3"><g:textField name="totalMarks" id="totalMarks" value="${courseList?.totalMarks}"
-                                                         class="university-size-1-2"/>
-            </td>
-        </tr>
+
+        <g:each in="${marksTypeList}" var="marksType" status="i">
+            <g:set var="counter" value="${i+1}" />
+
+           <tr>
+               <td>${marksType.marksTypeName}</td></tr>
+            <tr><td>Min Passing Marks</td><td><g:textField name="minPassingMarks" id="${marksType.marksTypeName}"
+                                                           value="${marksMap.get('key'+ counter)?.minPassingMarks}"
+                                                           /></td>
+               <td>Total Marks</td><td class="university-size-2-3"><g:textField name="totalMarks" id="${marksType.marksTypeName}"
+                                                            value="${marksMap.get('key'+ counter)?.marks}"
+                                                            />
+               </td>
+
+           </tr>
+
+
+            %{--<g:javascript>--}%
+                     %{--feeTypeList.push(${fee?.id})--}%
+
+            %{--</g:javascript>--}%
+
+        </g:each>
+
 
         <tr><td colspan="2" style="text-align: center; ">
             <g:submitButton name="submit" class="university-button" value="Save" onclick="validate()"

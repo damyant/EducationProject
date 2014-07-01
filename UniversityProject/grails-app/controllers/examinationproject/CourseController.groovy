@@ -3,6 +3,8 @@ package examinationproject
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
+import postexamination.MarksType
+import postexamination.SubjectMarksDetail
 import universityproject.CourseDetailService
 import java.io.File;
 
@@ -13,6 +15,7 @@ class CourseController {
 
 
     def createNewCourse() {
+        println("*************")
         boolean updateFlag = false
         def courseDetail = [:]
         def subObj = Subject.findAll()
@@ -109,7 +112,6 @@ class CourseController {
 
         [courseSessionList: programList, courseInstanceTotal: ProgramSession.count()]
 
-
     }
 
     def updateCourses() {
@@ -118,6 +120,7 @@ class CourseController {
     }
 
     def deleteCourse() {
+        println("innnnnnnnnnnnnnnnnnnn")
         def result = courseDetailService.deleteCourse(params)
         if (result) {
             flash.message = "Deleted Successfully."
@@ -180,20 +183,46 @@ class CourseController {
 
     //ADDED BY DIGVIJAY ON 20 May 2014
     def saveCourses() {
+        println("******"+params)
         def subjectIns
         if (params.subjectId) {
-            subjectIns = Subject.findById(params.subjectId)
+            subjectIns = Subject.get(params.subjectId)
+//            println(subjectIns.subjectMarksDetail.toList())
+
+
+            subjectIns.subjectMarksDetail.toList().each {
+                println("it"+it)
+                subjectIns.removeFromSubjectMarksDetail(it)
+                it.delete()
+            }
+            subjectIns.save(flush: true)
         } else {
             subjectIns = new Subject(params)
+            subjectIns.save(failOnError: true, flush: true)
         }
-        if (subjectIns.save(failOnError: true, flush: true)) {
-            flash.message = "New Course Saved Successfully."
-        } else {
-            flash.message = "Unable to Save Course Successfully."
-            subjectIns.errors.each {
-                println it
+            def marksTypeList=MarksType.list()
+            def i=0
+            marksTypeList.each{
+                if(params.totalMarks[i]){
+                    def subjectMarksDetailIns=new SubjectMarksDetail()
+                    subjectMarksDetailIns.marks=Integer.parseInt(params.totalMarks[i].toString())
+                    subjectMarksDetailIns.minPassingMarks=Integer.parseInt(params.minPassingMarks[i].toString())
+                    subjectMarksDetailIns.marksTypeId=it
+                    subjectMarksDetailIns.subject=subjectIns
+                    subjectMarksDetailIns.save(failOnError: true)
+                }
+                    ++i
             }
-        }
+
+
+//        if (subjectIns.save(failOnError: true, flush: true)) {
+//            flash.message = "New Course Saved Successfully."
+//        } else {
+//            flash.message = "Unable to Save Course Successfully."
+//            subjectIns.errors.each {
+//                println it
+//            }
+//        }
 
         redirect(controller: 'admin', action: 'addCourses')
     }

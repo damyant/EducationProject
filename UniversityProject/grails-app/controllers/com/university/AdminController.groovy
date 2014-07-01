@@ -20,6 +20,8 @@ import examinationproject.StudyCenter
 import examinationproject.Subject
 import grails.converters.JSON
 import grails.util.Holders
+import postexamination.MarksType
+import postexamination.SubjectMarksDetail
 
 import javax.activation.MimetypesFileTypeMap
 import grails.plugins.springsecurity.Secured
@@ -446,8 +448,15 @@ class AdminController {
     def addCourses = {
         def programTypeList = ProgramType.list()
         def courseList = Subject.findById(params.id)
-//        println("AdminController-->addCourses"+programTypeList);
-        [programTypeList: programTypeList, courseList: courseList]
+        def marksTypeList=MarksType.list()
+        def subjectMarksList=SubjectMarksDetail.findAllBySubject(courseList)
+        def marksMap=[:]
+        subjectMarksList.each {
+            marksMap["key"+it.marksTypeId.id]=it
+
+        }
+
+        [programTypeList: programTypeList, courseList: courseList,marksTypeList:marksTypeList,marksMap:marksMap]
     }
 
     def listOfCourses = {
@@ -663,7 +672,7 @@ class AdminController {
     }
     @Secured("ROLE_ADMIN")
     def deleteCourse = {
-//        println("dsdsdsds"+params)
+        println("dsdsdsds"+params)
         try {
             def status = adminInfoService.deleteTheCourse(params)
             println(status)
@@ -675,7 +684,7 @@ class AdminController {
         catch (Exception e) {
             flash.message = "Unable To Remove Course"
         }
-        redirect(action: "listOfCourse")
+        redirect( controller: "admin" ,action: "listOfCourses")
     }
     @Secured("ROLE_ADMIN")
     def loadSubject = {
