@@ -15,7 +15,23 @@
     <g:javascript src='studyCenter.js'/>
     <g:javascript src='admin.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".dialog").dialog({
+                autoOpen: false,
+                draggable: false,
+                position: ['center', 0],
+                width: 850,
+                resizable: false,
+                height: 750,
+                modal: true,
+                title: 'Subject Selection',
+                close: function (ev, ui) {
+                    $.unblockUI();
+                }
+            });
+        });
+    </script>
     %{--<link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.base.css')}" type='text/css'>--}%
     %{--<link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>--}%
     <style type="text/css">
@@ -201,6 +217,9 @@
         </sec:ifLoggedIn>
 
     </td>
+
+    <td> <input id="addGroup" onclick="subjectDialog()" type="reset"
+                value="Add Subject Groups"  class="university-button"></td>
 </tr>
 <!----- category ----------------------------------------------------------->
 <tr>
@@ -534,6 +553,87 @@
     </td>
 </tr>
 </table>
+
+
+<div id="groupDialog" class="dialog">
+    <div>
+        <table>
+            <tr>
+                <td>Mandatory Subjects</td>
+            </tr>
+            <tr>
+                <td><div>Semester 1</div><select multiple="multiple" style="height: 100px; width: 150px;">
+                    <option>Introduction to Mass communication</option>
+                    <option>Journalism (Reporting / Editing)</option>
+                    <option>Advertising  </option>
+                    <option>Public Relations</option>
+                </select></td></tr>
+                <tr>
+                <td><div>Semester 2</div><select multiple="multiple" style="height: 100px; width: 150px;">
+                    <option>Introduction to Mass communication</option>
+                    <option>Journalism (Reporting / Editing)</option>
+                    <option>Advertising  </option>
+                    <option>Public Relations</option>
+                </select></td>
+                 </tr>
+            <tr>
+                <td><div>Semester 3</div><select multiple="multiple" style="height: 100px; width: 150px;">
+                    <option>Introduction to Mass communication</option>
+                    <option>Journalism (Reporting / Editing)</option>
+                    <option>Advertising  </option>
+                    <option>Public Relations</option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td><div>Semester 4</div><select multiple="multiple" style="height: 100px; width: 150px;">
+                    <option>Introduction to Mass communication</option>
+                    <option>Journalism (Reporting / Editing)</option>
+                    <option>Advertising  </option>
+                    <option>Public Relations</option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td><div>Semester 5</div><select multiple="multiple" style="height: 100px; width: 150px;">
+                    <option>Introduction to Mass communication</option>
+                    <option>Journalism (Reporting / Editing)</option>
+                    <option>Advertising  </option>
+                    <option>Public Relations</option>
+            </select>
+            </td>
+                <td><div>Group A Subjects</div><select multiple="multiple" style="height: 100px; width: 150px;">
+                    <option>Group A: Comparative Literature and Translation Studies</option>
+                    <option>Java</option>
+                    <option>Group A: Comparative Literature and Translation Studies</option>
+                    <option>Java</option>
+                </select>
+                    <div><input type="radio" name="opt"></div>
+                </td>
+                <td><div>Group B Subjects</div><select multiple="multiple" style="height: 100px; width: 150px;">
+                    <option>Group B: Linguistics and Its Fields of Study</option>
+                    <option>Computer Scince</option>
+                    <option>Group B: Linguistics and Its Fields of Study</option>
+                    <option>Computer Scince</option>
+                </select>
+                    <div><input type="radio" name="opt"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><div>Semester 6</div><select multiple="multiple" style="height: 100px; width: 150px;">
+                    <option>Introduction to Mass communication</option>
+                    <option>Journalism (Reporting / Editing)</option>
+                    <option>Advertising  </option>
+                    <option>Public Relations</option>
+                </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+</div>
 
 </g:uploadForm>
 </fieldset>

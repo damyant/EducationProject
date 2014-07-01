@@ -1314,3 +1314,7 @@ function saveCustomChallan(){
         })
     }
 }
+
+function subjectDialog(){
+    $('#groupDialog').dialog('open');
+}

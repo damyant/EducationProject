@@ -73,7 +73,7 @@
                     <td>
                         <g:select name="session" class="university-size-1-2 allSession" id="sessionVal"
                                   from="" optionKey="" optionValue=""
-                                  noSelection="['null': ' Select Session']" />
+                                  noSelection="['': ' Select Session']" />
                     </td>
                 </tr>
 
@@ -82,7 +82,7 @@
                 <tr>
                     <td>Semester<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2"
+                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2" disabled="disabled"
                                   value=""
                                   optionValue="" from="" noSelection="['': ' Select Semester']"
                                   onchange="loadCourse(this)"
@@ -99,6 +99,22 @@
                                   optionValue="courseCode" from="" noSelection="['': ' Select Course']"/>
                     </td>
                 </tr>
+
+                %{--<tr>--}%
+                    %{--<td>Marks Type<span class="university-obligatory">*</span></td>--}%
+                    %{--<td>--}%
+                        %{--<g:select name="marksType" id="marksType" optionKey="id" class="university-size-1-2"--}%
+                                  %{--value=""--}%
+                                  %{--optionValue="marksTypeName" from="" noSelection="['': ' Select Marks Type']"/>--}%
+                                  %{----}%
+                        %{--<select class="university-size-1-2">--}%
+                            %{--<option value="volvo">Select Marks Type</option>--}%
+                            %{--<option value="saab">Theory Marks</option>--}%
+                            %{--<option value="mercedes">Home Assignment Marks</option>--}%
+                            %{--<option value="audi">Practical Marks</option>--}%
+                        %{--</select>--}%
+                    %{--</td>--}%
+                %{--</tr>--}%
             </table>
 
             <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1">
@@ -114,6 +130,30 @@
                         <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />
                     </td>
                 </tr>
+                <tr>
+                    <td>Marks Type<span class="university-obligatory">*</span></td>
+                    <td class="university-size-3-4" style="text-align: center">
+                        %{--<g:select name="marksType" id="marksType" optionKey="id" class="university-size-1-2"--}%
+                        %{--value=""--}%
+                        %{--optionValue="marksTypeName" from="" noSelection="['': ' Select Marks Type']"/>
+                        --}%
+                        <select class="university-size-1-3">
+                            <option value="volvo">Select Marks Type</option>
+                            <option value="saab">Theory Marks</option>
+                            <option value="mercedes">Home Assignment Marks</option>
+                            <option value="audi">Practical Marks</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr> <td></td></tr>
+                <tr>  <td></td></tr>
+                <tr> <td></td></tr>
+                <tr>  <td></td></tr>
                 <tr>
                     <td>Enter Marks
                     %{--<span class="university-obligatory">*</span>--}%
