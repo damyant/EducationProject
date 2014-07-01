@@ -22,7 +22,7 @@
         </div>
     </g:hasErrors>
     <fieldset class="form">
-        <h3>CREATE MARKS TYPE</h3>
+        <h3>${title}</h3>
         <g:if test="${flash.message}">
             <div class="message"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
@@ -34,10 +34,11 @@
             <tr>
                 <td class="university-size-1-3"><label for="marksTypeName">MarksType <span class="university-obligatory">*</span></label></td>
                 <td class="university-size-2-3 ">
-                    <input type="text" class="university-size-1-2" value="" name="marksTypeName" id="marksTypeName"/>
+                    <input type="text" class="university-size-1-2" value="${marksTypeInstance?.marksTypeName}" name="marksTypeName" id="marksTypeName"/>
 
                 </td>
             </tr>
+                <g:hiddenField name="marksTypeId" value="${marksTypeInstance?.id}"/>
         <tr>
                 <td class="university-size-1-3 ">&nbsp;</td>
                 <td class="university-size-2-3 "><input type="submit" value="Submit" onclick="validate()" class="university-size-1-4 ui-button"/></td>

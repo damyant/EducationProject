@@ -1,7 +1,6 @@
 package postexamination
 
 import examinationproject.Bank
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -22,39 +21,40 @@ class MarksTypeController {
 
 
     def createMarksType() {
-        def marksTypeInstance = new MarksType()
-        [marksTypeInstance:marksTypeInstance]
+        def marksTypeInstance
+        def title
+        if(params.marksTypeId){
+            marksTypeInstance = MarksType.findById(Integer.parseInt(params.marksTypeId))
+            title= "UPDATE MARKS TYPE"
+        }else{
+            marksTypeInstance = new MarksType()
+            title="CREATE MARKS TYPE"
+        }
+
+        [marksTypeInstance:marksTypeInstance,title:title]
     }
 
 
     def saveMarksType= {
         println("******************"+params)
-
-        def marksType = new MarksType(marksTypeName: params.marksTypeName,showValue: true)
-
-        if(marksType.save(flush: true,failOnError: true)){
-            flash.message ="MarksType Added Successfully"
+        def marksType
+        if(!params.marksTypeId) {
+            marksType = new MarksType(marksTypeName: params.marksTypeName, showValue: true)
+            flash.message ="Marks Type Added Successfully"
         }else{
-            flash.message ="Unable To Add MarksType"
+            marksType = MarksType.findById(Integer.parseInt(params.marksTypeId))
+            marksType.marksTypeName = params.marksTypeName
+            flash.message ="Marks Type Updated Successfully"
         }
+        marksType.save(flush: true,failOnError: true)
         redirect(action: "createMarksType")
 
 
     }
 
-    def editMarksType = {
-        def marksTypeInstance = MarksType.findById(Integer.parseInt(params.marksTypeId))
-        [marksTypeInstance:marksTypeInstance]
-    }
 
-    @Transactional
-    def updateMarksType(MarksType marksTypeInstance) {
-
-    }
-
-    @Transactional
-    def deleteMarksType(MarksType marksTypeInstance) {
-
-
+    def deleteMarksType = {
+    flash.message="Unable To Delete Marks Type"
+    redirect(action: "marksTypeList")
     }
 }
