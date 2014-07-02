@@ -549,7 +549,18 @@ function downloadAdmitCard(){
         $("#individualDownloadAdmitCard").submit();
     }
 }
-
+function loadTermFromRollNo(t){
+    var data = $(t).val();
+    $.ajax({
+        type: "post",
+        url: url('admin', 'loadTermFromRollNo', ''),
+        data: {data:data},
+        success: function (data) {
+            for(var i=1; i<=data.term;i++)
+            $('#semesterList').append('<option value="'+i+'">'+i+'</option> ')
+        }
+    })
+}
 
 
 

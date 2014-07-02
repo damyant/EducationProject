@@ -343,18 +343,9 @@ class FeeDetailsController {
                 addmissionFee.add(feeForStudent)
             }
         }
-        def termText
-        if (term == '1') {
-            termText = '1st'
-        } else if (term == '2') {
-            termText = '2nd'
-        } else if (term == '3') {
-            termText = '3rd'
-        } else {
-            termText = '4th'
-        }
-        def termMesg = feeTypeName + ' for ' + termText + ' Term'
-        def args = [template: "printChallan", model: [studList: studList,challanNo:challanNo, termMesg: termMesg, studyCentre: studyCentre, addmissionFee: addmissionFee, totalFee: totalFee, lateFee: lateFee], filename: challanNo + ".pdf"]
+
+//        def termMesg = feeTypeName + ' for ' + termText + ' Term'
+        def args = [template: "printChallan", model: [studList: studList,challanNo:challanNo, term: term, studyCentre: studyCentre, addmissionFee: addmissionFee, totalFee: totalFee, lateFee: lateFee], filename: challanNo + ".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
     }
 //    def generateChallanForMiscellaneousFee = {
@@ -448,7 +439,7 @@ class FeeDetailsController {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         def courseNameList = [], courseFee = []
         def feeDetailsInstance = FeeDetails.findAllByChallanNo(params.searchChallanNo)
-        def stuList
+        def stuList=[]
 
         feeDetailsInstance.each {
             stuList<<it.student
@@ -476,11 +467,10 @@ class FeeDetailsController {
                 }
             }
             courseNameList << it.programDetail[0].courseName
-
             if (it.studyCentre.centerCode[0] == "11111") {
                 courseFee << AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,feeDetailsInstance[0].semesterValue).feeAmountAtIDOL + lateFee
             } else {
-                courseFee << AdmissionFee..findByFeeSessionAndTerm(feeSessionObj,feeDetailsInstance[0].semesterValue).feeAmountAtSC + lateFee
+                courseFee << AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,feeDetailsInstance[0].semesterValue).feeAmountAtSC + lateFee
             }
         }
         for (def k = 0; k < courseFee.size(); k++) {
@@ -490,8 +480,6 @@ class FeeDetailsController {
         def paymentModeName = PaymentMode.findById(params.paymentMode)
         def bank = Bank.findById(params.bankName)
         def branch = Branch.findById(params.branchLocation)
-
-//        println("*************** "+paymentModeName)
         def termList = []
         feeDetailsInstance.each {
             termList << it.semesterValue
@@ -504,12 +492,16 @@ class FeeDetailsController {
             if (PaymentMode.findById(params.paymentMode).paymentModeName != 'Pay In Slip') {
                 it.isApproved = Status.findById(3)
                 if (it.save(flush: true, failOnError: true)) {
-                    it.student.status = Status.findById(3)
+                    if(it.semesterValue==1){
+                        it.student.status = Status.findById(3)
+                    }
                 }
             } else {
                 it.isApproved = Status.findById(4)
                 if (it.save(flush: true, failOnError: true)) {
-                    it.student.status = Status.findById(4)
+                    if(it.semesterValue==1){
+                        it.student.status = Status.findById(4)
+                    }
                 }
             }
         }

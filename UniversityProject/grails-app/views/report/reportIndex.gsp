@@ -336,6 +336,7 @@
                </td>
                <td style="width: 30%">
                    <select name="studentCategory" id="studentCategory">
+                       <option value="null">Select Category</option>
                        <option value="General">General</option>
                        <option value="MOBC">MOBC</option>
                        <option value="OBC">OBC</option>
@@ -704,6 +705,14 @@
                 return false;
             }
        }
+        else if(val=="categoryStudentList") {
+            check1 =$('#studentCategory').val()
+            if( check1=='null' ){
+                alert("please select values")
+                return false;
+            }
+        }
+
     }
 </script>
 </body>

@@ -13,6 +13,7 @@ $(function() {
         title:'Enter Details',
         close: function(ev, ui) {
             $.unblockUI();
+            location.reload();
 //            getStudentsList()
         }
 

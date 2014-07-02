@@ -44,6 +44,10 @@ class WriteExcelService {
 
     private void createLabel(WritableSheet sheet, params, course, studyCentreName, session )
             throws WriteException {
+        if(params.studentCategory=='null')
+        {
+            params.studentCategory=null
+        }
         println("calling this method")
         def formatSession = Integer.parseInt(session)+1
         // Lets create a times font
