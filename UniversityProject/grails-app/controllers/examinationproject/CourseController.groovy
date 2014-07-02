@@ -182,11 +182,10 @@ class CourseController {
     }
 
     //ADDED BY DIGVIJAY ON 20 May 2014
+   // Modified By Ajay
     def saveCourses() {
-//        println("******"+params)
 
         courseDetailService.saveCourseDetail(params)
-
 
 
 //        if (subjectIns.save(failOnError: true, flush: true)) {
