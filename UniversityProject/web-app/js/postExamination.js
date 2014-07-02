@@ -91,6 +91,10 @@ $(document).ready(function(){
         $("#marksFoilId").submit()
     })
 
+    $("#SessionList").on('change',function(){
+        $("#semesterList").removeAttr('disabled')
+    })
+
 })
 
 function populateStudentList() {

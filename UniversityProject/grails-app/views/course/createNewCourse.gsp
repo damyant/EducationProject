@@ -17,6 +17,8 @@
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'fileUpload.js')}"></script>
     <script type="text/javascript">
 
+  </script>
+    <script type="text/javascript">
         makeJson("${subjList}")
 
         if (${updateFlag}) {
@@ -26,7 +28,10 @@
                 updateInfo("${courseDetail}")
             })
         }
+
+
     </script>
+
 </head>
 
 <body>
@@ -170,6 +175,19 @@
 
                 </tr>
             </table>
+
+            %{--<div id="groupDialog" class="dialog" hidden="hidden">--}%
+                %{--<g:form method="post" name="groupsOfSubject" id="groupsOfSubject" enctype="multipart/form-data">--}%
+                %{--<input id="addGroup" onclick="addGroups()" type="reset"--}%
+                       %{--value="Add Subject Groups"  class="university-button">--}%
+                %{--<table id="subjectGroup" name="subjectGroup">--}%
+                    %{--<tr>--}%
+
+                    %{--</tr>--}%
+                    %{--<input type="button" value="Save Groups" onclick="saveSubjectGroup()" >--}%
+                %{--</table>--}%
+                %{--</g:form>--}%
+            %{--</div>--}%
         </g:uploadForm>
     </fieldset>
 </div>

@@ -3,10 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-<<<<<<< HEAD
     <g:javascript src='admin.js'/>
-=======
->>>>>>> 6f354e119e766a8c782b7a12446ab9a5360f3bd9
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
 
 </head>
@@ -66,16 +63,11 @@
 
                     <td><g:formatBoolean boolean="${userInstance.passwordExpired}"/></td>
 
-<<<<<<< HEAD
-                    <td><input type="button" class="university-button" onclick="editUser(${userInstance.id})" value="Edit"/> </td>
 
-
-                <td><input type="button" class="university-button" onclick="resetPassword(${userInstance.id})" value="Reset Password"/></td>
-=======
                     <td><button class="university-button"> <g:link class="university-text-decoration-none" action="editUser" id="${userInstance.id}">Edit</g:link></button></td>
 
                 <td><button class="university-button"><g:link class="university-text-decoration-none" controller="user" action="resetPassword" params="[id:userInstance.id]">Reset Password</g:link></button></td>
->>>>>>> 6f354e119e766a8c782b7a12446ab9a5360f3bd9
+
 
             </tr>
         </g:each>
@@ -85,6 +77,6 @@
         <g:paginate total="${userInstanceCount ?: 0}" />
 
     </div>
-</div>
+</div></div>
 </body>
 </html>
