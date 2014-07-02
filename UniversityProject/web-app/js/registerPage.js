@@ -50,8 +50,8 @@ function readURL(input, type) {
                 reader.onload = function (e) {
                     $('#signature')
                         .attr('src', e.target.result)
-                        .width(250)
-                        .height(80);
+                        .width(150)
+                        .height(150);
                 };
             if($('#imageValidate').length>0){
                 $('#imageValidate').val("uploded")

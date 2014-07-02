@@ -593,18 +593,16 @@ class FeeDetailService {
         def miscFeetype = []
         def mPayDate = []
         def challan = []
-        def status
+        def status=[]
         miscFeeList.each {
-            status = it.isApproved.status
+            status<<it.isApproved.status
             challan << it.challanNo
-            println("ttttttttttttttttttttttt"+status)
             if (it.paymentDate!=null) {
                 mPayDate << df.format(it.paymentDate)
             } else {
                 mPayDate << "Not Paid"
             }
             miscFeetype.add(it.feeType.type)
-
         }
         returnMap.mPayDate = mPayDate
         returnMap.studInst = studInst

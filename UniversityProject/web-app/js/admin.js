@@ -110,7 +110,7 @@ function saveExamDate() {
 
 }
 function generateDuplicateChallan() {
-    alert("dfsfs")
+//    alert("dfsfs")
     var rollNo = $("#rollNo").val()
     var feeType = $("#feeType").val()
     var term = $("#semesterList").val()

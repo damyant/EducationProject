@@ -116,7 +116,7 @@ class WriteExcelService {
             addLabel(sheet, j, i + 2, (finalList[i].rollNo? finalList[i].rollNo:'Not Generated' ));
             addLabel(sheet, j + 1, i + 2, finalList[i].firstName+' '+(finalList[i].middleName? finalList[i].middleName:'' )+' '+finalList[i].lastName);
             addLabel(sheet, j + 2, i + 2, finalList[i].studyCentre[0].name);
-            addLabel(sheet, j + 3, i + 2, finalList[i].city[0]?.cityName);
+            addLabel(sheet, j + 3, i + 2, ''+finalList[i].city[0]?.cityName);
             addLabel(sheet, j + 4, i + 2, finalList[i].challanNo);
             addLabel(sheet, j + 5, i + 2, "91"+finalList[i].mobileNo);
             addLabel(sheet, j + 6, i + 2, finalList[i].status.status);

@@ -198,6 +198,8 @@
 
                 <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message
                         code="default.mainMenu6.subMenu1"/></g:link></li>
+                <li><g:link controller="admitCard" action="loadIdolSignatureInAdmit"><g:message
+                        code="default.mainMenu6.subMenu3"/></g:link></li>
 
 
     </ul>

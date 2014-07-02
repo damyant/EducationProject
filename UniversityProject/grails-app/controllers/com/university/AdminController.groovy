@@ -311,6 +311,7 @@ class AdminController {
         }
 
     }
+
     def uploadInternalMarks = {
         def studyCentreList = StudyCenter.list(sort: 'name')
         def programList = ProgramDetail.list(sort: 'courseName')
@@ -382,10 +383,12 @@ class AdminController {
         def courseNameList = [], courseFee = [],stuList=[],semester=[]
         def feeDetailsInstance = FeeDetails.findAllByChallanNoAndIsApproved(params.challanNo,Status.findById(1))
         feeDetailsInstance.each{
-            stuList<<Student.findById(it.student.id)
-            courseNameList<<it.student.programDetail.courseName
-            courseFee<<it.paidAmount
-            semester<<it.semesterValue
+            if(it.student.rollNo!=null){
+                stuList<<Student.findById(it.student.id)
+                courseNameList<<it.student.programDetail.courseName
+                courseFee<<it.paidAmount
+                semester<<it.semesterValue
+            }
         }
         returnMap.stuList = stuList
         returnMap.semester = semester
@@ -658,8 +661,8 @@ class AdminController {
         def payMode = PaymentMode.findById(Integer.parseInt(params.pMode))
         def studentInst
         if (payMode.paymentModeName == 'Pay In Slip') {
-            studentInst = Student.findByChallanNo(params.challanNo)
-            if (StudyCenter.findById(studentInst.studyCentre[0].id).centerCode == '11111') {
+            studentInst = FeeDetails.findByChallanNo(params.challanNo).student
+            if (StudyCenter.findById(studentInst.studyCentre[0].id).centerCode == '11111'||StudyCenter.findById(studentInst.migratingStudyCentre).centerCode == '11111') {
                 status = true
             }
         }
@@ -761,4 +764,5 @@ class AdminController {
         returnMap.term=term
         render returnMap as JSON
     }
+
 }
