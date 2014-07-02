@@ -196,7 +196,7 @@ class AdmitCardController {
             def total1 = dateList.size()
             timeList.each {
                 if (it) {
-                    examTime.append(it.format("hh:mm a"))
+                    examTime.append(it)
                     if (count1 != total1)
                         examTime.append(", ")
                     count++
