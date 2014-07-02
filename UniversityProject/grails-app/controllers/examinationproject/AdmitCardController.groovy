@@ -130,7 +130,7 @@ class AdmitCardController {
     }
 
     def printAdmitCard = {
-        println("?????????????????========" + params)
+//        println("?????????????????========" + params)
 
         def stuList = [], mode = [], examType = [], courseName = []
         def status
@@ -140,9 +140,9 @@ class AdmitCardController {
         StringBuilder examDate = new StringBuilder()
         StringBuilder examTime = new StringBuilder()
         def webRootDir = servletContext.getRealPath("/")
-        println('*******************************************************' + webRootDir)
+//        println('*******************************************************' + webRootDir)
         def byte[] logo = new File(webRootDir + "/images/gu-logo.jpg").bytes
-        println("these are the logo bytes " + logo);
+//        println("these are the logo bytes " + logo);
 
         if (params.rollNumber && springSecurityService.currentUser) {
             stuList = admitCardService.getStudentByRollNo(user, params)
@@ -154,9 +154,10 @@ class AdmitCardController {
             def studentList = params.studentList.split(",")
             studentList.each {
                 def studentInst = Student.findById(Integer.parseInt(it.toString()))
-                println("AAAAAAAAAAAAAAAAAAAA"+studentInst.studyCentre[0].centerCode)
-                if(studentInst.studyCentre[0].centerCode=='11111'){
-                    admitInst = AdmitCard.findById(1)
+//                println("AAAAAAAAAAAAAAAAAAAA"+studentInst.studyCentre[0].centerCode)
+                Set <City> cityInst=City.findAllById(8)
+                if(studentInst.city==cityInst){
+                    admitInst = AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examinationVenue))
                 }
                 stuList << Student.findById(Integer.parseInt(it.toString()))
 
@@ -177,7 +178,7 @@ class AdmitCardController {
                 dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
                 timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
             }
-            println("WWWWWWWWWWWWWWWWW"+timeList)
+//            println("WWWWWWWWWWWWWWWWW"+timeList)
             if (dateList.size() == 0) {
                 flash.message = "Examination Date Not Assigned Yet"
                 redirect(controller: 'admitCard', action: 'bulkCreationOfAdmitCard')
@@ -193,17 +194,18 @@ class AdmitCardController {
                 }
             }
             def count1 = 1
-            def total1 = dateList.size()
+            def total1 = timeList.size()
+
             timeList.each {
                 if (it) {
                     examTime.append(it)
                     if (count1 != total1)
                         examTime.append(", ")
-                    count++
+                    count1++
                 }
 
             }
-            println("ffffffffffffff"+examTime)
+//            println("ffffffffffffff"+examTime)
             def month = ""
             if (stuList[0].semester % 2 == 0) {
                 month = "July"
@@ -215,7 +217,7 @@ class AdmitCardController {
             def fileName = stuList[0].programDetail[0].courseName + " " + month + " " + session[0]
 
             def year = new Date().format("yyyy")
-            def args = [template: "printAdmitCard", model: [studentInstance: stuList, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
+            def args = [template: "printAdmitCard", model: [studentInstance: stuList,examTime:examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         } else if (params.studyCenterId) {
             flash.message = "Admit Card Not Generated yet"
@@ -244,21 +246,32 @@ class AdmitCardController {
     }
     def loadIdolSignatureInAdmit = {
         def admitInst = null
-        if (AdmitCard.findById(1)) {
-            admitInst = AdmitCard.findById(1)
+        if (AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examVenue))) {
+            admitInst = AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examVenue))
         }
         [admitInst: admitInst]
 
     }
+    def loadIdolSignature = {
+        def admitInst = null
+        if (AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examVenue))) {
+            admitInst = AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examVenue))
+        }
+        def resultMap=[:]
+        resultMap.admitInst=admitInst
+        render resultMap as JSON
+    }
     def submitSignatureImage = {
+        println("---------------------------------------------------->"+params)
         def signature = request.getFile('signature')
         def admitInst
-        if (AdmitCard.get(1)) {
-            admitInst = AdmitCard.get(1)
+        if (AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examVenue))) {
+            admitInst = AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examVenue))
         } else {
             admitInst = new AdmitCard()
         }
         if (signature) {
+            admitInst.examVenue=ExaminationVenue.findById(params.examVenue)
             admitInst.signatureImg = signature.bytes
         }
         if (admitInst.save(flush: true, failOnError: true)) {
