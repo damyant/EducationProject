@@ -42,7 +42,7 @@
             <td><g:select name="postFeeType" id="postFeeType" from=""  class="many-to-one university-size-1-2" disabled="true" onchange="checkPreviousRecord()"></g:select></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Save" id="savePostFee" disabled> </td>
+            <td><input type="submit" value="Generate" id="savePostFee" disabled> </td>
             %{--<td><input type="text"></td>--}%
         </tr>
     </table>
