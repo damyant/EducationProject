@@ -183,36 +183,10 @@ class CourseController {
 
     //ADDED BY DIGVIJAY ON 20 May 2014
     def saveCourses() {
-        println("******"+params)
-        def subjectIns
-        if (params.subjectId) {
-            subjectIns = Subject.get(params.subjectId)
-//            println(subjectIns.subjectMarksDetail.toList())
+//        println("******"+params)
 
+        courseDetailService.saveCourseDetail(params)
 
-            subjectIns.subjectMarksDetail.toList().each {
-                println("it"+it)
-                subjectIns.removeFromSubjectMarksDetail(it)
-                it.delete()
-            }
-            subjectIns.save(flush: true)
-        } else {
-            subjectIns = new Subject(params)
-            subjectIns.save(failOnError: true, flush: true)
-        }
-            def marksTypeList=MarksType.list()
-            def i=0
-            marksTypeList.each{
-                if(params.totalMarks[i]){
-                    def subjectMarksDetailIns=new SubjectMarksDetail()
-                    subjectMarksDetailIns.marks=Integer.parseInt(params.totalMarks[i].toString())
-                    subjectMarksDetailIns.minPassingMarks=Integer.parseInt(params.minPassingMarks[i].toString())
-                    subjectMarksDetailIns.marksTypeId=it
-                    subjectMarksDetailIns.subject=subjectIns
-                    subjectMarksDetailIns.save(failOnError: true)
-                }
-                    ++i
-            }
 
 
 //        if (subjectIns.save(failOnError: true, flush: true)) {

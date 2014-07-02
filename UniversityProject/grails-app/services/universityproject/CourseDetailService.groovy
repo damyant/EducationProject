@@ -13,6 +13,9 @@ import examinationproject.Semester
 import examinationproject.Subject
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
+import postexamination.MarksType
+import postexamination.SubjectMarksDetail
+
 import java.io.File;
 @Transactional
 class CourseDetailService {
@@ -172,9 +175,45 @@ class CourseDetailService {
 
     }
 
-//    //ADDED BY DIGVIJAY ON 20 May 2014
-//    def saveCourses(params) {
-//        System.out.println("Inside Service --> saveCourses method")
-//        def addCourseList = ProgramType.findOrSaveById()
-//    }
+    def saveCourseDetail(params){
+      def subjectIns
+        try{
+        if (params.subjectId) {
+            subjectIns = Subject.get(params.subjectId)
+            subjectIns.subjectCode=params.subjectCode
+            subjectIns.subjectName=params.subjectName
+            subjectIns.aliasCode=params.aliasCode
+            subjectIns.creditPoints=Integer.parseInt(params.creditPoints)
+
+            subjectIns.subjectMarksDetail.toList().each {
+                subjectIns.removeFromSubjectMarksDetail(it)
+                it.delete()
+            }
+            subjectIns.save(flush: true)
+        } else {
+            subjectIns = new Subject(params)
+            subjectIns.save(failOnError: true, flush: true)
+        }
+        def marksTypeList=MarksType.list()
+        def i=0
+        marksTypeList.each{
+            if(params.totalMarks[i]){
+                def subjectMarksDetailIns=new SubjectMarksDetail()
+                subjectMarksDetailIns.marks=Integer.parseInt(params.totalMarks[i].toString())
+                subjectMarksDetailIns.minPassingMarks=Integer.parseInt(params.minPassingMarks[i].toString())
+                subjectMarksDetailIns.marksTypeId=it
+                subjectMarksDetailIns.subject=subjectIns
+                subjectMarksDetailIns.save(failOnError: true)
+            }
+            ++i
+        }
+
+    }
+
+    catch (Exception e){
+        println(" There is some problem in saving Course="+e)
+
+    }
+
+    }
 }

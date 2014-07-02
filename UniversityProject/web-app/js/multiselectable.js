@@ -14,7 +14,7 @@ function semesterList() {
     $('#multiSelectTab tbody tr').remove()
     for (var j = 1; j <= $('#noOfTerms').val(); j++) {
         $('#multiSelectTab tbody').append('<tr id="tr' + j + '"><td style="width:14% "></div> <label>All Course <span class="university-obligatory">*</span></label><select style="width: 80%" name="allsubjectList' + j + '" id="allsubjectList' + j + '"  multiple="true"  /></td>' +
-        ' <td style="width:7% "> <button type="button" class="multiSelect-buttons-button" onclick="addToTestList(' + j + ')" name="add' + j + '"  id="add' + j + '">Add</button>' +
+        ' <td style="width:7% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList(' + j + ')" name="add' + j + '"  id="add' + j + '">Add</button>' +
         '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList(' + j + ')" name="remove' + j + '"  id="remove' + j + '">Remove</button> </td>' +
         '<td style="width:17%;"><select class="select-to" style="width: 50%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  />' +
         '<input type="button" value="Add Groups" onclick="showGroup(' + j + ')"/></td>' +
@@ -263,9 +263,7 @@ function clearField() {
 //    $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 function save() {
-//    alert("dfdfdfd")
-//    alert($("#errorMsg").text().length)
-//    checkCourseCode()
+
     validate();
     var status = $("#createCourse").valid();
     if (!fireMultiValidate()) {
@@ -341,7 +339,6 @@ function checkFileType(e){
             txt = "File type : " + sFileExtension + "\n\n";
             txt += "Size: " + iConvert + " MB \n\n";
             txt += "Please make sure your file is in pdf or doc format and less than 10 MB.\n\n";
-//                alert(txt);
         }
         else{
             return false;
@@ -351,9 +348,7 @@ function checkFileType(e){
 
 
 function showGroup(id){
-    //  alert("Adding block for groups"+id)
-
-    openGroupPopUp(id);
+      openGroupPopUp(id);
 
 }
 
@@ -370,7 +365,7 @@ function openGroupPopUp(j) {
 }
 
 function addGroups(id){
-    alert("Hello"+id)
+//    alert("Hello"+id)
     var rowCount = $('#subjectGroup'+id+' tr').length;
     k=rowCount-1
     //$('#subjectGroup tbody tr').remove()
@@ -401,7 +396,7 @@ function addGroups(id){
 }
 
 function removeSubjectGroup(t){
-    alert($('#groupTr'+t))
+
     $('#subjectGroup'+t+' tbody tr:last').remove()
    // $('#multiSelectTab tbody #tr'+j).find("td:last").remove()
     k--;
@@ -444,9 +439,7 @@ function addToGroupList(j) {
 }
 
 function saveSubjectGroup(j){
-    // var formObj = $("#groupsOfSubject");
-    //var data = ConvertGroupFormToJSON(j);
-    alert("FFDF"+$("#groupListBox option").length)
+
     if($("#groupListBox"+j+" option").length>0){
 
         $('#multiSelectTab tbody #tr'+j).find("td:last").remove()
