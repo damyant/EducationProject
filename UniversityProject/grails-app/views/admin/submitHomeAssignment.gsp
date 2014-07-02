@@ -27,7 +27,7 @@
         <table>
             <tr>
                 <td><label> Enter RollNumber</label></td>
-                <td><input type="text" name="rollNumberInput" id="rollNumberInput" onchange="searchByRollNumber()" ></td>
+                <td><input type="text" name="rollNumberInput" id="rollNumberInput" onchange="searchHomeAssignmentByRollNumber()" ></td>
             </tr>
             <tr>
                 <td><label>Course</label></td>

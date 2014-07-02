@@ -649,8 +649,6 @@ class FeeDetailService {
             returnMap.status = false
         }
         return returnMap
-
-
     }
 
     def getChallanDetails(params) {

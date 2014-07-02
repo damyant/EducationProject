@@ -603,6 +603,10 @@ class FeeDetailsController {
         render status as JSON
     }
 
+    def searchHomeAssignmentByRollNumber ={
+
+    }
+
     def checkRollNoPreviousData = {
         def returnMap = [:]
         def studObj = Student.findByRollNo(params.rollNumberInput)
