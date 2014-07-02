@@ -1308,7 +1308,6 @@ function fillFeeInfoUpdate(sessionOfFee){
 
 
 function searchByRollNumber(){
-
     if($('#rollNumberInput').val().length!=0)
     {
         $.ajax({
@@ -1343,15 +1342,17 @@ function appendDetail(data){
 
     if(data['programType']=='Traditional'){
         for(var i=1;i<=data['totalYears'];i++){
-        $("#semester").append('<option value='+i+'>'+i+'</option>')
-
+            $("#semester").append('<option value='+i+'>'+i+'</option>')
+            $("#checkTerms").append('<label>Term'+i+'</label><input type="checkbox" name="terms"/>')
         }
 
     }
     else{
         for(var i=1;i<=data['totalYears']*2;i++){
             $("#semester").append('<option value='+i+'>'+i+'</option>')
+            $("#checkTerms").append('<label>Semester'+i+'</label><input type="checkbox" name="terms"/>')
         }
+
     }
 
     for(var j=0;j<data['feeType'].length;j++){
@@ -1363,26 +1364,28 @@ function appendDetail(data){
 }
 
 function checkPreviousRecord(){
+    var val = $('#postFeeType').val()
+    if(val>0){
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'checkRollNoPreviousData', ''),
+            data:$("#postExamFee").serialize(),
+            success: function (data) {
+                if(data.feePaid==true){
+                    alert("Fees of current Semester/ Year is already paid")
+                    $("#savePostFee").attr('disabled',true)
+                }
+                else if(data.feePaid==false){
+                alert("Please pay previous Semester/ Year fees first")
+                    $("#savePostFee").attr('disabled',true)
 
-    $.ajax({
-        type: "post",
-        url: url('feeDetails', 'checkRollNoPreviousData', ''),
-        data:$("#postExamFee").serialize(),
-        success: function (data) {
-            if(data.feePaid==true){
-                alert("Fees of current Semester/ Year is already paid")
-                $("#savePostFee").attr('disabled',true)
+                }
+                else{
+                 $("#savePostFee").attr('disabled',false)
+                }
             }
-            else if(data.feePaid==false){
-            alert("Please pay previous Semester/ Year fees first")
-                $("#savePostFee").attr('disabled',true)
-
-            }
-            else{
-             $("#savePostFee").attr('disabled',false)
-            }
-        }
-    })
+        })
+    }
 
 
 }

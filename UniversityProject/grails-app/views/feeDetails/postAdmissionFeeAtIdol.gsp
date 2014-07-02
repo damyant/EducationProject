@@ -21,6 +21,7 @@
 
 <body>
 <div id="main">
+    <h3>POST ADMISSION FEES AT IDOL</h3>
     <div id="errorMsgForRollNo" class="university-status-message"></div>
     <g:form controller="feeDetails" action="savePostExamFee" name="postExamFee" id="postExamFee">
     <table>

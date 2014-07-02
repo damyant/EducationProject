@@ -196,10 +196,12 @@
             </ul>
         </li>
 
-                <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message
+        <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message
                         code="default.mainMenu6.subMenu1"/></g:link></li>
-                <li><g:link controller="admitCard" action="loadIdolSignatureInAdmit"><g:message
+        <li><g:link controller="admitCard" action="loadIdolSignatureInAdmit"><g:message
                         code="default.mainMenu6.subMenu3"/></g:link></li>
+        %{--<li><g:link controller="admin" action="submitHomeAssignment"><g:message--}%
+                %{--code="default.mainMenu6.subMenu20"/></g:link></li>--}%
 
 
     </ul>

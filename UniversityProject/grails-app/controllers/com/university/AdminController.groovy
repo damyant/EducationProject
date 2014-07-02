@@ -765,4 +765,8 @@ class AdminController {
         render returnMap as JSON
     }
 
+    def submitHomeAssignment={
+        println('in submit home assignment')
+    }
+
 }
