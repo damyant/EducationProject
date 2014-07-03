@@ -12,6 +12,9 @@ class SubjectMarksDetail {
     static  belongsTo = [subject:Subject]
 
     static constraints = {
+        marks(nullable: true)
+        minPassingMarks(nullable: true)
+        marksTypeId(nullable: false)
     }
 
     static mapping = {
@@ -20,4 +23,6 @@ class SubjectMarksDetail {
      minPassingMarks column: 'MinPassingMarks'
      marksTypeId column: 'MarksTypeId'
     }
+
+
 }

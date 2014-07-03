@@ -1318,3 +1318,51 @@ function saveCustomChallan(){
 function subjectDialog(){
     $('#groupDialog').dialog('open');
 }
+
+function checkSubjectCode() {
+
+    var data = $('#subjectCode').val();
+    $.ajax({
+        type: "post",
+        url: url('course', 'checkSubjectCode', ''),
+        data: {subjectCode: data},
+        success: function (data) {
+            if (data.subjectCode == "true") {
+                $('#errorMsg').text("Subject Code is already registered")
+                $('#errorMsg').attr('display', true)
+                return false
+            }
+            else {
+                $('#errorMsg').text("")
+                return true
+            }
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}
+
+function checkAliasCode() {
+
+    var data = $('#aliasCode').val();
+    $.ajax({
+        type: "post",
+        url: url('course', 'checkAliasCode', ''),
+        data: {aliasCode: data},
+        success: function (data) {
+            if (data.aliasCode == "true") {
+                $('#errorMsg1').text("AliasCode Code is already registered")
+                $('#errorMsg1').attr('display', true)
+                return false
+            }
+            else {
+                $('#errorMsg1').text("")
+                return true
+            }
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}

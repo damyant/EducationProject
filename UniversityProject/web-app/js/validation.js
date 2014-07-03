@@ -15,12 +15,13 @@ function validate() {
             subjectName: {required: true,
                 lettersnumberswithbasicpunc: true
             },
+
             subjectCode:{required:true},
             aliasCode:{required:true},
             creditPoints:{required:true},
-            theoryMarks:{required:true},
-            homeAssignmentMarks:{required:true},
-            totalMarks:{required:true},
+            //theoryMarks:{required:true},
+           // homeAssignmentMarks:{required:true},
+           // totalMarks:{required:true},
 
             registrationNo1:{
                 minlength:5
@@ -190,11 +191,11 @@ function validate() {
                 required: true,
                 number: true
             },
-            totalMarks: {
-                required: true,
-                number: true,
-                min:1
-            },
+//            totalMarks: {
+//                required: true,
+//                number: true,
+//                min:1
+//            },
             noOfPapers:  {
                 required: true,
                 number: true,

@@ -53,7 +53,7 @@
         <tr>
             <td class="university-size-1-3"><p>Course Name <span class="university-obligatory">*</span>
             </p></td>
-            <td class="university-size-2-3"><g:textField name="subjectName" id="subjectName" value="${courseList?.subjectName}"
+            <td class="university-size-2-3"><g:textField name="subjectName" id="subjectName" maxlength="150" value="${courseList?.subjectName}"
                                                          class="university-size-1-2"/>
                 <input type="hidden" value="${courseList?.id}" name="subjectId"/>
 
@@ -62,23 +62,25 @@
         <tr>
             <td class="university-size-1-3"><p>Course Code <span class="university-obligatory">*</span>
             </p></td>
-            <td class="university-size-2-3"><g:textField name="subjectCode" id="subjectCode" value="${courseList?.subjectCode}"
-                                                         class="university-size-1-2"/>
+            <td class="university-size-2-3"><g:textField name="subjectCode" id="subjectCode" maxlength="6"  value="${courseList?.subjectCode}"
+                                                         onchange="checkSubjectCode()" class="university-size-1-2"/>
+                <label id="errorMsg" class="error1"></label>
 
             </td>
         </tr>
         <tr>
             <td class="university-size-1-3"><p>Alias Code <span class="university-obligatory">*</span>
             </p></td>
-            <td class="university-size-2-3"><g:textField name="aliasCode" id="aliasCode" value="${courseList?.aliasCode}"
-                                                         class="university-size-1-2"/>
+            <td class="university-size-2-3"><g:textField name="aliasCode" id="aliasCode" maxlength="6" value="${courseList?.aliasCode}"
+                                                         onchange="checkAliasCode()" class="university-size-1-2"/>
+                <label id="errorMsg1" class="error1"></label>
 
             </td>
         </tr>
         <tr>
             <td class="university-size-1-3"><p>Credit Points <span class="university-obligatory">*</span>
             </p></td>
-            <td class="university-size-2-3"><g:textField name="creditPoints" id="creditPoints" value="${courseList?.creditPoints}"
+            <td class="university-size-2-3"><g:textField name="creditPoints" id="creditPoints" onkeypress="return isNumber(event)" maxlength="4"  value="${courseList?.creditPoints}"
                                                          class="university-size-1-2"/>
 
             </td>
@@ -89,10 +91,10 @@
 
            <tr>
                <td>${marksType.marksTypeName}</td></tr>
-            <tr><td>Min Passing Marks</td><td><g:textField name="minPassingMarks" id="${marksType.marksTypeName}"
+            <tr><td>Min Passing Marks</td><td><g:textField name="minPassingMarks" maxlength="3" onkeypress="return isNumber(event)" id="${marksType.marksTypeName}"
                                                            value="${marksMap.get('key'+ counter)?.minPassingMarks}"
                                                            /></td>
-               <td>Total Marks</td><td class="university-size-2-3"><g:textField name="totalMarks" id="${marksType.marksTypeName}"
+               <td>Total Marks</td><td class="university-size-2-3"><g:textField name="totalMarks" maxlength="3" onkeypress="return isNumber(event)" id="${marksType.marksTypeName}"
                                                             value="${marksMap.get('key'+ counter)?.marks}"
                                                             />
                </td>

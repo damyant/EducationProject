@@ -196,17 +196,25 @@ class CourseController {
                 it.delete()
             }
             subjectIns.save(flush: true)
+            flash.message = "Course Successfully Updated."
         } else {
             subjectIns = new Subject(params)
             subjectIns.save(failOnError: true, flush: true)
+            flash.message = "Course Successfully Created"
         }
             def marksTypeList=MarksType.list()
             def i=0
             marksTypeList.each{
                 if(params.totalMarks[i]){
                     def subjectMarksDetailIns=new SubjectMarksDetail()
-                    subjectMarksDetailIns.marks=Integer.parseInt(params.totalMarks[i].toString())
-                    subjectMarksDetailIns.minPassingMarks=Integer.parseInt(params.minPassingMarks[i].toString())
+                    if(params.totalMarks[i].toString()!=""){
+                        subjectMarksDetailIns.marks=Integer.parseInt(params.totalMarks[i].toString())
+                    }
+                    if(params.minPassingMarks[i].toString()!=""){
+                        subjectMarksDetailIns.minPassingMarks=Integer.parseInt(params.minPassingMarks[i].toString())
+                    }
+
+
                     subjectMarksDetailIns.marksTypeId=it
                     subjectMarksDetailIns.subject=subjectIns
                     subjectMarksDetailIns.save(failOnError: true)
@@ -225,6 +233,29 @@ class CourseController {
 //        }
 
         redirect(controller: 'admin', action: 'addCourses')
+    }
+
+    def checkSubjectCode = {
+        def status = [:]
+        def courseCodeIns = Subject.findAllBySubjectCode(params.subjectCode)
+        if (courseCodeIns) {
+            status.subjectCode = 'true'
+        } else {
+            status.subjectCode = 'false'
+        }
+        render status as JSON
+    }
+
+    def checkAliasCode = {
+        println("Check"+params)
+        def status = [:]
+        def courseCodeIns = Subject.findAllByAliasCode(params.aliasCode)
+        if (courseCodeIns) {
+            status.aliasCode = 'true'
+        } else {
+            status.aliasCode = 'false'
+        }
+        render status as JSON
     }
 
 }
