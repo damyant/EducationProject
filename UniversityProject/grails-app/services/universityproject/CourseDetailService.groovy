@@ -13,7 +13,11 @@ import examinationproject.Semester
 import examinationproject.Subject
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
+import postexamination.MarksType
+import postexamination.SubjectMarksDetail
+
 import java.io.File;
+
 @Transactional
 class CourseDetailService {
 
@@ -47,21 +51,21 @@ class CourseDetailService {
             existingCourseObj.totalCreditPoints = Integer.parseInt(params.totalCreditPoints)
             existingCourseObj.save(failOnError: true, flush: true)
             if (session > 0) {
-                if (ProgramSession.findByProgramDetailIdAndSessionOfProgram(existingCourseObj,params.session)) {
-                    sessionObj = ProgramSession.findByProgramDetailIdAndSessionOfProgram(existingCourseObj,params.session)
+                if (ProgramSession.findByProgramDetailIdAndSessionOfProgram(existingCourseObj, params.session)) {
+                    sessionObj = ProgramSession.findByProgramDetailIdAndSessionOfProgram(existingCourseObj, params.session)
                 } else {
-                    sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId:existingCourseObj).save(flush: true, failOnError: true)
+                    sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId: existingCourseObj).save(flush: true, failOnError: true)
                 }
             } else {
 
-                sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId:existingCourseObj).save(flush: true, failOnError: true)
+                sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId: existingCourseObj).save(flush: true, failOnError: true)
             }
             def semesterList = Semester.findAllByProgramSession(sessionObj)
 
-            if(sessionObj){
+            if (sessionObj) {
 
             }
-            CourseSubject.removeAll(existingCourseObj,sessionObj)
+            CourseSubject.removeAll(existingCourseObj, sessionObj)
             semesterList.each {
                 it.delete(failOnError: true)
             }
@@ -76,7 +80,7 @@ class CourseDetailService {
                     i
                     def subjectList = it."semester${i}".sort()
                     subjectList.each { obj ->
-                        CourseSubject.create existingCourseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj,sessionObj
+                        CourseSubject.create existingCourseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj, sessionObj
                     }
                     status = 'updated'
                 }
@@ -89,14 +93,14 @@ class CourseDetailService {
             courseObj.save(failOnError: true, flush: true)
             if (session > 0) {
 
-                if (ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,courseObj)) {
-                    sessionObj = ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,courseObj)
+                if (ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session, courseObj)) {
+                    sessionObj = ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session, courseObj)
 
                 } else {
-                    sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId:courseObj).save(flush: true, failOnError: true)
+                    sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId: courseObj).save(flush: true, failOnError: true)
                 }
             } else {
-                  sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId:courseObj).save(flush: true, failOnError: true)
+                sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId: courseObj).save(flush: true, failOnError: true)
             }
             for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
                 semObj = new Semester()
@@ -108,7 +112,7 @@ class CourseDetailService {
                     i
                     def subjectList = it."semester${i}".sort()
                     subjectList.each { obj ->
-                        CourseSubject.create courseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj,sessionObj
+                        CourseSubject.create courseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj, sessionObj
                     }
                     status = 'Created'
                 }
@@ -131,18 +135,18 @@ class CourseDetailService {
         def courseDetail = [:], subMap = [:]
         def subList = []
 
-        def programSession= ProgramSession.findById(Long.parseLong(params.courseSessionId))
-//        println("***********"+courseObj)
+        def programSession = ProgramSession.findById(Long.parseLong(params.courseSessionId))
+
         courseDetail.course = programSession.programDetailId
         courseDetail.courseType = programSession.programDetailId.courseType.courseTypeName
         courseDetail.ProgramType = programSession.programDetailId.programType.type
         courseDetail.courseMode = programSession.programDetailId.courseMode.modeName
-        courseDetail.sessionOfCourse=programSession.sessionOfProgram
+        courseDetail.sessionOfCourse = programSession.sessionOfProgram
 
         programSession.semester.each {
             subMap[it.semesterNo] = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programSession.programDetailId, it, programSession).subject
             subList = subMap
-         }
+        }
         courseDetail.semesterList = subList
 
         return courseDetail
@@ -151,20 +155,20 @@ class CourseDetailService {
 
     def deleteCourse(params) {
         def status = false
-//        def existingCourseObj = ProgramDetail.findById(params.courseId)
-        def existingProgramSession= ProgramSession.findById(Long.parseLong(params.courseSessionId))
+
+        def existingProgramSession = ProgramSession.findById(Long.parseLong(params.courseSessionId))
         if (existingProgramSession) {
             def semesterList = Semester.findAllByProgramSession(existingProgramSession)
-            CourseSubject.removeAll(existingProgramSession.programDetailId,existingProgramSession)
+            CourseSubject.removeAll(existingProgramSession.programDetailId, existingProgramSession)
             semesterList.each {
-                it.delete(failOnError: true,flush: true)
+                it.delete(failOnError: true, flush: true)
             }
             existingProgramSession.delete(flush: true)
             def courseSubject = ProgramSession.findByProgramDetailId(existingProgramSession.programDetailId)
 
-            if(courseSubject==null){
-                if(ProgramDetail.findById(existingProgramSession.programDetailId.id).delete(failOnError: true,flush: true)){
-                    status=true
+            if (courseSubject == null) {
+                if (ProgramDetail.findById(existingProgramSession.programDetailId.id).delete(failOnError: true, flush: true)) {
+                    status = true
                 }
             }
         }
@@ -172,9 +176,45 @@ class CourseDetailService {
 
     }
 
-//    //ADDED BY DIGVIJAY ON 20 May 2014
-//    def saveCourses(params) {
-//        System.out.println("Inside Service --> saveCourses method")
-//        def addCourseList = ProgramType.findOrSaveById()
-//    }
+    def saveCourseDetail(params) {
+        def subjectIns
+        try {
+            if (params.subjectId) {
+                subjectIns = Subject.get(params.subjectId)
+                subjectIns.subjectCode = params.subjectCode
+                subjectIns.subjectName = params.subjectName
+                subjectIns.aliasCode = params.aliasCode
+                subjectIns.creditPoints = Integer.parseInt(params.creditPoints)
+
+                subjectIns.subjectMarksDetail.toList().each {
+                    subjectIns.removeFromSubjectMarksDetail(it)
+                    it.delete()
+                }
+                subjectIns.save(flush: true)
+            } else {
+                subjectIns = new Subject(params)
+                subjectIns.save(failOnError: true, flush: true)
+            }
+            def marksTypeList = MarksType.list()
+            def i = 0
+            marksTypeList.each {
+                if (params.totalMarks[i]) {
+                    def subjectMarksDetailIns = new SubjectMarksDetail()
+                    subjectMarksDetailIns.marks = Integer.parseInt(params.totalMarks[i].toString())
+                    subjectMarksDetailIns.minPassingMarks = Integer.parseInt(params.minPassingMarks[i].toString())
+                    subjectMarksDetailIns.marksTypeId = it
+                    subjectMarksDetailIns.subject = subjectIns
+                    subjectMarksDetailIns.save(failOnError: true)
+                }
+                ++i
+            }
+
+        }
+
+        catch (Exception e) {
+            println(" There is some problem in saving Course=" + e)
+
+        }
+
+    }
 }

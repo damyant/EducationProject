@@ -63,7 +63,7 @@
             </div>
         </div>
         <g:form controller="admin" action="deleteCourse" id="deleteCityInst" name="deleteCityInst">
-            <input type="hidden" value="" id="deleteCityId" name="deleteCityId">
+            <input type="hidden" value="" id="deleteCityId" name="courseId">
         </g:form>
 
     </fieldset>

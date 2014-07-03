@@ -672,10 +672,9 @@ class AdminController {
     }
     @Secured("ROLE_ADMIN")
     def deleteCourse = {
-        println("dsdsdsds"+params)
+
         try {
             def status = adminInfoService.deleteTheCourse(params)
-            println(status)
             if (status) {
                 flash.message = "Course Removed Successfully"
 

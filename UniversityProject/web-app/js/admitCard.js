@@ -14,7 +14,7 @@ $(document).ready(function () {
 
 
     var count=0;
-   // $("input[name='studentCheckbox']").change(function () {
+    //ADDED BY RAJ
     $(document).on('change', "input[name='studentCheckbox']", function () {
         $("#from").val("");
         $("#to").val("");
@@ -33,7 +33,7 @@ $(document).ready(function () {
         }
     });
 
-
+    //ADDED BY RAJ
     $(document).on('change', "input[name='selectAll']", function () {
         $("#from").val("")
         $("#to").val("")
@@ -57,6 +57,7 @@ $(document).ready(function () {
 
     })
 
+    //ADDED BY RAJ
     $(document).on('change', "input[name='to']", function () {
         if($("#from").val().length==0){
             alert("Please enter range correctly")
@@ -78,7 +79,7 @@ $(document).ready(function () {
 });
 
 
-
+//ADDED BY RAJ
 function selectRows(){
     var from=$("#from").val()
     var to = $("#to").val()

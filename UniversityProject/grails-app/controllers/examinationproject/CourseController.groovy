@@ -182,59 +182,13 @@ class CourseController {
     }
 
     //ADDED BY DIGVIJAY ON 20 May 2014
+   // Modified By Ajay
     def saveCourses() {
-        println("******"+params)
-        def subjectIns
-        if (params.subjectId) {
-            subjectIns = Subject.get(params.subjectId)
-//            println(subjectIns.subjectMarksDetail.toList())
-
-
-            subjectIns.subjectMarksDetail.toList().each {
-                println("it"+it)
-                subjectIns.removeFromSubjectMarksDetail(it)
-                it.delete()
-            }
-            subjectIns.save(flush: true)
-            flash.message = "Course Successfully Updated."
-        } else {
-            subjectIns = new Subject(params)
-            subjectIns.save(failOnError: true, flush: true)
-            flash.message = "Course Successfully Created"
-        }
-            def marksTypeList=MarksType.list()
-            def i=0
-            marksTypeList.each{
-                if(params.totalMarks[i]){
-                    def subjectMarksDetailIns=new SubjectMarksDetail()
-                    if(params.totalMarks[i].toString()!=""){
-                        subjectMarksDetailIns.marks=Integer.parseInt(params.totalMarks[i].toString())
-                    }
-                    if(params.minPassingMarks[i].toString()!=""){
-                        subjectMarksDetailIns.minPassingMarks=Integer.parseInt(params.minPassingMarks[i].toString())
-                    }
-
-
-                    subjectMarksDetailIns.marksTypeId=it
-                    subjectMarksDetailIns.subject=subjectIns
-                    subjectMarksDetailIns.save(failOnError: true)
-                }
-                    ++i
-            }
-
-
-//        if (subjectIns.save(failOnError: true, flush: true)) {
-//            flash.message = "New Course Saved Successfully."
-//        } else {
-//            flash.message = "Unable to Save Course Successfully."
-//            subjectIns.errors.each {
-//                println it
-//            }
-//        }
-
-        redirect(controller: 'admin', action: 'addCourses')
+      courseDetailService.saveCourseDetail(params)
+      redirect(controller: 'admin', action: 'addCourses')
     }
 
+    //ADDED BY RAJ
     def checkSubjectCode = {
         def status = [:]
         def courseCodeIns = Subject.findAllBySubjectCode(params.subjectCode)
@@ -246,6 +200,7 @@ class CourseController {
         render status as JSON
     }
 
+    //ADDED BY RAJ
     def checkAliasCode = {
         println("Check"+params)
         def status = [:]

@@ -6,6 +6,8 @@ import grails.plugins.springsecurity.Secured
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+
+//ADDED BY RAJ
 @Secured("ROLE_ADMIN")
 class BranchController {
 

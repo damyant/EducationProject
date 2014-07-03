@@ -4,6 +4,8 @@ package examinationproject
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+
+//ADDED BY RAJ
 class DistrictController {
 
     static allowedMethods = [save: "POST", update: "PUT", get: "GET", delete: "DELETE"]

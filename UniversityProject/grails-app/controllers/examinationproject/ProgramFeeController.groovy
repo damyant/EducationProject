@@ -20,13 +20,9 @@ class ProgramFeeController {
 
         }
 
-
         [programFeeInstanceList:programFeeInstanceList, admissionFeeTotal: FeeSession.count()]
     }
 
-//    def show(ProgramFee programFeeInstance) {
-//        respond programFeeInstance
-//    }
     @Secured("ROLE_ADMIN")
     def createNewFeeType() {
         def feeType=null
