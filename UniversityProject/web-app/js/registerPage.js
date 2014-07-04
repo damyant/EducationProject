@@ -201,6 +201,10 @@ function loadProgramFeeAmount(t){
         Popup1($(elem).html());
         location.reload();
     }
+function printHomeAssignment(elem){
+    Popup2($(elem).html());
+    window.open("/UniversityProject/homeAssignment/submitHomeAssignment",'_self',false)
+}
     function Popup1(data)
     {
         var mywindow = window.open('', 'fee voucher','height=500,width=550');
@@ -216,6 +220,21 @@ function loadProgramFeeAmount(t){
         mywindow.close();
         return true;
     }
+function Popup2(data)
+{
+    var mywindow = window.open('', 'Home Assignment','height=400,width=300');
+    mywindow.document.write('<html style="font-family: arial;"><head><title></title>');
+    mywindow.document.write('<style type="text/css" media="print">')
+    mywindow.document.write('@page{size: auto; margin: 0mm; }')
+    mywindow.document.write('body{background-color:#FFFFFF;border: solid 0px black ;margin-bottom:50px }</style>')
+    /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />260');
+    mywindow.document.write('</head><body style="border: 0px solid;font-size: 10px;height:270px">');
+    mywindow.document.write(data);
+    mywindow.document.write('</body></html>');
+    mywindow.print();
+    mywindow.close();
+    return true;
+}
 
 
 function enableDisableCheckbox(){

@@ -42,7 +42,7 @@ class AdminController {
         [studyCenterList: studyCenterList, programList: programList]
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def viewApprovedStudents() {
         def studyCenterList = StudyCenter.list(sort: 'name')
         def programList = ProgramDetail.list(sort: 'courseName')
@@ -59,7 +59,7 @@ class AdminController {
 
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def generateRollNo() {
         String rollNumber = null
         def stuObj
@@ -82,7 +82,7 @@ class AdminController {
         render stuList as JSON
     }
 
-    @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
+    @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER", "ROLE_ACCOUNT"])
     def feeVoucher = {
         def feeType = []
         feeType = FeeType.list(sort: 'type')
@@ -141,7 +141,7 @@ class AdminController {
         render response as JSON
     }
 
-    @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
+    @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER", "ROLE_ACCOUNT"])
     def generateFeeVoucher = {
         def response=[:]
         def student = Student.findByRollNo(params.rollNo)
@@ -221,12 +221,12 @@ class AdminController {
 
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def assignExaminationDate = {
         def programList = ProgramDetail.list(sort: 'courseCode')
         [programList: programList]
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def assignExaminationVenue = {
         def programList = ProgramDetail.list(sort: 'courseCode')
         def obj = City.createCriteria()
@@ -277,7 +277,7 @@ class AdminController {
         render studList as JSON
     }
 
-    @Secured(["ROLE_ADMIN"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def downloadAttendanceSheet = {
         if (params.programSession) {
             def webRootDir = servletContext.getRealPath("/")
@@ -317,7 +317,7 @@ class AdminController {
         def programList = ProgramDetail.list(sort: 'courseName')
         [programList: programList, studyCentreList: studyCentreList]
     }
-    @Secured(["ROLE_ADMIN"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def approvePayInSlip = {
         def bankList = Bank.list(sort: 'bankName');
         def feeTypeList = FeeType.list(sort: 'type');
@@ -470,12 +470,12 @@ class AdminController {
         def programTypeList = ProgramType.list()
         [programTypeList: programTypeList]
     }
-    @Secured(["ROLE_ADMIN"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def assignRollNoGenerationDate = {
         def rollDateInst = RollNoGenerationFixture.findById(1)
         [rollDateInst: rollDateInst]
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def saveRollNoGenerationDate = {
         def status = adminInfoService.saveRollNoGenDate(params)
         if (status) {
@@ -509,7 +509,7 @@ class AdminController {
         render returnMap as JSON
     }
 
-    @Secured(["ROLE_ADMIN"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def assignLateFeeDate = {
 
         def programList = []
@@ -525,7 +525,7 @@ class AdminController {
         [programList: programList, programCategory: programCategory]
 
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def removeLateFeeDate = {
 
         def programList = []
@@ -541,7 +541,7 @@ class AdminController {
         [programList: programList, programCategory: programCategory]
 
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def deleteLateFeeDate = {
 //        println(params)
         def status = adminInfoService.removeDateLateFee(params)
@@ -569,7 +569,7 @@ class AdminController {
         def response = [programList: programs, dateList: dateList]
         render response as JSON
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def saveLateFeeDate = {
 
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
@@ -587,11 +587,11 @@ class AdminController {
         redirect(action: "assignLateFeeDate")
     }
 
-    @Secured(["ROLE_ADMIN"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def studyMaterial = {
 
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def getStudentForStudyMaterial() {
 //        println("???????????"+params)
         def returnMap = [:]
@@ -599,7 +599,7 @@ class AdminController {
 //        println('this is the returning map '+returnMap)
         render returnMap as JSON
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def saveStudyMaterial() {
 //        println("inn"+params)
         def returnMap = [:]
@@ -613,7 +613,7 @@ class AdminController {
         render returnMap as JSON
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def assignAdmissionPeriod() {
         def programList = []
         def programs = ProgramDetail.list(sort: 'courseName')
@@ -627,7 +627,7 @@ class AdminController {
         def programCategory = ProgramType.list(sort: 'type')
         [programList: programList, programCategory: programCategory]
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def saveAdmissionFeePeriod() {
         def status = adminInfoService.saveAdmissionPeriod(params)
         if (status) {
@@ -648,7 +648,7 @@ class AdminController {
             render returnMap as JSON
         }
     }
-    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def individualStudentUpdate = {
 //        def grailsApplication = Holders.getGrailsApplication()
 //        def rootImageFolder =  grailsApplication.config.my.global.variable;
@@ -693,7 +693,7 @@ class AdminController {
         }
         redirect(action: "listOfCourse")
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def loadSubject = {
         def programType = ProgramType.findById(Long.parseLong(params.type))
         def subjectList = Subject.findAllByProgramTypeId(programType)
@@ -702,7 +702,7 @@ class AdminController {
         render response as JSON
     }
 
-    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN","ROLE_ACCOUNT"])
     def searchStudentName = {
         def sessionList = Student.createCriteria().list {
             projections {
@@ -712,7 +712,7 @@ class AdminController {
         println(sessionList)
         [sessionList: sessionList]
     }
-    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def searchStudentList = {
         def returnMap = [:]
         def studyOfFName = []
@@ -745,7 +745,7 @@ class AdminController {
 
         render returnMap as JSON
     }
-    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def generateCustomChallan={
 
     }

@@ -12,7 +12,7 @@ class ProgramFeeController {
     def programFeeService
     def feeDetailService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def listOfFeeType = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         def c=FeeSession.createCriteria()
@@ -199,7 +199,7 @@ class ProgramFeeController {
         }
         redirect(action: "addFeeType")
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def viewExistingFeeType = {
         def feeTypeList = FeeType.findAllByShowValue(true);
         [feeTypeList: feeTypeList]
@@ -225,13 +225,13 @@ class ProgramFeeController {
         }
     }
 
-    @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER"])
+    @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER", "ROLE_ACCOUNT"])
     def getProgramSession = {
         println("hello kuldeep")
      def programSessions=   programFeeService.getProgramSessions(params)
         render programSessions as JSON
     }
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def isFeeCreated = {
         def response
         try{

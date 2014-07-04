@@ -24,7 +24,7 @@ class ExaminationCenterController {
         }
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def viewExaminationCentre(){
 
         def districtList=District.list(sort:'districtName')

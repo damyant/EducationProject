@@ -32,7 +32,7 @@ class AdmitCardController {
         [programList: programList, studyCentreList: studyCentreList, examinationCentre: examinationCentre]
 
     }
-    @Secured(["ROLE_ADMIN"])
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def bulkCreationOfAdmitCard = {
         def programList = ProgramDetail.list(sort: 'courseCode')
         def studyCentreList = StudyCenter.list()

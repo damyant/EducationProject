@@ -75,7 +75,7 @@ class FeeDetailsController {
         [filterType: filterType, programList: programList, studyCentre: studyCentre]
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def getStudentList() {
         def responseMap = [:]
         def stuList = feeDetailService.provisionalStudentList(params)
@@ -578,11 +578,11 @@ class FeeDetailsController {
         resultMap.studentId = studentId
         render resultMap as JSON
     }
-    @Secured(["ROLE_ADMIN"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def feeStatusForRollNumber = {
 
     }
-    @Secured(["ROLE_ADMIN"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def checkRollNoFeeStatus = {
         def resultMap = [:]
         resultMap = feeDetailService.rollNumberFeeStatus(params)

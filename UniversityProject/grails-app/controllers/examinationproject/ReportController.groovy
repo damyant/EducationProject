@@ -9,7 +9,7 @@ class ReportController {
     def reportService
     def pdfRenderingService
     def springSecurityService
-    @Secured(["ROLE_ADMIN", "ROLE_STUDY_CENTRE"])
+    @Secured(["ROLE_ADMIN", "ROLE_STUDY_CENTRE", "ROLE_ACCOUNT"])
 
 
     def index ={

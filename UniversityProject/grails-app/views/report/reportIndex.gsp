@@ -32,10 +32,10 @@
             </li></a></div>
             </div>
         </sec:ifAnyGranted>
-        <sec:ifAnyGranted roles="ROLE_IDOL_USER, ROLE_STUDY_CENTRE ">
+        <sec:ifAnyGranted roles="ROLE_IDOL_USER, ROLE_STUDY_CENTRE, ROLE_ACCOUNT">
                 <div id="session"> <a href="#"> <li>By Session </li></a></div>
         </sec:ifAnyGranted>
-        <sec:ifAnyGranted roles="ROLE_IDOL_USER">
+        <sec:ifAnyGranted roles="ROLE_IDOL_USER, ROLE_ACCOUNT">
                 <div id="sessions"> <a href="#"> <li>By Sessions</li></a></div>
                 <div id="course"> <a href="#"> <li>By Programme</li></a></div>
                 <div id="comparativeReport"> <a href="#">   <li>Comparative Enrolment Report</li></a></div>

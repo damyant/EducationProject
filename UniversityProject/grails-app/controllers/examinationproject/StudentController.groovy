@@ -196,7 +196,7 @@ class StudentController {
 
     }
 
-    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
         def programList=ProgramDetail.list(sort: 'courseCode')
@@ -210,7 +210,7 @@ class StudentController {
         response.outputStream << image
     }
 
-    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def enrollmentAtIdol={
         def studyCentre
         def programList =[]
@@ -373,7 +373,7 @@ class StudentController {
         def miscellaneousFeeChallan = FeeDetails.findById(student.id)
         [studInstance:student,feeDetails: feeDetails]
     }
-    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def customChallanSave={
         println(params)
         def resultMap = studentRegistrationService.saveCChallan(params)
