@@ -95,7 +95,7 @@ jQuery(function ($) {
 });
 function checkApplicationNumber(t) {
     var data = $(t).val();
-    var programme = $('#programId').val
+    var programme = $('#programId').val()
     $.ajax({
         type: "post",
         url: url('student', 'checkApplicationNo', ''),
@@ -161,6 +161,9 @@ function confirmGenerateChallan(rollno) {
             $("#errorMessage").text('Fees Not Yet Entered For the Programme and Roll No is ' + rollno)
         }
     });
+}
+function enableApplicationNo(){
+    $("#applicationNo").prop("disabled",false)
 }
 function loadProgramFeeAmount(t){
     if($('#admissionFeeAmount').length>0){

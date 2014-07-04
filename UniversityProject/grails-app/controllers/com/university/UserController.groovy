@@ -162,7 +162,6 @@ class UserController {
 
     @Secured(["ROLE_ADMIN"])
     def updateUser = {
-        println("hello kuldeeppppppppppppppppppppppppppp" + params)
         def UserInstance = User.get(params.id)
         if (UserInstance) {
             if (params.version) {
@@ -236,7 +235,7 @@ class UserController {
     }
 
     def assignCourse(){
-        println('these are the parameters '+params)
+//        println('these are the parameters '+params)
 
 
         def programList = ProgramDetail.list(sort: 'courseCode')

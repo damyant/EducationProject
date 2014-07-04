@@ -382,7 +382,7 @@ function openPopUp(value){
         $('#sessionDialog').dialog('open')
     }
     else if(value==24){
-        alert('24')
+//        alert('24')
         $('tr').hide()
         $('#flagValue').val('paymentModeReport')
         $("#byPaymentModeReport").show()

@@ -28,7 +28,7 @@ class ReportService {
          def totalForSession=0
          def studyCenterId=0
          def currentUser=springSecurityService.getCurrentUser()
-         println("-------------------------------"+currentUser)
+//         println("-------------------------------"+currentUser)
          def programList = ProgramDetail.list(sort: 'courseCode')
          if(currentUser.studyCentreId && params.inExcel){
              def status
@@ -121,8 +121,8 @@ class ReportService {
             totalByCategory.add(j,0)
             j++
         }
-        println("---------------------------------------------------------------"+ categoryList)
-        println("---------------------------------------------------------------"+ totalByCategory)
+//        println("---------------------------------------------------------------"+ categoryList)
+//        println("---------------------------------------------------------------"+ totalByCategory)
 
         def finalStudentMap = [:]
         def programList = ProgramDetail.list(sort: 'courseCode')
@@ -207,11 +207,11 @@ class ReportService {
             wbSettings.setLocale(new Locale("en", "EN"));
             WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
             def studyCentreName = StudyCenter.findById(Long.parseLong(params.studyCentre))
-            println("this is the name of studtycentre " + studyCentreName.name)
+//            println("this is the name of studtycentre " + studyCentreName.name)
             int sheetNo=0
             programList.each {
                 def pId= it.id
-                println(params.studyCentreSession+" course name "+ it.courseName)
+//                println(params.studyCentreSession+" course name "+ it.courseName)
                 def stuObj= Student.createCriteria()
                 def count = stuObj.list{
                     programDetail{
@@ -227,7 +227,7 @@ class ReportService {
                         eq('status', Status.findById(4))
                     }
                 }
-                println(pId+ "--"+params.studyCentre +"------------------"+count)
+//                /println(pId+ "--"+params.studyCentre +"------------------"+count)
                  status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCentreName.name, session)
                 sheetNo= sheetNo+1
             }
@@ -295,7 +295,7 @@ class ReportService {
                         eq('status', Status.findById(4))
                     }
                 }
-                println("--------------"+count)
+//                println("--------------"+count)
                 status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, null, session)
                 sheetNo= sheetNo+1
             }
@@ -304,7 +304,7 @@ class ReportService {
             return status
         }
         else{
-            println("in else")
+//            println("in else")
             programList.each {
                 def pId= it.id
                 def stuObj= Student.createCriteria()
@@ -527,8 +527,8 @@ class ReportService {
               toDate = df.parse(params.studyCentreFeeToDate)
         }
         toDate.setHours(24)
-        println(fromDate)
-        println(" and to date is "+ toDate)
+//        println(fromDate)
+//        println(" and to date is "+ toDate)
         def feeType = FeeType.list(sort:'type');
         int finalTotal =0
         int i=1
@@ -547,7 +547,7 @@ class ReportService {
 
                  }
                 int totalForList =0
-                println("this is the count "+  musFeeList)
+//                /println("this is the count "+  musFeeList)
                 if(musFeeList){
                     finalMap.add(musFeeList)
                     musFeeList.each{
@@ -564,7 +564,7 @@ class ReportService {
     }
 
     def getReportDataPaymentMode(params){
-        println('these are the parameterssssssssssss '+params)
+//        println('these are the parameterssssssssssss '+params)
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         def fromDate = df.parse(params.paymentModeFromDate)
         def toDate = df.parse(params.paymentModeToDate)
@@ -581,7 +581,7 @@ class ReportService {
             }
 
         }
-        println(",.,.,,.,.,.,.,.,.,..,.,.,. "+feeList)
+//        println(",.,.,,.,.,.,.,.,.,..,.,.,. "+feeList)
         return feeList
     }
 
@@ -645,7 +645,7 @@ class ReportService {
         return finalStudentMap
     }
     def getReportDataStudentCategory(params, excelPath){
-        println(params.categoryStudentListSession+"--------------------------"+params.studentCategory)
+//        println(params.categoryStudentListSession+"--------------------------"+params.studentCategory)
         def session =  params.categoryStudentListSession
         File file = new File(excelPath);
         WorkbookSettings  wbSettings = new WorkbookSettings();
@@ -724,7 +724,7 @@ class ReportService {
         def finalMap =[:]
         def feeFromDate
         def feeToDate
-        println("Report Service --> getReportDataDailyFeePaid--> Parameters Values :: "+ params)
+//        println("Report Service --> getReportDataDailyFeePaid--> Parameters Values :: "+ params)
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
          feeFromDate = df.parse(params.feeFromDate)
          feeToDate = df.parse(params.feeToDate)
@@ -751,7 +751,7 @@ class ReportService {
             finalMap.put("a"+i, feeList)
             i=i+1
             finalMap.put(it.type+' Total', totalForList)
-                println("List Value --> "+ feeList)
+//                println("List Value --> "+ feeList)
                 return feeList
         }
 
@@ -760,7 +760,7 @@ class ReportService {
         def examinationVenueIns = ExaminationVenue.findById(Long.parseLong(params.examinationCentreCumulative))
         def program = ProgramExamVenue.findAllByExamVenue(examinationVenueIns)
         def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
-        println('max no of course '+ course)
+//        println('max no of course '+ course)
 
         if(params.examinationCentreCumulativeSchedule=='July'){
             program.each{
@@ -785,7 +785,7 @@ class ReportService {
                                 groupProperty('semester')
                             }
                     }
-                    println("this is the result of the query "+studentList+' for the course '+pid+' for the semester '+i)
+//                    println("this is the result of the query "+studentList+' for the course '+pid+' for the semester '+i)
                 }
             }
         }
@@ -812,7 +812,7 @@ class ReportService {
                             groupProperty('semester')
                         }
                     }
-                    println("this is the result of the query "+studentList+' for the course '+pid+' for the semester '+i)
+//                    println("this is the result of the query "+studentList+' for the course '+pid+' for the semester '+i)
                 }
             }
         }
@@ -862,7 +862,6 @@ class ReportService {
                         if(stuList){
                             if(params.value =='sessionProgramWiseFeePaid'){
                                     def count = FeeDetails.findAllByStudentInListAndFeeTypeAndSemesterValueAndIsApproved(stuList,FeeType.findById(3), Integer.parseInt(params.programTerm), Status.findById(4))
-                                println("hello kuldeeppppppppppppppp "+count)
                                     if(count){
                                         status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
                                         sheetNo= sheetNo+1
@@ -908,7 +907,7 @@ class ReportService {
             }
         }
         else{
-            println('in else' +params.dailyAdmissionStudyCentre)
+//            println('in else' +params.dailyAdmissionStudyCentre)
             stuList = stuObj.list{
                 studyCentre{
                     eq('id' , Long.parseLong(params.dailyAdmissionStudyCentre))
@@ -921,7 +920,7 @@ class ReportService {
                 }
             }
         }
-        println("this is the list of students "+ stuList)
+//        println("this is the list of students "+ stuList)
         return stuList
     }
 }

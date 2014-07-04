@@ -19,11 +19,6 @@ class ProgramFeeController {
         def programFeeInstanceList=c.list(params){
 
         }
-        programFeeInstanceList.each{
-            println(it.miscellaneousFee)
-        }
-
-
         [programFeeInstanceList:programFeeInstanceList, admissionFeeTotal: FeeSession.count()]
     }
 
@@ -227,7 +222,6 @@ class ProgramFeeController {
 
     @Secured(["ROLE_ADMIN", "ROLE_IDOL_USER", "ROLE_ACCOUNT"])
     def getProgramSession = {
-        println("hello kuldeep")
      def programSessions=   programFeeService.getProgramSessions(params)
         render programSessions as JSON
     }

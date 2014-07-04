@@ -20,7 +20,7 @@ class DistrictController {
 
     @Transactional
     def saveDistrict() {
-        println(params)
+//        println(params)
 
         if (new District(districtName: params.districtName, stateId: 1).save(flush: true)) {
             flash.message = "District Added SuccessFully "
@@ -38,7 +38,7 @@ class DistrictController {
 
     @Transactional
     def updateDistrict() {
-        println("params" + params)
+//        println("params" + params)
 
         def districtInstance = District.findById(Integer.parseInt(params.districtId))
         districtInstance.districtName = params.districtName
@@ -52,7 +52,7 @@ class DistrictController {
 
     @Transactional
     def deleteDistrict() {
-        println("params" + params)
+//        println("params" + params)
         def districtInstance = District.findById(Integer.parseInt(params.districtId))
         try {
             districtInstance.delete(flush: true)

@@ -109,8 +109,8 @@ class AdmitCardController {
         } else {
             programlist = ProgramDetail.findByIdAndProgramType(params.data, catagory).noOfTerms
         }
-        println("catagory>>>> " + catagory.type)
-        println("programlist>>>> " + programlist)
+//        println("catagory>>>> " + catagory.type)
+//        println("programlist>>>> " + programlist)
         resultMap.programlist = programlist
         render resultMap as JSON
 
@@ -262,7 +262,7 @@ class AdmitCardController {
         render resultMap as JSON
     }
     def submitSignatureImage = {
-        println("---------------------------------------------------->"+params)
+//        println("---------------------------------------------------->"+params)
         def signature = request.getFile('signature')
         def admitInst
         if (AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examVenue))) {
@@ -289,7 +289,7 @@ class AdmitCardController {
     def SingleAdmitCardGenerate={
     }
     def generateSingleAdmitCard={
-        println("-------------"+params)
+//        println("-------------"+params)
         def stuList = [], mode = [], examType = [], courseName = []
         def status
         def admitInst=null
@@ -317,7 +317,7 @@ class AdmitCardController {
             flash.message = "Admission and Examination Fee Not Paid or Approved."
 //            redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
         }
-        println("+++++++++++++++++++++++++"+stuList)
+//        println("+++++++++++++++++++++++++"+stuList)
         if (stuList[0]) {
             def programSessionIns= ProgramSession.findById(stuList[0].programSession.id)
             def subjectList = CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester, stuList[0].programSession), programSessionIns)*.subject
@@ -368,7 +368,7 @@ class AdmitCardController {
         def args = [template: "printAdmitCard", model: [studentInstance: stuList,examTime:examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
     } else {
-            println("errrrrrrrrrr")
+//            println("errrrrrrrrrr")
 //        flash.message = "Roll Number or Term must be wrong or Admit Card Already Generated."
         redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
     }

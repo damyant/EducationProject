@@ -36,7 +36,7 @@ class BankController {
 
     @Transactional
     def updateBank() {
-        println("params"+params)
+//        println("params"+params)
 
       def bankInstance = Bank.findById(Integer.parseInt(params.bankId))
         bankInstance.bankName = params.bankName
@@ -47,7 +47,7 @@ class BankController {
 
 @Transactional
     def deleteBank() {
-        println("params"+params)
+//        println("params"+params)
         def bankInstance = Bank.findById(Integer.parseInt(params.bankId))
        try {
            bankInstance.delete(flush: true)

@@ -28,9 +28,9 @@ class CourseController {
     }
 
     def getCourseByCategory() {
-        println("these are the params " + params)
+//        println("these are the params " + params)
         def subObj = Subject.findAllByProgramTypeId(ProgramType.findById(Long.parseLong(params.courseType)))
-        println("------------" + subObj)
+//        println("------------" + subObj)
         render subObj as JSON
 
 
@@ -191,7 +191,7 @@ class CourseController {
         } else {
             flash.message = "Unable to Save Course Successfully."
             subjectIns.errors.each {
-                println it
+//                println it
             }
         }
 

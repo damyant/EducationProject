@@ -25,7 +25,7 @@
     <div>Guwahati, Assam</div>
 
 </p>
-    <div style="font-weight: bold;width: 100%;text-align: center;">Admission Fee for Term ${term}
+    <div style="font-weight: bold;width: 100%;text-align: center;">${feeTypeName} for Term ${term}
     </div>
     <table style="width: 80%;margin: auto; text-align: center;">
         <tr>
