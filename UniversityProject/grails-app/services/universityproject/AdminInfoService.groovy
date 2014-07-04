@@ -40,7 +40,7 @@ def springSecurityService
                 isNull('rollNo')
             }
         }
-        println("list of students "+ stuList+"-----------------"+params.programId)
+//        println("list of students "+ stuList+"-----------------"+params.programId)
         return  stuList
 
 
@@ -82,7 +82,7 @@ def springSecurityService
 
         }
 
-        println("??????"+examTimeList)
+//        println("??????"+examTimeList)
 
         for(def i=0;i<dateList.examDate.size();i++){
 
@@ -111,21 +111,21 @@ def springSecurityService
         SimpleDateFormat f1 = new SimpleDateFormat("dd/MM/yyyy");
         def subjectList=params.subjectIdList.split(",")
         def count=0
-        println("+++++++++"+params)
+//        println("+++++++++"+params)
 
         def sessionObj=ProgramSession.findById(Long.parseLong(params.SessionList))
         subjectList.each{
 //            println("@@@@@@@"+Subject.findById(Long.parseLong(it)))
 //            println("@@@@@@@"+sessionObj)
          def courseSubjectObj=CourseSubject.findBySubjectAndProgramSession(Subject.findById(Long.parseLong(it)),sessionObj)
-            println("###33333"+courseSubjectObj.programSession+courseSubjectObj.courseDetail)
+//            println("###33333"+courseSubjectObj.programSession+courseSubjectObj.courseDetail)
           def dateList =[]
           def timeList = []
             dateList.addAll(params.examinationDate)
           if(dateList[count]){
-             println("innnnnnnnnnn"+params.examinationDate[count])
+//             println("innnnnnnnnnn"+params.examinationDate[count])
             courseSubjectObj.examDate=f1.parse(dateList[count])
-             println("Date is in if"+courseSubjectObj.examDate)
+//             println("Date is in if"+courseSubjectObj.examDate)
           }
           else{
              courseSubjectObj.examDate=null
@@ -210,7 +210,7 @@ def springSecurityService
         }
         subjectMap.status=status
         subjectMap.feeStatus=feeStatus
-        println(status)
+//        println(status)
         return  subjectMap
     }
     def savePayInSlip(params){

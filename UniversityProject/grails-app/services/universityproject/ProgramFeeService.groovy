@@ -97,7 +97,7 @@ class ProgramFeeService {
 //            misFeeIns.programSession
         }
         }catch(Exception e){
-            println("??????????????"+e)
+//            println("??????????????"+e)
         }
         return status
     }
@@ -108,8 +108,8 @@ class ProgramFeeService {
         def admissionFeeIns,sessionObj
         def programDetailIns = ProgramDetail.findById(Integer.parseInt(params.programDetailId))
         def session = FeeSession.count()
-        println("<<<<<<<<<<<<<<<<<"+params.programSessionId)
-        println("session<<<<<<<<<<<<<<<<<"+session)
+//        println("<<<<<<<<<<<<<<<<<"+params.programSessionId)
+//        println("session<<<<<<<<<<<<<<<<<"+session)
 
         if (session > 0) {
             if (FeeSession.findByProgramDetailIdAndSessionOfFee(programDetailIns,params.programSessionId)) {
@@ -119,7 +119,7 @@ class ProgramFeeService {
             sessionObj = new FeeSession(sessionOfFee: params.programSessionId, programDetailId:programDetailIns).save(flush: true, failOnError: true)
             newSessionStatus=true
         }
-        println("______________"+params.term)
+//        println("______________"+params.term)
         if(newSessionStatus==false) {
             if(AdmissionFee.findByFeeSessionAndTerm(sessionObj,Integer.parseInt(params.semesterList))){
                 admissionFeeIns = AdmissionFee.findByFeeSessionAndTerm(sessionObj,Integer.parseInt(params.semesterList))
@@ -194,7 +194,7 @@ class ProgramFeeService {
             programSessions.add(new ProgramSession(sessionOfProgram: currentSession))
             programSessions.add(new ProgramSession(sessionOfProgram: nextSession))
 //
-            println("ProgramSession"+programSessions)
+//            println("ProgramSession"+programSessions)
             }catch(Exception ex){
                 println("..........Problem in creating program session for programs"+ex)
          }

@@ -28,7 +28,7 @@ class WriteExcelService {
     private WritableCellFormat times;
     private WritableCellFormat times1;
    Boolean excelReport(params, finalList, course, sheetNo, WritableWorkbook workbook, studyCentreName, session){
-       println("creating this sheet "+ sheetNo)
+//       println("creating this sheet "+ sheetNo)
        WritableSheet sheet= null
        WritableSheet excelSheet=null
        sheet = workbook.createSheet(""+course.courseName, sheetNo);
@@ -44,7 +44,7 @@ class WriteExcelService {
 
     private void createLabel(WritableSheet sheet, params, course, studyCentreName, session )
             throws WriteException {
-        println("calling this method")
+//        println("calling this method")
         def formatSession = Integer.parseInt(session)+1
         // Lets create a times font
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 12);
@@ -105,7 +105,7 @@ class WriteExcelService {
 
     void createContent(WritableSheet sheet, List finalList) throws WriteException,
             RowsExceededException {
-        println("now creating contents")
+//        println("now creating contents")
         // Write a few number
         for (int i = 0; i < finalList.size(); i++) {
             int j = 0

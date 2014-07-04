@@ -17,7 +17,7 @@ class AdmitCardService {
 
 
     def getStudents(params) {
-        println('these are the params ' + params)
+//        println('these are the params ' + params)
         def obj = Student.createCriteria()
         def studentList=[]
         def stuList = obj.list {
@@ -40,7 +40,7 @@ class AdmitCardService {
                 eq('admitCardGenerated', false)
             }
         }
-        println("list " + stuList)
+//        println("list " + stuList)
         stuList.each {
             def stuAdmissionFeeInst = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(it, Integer.parseInt(params.programTerm), FeeType.findById(3), Status.findById(4))
             if (stuAdmissionFeeInst) {

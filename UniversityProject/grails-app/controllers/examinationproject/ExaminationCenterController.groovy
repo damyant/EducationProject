@@ -15,7 +15,7 @@ class ExaminationCenterController {
     def saveExaminationCentre = {
 //        println("hello kuldeep in examination centre")
         Boolean flag = examinationCentreService.saveCentres(params)
-        println("*********")
+//        println("*********")
         if(flag){
             render   "${message(code: 'centre.created.message')}"
         }
@@ -44,7 +44,7 @@ class ExaminationCenterController {
             centre.name = result.name
             centre.id = result.id
             centre.assocaitedExamVenue=associatedExamVenue
-            println("???????????")
+//            println("???????????")
             render centre as JSON
         } else {
             render "<h5>No Examination Centre Found</h5>"
@@ -246,7 +246,7 @@ class ExaminationCenterController {
             try {
 
                 def status=examinationCentreService.deletionCity(params)
-                println(status)
+//                println(status)
                 if(status) {
                     flash.message = "City Removed Successfully"
 

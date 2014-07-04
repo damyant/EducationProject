@@ -141,11 +141,11 @@ class StudentRegistrationService {
             if (photographe.bytes)
                 studentRegistration.studentImage = photographe.bytes
         } else {
-            studentRegistration.applicationNo = params.applicationNo
+            studentRegistration.applicationNo = ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear+""+params.applicationNo
         }
         studentRegistration.semester = 1
         studentRegistration.admitCardGenerated = false
-        println('This is the final studycentre going to save '+studentRegistration.studyCentre)
+//        println('This is the final studycentre going to save '+studentRegistration.studyCentre)
         if (studentRegistration.save(flush: true, failOnError: true)) {
             if (!springSecurityService.isLoggedIn()) {
                 def feeDetails = new FeeDetails()
@@ -180,9 +180,9 @@ class StudentRegistrationService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
             String courseCodeStr = course[0].courseCode.toString()
-            println("-----------------------"+ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear)
+//            println("-----------------------"+ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear)
             String yearCode = (ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear).toString().substring(2, 4)
-            println("--------------------yearcode---"+yearCode)
+//            println("--------------------yearcode---"+yearCode)
             int rollNo = 1
             String rollTemp = null
             int rollTemp1 = 0
@@ -279,7 +279,7 @@ class StudentRegistrationService {
             }
             def studentIdList = params.studentList.split(",")
             if (studentByYearAndCourse.get(0).rollNo) {
-                println("In if")
+//                println("In if")
                 rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
                 for (int i = 1; i <= studentIdList.size(); i++) {
                     rollTemp1 = Integer.parseInt(rollTemp) + i
@@ -354,7 +354,7 @@ class StudentRegistrationService {
     }
 
     def seedStudent(params) {
-        println("Start Time" + new Date())
+//        println("Start Time" + new Date())
         def students
         Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)
 
@@ -394,7 +394,7 @@ class StudentRegistrationService {
 
         //At IDOL
         for (int i = 250; i < 750; i++) {
-            println("Student Number is " + i)
+//            println("Student Number is " + i)
             students = new Student()
             students.firstName = "StudentAtIDOL" + i
             students.lastName = "Test"
@@ -419,11 +419,11 @@ class StudentRegistrationService {
                 println("????????" + e.printStackTrace())
             }
         }
-        println("End Time" + new Date())
+//        println("End Time" + new Date())
     }
 
     def getChallanNumber() {
-        println('getting challan no now')
+//        println('getting challan no now')
         int serialNo = 1
         SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd"); // Just the year
         def date = (sdf.format(Calendar.getInstance().getTime()))
@@ -448,14 +448,14 @@ class StudentRegistrationService {
                     if (custByChallanNo) {
                         if (Integer.parseInt(feeDetailByChallanNo[0].challanNo)  > Integer.parseInt(custByChallanNo[0].challanNo)) {
                             studentByChallanNo = feeDetailByChallanNo
-                            println('11')
+//                            println('11')
                         }  else {
                             studentByChallanNo = custByChallanNo
-                            println('33')
+//                            println('33')
                         }
                     } else {
                             studentByChallanNo = feeDetailByChallanNo
-                            println('333')
+//                            println('333')
 
                     }
                 }
@@ -500,7 +500,7 @@ class StudentRegistrationService {
             challanNo = challan + challanSr
 
         }
-        println('this is the challan no '+ challanNo)
+//        println('this is the challan no '+ challanNo)
         return challanNo
     }
 
@@ -537,7 +537,7 @@ class StudentRegistrationService {
 
         def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id), sessionVal)
         def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj, 1)
-        println('this is the programFee ' + programFee)
+//        println('this is the programFee ' + programFee)
 
         try {
             def lateFeeDate = student.programDetail.lateFeeDate[0]

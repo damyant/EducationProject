@@ -58,11 +58,11 @@ class ExaminationCentreService {
                 }
             }
             catch (Exception e) {
-                println("????????????")
+//                println("????????????")
             }
         }
 
-        println("enddddddddddddddddddddd")
+//        println("enddddddddddddddddddddd")
         return examinationVenueInsSaved;
     }
 
@@ -71,7 +71,7 @@ class ExaminationCentreService {
 
         if (params) {
             def list = City.findAllById(Integer.parseInt(params.examinationCentre))
-            println("<<<" + list)
+//            println("<<<" + list)
 //            def obj=ExaminationVenue.createCriteria();
 //            def examVenueList=obj.list{
 //                ex
@@ -83,7 +83,7 @@ class ExaminationCentreService {
     }
 
     Boolean updateExaminationCentre(params) {
-        println(params)
+//        println(params)
         Boolean isSaved = false
         def examCentreIns = ExaminationVenue.get(params.id)
 //        examCentreIns.city = City.findById(Integer.parseInt(params.city))

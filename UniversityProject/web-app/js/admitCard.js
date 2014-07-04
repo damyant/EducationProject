@@ -659,12 +659,12 @@ function generateIdentityCard(){
         $("#studentList").val(selectedStudentList)
         var studentList =$("#studentList").val()
         var studentSession=$("#admissionYear").val()
-        alert(studentList+'  /  '+studentSession)
+//        alert(studentList+'  /  '+studentSession)
 //        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue+'&programSessionId='+programSessionId);
         $("#identityCardForm").submit();
 //        studentsSelected(selectedStudentList)
 
-        setTimeout(function(){ getStudentsForAdmitCard()},300);
+        setTimeout(function(){ getStudentsForIdentityCard()},300);
 
         return true;
 

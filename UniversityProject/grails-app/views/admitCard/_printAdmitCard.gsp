@@ -11,11 +11,6 @@
     <meta name="layout" content="main"/>
     <title>Admit Card Print Preview</title>
     <g:resource dir="css" file="gu_stylesheet.css"/>
-    <script type="text/javascript">
-    $( document ).ready(function() {
-    alert("hhhhhh")
-    })
-    </script>
     <style type="text/css">
     @page {
         size: 200mm 190mm;

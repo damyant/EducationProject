@@ -125,7 +125,7 @@ class FeeDetailsController {
         def programType = ProgramType.findById(Long.parseLong(params.type))
         def programList = ProgramDetail.findAllByProgramType(programType)
         def response = [programList: programList]
-        println(response.programList[0].courseName)
+//        println(response.programList[0].courseName)
         render response as JSON
     }
     @Secured("ROLE_STUDY_CENTRE")
@@ -216,7 +216,7 @@ class FeeDetailsController {
 
 
     def challanForStudyCenterStu = {
-        println("***************" + params)
+//        println("***************" + params)
         List<Student> studList = []
         List<AdmissionFee> addmissionFee = []
         studList.clear()
@@ -525,8 +525,8 @@ class FeeDetailsController {
             def sessionVal = year + 1
             sessionVal = year + '-' + sessionVal
             def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(it.student.programDetail[0].id), sessionVal)
-            println("session"+feeSessionObj)
-            println("session"+it.feeType)
+//            println("session"+feeSessionObj)
+//            println("session"+it.feeType)
             courseFee << MiscellaneousFee.findByFeeSessionAndFeeType(feeSessionObj, it.feeType).amount
         }
         def totalFee = 0;
@@ -592,14 +592,14 @@ class FeeDetailsController {
 
     def postAdmissionFeeAtIdol = {
         if(params.amount){
-            println('hello kuldeep')
+//            println('hello kuldeep')
             def feeDetailIns =  FeeDetails.findById(Integer.parseInt(params.misFeeObject))
             def program = feeDetailIns.student.programDetail[0].courseName
-            println('student is '+ feeDetailIns)
+//            println('student is '+ feeDetailIns)
             [misFeeObject:feeDetailIns , amount: params.amount, program:program]
         }
         else{
-            println('data nhi h kuch b')
+//            println('data nhi h kuch b')
         }
 
     }
@@ -635,10 +635,10 @@ class FeeDetailsController {
 //        render returnMap as JSON
 //*******************************************************************************************************
         if (feeType.type == 'Admission Fee') {
-            println('checking for admission fee')
+//            println('checking for admission fee')
             def currFeeObj = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(studObj, Integer.parseInt(params.semester), FeeType.findById(Long.parseLong(params.postFeeType)), Status.findById(4))
             if (currFeeObj) {
-                println('fees of curren sem is paid')
+//                println('fees of curren sem is paid')
                 returnMap.feePaid = true
 
             } else {
@@ -663,20 +663,20 @@ class FeeDetailsController {
                 }
             }
         } else if (feeType.type == 'Certificate Fee') {
-            println('in certivicate fee')
+//            println('in certivicate fee')
             def maxTime
             def currFeeObj = FeeDetails.findByStudentAndFeeTypeAndIsApproved(studObj, FeeType.findById(Long.parseLong(params.postFeeType)), Status.findById(4))
             if (currFeeObj) {
                 returnMap.feePaid = true
             } else {
-                println('in else of certificate fee')
+//                println('in else of certificate fee')
                 def programType = studObj.programDetail[0].programType.id
                 if (programType == 1) {
                     maxTime = studObj.programDetail[0].noOfAcademicYears
                 } else {
                     maxTime = studObj.programDetail[0].noOfTerms
                 }
-                println('this is the semester value ' + maxTime)
+//                println('this is the semester value ' + maxTime)
                 def examFee = FeeType.findByType('Examination Fee')
                 def feeObj = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(studObj, maxTime, examFee, Status.findById(4))
                 if (feeObj) {
@@ -687,7 +687,7 @@ class FeeDetailsController {
                 }
             }
         }
-        println(returnMap)
+//        println(returnMap)
         render returnMap as JSON
     }
 
@@ -724,7 +724,7 @@ class FeeDetailsController {
     }
 
     def challanDetails = {
-        println(params)
+//        println(params)
         def result = feeDetailService.getChallanDetails(params)
         render result as JSON
     }

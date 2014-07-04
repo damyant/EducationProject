@@ -167,7 +167,7 @@ class FeeDetailService {
             def prevProgram = null
             def payableAmount = 0
             def today = new Date()
-            println("this is the size " + stuList.size())
+//            println("this is the size " + stuList.size())
             if (params.program == 'All') {
                 for (int i = 0; i < stuList.size(); i++) {
                     int year = stuList[i].registrationYear
@@ -246,7 +246,7 @@ class FeeDetailService {
                     eq('isApproved', Status.findById(4))
                 not { 'in'('student', Student.findById(studentsWhoFeePaid)) }
             }.student.id.unique()
-            println("<<<<<<<<<<<"+studentsWhoFeePaidPrevious)
+//            println("<<<<<<<<<<<"+studentsWhoFeePaidPrevious)
         }else{
             studentsWhoFeePaidPrevious = feePaidObj.list {
                 eq('feeType', FeeType.findById(params.feeType))
@@ -285,8 +285,8 @@ class FeeDetailService {
         } else {
             print("here-----------"+studentsWhoFeePaidPrevious)
             studentsWhoFeePaidPrevious.each {
-                println(">>>>>>>>>>>>>>"+Student.findById(it).studyCentre[0].id)
-                println(">>>>>>>>>>>>>>"+studyCenterId)
+//                println(">>>>>>>>>>>>>>"+Student.findById(it).studyCentre[0].id)
+//                println(">>>>>>>>>>>>>>"+studyCenterId)
                 if (Student.findById(it).studyCentre[0].id == Integer.parseInt(studyCenterId)) {
                     stuList << Student.findById(it)
                 }
@@ -303,7 +303,7 @@ class FeeDetailService {
             def prevProgram = null
             def payableAmount = 0
             def today = new Date()
-            println("this is the size " + stuList.size())
+//            println("this is the size " + stuList.size())
             if (params.program == 'All') {
                 for (int i = 0; i < stuList.size(); i++) {
                     int year = stuList[i].registrationYear
@@ -365,7 +365,7 @@ class FeeDetailService {
     }
 
     def StudentListForMFee(params) {
-        println(params)
+//        println(params)
         def resultMap = [:]
         def obj = Student.createCriteria()
         def currentUser = springSecurityService.getCurrentUser()
@@ -382,14 +382,14 @@ class FeeDetailService {
             eq('semesterValue', Integer.parseInt(params.semester))
             eq('isApproved', Status.findById(4))
         }.student.id.unique()
-        println("studentsWhoFeePaidAdmission" + studentsWhoFeePaidAdmission)
+//        println("studentsWhoFeePaidAdmission" + studentsWhoFeePaidAdmission)
         if (studentsWhoFeePaidAdmission.size() > 0) {
             studentsWhoFeePaidAdmission.each {
                 if (Student.findById(it).studyCentre[0].id == Integer.parseInt(studyCenterId)) {
                     stuList << Student.findById(it)
                 }
             }
-            println("stuList>>>>>>>>>>>>==========" + stuList)
+//            println("stuList>>>>>>>>>>>>==========" + stuList)
             if (stuList.size() > 0) {
                 def bankName = Bank.list(sort: 'bankName')
                 def paymentMode = PaymentMode.list(sort: 'paymentModeName')
@@ -442,7 +442,7 @@ class FeeDetailService {
     }
 
     def StudentListForCertificate(params) {
-        println(params)
+//        println(params)
         def resultMap = [:]
         def obj = Student.createCriteria()
         def currentUser = springSecurityService.getCurrentUser()
@@ -473,7 +473,7 @@ class FeeDetailService {
                 } else {
                     maxTime = it.programDetail[0].noOfTerms
                 }
-                println('this is the semester value ' + maxTime)
+//                println('this is the semester value ' + maxTime)
                 def examFee = FeeType.findByType('Examination Fee')
                 def feeObj = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(it, maxTime, examFee, Status.findById(4))
                 if (feeObj) {
@@ -587,7 +587,7 @@ class FeeDetailService {
         def studInst = Student.findByRollNo(params.rollNo)
 
         def miscFeeList = FeeDetails.findAllByStudent(studInst)
-            println(miscFeeList)
+//            println(miscFeeList)
         DateFormat df = new SimpleDateFormat("dd-MMM-yyyy")
         def termValue = []
         def miscFeetype = []

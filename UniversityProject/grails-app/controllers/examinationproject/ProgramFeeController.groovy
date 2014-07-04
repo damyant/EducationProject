@@ -19,11 +19,6 @@ class ProgramFeeController {
         def programFeeInstanceList=c.list(params){
 
         }
-        programFeeInstanceList.each{
-            println(it.miscellaneousFee)
-        }
-
-
         [programFeeInstanceList:programFeeInstanceList, admissionFeeTotal: FeeSession.count()]
     }
 

@@ -100,7 +100,7 @@ class StudentController {
                                 lateFee = AdmissionFee.findByFeeSessionAndTerm(FeeSession.findByProgramDetailId(student.programDetail[0]),1).lateFeeAmount
                             }
                         }
-                        println(student.programDetail)
+//                        println(student.programDetail)
                         def feeAmount = AdmissionFee.findByFeeSessionAndTerm(FeeSession.findByProgramDetailId(student.programDetail[0]),1);
                         payableFee = feeAmount.feeAmountAtIDOL + lateFee
                     }
@@ -303,7 +303,7 @@ class StudentController {
             sessionVal= year+'-'+sessionVal
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
             def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1)
-            println('this is the programFee '+programFee)
+//            println('this is the programFee '+programFee)
             try{
                 def lateFeeDate=student.programDetail.lateFeeDate[0]
                 def today=new Date()
@@ -375,7 +375,7 @@ class StudentController {
     }
     @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
     def customChallanSave={
-        println(params)
+//        println(params)
         def resultMap = studentRegistrationService.saveCChallan(params)
         if(resultMap.status){
             def infoMap =[:]
@@ -400,12 +400,8 @@ class StudentController {
         [programList:programList,sessionList:sessionList]
     }
     def getStudentsForIdentityCard={
-        println("---------------"+params)
         def prgramInst=ProgramDetail.findById(Long.parseLong(params.programList))
         def status=Status.findById(4)
-        println("---------------"+params.admissionYear)
-        println("---------------"+prgramInst)
-        println("---------------"+Student.findById(1).identityCardGenerated)
         def stuObj=Student.createCriteria()
         def studentList=stuObj.list{
             programDetail {
@@ -430,22 +426,23 @@ class StudentController {
         }
     }
     def printIdentityCard={
-        println("-------------------------------"+params)
+        def year=Integer.parseInt(params.admissionYear)
+        def fileName=year+"-"+(year+1)
         def studentName=[],studentProgram=[],studentRoll=[],studentDOB=[],studentAddress=[],studentPin=[],studentMobNo=[],stuList=[]
         def studentList = params.studentList.split(",")
         DateFormat df = new SimpleDateFormat("dd-MMM-yyyy")
         studentList.each {
             def studentInst = Student.findById(Integer.parseInt(it.toString()))
             stuList<<studentInst
-            studentName<<studentInst.firstName+" "+studentInst.middleName?studentInst.middleName:""+" "+studentInst.lastName
-            studentProgram<<studentInst.programDetail.courseName
+            studentName<<studentInst.firstName+" "+(studentInst.middleName?studentInst.middleName:"")+" "+studentInst.lastName
+            studentProgram<<studentInst.programDetail[0].courseName
             studentRoll<<studentInst.rollNo
             studentDOB<<df.format(studentInst.dob)
-            studentAddress<<studentInst.studentAddress+"\n"+studentInst.addressTown+" "+studentInst.addressDistrict+"\n"+studentInst.addressState
+            studentAddress<<studentInst.studentAddress+", "+studentInst.addressTown+", "+studentInst.addressDistrict+", "+studentInst.addressState
             studentPin<<studentInst.addressPinCode
             studentMobNo<<studentInst.mobileNo
         }
-        def args = [template: "printIdentityCard", model: [studentInstance: stuList,studentName:studentName], filename: fileName + ".pdf"]
+        def args = [template: "printIdentityCard", model: [studentInstance: stuList,studentMobNo:studentMobNo,studentPin:studentPin,studentAddress:studentAddress,studentDOB:studentDOB,studentRoll:studentRoll,studentProgram:studentProgram,studentName:studentName], filename: fileName + ".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
     }
 }

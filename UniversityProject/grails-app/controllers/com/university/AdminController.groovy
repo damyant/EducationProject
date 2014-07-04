@@ -70,7 +70,7 @@ class AdminController {
         if (params.pageType == "Approve RollNo") {
             status = studentRegistrationService.approvedStudents(params)
         } else {
-            println("Start    " + new Date())
+//            println("Start    " + new Date())
             def studentIdList = params.studentList.split(",")
             rollNumber = studentRegistrationService.getUpdatedStudentRollNumber(params)
         }
@@ -198,7 +198,7 @@ class AdminController {
             if(studentsPaidTill[0].semesterValue+1==Integer.parseInt(params.term)){
 
             challanNo=studentRegistrationService.getChallanNumber()
-            println(params.term)
+//            println(params.term)
             student.migratingStudyCentre=studyCenterId
             if(student.save(failOnError: true)){
                 def feeInst=new FeeDetails()
@@ -703,7 +703,7 @@ class AdminController {
 //        println("dsdsdsds"+params)
         try {
             def status = adminInfoService.deleteTheCourse(params)
-            println(status)
+//            println(status)
             if (status) {
                 flash.message = "Course Removed Successfully"
 
@@ -730,7 +730,7 @@ class AdminController {
                 distinct("registrationYear")
             }
         }
-        println(sessionList)
+//        println(sessionList)
         [sessionList: sessionList]
     }
     @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
