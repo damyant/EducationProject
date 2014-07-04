@@ -291,6 +291,7 @@ def springSecurityService
         def endAdmission_D = df.parse(params.endAdmission_D)
         def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
         programIns.endAdmission_D=endAdmission_D
+        programIns.admissionYear=Integer.parseInt(params.admissionYear)
         programIns.startAdmission_D=startAdmission_D
         if(programIns.save(flush: true, failOnError: true)){
             status=true

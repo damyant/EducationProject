@@ -12,7 +12,7 @@ var totalRows= 0;
 
 $(document).ready(function () {
 
-
+if($('#admitCardForm').length>0){
     var count=0;
    // $("input[name='studentCheckbox']").change(function () {
     $(document).on('change', "input[name='studentCheckbox']", function () {
@@ -31,6 +31,7 @@ $(document).ready(function () {
             $("#remainingCapacity").val(0);
             alert('You can select maximum ' + maxAllowed + ' Students only!!');
         }
+
     });
 
 
@@ -75,6 +76,57 @@ $(document).ready(function () {
         }
 
     });
+}
+
+    if($('#identityCardForm').length>0){
+        var count=0;
+        // $("input[name='studentCheckbox']").change(function () {
+        $(document).on('change', "input[name='studentCheckbox']", function () {
+            $("#from").val("");
+            $("#to").val("");
+            count = $("input[name='studentCheckbox']:checked").length;
+
+        });
+
+
+        $(document).on('change', "input[name='selectAll']", function () {
+            $("#from").val("")
+            $("#to").val("")
+                $('#admitCardTab').find('.rowID').find('input[type="checkbox"]').prop('checked',$("#selectAll").prop("checked"))
+
+            $('input:checked').each(function() {
+                selected.push($(this).attr('id'));
+            });
+            var selectedRows=selected.length-1
+
+            if($("#selectAll").prop('checked')==false){
+            }else{
+                selectedRows=0;
+                selected.length=0;
+            }
+
+        })
+
+        $(document).on('change', "input[name='to']", function () {
+            if($("#from").val().length==0){
+                alert("Please enter range correctly")
+                return false
+            }else{
+                selectRows();
+            }
+
+        });
+        $(document).on('change', "input[name='from']", function () {
+
+            if($("#to").val().length==0 && $("#to").val()==""){
+                return false
+            }else{
+                selectRows();
+            }
+
+        });
+    }
+
 });
 
 
@@ -154,6 +206,30 @@ function getSemester(t){
                 for (var i = 1; i <= data.totalSem; i++) {
                     $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
                 }
+                for (var i = 0; i < data.session.length; i++) {
+                    $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
+                }
+            }
+        })
+    }
+    else{
+        $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+        $("#SessionList").empty().append('data <option value="">Select Session</option>')
+        $("#sessionType").val(0)
+        $("#subjectList").empty();
+    }
+}
+
+function getSession(t){
+    var data = $(t).val();
+    if(data){
+        $.ajax({
+            type: "post",
+            url: url('admitCard', 'getSemesterList', ''),
+            data: {data: data},
+            success: function (data) {
+
+                $("#SessionList").empty().append('data <option value="">Select Session</option>')
                 for (var i = 0; i < data.session.length; i++) {
                     $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
                 }
@@ -370,6 +446,71 @@ function getStudentsForAdmitCard(){
     });
 }
 
+function getStudentsForIdentityCard(){
+
+    $.ajax({
+        type: "post",
+        url: url('student', 'getStudentsForIdentityCard', ''),
+        data: $("#identityCardForm").serialize(),
+        success: function (data) {
+
+            $('#admitCardTab').find("tr:gt(0)").remove();
+            if(data.length!=undefined){
+                $('#studentListTable').prop('hidden', false)
+                $('#studentListPrint').prop('hidden', false)
+                $('#studentListPrintButton').prop('hidden', false)
+                var count=1;
+                for(var i=0;i<data.length;i++){
+                    $('#admitCardTab tbody').append('<tr class="rowID"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].firstName+' '+data[i].lastName+'</td></tr>')
+                    ++count;
+                }
+                totalRows=count;
+                document.getElementById("paginationDiv").style.visibility = "visible";
+                $table_rows = $('#admitCardTab tbody tr');
+
+                var table_row_limit = 10;
+
+                var page_table = function(page) {
+
+                    // calculate the offset and limit values
+                    var offset = (page - 1) * table_row_limit,
+                        limit = page * table_row_limit;
+
+                    // hide all table rows
+                    $table_rows.hide();
+
+                    // show only the n rows
+                    $table_rows.slice(offset, limit).show();
+
+                }
+                var pageNo=0
+                if($table_rows.length % table_row_limit){
+                    pageNo=parseInt(parseInt($table_rows.length) / table_row_limit)+1
+                }
+                else{
+                    pageNo=parseInt($table_rows.length / table_row_limit)
+                }
+//                alert(5%5)
+                $('.pagination').jqPagination({
+                    max_page: pageNo,
+                    paged: page_table
+                });
+                page_table(1);
+            }
+            else{
+                document.getElementById("paginationDiv").style.visibility = "hidden";
+                $('#showErrorMessage').prop('hidden', false)
+                $('#showErrorMessage').text('No Students Found');
+                $('#studentListTable').prop('hidden', true)
+                $('#studentListPrint').prop('hidden', true)
+                $('#studentListPrintButton').prop('hidden', true)
+//                  setTimeout(function(){  $('#showErrorMessage').hide(); }, 8000);
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}
 
 
 function showExamVenueList1(){
@@ -501,10 +642,37 @@ function generateAdmitCard(){
         alert("Select the student first.");
         return false;
     }
+}
 
+function generateIdentityCard(){
 
+    var selectedStudentList=[]
+    if ($("input[name=studentCheckbox]:checked").length != 0) {
+        $("input[name=studentCheckbox]:checked").each(function (i) {
 
+            if ($(this).attr("checked", true)) {
+                selectedStudentList[i] = $(this).attr("id");
 
+            }
+
+        })
+        $("#studentList").val(selectedStudentList)
+        var studentList =$("#studentList").val()
+        var studentSession=$("#admissionYear").val()
+        alert(studentList+'  /  '+studentSession)
+//        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue+'&programSessionId='+programSessionId);
+        $("#identityCardForm").submit();
+//        studentsSelected(selectedStudentList)
+
+        setTimeout(function(){ getStudentsForAdmitCard()},300);
+
+        return true;
+
+    }
+    else {
+        alert("Select the student first.");
+        return false;
+    }
 }
 
 function studentsSelected(selectedStudentList){
@@ -558,6 +726,24 @@ function loadTermFromRollNo(t){
         success: function (data) {
             for(var i=1; i<=data.term;i++)
             $('#semesterList').append('<option value="'+i+'">'+i+'</option> ')
+        }
+    })
+}
+
+function loadTermAndVenueFromRollNo(t){
+    var data = $(t).val();
+    $.ajax({
+        type: "post",
+        url: url('admin', 'loadTermAndVenueFromRollNo', ''),
+        data: {data:data},
+        success: function (data) {
+            for(var i=1; i<=data.term;i++){
+                $('#semesterList').append('<option value="'+i+'">'+i+'</option> ')
+            }
+            for(var j=0; j<data.examVenue.length;j++){
+                $('#examCenterList').append('<option value="'+data.examVenue[j].id+'">'+data.examVenue[j].name+'</option> ')
+            }
+
         }
     })
 }

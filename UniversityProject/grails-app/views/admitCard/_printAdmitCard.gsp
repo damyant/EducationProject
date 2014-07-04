@@ -11,6 +11,11 @@
     <meta name="layout" content="main"/>
     <title>Admit Card Print Preview</title>
     <g:resource dir="css" file="gu_stylesheet.css"/>
+    <script type="text/javascript">
+    $( document ).ready(function() {
+    alert("hhhhhh")
+    })
+    </script>
     <style type="text/css">
     @page {
         size: 200mm 190mm;
@@ -73,10 +78,15 @@
                         <td rowspan="3" style="width: 20%;">
                             <div id="profile-image" style="float: right;">
                                 <g:if test="${student?.studentImage}">
-                                    <rendering:inlineJpeg bytes="${student?.getStudentImage()}"
-                                                          class="university-registration-photo"
-                                                          style="margin:auto; width: 110px;"/>
+                                    <rendering:inlineJpeg bytes="${student?.getStudentImage()}" class="university-registration-photo" style="margin:auto; width: 110px;"/>
                                 </g:if>
+                                <g:else>
+                                    <div style="margin:auto; height: 130px;width:110px;text-align: center ; vertical-align:middle;border: 1px solid;">
+                                        <div style="margin: 20px 0px;">
+                                            Affix Passport Size Photo
+                                        </div>
+                                    </div>
+                                </g:else>
                             </div>
                         </td>
                     </tr>
@@ -103,9 +113,9 @@
                             <div style="width: 100%;">
                                 <div style="width: 25%;float: left;font-size: 12px;"><b>Examination:</b></div>
                                 <i><b><label id="mode">Previous/Semester</label> Examination <label
-                                        id="year">${year}</label></b><label
-                                        style="font-size: 12px;">Under the Institute of Distance and Open Learning for</label><b>${student.programDetail[0].courseName}
-                                    <g:if test="${student?.programDetail?.programType == ProgramType?.findById(1)}"><label>Term ${student.programDetail[0].noOfAcademicYears}</label></g:if><g:else><label>Semester ${student.programDetail[0].noOfTerms}</label></g:else>
+                                        id="year">${year} </label></b><label
+                                        style="font-size: 12px;">Under the Institute of Distance and Open Learning for </label><b>${student.programDetail[0].courseName}
+                                    <g:if test="${student?.programDetail?.programType == ProgramType?.findById(1)}"><label> Term ${student.programDetail[0].noOfAcademicYears} </label></g:if><g:else><label>Semester ${student.programDetail[0].noOfTerms}</label></g:else>
                                 </b></i></div>
                         </td>
                     </tr>

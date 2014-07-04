@@ -44,7 +44,7 @@
 
 <body>
 <div id="main">
-    <fieldset>
+    <fieldset class="form">
         <h3>Generate Pay-In-Slip</h3>
         <g:if test="${params.rollNo == 'generated'}">
             <div class="message"><div class="university-status-message" id=""><g:message
@@ -59,7 +59,7 @@
         <g:form id="generateFeeVoucher" name="generateFeeVoucher" controller="admin" action="generateFeeVoucher">
             <div style="margin-left: 10px;"><label><h6>All [<span
                     class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
-            <table class="linner" style="margin: auto;text-align: center; width: 100%">
+            <table class="inner" style="margin: auto;text-align: center; width: 100%">
                 <tr>
                     <td class="university-size-1-3">
                         <p>Enter Roll Number:<span class="university-obligatory">*</span></p>

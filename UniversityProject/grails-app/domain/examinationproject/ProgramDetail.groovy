@@ -15,12 +15,14 @@ class ProgramDetail {
     int totalCreditPoints
     Date lateFeeDate
     Date startAdmission_D
+    int admissionYear=0
     Date endAdmission_D
     static hasMany = [student: Student]
     static belongsTo = [Student]
     static mapping = {
         id column: "CourseId"
         courseName column: "CourseName"
+        admissionYear column: "AdmissionYear"
         courseCode column: "CourseCode"
         programType column: "ProgramType"
         courseMode column: "CourseMode"
@@ -53,5 +55,6 @@ class ProgramDetail {
         lateFeeDate(nullable: true)
         endAdmission_D(nullable: true)
         startAdmission_D(nullable: true)
+        admissionYear(nullable: true)
     }
 }

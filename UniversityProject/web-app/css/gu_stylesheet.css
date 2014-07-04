@@ -824,7 +824,9 @@ textarea:-moz-placeholder {
 textarea {
     resize: none;
 }
-
+#statusTable{
+    border-bottom: 1px solid darkgrey;
+}
 .ui-datepicker {
     background: #fff;
     border: 1px solid #555;

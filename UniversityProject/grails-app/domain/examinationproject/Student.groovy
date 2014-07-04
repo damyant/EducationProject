@@ -33,6 +33,7 @@ class Student {
     byte[] studentImage
     ProgramSession programSession
     Boolean admitCardGenerated
+    Boolean identityCardGenerated=false
     ExaminationVenue examinationVenue
     Date admissionDate =new Date()
     
@@ -107,6 +108,7 @@ class Student {
         status column: 'StatusId'
         programSession column: 'ProgramSession'
         admitCardGenerated column: 'AdmitCardGenerated'
+        identityCardGenerated column: 'IdentityCardGenerated'
         examinationVenue column: 'examinationVenue'
         challanNo column: 'ChallanNo'
     }

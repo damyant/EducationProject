@@ -1,6 +1,8 @@
 package universityproject
 
 import examinationproject.ExaminationVenue
+import examinationproject.FeeDetails
+import examinationproject.FeeType
 import examinationproject.ProgramSession
 import examinationproject.Status
 import examinationproject.Student
@@ -15,10 +17,10 @@ class AdmitCardService {
 
 
     def getStudents(params) {
-
-        println('these are the params '+ params)
+        println('these are the params ' + params)
         def obj = Student.createCriteria()
-        def studentList = obj.list {
+        def studentList=[]
+        def stuList = obj.list {
             programDetail {
                 eq('id', Long.parseLong(params.programList))
             }
@@ -31,36 +33,39 @@ class AdmitCardService {
             and {
                 eq('status', Status.findById(4))
             }
-
             and {
                 eq('semester', Integer.parseInt(params.programTerm))
             }
             and {
                 eq('admitCardGenerated', false)
-
             }
-
-
         }
-     println("list "+ studentList)
+        println("list " + stuList)
+        stuList.each {
+            def stuAdmissionFeeInst = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(it, Integer.parseInt(params.programTerm), FeeType.findById(3), Status.findById(4))
+            if (stuAdmissionFeeInst) {
+                def stuExamFeeInst = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(it, Integer.parseInt(params.programTerm), FeeType.findById(1), Status.findById(4))
+                if (stuExamFeeInst) {
+                    studentList << it
+                }
+            }
+        }
         return studentList
-
-
     }
 
-    def getStudentByRollNo(user,params){
+    def getStudentByRollNo(user, params) {
 
-        def obj=Student .createCriteria()
-       def stuList= obj.list{
-            studyCentre{
+        def obj = Student.createCriteria()
+        def stuList = obj.list {
+            studyCentre {
                 eq('id', Long.parseLong(user.studyCentreId.toString()))
             }
-            and{
+            and {
                 eq('admitCardGenerated', true)
 
             }
-            and{
-                eq('rollNo',params.rollNumber.trim())
+            and {
+                eq('rollNo', params.rollNumber.trim())
             }
 
         }
@@ -69,14 +74,14 @@ class AdmitCardService {
 
     }
 
-    def getStudentByStudyCenter(user){
+    def getStudentByStudyCenter(user) {
 
-        def obj=Student .createCriteria()
-        def stuList= obj.list{
-            studyCentre{
+        def obj = Student.createCriteria()
+        def stuList = obj.list {
+            studyCentre {
                 eq('id', Long.parseLong(user.studyCentreId.toString()))
             }
-            and{
+            and {
                 eq('admitCardGenerated', true)
 
             }
@@ -87,11 +92,11 @@ class AdmitCardService {
 
     }
 
-    def updateStudentRecord(stuList,examVenueId){
-        def examVenueObj=ExaminationVenue.findById(Long.parseLong(examVenueId))
-        stuList.each{
-            it.admitCardGenerated=true
-            it.examinationVenue=examVenueObj
+    def updateStudentRecord(stuList, examVenueId) {
+        def examVenueObj = ExaminationVenue.findById(Long.parseLong(examVenueId))
+        stuList.each {
+            it.admitCardGenerated = true
+            it.examinationVenue = examVenueObj
             it.save(failOnError: true)
         }
         return true

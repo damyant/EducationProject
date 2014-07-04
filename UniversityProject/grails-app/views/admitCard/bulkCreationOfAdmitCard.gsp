@@ -10,6 +10,8 @@
 <head>
     <title></title>
     <meta name="layout" content="main"/>
+    <g:javascript src='admin.js'/>
+    <g:javascript src='admitCard.js'/>
     <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
 </head>
@@ -47,19 +49,19 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label>Select a Course</label></td>
+                        <td><label>Select a Programme</label></td>
                         <td>
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
                                       from="${programList}" noSelection="['': ' Select Programme']"
-                                      onchange="showExamVenueList(),getSemester(this),enableShowCandidate()"/>
+                                      onchange="showExamVenueList(),loadProgramTerm(),getSession(this),enableShowCandidate()"/>
                         </td>
                         <td></td>
                     </tr>
                     <tr><td><label>Select a Term</label></td>
                         <td>
                             <select name="programTerm" class="university-size-1-1" id="semesterList">
-                                <option value="">Select Semester</option>
+                                <option value="">Select Term</option>
                             </select>
                         </td>
                         <td></td>

@@ -589,13 +589,14 @@ class FeeDetailService {
         def miscFeeList = FeeDetails.findAllByStudent(studInst)
             println(miscFeeList)
         DateFormat df = new SimpleDateFormat("dd-MMM-yyyy")
-        def miscFeeStatus = []
+        def termValue = []
         def miscFeetype = []
         def mPayDate = []
         def challan = []
         def status=[]
         miscFeeList.each {
             status<<it.isApproved.status
+            termValue<<it.semesterValue
             challan << it.challanNo
             if (it.paymentDate!=null) {
                 mPayDate << df.format(it.paymentDate)
@@ -606,6 +607,7 @@ class FeeDetailService {
         }
         returnMap.mPayDate = mPayDate
         returnMap.studInst = studInst
+        returnMap.termValue = termValue
 
         returnMap.miscFeeList = miscFeeList
         returnMap.miscFeeStatus = status
@@ -669,11 +671,36 @@ class FeeDetailService {
                 total += it.paidAmount
             }
             returnMap.studyCentre = challanInst[0].student.studyCentre.name
-            returnMap.paymentMode = challanInst[0].paymentModeId.paymentModeName
-            returnMap.refNo = challanInst[0].paymentReferenceNumber
-            returnMap.paydate = df.format(challanInst[0].paymentDate)
-            returnMap.bank = challanInst[0].bankId.bankName
-            returnMap.branch = challanInst[0].branchId.branchLocation
+            if(challanInst[0].paymentModeId){
+                returnMap.paymentMode = challanInst[0].paymentModeId.paymentModeName
+            }
+            else{
+                returnMap.paymentMode = "N/A"
+            }
+            if(challanInst[0].paymentReferenceNumber){
+                returnMap.refNo = challanInst[0].paymentReferenceNumber
+            }
+            else{
+                returnMap.refNo = "N/A"
+            }
+            if(challanInst[0].paymentDate){
+                returnMap.paydate = df.format(challanInst[0].paymentDate)
+            }
+            else{
+                returnMap.paydate ="N/A"
+            }
+            if(challanInst[0].bankId){
+                returnMap.bank = challanInst[0].bankId.bankName
+            }
+            else{
+                returnMap.bank = "N/A"
+            }
+            if(challanInst[0].branchId){
+                returnMap.branch = challanInst[0].branchId.branchLocation
+            }
+            else{
+                returnMap.branch = "N/A"
+            }
             returnMap.status = challanInst[0].isApproved.status
             returnMap.challanInst = challanInst
             returnMap.rollNo = rollNo
