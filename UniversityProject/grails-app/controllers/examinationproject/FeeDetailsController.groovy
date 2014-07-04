@@ -238,7 +238,6 @@ class FeeDetailsController {
 
             def stuIns = Student.findByRollNo(params.rollNoSearch)
             studyCentre = stuIns.studyCentre
-
             studList.add(stuIns)
             Set<ProgramDetail> programDetails = ProgramDetail.findAllById(stuIns.programDetail[0].id)
 
@@ -345,7 +344,7 @@ class FeeDetailsController {
         }
 
 //        def termMesg = feeTypeName + ' for ' + termText + ' Term'
-        def args = [template: "printChallan", model: [studList: studList,challanNo:challanNo, term: term, studyCentre: studyCentre, addmissionFee: addmissionFee, totalFee: totalFee, lateFee: lateFee], filename: challanNo + ".pdf"]
+        def args = [template: "printChallan", model: [studList: studList,challanNo:challanNo,feeTypeName:feeTypeName, term: term, studyCentre: studyCentre, addmissionFee: addmissionFee, totalFee: totalFee, lateFee: lateFee], filename: challanNo + ".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
     }
 //    def generateChallanForMiscellaneousFee = {
@@ -451,7 +450,6 @@ class FeeDetailsController {
         studyCentre = stuList[0].studyCentre
         stuList.each {
             lateFee = 0
-//            println("==="+it.programDetail[0])
             def lateFeeDate = it.programDetail.lateFeeDate[0]
             def today = new Date()
 
@@ -476,7 +474,6 @@ class FeeDetailsController {
         for (def k = 0; k < courseFee.size(); k++) {
             totalFee = totalFee + courseFee[k]
         }
-//        println(params)
         def paymentModeName = PaymentMode.findById(params.paymentMode)
         def bank = Bank.findById(params.bankName)
         def branch = Branch.findById(params.branchLocation)
@@ -487,7 +484,6 @@ class FeeDetailsController {
             it.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
             it.bankId = Bank.findById(params.bankName)
             it.branchId = Branch.findById(params.branchLocation)
-
             it.paymentDate = df.parse(params.paymentDate)
             if (PaymentMode.findById(params.paymentMode).paymentModeName != 'Pay In Slip') {
                 it.isApproved = Status.findById(3)
@@ -505,7 +501,6 @@ class FeeDetailsController {
                 }
             }
         }
-
         def challanNo = params.searchChallanNo
         def paymentDate = params.paymentDate
         def paymentReferenceNumber = params.paymentReferenceNumber
@@ -514,7 +509,7 @@ class FeeDetailsController {
 
     }
     def payMiscFeeChallan = {
-        def courseNameList = [], courseFee = [], feeType = []
+        def courseNameList = [], courseFee = [], feeType = [],termValue=[]
         def stuList = []
         def studyCentre
         def miscFeeChallanList = FeeDetails.findAllByChallanNo(params.searchChallanNo)
@@ -522,11 +517,11 @@ class FeeDetailsController {
             stuList << it.student
             courseNameList << it.student.programDetail[0].courseName
             int year = it.student.registrationYear
+            feeType<<it.feeType.type
+            termValue<<it.semesterValue
             def sessionVal = year + 1
             sessionVal = year + '-' + sessionVal
             def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(it.student.programDetail[0].id), sessionVal)
-//            println("session"+feeSessionObj)
-//            println("session"+it.feeType)
             courseFee << MiscellaneousFee.findByFeeSessionAndFeeType(feeSessionObj, it.feeType).amount
         }
         def totalFee = 0;
@@ -543,10 +538,7 @@ class FeeDetailsController {
             it.paymentModeId = PaymentMode.findById(params.paymentMode)
             it.bankId = bank
             it.branchId = branch
-//            it.isApproved = Status.findById(3)
-
             it.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
-
             it.paymentDate = df.parse(params.paymentDate)
             if (PaymentMode.findById(params.paymentMode).paymentModeName != 'Pay In Slip') {
                 it.isApproved = Status.findById(3)
@@ -559,16 +551,13 @@ class FeeDetailsController {
                     status = true
                 }
             }
-//            if (it.save(flush: true, failOnError: true)) {
-//                status = true
-//            }
         }
         studyCentre = stuList[0].studyCentre
         def challanNo = params.searchChallanNo
         def paymentDate = params.paymentDate
         def paymentReferenceNumber = params.paymentReferenceNumber
 
-        def args = [template: "printPayMiscFeeChallan", model: [bank: bank, studyCentre: studyCentre, feeType: feeType, branch: branch, paymentReferenceNumber: paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
+        def args = [template: "printPayMiscFeeChallan", model: [bank: bank, studyCentre: studyCentre, feeType: feeType[0], branch: branch,termValue:termValue, paymentReferenceNumber: paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
 
     }
@@ -586,59 +575,34 @@ class FeeDetailsController {
     def checkRollNoFeeStatus = {
         def resultMap = [:]
         resultMap = feeDetailService.rollNumberFeeStatus(params)
-//        println(resultMap)
         render resultMap as JSON
     }
 
     def postAdmissionFeeAtIdol = {
         if(params.amount){
-//            println('hello kuldeep')
             def feeDetailIns =  FeeDetails.findById(Integer.parseInt(params.misFeeObject))
             def program = feeDetailIns.student.programDetail[0].courseName
-//            println('student is '+ feeDetailIns)
             [misFeeObject:feeDetailIns , amount: params.amount, program:program]
         }
         else{
-//            println('data nhi h kuch b')
         }
 
     }
 
     def searchDataByRollNumber = {
-
-//        println("***************"+params)
         def status = feeDetailService.searchByRollNumber(params)
         render status as JSON
 
     }
 
     def checkRollNoPreviousData = {
-//        println("params are=="+params)
         def returnMap = [:]
         def studObj = Student.findByRollNo(params.rollNumberInput)
 
         def feeType = FeeType.findById(Long.parseLong(params.postFeeType))
-        //code of ajay.............................
-//        def misFeeObj = FeeDetails.findByStudentAndSemesterValueAndFeeType(studObj, Integer.parseInt(params.semester), FeeType.findById(Long.parseLong(params.postFeeType)))
-//        println("+++++++++++++++++" + misFeeObj)
-//        if (misFeeObj) {
-//            returnMap.feePaid = true
-//        } else if (Integer.parseInt(params.semester) > 1) {
-//            def misFeeObj2 = FeeDetails.findByStudentAndSemesterValueAndFeeType(studObj, Integer.parseInt(params.semester) - 1, FeeType.findById(Long.parseLong(params.postFeeType)))
-//            if (misFeeObj2) {
-//            } else {
-//                returnMap.feePaid = false
-//            }
-//
-//        }
-//        println(returnMap)
-//        render returnMap as JSON
-//*******************************************************************************************************
         if (feeType.type == 'Admission Fee') {
-//            println('checking for admission fee')
             def currFeeObj = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(studObj, Integer.parseInt(params.semester), FeeType.findById(Long.parseLong(params.postFeeType)), Status.findById(4))
             if (currFeeObj) {
-//                println('fees of curren sem is paid')
                 returnMap.feePaid = true
 
             } else {
@@ -663,20 +627,17 @@ class FeeDetailsController {
                 }
             }
         } else if (feeType.type == 'Certificate Fee') {
-//            println('in certivicate fee')
             def maxTime
             def currFeeObj = FeeDetails.findByStudentAndFeeTypeAndIsApproved(studObj, FeeType.findById(Long.parseLong(params.postFeeType)), Status.findById(4))
             if (currFeeObj) {
                 returnMap.feePaid = true
             } else {
-//                println('in else of certificate fee')
                 def programType = studObj.programDetail[0].programType.id
                 if (programType == 1) {
                     maxTime = studObj.programDetail[0].noOfAcademicYears
                 } else {
                     maxTime = studObj.programDetail[0].noOfTerms
                 }
-//                println('this is the semester value ' + maxTime)
                 def examFee = FeeType.findByType('Examination Fee')
                 def feeObj = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(studObj, maxTime, examFee, Status.findById(4))
                 if (feeObj) {
@@ -687,7 +648,6 @@ class FeeDetailsController {
                 }
             }
         }
-//        println(returnMap)
         render returnMap as JSON
     }
 
@@ -707,15 +667,10 @@ class FeeDetailsController {
         } else {
             def misFee = MiscellaneousFee.findByFeeTypeAndFeeSession(misFeeObj.feeType, feeSessionObj)
             amount = misFee.amount
-
         }
         misFeeObj.paidAmount= amount
         misFeeObj.save(failOnError: true)
         redirect(action: 'postAdmissionFeeAtIdol', params:[misFeeObject: misFeeObj.id, amount: amount])
-//        def args = [template: "postFeeVoucher", model: [misFeeObject: misFeeObj, amount: amount], filename:misFeeObj.challanNo+".pdf"]
-//        pdfRenderingService.render(args + [controller: this], response)
-
-
     }
 
 
@@ -724,7 +679,6 @@ class FeeDetailsController {
     }
 
     def challanDetails = {
-//        println(params)
         def result = feeDetailService.getChallanDetails(params)
         render result as JSON
     }

@@ -24,8 +24,8 @@
 
     <div>Guwahati, Assam</div>
 </p>
-    <div style="font-weight: bold;width: 100%;text-align: center;"><label style="padding-right: 5px;">Fee Type</label><label
-            style="text-decoration: indigo;">${feeType[0]}</label> </div>
+    <div style="font-weight: bold;width: 100%;text-align: center;">${feeType} for Term ${termValue.getAt(0)}
+    </div>
     <table style="width: 80%;border: 1px dotted;margin: auto; text-align: center;">
         <tr>
             <g:if test="${studyCentre.centerCode[0] != '11111'}">

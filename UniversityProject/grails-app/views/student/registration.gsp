@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: shweta
+  User: Kuldeep
   Date: 2/6/14
   Time: 3:36 PM
   To change this template use File | Settings | File Templates.
@@ -141,6 +141,25 @@
         </td>
     </tr>
 </g:if>
+<!----- Program Name ---------------------------------------------------------->
+<tr>
+    <td>Programme<span class="university-obligatory">*</span></td>
+    %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
+    <td>
+        <sec:ifNotLoggedIn>
+            <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
+                      value="${studInstance?.programDetail?.id?.get(0)}"
+                      optionValue="courseName" onchange="loadProgramFeeAmount(this)" from="${programList}"
+                      noSelection="['': ' Select Programme']"/>
+        </sec:ifNotLoggedIn>
+        <sec:ifLoggedIn>
+            <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
+                      value="${studInstance?.programDetail?.id?.get(0)}"
+                      optionValue="courseName" onchange="enableApplicationNo()" from="${programList}" noSelection="['': ' Select Programme']"/>
+        </sec:ifLoggedIn>
+
+    </td>
+</tr>
 <sec:ifLoggedIn>
     <g:if test="${studInstance}">
         <g:if test="${studInstance.applicationNo}">
@@ -160,7 +179,7 @@
         <tr>
             <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
             <td class="university-size-2-3">
-                <input type="text" name="applicationNo" value="${studInstance?.applicationNo}"
+                <input type="text" name="applicationNo" id="applicationNo" value="${studInstance?.applicationNo}" disabled="true"
                        onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10"
                        class="university-size-1-2"/>
                 <label id="errorMsg" class="error1"></label>
@@ -183,25 +202,7 @@
     </td>
 </tr>
 
-<!----- Program Name ---------------------------------------------------------->
-<tr>
-    <td>Programme<span class="university-obligatory">*</span></td>
-    %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
-    <td>
-        <sec:ifNotLoggedIn>
-            <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
-                      value="${studInstance?.programDetail?.id?.get(0)}"
-                      optionValue="courseName" onchange="loadProgramFeeAmount(this)" from="${programList}"
-                      noSelection="['': ' Select Programme']"/>
-        </sec:ifNotLoggedIn>
-        <sec:ifLoggedIn>
-            <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
-                      value="${studInstance?.programDetail?.id?.get(0)}"
-                      optionValue="courseName" from="${programList}" noSelection="['': ' Select Programme']"/>
-        </sec:ifLoggedIn>
 
-    </td>
-</tr>
 <!----- category ----------------------------------------------------------->
 <tr>
     <td>Category <span class="university-obligatory">*</span></td>
@@ -475,6 +476,12 @@
                 <legend>Fee Details</legend>
                 <table class="inner">
                     <tr>
+                        <td>Payment Mode<span class="university-obligatory">*</span></td>
+                        <td><g:select name="paymentMode" class="university-size-1-2" optionKey="id"
+                                      optionValue="paymentModeName" id="paymentMode"
+                                      from="${paymentMode}" noSelection="['': ' Select PaymentMode']"/></td>
+                    </tr>
+                    <tr>
                         <td>Bank Name<span class="university-obligatory">*</span></td>
                         <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
                                       optionValue="bankName"
@@ -498,12 +505,7 @@
                         <td><input type="text" name="admissionFeeAmount" class="university-size-1-2"
                                    id="admissionFeeAmount" readonly/></td>
                     </tr>
-                    <tr>
-                        <td>Payment Mode<span class="university-obligatory">*</span></td>
-                        <td><g:select name="paymentMode" class="university-size-1-2" optionKey="id"
-                                      optionValue="paymentModeName" id="paymentMode"
-                                      from="${paymentMode}" noSelection="['': ' Select PaymentMode']"/></td>
-                    </tr>
+
                     <tr>
                         <td>DD/RTGS/NEFT Number<span class="university-obligatory">*</span></td>
                         <td><input type="text" name="feeReferenceNumber" maxlength="8" class="university-size-1-2"

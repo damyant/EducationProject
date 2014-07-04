@@ -385,7 +385,7 @@ class FeeDetailService {
 //        println("studentsWhoFeePaidAdmission" + studentsWhoFeePaidAdmission)
         if (studentsWhoFeePaidAdmission.size() > 0) {
             studentsWhoFeePaidAdmission.each {
-                if (Student.findById(it).studyCentre[0].id == Integer.parseInt(studyCenterId)) {
+                if ((Student.findById(it).studyCentre[0].id == Integer.parseInt(studyCenterId)) && (Student.findById(it).programDetail[0].id==Integer.parseInt(params.program))) {
                     stuList << Student.findById(it)
                 }
             }

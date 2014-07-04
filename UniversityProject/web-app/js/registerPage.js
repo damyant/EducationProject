@@ -162,6 +162,9 @@ function confirmGenerateChallan(rollno) {
         }
     });
 }
+function enableApplicationNo(){
+    $("#applicationNo").prop("disabled",false)
+}
 function loadProgramFeeAmount(t){
     if($('#admissionFeeAmount').length>0){
     $('#admissionFeeAmount').val("");
