@@ -22,7 +22,8 @@
 <div id="header-Menu">
 %{--<div id="header-Menu">--}%
 <ul id="menu">
-<li><a href="#"><g:message code="default.mainMenu1"/></a></li>
+<li><g:link controller="home" action="index"><g:message
+        code="default.mainMenu1"/></g:link></li>
 <li><a href="#"><g:message code="default.mainMenu2"/></a>
     <ul>
         <sec:ifLoggedIn>

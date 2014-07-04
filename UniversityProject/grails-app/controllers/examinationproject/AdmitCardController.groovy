@@ -228,7 +228,81 @@ class AdmitCardController {
         }
 
     }
+    def studentAdmitCard = {
 
+        def stuList = [], mode = [], examType = [], courseName = []
+        def status
+        def admitInst=null
+        def user = springSecurityService.currentUser
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        StringBuilder examDate = new StringBuilder()
+        StringBuilder examTime = new StringBuilder()
+        def webRootDir = servletContext.getRealPath("/")
+        def byte[] logo = new File(webRootDir + "/images/gu-logo.jpg").bytes
+        stuList = Student.findAllByRollNoAndDobAndAdmitCardGenerated(params.rollNumber.trim(), df.parse(params.dob), true)
+        Set <City> cityInst=City.findAllById(8)
+        if(stuList[0].city==cityInst){
+            admitInst = AdmitCard.findByExamVenue(stuList[0]?.examinationVenue)
+        }
+        if (stuList[0]) {
+            def programSessionIns
+            if (params.programSessionId) {
+                programSessionIns = ProgramSession.findById(Long.parseLong(params.programSessionId))
+            } else {
+                programSessionIns = ProgramSession.findById(stuList[0].programSession.id)
+            }
+            def subjectList = CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester, stuList[0].programSession), programSessionIns)*.subject
+
+            def dateList = [], timeList = []
+            subjectList.each {
+                dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
+                timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
+            }
+            if (dateList.size() == 0) {
+                flash.message = "Examination Date Not Assigned Yet"
+                redirect(controller: 'student', action: 'downloadAdmitCard')
+            }
+            def count = 1
+            def total = dateList.size()
+            dateList.each {
+                if (it) {
+                    examDate.append(it.format("dd/MM/yyyy"))
+                    if (count != total)
+                        examDate.append(", ")
+                    count++
+                }
+            }
+            def count1 = 1
+            def total1 = timeList.size()
+
+            timeList.each {
+                if (it) {
+                    examTime.append(it)
+                    if (count1 != total1)
+                        examTime.append(", ")
+                    count1++
+                }
+
+            }
+            def month = ""
+            if (stuList[0].semester % 2 == 0) {
+                month = "July"
+            } else {
+                month = "December"
+            }
+
+            def session = stuList[0].programSession.sessionOfProgram.split("-")
+            def fileName = stuList[0].programDetail[0].courseName + " " + month + " " + session[0]
+
+            def year = new Date().format("yyyy")
+            def args = [template: "printMyAdmitCard", model: [studentInstance: stuList,examTime:examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
+            pdfRenderingService.render(args + [controller: this], response)
+        } else {
+            flash.message = "Admit Card Not Generated yet"
+            redirect(controller: 'student', action: 'downloadAdmitCard')
+        }
+
+    }
     def printPreviewAdmitCard = {
 
     }

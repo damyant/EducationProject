@@ -21,7 +21,7 @@
 <g:if test="${flash.message}">
     <div class="university-status-message"> <label class="error">${flash.message}</label></div>
 </g:if>
-<g:form name="individualDownloadAdmitCard" id="individualDownloadAdmitCard" controller="admitCard" action="printAdmitCard">
+<g:form name="individualDownloadAdmitCard" id="individualDownloadAdmitCard" controller="admitCard" action="studentAdmitCard">
     <div class="">
     <p><bold>Please fill the information to download the Admit Card</bold></p>
 
