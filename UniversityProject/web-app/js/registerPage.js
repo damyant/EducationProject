@@ -94,12 +94,12 @@ jQuery(function ($) {
     });
 });
 function checkApplicationNumber(t) {
-
     var data = $(t).val();
+    var programme = $('#programId').val
     $.ajax({
         type: "post",
         url: url('student', 'checkApplicationNo', ''),
-        data: {applicationNo: data},
+        data: {applicationNo: data, programme:programme},
         success: function (data) {
 
             if (data.applicationNo == "true") {

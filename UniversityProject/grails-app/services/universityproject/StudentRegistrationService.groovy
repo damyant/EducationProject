@@ -86,25 +86,25 @@ class StudentRegistrationService {
                         }
                 }
                 if (isAdmin){
-                    println("is admin is true"+ params.studyCentre)
+//                    println("is admin is true"+ params.studyCentre)
                     Set<StudyCenter> studyCentre = StudyCenter.findAllById(Integer.parseInt(params.studyCentre))
-                    println("this is the study centre will save"+ studyCentre)
+//                    println("this is the study centre will save"+ studyCentre)
                     studentRegistration.studyCentre = studyCentre
                 } else {
-                    println("is admin is false"+ params.studyCentre)
+//                    println("is admin is false"+ params.studyCentre)
                     Set<StudyCenter> studyCentre = StudyCenter.findAllById(Integer.parseInt(params.studyCentreCode))
                     studentRegistration.studyCentre = studyCentre
                 }
             }
         } else {
             studentRegistration = new Student(params)
-            studentRegistration.registrationYear = Integer.parseInt(year)
+            studentRegistration.registrationYear = ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear
             if (springSecurityService.isLoggedIn()) {
-                println('executed yaha tak')
+//                println('executed yaha tak')
                 studentRegistration.referenceNumber = 0
                 studentRegistration.status = Status.findById(2)
                 studentRegistration.rollNo = getStudentRollNumber(params)
-                println('executed yaha tak 2')
+//                println('executed yaha tak 2')
             } else {
                 studentRegistration.referenceNumber = getStudentReferenceNumber()
                 studentRegistration.status = Status.findById(1)
@@ -180,7 +180,9 @@ class StudentRegistrationService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
             String courseCodeStr = course[0].courseCode.toString()
-            String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2, 4)
+            println("-----------------------"+ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear)
+            String yearCode = (ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear).toString().substring(2, 4)
+            println("--------------------yearcode---"+yearCode)
             int rollNo = 1
             String rollTemp = null
             int rollTemp1 = 0
@@ -253,7 +255,7 @@ class StudentRegistrationService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
             String courseCodeStr = course[0].courseCode.toString()
-            String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2, 4)
+            String yearCode = (ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear).toString().substring(2, 4)
             int rollNo = 1
             String rollTemp = null
             int rollTemp1 = 0

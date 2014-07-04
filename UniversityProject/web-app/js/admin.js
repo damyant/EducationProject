@@ -756,14 +756,20 @@ function clearTable() {
     document.getElementById("payClear").style.visibility = "hidden";
 }
 function loadProgramTerm(){
-    var data = $('#programDetail').val();
+    var data
+    if($('#programDetail').length>0){
+        data= $('#programDetail').val();
+    }
+    else if($('#programList').length>0){
+        data= $('#programList').val();
+    }
     if(data){
         $.ajax({
             type: "post",
             url: url('programFee', 'getTermInList', ''),
             data: {data: data},
             success: function (data) {
-                $("#semesterList").empty().append('data <option value="0">All Terms</option>')
+                $("#semesterList").empty().append('<option value="">Select Terms</option>')
 
                 for (var i = 1; i <= data.programlist; i++) {
                     $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
@@ -1149,9 +1155,9 @@ function checkFeeStatusForRollNo() {
                 if (!data.error) {
                     if (data.miscFeeList.length > 0) {
                         $('#showStatusForRollNo').empty().append('<table class="university-size-full-1-1 inner" id="statusTable"></table>')
-                        $('#statusTable').append('<tr><th>Challan No</th><th>Fee Type</th><th>Fee Paid Date</th><th>Status</th></tr>')
+                        $('#statusTable').append('<tr><th>Challan No</th><th>Fee Type</th><th>Term</th><th>Fee Paid Date</th><th>Status</th></tr>')
                         for (var i = 0; i < data.miscFeeList.length; i++) {
-                            $('#statusTable').append('<tr><td>' + data.miscFeeList[i].challanNo + '</td><td>' + data.miscFeetype[i] + '</td><td>'+data.mPayDate[i]+'</td><td>' + data.miscFeeStatus[i] + '</td></tr>')
+                            $('#statusTable').append('<tr><td>' + data.miscFeeList[i].challanNo + '</td><td>' + data.miscFeetype[i] + '</td><td>' + data.termValue[i] + '</td><td>'+data.mPayDate[i]+'</td><td>' + data.miscFeeStatus[i] + '</td></tr>')
 
                         }
 
@@ -1450,4 +1456,18 @@ function clearAllFields(t){
         $('#admissionFeeTable tbody').empty()
     }
 
+}
+function generateSingleAdmitCard(){
+    var roll=$('#rollNoForFeeStatus').val()
+    var term=$('#semesterList').val()
+    var examFee=$('#feeExempt').is(':checked')
+    alert(roll+" / "+term+" / "+ examFee +" ")
+    $.ajax({
+        type: "post",
+        url: url('admitCard', 'generateSingleAdmitCard', ''),
+        data: {roll:roll,term:term, examFee:examFee},
+        success: function (data) {
+
+        }
+    })
 }

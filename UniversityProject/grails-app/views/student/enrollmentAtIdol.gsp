@@ -91,23 +91,24 @@
             </td>
         </tr>
         <tr>
-            <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
-            <td class="university-size-2-3">
-                <input type="text" name="applicationNo" tabindex="4" onchange="checkApplicationNumber(this)"
-                       onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2"/>
-                <label id="errorMsg" class="error1"></label>
-            </td>
-        </tr>
-        <tr>
             <td>Programme<span class="university-obligatory">*</span></td>
             <td>
                 <g:select name="programId" id="programId" optionKey="id" tabindex="5"
-                          onchange="loadProgramFeeAmount(this)" class="university-size-1-2"
+                          onchange="loadProgramFeeAmount(this), enableApplicationNo()" class="university-size-1-2"
                           optionValue="courseName" from="${programList}" noSelection="['': ' Select Programme']"/>
                 <g:hiddenField name="idol" value="idol"/>
                 <label id="ProgrammeNotExist" class="error"></label>
             </td>
         </tr>
+        <tr>
+            <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
+            <td class="university-size-2-3">
+                <input type="text" name="applicationNo" id="applicationNo" tabindex="4" onchange="checkApplicationNumber(this)"
+                       onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2" disabled/>
+                <label id="errorMsg" class="error1"></label>
+            </td>
+        </tr>
+
         <tr>
             <td>Date of Birth <span class="university-obligatory">*</span></td>
             <td>

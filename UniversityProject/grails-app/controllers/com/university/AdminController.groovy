@@ -11,6 +11,7 @@ import examinationproject.MiscellaneousFee
 
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
+import examinationproject.ProgramExamVenue
 import examinationproject.ProgramType
 import examinationproject.RollNoGenerationFixture
 import examinationproject.Student
@@ -148,17 +149,41 @@ class AdminController {
         def program = student.programDetail
         def feeTypeId
         def feeType = FeeType.findById(params.feeType).type
-//        println("FFFFFFFFFFFFFFFFFFFFFF"+feeType)
         def challanNo
         def lateFee = 0
         def programFeeAmount = 0
-
         Calendar cal = Calendar.getInstance();
         int year = cal.get(cal.YEAR);
         def sessionVal= year+1
         sessionVal= year+'-'+sessionVal
-
         def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
+        def feeDetailInst=FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(student,Integer.parseInt(params.term),FeeType.findById(params.feeType),Status.findById(1))
+        def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,Integer.parseInt(params.term))
+        try{
+            def lateFeeDate=student.programDetail.lateFeeDate[0]
+            def today=new Date()
+            if(lateFeeDate!=null) {
+                if (today.compareTo(lateFeeDate) > 0) {
+                    lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,Integer.parseInt(params.term)).lateFeeAmount
+                }
+            }
+//            feeType = null
+            programFeeAmount = programFee.feeAmountAtIDOL + lateFee
+
+        } catch (NullPointerException e) {
+            flash.message = "Late Fee Date is not asigned! "
+            redirect(controller: admin, action: feeVoucher)
+        }
+        if(feeDetailInst){
+            response.student=feeDetailInst.student
+            response.lateFee=lateFee
+            response.term=feeDetailInst.semesterValue
+            response.challanNo=feeDetailInst.challanNo
+            response.courseName=student.programDetail.courseName
+            response.programFeeAmount=feeDetailInst.paidAmount
+            response.feeType=feeType
+        }
+        else{
         def currentUser = springSecurityService.getCurrentUser()
         def studyCenterId = currentUser.studyCentreId
         if(studyCenterId!=student.studyCentre.id){
@@ -170,24 +195,8 @@ class AdminController {
                 maxResults(1)
                 order("semesterValue", "desc")
             }
-           println(">>>>>>>>>>>>studentsPaidTill"+studentsPaidTill[0].semesterValue)
             if(studentsPaidTill[0].semesterValue+1==Integer.parseInt(params.term)){
-        def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,Integer.parseInt(params.term))
-            try{
-            def lateFeeDate=student.programDetail.lateFeeDate[0]
-            def today=new Date()
-                if(lateFeeDate!=null) {
-                    if (today.compareTo(lateFeeDate) > 0) {
-                        lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,Integer.parseInt(params.term)).lateFeeAmount
-                    }
-            }
-//            feeType = null
-            programFeeAmount = programFee.feeAmountAtIDOL + lateFee
 
-        } catch (NullPointerException e) {
-            flash.message = "Late Fee Date is not asigned! "
-            redirect(controller: admin, action: feeVoucher)
-        }
             challanNo=studentRegistrationService.getChallanNumber()
             println(params.term)
             student.migratingStudyCentre=studyCenterId
@@ -215,6 +224,7 @@ class AdminController {
             else{
                 response.statusError="Invalid Semester or Fees Already Paid."
             }
+        }
         }
 
         render response as JSON
@@ -623,9 +633,19 @@ class AdminController {
                 programList.add(it)
             }
         }
+        def sessionList = Student.createCriteria().list {
+            projections {
+                distinct("registrationYear")
+            }
+        }
 
+        def year = new Date().format("yyyy")
+        if(sessionList.size()==0){
+            sessionList<<Integer.parseInt(year)
+        }
+        sessionList<<Integer.parseInt(year)+1
         def programCategory = ProgramType.list(sort: 'type')
-        [programList: programList, programCategory: programCategory]
+        [programList: programList, programCategory: programCategory,sessionList:sessionList]
     }
     @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def saveAdmissionFeePeriod() {
@@ -641,6 +661,7 @@ class AdminController {
     def getAdmissionDate = {
         def returnMap = [:]
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+
         if (params.programCode) {
             def progmInst = ProgramDetail.findById(params.programCode)
             returnMap.startDate = sdf.format(progmInst.startAdmission_D)
@@ -752,7 +773,7 @@ class AdminController {
     def loadTermFromRollNo={
         def returnMap=[:]
         def stuInst=Student.findByRollNo(params.data)
-        println(stuInst.programDetail)
+
         def catgId=stuInst.programDetail.programType.id
         def term
         if(catgId=='1'){
@@ -762,6 +783,22 @@ class AdminController {
             term=stuInst.programDetail.noOfTerms
         }
         returnMap.term=term
+        render returnMap as JSON
+    }
+def loadTermAndVenueFromRollNo={
+        def returnMap=[:]
+        def stuInst=Student.findByRollNo(params.data)
+        def examVenue = ProgramExamVenue.findAllByCourseDetailAndExamCenter(stuInst.programDetail, stuInst.city)
+        def catgId=stuInst.programDetail.programType.id
+        def term
+        if(catgId=='1'){
+            term=stuInst.programDetail.noOfAcademicYears
+        }
+        else{
+            term=stuInst.programDetail.noOfTerms
+        }
+        returnMap.term=term
+        returnMap.examVenue=examVenue.examVenue
         render returnMap as JSON
     }
 

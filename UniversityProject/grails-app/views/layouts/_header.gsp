@@ -39,6 +39,8 @@
         %{--<li><a class="admitCardPopup" href="#"><g:message code="default.mainMenu2.subMenu3"/></a></li>--}%
         <li><g:link controller="student" action="downloadAdmitCard"><g:message
                 code="default.mainMenu2.subMenu3"/></g:link></li>
+        <li><g:link controller="student" action="generateIdentityCard"><g:message
+                code="default.mainMenu2.subMenu4"/></g:link></li>
         %{--<li><a href="#"><g:message code="default.mainMenu2.subMenu4"/></a></li>--}%
         <li><a class="statustopopup" href="#"><g:message code="default.mainMenu2.subMenu5"/></a></li>
     </ul>
@@ -137,8 +139,10 @@
 
         <li><a href="#"><g:message code="default.mainMenu3.subMenu2"/></a>
             <ul>
-                <li><a href="#" class="newAdmitCardPopup"><g:message
-                        code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>
+                <li><g:link controller="admitCard" action="SingleAdmitCardGenerate"><g:message
+                        code="default.mainMenu3.subMenu2.submenu1.submemu1"/></g:link></li>
+                %{--<li><a href="#" class="SingleAdmitCardGenerate"><g:message--}%
+                        %{--code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>--}%
                 <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message
                         code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
 
@@ -202,8 +206,15 @@
                         code="default.mainMenu6.subMenu3"/></g:link></li>
         <li><g:link controller="homeAssignment" action="submitHomeAssignment"><g:message
                 code="default.mainMenu6.subMenu20"/></g:link></li>
-        <li><g:link controller="homeAssignment" action="studentAddress"><g:message
-                code="default.mainMenu6.subMenu21"/></g:link></li>
+        <li> <a href="#"><g:message code="default.mainMenu6.subMenu21"/></a>
+            <ul>
+           <li> <g:link controller="homeAssignment" action="studentAddressSingle"><g:message
+                code="default.mainMenu3.subMenu2.submenu1.submemu1"/></g:link> </li>
+                <li> <g:link controller="homeAssignment" action="studentAddress"><g:message
+                 code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link> </li>
+                </ul>
+
+        </li>
 
 
     </ul>

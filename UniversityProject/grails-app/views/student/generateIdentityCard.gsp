@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Shweta
+  User: Chandan
   Date: 31/3/14
   Time: 12:56 PM
 --%>
@@ -29,11 +29,11 @@
 <body>
 <div id="main">
     <fieldset>
-        <h3>Print Student Address</h3>
+        <h3>Generate Identity Card</h3>
         <g:if test="${flash.message}">
             <div class="university-status-message"> <label class="error">${flash.message}</label></div>
         </g:if>
-        <g:form name="identityCardForm" id="identityCardForm" controller="homeAssignment" action="printStudentAddress">
+        <g:form name="identityCardForm" id="identityCardForm" controller="student" action="printIdentityCard">
             <g:hiddenField name="studentList" id="studentList"/>
             <div>
                 <table class="university-table-1-3 inner" style="width: 80%;margin-left: 20px;">
@@ -43,7 +43,7 @@
                         <td>
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
-                                      from="${ProgramDetail.list()}" noSelection="['': ' Select Programme']"
+                                      from="${programList}" noSelection="['': ' Select Programme']"
                                       onchange="enableShowCandidate()"/>
                         </td>
                         <td></td>
@@ -98,22 +98,22 @@
                     <a href="#" class="last" data-action="last">&raquo;</a>
                 </div>
             </div>
-            %{--<div id="studentListPrint"--}%
-                 %{--style="margin: 5px auto;width:94%;text-align: center;vertical-align: middle; border: 1px solid #BDBDBD; padding: 0.5%;border-radius: 4px;"--}%
-                 %{--hidden="">--}%
+            <div id="studentListPrint"
+                 style="margin: 5px auto;width:94%;text-align: center;vertical-align: middle; border: 1px solid #BDBDBD; padding: 0.5%;border-radius: 4px;"
+                 hidden="">
 
-                %{--<label class="university-left-right-margin">--}%
-                    %{--Download Range--}%
-                %{--</label>--}%
-                %{--<label class="university-left-margin" style="color: #000; font-size: 17px;"><b>From</b></label>--}%
-                %{--<input type="text" name="from" id="from" placeholder="Enter SrNo" width="7" onclick="this.value = ''" onkeypress="return isNumber(event)"--}%
-                       %{--style="width: 80px;margin: auto 20px;text-align: center;border-radius: 2px;">--}%
-                %{--<label class="university-left-right-margin" style="color: #000;font-size: 17px;"><b>To</b></label>--}%
-                %{--<input type="text" name="to" id="to" class="university-left-right-margin" placeholder="Enter SrNo" width="7" onclick="this.value = ''"--}%
-                       %{--onkeypress="return isNumber(event)"--}%
-                       %{--style="width: 80px;margin: auto 20px;text-align: center;border-radius: 2px;">--}%
+                <label class="university-left-right-margin">
+                    Download Range
+                </label>
+                <label class="university-left-margin" style="color: #000; font-size: 17px;"><b>From</b></label>
+                <input type="text" name="from" id="from" placeholder="Enter SrNo" width="7" onclick="this.value = ''" onkeypress="return isNumber(event)"
+                       style="width: 80px;margin: auto 20px;text-align: center;border-radius: 2px;">
+                <label class="university-left-right-margin" style="color: #000;font-size: 17px;"><b>To</b></label>
+                <input type="text" name="to" id="to" class="university-left-right-margin" placeholder="Enter SrNo" width="7" onclick="this.value = ''"
+                       onkeypress="return isNumber(event)"
+                       style="width: 80px;margin: auto 20px;text-align: center;border-radius: 2px;">
 
-            %{--</div>--}%
+            </div>
 
             <div id="studentListPrintButton" style="margin: 10px auto;width:94%;text-align: center;" hidden="">
                 <input type="button" value="Download" onclick="generateIdentityCard()" class="university-button">

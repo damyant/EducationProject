@@ -275,7 +275,9 @@ class StudentController {
     }
     def checkApplicationNo(){
         def status=[:]
-        def applicationNoIns=Student.findByApplicationNo(params.applicationNo)
+        def year = ProgramDetail.findById(Long.parseLong(params.programme)).admissionYear
+        def applicationNo = year+''+params.applicationNo
+        def applicationNoIns=Student.findByApplicationNo(applicationNo)
 //        println(applicationNoIns)
         if(applicationNoIns){
             status.applicationNo='true'
@@ -389,5 +391,63 @@ class StudentController {
             flash.message = "${message(code: 'register.notCreated.message')}"
             redirect(controller: 'admin', action: "generateCustomChallan")
         }
+    }
+    def generateIdentityCard={
+        def programList=ProgramDetail.list(sort: 'courseName')
+        def sessionList = Student.createCriteria().list {
+            projections {
+                distinct("registrationYear")
+            }
+        }
+        [programList:programList,sessionList:sessionList]
+    }
+    def getStudentsForIdentityCard={
+        println("---------------"+params)
+        def prgramInst=ProgramDetail.findById(Long.parseLong(params.programList))
+        def status=Status.findById(4)
+        println("---------------"+params.admissionYear)
+        println("---------------"+prgramInst)
+        println("---------------"+Student.findById(1).identityCardGenerated)
+        def stuObj=Student.createCriteria()
+        def studentList=stuObj.list{
+            programDetail {
+                eq('id', prgramInst.id)
+            }
+            and {
+                eq('status',status)
+                eq('registrationYear', Integer.parseInt(params.admissionYear))
+                eq('identityCardGenerated', false)
+            }
+        }
+
+//                Student.findAllByProgramDetailAndRegistrationYearAndIdentityCardGeneratedAndStatus(prgramInst,Integer.parseInt(params.admissionYear),false,Status.findById(4))
+
+        if(studentList){
+            render studentList as JSON
+        }
+        else{
+            def resultMap = [:]
+            resultMap.status = false
+            render resultMap as JSON
+        }
+    }
+    def printIdentityCard={
+        println("-------------------------------"+params)
+        def studentName=[],studentProgram=[],studentRoll=[],studentDOB=[],studentAddress=[],studentPin=[],studentMobNo=[],stuList=[]
+        def studentList = params.studentList.split(",")
+        DateFormat df = new SimpleDateFormat("dd-MMM-yyyy")
+        studentList.each {
+            def studentInst = Student.findById(Integer.parseInt(it.toString()))
+            stuList<<studentInst
+            studentName<<studentInst.firstName+" "+studentInst.middleName?studentInst.middleName:""+" "+studentInst.lastName
+            studentProgram<<studentInst.programDetail.courseName
+            studentRoll<<studentInst.rollNo
+            studentDOB<<df.format(studentInst.dob)
+            studentAddress<<studentInst.studentAddress+"\n"+studentInst.addressTown+" "+studentInst.addressDistrict+"\n"+studentInst.addressState
+            studentPin<<studentInst.addressPinCode
+            studentMobNo<<studentInst.mobileNo
+        }
+        def args = [template: "printIdentityCard", model: [studentInstance: stuList,studentName:studentName], filename: fileName + ".pdf"]
+        pdfRenderingService.render(args + [controller: this], response)
     }
 }
