@@ -103,8 +103,9 @@ class StudentRegistrationService {
 //                println('executed yaha tak')
                 studentRegistration.referenceNumber = 0
                 studentRegistration.status = Status.findById(2)
-                studentRegistration.rollNo = getStudentRollNumber(params)
-//                println('executed yaha tak 2')
+                def rollNo=getStudentRollNumber(params)
+                studentRegistration.rollNo = rollNo
+                println('rollNo--------------------'+rollNo)
             } else {
                 studentRegistration.referenceNumber = getStudentReferenceNumber()
                 studentRegistration.status = Status.findById(1)
@@ -176,14 +177,11 @@ class StudentRegistrationService {
     def synchronized getStudentRollNumber(params) {
         def status = false
         try {
-            //  println("programId is "+Long.parseLong(params.programId))
             Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
             String courseCodeStr = course[0].courseCode.toString()
-//            println("-----------------------"+ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear)
             String yearCode = (ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear).toString().substring(2, 4)
-//            println("--------------------yearcode---"+yearCode)
             int rollNo = 1
             String rollTemp = null
             int rollTemp1 = 0

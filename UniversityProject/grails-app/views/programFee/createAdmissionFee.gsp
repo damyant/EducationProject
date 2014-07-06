@@ -91,11 +91,7 @@
                     </div>
                     <div class="university-size-2-3">
                         <g:if test="${params.id}">
-                            %{--<g:select name="semesterList" class="university-size-1-2" onchange="loadAdmissionFeeDetails()" id="semesterList"--}%
-                                      %{--from="${allTerm}" optionKey="semesterNo" value="${termList}"--}%
-                                      %{--optionValue="semesterNo" noSelection="['': 'Select term']" />--}%
-                            <input type="text" class="university-size-1-2" value="${termList}" onchange="loadAdmissionFeeDetails()" readonly/><label id="termError"></label>
-
+                            <input type="text" name="semesterList" class="university-size-1-2" value="${termList}" onchange="loadAdmissionFeeDetails()" readonly/><label id="termError"></label>
                         </g:if>
                         <g:else>
                         <select name="semesterList" class="university-size-1-2" onchange="loadAdmissionFeeDetails()" id="semesterList" >

@@ -292,6 +292,7 @@ class StudentController {
        def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, "", "")
         if (studentRegistration) {
             def infoMap =[:]
+            println("---------------------------------"+studentRegistration.rollNo)
             def student = Student.findByRollNo(studentRegistration.rollNo)
             def program = student.programDetail
             def feeTypeId

@@ -22,6 +22,9 @@
 <body>
 <div id="main">
     <h3>POST ADMISSION FEES AT IDOL</h3>
+    <g:if test="${flash.message}">
+        <div class="message" style="color: #ff0000;text-align: center;"><label>${flash.message}</label></div>
+    </g:if>
     <div id="errorMsgForRollNo" class="university-status-message"></div>
     <g:form controller="feeDetails" action="savePostExamFee" name="postExamFee" id="postExamFee">
     <table>
