@@ -39,7 +39,7 @@ class AdminController {
     def viewListGenerateRollNumber() {
 
         def studyCenterList = StudyCenter.list(sort: 'name')
-        def programList = ProgramDetail.list(sort: 'courseCode')
+        def programList = ProgramDetail.list(sort: 'courseName')
         [studyCenterList: studyCenterList, programList: programList]
     }
 
@@ -231,12 +231,12 @@ class AdminController {
 
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def assignExaminationDate = {
-        def programList = ProgramDetail.list(sort: 'courseCode')
+        def programList = ProgramDetail.list(sort: 'courseName')
         [programList: programList]
     }
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def assignExaminationVenue = {
-        def programList = ProgramDetail.list(sort: 'courseCode')
+        def programList = ProgramDetail.list(sort: 'courseName')
         def obj = City.createCriteria()
         def examCenterList = obj.list {
             eq('isExamCentre', 1)
@@ -801,11 +801,12 @@ class AdminController {
         def examVenue = ProgramExamVenue.findAllByCourseDetailAndExamCenter(stuInst.programDetail, stuInst.city)
         def catgId = stuInst.programDetail.programType.id
         def term
-        if (catgId == '1') {
-            term = stuInst.programDetail.noOfAcademicYears
-        } else {
-            term = stuInst.programDetail.noOfTerms
-        }
+//        if (catgId == '1') {
+//            term = stuInst.programDetail.noOfAcademicYears
+//        } else {
+//            term = stuInst.programDetail.noOfTerms
+//        }
+        term = stuInst.programDetail.noOfTerms
         returnMap.term = term
         returnMap.examVenue = examVenue.examVenue
         render returnMap as JSON

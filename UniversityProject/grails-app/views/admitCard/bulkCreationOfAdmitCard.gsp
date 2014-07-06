@@ -54,14 +54,15 @@
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
                                       from="${programList}" noSelection="['': ' Select Programme']"
-                                      onchange="showExamVenueList(),loadProgramTerm(),getSession(this),enableShowCandidate()"/>
+                                      onchange="showExamVenueList(),getSemester(this),enableShowCandidate()"/>
+                                      %{--onchange="showExamVenueList(),loadProgramTerm(),getSession(this),enableShowCandidate()"/>--}%
                         </td>
                         <td></td>
                     </tr>
                     <tr><td><label>Select a Term</label></td>
                         <td>
                             <select name="programTerm" class="university-size-1-1" id="semesterList">
-                                <option value="">Select Term</option>
+                                <option value="">Select Semester</option>
                             </select>
                         </td>
                         <td></td>

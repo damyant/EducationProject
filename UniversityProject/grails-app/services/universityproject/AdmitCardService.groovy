@@ -4,6 +4,7 @@ import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.FeeType
 import examinationproject.ProgramSession
+import examinationproject.ProgramType
 import examinationproject.Status
 import examinationproject.Student
 import grails.transaction.Transactional
@@ -19,7 +20,7 @@ class AdmitCardService {
     def getStudents(params) {
 //        println('these are the params ' + params)
         def obj = Student.createCriteria()
-        def studentList=[]
+        def studentList = []
         def stuList = obj.list {
             programDetail {
                 eq('id', Long.parseLong(params.programList))
@@ -40,14 +41,23 @@ class AdmitCardService {
                 eq('admitCardGenerated', false)
             }
         }
-//        println("list " + stuList)
         stuList.each {
-            def stuAdmissionFeeInst = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(it, Integer.parseInt(params.programTerm), FeeType.findById(3), Status.findById(4))
-            if (stuAdmissionFeeInst) {
-                def stuExamFeeInst = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(it, Integer.parseInt(params.programTerm), FeeType.findById(1), Status.findById(4))
+            def semValue
+            if (it.programDetail.programType == ProgramType.findById(1)) {
+                semValue = (int) Math.ceil(Long.parseLong(params.programTerm) / 2)
+            } else {
+                semValue = Integer.parseInt(params.programTerm)
+            }
+
+            def stuAdmissionFeeInst = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(it, semValue, FeeType.findById(3), Status.findById(4))
+            if (stuAdmissionFeeInst && (it.programDetail[0].programType.id == ProgramType.findById(2).id)) {
+                def stuExamFeeInst = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(it, semValue, FeeType.findById(1), Status.findById(4))
+
                 if (stuExamFeeInst) {
                     studentList << it
                 }
+            } else if (stuAdmissionFeeInst && (it.programDetail[0].programType.id == ProgramType.findById(1).id)) {
+                studentList << it
             }
         }
         return studentList

@@ -238,7 +238,7 @@ class UserController {
 //        println('these are the parameters '+params)
 
 
-        def programList = ProgramDetail.list(sort: 'courseCode')
+        def programList = ProgramDetail.list(sort: 'courseName')
         [programList: programList]
     }
 }
