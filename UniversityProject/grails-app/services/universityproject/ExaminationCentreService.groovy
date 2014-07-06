@@ -101,10 +101,18 @@ class ExaminationCentreService {
     }
 
     def associatedExamVenue(params) {
-
         def examinationCentre = City.findById(Long.parseLong(params.examinationCentre))
-        def programIns = ProgramDetail.findById(Long.parseLong(params.programList))
-        def examVenue = ProgramExamVenue.findAllByCourseDetailAndExamCenter(programIns, examinationCentre)
+        def programIns
+        def examVenue
+        if(params.programList=='All'){
+            programIns= ProgramDetail.list()
+            examVenue = ProgramExamVenue.findAllByCourseDetailInListAndExamCenter(programIns, examinationCentre).unique{it.examVenue.id}
+        }
+        else{
+         programIns = ProgramDetail.findById(Long.parseLong(params.programList))
+         examVenue = ProgramExamVenue.findAllByCourseDetailAndExamCenter(programIns, examinationCentre)
+        }
+
         return examVenue.examVenue
     }
 

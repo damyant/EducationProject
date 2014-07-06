@@ -531,8 +531,8 @@ function showExamVenueList1(){
             }
 //                alert(data.assocaitedExamVenue)
             for(var j=0;j<data.assocaitedExamVenue.length;j++){
-
                 $("#addExamCentre").append('<option value="' + data.assocaitedExamVenue[j].id + '">' + data.assocaitedExamVenue[j].name + '</option>')
+
             }
 
         },
@@ -602,6 +602,7 @@ function removeExamCenterFromList() {
 
 function setCourseLabel(t){
 //    $('#assignExamVenue').reset();
+//    alert($(t).val())
     $('#courseForExamVenue').html($(t).find(":selected").text());
     $('#CentreForExamVenue').html('');
     $('#city').val('');

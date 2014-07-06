@@ -31,7 +31,20 @@
             color: '#fff'
         } });
     }).ajaxStop($.unblockUI);
+
 </script>
+<sec:ifAnyGranted roles="ROLE_STUDY_CENTRE">
+    <script type="text/javascript">
+        $(document).ready(function(){
+//            $('#paymentMode option [value="1"]').hide()
+            $(document.getElementById('paymentMode').options).each(function(index, option) {
+                if( option.value == "1" ) {
+                    option.hidden = true; // not fully compatible. option.style.display = 'none'; would be an alternative or $(option).hide();
+                }
+            });
+        })
+    </script>
+</sec:ifAnyGranted>
 <div id="main">
 
     <fieldset class="form">

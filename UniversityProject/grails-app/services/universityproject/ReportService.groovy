@@ -52,12 +52,19 @@ class ReportService {
                     and{
                         eq('registrationYear' , Integer.parseInt(params.session))
                     }
+                    and{
+                        eq('status', Status.findById(4))
+                    }
                 }
-                status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCenter.name, session)
-                sheetNo= sheetNo+1
+                if(count){
+                    status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCenter.name, session)
+                    sheetNo= sheetNo+1
+                }
              }
-             workbook.write();
-             workbook.close();
+             if(sheetNo>0){
+                 workbook.write();
+                 workbook.close();
+             }
              return status
         }
          else if(currentUser.studyCentreId){
@@ -75,6 +82,9 @@ class ReportService {
                      }
                      and{
                          eq('registrationYear' , Integer.parseInt(params.session))
+                     }
+                     and{
+                         eq('status', Status.findById(4))
                      }
                      projections {
                          rowCount()
@@ -97,6 +107,9 @@ class ReportService {
                     }
                     and{
                         eq('registrationYear' , Integer.parseInt(params.session))
+                    }
+                    and{
+                          eq('status', Status.findById(4))
                     }
                     projections {
                         rowCount()
@@ -136,6 +149,9 @@ class ReportService {
                 }
                 and{
                     between('registrationYear' ,startSession, endSession)
+                }
+                and{
+                    eq('status', Status.findById(4))
                 }
                 projections{
                     groupProperty('registrationYear')
@@ -185,6 +201,9 @@ class ReportService {
             }
             and{
                 eq('registrationYear' , Integer.parseInt(params.courseSession))
+            }
+            and{
+                eq('status', Status.findById(4))
             }
         }
 
@@ -350,6 +369,9 @@ class ReportService {
                 and{
                     eq('registrationYear' , 2014)
                 }
+                and{
+                    eq('status', Status.findById(4))
+                }
                 projections {
                     groupProperty("category")
                     rowCount()
@@ -400,6 +422,9 @@ class ReportService {
                 }
                 and{
                     eq('registrationYear' , 2014)
+                }
+                and{
+                    eq('status', Status.findById(4))
                 }
                 projections {
                     groupProperty("category")
@@ -494,9 +519,9 @@ class ReportService {
 //                ne('referenceNumber', 0)
 //            }
 
-//             and{
-//                eq('status', Status.findById(1))
-//             }
+             and{
+                eq('status', Status.findById(4))
+             }
 //            and{
 //              isNotNull('referenceNumber')
 //            }
@@ -588,6 +613,7 @@ class ReportService {
 
 
     def getReportDataComparative(startSession, endSession){
+        println('calling it')
         def categoryList =[]
         categoryList
         def totalByCategory=[]
@@ -610,6 +636,9 @@ class ReportService {
                 }
                 and{
                     between('registrationYear' ,startSession, endSession)
+                }
+                and{
+                    eq('status', Status.findById(4))
                 }
                 projections{
                     groupProperty('registrationYear')
@@ -666,6 +695,9 @@ class ReportService {
                 }
                 and{
                     eq('category', ''+params.studentCategory)
+                }
+                and{
+                    eq('status', Status.findById(4))
                 }
             }
             status=  writeExcelService.excelReport(params, count, it, sheetNo, workbook, null, session)
@@ -868,7 +900,9 @@ class ReportService {
                                     }
                             }
                             else if(params.value =='sessionProgramWiseFeeNotPaid'){
+                                println("student list is "+ stuList)
                                 def count = FeeDetails.findAllByStudentInListAndFeeTypeAndSemesterValueAndIsApprovedNotEqual(stuList,FeeType.findById(3), Integer.parseInt(params.programTerm), Status.findById(4))
+                                println("count is "+ count)
                                 if(count){
                                         status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
                                         sheetNo= sheetNo+1

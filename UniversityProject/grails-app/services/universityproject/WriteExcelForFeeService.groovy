@@ -28,13 +28,14 @@ class WriteExcelForFeeService {
     private WritableCellFormat times;
     private WritableCellFormat times1;
     Boolean  excelReport(params, finalList, course, sheetNo, WritableWorkbook workbook, studyCentreName, session){
-//        println("creating this sheet "+ sheetNo)
-//        println("this is the name of student "+ finalList[0].student.city[0]?.cityName)
-//        println("this size "+ finalList.size())
         def feeType = finalList[0].feeType.type
         WritableSheet sheet= null
         WritableSheet excelSheet=null
-        sheet = workbook.createSheet(""+course.courseName, sheetNo);
+        String courseName= course.courseName
+        if(courseName.contains('/')){
+            courseName = courseName.replace('/', ' ')
+        }
+        sheet = workbook.createSheet(""+courseName, sheetNo);
         excelSheet = workbook.getSheet(sheetNo);
         createLabel(excelSheet, params, course, studyCentreName, session,feeType);
         createContent(excelSheet, finalList);
@@ -77,7 +78,7 @@ class WriteExcelForFeeService {
         cv.setAutosize(true);
         int row = 0
         int cols = 6
-        WritableCell titleCell = new Label(0, row, "Total Students In "+course.courseName +" For "+ session+"-"+formatSession +" Session In "+(studyCentreName? studyCentreName:'All Study Centres')+' Who\'s '+ feeType +" "+(params.value=='sessionProgramWiseFeePaid'? 'Paid': 'Unpaid'));
+        WritableCell titleCell = new Label(0, row, "Total Students In "+course.courseName +" For "+ session+"-"+formatSession +" Session In "+(studyCentreName? studyCentreName:'All Study Centres')+' Who\'s '+ feeType +" "+(params.value=='sessionProgramWiseFeePaid'? 'Is Paid': 'Is Unpaid'));
         titleCell.setCellFormat(times)
         sheet.addCell(titleCell);
         sheet.mergeCells(0, row, cols, row);

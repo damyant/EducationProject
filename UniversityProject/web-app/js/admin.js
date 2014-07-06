@@ -1115,8 +1115,7 @@ function assignStudyMaterial() {
 function loadPayInSlipDetails(t) {
     var pMode = $(t).val()
     var challanNo = $('#searchChallanNo').val()
-    if (pMode == '5') {
-//        alert(pMode)
+    if (pMode == '1') {
         $.ajax({
             type: "post",
             url: url('admin', 'loadPayInSlipDetail', ''),
@@ -1321,9 +1320,13 @@ function searchByRollNumber(){
             url: url('feeDetails', 'searchDataByRollNumber', ''),
             data:'rollNumber='+$('#rollNumberInput').val(),
             success: function (data) {
-                if(data.status==true){
+                if(data.status==true && !(data.errMsg)){
+
                     appendDetail(data)
                     $("#errorMsgForRollNo").html("")
+                }
+                else if(data.errMsg){
+                    alert(data.errMsg)
                 }
                 else{
     //                alert("false")

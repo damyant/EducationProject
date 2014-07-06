@@ -22,7 +22,8 @@
 <div id="header-Menu">
 %{--<div id="header-Menu">--}%
 <ul id="menu">
-<li><a href="#"><g:message code="default.mainMenu1"/></a></li>
+<li><g:link controller="home" action="index"><g:message
+        code="default.mainMenu1"/></g:link></li>
 <li><a href="#"><g:message code="default.mainMenu2"/></a>
     <ul>
         <sec:ifLoggedIn>
@@ -247,39 +248,24 @@
         </li>
         <li><a href="#"><g:message code="default.mainMenu7.subMenu4.chandan"/></a>
             <ul>
-                <li>
-                    <g:link controller="feeDetails"
-                            action="postAdmissionFeeAtIdol"><g:message
-                            code="default.mainMenu8.subMenu4.subMenu3"/></g:link></li>
-                <li><g:link controller="admin" action="feeVoucher"><g:message
-                        code="default.mainMenu7.subMenu1"/></g:link></li>
-                <li>
-                    <g:link controller="admin" action="generateCustomChallan"><g:message code="default.mainMenu6.subMenu12"/></g:link>
-                </li>
-
+                <li><g:link controller="feeDetails" action="postAdmissionFeeAtIdol"><g:message code="default.mainMenu8.subMenu4.subMenu3"/></g:link></li>
+                <li><g:link controller="admin" action="feeVoucher"><g:message code="default.mainMenu7.subMenu1"/></g:link></li>
+                <li><g:link controller="admin" action="feeVoucher"><g:message code="default.mainMenu7.subMenu1.subMenu1"/></g:link></li>
+                <li><g:link controller="admin" action="generateCustomChallan"><g:message code="default.mainMenu6.subMenu12"/></g:link></li>
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu8.subMenu3"/></a>
             <ul>
-                <li>
-                    <g:link controller="feeDetails" action="generateChallanSCAdmissionFee"><g:message
-                            code="default.mainMenu8.subMenu3.subMenu1"/></g:link>
-                </li>
-
+                <li> <g:link controller="feeDetails" action="generateChallanSCAdmissionFee"><g:message code="default.mainMenu8.subMenu3.subMenu1"/></g:link></li>
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu8.subMenu4"/></a>
             <ul>
-                %{--<li>--}%
-                %{--<g:link controller="feeDetails" action="challanForMiscellaneousFee"><g:message code="default.mainMenu8.subMenu4.subMenu1"/></g:link></li>--}%
                 <li>
-                    <g:link controller="feeDetails" action="payAdmissionFee"><g:message
-                            code="default.mainMenu8.subMenu3.subMenu3"/></g:link>
+                    <g:link controller="feeDetails" action="payAdmissionFee"><g:message code="default.mainMenu8.subMenu3.subMenu3"/></g:link>
                 </li>
                 <li>
-                    <g:link controller="feeDetails"
-                            action="payMiscellaneousFee"><g:message
-                            code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>
+                    <g:link controller="feeDetails" action="payMiscellaneousFee"><g:message code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>
 
             </ul>
         </li>

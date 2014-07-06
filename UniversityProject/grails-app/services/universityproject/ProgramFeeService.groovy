@@ -119,7 +119,7 @@ class ProgramFeeService {
             sessionObj = new FeeSession(sessionOfFee: params.programSessionId, programDetailId:programDetailIns).save(flush: true, failOnError: true)
             newSessionStatus=true
         }
-//        println("______________"+params.term)
+//        println("______________"+params.semesterList)
         if(newSessionStatus==false) {
             if(AdmissionFee.findByFeeSessionAndTerm(sessionObj,Integer.parseInt(params.semesterList))){
                 admissionFeeIns = AdmissionFee.findByFeeSessionAndTerm(sessionObj,Integer.parseInt(params.semesterList))

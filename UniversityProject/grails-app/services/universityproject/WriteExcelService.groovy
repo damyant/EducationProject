@@ -31,7 +31,11 @@ class WriteExcelService {
 //       println("creating this sheet "+ sheetNo)
        WritableSheet sheet= null
        WritableSheet excelSheet=null
-       sheet = workbook.createSheet(""+course.courseName, sheetNo);
+       String courseName= course.courseName
+       if(courseName.contains('/')){
+           courseName = courseName.replace('/', ' ')
+       }
+       sheet = workbook.createSheet(""+courseName, sheetNo);
        excelSheet = workbook.getSheet(sheetNo);
       createLabel(excelSheet, params, course, studyCentreName, session);
       createContent(excelSheet, finalList);

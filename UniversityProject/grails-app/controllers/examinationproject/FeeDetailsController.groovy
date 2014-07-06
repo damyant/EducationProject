@@ -484,7 +484,7 @@ class FeeDetailsController {
             it.bankId = Bank.findById(params.bankName)
             it.branchId = Branch.findById(params.branchLocation)
             it.paymentDate = df.parse(params.paymentDate)
-            if (PaymentMode.findById(params.paymentMode).paymentModeName != 'Pay In Slip') {
+            if (PaymentMode.findById(params.paymentMode)!= PaymentMode.findById(1)) {
                 it.isApproved = Status.findById(3)
                 if (it.save(flush: true, failOnError: true)) {
                     if(it.semesterValue==1){
@@ -494,6 +494,10 @@ class FeeDetailsController {
             } else {
                 it.isApproved = Status.findById(4)
                 if (it.save(flush: true, failOnError: true)) {
+                    if(it.student.migratingStudyCentre!=0){
+                        it.student.studyCentre=StudyCenter.findById(it.student.migratingStudyCentre)
+                        it.student.migratingStudyCentre=0
+                    }
                     if(it.semesterValue==1){
                         it.student.status = Status.findById(4)
                     }
@@ -539,7 +543,7 @@ class FeeDetailsController {
             it.branchId = branch
             it.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
             it.paymentDate = df.parse(params.paymentDate)
-            if (PaymentMode.findById(params.paymentMode).paymentModeName != 'Pay In Slip') {
+            if (PaymentMode.findById(params.paymentMode) != PaymentMode.findById(1)) {
                 it.isApproved = Status.findById(3)
                 if (it.save(flush: true, failOnError: true)) {
                     status = true
@@ -650,6 +654,13 @@ class FeeDetailsController {
     }
 
     def savePostExamFee = {
+        def studentInst=Student.findByRollNo(params.rollNumberInput)
+        def status=true
+        println((params.postFeeType=="3"))
+        if(studentInst.studyCentre!=StudyCenter.findByCenterCode("11111") && (params.postFeeType=="3")){
+            status=false
+        }
+        if(status){
         def misFeeObj = new FeeDetails()
         misFeeObj.semesterValue = Integer.parseInt(params.semester)
         misFeeObj.challanNo = studentRegistrationService.getChallanNumber()
@@ -669,7 +680,11 @@ class FeeDetailsController {
         misFeeObj.paidAmount= amount
         misFeeObj.save(failOnError: true)
         redirect(action: 'postAdmissionFeeAtIdol', params:[misFeeObject: misFeeObj.id, amount: amount])
-
+        }
+        else{
+            flash.message="Sorry,Student does not belongs to IDOL."
+            redirect(action: 'postAdmissionFeeAtIdol')
+        }
     }
 
 
