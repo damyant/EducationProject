@@ -110,7 +110,7 @@
                                 <i><b><label id="mode">Previous/Semester</label> Examination <label
                                         id="year">${year} </label></b><label
                                         style="font-size: 12px;">Under the Institute of Distance and Open Learning for </label><b>${student.programDetail[0].courseName}
-                                    <g:if test="${student?.programDetail?.programType == ProgramType?.findById(1)}"><label> Term ${student.programDetail[0].noOfAcademicYears} </label></g:if><g:else><label>Semester ${student.programDetail[0].noOfTerms}</label></g:else>
+                                    <label> Term ${student.semester} </label>
                                 </b></i></div>
                         </td>
                     </tr>

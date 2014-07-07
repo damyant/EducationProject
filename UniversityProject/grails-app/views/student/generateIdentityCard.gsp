@@ -44,13 +44,13 @@
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
                                       from="${programList}" noSelection="['': ' Select Programme']"
-                                      onchange="enableShowCandidate()"/>
+                                      onchange="enableShowCandidateIdentity()"/>
                         </td>
                         <td></td>
                     </tr>
                     <tr><td><label>Select a Session</label></td>
                         <td>
-                            <select name="admissionYear" class="university-size-1-1" id="admissionYear">
+                            <select name="admissionYear" class="university-size-1-1" id="admissionYear" onchange="enableShowCandidateIdentity()">
                                 <option value="">Select Session</option>
                                 <g:each in="${sessionList}" var="year">
                                     <option value="${year}">${year}-${year+1}</option>

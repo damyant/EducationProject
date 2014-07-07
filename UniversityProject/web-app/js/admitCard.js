@@ -1,85 +1,81 @@
-
-
-
-
-var maxCapacity=0;
-var availableCapacity=0;
-var i ;
+var maxCapacity = 0;
+var availableCapacity = 0;
+var i;
 var selected = new Array();
-var updatedAvailable=0;
-var totalRows= 0;
+var updatedAvailable = 0;
+var totalRows = 0;
 
 
 $(document).ready(function () {
 
-if($('#admitCardForm').length>0){
-    var count=0;
-   // $("input[name='studentCheckbox']").change(function () {
-    $(document).on('change', "input[name='studentCheckbox']", function () {
-        $("#from").val("");
-        $("#to").val("");
-        $('#remainingCapacityBox').prop('hidden', false);
-        var maxAllowed = availableCapacity;
-        count = $("input[name='studentCheckbox']:checked").length;
-        if(availableCapacity>0)
+    if ($('#admitCardForm').length > 0) {
+        var count = 0;
+        // $("input[name='studentCheckbox']").change(function () {
+        $(document).on('change', "input[name='studentCheckbox']", function () {
+            $("#from").val("");
+            $("#to").val("");
+            $('#remainingCapacityBox').prop('hidden', false);
+            var maxAllowed = availableCapacity;
+            count = $("input[name='studentCheckbox']:checked").length;
+            if (availableCapacity > 0)
 
-            $("#remainingCapacity").val(availableCapacity-count);
+                $("#remainingCapacity").val(availableCapacity - count);
 
-        if (count>availableCapacity) {
-            $("#remainingCapacity").val(count-1);
-            $(this).prop("checked", "");
-            $("#remainingCapacity").val(0);
-            alert('You can select maximum ' + maxAllowed + ' Students only!!');
-        }
+            if (count > availableCapacity) {
+                $("#remainingCapacity").val(count - 1);
+                $(this).prop("checked", "");
+                $("#remainingCapacity").val(0);
+                alert('You can select maximum ' + maxAllowed + ' Students only!!');
+            }
 
-    });
-
-
-    $(document).on('change', "input[name='selectAll']", function () {
-        $("#from").val("")
-        $("#to").val("")
-        var updatedAvailable=availableCapacity;
-        for(i=0;i<updatedAvailable;i++)
-            $('#admitCardTab').find('#rowID'+i).find('input[type="checkbox"]').prop('checked',$("#selectAll").prop("checked"))
-
-        $('input:checked').each(function() {
-            selected.push($(this).attr('id'));
         });
-        var selectedRows=selected.length-1
 
-        if($("#selectAll").prop('checked')==false){
-          $("#remainingCapacity").val(updatedAvailable);
-        }else{
 
-            $("#remainingCapacity").val(updatedAvailable-selectedRows);
-            selectedRows=0;
-            selected.length=0;
-        }
+        $(document).on('change', "input[name='selectAll']", function () {
+            $("#from").val("")
+            $("#to").val("")
+            var updatedAvailable = availableCapacity;
+            for (i = 0; i < updatedAvailable; i++)
+                $('#admitCardTab').find('#rowID' + i).find('input[type="checkbox"]').prop('checked', $("#selectAll").prop("checked"))
 
-    })
+            $('input:checked').each(function () {
+                selected.push($(this).attr('id'));
+            });
+            var selectedRows = selected.length - 1
 
-    $(document).on('change', "input[name='to']", function () {
-        if($("#from").val().length==0){
-            alert("Please enter range correctly")
-            return false
-        }else{
-           selectRows();
-        }
+            if ($("#selectAll").prop('checked') == false) {
+                $("#remainingCapacity").val(updatedAvailable);
+            } else {
 
-    });
-    $(document).on('change', "input[name='from']", function () {
+                $("#remainingCapacity").val(updatedAvailable - selectedRows);
+                selectedRows = 0;
+                selected.length = 0;
+            }
 
-        if($("#to").val().length==0 && $("#to").val()==""){
-            return false
-        }else{
-            selectRows();
-        }
+        })
 
-    });
-}
+        $(document).on('change', "input[name='to']", function () {
+            if ($("#from").val().length == 0) {
+                alert("Please enter range correctly")
+                return false
+            } else {
+                selectRows();
+            }
 
-    if($('#identityCardForm').length>0){
-        var count=0;
+        });
+        $(document).on('change', "input[name='from']", function () {
+
+            if ($("#to").val().length == 0 && $("#to").val() == "") {
+                return false
+            } else {
+                selectRows();
+            }
+
+        });
+    }
+
+    if ($('#identityCardForm').length > 0) {
+        var count = 0;
         // $("input[name='studentCheckbox']").change(function () {
         $(document).on('change', "input[name='studentCheckbox']", function () {
             $("#from").val("");
@@ -92,35 +88,35 @@ if($('#admitCardForm').length>0){
         $(document).on('change', "input[name='selectAll']", function () {
             $("#from").val("")
             $("#to").val("")
-                $('#admitCardTab').find('.rowID').find('input[type="checkbox"]').prop('checked',$("#selectAll").prop("checked"))
+            $('#admitCardTab').find('.rowID').find('input[type="checkbox"]').prop('checked', $("#selectAll").prop("checked"))
 
-            $('input:checked').each(function() {
+            $('input:checked').each(function () {
                 selected.push($(this).attr('id'));
             });
-            var selectedRows=selected.length-1
+            var selectedRows = selected.length - 1
 
-            if($("#selectAll").prop('checked')==false){
-            }else{
-                selectedRows=0;
-                selected.length=0;
+            if ($("#selectAll").prop('checked') == false) {
+            } else {
+                selectedRows = 0;
+                selected.length = 0;
             }
 
         })
 
         $(document).on('change', "input[name='to']", function () {
-            if($("#from").val().length==0){
+            if ($("#from").val().length == 0) {
                 alert("Please enter range correctly")
                 return false
-            }else{
+            } else {
                 selectRows();
             }
 
         });
         $(document).on('change', "input[name='from']", function () {
 
-            if($("#to").val().length==0 && $("#to").val()==""){
+            if ($("#to").val().length == 0 && $("#to").val() == "") {
                 return false
-            }else{
+            } else {
                 selectRows();
             }
 
@@ -130,70 +126,69 @@ if($('#admitCardForm').length>0){
 });
 
 
-
-function selectRows(){
-    var from=$("#from").val()
+function selectRows() {
+    var from = $("#from").val()
     var to = $("#to").val()
-    $("#selectAll").prop('checked',false)
-    updatedAvailable=availableCapacity
+    $("#selectAll").prop('checked', false)
+    updatedAvailable = availableCapacity
 
-    if(from.length==0){
+    if (from.length == 0) {
         alert("Please Enter from Sr No.")
     }
-    var selectedRange=0;
-    if(to>=from){
-        selectedRange = (to-from)
-    }else{
+    var selectedRange = 0;
+    if (to >= from) {
+        selectedRange = (to - from)
+    } else {
         alert("Please enter range correctly")
         return false
     }
 
-    var rangeCount = parseInt(from)+selectedRange;
-    for(i=from-1;i<rangeCount;i++)
-        $('#admitCardTab').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', true)
+    var rangeCount = parseInt(from) + selectedRange;
+    for (i = from - 1; i < rangeCount; i++)
+        $('#admitCardTab').find('#rowID' + i).find('input[type="checkbox"]').prop('checked', true)
 
-    for(i=to;i<totalRows;i++)
-        $('#admitCardTab').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
-    for(i=from-2;i>=0;i--)
-        $('#admitCardTab').find('#rowID'+i).find('input[type="checkbox"]').prop('checked', false)
-    $('input:checked').each(function() {
+    for (i = to; i < totalRows; i++)
+        $('#admitCardTab').find('#rowID' + i).find('input[type="checkbox"]').prop('checked', false)
+    for (i = from - 2; i >= 0; i--)
+        $('#admitCardTab').find('#rowID' + i).find('input[type="checkbox"]').prop('checked', false)
+    $('input:checked').each(function () {
         selected.push($(this).attr('id'));
     });
 
-    var selectedRows=selected.length;
-    $("#remainingCapacity").val(updatedAvailable-selectedRows)
-    selected.length=0;
+    var selectedRows = selected.length;
+    $("#remainingCapacity").val(updatedAvailable - selectedRows)
+    selected.length = 0;
 }
 
-function hideAll(){
+function hideAll() {
     $('#studyCenterFeeEntryTable').prop('hidden', true)
     $('#allProgram').prop('checked', false)
     $('#rangeRadioButtons').prop('hidden', true)
 //    $('#paymentDetails').prop('hidden', true)
     document.getElementById("paginationDiv").style.visibility = "hidden";
-    document.getElementById("paymentDetails").style.visibility="hidden"
-    document.getElementById("generateFeeChallan").style.visibility="hidden"
+    document.getElementById("paymentDetails").style.visibility = "hidden"
+    document.getElementById("generateFeeChallan").style.visibility = "hidden"
 //    $('#generateFeeChallan').prop('hidden', true)
 }
-function getSemester(t){
-    if($("#paginationDiv").length>0) {
+function getSemester(t) {
+    if ($("#paginationDiv").length > 0) {
         document.getElementById("paginationDiv").style.visibility = "hidden";
     }
     $('#studyCenterFeeEntryTable').prop('hidden', true)
     $('#allProgram').prop('checked', false)
     $('#rangeRadioButtons').prop('hidden', true)
-    var test= $("#paymentDetails").length
-    if(test>0) {
+    var test = $("#paymentDetails").length
+    if (test > 0) {
         document.getElementById("paymentDetails").style.visibility = "hidden"
     }
-    if($("#generateFeeChallan").length>0) {
+    if ($("#generateFeeChallan").length > 0) {
         document.getElementById("generateFeeChallan").style.visibility = "hidden"
     }
 //    $('#generateFeeChallan').prop('hidden', true)
     var data = $(t).val();
-    $('#semesterList').prop('disabled',false)
-    $('#SessionList').prop('disabled',false)
-    if(data){
+    $('#semesterList').prop('disabled', false)
+    $('#SessionList').prop('disabled', false)
+    if (data) {
         $.ajax({
             type: "post",
             url: url('admitCard', 'getSemesterList', ''),
@@ -212,7 +207,7 @@ function getSemester(t){
             }
         })
     }
-    else{
+    else {
         $("#semesterList").empty().append('data <option value="">Select Semester</option>')
         $("#SessionList").empty().append('data <option value="">Select Session</option>')
         $("#sessionType").val(0)
@@ -220,9 +215,9 @@ function getSemester(t){
     }
 }
 
-function getSession(t){
+function getSession(t) {
     var data = $(t).val();
-    if(data){
+    if (data) {
         $.ajax({
             type: "post",
             url: url('admitCard', 'getSemesterList', ''),
@@ -236,23 +231,23 @@ function getSession(t){
             }
         })
     }
-    else{
+    else {
         $("#semesterList").empty().append('data <option value="">Select Semester</option>')
         $("#SessionList").empty().append('data <option value="">Select Session</option>')
         $("#sessionType").val(0)
         $("#subjectList").empty();
     }
 }
-function getTermByCatagory(t){
+function getTermByCatagory(t) {
     var data = $(t).val();
     var catagory = $('#programCategory').val();
-    $('#semesterList').prop('disabled',false)
-    $('#SessionList').prop('disabled',false)
-    if(data){
+    $('#semesterList').prop('disabled', false)
+    $('#SessionList').prop('disabled', false)
+    if (data) {
         $.ajax({
             type: "post",
             url: url('admitCard', 'getTermListByCatagory', ''),
-            data: {data: data,catagory:catagory},
+            data: {data: data, catagory: catagory},
             success: function (data) {
                 $("#semesterList").empty().append('data <option value="">Select Term</option>')
 
@@ -262,76 +257,75 @@ function getTermByCatagory(t){
             }
         })
     }
-    else{
+    else {
         $("#semesterList").empty().append('data <option value="">Select Term</option>')
     }
 
 }
-function setType(){
+function setType() {
     $("#sessionType").val(0)
     $("#subjectList").empty();
 }
 
 
-
-function getSemesterForAttendance(t){
+function getSemesterForAttendance(t) {
     var data = $(t).val();
-    if(data){
-    $('#semesterList').prop('disabled',false)
-    $('#SessionList').prop('disabled',false)
-    if(data=='allProgram'){
-    $.ajax({
-        type: "post",
-        url: url('admitCard', 'getSemesterList', ''),
-        data: {data: data},
-        success: function (data) {
-            $("#semesterList").empty().append('data <option value="allSemester">All Semester</option>')
-            $("#SessionList").empty().append('data <option value="allSession">All Session</option>')
-            for (var i = 1; i <= data.totalSem; i++) {
-                $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
-            }
-            for (var i = 0; i < data.session.length; i++) {
-                $("#SessionList").append('<option value="' + data.session[i] + '">' + data.session[i] + '</option>')
-            }
+    if (data) {
+        $('#semesterList').prop('disabled', false)
+        $('#SessionList').prop('disabled', false)
+        if (data == 'allProgram') {
+            $.ajax({
+                type: "post",
+                url: url('admitCard', 'getSemesterList', ''),
+                data: {data: data},
+                success: function (data) {
+                    $("#semesterList").empty().append('data <option value="allSemester">All Semester</option>')
+                    $("#SessionList").empty().append('data <option value="allSession">All Session</option>')
+                    for (var i = 1; i <= data.totalSem; i++) {
+                        $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+                    }
+                    for (var i = 0; i < data.session.length; i++) {
+                        $("#SessionList").append('<option value="' + data.session[i] + '">' + data.session[i] + '</option>')
+                    }
+                }
+            })
         }
-    })
-  }
-    else{
+        else {
 
-        $.ajax({
-            type: "post",
-            url: url('admitCard', 'getSemesterList', ''),
-            data: {data: data},
-            success: function (data) {
-                $("#semesterList").empty().append('data <option value="">Select Semester</option>')
-                $("#SessionList").empty().append('data <option value="">Select Session</option>')
-                for (var i = 1; i <= data.totalSem; i++) {
-                    $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+            $.ajax({
+                type: "post",
+                url: url('admitCard', 'getSemesterList', ''),
+                data: {data: data},
+                success: function (data) {
+                    $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+                    $("#SessionList").empty().append('data <option value="">Select Session</option>')
+                    for (var i = 1; i <= data.totalSem; i++) {
+                        $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+                    }
+                    for (var i = 0; i < data.session.length; i++) {
+                        $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
+                    }
                 }
-                for (var i = 0; i < data.session.length; i++) {
-                    $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
-                }
-            }
-        })
+            })
+        }
     }
-    }
-    else{
+    else {
         $("#semesterList").empty().append('data <option value="">Select Semester</option>')
         $("#SessionList").empty().append('data <option value="">Select Session</option>')
-        $('#semesterList').prop('disabled',true)
+        $('#semesterList').prop('disabled', true)
         $('#SessionList').prop('disabled', true)
     }
 
-    $("#semesterList").attr('enabled',true)
+    $("#semesterList").attr('enabled', true)
 
 }
 
 
-function showStudentInfo(){
+function showStudentInfo() {
     document.getElementById("admitCardTab").style.display = "block";
     document.getElementById("subjectTab").style.display = "block";
-$("#admitCardTab ").append('<tr><th>Roll Number</th><th>Name of the Student</th><th>Select Student</th><th></th></tr>')
- $('#subjectTab').append('<tr><th>Subject</th><th>Subject-Code</th><th>Time Of Exam</th><th>Date Of Exam</th></tr>')
+    $("#admitCardTab ").append('<tr><th>Roll Number</th><th>Name of the Student</th><th>Select Student</th><th></th></tr>')
+    $('#subjectTab').append('<tr><th>Subject</th><th>Subject-Code</th><th>Time Of Exam</th><th>Date Of Exam</th></tr>')
 }
 
 function showExamVenueList() {
@@ -342,11 +336,11 @@ function showExamVenueList() {
     $.ajax({
         type: "post",
         url: url('examinationCenter', 'getExamCentreList', ''),
-        data: "examinationCentre="+$('#examinationCentre').val()+"&programList="+$('#programList').val(),
+        data: "examinationCentre=" + $('#examinationCentre').val() + "&programList=" + $('#programList').val(),
         success: function (data) {
             $("#examCenterList").empty().append('data <option value="">Select Examination Venue</option>')
 
-            for(var i=0;i<data.assocaitedExamVenue.length;i++){
+            for (var i = 0; i < data.assocaitedExamVenue.length; i++) {
 
                 $("#examCenterList").append('<option value="' + data.assocaitedExamVenue[i].id + '">' + data.assocaitedExamVenue[i].name + '</option>')
             }
@@ -356,23 +350,23 @@ function showExamVenueList() {
     });
 }
 
-function showExamVenueCapacity(){
+function showExamVenueCapacity() {
 
     $.ajax({
         type: "post",
         url: url('admitCard', 'examVenueCapacity', ''),
         data: {examVenueId: $("#examCenterList").val()},
         success: function (data) {
-        if(data.capacity){
+            if (data.capacity) {
 
-            $('#totalCapacity').val(data.capacity)
-            $('#remainingCapacity').val(data.availabelCapacity)
+                $('#totalCapacity').val(data.capacity)
+                $('#remainingCapacity').val(data.availabelCapacity)
 
-            $('#maxCapacityBox').prop('hidden', false)
-            $('#remainingCapacityBox').prop('hidden', false)
-            maxCapacity=data.capacity
-            availableCapacity=data.availabelCapacity
-        }
+                $('#maxCapacityBox').prop('hidden', false)
+                $('#remainingCapacityBox').prop('hidden', false)
+                maxCapacity = data.capacity
+                availableCapacity = data.availabelCapacity
+            }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -380,7 +374,7 @@ function showExamVenueCapacity(){
 }
 
 
-function getStudentsForAdmitCard(){
+function getStudentsForAdmitCard() {
 
     $.ajax({
         type: "post",
@@ -389,87 +383,22 @@ function getStudentsForAdmitCard(){
         success: function (data) {
 
             $('#admitCardTab').find("tr:gt(0)").remove();
-              if(data.length!=undefined){
-                  $('#studentListTable').prop('hidden', false)
-                  $('#studentListPrint').prop('hidden', false)
-                  $('#studentListPrintButton').prop('hidden', false)
-                  var count=1;
-                 for(var i=0;i<data.length;i++){
-                       $('#admitCardTab tbody').append('<tr id="rowID'+i+'"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].firstName+' '+data[i].lastName+'</td></tr>')
-                    ++count;
-                }
-                  totalRows=count;
-                  document.getElementById("paginationDiv").style.visibility = "visible";
-                  $table_rows = $('#admitCardTab tbody tr');
-
-                  var table_row_limit = 10;
-
-                  var page_table = function(page) {
-
-                      // calculate the offset and limit values
-                      var offset = (page - 1) * table_row_limit,
-                          limit = page * table_row_limit;
-
-                      // hide all table rows
-                      $table_rows.hide();
-
-                      // show only the n rows
-                      $table_rows.slice(offset, limit).show();
-
-                  }
-                  var pageNo=0
-                  if($table_rows.length % table_row_limit){
-                      pageNo=parseInt(parseInt($table_rows.length) / table_row_limit)+1
-                  }
-                  else{
-                      pageNo=parseInt($table_rows.length / table_row_limit)
-                  }
-                  $('.pagination').jqPagination({
-                      max_page: pageNo,
-                      paged: page_table
-                  });
-                  page_table(1);
-            }
-            else{
-                  document.getElementById("paginationDiv").style.visibility = "hidden";
-                  $('#showErrorMessage').prop('hidden', false)
-                  $('#showErrorMessage').text('No Students Found');
-                  $('#studentListTable').prop('hidden', true)
-                  $('#studentListPrint').prop('hidden', true)
-                  $('#studentListPrintButton').prop('hidden', true)
-//                  setTimeout(function(){  $('#showErrorMessage').hide(); }, 8000);
-              }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-        }
-    });
-}
-
-function getStudentsForIdentityCard(){
-
-    $.ajax({
-        type: "post",
-        url: url('student', 'getStudentsForIdentityCard', ''),
-        data: $("#identityCardForm").serialize(),
-        success: function (data) {
-
-            $('#admitCardTab').find("tr:gt(0)").remove();
-            if(data.length!=undefined){
+            if (data.length != undefined) {
                 $('#studentListTable').prop('hidden', false)
                 $('#studentListPrint').prop('hidden', false)
                 $('#studentListPrintButton').prop('hidden', false)
-                var count=1;
-                for(var i=0;i<data.length;i++){
-                    $('#admitCardTab tbody').append('<tr class="rowID"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].firstName+' '+data[i].lastName+'</td></tr>')
+                var count = 1;
+                for (var i = 0; i < data.length; i++) {
+                    $('#admitCardTab tbody').append('<tr id="rowID' + i + '"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id=' + data[i].id + '></td><td>' + count + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].firstName + ' ' + data[i].lastName + '</td></tr>')
                     ++count;
                 }
-                totalRows=count;
+                totalRows = count;
                 document.getElementById("paginationDiv").style.visibility = "visible";
                 $table_rows = $('#admitCardTab tbody tr');
 
                 var table_row_limit = 10;
 
-                var page_table = function(page) {
+                var page_table = function (page) {
 
                     // calculate the offset and limit values
                     var offset = (page - 1) * table_row_limit,
@@ -482,21 +411,20 @@ function getStudentsForIdentityCard(){
                     $table_rows.slice(offset, limit).show();
 
                 }
-                var pageNo=0
-                if($table_rows.length % table_row_limit){
-                    pageNo=parseInt(parseInt($table_rows.length) / table_row_limit)+1
+                var pageNo = 0
+                if ($table_rows.length % table_row_limit) {
+                    pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
                 }
-                else{
-                    pageNo=parseInt($table_rows.length / table_row_limit)
+                else {
+                    pageNo = parseInt($table_rows.length / table_row_limit)
                 }
-//                alert(5%5)
                 $('.pagination').jqPagination({
                     max_page: pageNo,
                     paged: page_table
                 });
                 page_table(1);
             }
-            else{
+            else {
                 document.getElementById("paginationDiv").style.visibility = "hidden";
                 $('#showErrorMessage').prop('hidden', false)
                 $('#showErrorMessage').text('No Students Found');
@@ -511,36 +439,105 @@ function getStudentsForIdentityCard(){
     });
 }
 
+function getStudentsForIdentityCard() {
+    validateProgramFee()
+    var status = $("#identityCardForm").valid();
+    if (status) {
+        $.ajax({
+            type: "post",
+            url: url('student', 'getStudentsForIdentityCard', ''),
+            data: $("#identityCardForm").serialize(),
+            success: function (data) {
 
-function showExamVenueList1(){
+                $('#admitCardTab').find("tr:gt(0)").remove();
+                if (data.length != undefined) {
+                    $('#studentListTable').prop('hidden', false)
+                    $('#studentListPrint').prop('hidden', false)
+                    $('#studentListPrintButton').prop('hidden', false)
+                    var count = 1;
+                    for (var i = 0; i < data.length; i++) {
+                        $('#admitCardTab tbody').append('<tr id="rowID' + i + '"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id=' + data[i].id + '></td><td>' + count + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].firstName + ' ' + data[i].lastName + '</td></tr>')
+                        ++count;
+                    }
+                    totalRows = count;
+                    document.getElementById("paginationDiv").style.visibility = "visible";
+                    $table_rows = $('#admitCardTab tbody tr');
+
+                    var table_row_limit = 10;
+
+                    var page_table = function (page) {
+
+                        // calculate the offset and limit values
+                        var offset = (page - 1) * table_row_limit,
+                            limit = page * table_row_limit;
+
+                        // hide all table rows
+                        $table_rows.hide();
+
+                        // show only the n rows
+                        $table_rows.slice(offset, limit).show();
+
+                    }
+                    var pageNo = 0
+                    if ($table_rows.length % table_row_limit) {
+                        pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
+                    }
+                    else {
+                        pageNo = parseInt($table_rows.length / table_row_limit)
+                    }
+//                alert(5%5)
+                    $('.pagination').jqPagination({
+                        max_page: pageNo,
+                        paged: page_table
+                    });
+                    page_table(1);
+                }
+                else {
+                    document.getElementById("paginationDiv").style.visibility = "hidden";
+                    $('#showErrorMessage').prop('hidden', false)
+                    $('#showErrorMessage').text('No Students Found');
+                    $('#studentListTable').prop('hidden', true)
+                    $('#studentListPrint').prop('hidden', true)
+                    $('#studentListPrintButton').prop('hidden', true)
+//                  setTimeout(function(){  $('#showErrorMessage').hide(); }, 8000);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+    }
+}
+
+
+function showExamVenueList1() {
     $('#addExamCentre').empty();
     var data = $('#examinationCentre').val();
     $('#CentreForExamVenue').html($('#examinationCentre option:selected').text());
-    if(data){
-    $.ajax({
-        type: "post",
-        url: url('examinationCenter', 'getExamCentreList', ''),
-        data: $('#assignExamVenue').serialize(),
-        success: function (data) {
-            $('#submitButton').show()
-            $("#examCenterList").empty().append('')
-            for (var i = 0; i < data.name.length; i++) {
-                $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
-                $("#moveButton").css("visibility", 'visible');
-                $("#movetoSelect").css("visibility", 'visible');
-            }
+    if (data) {
+        $.ajax({
+            type: "post",
+            url: url('examinationCenter', 'getExamCentreList', ''),
+            data: $('#assignExamVenue').serialize(),
+            success: function (data) {
+                $('#submitButton').show()
+                $("#examCenterList").empty().append('')
+                for (var i = 0; i < data.name.length; i++) {
+                    $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
+                    $("#moveButton").css("visibility", 'visible');
+                    $("#movetoSelect").css("visibility", 'visible');
+                }
 //                alert(data.assocaitedExamVenue)
-            for(var j=0;j<data.assocaitedExamVenue.length;j++){
-                $("#addExamCentre").append('<option value="' + data.assocaitedExamVenue[j].id + '">' + data.assocaitedExamVenue[j].name + '</option>')
+                for (var j = 0; j < data.assocaitedExamVenue.length; j++) {
+                    $("#addExamCentre").append('<option value="' + data.assocaitedExamVenue[j].id + '">' + data.assocaitedExamVenue[j].name + '</option>')
 
+                }
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
             }
-
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-        }
-    });
+        });
     }
-    else{
+    else {
         $('#submitButton').hide();
         $("#examCenterList").empty();
         $("#moveButton").css("visibility", 'hidden');
@@ -548,12 +545,12 @@ function showExamVenueList1(){
     }
 }
 
-function addVenue(param){
+function addVenue(param) {
 //    alert('kiii')
-    var venue=$(param).find(":selected").text()
-    var centre=$('#city option:selected').text()
-    var course=$('#programList option:selected').text()
-    $("#examVenueList").append('<tr><td>'+course+'</td><td>'+centre+'</td><td>'+venue+'</td></tr>');
+    var venue = $(param).find(":selected").text()
+    var centre = $('#city option:selected').text()
+    var course = $('#programList option:selected').text()
+    $("#examVenueList").append('<tr><td>' + course + '</td><td>' + centre + '</td><td>' + venue + '</td></tr>');
 }
 
 function addExamCenterToList() {
@@ -600,7 +597,7 @@ function removeExamCenterFromList() {
     });
 }
 
-function setCourseLabel(t){
+function setCourseLabel(t) {
 //    $('#assignExamVenue').reset();
 //    alert($(t).val())
     $('#courseForExamVenue').html($(t).find(":selected").text());
@@ -613,9 +610,9 @@ function setCourseLabel(t){
 
 }
 
-function generateAdmitCard(){
+function generateAdmitCard() {
 
-    var selectedStudentList=[]
+    var selectedStudentList = []
     if ($("input[name=studentCheckbox]:checked").length != 0) {
         $("input[name=studentCheckbox]:checked").each(function (i) {
 
@@ -626,14 +623,16 @@ function generateAdmitCard(){
 
         })
         $("#studentList").val(selectedStudentList)
-        var studentList =$("#studentList").val()
-        var venue =$("#examCenterList").val()
-        var programSessionId=$("#SessionList").val()
+        var studentList = $("#studentList").val()
+        var venue = $("#examCenterList").val()
+        var programSessionId = $("#SessionList").val()
 //        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue+'&programSessionId='+programSessionId);
         $("#admitCardForm").submit();
 //        studentsSelected(selectedStudentList)
 
-        setTimeout(function(){ getStudentsForAdmitCard()},300);
+        setTimeout(function () {
+            getStudentsForAdmitCard()
+        }, 300);
 
         return true;
 
@@ -644,8 +643,8 @@ function generateAdmitCard(){
     }
 }
 
-function generateIdentityCard(){
-    var selectedStudentList=[]
+function generateIdentityCard() {
+    var selectedStudentList = []
     if ($("input[name=studentCheckbox]:checked").length != 0) {
         $("input[name=studentCheckbox]:checked").each(function (i) {
             if ($(this).attr("checked", true)) {
@@ -655,14 +654,18 @@ function generateIdentityCard(){
 
         })
         $("#studentList").val(selectedStudentList)
-        var studentList =$("#studentList").val()
-        var studentSession=$("#admissionYear").val()
+        var studentList = $("#studentList").val()
+        var studentSession = $("#admissionYear").val()
 //        alert(studentList+'  /  '+studentSession)
 //        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue+'&programSessionId='+programSessionId);
         $("#identityCardForm").submit();
 //        studentsSelected(selectedStudentList)
 
-        setTimeout(function(){ getStudentsForIdentityCard()},300);
+        setTimeout(function () {
+            getStudentsForIdentityCard()
+            $("#from").val('')
+            $("#to").val('')
+        }, 300);
 
         return true;
 
@@ -673,21 +676,21 @@ function generateIdentityCard(){
     }
 }
 
-function studentsSelected(selectedStudentList){
+function studentsSelected(selectedStudentList) {
     $.ajax({
         type: "post",
         url: url('admitCard', 'printAdmitCard', ''),
-        data: "studentList="+selectedStudentList,
+        data: "studentList=" + selectedStudentList,
         success: function (data) {
             $('#admitCardTab').find("tr:gt(0)").remove();
-            if(data.length!=undefined){
-                var count=1;
-                for(var i=0;i<data.length;i++){
-                    $('#admitCardTab').append('<tr><td><input type="checkbox" id='+data[i].id+'></td><td>'+count+'</td><td>'+data[i].rollNo+'</td><td>'+data[i].studentName+'</td></tr>')
+            if (data.length != undefined) {
+                var count = 1;
+                for (var i = 0; i < data.length; i++) {
+                    $('#admitCardTab').append('<tr><td><input type="checkbox" id=' + data[i].id + '></td><td>' + count + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].studentName + '</td></tr>')
                     ++count;
                 }
             }
-            else{
+            else {
                 $('#admitCardTab').append('<tr><td colspan="4">No Students Found</td></tr>');
             }
         },
@@ -695,65 +698,92 @@ function studentsSelected(selectedStudentList){
         }
     });
 }
-function enableShowCandidate(){
+function enableShowCandidate() {
 
     $('#studentListTable').prop('hidden', true)
     $('#studentListPrint').prop('hidden', true)
     $('#studentListPrintButton').prop('hidden', true)
-    if($('#examinationCentre').val()==''||$('#programList').val()==''||$('#semesterList').val()==''||$('#SessionList').val()==''||$('#examCenterList').val()==''){
-        $('#showCandidates').prop('disabled', true)    }
-    else{
+    if ($('#examinationCentre').val() == '' || $('#programList').val() == '' || $('#semesterList').val() == '' || $('#SessionList').val() == '' || $('#examCenterList').val() == '') {
+        $('#showCandidates').prop('disabled', true)
+    }
+    else {
         $('#showCandidates').prop('disabled', false)
     }
 }
+function enableShowCandidateIdentity() {
+
+    $('#studentListTable').prop('hidden', true)
+    $('#studentListPrint').prop('hidden', true)
+    $('#studentListPrintButton').prop('hidden', true)
+    if ($('#examinationCentre').val() == '' || $('#admissionYear').val() == '' ) {
+        $('#showCandidates').prop('disabled', true)
+    }
+    else {
+        $('#showCandidates').prop('disabled', false)
+    }
+}
+function emptyProgram(t) {
+    if ($(t).val() != '') {
+        $('#programList').prop('disabled', false)
+        $('#programList').val('')
+        $('#SessionList').val('')
+        $('#semesterList').val('')
+    }
+    else {
+        $('#programList').prop('disabled', true)
+        $('#programList').val('')
+        $('#SessionList').val('')
+        $('#semesterList').val('')
+    }
+}
 
 
-function downloadAdmitCard(){
+function downloadAdmitCard() {
     validate();
     var result = $('#individualDownloadAdmitCard').valid()
-    if(result) {
+    if (result) {
         $("#individualDownloadAdmitCard").submit();
     }
 }
-function loadTermFromRollNo(t){
+function loadTermFromRollNo(t) {
     var data = $(t).val();
     $.ajax({
         type: "post",
         url: url('admin', 'loadTermFromRollNo', ''),
-        data: {data:data},
+        data: {data: data},
         success: function (data) {
-            for(var i=1; i<=data.term;i++)
-            $('#semesterList').append('<option value="'+i+'">'+i+'</option> ')
+            for (var i = 1; i <= data.term; i++)
+                $('#semesterList').append('<option value="' + i + '">' + i + '</option> ')
         }
     })
 }
 
-function loadTermAndVenueFromRollNo(t){
+function loadTermAndVenueFromRollNo(t) {
     var data = $(t).val();
     $.ajax({
         type: "post",
         url: url('admin', 'loadTermAndVenueFromRollNo', ''),
-        data: {data:data},
+        data: {data: data},
         success: function (data) {
-            for(var i=1; i<=data.term;i++){
-                $('#semesterList').append('<option value="'+i+'">'+i+'</option> ')
+            for (var i = 1; i <= data.term; i++) {
+                $('#semesterList').append('<option value="' + i + '">' + i + '</option> ')
             }
-            for(var j=0; j<data.examVenue.length;j++){
-                $('#examCenterList').append('<option value="'+data.examVenue[j].id+'">'+data.examVenue[j].name+'</option> ')
+            for (var j = 0; j < data.examVenue.length; j++) {
+                $('#examCenterList').append('<option value="' + data.examVenue[j].id + '">' + data.examVenue[j].name + '</option> ')
             }
 
         }
     })
 }
-function loadSignature(t){
+function loadSignature(t) {
     var data = $(t).val();
     $.ajax({
         type: "post",
         url: url('admin', 'loadTermFromRollNo', ''),
-        data: {data:data},
+        data: {data: data},
         success: function (data) {
-            for(var i=1; i<=data.term;i++)
-                $('#semesterList').append('<option value="'+i+'">'+i+'</option> ')
+            for (var i = 1; i <= data.term; i++)
+                $('#semesterList').append('<option value="' + i + '">' + i + '</option> ')
         }
     })
 }

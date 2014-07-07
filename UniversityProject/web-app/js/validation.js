@@ -737,8 +737,24 @@ function checkValidation() {
 }
 function validateProgramFee() {
 //    alert("hi")
-    $("#createNewFee,#createAdmissionFee, #individualStudentUpdate, #customChallanSave").validate({
+    $("#createNewFee,#createAdmissionFee, #individualStudentUpdate,#printIdentityCard, #customChallanSave, #signatureImage, #generateSingleAdmitCard").validate({
         rules: {
+//          printIdentityCard
+            programList:'required',
+            admissionYear:'required',
+//          printIdentityCard
+//          generateSingleAdmitCard
+            rollNoForFeeStatus:{
+                required: true,
+                number: true,
+                minlength: 8
+            },
+            examinationVenue:"required",
+//          generateSingleAdmitCard
+//          #signatureImage
+            examVenue:"required",
+            signature:"required",
+//          #signatureImage
             programDetailId:"required",
             programSessionId:"required",
             feeAmountAtIDOL:"required",
@@ -755,7 +771,14 @@ function validateProgramFee() {
             amount:'required'
         },
         messages: {
-
+            programList:'Please Select Program',
+            admissionYear:'Please Select Admission Session',
+            rollNoForFeeStatus:{ required:"Please Enter a Roll Number",
+                minlength:"Please Enter 8 digit Roll Number"
+            } ,
+            examinationVenue:"Please Select Examination Venue",
+            examVenue:"Please Select Examination Venue",
+            signature:"Please Upload Signature Image",
             programDetailId:"Please Select Programme Detail",
             programSessionId:"Please Select Programme Session",
             feeAmountAtIDOL:"Please  Enter Admission Fee at Idol",

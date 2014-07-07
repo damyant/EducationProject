@@ -656,8 +656,7 @@ class FeeDetailsController {
     def savePostExamFee = {
         def studentInst=Student.findByRollNo(params.rollNumberInput)
         def status=true
-        println((params.postFeeType=="3"))
-        if(studentInst.studyCentre!=StudyCenter.findByCenterCode("11111") && (params.postFeeType=="3")){
+        if((studentInst.studyCentre[0].id!=StudyCenter.findByCenterCode("11111").id) && (params.postFeeType=="3")){
             status=false
         }
         if(status){

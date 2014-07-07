@@ -21,7 +21,7 @@
         <g:if test="${flash.message}">
             <div class="university-status-message"><label class="error">${flash.message}</label></div>
         </g:if>
-<g:form controller="admitCard" action="generateSingleAdmitCard" name="generateSingleAdmitCard" id="generateSingleAdmitCard">
+        <g:form controller="admitCard" action="generateSingleAdmitCard" name="generateSingleAdmitCard" id="generateSingleAdmitCard">
         <table class="inner university-size-full-1-1">
             <tr>
                 <td class="university-size-1-4">Enter Roll Number</td>
@@ -82,8 +82,8 @@
 
 
                 </td>
-                <td style="padding-left: 25px;"><input type="submit" value="Generate Admit Card" class="university-button"/>
-                </td>
+                <td style="padding-left: 25px;"><input type="submit" value="Generate Admit Card" class="university-button" onclick="validateProgramFee()"/>
+               </td>
             </tr>
 
         </table>
