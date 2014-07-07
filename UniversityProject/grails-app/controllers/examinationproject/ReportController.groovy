@@ -362,14 +362,14 @@ class ReportController {
            def webRootDir = servletContext.getRealPath("/")
            def userDir = new File(webRootDir,'/Report')
            userDir.mkdirs()
-           def excelPath = servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.sessionProgramFeePaidFeeType+'.xls'
+           def excelPath = servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+'.xls'
 //           println('this is the real path '+excelPath)
            def status  = reportService.getReportDataSessionProgramWiseFee(params, excelPath)
 //           println("this is the status "+ status)
            if(status){
 //               println("hello kuldeep u r back in controller "+ status)
-               File myFile = new File(servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.sessionProgramFeePaidFeeType+'.xls')
-               response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.sessionProgramFeePaidFeeType+".xls"
+               File myFile = new File(servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+'.xls')
+               response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+".xls"
                response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
                response.outputStream << myFile .bytes
                response.outputStream.flush()

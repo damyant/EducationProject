@@ -285,7 +285,7 @@
         <table style=" text-align: center; border: 0px" class="gridtable">
             <th style="border: 0px">Name</th>
             <th style="border: 0px">Roll No</th>
-            <th style="border: 0px">Payment No</th>
+            <th style="border: 0px">Challan No</th>
             <th style="border: 0px">Amount</th>
 
             %{--<th>Mobile No.</th>--}%
@@ -298,7 +298,7 @@
                       <tr>
                           <td style="border: 0px">${feeObj[j].student.firstName} ${feeObj[j].student.middleName? feeObj[j].student.middleName:''} ${feeObj[j].student.lastName? feeObj[j].student.lastName:''}</td>
                           <td style="border: 0px" >${feeObj[j].student.rollNo}</td>
-                          <td style="border: 0px">${feeObj[j].paymentReferenceNumber}</td>
+                          <td style="border: 0px">${feeObj[j].challanNo}</td>
                           <td style="border: 0px">${feeObj[j].paidAmount}</td>
                       </tr>
                   </g:each>
@@ -418,7 +418,7 @@
     <table style=" text-align: center" class="gridtable">
         <th>Student Name</th>
         <th>Roll No</th>
-        <th>Payment No</th>
+        <th>Challan No</th>
         <th>Amount</th>
         <g:each in="${totalListByDailyFeePaid}" var="feeDetails">
             <tr >

@@ -31,11 +31,11 @@
                         <td class="university-size-1-4" style="padding-left: 20px;">
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
-                                      from="${programList}" noSelection="['': ' Select Programme']"
+                                      from="${programList}" noSelection="['All': 'All Programmes']"
                                       onchange="setCourseLabel(this)"/>
                         </td>
                         <td class="university-size-1-2"><label id="courseForExamVenue"
-                                                               style="margin-left: 45%;"></label></td>
+                                                               style="margin-left: 45%;">All Programmes</label></td>
                     </tr>
                     <tr>
                         <td class="university-size-1-4"><label>Select an Examination Centre</label></td>
@@ -43,7 +43,7 @@
                             <g:select name="examinationCentre" id="examinationCentre" optionKey="id" class="university-size-1-1"
                                       optionValue="cityName" from="${examinationCenterList}"
                                       noSelection="['': ' Select Examination Centre']"
-                                      onchange="showExamVenueList1()" disabled=""/>
+                                      onchange="showExamVenueList1()" />
                         </td>
                         <td class="university-size-1-2"><label id="CentreForExamVenue"
                                                                style="margin-left: 45%;"></label></td>

@@ -140,13 +140,29 @@ def springSecurityService
     }
 
     def saveExamVenue(params){
+        def courseIns
+        if(params.programList=='All'){
+            courseIns=ProgramDetail.list()
+        }
+        else{
+           courseIns=ProgramDetail.findAllById(Long.parseLong(params.programList))
+        }
 
-        def courseIns=ProgramDetail.findById(Long.parseLong(params.programList))
         def examCentreIns=City.findById(Long.parseLong(params.examinationCentre))
         def venueList=params.venueList.split(",")
-        ProgramExamVenue.removeAll(examCentreIns,courseIns)
-        venueList.each {it ->
-         ProgramExamVenue.create courseIns,examCentreIns, ExaminationVenue.findById(Integer.parseInt(it.toString()))
+//        ProgramExamVenue.removeAll(examCentreIns,courseIns)
+        def preSavedVenues = ProgramExamVenue.findAllByExamCenterAndCourseDetailInList(examCentreIns,courseIns)
+        println('pre saved venue is '+ preSavedVenues)
+        preSavedVenues.each{
+            it.delete(flush: true)
+        }
+        venueList.each {
+          def venue = it
+          courseIns.each{
+             def course = it
+              println(venue+' venue '+ course)
+                   ProgramExamVenue.create course , examCentreIns, ExaminationVenue.findById(Integer.parseInt(venue.toString()))
+          }
 
         }
     }
