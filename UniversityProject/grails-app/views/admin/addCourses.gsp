@@ -13,6 +13,16 @@
     <g:javascript src='admin.js'/>
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
+    <g:javascript src='admin.js'/>
+    <script type="text/javascript">
+        $(window).bind("load", function () {
+
+            if(${updateMode==true}){
+           fillCourseInfoUpdate("${courseSession?.sessionOfSubject}")
+            }
+        })
+
+    </script>
 </head>
 
 <body>
@@ -65,6 +75,18 @@
             <td class="university-size-2-3"><g:textField name="subjectCode" id="subjectCode" value="${courseList?.subjectCode}"
                                                          class="university-size-1-2"/>
 
+            </td>
+        </tr>
+        <tr>
+            <td class="university-size-1-3"><p>Course Session <span class="university-obligatory">*</span>
+            </p></td>
+            <td class="university-size-2-3">
+                <select id="sessionOfCourse" name="session" class="university-size-1-2">
+                    <option value="0">Select Session</option>
+                    <g:each in="${subjectSessions}" var="session">
+                        <option value="${session.sessionOfProgram}">${session.sessionOfProgram}</option>
+                    </g:each>
+                </select>
             </td>
         </tr>
         <tr>
