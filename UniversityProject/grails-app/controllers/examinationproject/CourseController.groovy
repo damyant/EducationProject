@@ -199,7 +199,7 @@ class CourseController {
     }
 
     def getCourseOnProgramCode(){
-        println("************"+params)
+//        println("************"+params)
         def subjectList=[]
        subjectList= courseDetailService.getCourseOnProgramCode(params)
        render subjectList as JSON
