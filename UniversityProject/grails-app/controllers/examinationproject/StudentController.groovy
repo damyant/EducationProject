@@ -332,7 +332,7 @@ class StudentController {
             feeDetailInst.feeType=FeeType.findById(3)
             feeDetailInst.challanNo = student.challanNo
             feeDetailInst.save(failOnError: true, flush: true)
-
+              println("__________________"+lateFee)
              infoMap.student=student
              infoMap.programFee=programFee
              infoMap.lateFee=lateFee

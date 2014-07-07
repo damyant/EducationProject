@@ -65,7 +65,7 @@ grails.project.dependency.resolution = {
         build ":tomcat:7.0.50"
         compile ":rendering:0.4.4"
 //        compile('com.lowagie:itext:2.1.0')
-
+//        compile ':sitemaps:0.1.0'
         compile ":scaffolding:2.0.1"
         compile ':cache:1.1.1'
         runtime ":jquery:1.11.0"

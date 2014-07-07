@@ -124,6 +124,12 @@ function submitTempRegistration() {
             url: url('student', 'tempRegistration', ''),
             data: $("#tempEnrollment").serialize(),
             success: function (data) {
+                $('#studentName').text('')
+                $('#studentRollNo').text('')
+                $('#challanNo').text('')
+                $('#feeType').text('')
+                $('#amount').text('')
+                $('#lateFee').text('')
                 document.getElementById("tempEnrollment").reset();
                 //kuldeep's code start from here................................................
                 $('#studentName').text(''+data.student.firstName+' '+(data.student.middleName? data.student.middleName:'')+' '+ data.student.lastName)
@@ -131,6 +137,7 @@ function submitTempRegistration() {
                 $('#challanNo').text(''+data.student.challanNo)
                 $('#feeType').text('Admission Fee for '+data.courseName)
                 $('#amount').text(''+data.programFeeAmount)
+                console.log(data.lateFee)
                 if(data.lateFee>0)
                 $('#lateFee').text('(with late fee '+data.lateFee+')')
                     $('#challanDiv').dialog('open')
