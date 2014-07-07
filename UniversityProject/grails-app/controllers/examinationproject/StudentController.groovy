@@ -31,7 +31,7 @@ class StudentController {
         }
         def studInstance = Student.get(params.studentId)
 
-        def allProgramList = ProgramDetail.list(sort: 'courseCode')
+        def allProgramList = ProgramDetail.list(sort: 'courseName')
         try {
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
             def today =df.parse(df.format(new Date()))
@@ -54,7 +54,7 @@ class StudentController {
             flash.message="Please Assign Admission Date"
         }
         if(params.studentId){
-            programList = ProgramDetail.list()
+            programList = ProgramDetail.list(sort: 'courseName')
              studyCentreList = StudyCenter.list()
         }
         def districtList=District.list(sort: 'districtName')
@@ -199,7 +199,7 @@ class StudentController {
     @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
-        def programList=ProgramDetail.list(sort: 'courseCode')
+        def programList=ProgramDetail.list(sort: 'courseName')
         [studyCenterList:studyCenterList,programList:programList]
     }
     def show = {

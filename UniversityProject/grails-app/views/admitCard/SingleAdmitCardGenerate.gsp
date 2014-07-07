@@ -43,10 +43,10 @@
                                                                                    id="feeExempt"/></td>
             </tr>
             <tr>
-                <td><label for="semesterList">Select Semester</label></td>
+                <td><label for="semesterList">Select Semester/Term</label></td>
                 <td style="padding-left: 25px;">
                     <select name="semesterList" class="university-size-1-3" id="semesterList">
-                        <option value="">Select Term</option>
+                        <option value="">Select Semester</option>
                     </select>
                 </td>
             </tr>

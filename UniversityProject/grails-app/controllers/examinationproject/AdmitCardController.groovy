@@ -26,16 +26,16 @@ class AdmitCardController {
     }
 
     def createAdmitCard = {
-        def programList = ProgramDetail.list()
-        def studyCentreList = StudyCenter.list()
-        def examinationCentre = ExaminationVenue.list()
+        def programList = ProgramDetail.list(sort: 'courseName')
+        def studyCentreList = StudyCenter.list(sort: 'name')
+        def examinationCentre = ExaminationVenue.list(sort: 'name')
         [programList: programList, studyCentreList: studyCentreList, examinationCentre: examinationCentre]
 
     }
-    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def bulkCreationOfAdmitCard = {
-        def programList = ProgramDetail.list(sort: 'courseCode')
-        def studyCentreList = StudyCenter.list()
+        def programList = ProgramDetail.list(sort: 'courseName')
+        def studyCentreList = StudyCenter.list(sort: 'name')
         def examinationCenter = City.findAllByIsExamCentre(1, [sort: 'cityName'])
 //        def examinationCenter=ExaminationVenue.list()*.city as Set
 //        def finalExaminationCenterList= examinationCenter.sort{a,b->
@@ -134,7 +134,7 @@ class AdmitCardController {
 
         def stuList = [], mode = [], examType = [], courseName = []
         def status
-        def admitInst=null
+        def admitInst = null
         def user = springSecurityService.currentUser
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         StringBuilder examDate = new StringBuilder()
@@ -155,8 +155,8 @@ class AdmitCardController {
             studentList.each {
                 def studentInst = Student.findById(Integer.parseInt(it.toString()))
 //                println("AAAAAAAAAAAAAAAAAAAA"+studentInst.studyCentre[0].centerCode)
-                Set <City> cityInst=City.findAllById(8)
-                if(studentInst.city==cityInst){
+                Set<City> cityInst = City.findAllById(8)
+                if (studentInst.city == cityInst) {
                     admitInst = AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examinationVenue))
                 }
                 stuList << Student.findById(Integer.parseInt(it.toString()))
@@ -178,7 +178,6 @@ class AdmitCardController {
                 dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
                 timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
             }
-//            println("WWWWWWWWWWWWWWWWW"+timeList)
             if (dateList.size() == 0) {
                 flash.message = "Examination Date Not Assigned Yet"
                 redirect(controller: 'admitCard', action: 'bulkCreationOfAdmitCard')
@@ -217,7 +216,7 @@ class AdmitCardController {
             def fileName = stuList[0].programDetail[0].courseName + " " + month + " " + session[0]
 
             def year = new Date().format("yyyy")
-            def args = [template: "printAdmitCard", model: [studentInstance: stuList,examTime:examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
+            def args = [template: "printAdmitCard", model: [studentInstance: stuList, examTime: examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         } else if (params.studyCenterId) {
             flash.message = "Admit Card Not Generated yet"
@@ -232,7 +231,7 @@ class AdmitCardController {
 
         def stuList = [], mode = [], examType = [], courseName = []
         def status
-        def admitInst=null
+        def admitInst = null
         def user = springSecurityService.currentUser
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         StringBuilder examDate = new StringBuilder()
@@ -240,8 +239,8 @@ class AdmitCardController {
         def webRootDir = servletContext.getRealPath("/")
         def byte[] logo = new File(webRootDir + "/images/gu-logo.jpg").bytes
         stuList = Student.findAllByRollNoAndDobAndAdmitCardGenerated(params.rollNumber.trim(), df.parse(params.dob), true)
-        Set <City> cityInst=City.findAllById(8)
-        if(stuList[0].city==cityInst){
+        Set<City> cityInst = City.findAllById(8)
+        if (stuList[0].city == cityInst) {
             admitInst = AdmitCard.findByExamVenue(stuList[0]?.examinationVenue)
         }
         if (stuList[0]) {
@@ -295,7 +294,7 @@ class AdmitCardController {
             def fileName = stuList[0].programDetail[0].courseName + " " + month + " " + session[0]
 
             def year = new Date().format("yyyy")
-            def args = [template: "printMyAdmitCard", model: [studentInstance: stuList,examTime:examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
+            def args = [template: "printMyAdmitCard", model: [studentInstance: stuList, examTime: examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         } else {
             flash.message = "Admit Card Not Generated yet"
@@ -331,8 +330,8 @@ class AdmitCardController {
         if (AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examVenue))) {
             admitInst = AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examVenue))
         }
-        def resultMap=[:]
-        resultMap.admitInst=admitInst
+        def resultMap = [:]
+        resultMap.admitInst = admitInst
         render resultMap as JSON
     }
     def submitSignatureImage = {
@@ -345,7 +344,7 @@ class AdmitCardController {
             admitInst = new AdmitCard()
         }
         if (signature) {
-            admitInst.examVenue=ExaminationVenue.findById(params.examVenue)
+            admitInst.examVenue = ExaminationVenue.findById(params.examVenue)
             admitInst.signatureImg = signature.bytes
         }
         if (admitInst.save(flush: true, failOnError: true)) {
@@ -360,40 +359,47 @@ class AdmitCardController {
         response.setContentType(params.mime)
         response.outputStream << image
     }
-    def SingleAdmitCardGenerate={
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
+    def SingleAdmitCardGenerate = {
     }
-    def generateSingleAdmitCard={
+    def generateSingleAdmitCard = {
 //        println("-------------"+params)
         def stuList = [], mode = [], examType = [], courseName = []
         def status
-        def admitInst=null
+        def admitInst = null
         def user = springSecurityService.currentUser
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         StringBuilder examDate = new StringBuilder()
         StringBuilder examTime = new StringBuilder()
         def webRootDir = servletContext.getRealPath("/")
         def byte[] logo = new File(webRootDir + "/images/gu-logo.jpg").bytes
-          def  student = Student.findByRollNoAndSemester(params.rollNoForFeeStatus,params.semesterList)
-        def stuAdmissionFeeInst = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(student, Integer.parseInt(params.semesterList), FeeType.findById(3), Status.findById(4))
-        if (stuAdmissionFeeInst) {
-            def stuExamFeeInst = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(student, Integer.parseInt(params.semesterList), FeeType.findById(1), Status.findById(4))
+        def student = Student.findByRollNoAndSemester(params.rollNoForFeeStatus, params.semesterList)
+        def semValue
+        if (student.programDetail.programType == ProgramType.findById(1)) {
+            semValue = (int) Math.ceil(Long.parseLong(params.semesterList) / 2)
+        } else {
+            semValue = Integer.parseInt(params.semesterList)
+        }
+
+        def stuAdmissionFeeInst = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(student, semValue, FeeType.findById(3), Status.findById(4))
+        if (stuAdmissionFeeInst && (student.programDetail[0].programType.id == ProgramType.findById(2).id)) {
+            def stuExamFeeInst = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(student, semValue, FeeType.findById(1), Status.findById(4))
             if (stuExamFeeInst || params.feeExempt) {
                 admitInst = AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examinationVenue))
-                stuList<<student
-                status = admitCardService.updateStudentRecord(stuList, params.examinationVenue)
-            }
-            else{
+                stuList << student
+
+            } else {
                 flash.message = "Examination Fee Not Paid or Approved."
 //                redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
             }
-        }
-        else{
+        } else if (stuAdmissionFeeInst && (student.programDetail[0].programType.id == ProgramType.findById(1).id)) {
+            stuList << student
+        } else {
             flash.message = "Admission and Examination Fee Not Paid or Approved."
 //            redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
         }
-//        println("+++++++++++++++++++++++++"+stuList)
         if (stuList[0]) {
-            def programSessionIns= ProgramSession.findById(stuList[0].programSession.id)
+            def programSessionIns = ProgramSession.findById(stuList[0].programSession.id)
             def subjectList = CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester, stuList[0].programSession), programSessionIns)*.subject
 
             def dateList = [], timeList = []
@@ -401,10 +407,7 @@ class AdmitCardController {
                 dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
                 timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
             }
-            if (dateList.size() == 0) {
-                flash.message = "Examination Date Not Assigned Yet"
-//                redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
-            }
+
             def count = 1
             def total = dateList.size()
             dateList.each {
@@ -439,12 +442,17 @@ class AdmitCardController {
 
             def year = new Date().format("yyyy")
 //            println("year"+year)
-        def args = [template: "printAdmitCard", model: [studentInstance: stuList,examTime:examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
-        pdfRenderingService.render(args + [controller: this], response)
-    } else {
-//            println("errrrrrrrrrr")
-//        flash.message = "Roll Number or Term must be wrong or Admit Card Already Generated."
-        redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
-    }
+            if (dateList.size() == 0) {
+                flash.message = "Examination Date Not Assigned Yet"
+                redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
+            } else {
+                status = admitCardService.updateStudentRecord(stuList, params.examinationVenue)
+                def args = [template: "printAdmitCard", model: [studentInstance: stuList, examTime: examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
+                pdfRenderingService.render(args + [controller: this], response)
+            }
+        } else {
+            flash.message = "Roll Number or Term must be wrong or Admit Card Already Generated."
+            redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
+        }
     }
 }
