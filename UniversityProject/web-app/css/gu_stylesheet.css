@@ -188,7 +188,7 @@ input.error, select.error {
     border: #cd0a0a solid 1px;
 }
 
-div.error label.error {
+div.error, label.error {
     margin-left: 2px;
     color: #cd0a0a;
     text-transform: capitalize;

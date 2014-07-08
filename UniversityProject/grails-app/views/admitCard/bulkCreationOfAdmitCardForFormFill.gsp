@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Chandan
-  Date: 31/3/14
+  User: chandan
+  Date: 07/07/2014
   Time: 12:56 PM
 --%>
 <%@ page import="examinationproject.City" contentType="text/html;charset=UTF-8" %>
@@ -10,6 +10,8 @@
 <head>
     <title></title>
     <meta name="layout" content="main"/>
+    <g:javascript src='admin.js'/>
+    <g:javascript src='admitCard.js'/>
     <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
 </head>
@@ -29,44 +31,89 @@
 <body>
 <div id="main">
     <fieldset>
-        <h3>Generate Identity Card</h3>
+        <h3>STUDENT ADMIT CARD</h3>
         <g:if test="${flash.message}">
             <div class="university-status-message"> <label class="error">${flash.message}</label></div>
         </g:if>
-        <g:form name="identityCardForm" id="identityCardForm" controller="student" action="printIdentityCard">
+        <g:form name="admitCardFormFill" id="admitCardFormFill" controller="admitCard" action="printAdmitCard">
             <g:hiddenField name="studentList" id="studentList"/>
             <div>
                 <table class="university-table-1-3 inner" style="width: 80%;margin-left: 20px;">
-
+                    <tr>
+                        <td><label>Fee Paid Date</label></td>
+                        <td>
+                            <table class="inner university-size-full-1-1">
+                                <tr>
+                                    <td style="width: 46%;"><input type="text" placeholder="Enter From Date" onchange="enableShowCandidateFormFill()" style="text-align: center;" class="university-size-full-1-1" name="fromDate" id="fromDate"/></td>
+                                    <td style="width: 8%;">-</td>
+                                    <td style="width: 46%;"><input type="text" placeholder="Enter To Date" onchange="enableShowCandidateFormFill()" style="text-align: center;"  class="university-size-full-1-1" name="toDate" id="toDate"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Select an Examination Centre</label></td>
+                        <td>
+                            <g:select name="examinationCentre" id="examinationCentre" optionKey="id" class="university-size-1-1"
+                                      optionValue="cityName" from="${examinationCenterList}"
+                                      noSelection="['': ' Select Exam Centre']"
+                                      onchange="enableShowCandidateFormFill(),emptyProgram(this)"/>
+                        </td>
+                    </tr>
                     <tr>
                         <td><label>Select a Programme</label></td>
                         <td>
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
-                                      optionValue="courseName"
+                                      optionValue="courseName" disabled=""
                                       from="${programList}" noSelection="['': ' Select Programme']"
-                                      onchange="enableShowCandidateIdentity()"/>
+                                      onchange="showExamVenueList(),getSemester(this),enableShowCandidateFormFill()"/>
+                            %{--onchange="showExamVenueList(),loadProgramTerm(),getSession(this),enableShowCandidate()"/>--}%
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr><td><label>Select a Term</label></td>
+                        <td>
+                            <select name="programTerm" class="university-size-1-1" id="semesterList">
+                                <option value="">Select Semester</option>
+                            </select>
                         </td>
                         <td></td>
                     </tr>
                     <tr><td><label>Select a Session</label></td>
                         <td>
-                            <select name="admissionYear" class="university-size-1-1" id="admissionYear" onchange="enableShowCandidateIdentity()">
-                                <option value="">Select Session</option>
-                                <g:each in="${sessionList}" var="year">
-                                    <option value="${year}">${year}-${year+1}</option>
-                                </g:each>
-                            </select>
+                            <g:select name="programSession" from="" class="university-size-1-1" id="SessionList"
+                                      onchange="enableShowCandidateFormFill()" noSelection="['': ' Select Session']"/>
+
                         </td>
                         <td></td>
                     </tr>
-
                     <tr>
+                        <td><label>Select Examination Venue</label></td>
+                        <td>
+                            <g:select name="examinationVenue" class="university-size-1-1" id="examCenterList" from=""
+                                      onchange="showExamVenueCapacity(),enableShowCandidateFormFill()"
+                                      noSelection="['': ' Select Exam Venue']"/>
+                        </td>
+
                         <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="maxCapacityBox" hidden="">
+                                <b><label>Maximum Capacity </label><input type="text" class="university-size-1-2"
+                                                                          id="totalCapacity" style="text-align: center;" readonly/></b>
+                            </div>
+                        </td>
                         <td>
                             <input type="button" class="university-button" id="showCandidates" value="Show Candidates"
-                                   onclick="getStudentsForIdentityCard()" disabled/>
+                                   onclick="getStudentsForBulkAdmitCard()" disabled/>
                         </td>
-                        <td>   </td>
+                        <td>
+                            <div id="remainingCapacityBox" hidden="">
+                                <b><label>Available Capacity </label><input type="text" class="university-size-1-2"
+                                                                            id="remainingCapacity" style="text-align: center;" readonly/></b>
+                            </div>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -116,10 +163,29 @@
             </div>
 
             <div id="studentListPrintButton" style="margin: 10px auto;width:94%;text-align: center;" hidden="">
-                <input type="button" value="Download" onclick="generateIdentityCard()" class="university-button">
+                <input type="button" value="Download" onclick="generateAdmitCard()" class="university-button">
             </div>
         </g:form>
     </fieldset>
 </div>
+<script>
+    $(function () {
+        $(function () {
+            $("#fromDate").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "dd/mm/yy",
+                maxDate: 0
+            });
+            $("#toDate").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "dd/mm/yy",
+                maxDate: 0
+            });
+        });
+    });
+
+</script>
 </body>
 </html>

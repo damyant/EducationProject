@@ -48,7 +48,7 @@
                 <td>
                 </td>
                 <td>
-                    <input type="submit" class="ui-button" value="Upload"/>
+                    <input type="submit" class="ui-button" value="Upload" onclick="validateProgramFee()"/>
                 </td>
             </tr>
         </table>

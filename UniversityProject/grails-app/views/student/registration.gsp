@@ -561,19 +561,13 @@
 </g:else>
 </div>
 <script>
-
-
-
     $('#signatureFile').bind('change', function () {
 //    alert('This file size is: ' + this.files[0].size/1024/1024 + "MB");
     })
-
-
     function resetImage() {
         $("#signature").attr('src', '#')
         $("#picture").attr('src', '#')
     }
-
     $(function () {
         $(function () {
             $("#datepicker").datepicker({
@@ -582,7 +576,6 @@
                 dateFormat: "dd/mm/yy",
                 maxDate: 0
             });
-
             $("#paymentDate").datepicker({
                 changeMonth: true,
                 changeYear: true,

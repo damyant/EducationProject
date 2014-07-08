@@ -45,14 +45,14 @@
                             <g:select name="examinationCentre" id="examinationCentre" optionKey="id" class="university-size-1-1"
                                       optionValue="cityName" from="${examinationCenterList}"
                                       noSelection="['': ' Select Exam Centre']"
-                                      onchange="enableShowCandidate()"/>
+                                      onchange="enableShowCandidate(),emptyProgram(this)"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label>Select a Programme</label></td>
                         <td>
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
-                                      optionValue="courseName"
+                                      optionValue="courseName" disabled=""
                                       from="${programList}" noSelection="['': ' Select Programme']"
                                       onchange="showExamVenueList(),getSemester(this),enableShowCandidate()"/>
                                       %{--onchange="showExamVenueList(),loadProgramTerm(),getSession(this),enableShowCandidate()"/>--}%

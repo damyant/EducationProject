@@ -145,9 +145,9 @@
                 %{--<li><a href="#" class="SingleAdmitCardGenerate"><g:message--}%
                         %{--code="default.mainMenu3.subMenu2.submenu1.submemu1"/></a></li>--}%
                 <li><g:link controller="admitCard" action="bulkCreationOfAdmitCard"><g:message
-                        code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link>
-
-                </li>
+                        code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link></li>
+                <li><g:link controller="admitCard" action="bulkCreationOfAdmitCardForFormFill"><g:message
+                        code="default.mainMenu3.subMenu2.submenu1.submenu3"/></g:link></li>
             </ul>
         </li>
         <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>

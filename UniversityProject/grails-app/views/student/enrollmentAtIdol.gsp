@@ -215,13 +215,24 @@
         </div>
     </div>
     <div class="university-clear-both"></div>
-    <div style="text-align: center;text-transform:capitalize;font-size: 9px;letter-spacing:2px;">
+    <div style="width: 100%;">&nbsp;</div>
+    <div style="width: 100%;border: 1px;">
+    <div style="width:45%;float:left;text-align: center;text-transform:capitalize;font-size: 9px;letter-spacing:2px;">
         <div>&nbsp;</div><div>&nbsp;</div>
         <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">State Bank of India</div>
         <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">Gauhati University Branch (CODE-<g:message code="default.Bank.code"/>)</div>
         <div style="text-transform:capitalize;font-size: 11px;font-weight: bolder;margin-top: 1px;margin-bottom: 1px;"><label style="border: 1px solid;padding-left: 5px;padding-right: 5px;">A/C No. <g:message code="default.Bank.AcNo"/></label></div>
         <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">Institute of Distance and Open Learning</div>
         <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">Gauhati University</div>
+    </div>
+        <div style="width:45%;float:left;text-align: center;text-transform:capitalize;font-size: 9px;letter-spacing:2px;">
+            <div>&nbsp;</div><div>&nbsp;</div>
+            <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">United Bank of India</div>
+            <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">Gauhati University Branch (CODE-<g:message code="default.Bank.UBI.code"/>)</div>
+            <div style="text-transform:capitalize;font-size: 11px;font-weight: bolder;margin-top: 1px;margin-bottom: 1px;"><label style="border: 1px solid;padding-left: 5px;padding-right: 5px;">A/C No. <g:message code="default.Bank.UBI.AcNo"/></label></div>
+            <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">Institute of Distance and Open Learning</div>
+            <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">Gauhati University</div>
+        </div>
     </div>
 
     <div style="clear: both; margin-bottom: 10px;"></div>

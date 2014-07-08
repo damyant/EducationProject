@@ -34,7 +34,8 @@ class AdmitCardController {
     }
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def bulkCreationOfAdmitCard = {
-        def programList = ProgramDetail.list(sort: 'courseCode')
+
+        def programList =ProgramDetail.findAllByProgramType(ProgramType.findById(1),[sort:"courseCode"])
         def studyCentreList = StudyCenter.list(sort: 'name')
         def examinationCenter = City.findAllByIsExamCentre(1, [sort: 'cityName'])
 //        def examinationCenter=ExaminationVenue.list()*.city as Set
@@ -45,7 +46,13 @@ class AdmitCardController {
 
         [programList: programList, studyCentreList: studyCentreList, examinationCenterList: examinationCenter]
     }
-
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
+    def bulkCreationOfAdmitCardForFormFill = {
+        def programList =ProgramDetail.list(sort:"courseCode")
+        def studyCentreList = StudyCenter.list(sort: 'name')
+        def examinationCenter = City.findAllByIsExamCentre(1, [sort: 'cityName'])
+        [programList: programList, studyCentreList: studyCentreList, examinationCenterList: examinationCenter]
+    }
 
     def getSemesterList = {
 //        println("gettinf semsster wise subjects"+params)
@@ -104,9 +111,10 @@ class AdmitCardController {
         def resultMap = [:]
         def programlist
         def catagory = ProgramType.findById(params.catagory)
-        if (params.catagory == '1') {
+        if (params.catagory == '1'&& params.feeCategory!='1') {
             programlist = ProgramDetail.findByIdAndProgramType(params.data, catagory).noOfAcademicYears
-        } else {
+        }
+        else {
             programlist = ProgramDetail.findByIdAndProgramType(params.data, catagory).noOfTerms
         }
 //        println("catagory>>>> " + catagory.type)
@@ -125,8 +133,16 @@ class AdmitCardController {
             resultMap.status = false
             render resultMap as JSON
         }
-
-
+    }
+    def getStudentsForBulkAdmitCard = {
+        def studentList = admitCardService.getBulkStudents(params)
+        if (studentList) {
+            render studentList as JSON
+        } else {
+            def resultMap = [:]
+            resultMap.status = false
+            render resultMap as JSON
+        }
     }
 
     def printAdmitCard = {

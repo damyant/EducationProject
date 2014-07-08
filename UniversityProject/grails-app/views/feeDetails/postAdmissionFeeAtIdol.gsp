@@ -38,13 +38,14 @@
             <td><input type="text" name="course" id="course" readonly></td>
         </tr>
         <tr>
-            <td><label>Semester/ Term</label></td>
-            <td><g:select name="semester" id="semester" from=""  class="many-to-one university-size-1-2"  disabled="true" onchange="clearSelectBox()" ></g:select></td>
+            <td><label>Fee Type</label></td>
+            <td><g:select name="postFeeType" id="postFeeType" from=""  class="many-to-one university-size-1-2" disabled="true" onchange="loadTermByFeeType(this),clearSelectBox()"></g:select></td>
         </tr>
         <tr>
-            <td><label>Fee Type</label></td>
-            <td><g:select name="postFeeType" id="postFeeType" from=""  class="many-to-one university-size-1-2" disabled="true" onchange="checkPreviousRecord()"></g:select></td>
+            <td><label>Semester/ Term</label></td>
+            <td><g:select name="semester" id="semester" from=""  class="many-to-one university-size-1-2"  disabled="true" onchange="checkPreviousRecord()" ></g:select></td>
         </tr>
+        %{--clearSelectBox(),--}%
         <tr>
             <td><input type="submit" value="Generate" id="savePostFee" disabled> </td>
             %{--<td><input type="text"></td>--}%
