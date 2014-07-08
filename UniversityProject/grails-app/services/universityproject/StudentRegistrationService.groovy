@@ -86,12 +86,9 @@ class StudentRegistrationService {
                         }
                 }
                 if (isAdmin){
-//                    println("is admin is true"+ params.studyCentre)
                     Set<StudyCenter> studyCentre = StudyCenter.findAllById(Integer.parseInt(params.studyCentre))
-//                    println("this is the study centre will save"+ studyCentre)
                     studentRegistration.studyCentre = studyCentre
                 } else {
-//                    println("is admin is false"+ params.studyCentre)
                     Set<StudyCenter> studyCentre = StudyCenter.findAllById(Integer.parseInt(params.studyCentreCode))
                     studentRegistration.studyCentre = studyCentre
                 }
@@ -100,12 +97,10 @@ class StudentRegistrationService {
             studentRegistration = new Student(params)
             studentRegistration.registrationYear = ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear
             if (springSecurityService.isLoggedIn()) {
-//                println('executed yaha tak')
                 studentRegistration.referenceNumber = 0
                 studentRegistration.status = Status.findById(2)
                 def rollNo=getStudentRollNumber(params)
                 studentRegistration.rollNo = rollNo
-                println('rollNo--------------------'+rollNo)
             } else {
                 studentRegistration.referenceNumber = getStudentReferenceNumber()
                 studentRegistration.status = Status.findById(1)
@@ -465,6 +460,7 @@ class StudentRegistrationService {
 
                     if (lastChallanDate.equalsIgnoreCase(challan)) {
                         serialNo = Integer.parseInt(studentByChallanNo[0].challanNo.substring(6, 10))
+                        println("****************"+serialNo)
                         serialNo = serialNo + 1
                     } else {
                         serialNo = 1

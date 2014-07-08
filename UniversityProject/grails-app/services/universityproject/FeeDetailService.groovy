@@ -259,12 +259,18 @@ class FeeDetailService {
                         programDetail { eq('id', Long.parseLong(params.program)) }
                         studyCentre { eq('id', Long.parseLong(currentUser.studyCentreId.toString())) }
                         not { 'in'('id', Student.findById(studentsWhoFeePaid).id) }
+                        and{
+                            isNotNull("rollNo")
+                            sizeEq("rollNo", 10)
+                        }
                     }
                 } else {
-                    println("________________________"+Long.parseLong(currentUser.studyCentreId.toString()))
                     stuList = obj.list {
                         studyCentre { eq('id', Long.parseLong(currentUser.studyCentreId.toString()))}
                         not { 'in'('id', Student.findById(studentsWhoFeePaid).id) }
+                        and{
+                            isNotNull("rollNo")
+                        }
                     }
                 }
             } else {
@@ -272,18 +278,26 @@ class FeeDetailService {
                     stuList = obj.list {
                         programDetail { eq('id', Long.parseLong(params.program)) }
                         studyCentre { eq('id', Long.parseLong(currentUser.studyCentreId.toString())) }
+                        and{
+                            isNotNull("rollNo")
+                            sizeEq("rollNo", 10)
+                        }
 
                     }
                 } else {
                     stuList = obj.list {
                         studyCentre { eq('id', Long.parseLong(currentUser.studyCentreId.toString())) }
+                        and{
+                            isNotNull("rollNo")
+                            sizeEq("rollNo", 10)
+                        }
                     }
                 }
             }
         } else {
-            print("here-----------" + studentsWhoFeePaidPrevious)
             studentsWhoFeePaidPrevious.each {
-                if (Student.findById(it).studyCentre[0].id == Integer.parseInt(studyCenterId) && (Student.findById(it).programDetail[0].id == Integer.parseInt(params.program))) {
+                println("#######################"+Student.findById(it).rollNo.length())
+                if ((Student.findById(it).rollNo.length()==10)&&(Student.findById(it).studyCentre[0].id == Integer.parseInt(studyCenterId)) && (Student.findById(it).programDetail[0].id == Integer.parseInt(params.program))) {
                     stuList << Student.findById(it)
                 }
             }

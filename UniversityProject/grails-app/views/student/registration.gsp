@@ -149,15 +149,15 @@
         <sec:ifNotLoggedIn>
             <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                       value="${studInstance?.programDetail?.id?.get(0)}"
-                      optionValue="courseName" onchange="loadProgramFeeAmount(this)" from="${programList}"
+                      optionValue="courseName" onchange="loadProgramFeeAmount(this),checkCourseCodeLength(this)" from="${programList}"
                       noSelection="['': ' Select Programme']"/>
         </sec:ifNotLoggedIn>
         <sec:ifLoggedIn>
             <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                       value="${studInstance?.programDetail?.id?.get(0)}"
-                      optionValue="courseName" onchange="enableApplicationNo()" from="${programList}" noSelection="['': ' Select Programme']"/>
+                      optionValue="courseName" onchange="enableApplicationNo(),checkCourseCodeLength(this)" from="${programList}" noSelection="['': ' Select Programme']"/>
         </sec:ifLoggedIn>
-
+        <label id="courseCodeLength" class="error"></label>
     </td>
 </tr>
 <sec:ifLoggedIn>
