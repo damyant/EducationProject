@@ -59,7 +59,7 @@ class StudentController {
         }
         def districtList=District.list(sort: 'districtName')
         def bankName=Bank.list(sort:'bankName')
-        def paymentMode=PaymentMode.findById(1)
+        def paymentMode=PaymentMode.findById(2)
         def centreList =  City.findAllByIsExamCentre(1)
 //        println("sss"+studInstance.status)
         [studyCentre: studyCentre,studInstance:studInstance, studyCenterList: studyCentreList, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode,fee:params.fee]
