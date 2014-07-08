@@ -39,14 +39,14 @@ class AdminController {
     def viewListGenerateRollNumber() {
 
         def studyCenterList = StudyCenter.list(sort: 'name')
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         [studyCenterList: studyCenterList, programList: programList]
     }
 
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def viewApprovedStudents() {
         def studyCenterList = StudyCenter.list(sort: 'name')
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         [studyCenterList: studyCenterList, programList: programList]
     }
 
@@ -231,12 +231,12 @@ class AdminController {
 
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def assignExaminationDate = {
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         [programList: programList]
     }
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def assignExaminationVenue = {
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         def obj = City.createCriteria()
         def examCenterList = obj.list {
             eq('isExamCentre', 1)
@@ -320,7 +320,7 @@ class AdminController {
 
     def uploadInternalMarks = {
         def studyCentreList = StudyCenter.list(sort: 'name')
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         [programList: programList, studyCentreList: studyCentreList]
     }
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
@@ -337,7 +337,7 @@ class AdminController {
 
     def studyCentreFeeApproval = {
         def studyCenterList = StudyCenter.list(sort: 'name');
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         [studyCenterList: studyCenterList, programList: programList]
     }
     def getChallanDetailsforStudent = {
@@ -517,7 +517,7 @@ class AdminController {
     def assignLateFeeDate = {
 
         def programList = []
-        def programs = ProgramDetail.list(sort: 'courseName')
+        def programs = ProgramDetail.list(sort: 'courseCode')
         programs.each {
 
             if (it.lateFeeDate == null) {
@@ -533,7 +533,7 @@ class AdminController {
     def removeLateFeeDate = {
 
         def programList = []
-        def programs = ProgramDetail.list(sort: 'courseName')
+        def programs = ProgramDetail.list(sort: 'courseCode')
         programs.each {
 
             if (it.lateFeeDate == null) {
@@ -622,7 +622,7 @@ class AdminController {
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def assignAdmissionPeriod() {
         def programList = []
-        def programs = ProgramDetail.list(sort: 'courseName')
+        def programs = ProgramDetail.list(sort: 'courseCode')
         programs.each {
 
             if (it.lateFeeDate == null) {
