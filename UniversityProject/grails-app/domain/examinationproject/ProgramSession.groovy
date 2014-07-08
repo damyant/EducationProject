@@ -4,7 +4,7 @@ class ProgramSession {
     ProgramDetail programDetailId
     String sessionOfProgram
 
-    static hasMany = [semester: Semester]
+    static hasMany = [semester: Semester,programGroup:ProgramGroup]
     static constraints = {
         sessionOfProgram(nullable: true)
     }

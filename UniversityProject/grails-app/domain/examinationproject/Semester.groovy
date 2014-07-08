@@ -2,6 +2,7 @@ package examinationproject
 
 class Semester {
     int semesterNo
+    static hasMany = [programGroup:ProgramGroup]
     static belongsTo = [programSession: ProgramSession]
 
     static mapping = {

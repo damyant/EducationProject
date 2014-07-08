@@ -4,7 +4,8 @@ import examinationproject.CourseMode
 import examinationproject.CourseType
 import examinationproject.ProgramDetail
 import examinationproject.CourseSubject
-
+import examinationproject.ProgramGroup
+import examinationproject.ProgramGroupDetail
 import examinationproject.ProgramType
 
 import examinationproject.ProgramSession
@@ -39,7 +40,6 @@ class CourseDetailService {
         def sessionObj
 
         if (existingCourseObj) {
-//            println("innnn" + params)
             existingCourseObj.courseName = params.courseName
             existingCourseObj.courseCode = Integer.parseInt(params.courseCode)
             existingCourseObj.courseMode = CourseMode.findById(params.courseMode)
@@ -88,7 +88,8 @@ class CourseDetailService {
 
             }
             return status
-        } else {
+        }
+        else {
 
             def courseObj = new ProgramDetail(params)
             courseObj.save(failOnError: true, flush: true)
@@ -106,15 +107,42 @@ class CourseDetailService {
             for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
                 semObj = new Semester()
 
+
                 semObj.semesterNo = i
                 semObj.programSession = sessionObj
                 semObj.save(failOnError: true)
+
                 params.semesterList.each {
                     i
                     def subjectList = it."semester${i}".sort()
-                    subjectList.each { obj ->
-                        CourseSubject.create courseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj, sessionObj
+
+                    for(def j=0;j<subjectList.size();j++){
+//                        println("*********"+subjectList[j])
+                        def groupIns
+                        for(def k=0;k<subjectList[j].size();k++){
+                            println(subjectList[j][k])
+                            if(subjectList[j][k].toString().contains("Group")){
+                                groupIns= new ProgramGroup()
+                                groupIns.groupName=subjectList[j][k].toString()
+                                groupIns.programSession=sessionObj
+                                groupIns.semester= semObj
+                                groupIns.save(failOnError: true,flush: true)
+                            }
+                            else{
+                                println("after"+groupIns)
+                                if(groupIns){
+                                    ProgramGroupDetail.create groupIns, SubjectSession.findById(Integer.parseInt(subjectList[j][k].toString()))
+                                }
+                                else{
+
+                        CourseSubject.create courseObj, SubjectSession.findById(Integer.parseInt(subjectList[j][k].toString())), semObj, sessionObj
+
+                                }
+
+                            }
+                        }
                     }
+
                     status = 'Created'
                 }
 
@@ -234,9 +262,11 @@ class CourseDetailService {
     }
 
     def getCourseOnProgramCode(params){
-        def finalSubjectList=[],resultList=[]
+        def resultList=[],courseNameList=[],returnList=[]
+        def counter=0
+
         def subList=Subject.createCriteria()
-         finalSubjectList= subList.list {
+        def finalSubjectList= subList.list {
             like("subjectCode",params.courseCode+"%")
            and {
                eq('programTypeId',ProgramType.get(params.programType))
@@ -244,10 +274,20 @@ class CourseDetailService {
          }
 
         finalSubjectList.each{
-            resultList<< SubjectSession.findBySubjectId(it).subjectId
+            resultList<< SubjectSession.findBySubjectId(it)
+            courseNameList<<SubjectSession.findBySubjectId(it).subjectId.subjectName
+
         }
 
-        return resultList
+        resultList.each{
+           def returnMap=[:]
+            returnMap["id"]=it.id
+            returnMap["subjectName"]=courseNameList[counter]
+            ++counter;
+            returnList<<returnMap
+        }
+
+        return returnList
 
 
     }

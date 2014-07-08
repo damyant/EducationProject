@@ -466,7 +466,7 @@ class AdminController {
             marksMap["key"+it.marksTypeId.id]=it
 
         }
-        println("<<<<<<<<<<<<<<<<<<"+courseSession)
+
         [programTypeList: programTypeList, courseList: courseList,courseSession:courseSession,updateMode:updateMode,
                 marksTypeList:marksTypeList,marksMap:marksMap,subjectSessions:subjectSessions]
     }

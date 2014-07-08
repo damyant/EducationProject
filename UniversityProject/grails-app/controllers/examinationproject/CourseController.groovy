@@ -46,7 +46,7 @@ class CourseController {
     def saveProgram() {
         def response = [:]
         def data = request.JSON
-//        println("============================="+data);
+        println("============================="+data);
         try {
             if (data.uploadSyllabus) {
 //                println("############>>" + data.uploadSyllabus);
@@ -118,7 +118,7 @@ class CourseController {
     }
 
     def deleteCourse() {
-        println("innnnnnnnnnnnnnnnnnnn")
+
         def result = courseDetailService.deleteCourse(params)
         if (result) {
             flash.message = "Deleted Successfully."
@@ -215,6 +215,7 @@ class CourseController {
 //        println("************"+params)
         def subjectList=[]
        subjectList= courseDetailService.getCourseOnProgramCode(params)
+        println(subjectList.size())
        render subjectList as JSON
 
     }

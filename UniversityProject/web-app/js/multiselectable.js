@@ -218,16 +218,37 @@ function ConvertFormToJSON(form) {
     json['uploadSyllabus'] = $('#uploadSyllabus').val() || '';
     var semesterList = {};
 
-    for (var j = 1; j <= $('#noOfTerms').val(); j++) {
+    var counter=0;
 
-        var subList = []
+    for (var j = 1; j <= $('#noOfTerms').val(); j++) {
+        var totalList=[];
+        var subList = [], subGroupList=[]
+
         $('#semester' + j + ' option').each(function () {
 
             subList.push($(this).val() || '');
-//            console.log(subList)
-            semesterList["semester" + j] = subList;
-            console.log(semesterList)
+
+//            semesterList["semester" + j] = subList;
+
         })
+        totalList.push(subList);
+
+
+        if($("#groupListBox"+j).length>0){
+//            alert("hi")
+
+            $('#groupListBox' + j + ' option').each(function () {
+
+                subGroupList.push($(this).val() || '');
+
+//                semesterList["semester" + j] = subGroupList;
+
+            })
+            totalList.push(subGroupList);
+
+
+        }
+        semesterList["semester" + j] = totalList;
 
     }
     finalList.push(semesterList);
@@ -476,7 +497,7 @@ function saveSubjectGroup(j,closeVal){
 
 
             var subGroupMap = subMap["group" +j+''+ i]
-            $("#groupListBox" + j).append('<option value="" style="font-family: bold;">Group <label >' + groups[i]+'</option>');
+            $("#groupListBox" + j).append('<option value="Group'+groups[i]+'" style="font-family: bold;">Group <label >' + groups[i]+'</option>');
             for (var key in subGroupMap) {
                 $("#groupListBox" + j).append('<option value="'+key+'"><label>' + subGroupMap[key]+'</label></option>');
             }
@@ -537,9 +558,8 @@ function ConvertGroupFormToJSON(id) {
         $('#group' +id+''+ j + ' option').each(function () {
                 var key=$(this).val()
                 subMap[key]=$('#group' +id+''+ j + ' option[value='+$(this).val()+']').text()
-                console.log(subMap)
-                groupMap["group" +id+''+ j] = subMap;
-            }
+                 groupMap["group" +id+''+ j] = subMap;
+                 }
         )
 
     }
