@@ -29,9 +29,76 @@
                 updateInfo("${courseDetail}")
             })
         }
+        $(document).ready(function(){
+            $("#courseName").blur(function(){
+                if($("#courseName").val()==""){
+                    $("#session").prop('disabled',true);
+                    $("#modeName").prop('disabled',true);
+                }else{
+                    $("#session").prop('disabled',false);
+                }
 
+            });
+
+            $("#session").change(function(){
+
+                if($("#session").val()==""){
+                    $("#modeName").prop('disabled',true);
+                }else{
+                    $("#modeName").prop('disabled',false);
+                }
+
+            });
+
+            $("#modeName").change(function(){
+
+                if($("#modeName").val()==""){
+                    $("#courseTypeName").prop('disabled',true);
+                }else{
+                    $("#courseTypeName").prop('disabled',false);
+                }
+
+            });
+
+            $("#courseTypeName").change(function(){
+
+                if($("#courseTypeName").val()==""){
+                    $("#programType").prop('disabled',true);
+                }else{
+                    $("#programType").prop('disabled',false);
+                }
+
+            });
+
+            $("#programType").change(function(){
+
+                if($("#programType").val()==""){
+                    $("#courseCode").prop('disabled',true);
+                }else{
+                    $("#courseCode").prop('disabled',false);
+                }
+
+            });
+            $("#courseCode").change(function(){
+
+                if($("#courseCode").val()==""){
+                    $("#noOfTerms").prop('disabled',true);
+                }else{
+                    $("#noOfTerms").prop('disabled',false);
+                }
+
+            });
+
+
+//            totalCreditPoints
+//            totalMarks
+//            noOfPapersnoOfAcademicYears
+//
+        });
 
     </script>
+
+
 
 </head>
 
@@ -75,7 +142,8 @@
                     <td style="width: 40%"><label>Select Session :<span class="university-obligatory">*</span></label>
                     </td>
                     <td style="width: 60%">
-                        <select id="session" name="session" class="university-size-1-2">
+                        <select id="session" name="session" class="university-size-1-2" disabled>
+                            <option value="">Select Session</option>
                             <g:each in="${programSessions}" var="session">
                                 <option value="${session.sessionOfProgram}">${session.sessionOfProgram}</option>
                             </g:each>
@@ -89,33 +157,33 @@
                 </tr>
                 <tr>
                     <td><label>Select Mode :<span class="university-obligatory">*</span></label></td>
-                    <td><g:select name="courseMode" id="modeName" optionKey="id" optionValue="modeName"
+                    <td><g:select name="courseMode" id="modeName" optionKey="id" optionValue="modeName" disabled="disabled"
                                   onchange="enableNoOfSem(this)" class="university-size-1-2"
                                   from="${CourseMode.findAll()}" noSelection="['': ' Select Mode']"/></td>
                 </tr>
                 <tr>
                     <td><label>Select Programme Type :<span class="university-obligatory">*</span></label></td>
-                    <td><g:select name="courseType" id="courseTypeName" optionKey="id" optionValue="courseTypeName"
+                    <td><g:select name="courseType" id="courseTypeName" optionKey="id" optionValue="courseTypeName" disabled="disabled"
                                   class="university-size-1-2" from="${CourseType.findAll()}"
                                   noSelection="['': ' Select Programme Type']"/></td>
                 </tr>
                 <tr>
                     <td><label>Select Program Category :<span class="university-obligatory">*</span></label></td>
-                    <td><g:select name="programType" id="programType" optionKey="id" optionValue="type"
+                    <td><g:select name="programType" id="programType" optionKey="id" optionValue="type" disabled="disabled"
                                   class="university-size-1-2" from="${examinationproject.ProgramType.findAll()}"
                                   noSelection="['': ' Select Programme Category']"/></td>
                 </tr>
                 <tr>
                     <td><label>Programme Code :<span class="university-obligatory">*</span></label></td>
                     %{--checkCourseCode()--}%
-                    <td><input type="text" id="courseCode" name="courseCode" maxlength="10" onchange=""
+                    <td><input type="text" id="courseCode" name="courseCode" maxlength="10" onchange="" disabled="disabled"
                                class="university-size-1-2" onkeypress="return isNumber(event)"/>
                         <label id="errorMsg" class="error1"></label>
                     </td>
                 </tr>
                 <tr>
                     <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="2" class="university-size-1-2"
+                    <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="2" class="university-size-1-2" disabled="disabled"
                                onkeypress="return isNumber(event)" onblur="semesterList()" readonly/></td>
 
                 </tr>
@@ -123,18 +191,18 @@
                 <tr>
                     <td><label>Number of maximum available academic year :<span class="university-obligatory">*</span>
                     </label></td>
-                    <td><input type="text" id="noOfAcademicYears" name="noOfAcademicYears" maxlength="10"
+                    <td><input type="text" id="noOfAcademicYears" name="noOfAcademicYears" maxlength="10" disabled="disabled"
                                class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
                 </tr>
 
                 <tr>
                     <td><label>Number of papers :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="noOfPapers" name="noOfPapers" maxlength="5" class="university-size-1-2"
+                    <td><input type="text" id="noOfPapers" name="noOfPapers" maxlength="5" class="university-size-1-2" disabled="disabled"
                                onkeypress="return isNumber(event)"/></td>
                 </tr>
                 <tr>
                     <td><label>Total Marks :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="totalMarks" name="totalMarks" maxlength="5" class="university-size-1-2"
+                    <td><input type="text" id="totalMarks" name="totalMarks" maxlength="5" class="university-size-1-2" disabled="disabled"
                                onkeypress="return isNumber(event)"/></td>
                 </tr>
                 %{--<tr>--}%
@@ -144,8 +212,12 @@
                 %{--</tr>--}%
                 <tr>
                     <td><label>Total Credit Points :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="totalCreditPoints" name="totalCreditPoints" class="university-size-1-2" maxlength="5"
-                               onkeypress="return isNumber(event)"/></td>
+                    <td><input type="text" id="totalCreditPoints" name="totalCreditPoints" class="university-size-1-2" maxlength="5" disabled="disabled"
+                               onkeypress="return isNumber(event)"/>
+
+                    <label id="worningMsg" class=".error"></label></td>
+
+
                 </tr>
                 <tr>
                     <td colspan="2">

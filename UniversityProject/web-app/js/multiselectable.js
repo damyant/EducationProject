@@ -1,52 +1,33 @@
 var checkCourseCodeFlag=false
-var groupCount =0;
-var k=0;
-var l=0;
+var groupCount = 0,k= 0,l=0;
 var groups= ["A", "B", "C","D","E","F","G","H","I"];
-
 var selectedSubjectValues = [];
 var numberOfGroups = [];
 
+
+
 function semesterList() {
+    alert("get semester list")
     var courseType= $('#programType').val()
-    var clVal=0
-    if(courseType){
-    }
 
-    $('#multiSelectTab tbody tr').remove()
-    for (var j = 1; j <= $('#noOfTerms').val(); j++) {
-        $('#multiSelectTab tbody').append('<tr id="tr' + j + '"><td style="width:14% "></div> <label>All Course <span class="university-obligatory">*</span></label><select style="width: 80%" name="allsubjectList' + j + '" id="allsubjectList' + j + '"  multiple="true"  /></td>' +
-        ' <td style="width:7% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList(' + j + ')" name="add' + j + '"  id="add' + j + '">Add</button>' +
-        '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList(' + j + ')" name="remove' + j + '"  id="remove' + j + '">Remove</button> </td>' +
-        '<td style="width:17%;"><select class="select-to" style="width: 50%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  />' +
-        '<input type="button" value="Add Groups" onclick="showGroup(' + j + ')"/></td>' +
-
-
-    //'<td style="width:5%;"><input type="button" value="Remove Groups" onclick="removeGroup(' + (j+8) + ')"/>' +
-//            '<div id="upload-syllabus" style="width: 30%;float:right;">' +
-//            '<input type="button" style="float: right; margin-top:20%" id="Syllabus_link" value="Syllabus" onclick="syllabusUpload(' + j + ')" /></div>' +
-
-'<div id="error-select-' + j + '"></div></div></td></tr>')
-
-if ($('#modeName option:selected').text().toLowerCase() == "annual") {
-    $("<div>Term-" + j + "</div>").insertBefore($('#semester' + j))
-}
-else if (($('#modeName option:selected').text().toLowerCase() == "semester")) {
-    $("<div>Semester-" + j + "</div>").insertBefore($('#semester' + j))
-}
+    $.ajax({
+        type: "post",
+        url: url('course', 'getCourseOnProgramCode', ''),
+        data: $("#createCourse").serialize(),
+        success: function (data) {
+            subjectList=data
+            showSemesterAndSubjects()
+//            if(subjectList) {
+//                alert(subjectList.size())
+//                showSemesterAndSubjects()
+//            }else{
+//                $("#worningMsg").html("Sorry We Are Unable To Find Courses Associated The Current Program And Session");
+//            }
+        }
+    })
 
 
-for (var i = 0; i < subjectList.length; i++) {
 
-    $("#allsubjectList" + j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
-}
-$("#createCourse").append('<div id="groupDialog'  + j +'" class="dialog" hidden="hidden">'+
-            '<g:form method="post" name="groupsOfSubject" id="groupsOfSubject" enctype="multipart/form-data">'+
-            '<input id="addGroup" onclick="addGroups(' + j +')" type="reset" value="Add Subject Groups"  class="university-button">'+
-            '<input id="removeGroupOnPopUp" onclick="removeSubjectGroup(' + j +')" type="reset" value="Remove Groups"  class="university-button">'+
-            '<table  name="subjectGroup" id="subjectGroup'  + j +'"><tr><input type="button" value="Save Groups" onclick="saveSubjectGroup('+ j+','+clVal+')" /></tr>' +
-            '</table></g:form></div>')
-}
 
 }
 
@@ -63,9 +44,13 @@ function viewSemesterList() {
 
 
 function makeJson(list) {
-    subjectList = jQuery.parseJSON(list.replace(/&quot;/g, '"'))
+
+//    subjectList = jQuery.parseJSON(list.replace(/&quot;/g, '"'))
+
 
 }
+
+
 function addToList(j) {
     var selectedValues = [];
     var nonSelected = [];
@@ -238,7 +223,6 @@ function ConvertFormToJSON(form) {
         var subList = []
         $('#semester' + j + ' option').each(function () {
 
-
             subList.push($(this).val() || '');
 //            console.log(subList)
             semesterList["semester" + j] = subList;
@@ -277,7 +261,7 @@ function save() {
 
         $.ajax({
             type: "post",
-            url: url('course', 'saveCourse', ''),
+            url: url('course', 'saveProgram', ''),
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -349,11 +333,37 @@ function checkFileType(e){
 }
 
 
+function showSemesterAndSubjects(){
+    var clVal=0
+    $('#multiSelectTab tbody tr').remove()
+    for (var j = 1; j <= $('#noOfTerms').val(); j++) {
+        $('#multiSelectTab tbody').append('<tr id="tr' + j + '"><td style="width:14% "></div> <label>All Course <span class="university-obligatory">*</span></label><select style="width: 80%" name="allsubjectList' + j + '" id="allsubjectList' + j + '"  multiple="true"  /></td>' +
+            ' <td style="width:7% "> <button type="button" class="multiSelect-buttons-button" onclick="addToList(' + j + ')" name="add' + j + '"  id="add' + j + '">Add</button>' +
+            '  <button type="button" class="multiSelect-buttons-button" onclick="removeFromList(' + j + ')" name="remove' + j + '"  id="remove' + j + '">Remove</button> </td>' +
+            '<td style="width:17%;"><select class="select-to" style="width: 50%"  name="semester' + j + '" id="semester' + j + '"  multiple="true"  />' +
+            '<input type="button" value="Add Groups" onclick="showGroup(' + j + ')"/></td>' +
+            '<div id="error-select-' + j + '"></div></div></td></tr>')
+
+        if ($('#modeName option:selected').text().toLowerCase() == "annual") {
+            $("<div>Term-" + j + "</div>").insertBefore($('#semester' + j))
+        }
+        else if (($('#modeName option:selected').text().toLowerCase() == "semester")) {
+            $("<div>Semester-" + j + "</div>").insertBefore($('#semester' + j))
+        }
 
 
-function removeGroup(id){
-    alert("Remove the current group"+id)
-    $('#semester'+id).hide()
+        for (var i = 0; i < subjectList.length; i++) {
+
+            $("#allsubjectList" + j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
+        }
+        $("#createCourse").append('<div id="groupDialog'  + j +'" class="dialog" hidden="hidden">'+
+            '<g:form method="post" name="groupsOfSubject" id="groupsOfSubject" enctype="multipart/form-data">'+
+            '<input id="addGroup" onclick="addGroups(' + j +')" type="reset" value="Add Subject Groups"  class="university-button">'+
+            '<input id="removeGroupOnPopUp" onclick="removeSubjectGroup(' + j +')" type="reset" value="Remove Groups"  class="university-button">'+
+            '<table  name="subjectGroup" id="subjectGroup'  + j +'"><tr><input type="button" value="Save Groups" onclick="saveSubjectGroup('+ j+','+clVal+')" /></tr>' +
+            '</table></g:form></div>')
+    }
+
 }
 
 function showGroup(j) {
