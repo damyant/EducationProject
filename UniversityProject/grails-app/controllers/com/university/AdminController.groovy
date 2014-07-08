@@ -18,6 +18,7 @@ import examinationproject.Status
 import examinationproject.StudentController
 import examinationproject.StudyCenter
 import examinationproject.Subject
+import examinationproject.SubjectSession
 import grails.converters.JSON
 import grails.util.Holders
 import postexamination.MarksType
@@ -37,6 +38,7 @@ class AdminController {
     def springSecurityService
     def feeDetailService
     def attendanceService
+    def programFeeService
 
     @Secured(["ROLE_GENERATE_ROLL_NO"])
     def viewListGenerateRollNumber() {
@@ -446,17 +448,27 @@ class AdminController {
     //ADDED BY DIGVIJAY ON 19 May 2014
     @Secured(["ROLE_ADMIN"])
     def addCourses = {
+        def updateMode=false
+        def courseList,courseSession
         def programTypeList = ProgramType.list()
-        def courseList = Subject.findById(params.id)
+        if(params.id){
+//         courseList = Subject.findById(params.id)
+         courseSession=SubjectSession.findById(params.id)
+          courseList=courseSession.subjectId
+//            println("<<<<"+courseSession.)
+            updateMode=true
+        }
         def marksTypeList=MarksType.list()
-        def subjectMarksList=SubjectMarksDetail.findAllBySubject(courseList)
+        def subjectSessions = programFeeService.getProgramSessions(params)
+        def subjectMarksList=SubjectMarksDetail.findAllBySubjectSession(courseSession)
         def marksMap=[:]
         subjectMarksList.each {
             marksMap["key"+it.marksTypeId.id]=it
 
         }
-
-        [programTypeList: programTypeList, courseList: courseList,marksTypeList:marksTypeList,marksMap:marksMap]
+        println("<<<<<<<<<<<<<<<<<<"+courseSession)
+        [programTypeList: programTypeList, courseList: courseList,courseSession:courseSession,updateMode:updateMode,
+                marksTypeList:marksTypeList,marksMap:marksMap,subjectSessions:subjectSessions]
     }
 
     def listOfCourses = {
@@ -687,11 +699,16 @@ class AdminController {
     }
     @Secured("ROLE_ADMIN")
     def loadSubject = {
+        def returnMap=[:]
         def programType = ProgramType.findById(Long.parseLong(params.type))
         def subjectList = Subject.findAllByProgramTypeId(programType)
-        def response = [subjectList: subjectList]
+        def subSessionList= SubjectSession.findAllBySubjectId(subjectList)
+        println("***"+subSessionList)
+        returnMap.subSession=subSessionList
+        returnMap.subject=subSessionList.subjectId
+        def response = [subjectList: subSessionList]
 //        println(response.programList[0].courseName)
-        render response as JSON
+        render returnMap as JSON
     }
 
     @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])

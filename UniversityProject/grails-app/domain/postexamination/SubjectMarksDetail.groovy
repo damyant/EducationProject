@@ -1,6 +1,7 @@
 package postexamination
 
-import examinationproject.Subject
+
+import examinationproject.SubjectSession
 import postexamination.MarksType
 
 class SubjectMarksDetail {
@@ -9,7 +10,7 @@ class SubjectMarksDetail {
     Integer minPassingMarks
     MarksType marksTypeId
 
-    static  belongsTo = [subject:Subject]
+    static belongsTo = [subjectSession: SubjectSession]
 
     static constraints = {
         marks(nullable: true)
@@ -18,7 +19,7 @@ class SubjectMarksDetail {
     }
 
     static mapping = {
-     subject column: 'SubjectId'
+     subjectSession column: 'SubjectSessionId'
      marks column: 'Marks'
      minPassingMarks column: 'MinPassingMarks'
      marksTypeId column: 'MarksTypeId'

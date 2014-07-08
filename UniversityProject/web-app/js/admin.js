@@ -1319,6 +1319,7 @@ function subjectDialog(){
     $('#groupDialog').dialog('open');
 }
 
+
 function checkSubjectCode() {
 
     var data = $('#subjectCode').val();
@@ -1366,3 +1367,18 @@ function checkAliasCode() {
         }
     });
 }
+
+    function fillCourseInfoUpdate(sessionOfCourse) {
+
+        $('#sessionOfCourse option[value=' + sessionOfCourse + ']').attr("selected", "selected");
+
+        if ($("#sessionOfCourse option:selected").text() == sessionOfCourse) {
+            $('#sessionOfCourse option[value=' + sessionOfCourse + ']').attr("selected", "selected");
+        }
+        else {
+            $('#sessionOfCourse').prepend('<option value="' + sessionOfCourse + '">' + sessionOfCourse + '</option>');
+            $('#sessionOfCourse option[value=' + sessionOfCourse + ']').attr("selected", "selected");
+            $("#sessionOfCourse option[value='0']").remove();
+        }
+
+    }

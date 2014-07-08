@@ -15,13 +15,11 @@ class CourseController {
 
 
     def createNewCourse() {
-        println("*************")
         boolean updateFlag = false
         def courseDetail = [:]
         def subObj = Subject.findAll()
         def programSessions = programFeeService.getProgramSessions(params)
 
-//        println("these are the sessions"+ programSessions)
         if (params.courseSessionId) {
             courseDetail = courseDetailService.getFullDetailOfCourse(params)
             updateFlag = true
@@ -45,7 +43,7 @@ class CourseController {
 
     }
 
-    def saveCourse() {
+    def saveProgram() {
         def response = [:]
         def data = request.JSON
 //        println("============================="+data);
@@ -211,6 +209,14 @@ class CourseController {
             status.aliasCode = 'false'
         }
         render status as JSON
+    }
+
+    def getCourseOnProgramCode(){
+//        println("************"+params)
+        def subjectList=[]
+       subjectList= courseDetailService.getCourseOnProgramCode(params)
+       render subjectList as JSON
+
     }
 
 }

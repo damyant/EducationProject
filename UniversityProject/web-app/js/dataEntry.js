@@ -708,11 +708,12 @@ function loadProgramList(t) {
         url: url('admin', 'loadSubject', ''),
         data: {type: type},
         success: function (data) {
-//            alert(data.subjectList.length)
-            if(data.subjectList.length>0) {
-                for (var i=0;i<data.subjectList.length;i++){
+             if(data.subSession.length>0) {
+                for (var i=0;i<data.subSession.length;i++){
                     var count=i+1
-                    $('#courseTable tbody').append('<tr><td>'+count+'</td><td>'+ data.subjectList[i].subjectName+'</td><td><input type="button" class="university-button" onclick="deleteCourse(' +  data.subjectList[i].id  + ')" value="Delete"/> <input type="button" class="university-button" onclick="editCourse(' + data.subjectList[i].id  + ')" value="Edit"/></td></tr>')
+                    $('#courseTable tbody').append('<tr><td>'+count+'</td><td>'+ data.subject[i].subjectName+'</td><td>'+ data.subSession[i].sessionOfSubject+'</td>' +
+                        '<td><input type="button" class="university-button"  onclick="deleteCourse(' +  data.subSession[i].id  + ')" value="Delete"/> <input type="button" class="university-button" onclick="editCourse(' + data.subSession[i].id  + ')" value="Edit"/></td>' +
+                        '</tr>')
                 }
                 document.getElementById("paginationDiv").style.visibility = "visible";
                 document.getElementById("courseTable").style.visibility = "visible"

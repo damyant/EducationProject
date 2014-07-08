@@ -19,7 +19,8 @@
 
   </script>
     <script type="text/javascript">
-        makeJson("${subjList}")
+
+        %{--makeJson("${subjList}")--}%
 
         if (${updateFlag}) {
             %{--alert(${updateFlag})--}%
@@ -105,12 +106,6 @@
                                   noSelection="['': ' Select Programme Category']"/></td>
                 </tr>
                 <tr>
-                    <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="2" class="university-size-1-2"
-                               onkeypress="return isNumber(event)" onblur="semesterList()" readonly/></td>
-
-                </tr>
-                <tr>
                     <td><label>Programme Code :<span class="university-obligatory">*</span></label></td>
                     %{--checkCourseCode()--}%
                     <td><input type="text" id="courseCode" name="courseCode" maxlength="10" onchange=""
@@ -118,6 +113,13 @@
                         <label id="errorMsg" class="error1"></label>
                     </td>
                 </tr>
+                <tr>
+                    <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
+                    <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="2" class="university-size-1-2"
+                               onkeypress="return isNumber(event)" onblur="semesterList()" readonly/></td>
+
+                </tr>
+
                 <tr>
                     <td><label>Number of maximum available academic year :<span class="university-obligatory">*</span>
                     </label></td>
@@ -135,11 +137,11 @@
                     <td><input type="text" id="totalMarks" name="totalMarks" maxlength="5" class="university-size-1-2"
                                onkeypress="return isNumber(event)"/></td>
                 </tr>
-                <tr>
-                    <td><label>Pass Marks(per paper) :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="marksPerPaper" name="marksPerPaper" class="university-size-1-2" maxlength="5"
-                               onkeypress="return isNumber(event)"/></td>
-                </tr>
+                %{--<tr>--}%
+                    %{--<td><label>Pass Marks(per paper) :<span class="university-obligatory">*</span></label></td>--}%
+                    %{--<td><input type="text" id="marksPerPaper" name="marksPerPaper" class="university-size-1-2" maxlength="5"--}%
+                               %{--onkeypress="return isNumber(event)"/></td>--}%
+                %{--</tr>--}%
                 <tr>
                     <td><label>Total Credit Points :<span class="university-obligatory">*</span></label></td>
                     <td><input type="text" id="totalCreditPoints" name="totalCreditPoints" class="university-size-1-2" maxlength="5"

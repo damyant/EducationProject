@@ -11,6 +11,7 @@ import examinationproject.ProgramSession
 
 import examinationproject.Semester
 import examinationproject.Subject
+import examinationproject.SubjectSession
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import postexamination.MarksType
@@ -178,6 +179,7 @@ class CourseDetailService {
 
     def saveCourseDetail(params) {
         def subjectIns
+
         try {
             if (params.subjectId) {
                 subjectIns = Subject.get(params.subjectId)
@@ -185,16 +187,29 @@ class CourseDetailService {
                 subjectIns.subjectName = params.subjectName
                 subjectIns.aliasCode = params.aliasCode
                 subjectIns.creditPoints = Integer.parseInt(params.creditPoints)
-
-                subjectIns.subjectMarksDetail.toList().each {
-                    subjectIns.removeFromSubjectMarksDetail(it)
-                    it.delete()
-                }
                 subjectIns.save(flush: true)
             } else {
                 subjectIns = new Subject(params)
                 subjectIns.save(failOnError: true, flush: true)
             }
+            def session = SubjectSession.count()
+            def sessionObj
+            if (session > 0) {
+                if (SubjectSession.findBySubjectIdAndSessionOfSubject(subjectIns, params.session)) {
+                    sessionObj = SubjectSession.findBySubjectIdAndSessionOfSubject(subjectIns, params.session)
+                } else {
+                    sessionObj = new SubjectSession(sessionOfSubject: params.session, subjectId: subjectIns).save(flush: true, failOnError: true)
+                }
+            } else {
+
+                sessionObj = new SubjectSession(sessionOfSubject: params.session, subjectId: subjectIns).save(flush: true, failOnError: true)
+            }
+
+                  sessionObj.subjectMarksDetail.toList().each {
+                      sessionObj.removeFromSubjectMarksDetail(it)
+                    it.delete()
+                }
+
             def marksTypeList = MarksType.list()
             def i = 0
             marksTypeList.each {
@@ -203,7 +218,7 @@ class CourseDetailService {
                     subjectMarksDetailIns.marks = Integer.parseInt(params.totalMarks[i].toString())
                     subjectMarksDetailIns.minPassingMarks = Integer.parseInt(params.minPassingMarks[i].toString())
                     subjectMarksDetailIns.marksTypeId = it
-                    subjectMarksDetailIns.subject = subjectIns
+                    subjectMarksDetailIns.subjectSession = sessionObj
                     subjectMarksDetailIns.save(failOnError: true)
                 }
                 ++i
@@ -215,6 +230,25 @@ class CourseDetailService {
             println(" There is some problem in saving Course=" + e)
 
         }
+
+    }
+
+    def getCourseOnProgramCode(params){
+        def finalSubjectList=[],resultList=[]
+        def subList=Subject.createCriteria()
+         finalSubjectList= subList.list {
+            like("subjectCode",params.courseCode+"%")
+           and {
+               eq('programTypeId',ProgramType.get(params.programType))
+           }
+         }
+
+        finalSubjectList.each{
+            resultList<< SubjectSession.findBySubjectId(it).subjectId
+        }
+
+        return resultList
+
 
     }
 }
