@@ -41,11 +41,11 @@ for (var i = 0; i < subjectList.length; i++) {
     $("#allsubjectList" + j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
 }
 $("#createCourse").append('<div id="groupDialog'  + j +'" class="dialog" hidden="hidden">'+
-    '<g:form method="post" name="groupsOfSubject" id="groupsOfSubject" enctype="multipart/form-data">'+
-    '<input id="addGroup" onclick="addGroups(' + j +')" type="reset" value="Add Subject Groups"  class="university-button">'+
-    '<input id="removeGroupOnPopUp" onclick="removeSubjectGroup(' + j +')" type="reset" value="Remove Groups"  class="university-button">'+
-    '<table  name="subjectGroup" id="subjectGroup'  + j +'"><tr><input type="button" value="Save Groups" onclick="saveSubjectGroup('+ j+','+clVal+')" /></tr>' +
-    '</table></g:form></div>')
+            '<g:form method="post" name="groupsOfSubject" id="groupsOfSubject" enctype="multipart/form-data">'+
+            '<input id="addGroup" onclick="addGroups(' + j +')" type="reset" value="Add Subject Groups"  class="university-button">'+
+            '<input id="removeGroupOnPopUp" onclick="removeSubjectGroup(' + j +')" type="reset" value="Remove Groups"  class="university-button">'+
+            '<table  name="subjectGroup" id="subjectGroup'  + j +'"><tr><input type="button" value="Save Groups" onclick="saveSubjectGroup('+ j+','+clVal+')" /></tr>' +
+            '</table></g:form></div>')
 }
 
 }
@@ -373,7 +373,7 @@ function addGroups(id){
     var rowCount = $('#subjectGroup'+id+' tr').length;
     $("#removeGroupOnPopUp").prop('disabled',false)
     k=rowCount-1
-       $('#subjectGroup'+id+' tbody').append('<tr id="groupTr' + id +l+ '"><td style="width:30% "></div> <label>All Course <span class="university-obligatory">*</span></label>' +
+    $('#subjectGroup'+id+' tbody').append('<tr id="groupTr' + id +l+ '"><td style="width:30% "></div> <label>All Course <span class="university-obligatory">*</span></label>' +
         '<select style="width: 60%" name="listOfAllsubject' + id +l+ '" id="listOfAllsubject' + id +l+ '"  multiple="true"  /></td>' +
         ' <td style="width:10% "> <button type="button" class="multiSelect-buttons-button" onclick="addToGroupList(' + id +l+ ')" name="add' + id +l+ '"  id="add' + id +l+ '">Add</button>' +
         '  <button type="button" class="multiSelect-buttons-button" onclick="removeGroupFromList('+ id +l+ ')" name="remove' + id +l+ '"  id="remove' + id +l+ '">Remove</button> </td>' +
@@ -400,10 +400,10 @@ function addGroups(id){
 
 function removeSubjectGroup(t){
     var closeVal = "notClose";
-   $('#subjectGroup'+t+' tbody tr:last').remove()
-   k--;
-   l--;
-   if(k==0){
+    $('#subjectGroup'+t+' tbody tr:last').remove()
+    k--;
+    l--;
+    if(k==0){
         $("#removeGroupOnPopUp").prop('disabled',true)
     }
     saveSubjectGroup(t,closeVal)
@@ -453,8 +453,8 @@ function saveSubjectGroup(j,closeVal){
 
         $('#multiSelectTab tbody #tr'+j).find("td:last").remove()
     }
-   var groupSubjectJson = ConvertGroupFormToJSON(j);
-   subList= groupSubjectJson["groupList"];
+    var groupSubjectJson = ConvertGroupFormToJSON(j);
+    subList= groupSubjectJson["groupList"];
     var subMap = subList[0];
     var rowCount = $('#subjectGroup'+j+' tr').length;
     if(rowCount-1!=0) {
@@ -525,11 +525,11 @@ function ConvertGroupFormToJSON(id) {
 
         var subMap = {};
         $('#group' +id+''+ j + ' option').each(function () {
-            var key=$(this).val()
-            subMap[key]=$('#group' +id+''+ j + ' option[value='+$(this).val()+']').text()
-            console.log(subMap)
-            groupMap["group" +id+''+ j] = subMap;
-        }
+                var key=$(this).val()
+                subMap[key]=$('#group' +id+''+ j + ' option[value='+$(this).val()+']').text()
+                console.log(subMap)
+                groupMap["group" +id+''+ j] = subMap;
+            }
         )
 
     }
