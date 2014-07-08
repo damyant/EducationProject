@@ -47,6 +47,7 @@ class ProgramFeeController {
 
     @Secured("ROLE_ADMIN")
     def saveProgramFee(){
+        println("????????????"+params)
         def response
         def feeTypeList=params.feeTypeList.split(',')
 
