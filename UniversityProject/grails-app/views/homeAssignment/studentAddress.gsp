@@ -43,7 +43,7 @@
                         <td>
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
                                       optionValue="courseName"
-                                      from="${ProgramDetail.list()}" noSelection="['': ' Select Programme']"
+                                      from="${ProgramDetail.list(sort: 'courseCode')}" noSelection="['': ' Select Programme']"
                                       onchange="enableShowCandidate()"/>
                         </td>
                         <td></td>

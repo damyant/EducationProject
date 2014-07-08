@@ -26,7 +26,7 @@ class AdmitCardController {
     }
 
     def createAdmitCard = {
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         def studyCentreList = StudyCenter.list(sort: 'name')
         def examinationCentre = ExaminationVenue.list(sort: 'name')
         [programList: programList, studyCentreList: studyCentreList, examinationCentre: examinationCentre]
@@ -34,6 +34,7 @@ class AdmitCardController {
     }
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def bulkCreationOfAdmitCard = {
+
         def programList =ProgramDetail.findAllByProgramType(ProgramType.findById(1),[sort:"courseCode"])
         def studyCentreList = StudyCenter.list(sort: 'name')
         def examinationCenter = City.findAllByIsExamCentre(1, [sort: 'cityName'])
@@ -322,7 +323,7 @@ class AdmitCardController {
     }
 
     def studyCenterAdmitCard = {
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         def studyCentreList = StudyCenter.list()
         def examinationCenter = ExaminationVenue.list()*.city as Set
         def finalExaminationCenterList = examinationCenter.sort { a, b ->

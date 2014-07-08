@@ -37,7 +37,7 @@ class ProgramFeeController {
            programDetailList = ProgramDetail.findAllByIdNotInList(programSessionList.programDetailId.id)
         }
         else{
-             programDetailList = ProgramDetail.list(sort:'courseName')
+             programDetailList = ProgramDetail.list(sort:'courseCode')
         }
 
         def programSessions=   programFeeService.getProgramSessions(params)
@@ -58,7 +58,7 @@ class ProgramFeeController {
 //            programDetailList = ProgramDetail.findAllByIdNotInList(programSessionList.programDetailId.id)
 //        }
 //        else{
-            programDetailList = ProgramDetail.list(sort:'courseName')
+            programDetailList = ProgramDetail.list(sort:'courseCode')
 //        }
         def programSessions=   programFeeService.getProgramSessions(params)
         def admissionFeeInst,programInst,termList,allTerm, sessionValue
@@ -164,7 +164,7 @@ class ProgramFeeController {
     @Secured("ROLE_ADMIN")
     def addFeeType = {
         def feeInstance = FeeType.get(params?.feeTypeId);
-        def programList = ProgramDetail.list(sort:'courseName')
+        def programList = ProgramDetail.list(sort:'courseCode')
         [feeInstance: feeInstance,programList: programList]
     }
     @Secured("ROLE_ADMIN")
@@ -261,7 +261,7 @@ class ProgramFeeController {
         render response as JSON
     }
     def listOfAdmissionFee={
-        def programDetailList = ProgramDetail.list(sort:'courseName')
+        def programDetailList = ProgramDetail.list(sort:'courseCode')
         def programSessions=   programFeeService.getProgramSessions(params)
         [programDetailList:programDetailList,programSessions:programSessions]
     }

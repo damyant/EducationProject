@@ -31,7 +31,7 @@ class StudentController {
         }
         def studInstance = Student.get(params.studentId)
 
-        def allProgramList = ProgramDetail.list(sort: 'courseName')
+        def allProgramList = ProgramDetail.list(sort: 'courseCode')
         try {
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
             def today =df.parse(df.format(new Date()))
@@ -54,7 +54,7 @@ class StudentController {
             flash.message="Please Assign Admission Date"
         }
         if(params.studentId){
-            programList = ProgramDetail.list(sort: 'courseName')
+            programList = ProgramDetail.list(sort: 'courseCode')
              studyCentreList = StudyCenter.list()
         }
         def districtList=District.list(sort: 'districtName')
@@ -199,7 +199,7 @@ class StudentController {
     @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
-        def programList=ProgramDetail.list(sort: 'courseName')
+        def programList=ProgramDetail.list(sort: 'courseCode')
         [studyCenterList:studyCenterList,programList:programList]
     }
     def show = {
@@ -231,7 +231,7 @@ class StudentController {
 
         }
 
-        def allProgramList = ProgramDetail.list(sort: 'courseName')
+        def allProgramList = ProgramDetail.list(sort: 'courseCode')
         try {
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
             def today =df.parse(df.format(new Date()))
@@ -394,7 +394,7 @@ class StudentController {
         }
     }
     def generateIdentityCard={
-        def programList=ProgramDetail.list(sort: 'courseName')
+        def programList=ProgramDetail.list(sort: 'courseCode')
         def sessionList = Student.createCriteria().list {
             projections {
                 distinct("registrationYear")

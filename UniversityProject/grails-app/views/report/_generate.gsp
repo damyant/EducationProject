@@ -189,7 +189,6 @@
             </table>
        </g:elseif>
       <g:elseif test="${totalListByCategoryGender}">
-
                 <h3 style="width: 100%"> Total Students In All Courses For ${categoryGenderSession} Session In Different Category And Gender</h3>
                 <table style=" text-align: center" class="gridtable">
                        <tr>
@@ -317,44 +316,20 @@
     <table style=" text-align: center; border: 0px" class="gridtable">
         <th style="border: 0px">Name</th>
         <th style="border: 0px">Roll No</th>
-        <th style="border: 0px">Payment No</th>
+        <th style="border: 0px">Challan No</th>
         <th style="border: 0px">Amount</th>
         <th style="border: 0px">Fee Type</th>
         <g:each in="${totalListByPaymentMode}" var="feeObj" status="i">
                     <tr>
                         <td style="border: 0px">${feeObj.student.firstName} ${feeObj.student.middleName? feeObj.student.middleName:''} ${feeObj.student.lastName? feeObj.student.lastName:''}</td>
                         <td style="border: 0px" >${feeObj.student.rollNo}</td>
-                        <td style="border: 0px">${feeObj.paymentReferenceNumber}</td>
+                        <td style="border: 0px">${feeObj.challanNo}</td>
                         <td style="border: 0px">${feeObj.paidAmount}</td>
                         <td style="border: 0px">${feeObj.feeType.type}</td>
                     </tr>
         </g:each>
     </table>
 </g:elseif>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <g:elseif test="${totalListBySessionComprative}">
     <h3>Total Students In All Courses For Different Sessions</h3>

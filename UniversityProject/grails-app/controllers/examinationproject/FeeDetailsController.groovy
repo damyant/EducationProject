@@ -66,7 +66,7 @@ class FeeDetailsController {
     def bulkFeeEntry = {
 
         def filterType = []
-        def programList =ProgramDetail.list(sort: 'courseName')
+        def programList =ProgramDetail.list(sort: 'courseCode')
         def studyCentre = StudyCenter.list(sort:'name');
         filterType.add("By Program")
         filterType.add("By Study Centre")
@@ -113,7 +113,7 @@ class FeeDetailsController {
 
     @Secured(["ROLE_ADMIN","ROLE_STUDY_CENTRE"])
     def generateChallanSCAdmissionFee = {
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         def programCategory = ProgramType.list(sort: 'type')
         def miscFeeType = FeeType.list(sort: 'type')
         [programList: programList, programCategory: programCategory, miscFeeType: miscFeeType]
@@ -129,7 +129,7 @@ class FeeDetailsController {
     }
     @Secured(["ROLE_ADMIN","ROLE_STUDY_CENTRE"])
     def challanForMiscellaneousFee = {
-        def programList = ProgramDetail.list(sort: 'courseName')
+        def programList = ProgramDetail.list(sort: 'courseCode')
         def programCategory = ProgramType.list(sort: 'type')
         def miscFeeType = FeeType.list(sort: 'type')
         [programList: programList, programCategory: programCategory, miscFeeType: miscFeeType]

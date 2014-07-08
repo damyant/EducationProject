@@ -33,6 +33,7 @@ class WriteExcelService {
        WritableSheet excelSheet=null
        String courseName= course.courseName
        if(courseName.contains('/')){
+           println("courseName is "+ courseName)
            courseName = courseName.replace('/', ' ')
        }
        sheet = workbook.createSheet(""+courseName, sheetNo);
