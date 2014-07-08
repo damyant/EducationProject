@@ -1,13 +1,18 @@
 package universityproject
 
+import examinationproject.City
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
 import examinationproject.FeeType
+import examinationproject.ProgramDetail
 import examinationproject.ProgramSession
 import examinationproject.ProgramType
 import examinationproject.Status
 import examinationproject.Student
 import grails.transaction.Transactional
+
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 @Transactional
 class AdmitCardService {
@@ -58,6 +63,26 @@ class AdmitCardService {
                 }
             } else if (stuAdmissionFeeInst && (it.programDetail[0].programType.id == ProgramType.findById(1).id)) {
                 studentList << it
+            }
+        }
+        return studentList
+    }
+    def getBulkStudents(params) {
+        def semValue = Integer.parseInt(params.programTerm)
+        def feePaidList = FeeDetails.findAllByFeeTypeAndIsApprovedAndSemesterValue(FeeType.findById(1),Status.findById(4),semValue)
+        def studentList = [],stuList=[]
+        DateFormat df = new SimpleDateFormat("dd/MM/yy")
+        def fromDate=df.parse(params.fromDate)
+        def toDate=df.parse(params.toDate)
+        feePaidList.each {
+            def paymentDate=df.parse(df.format(it.paymentDate))
+            if((paymentDate.compareTo(fromDate)>=0)&& (paymentDate.compareTo(toDate)<=0)){
+                stuList<<it.student
+            }
+        }
+        stuList.each {
+            if((it.programSession.id==ProgramSession.findById(Integer.parseInt(params.programSession)).id)&&(it.city[0].id==City.findById(params.examinationCentre).id)&&(it.programDetail[0].id==ProgramDetail.findById(params.programList).id)){
+                 studentList << it
             }
         }
         return studentList

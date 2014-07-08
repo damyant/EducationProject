@@ -241,13 +241,14 @@ function getSession(t) {
 function getTermByCatagory(t) {
     var data = $(t).val();
     var catagory = $('#programCategory').val();
+    var feeCategory = $('#feeCategory').val();
     $('#semesterList').prop('disabled', false)
     $('#SessionList').prop('disabled', false)
     if (data) {
         $.ajax({
             type: "post",
             url: url('admitCard', 'getTermListByCatagory', ''),
-            data: {data: data, catagory: catagory},
+            data: {data: data, catagory: catagory,feeCategory:feeCategory},
             success: function (data) {
                 $("#semesterList").empty().append('data <option value="">Select Term</option>')
 
@@ -372,14 +373,12 @@ function showExamVenueCapacity() {
         }
     });
 }
-
-
-function getStudentsForAdmitCard() {
+function getStudentsForBulkAdmitCard() {
 
     $.ajax({
         type: "post",
-        url: url('admitCard', 'getStudentsForAdmitCard', ''),
-        data: $("#admitCardForm").serialize(),
+        url: url('admitCard', 'getStudentsForBulkAdmitCard', ''),
+        data: $("#admitCardFormFill").serialize(),
         success: function (data) {
 
             $('#admitCardTab').find("tr:gt(0)").remove();
@@ -423,6 +422,71 @@ function getStudentsForAdmitCard() {
                     paged: page_table
                 });
                 page_table(1);
+            }
+            else {
+                document.getElementById("paginationDiv").style.visibility = "hidden";
+                $('#showErrorMessage').prop('hidden', false)
+                $('#showErrorMessage').text('No Students Found');
+                $('#studentListTable').prop('hidden', true)
+                $('#studentListPrint').prop('hidden', true)
+                $('#studentListPrintButton').prop('hidden', true)
+//                  setTimeout(function(){  $('#showErrorMessage').hide(); }, 8000);
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}
+
+function getStudentsForAdmitCard() {
+
+    $.ajax({
+        type: "post",
+        url: url('admitCard', 'getStudentsForAdmitCard', ''),
+        data: $("#admitCardForm").serialize(),
+        success: function (data) {
+
+//            $('#admitCardTab').find("tr:gt(0)").remove();
+            if (data.length != undefined) {
+//                $('#studentListTable').prop('hidden', false)
+//                $('#studentListPrint').prop('hidden', false)
+//                $('#studentListPrintButton').prop('hidden', false)
+//                var count = 1;
+//                for (var i = 0; i < data.length; i++) {
+//                    $('#admitCardTab tbody').append('<tr id="rowID' + i + '"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id=' + data[i].id + '></td><td>' + count + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].firstName + ' ' + data[i].lastName + '</td></tr>')
+//                    ++count;
+//                }
+//                totalRows = count;
+//                document.getElementById("paginationDiv").style.visibility = "visible";
+//                $table_rows = $('#admitCardTab tbody tr');
+//
+//                var table_row_limit = 10;
+//
+//                var page_table = function (page) {
+//
+//                    // calculate the offset and limit values
+//                    var offset = (page - 1) * table_row_limit,
+//                        limit = page * table_row_limit;
+//
+//                    // hide all table rows
+//                    $table_rows.hide();
+//
+//                    // show only the n rows
+//                    $table_rows.slice(offset, limit).show();
+//
+//                }
+//                var pageNo = 0
+//                if ($table_rows.length % table_row_limit) {
+//                    pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
+//                }
+//                else {
+//                    pageNo = parseInt($table_rows.length / table_row_limit)
+//                }
+//                $('.pagination').jqPagination({
+//                    max_page: pageNo,
+//                    paged: page_table
+//                });
+//                page_table(1);
             }
             else {
                 document.getElementById("paginationDiv").style.visibility = "hidden";
@@ -704,6 +768,18 @@ function enableShowCandidate() {
     $('#studentListPrint').prop('hidden', true)
     $('#studentListPrintButton').prop('hidden', true)
     if ($('#examinationCentre').val() == '' || $('#programList').val() == '' || $('#semesterList').val() == '' || $('#SessionList').val() == '' || $('#examCenterList').val() == '') {
+        $('#showCandidates').prop('disabled', true)
+    }
+    else {
+        $('#showCandidates').prop('disabled', false)
+    }
+}
+function enableShowCandidateFormFill() {
+
+    $('#studentListTable').prop('hidden', true)
+    $('#studentListPrint').prop('hidden', true)
+    $('#studentListPrintButton').prop('hidden', true)
+    if ($('#examinationCentre').val() == '' ||$('#formDate').val() == '' ||$('#toDate').val() == '' || $('#programList').val() == '' || $('#semesterList').val() == '' || $('#SessionList').val() == '' || $('#examCenterList').val() == '') {
         $('#showCandidates').prop('disabled', true)
     }
     else {

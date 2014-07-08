@@ -1338,7 +1338,7 @@ function searchByRollNumber(){
 }
 
 function appendDetail(data){
-    $("#semester").attr('disabled',false)
+//    $("#semester").attr('disabled',false)
     $("#postFeeType").attr('disabled',false)
 
     $("#course").val(data['courseName'])
@@ -1391,13 +1391,33 @@ function checkPreviousRecord(){
             }
         })
     }
+}
 
-
+function loadTermByFeeType(t){
+    var feeType=$(t).val()
+    var rollNo=$('#rollNumberInput').val()
+    $.ajax({
+        type: "post",
+        url: url('feeDetails', 'getTermForFeeType', ''),
+        data:{feeType:feeType,rollNo:rollNo},
+        success: function (data) {
+            if(data){
+                $("#semester").attr('disabled',false)
+                $('#semester').empty().append("<option value=''>Select Term</option> ")
+                for(var i=1; i<=data.term;i++){
+                    $('#semester').append("<option value='"+i+"'>"+i+"</option> ")
+                }
+            }
+            else{
+                $("#semester").attr('disabled',true)
+            }
+        }
+    })
 }
 
 function clearSelectBox(){
 
-    $('#postFeeType').val('')
+    $('#semester').val('')
 
 }
 

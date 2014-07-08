@@ -792,12 +792,25 @@ function loadStudents(t) {
     });
 }
 function enableAll() {
+    if($("#feeCategory").val()!=""){
+    $("#programList").val('')
+    $("#semesterList").val('')
     $('#programCategory').attr('disabled', false);
     $('#programList').attr('disabled', false);
     $('#allProgram').attr('disabled', false);
     if ($('#feeCategory').val() != '2') {
         $('#semesterList').attr('disabled', false);
 
+    }
+}
+    else{
+        $("#programList").val('')
+        $("#programCategory").val('')
+        $("#semesterList").val('')
+        $('#programCategory').attr('disabled', true);
+        $('#programList').attr('disabled', true);
+        $('#allProgram').attr('disabled', true);
+        $('#semesterList').attr('disabled', true);
     }
 
 }

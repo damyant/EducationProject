@@ -695,4 +695,20 @@ class FeeDetailsController {
         def result = feeDetailService.getChallanDetails(params)
         render result as JSON
     }
+    def getTermForFeeType={
+        def returnMap = [:]
+        def feeTypeInst=FeeType.findById(Long.parseLong(params.feeType))
+        def stuInst=Student.findByRollNo(params.rollNo)
+        if(feeTypeInst.id==1){
+            returnMap.term=stuInst.programDetail[0].noOfTerms
+        }
+        else{
+            if(stuInst.programDetail[0].programType.id==ProgramType.findById(1).id)
+            returnMap.term=stuInst.programDetail[0].noOfAcademicYears
+            else{
+            returnMap.term=stuInst.programDetail[0].noOfTerms
+            }
+        }
+        render returnMap as JSON
+    }
 }
