@@ -46,6 +46,10 @@
 <div id="main">
     <fieldset class="form">
         <h3>Pay Miscellaneous Fee Entry</h3>
+        <g:if test="${flash.message}">
+            <div class="message"><div class="university-status-message">${flash.message}</div></div>
+        </g:if>
+
         <g:form controller="feeDetails" action="payMiscFeeChallan" name="paychallanForStudyCenter" id="paychallanForStudyCenter">
             <table class="inner university-size-full-1-1" style="margin: auto">
                 <thead>
@@ -58,6 +62,7 @@
                 </thead>
                 <tbody></tbody>
             </table>
+
             <table class="inner university-size-full-1-1" id="scStudnetList" style="margin: auto">
                 <thead>
                 </thead>
@@ -74,6 +79,7 @@
                     <a href="#" class="last" data-action="last">&raquo;</a>
                 </div>
             </div>
+            <div class="university-status-message"><div id="errorMessage"></div></div>
             <table id="studentPayList" class="university-size-full-1-1" style="visibility: hidden">
                 <tr>
                     <td class="university-size-1-3">Payment Mode</td>

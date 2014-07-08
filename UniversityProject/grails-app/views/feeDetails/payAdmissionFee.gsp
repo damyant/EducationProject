@@ -67,6 +67,7 @@
                 </tr>
                 </thead>
             </table>
+            <div class="university-status-message"><div id="errorMessage"></div></div>
             <table class="inner university-size-full-1-1" id="scStudnetList" style="margin: auto">
                 <thead></thead>
                 <tbody></tbody>
@@ -121,6 +122,7 @@
                                   from="" noSelection="['': ' Select Branch']"
                                   onchange=""/></td>
                 </tr>
+
                 <tr>
                     <td></td>
                     <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3"

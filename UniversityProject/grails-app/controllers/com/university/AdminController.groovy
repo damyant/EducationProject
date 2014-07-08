@@ -386,7 +386,7 @@ class AdminController {
     def searchListStudentByChallanNo() {
         def returnMap = [:]
         def courseNameList = [], courseFee = [], stuList = [], semester = []
-        def feeDetailsInstance = FeeDetails.findAllByChallanNoAndIsApproved(params.challanNo, Status.findById(1))
+        def feeDetailsInstance = FeeDetails.findAllByChallanNoAndIsApprovedAndFeeType(params.challanNo, Status.findById(1),FeeType.findById(3))
         feeDetailsInstance.each {
             if (it.student.rollNo != null) {
                 stuList << Student.findById(it.student.id)
@@ -406,7 +406,8 @@ class AdminController {
         def returnMap = [:]
         def courseNameList = [], courseFee = [], stuList = [], feeType = []
 //        println(params.challanNo)
-        def miscFeeChallanList = FeeDetails.findAllByChallanNo(params.challanNo)
+        def miscFeeChallanList = FeeDetails.findAllByChallanNoAndIsApprovedAndFeeTypeNotEqual(params.challanNo, Status.findById(1),FeeType.findById(3))
+       println(miscFeeChallanList)
         miscFeeChallanList.each {
             int year = it.student.registrationYear
             def sessionVal = year + 1
@@ -687,23 +688,18 @@ class AdminController {
         def studentInst
         if (payMode == PaymentMode.findById(1)) {
             studentInst = FeeDetails.findByChallanNo(params.challanNo).student
-//            if(studentInst.migratingStudyCentre!=0){
-//            if (StudyCenter.findById(studentInst.studyCentre[0].id).centerCode == '11111' || StudyCenter.findById(studentInst.migratingStudyCentre).centerCode == '11111') {
-//                status = true
-//            }
-//            }
-//            else{
-//                if (StudyCenter.findById(studentInst.studyCentre[0].id).centerCode == '11111') {
-//                    status = true
-//                }
-//            }
         }
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
-//        if (status) {
-            returnMap.admissionDate = df.format(studentInst.admissionDate)
+            def bank=[]
+            def branch=Branch.findAllByBranchLocation("Gauhati University")
+            branch.each {
+                bank<<it.bank
+            }
+            println(bank)
+
             returnMap.refNo = studentInst.challanNo
-            returnMap.bank = Bank.findByBankName('State Bank Of India').id
-            returnMap.bankName = Bank.findByBankName('State Bank Of India').bankName
+            returnMap.payDate = df.format(new Date())
+            returnMap.bank = bank
             returnMap.branch = Branch.findByBranchLocation('Gauhati University').id
             returnMap.branchName = Branch.findByBranchLocation('Gauhati University').branchLocation
 //        }
