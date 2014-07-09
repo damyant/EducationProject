@@ -686,7 +686,7 @@ class FeeDetailsController {
         }
     }
 
-
+    @Secured(["ROLE_ADMIN","ROLE_STUDY_CENTRE","ROLE_ACCOUNT"])
     def challanNumberStatus = {
 
     }

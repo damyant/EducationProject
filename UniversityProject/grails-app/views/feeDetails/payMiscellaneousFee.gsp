@@ -95,12 +95,30 @@
                 </tr>
                 <tr>
                     <td>Bank</td>
-                    <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id" optionValue="bankName" from="${bankName}" noSelection="['': ' Select Bank']" onchange="loadBranch(this)"/></td>
+                    <td>
+                        <g:select name="bankName" disabled="true" hidden="hidden"  class="university-size-1-2" id="bankName" optionKey="id"
+                                  optionValue="bankName"
+                                  from="${bankName}" noSelection="['': ' Select Bank']"
+                                  onchange="loadBranch(this)"/>
+                        <g:select name="bankName" class="university-size-1-2" id="bankNameForGU" optionKey="id"
+                                  optionValue="bankName"
+                                  from="${bankName}" noSelection="['': ' Select Bank']"/>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Bank</td>
-                    <td><g:select name="branchLocation" class="university-size-1-2" id="branchLocation" optionKey="" optionValue="" from="" noSelection="['': ' Select Branch']" onchange=""/></td>
+                    <td>Branch</td>
+                    <td>
+                        <g:select name="branchLocation" class="university-size-1-2" disabled="true" hidden="hidden" id="branchLocationForGU" optionKey=""
+                                  optionValue=""
+                                  from="" noSelection="['': ' Select Branch']"
+                                  onchange=""/>
+                        <g:select name="branchLocation" class="university-size-1-2" id="branchLocation" optionKey=""
+                                  optionValue=""
+                                  from="" noSelection="['': ' Select Branch']"
+                                  onchange=""/>
+                    </td>
                 </tr>
+
                 <tr>
                     <td></td>
                     <td><input type="submit" id="paySubmit" class="ui-button university-size-1-3" value="Pay"  onclick="checkValidation()" style="visibility: hidden"/></td>

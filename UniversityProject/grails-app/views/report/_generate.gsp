@@ -231,10 +231,10 @@
 
     <g:elseif test="${totalListByAdmissionApprovedUnapproved}">
         <g:if test="${value=='admissionUnapproved'}">
-        <h3> Unapproved Students In ${totalListByAdmissionApprovedUnapproved.getAt(0).studyCentre[0].name} For ${admissionApprovedUnapprovedSession} Session</h3>
+        <h3> Unapproved Students In ${studyCentre ? studyCentre+' Study Centres ' : (totalListByAdmissionApprovedUnapproved.getAt(0).studyCentre[0].name)} For ${admissionApprovedUnapprovedSession} Session</h3>
         </g:if>
         <g:if test="${value=='admissionApproved'}">
-            <h3> Approved Students In ${totalListByAdmissionApprovedUnapproved.getAt(0).studyCentre[0].name} For ${admissionApprovedUnapprovedSession} Session</h3>
+            <h3> Approved Students In ${studyCentre ? studyCentre+' Study Centres ' : (totalListByAdmissionApprovedUnapproved.getAt(0).studyCentre[0].name)} For ${admissionApprovedUnapprovedSession} Session</h3>
         </g:if>
         <table style=" text-align: center" class="gridtable">
             <th>Roll No</th>

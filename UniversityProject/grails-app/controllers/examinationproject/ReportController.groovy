@@ -206,6 +206,11 @@ class ReportController {
       else if(params.value=='admissionUnapproved' && params.admissionUnapprovedSession || params.value=='admissionApproved' && params.admissionApprovedSession){
 //           println("this function is called")
            def sessionVal
+           def studyCentre=null
+           if(params.admissionUnapprovedStudyCentre=='All' || params.admissionApprovedStudyCentre=='All') {
+               println('true')
+               studyCentre = 'All'
+           }
            def totalList = reportService.getReportDataAdmissionApprovedUnapproved(params)
            if(params.value=='admissionUnapproved'){
            sessionVal= Integer.parseInt(params.admissionUnapprovedSession)+1
@@ -216,7 +221,7 @@ class ReportController {
                sessionVal= params.admissionApprovedSession+'-'+sessionVal
            }
 //           println('this is the value of total list '+ totalList)
-           def args = [template: "generate", model: [totalListByAdmissionApprovedUnapproved :totalList, admissionApprovedUnapprovedSession:sessionVal, value:params.value],filename:sessionVal+'_All_Course_'+params.value+".pdf"]
+           def args = [template: "generate", model: [totalListByAdmissionApprovedUnapproved :totalList, admissionApprovedUnapprovedSession:sessionVal, value:params.value, studyCentre:studyCentre],filename:sessionVal+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
           // redirect(action: 'reportIndex')
       }

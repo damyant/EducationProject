@@ -478,7 +478,7 @@ function generateStudentsList() {
                 $('#studentList tbody tr:not(:first)').hide();
                 $table_rows = $('#studentList tbody tr');
 
-                var table_row_limit = 15;
+                var table_row_limit = 20;
 
                 var page_table = function (page) {
 
@@ -668,14 +668,13 @@ function generateChallanForRange() {
     $('#rollNoError').html("")
     var from = $("#serialNoFrom").val()
     var to = $("#serialNoTo").val()
-
     if (from != undefined) {
         if (from.length == 0) {
             $('#rollNoError').html("Please Enter Range/Roll Number From Above List.")
             return false
         }
         var selectedRange = 0;
-        if (to >= from) {
+        if (parseInt(to) >= parseInt(from)) {
             selectedRange = (to - from)
         } else {
             $('#rollNoError').html("Please enter range correctly")
@@ -706,7 +705,6 @@ function generateChallanForRange() {
             }
             selectedStudentId.push($(this).attr('id'));
         });
-//    $("#studentListId").val("")
         $("#studentListId").val(selectedStudentId)
         $("#semesterListHidden").val(selectedSemester)
 
@@ -974,7 +972,7 @@ function populateChallanDetail() {
                     $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
                     $("#error").hide()
                 } else {
-                    alert(data.rollStatus)
+//                    alert(data.rollStatus)
                     if (!data.rollStatus) {
                         $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">PLease Generate Roll Number Before Approving Pay-In-Slip</td></tr>')
                     }
@@ -1126,13 +1124,21 @@ function loadPayInSlipDetails(t) {
                 if (data.payDate) {
                     $('#datepicker').val(data.payDate)
                     $('#paymentReferenceNumber').val(data.refNo)
-                    $('#bankName').empty().append('<option value="">Select Bank</option>')
+                    $('#bankNameForGU').empty().append('<option value="">Select Bank</option>')
                     for (var i = 0; i < data.bank.length; i++) {
-                        $('#bankName').append('<option value="' + data.bank[i].id + '">' + data.bank[i].bankName + '</option>')
+                        $('#bankNameForGU').append('<option value="' + data.bank[i].id + '">' + data.bank[i].bankName + '</option>')
                     }
-                    $('#branchLocation').empty().append('<option value="' + data.branch + '">' + data.branchName + '</option>')
+                    $('#branchLocationForGU').empty().append('<option value="' + data.branch + '">' + data.branchName + '</option>')
                     $('#datepicker').prop('readonly', false)
                     $('#paymentReferenceNumber').prop('readonly', true)
+                    $('#bankName').prop('disabled', true)
+                    $('#branchLocation').prop('hidden', true)
+                    $('#bankName').prop('hidden', true)
+                    $('#branchLocation').prop('disabled', true)
+                    $('#bankNameForGU').prop('disabled', false)
+                    $('#branchLocationForGU').prop('hidden', false)
+                    $('#bankNameForGU').prop('hidden', false)
+                    $('#branchLocationForGU').prop('disabled', false)
                 }
                 else {
                     $(t).val('')
@@ -1143,6 +1149,25 @@ function loadPayInSlipDetails(t) {
                 }
             }
         })
+    }
+    else{
+        $('#datepicker').prop('readonly', false)
+        $('#paymentReferenceNumber').prop('readonly', false)
+        $('#bankName').prop('readonly', false)
+        $('#branchLocation').prop('readonly', false)
+        $('#datepicker').val('')
+        $('#paymentReferenceNumber').val('')
+        $('#bankName').val('')
+        $('#branchLocation').val('')
+        $('#bankName').prop('disabled', false)
+        $('#branchLocation').prop('hidden', false)
+        $('#bankName').prop('hidden', false)
+        $('#branchLocation').prop('disabled', false)
+        $('#bankNameForGU').prop('disabled', true)
+        $('#branchLocationForGU').prop('hidden', true)
+        $('#bankNameForGU').prop('hidden', true)
+        $('#branchLocationForGU').prop('disabled', true)
+
     }
 }
 

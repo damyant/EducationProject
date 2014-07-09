@@ -110,17 +110,28 @@
                 </tr>
                 <tr>
                     <td>Bank</td>
-                    <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
+                    <td>
+                        <g:select name="bankName" disabled="true" hidden="hidden"  class="university-size-1-2" id="bankName" optionKey="id"
+                                                                         optionValue="bankName"
+                                                                         from="${bankName}" noSelection="['': ' Select Bank']"
+                                                                         onchange="loadBranch(this)"/>
+                        <g:select name="bankName" class="university-size-1-2" id="bankNameForGU" optionKey="id"
                                   optionValue="bankName"
-                                  from="${bankName}" noSelection="['': ' Select Bank']"
-                                  onchange="loadBranch(this)"/></td>
+                                  from="${bankName}" noSelection="['': ' Select Bank']"/>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Bank</td>
-                    <td><g:select name="branchLocation" class="university-size-1-2" id="branchLocation" optionKey=""
+                    <td>Branch</td>
+                    <td>
+                        <g:select name="branchLocation" class="university-size-1-2" disabled="true" hidden="hidden" id="branchLocationForGU" optionKey=""
                                   optionValue=""
                                   from="" noSelection="['': ' Select Branch']"
-                                  onchange=""/></td>
+                                  onchange=""/>
+                        <g:select name="branchLocation" class="university-size-1-2" id="branchLocation" optionKey=""
+                                  optionValue=""
+                                  from="" noSelection="['': ' Select Branch']"
+                                  onchange=""/>
+                    </td>
                 </tr>
 
                 <tr>
@@ -147,21 +158,21 @@
             });
         });
     });
-    $('#paySubmit').click(function(){
-//        alert("--------")
-        if($('#paychallanForStudyCenter').valid()) {
-            setTimeout(function () {
-                $("#scStudnetList thead").empty().append('')
-                $("#scStudnetList tbody").empty().append('')
-                $('#paychallanForStudyCenter')[0].reset();
-                document.getElementById("scStudnetList").style.visibility = "hidden";
-                document.getElementById("paySubmit").style.visibility = "hidden";
-                document.getElementById("paginationDiv").style.visibility = "hidden";
-                document.getElementById("studentPayList").style.visibility = "hidden";
-                document.getElementById("payClear").style.visibility = "hidden";
-            }, 5000)
-        }
-    })
+//    $('#paySubmit').click(function(){
+////        alert("--------")
+//        if($('#paychallanForStudyCenter').valid()) {
+//            setTimeout(function () {
+//                $("#scStudnetList thead").empty().append('')
+//                $("#scStudnetList tbody").empty().append('')
+//                $('#paychallanForStudyCenter')[0].reset();
+//                document.getElementById("scStudnetList").style.visibility = "hidden";
+//                document.getElementById("paySubmit").style.visibility = "hidden";
+//                document.getElementById("paginationDiv").style.visibility = "hidden";
+//                document.getElementById("studentPayList").style.visibility = "hidden";
+//                document.getElementById("payClear").style.visibility = "hidden";
+//            }, 5000)
+//        }
+//    })
 </script>
 </body>
 </html>
