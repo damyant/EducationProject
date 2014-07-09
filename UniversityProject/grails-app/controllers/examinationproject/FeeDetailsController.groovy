@@ -2,6 +2,7 @@ package examinationproject
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import groovy.transform.Synchronized
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -15,8 +16,8 @@ class FeeDetailsController {
     def studentRegistrationService
     def pdfRenderingService
     def springSecurityService
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
+//    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    private final challanLock = new Object()
 
     @Secured("ROLE_ADMIN")
     def createFeeDetails() {
@@ -212,9 +213,8 @@ class FeeDetailsController {
 //        println(resultMap)
         render resultMap as JSON
     }
-
-
-    def challanForStudyCenterStu = {
+    @Synchronized("challanLock")
+    def challanForStudyCenterStu (){
 //        println("***************" + params)
         List<Student> studList = []
         List<AdmissionFee> addmissionFee = []
@@ -228,6 +228,7 @@ class FeeDetailsController {
         def term
         def studyCentre
         def feeForStudent
+
         def challanNo = studentRegistrationService.getChallanNumber()
         def today = new Date()
         def feeTypeName = FeeType.findById(params.feeCategory).type
@@ -559,10 +560,8 @@ class FeeDetailsController {
         def challanNo = params.searchChallanNo
         def paymentDate = params.paymentDate
         def paymentReferenceNumber = params.paymentReferenceNumber
-
         def args = [template: "printPayMiscFeeChallan", model: [bank: bank, studyCentre: studyCentre, feeType: feeType[0], branch: branch,termValue:termValue, paymentReferenceNumber: paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
-
     }
     def gerStudentId = {
         def resultMap = [:]
@@ -572,7 +571,6 @@ class FeeDetailsController {
     }
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def feeStatusForRollNumber = {
-
     }
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def checkRollNoFeeStatus = {
@@ -580,7 +578,7 @@ class FeeDetailsController {
         resultMap = feeDetailService.rollNumberFeeStatus(params)
         render resultMap as JSON
     }
-
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT","ROLE_IDOL_USER"])
     def postAdmissionFeeAtIdol = {
         if(params.amount){
             def feeDetailIns =  FeeDetails.findById(Integer.parseInt(params.misFeeObject))
@@ -652,8 +650,8 @@ class FeeDetailsController {
         }
         render returnMap as JSON
     }
-
-    def savePostExamFee = {
+    @Synchronized("challanLock")
+    def savePostExamFee(){
         def studentInst=Student.findByRollNo(params.rollNumberInput)
         def status=true
         if((studentInst.studyCentre[0].id!=StudyCenter.findByCenterCode("11111").id) && (params.postFeeType=="3")){

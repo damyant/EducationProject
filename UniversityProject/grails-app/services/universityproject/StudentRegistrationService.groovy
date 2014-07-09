@@ -3,6 +3,7 @@ package universityproject
 import examinationproject.AdmissionFee
 import examinationproject.City
 import examinationproject.CustomChallan
+import examinationproject.ExistingChallan
 import examinationproject.FeeDetails
 
 
@@ -24,12 +25,14 @@ import java.text.SimpleDateFormat
 @Transactional
 class StudentRegistrationService {
     private final myLock = new Object()
+    private final challanLock = new Object()
+//    @Synchronized("myLock")
+
     def springSecurityService
     def springSecurityUtils
 
     @Synchronized("myLock")
     Student saveNewStudentRegistration(params, signature, photographe) {
-//    println(params)
         Boolean studentRegistrationInsSaved = false;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         String year = sdf.format(Calendar.getInstance().getTime());
@@ -347,7 +350,6 @@ class StudentRegistrationService {
     }
 
     def seedStudent(params) {
-//        println("Start Time" + new Date())
         def students
         Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)
 
@@ -412,11 +414,13 @@ class StudentRegistrationService {
                 println("????????" + e.printStackTrace())
             }
         }
-//        println("End Time" + new Date())
     }
-    @Synchronized("myLock")
+
+
+    static int a=0
+    @Synchronized("challanLock")
     def getChallanNumber() {
-//        println('getting challan no now')
+        println("--------------"+a)
         int serialNo = 1
         SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd"); // Just the year
         def date = (sdf.format(Calendar.getInstance().getTime()))
@@ -441,17 +445,14 @@ class StudentRegistrationService {
                     if (custByChallanNo) {
                         if (Integer.parseInt(feeDetailByChallanNo[0].challanNo)  > Integer.parseInt(custByChallanNo[0].challanNo)) {
                             studentByChallanNo = feeDetailByChallanNo
-//                            println('11')
                         }  else {
                             studentByChallanNo = custByChallanNo
-//                            println('33')
                         }
                     } else {
                             studentByChallanNo = feeDetailByChallanNo
-//                            println('333')
-
                     }
                 }
+//            println("+++++++++++++++++"+studentByChallanNo.challanNo)
                 def lastChallanDate
             if(studentByChallanNo){
                 if (studentByChallanNo[0].challanNo != null) {
@@ -459,16 +460,16 @@ class StudentRegistrationService {
 
                     if (lastChallanDate.equalsIgnoreCase(challan)) {
                         serialNo = Integer.parseInt(studentByChallanNo[0].challanNo.substring(6, 10))
-                        println("****************"+serialNo)
                         serialNo = serialNo + 1
-                    } else {
-                        serialNo = 1
+
+                       } else {
+                        serialNo=1
                     }
                 } else {
-                    serialNo = 1
+                    serialNo=1
                 }
             }else {
-                serialNo = 1
+                serialNo=1
             }
 
 
@@ -494,7 +495,22 @@ class StudentRegistrationService {
             challanNo = challan + challanSr
 
         }
-//        println('this is the challan no '+ challanNo)
+        def existingChallan=ExistingChallan.findByChallan(challanNo)
+        if(existingChallan){
+            challanNo=Integer.parseInt(challanNo)+1
+        }
+        a++
+        def existingChallanInst
+        if(ExistingChallan.findById(1)){
+        existingChallanInst=ExistingChallan.findById(1)
+        }
+        else{
+            existingChallanInst=new ExistingChallan()
+        }
+
+        existingChallanInst.challan=challanNo
+//        println("----------------"+challanNo)
+        existingChallanInst.save(flush: true, failOnError: true)
         return challanNo
     }
 

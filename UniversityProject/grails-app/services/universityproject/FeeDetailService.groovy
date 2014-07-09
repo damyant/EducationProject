@@ -14,12 +14,14 @@ import examinationproject.Status
 import examinationproject.Student
 import examinationproject.StudyCenter
 import grails.transaction.Transactional
+import groovy.transform.Synchronized
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 
 @Transactional
 class FeeDetailService {
+//    private final myLock = new Object()
     def springSecurityService
 
     def serviceMethod() {

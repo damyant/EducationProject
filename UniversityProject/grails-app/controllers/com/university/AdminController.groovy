@@ -407,7 +407,7 @@ class AdminController {
         def courseNameList = [], courseFee = [], stuList = [], feeType = []
 //        println(params.challanNo)
         def miscFeeChallanList = FeeDetails.findAllByChallanNoAndIsApprovedAndFeeTypeNotEqual(params.challanNo, Status.findById(1),FeeType.findById(3))
-       println(miscFeeChallanList)
+//       println(miscFeeChallanList)
         miscFeeChallanList.each {
             int year = it.student.registrationYear
             def sessionVal = year + 1
@@ -705,7 +705,7 @@ class AdminController {
             branch.each {
                 bank<<it.bank
             }
-            println(bank)
+//            println(bank)
 
             returnMap.refNo = studentInst.challanNo
             returnMap.payDate = df.format(new Date())

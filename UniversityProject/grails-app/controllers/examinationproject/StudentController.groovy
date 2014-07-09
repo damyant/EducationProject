@@ -2,6 +2,7 @@ package examinationproject
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import groovy.transform.Synchronized
 import org.apache.commons.lang.ObjectUtils.Null
 
 import java.text.DateFormat
@@ -288,11 +289,13 @@ class StudentController {
         render status as JSON
 
     }
+    private final myLock = new Object()
+    @Synchronized("myLock")
     def tempRegistration() {
        def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, "", "")
         if (studentRegistration) {
             def infoMap =[:]
-            println("---------------------------------"+studentRegistration.rollNo)
+//            println("---------------------------------"+studentRegistration.rollNo)
             def student = Student.findByRollNo(studentRegistration.rollNo)
             def program = student.programDetail
             def feeTypeId
@@ -332,7 +335,7 @@ class StudentController {
             feeDetailInst.feeType=FeeType.findById(3)
             feeDetailInst.challanNo = student.challanNo
             feeDetailInst.save(failOnError: true, flush: true)
-              println("__________________"+lateFee)
+//              println("__________________"+lateFee)
              infoMap.student=student
              infoMap.programFee=programFee
              infoMap.lateFee=lateFee
