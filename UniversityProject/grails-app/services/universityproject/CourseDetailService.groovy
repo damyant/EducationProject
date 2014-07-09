@@ -144,7 +144,7 @@ class CourseDetailService {
             subList = subMap
          }
         courseDetail.semesterList = subList
-
+        println("----------"+courseDetail)
         return courseDetail
 
     }

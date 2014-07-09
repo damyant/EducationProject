@@ -818,6 +818,7 @@ function enableAll() {
 function showChallanNumberStatus() {
     var challanNo = $("#challanNoText").val()
 //    alert(challanNo)
+    if(challanNo){
     $.ajax({
         type: "post",
         url: url('feeDetails', 'challanDetails', ''),
@@ -847,5 +848,9 @@ function showChallanNumberStatus() {
             }
         }
     });
+    }
+    else{
+        $('#errorMsg').html("Please Enter Challan Number")
+    }
 }
 
