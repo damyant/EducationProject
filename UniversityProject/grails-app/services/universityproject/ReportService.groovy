@@ -748,40 +748,76 @@ class ReportService {
             def studyCenter= StudyCenter.findById(studyCenterId)
             def stuObj= Student.createCriteria()
             if(params.value=='courseUnapproved'){
-                def studentList = stuObj.list{
-                    programDetail{
-                        eq('id', Long.parseLong(params.courseUnapproved))
+                if(params.courseUnapproved=='All') {
+                    def studentList = stuObj.list{
+                        studyCentre{
+                            eq('id' , studyCenter.id)
+                        }
+                        and{
+                            eq('registrationYear' , Integer.parseInt(params.courseUnapprovedSession))
+                        }
+                        and{
+                            ne('status', Status.findById(4))
+                        }
                     }
-                    studyCentre{
-                        eq('id' , studyCenter.id)
+
+                    return studentList
+                }
+                else{
+                    def studentList = stuObj.list{
+                        programDetail{
+                            eq('id', Long.parseLong(params.courseUnapproved))
+                        }
+                        studyCentre{
+                            eq('id' , studyCenter.id)
+                        }
+                        and{
+                            eq('registrationYear' , Integer.parseInt(params.courseUnapprovedSession))
+                        }
+                        and{
+                            ne('status', Status.findById(4))
+                        }
                     }
-                    and{
-                        eq('registrationYear' , Integer.parseInt(params.courseUnapprovedSession))
-                    }
-                    and{
-                        ne('status', Status.findById(4))
-                    }
+
+                    return studentList
                 }
 
-                return studentList
             }
             else if(params.value=='courseApproved'){
-                def studentList = stuObj.list{
-                    programDetail{
-                        eq('id', Long.parseLong(params.courseApproved))
+                if(params.courseApproved=='All'){
+                    def studentList = stuObj.list{
+                        studyCentre{
+                            eq('id' , studyCenter.id)
+                        }
+                        and{
+                            eq('registrationYear' , Integer.parseInt(params.courseApprovedSession))
+                        }
+                        and{
+                            eq('status', Status.findById(4))
+                        }
                     }
-                    studyCentre{
-                        eq('id' , studyCenter.id)
+
+                    return studentList
+                }
+                else{
+                    def studentList = stuObj.list{
+                        programDetail{
+                            eq('id', Long.parseLong(params.courseApproved))
+                        }
+                        studyCentre{
+                            eq('id' , studyCenter.id)
+                        }
+                        and{
+                            eq('registrationYear' , Integer.parseInt(params.courseApprovedSession))
+                        }
+                        and{
+                            eq('status', Status.findById(4))
+                        }
                     }
-                    and{
-                        eq('registrationYear' , Integer.parseInt(params.courseApprovedSession))
-                    }
-                    and{
-                        eq('status', Status.findById(4))
-                    }
+
+                    return studentList
                 }
 
-                return studentList
             }
         }
     }    //Added By Digvijay...

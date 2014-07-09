@@ -1,8 +1,11 @@
 package examinationproject
 
+import grails.plugins.springsecurity.Secured
+
 class CategoryController {
 
     def index() { }
+    @Secured(["ROLE_ADMIN"])
     def createNewCategory(){
         if(params.categoryId){
 //            println("this is the name of the category "+ params.categoryName)
@@ -37,7 +40,7 @@ class CategoryController {
             }
         }
     }
-
+    @Secured(["ROLE_ADMIN"])
     def categoryList(){
         def programTypeList = ProgramType.list()
         [programTypeList:programTypeList]

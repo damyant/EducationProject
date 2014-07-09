@@ -480,7 +480,7 @@ class AdminController {
 //        println("AdminController-->addCourses"+programTypeList);
         [programTypeList: programTypeList, courseList: courseList]
     }
-
+    @Secured(["ROLE_ADMIN"])
     def listOfCourses = {
         def programTypeList = ProgramType.list()
         [programTypeList: programTypeList]

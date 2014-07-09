@@ -9,13 +9,13 @@ class ReportController {
     def reportService
     def pdfRenderingService
     def springSecurityService
-    @Secured(["ROLE_ADMIN", "ROLE_STUDY_CENTRE", "ROLE_ACCOUNT"])
+
 
 
     def index ={
     }
 
-
+    @Secured(["ROLE_ADMIN", "ROLE_STUDY_CENTRE", "ROLE_ACCOUNT"])
     def reportIndex = {
 //        println('in report Index')
 
@@ -309,15 +309,22 @@ class ReportController {
 
       else if(params.value=='courseUnapproved' && params.courseUnapprovedSession || params.value=='courseApproved' && params.courseApprovedSession){
 //           println("this function is called")
+           def program= null
            def totalList = reportService.getReportDataCourseApprovedUnapproved(params)
            def sessionVal= Integer.parseInt(params.courseApprovedSession)+1
            sessionVal= params.courseApprovedSession+'-'+sessionVal
            def type
-           if(params.value=='courseUnapproved')
+           if(params.value=='courseUnapproved') {
                 type = 'Unapproved'
-           else
+               if(params.courseUnapproved!='All')
+                program = ProgramDetail.findById(Long.parseLong(params.courseUnapproved))
+           }
+           else {
                 type='Approved'
-           def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal, type:type],filename:params.session+'_All_Course_'+params.value+".pdf"]
+               if(params.courseUnapproved!='All')
+               program = ProgramDetail.findById(Long.parseLong(params.courseApproved)).courseName
+           }
+           def args = [template: "generate", model: [totalListApprovedUnapprovedRollNo :totalList, approvedUnapprovedSessionVal:sessionVal, type:type, program:program],filename:params.session+'_All_Course_'+params.value+".pdf"]
            pdfRenderingService.render(args + [controller: this], response)
           // redirect(action: 'reportIndex')
       }

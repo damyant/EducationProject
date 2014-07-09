@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat
 
 //@Secured("ROLE_STUDYCENTRE")
 class StudentController {
+    private final myLock = new Object()
     def studentRegistrationService
     def pdfRenderingService
     def springSecurityService
@@ -289,7 +290,7 @@ class StudentController {
         render status as JSON
 
     }
-    private final myLock = new Object()
+
     @Synchronized("myLock")
     def tempRegistration() {
        def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, "", "")
@@ -396,6 +397,7 @@ class StudentController {
             redirect(controller: 'admin', action: "generateCustomChallan")
         }
     }
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def generateIdentityCard={
         def programList=ProgramDetail.list(sort: 'courseCode')
         def sessionList = Student.createCriteria().list {
