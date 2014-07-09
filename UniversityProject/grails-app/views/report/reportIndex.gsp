@@ -356,7 +356,7 @@
                    <td style="width: 30%" >
                        <g:select name="admissionUnapprovedStudyCentre" class="university-size-1-1" id="admissionUnapprovedStudyCentre"
                                  from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
-                                 noSelection="['null': ' Select Study Centre']" />
+                                 noSelection="['All': ' All Study Centre']" />
                    </td>
                    <td style="width: 10%" >
                        <g:select name="admissionUnapprovedSession" class="university-size-1-1 allSession" id="admissionUnapprovedSession"
@@ -375,7 +375,7 @@
                <td style="width: 30%" >
                    <g:select name="admissionApprovedStudyCentre" class="university-size-1-1" id="admissionApprovedStudyCentre"
                              from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
-                             noSelection="['null': ' Select Study Centre']" />
+                             noSelection="['All': ' All Study Centre']" />
                </td>
                <td style="width: 10%" >
                    <g:select name="admissionApprovedSession" class="university-size-1-1 allSession" id="admissionApprovedSession"
@@ -652,7 +652,7 @@
         }
        else if(val=="admissionApproved") {
             check1 =$('#admissionApprovedStudyCentre').val()
-            if(check1=='null' ){
+            if(check1=='null'){
                 alert("please select values")
                 return false;
             }

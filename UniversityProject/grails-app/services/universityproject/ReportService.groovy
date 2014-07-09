@@ -474,37 +474,70 @@ class ReportService {
             def stuObj= Student.createCriteria()
            def studentList
         if(params.value=='admissionUnapproved'){
+            if(params.admissionUnapprovedStudyCentre=='All') {
+                println('me isme hu')
                 studentList = stuObj.list{
-                studyCentre{
-                    eq('id' , Long.parseLong(params.admissionUnapprovedStudyCentre))
-                }
-                and{
-                    eq('registrationYear' , Integer.parseInt(params.admissionUnapprovedSession))
-                }
-                and{
+                    and{
+                        eq('registrationYear' , Integer.parseInt(params.admissionUnapprovedSession))
+                    }
+                    and{
                         ne('status', Status.findById(4))
                     }
 
-                order('programDetail', 'asc')
+                    order('programDetail', 'asc')
+                }
+                return studentList
             }
-            return studentList
+            else{
+                studentList = stuObj.list{
+                    studyCentre{
+                        eq('id' , Long.parseLong(params.admissionUnapprovedStudyCentre))
+                    }
+                    and{
+                        eq('registrationYear' , Integer.parseInt(params.admissionUnapprovedSession))
+                    }
+                    and{
+                        ne('status', Status.findById(4))
+                    }
+
+                    order('programDetail', 'asc')
+                }
+                return studentList
+            }
+
         }
        else if(params.value=='admissionApproved'){
+            if(params.admissionApprovedStudyCentre=='All'){
                 studentList = stuObj.list{
-                studyCentre{
-                    eq('id' , Long.parseLong(params.admissionApprovedStudyCentre))
-                }
-                and{
-                    eq('registrationYear' , Integer.parseInt(params.admissionApprovedSession))
-                }
-                and{
-                    eq('status', Status.findById(4))
-                }
+                    and{
+                        eq('registrationYear' , Integer.parseInt(params.admissionApprovedSession))
+                    }
+                    and{
+                        eq('status', Status.findById(4))
+                    }
 
-                order('programDetail', 'asc')
+                    order('programDetail', 'asc')
+                }
+                return studentList
             }
-            return studentList
-        }
+            else{
+                studentList = stuObj.list{
+                    studyCentre{
+                        eq('id' , Long.parseLong(params.admissionApprovedStudyCentre))
+                    }
+                    and{
+                        eq('registrationYear' , Integer.parseInt(params.admissionApprovedSession))
+                    }
+                    and{
+                        eq('status', Status.findById(4))
+                    }
+
+                    order('programDetail', 'asc')
+                }
+                return studentList
+            }
+
+       }
 
 
     }

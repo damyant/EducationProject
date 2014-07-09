@@ -893,6 +893,7 @@ function showMiscFeeListOfStudents() {
 
         success: function (data) {
             if (data.stuList.length > 0) {
+                $('#errorMessage').text('')
                 document.getElementById("studentPayList").style.visibility = "visible";
                 document.getElementById("paySubmit").style.visibility = "visible";
                 $("#scStudnetList thead").empty().append('')

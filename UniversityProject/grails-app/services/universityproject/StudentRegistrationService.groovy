@@ -23,7 +23,6 @@ import java.text.SimpleDateFormat
 
 @Transactional
 class StudentRegistrationService {
-
     private final myLock = new Object()
     def springSecurityService
     def springSecurityUtils
@@ -415,7 +414,7 @@ class StudentRegistrationService {
         }
 //        println("End Time" + new Date())
     }
-
+    @Synchronized("myLock")
     def getChallanNumber() {
 //        println('getting challan no now')
         int serialNo = 1

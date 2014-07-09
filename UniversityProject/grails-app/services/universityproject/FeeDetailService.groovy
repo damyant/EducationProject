@@ -261,7 +261,6 @@ class FeeDetailService {
                         not { 'in'('id', Student.findById(studentsWhoFeePaid).id) }
                         and{
                             isNotNull("rollNo")
-                            sizeEq("rollNo", 10)
                         }
                     }
                 } else {
@@ -280,7 +279,6 @@ class FeeDetailService {
                         studyCentre { eq('id', Long.parseLong(currentUser.studyCentreId.toString())) }
                         and{
                             isNotNull("rollNo")
-                            sizeEq("rollNo", 10)
                         }
 
                     }
@@ -289,14 +287,12 @@ class FeeDetailService {
                         studyCentre { eq('id', Long.parseLong(currentUser.studyCentreId.toString())) }
                         and{
                             isNotNull("rollNo")
-                            sizeEq("rollNo", 10)
                         }
                     }
                 }
             }
         } else {
             studentsWhoFeePaidPrevious.each {
-                println("#######################"+Student.findById(it).rollNo.length())
                 if ((Student.findById(it).rollNo.length()==10)&&(Student.findById(it).studyCentre[0].id == Integer.parseInt(studyCenterId)) && (Student.findById(it).programDetail[0].id == Integer.parseInt(params.program))) {
                     stuList << Student.findById(it)
                 }
