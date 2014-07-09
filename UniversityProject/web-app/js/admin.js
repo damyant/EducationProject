@@ -668,14 +668,13 @@ function generateChallanForRange() {
     $('#rollNoError').html("")
     var from = $("#serialNoFrom").val()
     var to = $("#serialNoTo").val()
-
     if (from != undefined) {
         if (from.length == 0) {
             $('#rollNoError').html("Please Enter Range/Roll Number From Above List.")
             return false
         }
         var selectedRange = 0;
-        if (to >= from) {
+        if (parseInt(to) >= parseInt(from)) {
             selectedRange = (to - from)
         } else {
             $('#rollNoError').html("Please enter range correctly")
@@ -706,7 +705,6 @@ function generateChallanForRange() {
             }
             selectedStudentId.push($(this).attr('id'));
         });
-//    $("#studentListId").val("")
         $("#studentListId").val(selectedStudentId)
         $("#semesterListHidden").val(selectedSemester)
 
