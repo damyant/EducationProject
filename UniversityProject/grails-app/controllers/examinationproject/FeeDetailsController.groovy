@@ -104,7 +104,7 @@ class FeeDetailsController {
         }
 
     }
-    @Secured(["ROLE_ADMIN","ROLE_STUDY_CENTRE"])
+    @Secured(["ROLE_ADMIN","ROLE_STUDY_CENTRE", "ROLE_ACCOUNT"])
     def payAdmissionFee = {
         def bankName = Bank.list(sort: 'bankName')
         def paymentMode = PaymentMode.list(sort: 'paymentModeName')
@@ -135,7 +135,7 @@ class FeeDetailsController {
         [programList: programList, programCategory: programCategory, miscFeeType: miscFeeType]
     }
 
-    @Secured(["ROLE_ADMIN","ROLE_STUDY_CENTRE"])
+    @Secured(["ROLE_ADMIN","ROLE_STUDY_CENTRE" , "ROLE_ACCOUNT"])
     def payMiscellaneousFee = {
         def bankName = Bank.list(sort: 'bankName')
         def paymentMode = PaymentMode.list(sort: 'paymentModeName')
