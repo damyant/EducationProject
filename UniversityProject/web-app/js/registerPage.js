@@ -172,6 +172,34 @@ function confirmGenerateChallan(rollno) {
 function enableApplicationNo(){
     $("#applicationNo").prop("disabled",false)
 }
+function checkCourseCodeLength(t){
+    var program=$(t).val();
+    $.ajax({
+        type: "post",
+        url: url('admin', 'getCourseCodeLength', ''),
+        data: {program: program},
+        success: function (program) {
+            if(program.status){
+                $('#courseCodeLength').text("");
+                if($("#submitButton").length>0){
+                    $("#submitButton").prop("disabled",false)
+                }
+                if($("#idolSubmitButton").length>0){
+                    $("#idolSubmitButton").prop("disabled",false)
+                }
+            }
+            else{
+                $('#courseCodeLength').text("Error in Programme Code")
+                if($("#submitButton").length>0){
+                    $("#submitButton").prop("disabled",true)
+                }
+                if($("#idolSubmitButton").length>0){
+                    $("#idolSubmitButton").prop("disabled",true)
+                }
+            }
+        }
+    })
+}
 function loadProgramFeeAmount(t){
     if($('#admissionFeeAmount').length>0){
     $('#admissionFeeAmount').val("");

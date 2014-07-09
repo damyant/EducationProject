@@ -247,9 +247,6 @@ function clearField() {
 //    $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 function save() {
-//    alert("dfdfdfd")
-//    alert($("#errorMsg").text().length)
-//    checkCourseCode()
     validate();
     var status = $("#createCourse").valid();
     if (!fireMultiValidate()) {

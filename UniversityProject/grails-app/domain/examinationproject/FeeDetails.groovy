@@ -8,7 +8,7 @@ class FeeDetails {
     PaymentMode paymentModeId
     Date paymentDate
     Date challanDate
-    Integer paymentReferenceNumber
+    String paymentReferenceNumber
     Bank bankId
     Branch branchId
     FeeType feeType

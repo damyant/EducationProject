@@ -25,7 +25,7 @@ class CourseDetailService {
         def status = ""
         def semObj
         def existingCourseObj
-//        println(params.courseId)
+        println(params)
         if (params.courseId) {
             existingCourseObj = ProgramDetail.findById(Integer.parseInt(params.courseId))
         }
@@ -36,7 +36,7 @@ class CourseDetailService {
         if (existingCourseObj) {
 //            println("innnn" + params)
             existingCourseObj.courseName = params.courseName
-            existingCourseObj.courseCode = Integer.parseInt(params.courseCode)
+            existingCourseObj.courseCode = params.courseCode
             existingCourseObj.courseMode = CourseMode.findById(params.courseMode)
             existingCourseObj.courseType = CourseType.findById(params.courseType)
             existingCourseObj.noOfTerms = Integer.parseInt(params.noOfTerms)

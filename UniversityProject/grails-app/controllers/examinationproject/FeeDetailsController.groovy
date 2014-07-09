@@ -480,7 +480,7 @@ class FeeDetailsController {
         feeDetailsInstance.each {
             termList << it.semesterValue
             it.paymentModeId = paymentModeName
-            it.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
+            it.paymentReferenceNumber = params.paymentReferenceNumber
             it.bankId = Bank.findById(params.bankName)
             it.branchId = Branch.findById(params.branchLocation)
             it.paymentDate = df.parse(params.paymentDate)
@@ -541,7 +541,7 @@ class FeeDetailsController {
             it.paymentModeId = PaymentMode.findById(params.paymentMode)
             it.bankId = bank
             it.branchId = branch
-            it.paymentReferenceNumber = Integer.parseInt(params.paymentReferenceNumber)
+            it.paymentReferenceNumber = params.paymentReferenceNumber
             it.paymentDate = df.parse(params.paymentDate)
             if (PaymentMode.findById(params.paymentMode) != PaymentMode.findById(1)) {
                 it.isApproved = Status.findById(3)

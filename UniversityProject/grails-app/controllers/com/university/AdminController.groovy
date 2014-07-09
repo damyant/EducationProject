@@ -424,7 +424,17 @@ class AdminController {
         returnMap.courseFee = courseFee
         render returnMap as JSON
     }
-
+    def getCourseCodeLength(){
+        def returnMap = [:]
+        def progmInst=ProgramDetail.findById(Long.parseLong(params.program))
+        if(progmInst.courseCode.length()==2){
+            returnMap.status=true
+        }
+        else{
+            returnMap.status=false
+        }
+        render returnMap as JSON
+    }
     def searchByChallanNo() {
         def returnMap = [:]
 //        println("???????/" + params)

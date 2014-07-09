@@ -68,7 +68,7 @@
                 <table class="inner university-table-1-3 university-size-1-1" style="vertical-align: top;">
                     <tr>
                         <td>
-                            <input type="text" tabindex="2" name="firstName"
+                            <input type="text" tabindex="1" name="firstName"
                                    style="margin-left: -10px;text-transform: capitalize;"
                                    onkeypress="return onlyAlphabets(event);"
                                    maxlength="50" class="university-size-1-1" value="" placeholder="First Name"/>
@@ -93,17 +93,18 @@
         <tr>
             <td>Programme<span class="university-obligatory">*</span></td>
             <td>
-                <g:select name="programId" id="programId" optionKey="id" tabindex="5"
-                          onchange="loadProgramFeeAmount(this), enableApplicationNo()" class="university-size-1-2"
+                <g:select name="programId" id="programId" optionKey="id" tabindex="4"
+                          onchange="loadProgramFeeAmount(this), enableApplicationNo(),checkCourseCodeLength(this)" class="university-size-1-2"
                           optionValue="courseName" from="${programList}" noSelection="['': ' Select Programme']"/>
                 <g:hiddenField name="idol" value="idol"/>
                 <label id="ProgrammeNotExist" class="error"></label>
+                <label id="courseCodeLength" class="error"></label>
             </td>
         </tr>
         <tr>
             <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
             <td class="university-size-2-3">
-                <input type="text" name="applicationNo" id="applicationNo" tabindex="4" onchange="checkApplicationNumber(this)"
+                <input type="text" name="applicationNo" id="applicationNo" tabindex="5" onchange="checkApplicationNumber(this)"
                        onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2" disabled/>
                 <label id="errorMsg" class="error1"></label>
             </td>

@@ -46,40 +46,40 @@ class CourseController {
         def response = [:]
         def data = request.JSON
 //        println("============================="+data);
-        try {
-            if (data.uploadSyllabus) {
-//                println("############>>" + data.uploadSyllabus);
-                String ext = "";
-                def fileToBeUploaded = request.getFile("data.uploadSyllabus")
-//                println("############>>" + fileToBeUploaded);
-                String fileName = fileToBeUploaded.originalFilename
-                int i = fileName.lastIndexOf('.');
-                if (i > 0) {
-                    ext = fileName.substring(i + 1);
-                }
-                def servletContext = ServletContextHolder.servletContext
-                def storagePath = servletContext.getRealPath('syllabus')
-                def dir = new File(storagePath + System.getProperty("file.separator") + data.courseName + System.getProperty("file.separator"))
-//                println("==============>>" + dir);
-                if ((dir.exists())) {
-                    File[] listOfFiles = dir.listFiles();
-                    for (File file : listOfFiles) {
-                        file.delete();
-                    }
-                } else {
-                    dir.mkdirs()
-                }
-
-                fileToBeUploaded.transferTo(new File(dir, fileName))
-//                println("File Saved");
-                def fullPath = new File(storagePath + System.getProperty("file.separator") + data.courseName + System.getProperty("file.separator") + fileName)
-                def newFullPath = new File(storagePath + System.getProperty("file.separator") + data.courseName + System.getProperty("file.separator") + data.courseName + '.' + ext)
-                fullPath.renameTo(newFullPath)
-            }
-        }
-        catch (Exception e) {
-            println("There is some problem parsing Document file" + e);
-        }
+//        try {
+//            if (data.uploadSyllabus) {
+////                println("############>>" + data.uploadSyllabus);
+//                String ext = "";
+//                def fileToBeUploaded = request.getFile("data.uploadSyllabus")
+////                println("############>>" + fileToBeUploaded);
+//                String fileName = fileToBeUploaded.originalFilename
+//                int i = fileName.lastIndexOf('.');
+//                if (i > 0) {
+//                    ext = fileName.substring(i + 1);
+//                }
+//                def servletContext = ServletContextHolder.servletContext
+//                def storagePath = servletContext.getRealPath('syllabus')
+//                def dir = new File(storagePath + System.getProperty("file.separator") + data.courseName + System.getProperty("file.separator"))
+////                println("==============>>" + dir);
+//                if ((dir.exists())) {
+//                    File[] listOfFiles = dir.listFiles();
+//                    for (File file : listOfFiles) {
+//                        file.delete();
+//                    }
+//                } else {
+//                    dir.mkdirs()
+//                }
+//
+//                fileToBeUploaded.transferTo(new File(dir, fileName))
+////                println("File Saved");
+//                def fullPath = new File(storagePath + System.getProperty("file.separator") + data.courseName + System.getProperty("file.separator") + fileName)
+//                def newFullPath = new File(storagePath + System.getProperty("file.separator") + data.courseName + System.getProperty("file.separator") + data.courseName + '.' + ext)
+//                fullPath.renameTo(newFullPath)
+//            }
+//        }
+//        catch (Exception e) {
+//            println("There is some problem parsing Document file" + e);
+//        }
         def status = courseDetailService.saveCourseInfo(data)
         response.response1 = status
 //        println(response)
