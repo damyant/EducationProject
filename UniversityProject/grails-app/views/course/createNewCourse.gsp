@@ -80,7 +80,7 @@
 
             });
             $("#courseCode").change(function(){
-
+                $("#noOfTerms").val("");
                 if($("#courseCode").val()==""){
                     $("#noOfTerms").prop('disabled',true);
                 }else{
@@ -191,18 +191,18 @@
                 <tr>
                     <td><label>Number of maximum available academic year :<span class="university-obligatory">*</span>
                     </label></td>
-                    <td><input type="text" id="noOfAcademicYears" name="noOfAcademicYears" maxlength="10" disabled="disabled"
+                    <td><input type="text" id="noOfAcademicYears" name="noOfAcademicYears" maxlength="10"
                                class="university-size-1-2" onkeypress="return isNumber(event)"/></td>
                 </tr>
 
                 <tr>
                     <td><label>Number of papers :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="noOfPapers" name="noOfPapers" maxlength="5" class="university-size-1-2" disabled="disabled"
+                    <td><input type="text" id="noOfPapers" name="noOfPapers" maxlength="5" class="university-size-1-2"
                                onkeypress="return isNumber(event)"/></td>
                 </tr>
                 <tr>
                     <td><label>Total Marks :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="totalMarks" name="totalMarks" maxlength="5" class="university-size-1-2" disabled="disabled"
+                    <td><input type="text" id="totalMarks" name="totalMarks" maxlength="5" class="university-size-1-2"
                                onkeypress="return isNumber(event)"/></td>
                 </tr>
                 %{--<tr>--}%
@@ -212,11 +212,11 @@
                 %{--</tr>--}%
                 <tr>
                     <td><label>Total Credit Points :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="totalCreditPoints" name="totalCreditPoints" class="university-size-1-2" maxlength="5" disabled="disabled"
+                    <td><input type="text" id="totalCreditPoints" name="totalCreditPoints" class="university-size-1-2" maxlength="5"
                                onkeypress="return isNumber(event)"/>
 
-                    <label id="worningMsg" class=".error"></label></td>
-
+                    </td>
+                <tr><label id="worningMsg" class="university-status-message"></label></tr>
 
                 </tr>
                 <tr>
