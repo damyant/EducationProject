@@ -170,12 +170,12 @@
 
                <tr id="byCourse">
                    <td style="width: 18%">
-                       <label for="course">Select Course:</label>
+                       <label for="course">Select Programme:</label>
                    </td>
                    <td style="width: 25%" >
                        <g:select name="course" class="university-size-1-1" id="courseVal"
                                  from="${ProgramDetail.list([sort: 'courseCode'])}" optionKey="id" optionValue="courseName"
-                                 noSelection="['null': ' Select Course']" />
+                                 noSelection="['null': ' Select Programme']" />
                    </td>
                    <td style="width: 10%" >
                        <g:select name="courseSession" class="university-size-1-1 allSession" id="courseSession"
@@ -186,12 +186,12 @@
 
            <tr id="courseUnapprovedStudyCentre">
                <td style="width: 18%">
-                   <label for="courseUnapproved">Select Course:</label>
+                   <label for="courseUnapproved">Select Programme:</label>
                </td>
                <td style="width: 25%" >
                    <g:select name="courseUnapproved" class="university-size-1-1" id="courseUnapproved"
                              from="${ProgramDetail.list([sort: 'courseCode'])}" optionKey="id" optionValue="courseName"
-                             noSelection="['null': ' Select Course']" />
+                             noSelection="['All': ' All Programmes']" />
                </td>
                <td style="width: 10%" >
                    <g:select name="courseUnapprovedSession" class="university-size-1-1 allSession" id="courseUnapprovedSession"
@@ -203,12 +203,12 @@
 
            <tr id="courseApprovedStudyCentre">
                <td style="width: 18%">
-                   <label for="courseApproved">Select Course:</label>
+                   <label for="courseApproved">Select Programme:</label>
                </td>
                <td style="width: 25%" >
                    <g:select name="courseApproved" class="university-size-1-1" id="courseApproved"
                              from="${ProgramDetail.list([sort: 'courseCode'])}" optionKey="id" optionValue="courseName"
-                             noSelection="['null': ' Select Course']" />
+                             noSelection="['All': ' All Programmes']" />
                </td>
                <td style="width: 10%" >
                    <g:select name="courseApprovedSession" class="university-size-1-1 allSession" id="courseApprovedSession"

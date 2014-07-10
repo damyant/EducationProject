@@ -333,6 +333,7 @@ class AdmitCardController {
         [programList: programList, studyCentreList: studyCentreList, examinationCenterList: finalExaminationCenterList]
 
     }
+    @Secured(["ROLE_ADMIN", "ROLE_IDOL"])
     def loadIdolSignatureInAdmit = {
         def admitInst = null
         if (AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examVenue))) {

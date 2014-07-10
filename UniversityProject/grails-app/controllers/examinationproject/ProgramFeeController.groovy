@@ -260,6 +260,7 @@ class ProgramFeeController {
         }
         render response as JSON
     }
+    @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def listOfAdmissionFee={
         def programDetailList = ProgramDetail.list(sort:'courseCode')
         def programSessions=   programFeeService.getProgramSessions(params)

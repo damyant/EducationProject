@@ -1,5 +1,6 @@
 package examinationproject
 
+import grails.plugins.springsecurity.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -7,13 +8,13 @@ import grails.transaction.Transactional
 class DistrictController {
 
     static allowedMethods = [save: "POST", update: "PUT", get: "GET", delete: "DELETE"]
-
+    @Secured(["ROLE_ADMIN"])
     def districtList(Integer max) {
 //        params.max = Math.min(max ?: 20, 100)
         respond District.list(params), model: [districtInstanceCount: District.count()]
     }
 
-
+    @Secured(["ROLE_ADMIN"])
     def createDistrict() {
         respond new District(params)
     }
