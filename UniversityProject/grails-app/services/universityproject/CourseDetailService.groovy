@@ -172,6 +172,7 @@ class CourseDetailService {
         courseDetail.courseMode = programSession.programDetailId.courseMode.modeName
         courseDetail.sessionOfCourse = programSession.sessionOfProgram
 
+        println("**************"+courseDetail)
         programSession.semester.each {
             subMap[it.semesterNo] = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programSession.programDetailId, it, programSession).subject
             subList = subMap
