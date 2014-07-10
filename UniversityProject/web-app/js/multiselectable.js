@@ -7,7 +7,7 @@ var numberOfGroups = [];
 
 
 function semesterList() {
-    alert("get semester list")
+
     var courseType= $('#programType').val()
 
     $.ajax({
@@ -28,9 +28,6 @@ function semesterList() {
             }
         }
     })
-
-
-
 
 }
 
@@ -496,9 +493,9 @@ function saveSubjectGroup(j,closeVal){
     if(rowCount-1!=0) {
         $('#multiSelectTab tbody #tr'+j+':last').append('<td style="width:30%;"><select multiple="multiple" id="groupListBox'+j+'" style="height: 100px; width: 150px;">' +
             '</select> </td>+' +
-            '<td><div id="groupOption"><label><span>Single Subject</span><input type="radio" name="groupSelection" value="singleSubject" class="radioInput"/></label></div><br/>'+
-            '<label><span>Multiple Subject</span><input type="radio" name="groupSelection" value="multipleSubject" class="radioInput" onclick="openTextBox(j)" id="multiSubjects' + j+'" /></label><input type="text" style="display: block" id="noOfSubjects' + j+'" ><br/>'+
-            '<label><span>Test Subject</span><input type="radio" name="groupSelection" value="Test" class="radioInput"/></label></div></td>')
+            '<td><div id="groupOption"><label><span>Single Subject</span><input type="radio" name="groupSelection" value="singleSubject" onclick="hideTextBox(' + j +')" class="radioInput"/></label></div><br/>'+
+            '<label><span>Multiple Subject</span><input type="radio" name="groupSelection" value="multipleSubject" class="radioInput" onclick="openTextBox(' + j +')" id="multiSubjects' + j+'" /></label><input type="text" hidden="hidden" id="noOfSubjects' + j+'" ><br/>'+
+            '<label><span>Test Subject</span><input type="radio" name="groupSelection" value="Test" class="radioInput" onclick="hideTextBox(' + j +')"/></label></div></td>')
 
         for (var i = 0; i < rowCount - 1; i++) {
             var subGroupMap = subMap["group" +j+''+ i]
@@ -598,7 +595,13 @@ function addToTestList(id){
 }
 
 function openTextBox(data){
-    alert("open a text box");
+  // alert("open a text box");
     $("#noOfSubjects"+data).show()
+
+}
+
+function hideTextBox(data){
+    //alert("open a text box");
+    $("#noOfSubjects"+data).hide()
 
 }
