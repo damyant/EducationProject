@@ -172,12 +172,33 @@ class CourseDetailService {
         courseDetail.courseMode = programSession.programDetailId.courseMode.modeName
         courseDetail.sessionOfCourse = programSession.sessionOfProgram
 
-        println("**************"+courseDetail)
+//        println("**************"+courseDetail)
         programSession.semester.each {
-            subMap[it.semesterNo] = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programSession.programDetailId, it, programSession).subject
+            def totalList=[],courseList=[]
+            courseList = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programSession.programDetailId, it, programSession).subjectSessionId.subjectId
+            totalList<<courseList
+            def groupIns=  ProgramGroup.findAllByProgramSessionAndSemester(programSession,it)
+            if(groupIns){
+                def groupList=[]
+                groupIns.each {
+                groupList<<it.groupName
+                def groupSubjectIns= ProgramGroupDetail.findAllByProgramGroupId(it).subjectSessionId.subjectId
+                    groupSubjectIns.each{
+                        groupList<<it
+                    }
+
+               }
+                totalList<<groupList
+                println("<<<<<<"+totalList)
+
+            }
+//            println("semster no=="+it.semesterNo)
+            subMap[it.semesterNo]=totalList
             subList = subMap
         }
         courseDetail.semesterList = subList
+
+        println("=="+courseDetail)
 
         return courseDetail
 
