@@ -600,11 +600,11 @@ function initializeDialog(j) {
         },
         open: function() {
             //do something
-            if(updateModeFlag){
+//            if(updateModeFlag){
 
                 showSubjectGroupInDialog(j)
 
-            }
+//            }
         }
     });
 
