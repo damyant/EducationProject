@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="077f1796-d040-41bf-b232-8f8d04f12860" name="Default" comment="" />
+    <list default="true" id="077f1796-d040-41bf-b232-8f8d04f12860" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/multiselectable.js" afterPath="$PROJECT_DIR$/web-app/js/multiselectable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="UniversityProject.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$USER_HOME$/.grails/" />
@@ -55,8 +58,8 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <breakpoint_rules converted="true" />
     <ui_properties converted="true" />
+    <breakpoint_rules converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -67,24 +70,29 @@
       <file leaf-file-name="multiselectable.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web-app/js/multiselectable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55737704" vertical-offset="8109" max-vertical-offset="10404">
-              <caret line="497" column="94" selection-start-line="497" selection-start-column="94" selection-end-line="497" selection-end-column="94" />
+            <state vertical-scroll-proportion="0.52998066" vertical-offset="10708" max-vertical-offset="12665">
+              <caret line="646" column="0" selection-start-line="646" selection-start-column="0" selection-end-line="646" selection-end-column="0" />
               <folding>
-                <marker date="1404967564692" expanded="false" signature="1057:1067" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="1140:1150" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="1225:1259" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="3715:3749" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="12053:12063" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="12151:12161" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="12277:12286" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="12634:12644" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="12679:12689" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="14768:14778" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="15017:15027" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="15394:15404" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="15439:15449" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="18291:18301" placeholder="..." />
-                <marker date="1404967564692" expanded="false" signature="19915:19949" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="1098:1108" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="1181:1191" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="1266:1300" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="3756:3790" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="12301:12311" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="12399:12409" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="12525:12534" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="12882:12892" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="12927:12937" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="15105:15115" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="15354:15364" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="15731:15741" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="15776:15786" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="18695:18705" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="20397:20431" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="24179:24189" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="25626:25636" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="25873:25883" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="26244:26254" placeholder="..." />
+                <marker date="1405062862158" expanded="true" signature="26322:26332" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -103,8 +111,8 @@
       <file leaf-file-name="createNewCourse.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/course/createNewCourse.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3791" max-vertical-offset="4658">
-              <caret line="223" column="49" selection-start-line="223" selection-start-column="35" selection-end-line="223" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3808" max-vertical-offset="4675">
+              <caret line="224" column="49" selection-start-line="224" selection-start-column="35" selection-end-line="224" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -182,7 +190,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -193,116 +201,7 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-app" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="student" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UniversityProject" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="conf" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -584,15 +483,16 @@
       <workItem from="1404823455744" duration="840000" />
       <workItem from="1404881707894" duration="20811000" />
       <workItem from="1404966665593" duration="901000" />
+      <workItem from="1405052995560" duration="8977000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="152913000" />
+    <option name="totallyTimeSpent" value="161890000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -620,7 +520,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21101573" sideWeight="0.5831874" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13119143" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22222222" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32744783" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -633,14 +533,14 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32744783" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -651,18 +551,18 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -760,13 +660,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/i18n/messages.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4680">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/validation.js">
@@ -1123,8 +1023,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/course/createNewCourse.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3791" max-vertical-offset="4658">
-          <caret line="223" column="49" selection-start-line="223" selection-start-column="35" selection-end-line="223" selection-end-column="49" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3808" max-vertical-offset="4675">
+          <caret line="224" column="49" selection-start-line="224" selection-start-column="35" selection-end-line="224" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -1139,24 +1039,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/multiselectable.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55737704" vertical-offset="8109" max-vertical-offset="10404">
-          <caret line="497" column="94" selection-start-line="497" selection-start-column="94" selection-end-line="497" selection-end-column="94" />
+        <state vertical-scroll-proportion="0.52998066" vertical-offset="10708" max-vertical-offset="12665">
+          <caret line="646" column="0" selection-start-line="646" selection-start-column="0" selection-end-line="646" selection-end-column="0" />
           <folding>
-            <marker date="1404967564692" expanded="false" signature="1057:1067" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="1140:1150" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="1225:1259" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="3715:3749" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="12053:12063" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="12151:12161" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="12277:12286" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="12634:12644" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="12679:12689" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="14768:14778" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="15017:15027" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="15394:15404" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="15439:15449" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="18291:18301" placeholder="..." />
-            <marker date="1404967564692" expanded="false" signature="19915:19949" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="1098:1108" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="1181:1191" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="1266:1300" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="3756:3790" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="12301:12311" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="12399:12409" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="12525:12534" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="12882:12892" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="12927:12937" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="15105:15115" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="15354:15364" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="15731:15741" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="15776:15786" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="18695:18705" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="20397:20431" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="24179:24189" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="25626:25636" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="25873:25883" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="26244:26254" placeholder="..." />
+            <marker date="1405062862158" expanded="true" signature="26322:26332" placeholder="..." />
           </folding>
         </state>
       </provider>
