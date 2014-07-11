@@ -212,7 +212,7 @@ class CourseController {
     }
 
     def getCourseOnProgramCode(){
-//        println("************"+params)
+        println("************"+params)
         def subjectList=[]
        subjectList= courseDetailService.getCourseOnProgramCode(params)
         println(subjectList.size())

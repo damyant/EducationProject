@@ -30,6 +30,7 @@
             })
         }
         $(document).ready(function(){
+
             $("#courseName").blur(function(){
                 if($("#courseName").val()==""){
                     $("#session").prop('disabled',true);
@@ -50,15 +51,15 @@
 
             });
 
-            $("#modeName").change(function(){
-
-                if($("#modeName").val()==""){
-                    $("#courseTypeName").prop('disabled',true);
-                }else{
-                    $("#courseTypeName").prop('disabled',false);
-                }
-
-            });
+//            $("#modeName").change(function(){
+//
+//                if($("#modeName").val()==""){
+//                    $("#courseTypeName").prop('disabled',true);
+//                }else{
+//                    $("#courseTypeName").prop('disabled',false);
+//                }
+//
+//            });
 
             $("#courseTypeName").change(function(){
 
@@ -142,7 +143,7 @@
                     <td style="width: 40%"><label>Select Session :<span class="university-obligatory">*</span></label>
                     </td>
                     <td style="width: 60%">
-                        <select id="session" name="session" class="university-size-1-2" disabled>
+                        <select id="session" name="session" class="university-size-1-2" >
                             <option value="">Select Session</option>
                             <g:each in="${programSessions}" var="session">
                                 <option value="${session.sessionOfProgram}">${session.sessionOfProgram}</option>
@@ -157,34 +158,34 @@
                 </tr>
                 <tr>
                     <td><label>Select Mode :<span class="university-obligatory">*</span></label></td>
-                    <td><g:select name="courseMode" id="modeName" optionKey="id" optionValue="modeName" disabled="disabled"
+                    <td><g:select name="courseMode" id="modeName" optionKey="id" optionValue="modeName"
                                   onchange="enableNoOfSem(this)" class="university-size-1-2"
                                   from="${CourseMode.findAll()}" noSelection="['': ' Select Mode']"/></td>
                 </tr>
                 <tr>
                     <td><label>Select Programme Type :<span class="university-obligatory">*</span></label></td>
-                    <td><g:select name="courseType" id="courseTypeName" optionKey="id" optionValue="courseTypeName" disabled="disabled"
+                    <td><g:select name="courseType" id="courseTypeName" optionKey="id" optionValue="courseTypeName"
                                   class="university-size-1-2" from="${CourseType.findAll()}"
                                   noSelection="['': ' Select Programme Type']"/></td>
                 </tr>
                 <tr>
                     <td><label>Select Program Category :<span class="university-obligatory">*</span></label></td>
-                    <td><g:select name="programType" id="programType" optionKey="id" optionValue="type" disabled="disabled"
+                    <td><g:select name="programType" id="programType" optionKey="id" optionValue="type"
                                   class="university-size-1-2" from="${examinationproject.ProgramType.findAll()}"
                                   noSelection="['': ' Select Programme Category']"/></td>
                 </tr>
                 <tr>
                     <td><label>Programme Code :<span class="university-obligatory">*</span></label></td>
                     %{--checkCourseCode()--}%
-                    <td><input type="text" id="courseCode" name="courseCode" maxlength="10" onchange="" disabled="disabled"
+                    <td><input type="text" id="courseCode" name="courseCode" maxlength="10" onchange=""
                                class="university-size-1-2" onkeypress="return isNumber(event)"/>
                         <label id="errorMsg" class="error1"></label>
                     </td>
                 </tr>
                 <tr>
                     <td><label>Number of Terms/Semesters :<span class="university-obligatory">*</span></label></td>
-                    <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="2" class="university-size-1-2" disabled="disabled"
-                               onkeypress="return isNumber(event)" onblur="semesterList()" readonly/></td>
+                    <td><input type="text" id="noOfTerms" name="noOfTerms" maxlength="2" class="university-size-1-2"
+                               onkeypress="return isNumber(event)" onblur="semesterList(this)" readonly/></td>
 
                 </tr>
 

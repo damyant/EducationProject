@@ -3,7 +3,6 @@ package examinationproject
 class ProgramGroup {
 
     String groupName
-
     static belongsTo = [programSession: ProgramSession,semester:Semester]
 
     static constraints = {
