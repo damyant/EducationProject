@@ -645,7 +645,8 @@ function appendSubjectsInUpdateMode(courseDetailJson){
         {
             var groupFalg=false
             for( var k=0;k<courseDetailJson['semesterList'][i][j].length;k++){
-
+//                alert(courseDetailJson['semesterList'][i][j][k].length)
+//                console.log("leeeeeeeee"+courseDetailJson['semesterList'][i][j][k].length)
                 if(courseDetailJson['semesterList'][i][j][k].toString().indexOf("Group")>-1){
                     appendSubjectGroupInUpdate(i)
 
@@ -706,7 +707,8 @@ function appendSubjectGroupInUpdate(i) {
     }
 
        // k=groupRowCounter
-    var  groupLabel
+    var  groupLabel=[]
+        groupLabel.push("ab")
     for( var j=0;j<groupRowCounter;j++){
 //        groupFlag=false
         if((document.getElementById("subjectGroup" + i))){
@@ -722,18 +724,44 @@ function appendSubjectGroupInUpdate(i) {
             $('#groupListBox'+ i+' option').each(function () {
 
                 if($(this).val().indexOf("Group")>-1){
-                    console.log("**"+$("#groupName"+i+j).text().length)
-                    console.log("<<<"+groupLabel)
+//                    console.log("**"+$("#groupName"+i+j).text().length)
+//                    console.log("<<<"+groupLabel.length)
+//                    var count=groupLabel.length-1
+                    
+                   for(var a=0;a<groupLabel.length;a++){
+                       var groupFlag=false
+                       console.log("Value of a=="+a)
+                       console.log("lenth of list=="+groupLabel.length)
+//                      if(groupLabel.length>1){
+//
+//                          if($("#groupName"+i+j).text().length==0 && groupLabel[a]!=$(this).val() ){
+//                              console.log("first if")
+//                              console.log(groupLabel)
+//                              $("#groupName"+i+j).html($(this).val())
+//                              groupLabel.push($(this).val())
+//                              groupFlag=true
+//                          }
+//                          else{
+//                              groupFlag=false
+//                          }
+//
+//
+//                      }
+//                      else{
 
-                  if($("#groupName"+i+j).text().length==0 && groupLabel!=$(this).val() ){
-                     console.log("innnnn")
+
+                  if($("#groupName"+i+j).text().length==0 && groupLabel[a]!=$(this).val() ){
+                     console.log("second if")
+                      console.log(groupLabel)
                     $("#groupName"+i+j).html($(this).val())
-                      groupLabel=$(this).val()
+                      groupLabel.push($(this).val())
                       groupFlag=true
                     }
                     else{
                       groupFlag=false
                   }
+//                }
+                   }
                 }
                 else if(groupFlag){
                     $("#group"+i+j).append('<option value="'+$(this).val()+'">'+$('#groupListBox' +i+ ' option[value='+$(this).val()+']').text()+'</option>')
