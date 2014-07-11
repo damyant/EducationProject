@@ -94,7 +94,7 @@
             <td>Programme<span class="university-obligatory">*</span></td>
             <td>
                 <g:select name="programId" id="programId" optionKey="id" tabindex="4"
-                          onchange="loadProgramFeeAmount(this), enableApplicationNo(),checkCourseCodeLength(this)" class="university-size-1-2"
+                          onchange="loadProgramFeeAmountAtIdol(this),enableApplicationNo(),checkCourseCodeLength(this)" class="university-size-1-2"
                           optionValue="courseName" from="${programList}" noSelection="['': ' Select Programme']"/>
                 <g:hiddenField name="idol" value="idol"/>
                 <label id="ProgrammeNotExist" class="error"></label>

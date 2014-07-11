@@ -158,21 +158,21 @@
             });
         });
     });
-//    $('#paySubmit').click(function(){
-////        alert("--------")
-//        if($('#paychallanForStudyCenter').valid()) {
-//            setTimeout(function () {
-//                $("#scStudnetList thead").empty().append('')
-//                $("#scStudnetList tbody").empty().append('')
-//                $('#paychallanForStudyCenter')[0].reset();
-//                document.getElementById("scStudnetList").style.visibility = "hidden";
-//                document.getElementById("paySubmit").style.visibility = "hidden";
-//                document.getElementById("paginationDiv").style.visibility = "hidden";
-//                document.getElementById("studentPayList").style.visibility = "hidden";
-//                document.getElementById("payClear").style.visibility = "hidden";
-//            }, 5000)
-//        }
-//    })
+    $('#paySubmit').click(function(){
+//        alert("--------")
+        if($('#paychallanForStudyCenter').valid()) {
+            setTimeout(function () {
+                $("#scStudnetList thead").empty().append('')
+                $("#scStudnetList tbody").empty().append('')
+                $('#paychallanForStudyCenter')[0].reset();
+                document.getElementById("scStudnetList").style.visibility = "hidden";
+                document.getElementById("paySubmit").style.visibility = "hidden";
+                document.getElementById("paginationDiv").style.visibility = "hidden";
+                document.getElementById("studentPayList").style.visibility = "hidden";
+                document.getElementById("payClear").style.visibility = "hidden";
+            }, 5000)
+        }
+    })
 </script>
 </body>
 </html>

@@ -684,7 +684,7 @@ class AdminController {
             render returnMap as JSON
         }
     }
-    @Secured(["ROLE_IDOL_USER", "ROLE_ADMIN", "ROLE_ACCOUNT"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT","ROLE_IDOL_USER","ROLE_STUDY_CENTRE"])
     def individualStudentUpdate = {
 //        def grailsApplication = Holders.getGrailsApplication()
 //        def rootImageFolder =  grailsApplication.config.my.global.variable;
@@ -818,5 +818,11 @@ class AdminController {
         render returnMap as JSON
     }
 
+    def getStudentRollNo(){
+        def returnMap = [:]
+        returnMap.roll = Student.findByRollNo(params.data).rollNo
+
+        render returnMap as JSON
+    }
 
 }

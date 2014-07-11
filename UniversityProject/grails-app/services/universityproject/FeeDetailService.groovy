@@ -295,13 +295,11 @@ class FeeDetailService {
             }
         } else {
             studentsWhoFeePaidPrevious.each {
-                if ((Student.findById(it).rollNo.length()==10)&&(Student.findById(it).studyCentre[0].id == Integer.parseInt(studyCenterId)) && (Student.findById(it).programDetail[0].id == Integer.parseInt(params.program))) {
+                if ((Student.findById(it).rollNo.length()==8)&&(Student.findById(it).studyCentre[0].id == Integer.parseInt(studyCenterId)) && (Student.findById(it).programDetail[0].id == Integer.parseInt(params.program))) {
                     stuList << Student.findById(it)
                 }
             }
-
         }
-
         if (stuList.size() > 0) {
             def bankName = Bank.list(sort: 'bankName')
             def paymentMode = PaymentMode.list(sort: 'paymentModeName')

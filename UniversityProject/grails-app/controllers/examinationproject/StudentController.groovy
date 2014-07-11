@@ -198,7 +198,7 @@ class StudentController {
 
     }
 
-    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT","ROLE_IDOL_USER"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
         def programList=ProgramDetail.list(sort: 'courseCode')
@@ -373,12 +373,9 @@ class StudentController {
     }
 
     def viewStudent = {
-//        println("??????????????????????"+params)
         def student = Student.findById(params.studentId)
-//        println("Challan Number"+student.addressDistrict)
-        def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
-        def miscellaneousFeeChallan = FeeDetails.findById(student.id)
-        [studInstance:student,feeDetails: feeDetails]
+//        println(student.rollNo)
+        redirect(controller: 'student', action: "viewStudentDetails", params: [studentId:student.rollNo.toString()])
     }
     @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def customChallanSave={
@@ -452,5 +449,14 @@ class StudentController {
         }
         def args = [template: "printIdentityCard", model: [studentInstance: stuList,studentMobNo:studentMobNo,studentPin:studentPin,studentAddress:studentAddress,studentDOB:studentDOB,studentRoll:studentRoll,studentProgram:studentProgram,studentName:studentName], filename: fileName + ".pdf"]
         pdfRenderingService.render(args + [controller: this], response)
+    }
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT","ROLE_IDOL_USER","ROLE_STUDY_CENTRE"])
+    def viewStudentDetails={
+        def student = Student.findByRollNo(params.studentId)
+        println(student)
+        def feeDetails = FeeDetails.findAllByStudent(student)
+        def homeAssignment=HomeAssignment.findAllByStudent(student)
+        def studyMaterials=StudyMaterial.findAllByStudentId(student)
+        [studInstance:student,feeDetails: feeDetails,homeAssignment:homeAssignment,studyMaterials:studyMaterials]
     }
 }

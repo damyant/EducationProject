@@ -126,6 +126,26 @@ body {
 .university-display-inline{
     display: inline-block;
 }
+.main-Content{
+    width: 100%;
+    display: inline-block;
+}
+.label-header{
+    width: 35%;
+    font-size: 13px;
+    float: left;
+    text-align: left;
+    padding: 11px;
+}
+.label-content{
+    width: 55%;
+    font-size: 15px;
+    font-weight: bold;
+    float: right;
+    text-align: left;
+    padding: 11px;
+}
+
 /*button*/
 .university-button {
     border-radius: 0;
