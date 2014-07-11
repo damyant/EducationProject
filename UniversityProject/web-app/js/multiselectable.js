@@ -696,8 +696,9 @@ function showSubjectGroupInDialog(i){
 
     }
     $('#subjectGroup'+i+' tbody tr:not(first)').remove();
+    var  groupLabel
     for( var j=0;j<groupRowCounter;j++){
-
+//        groupFlag=false
         if((document.getElementById("subjectGroup" + i))){
 
 
@@ -712,12 +713,24 @@ function showSubjectGroupInDialog(i){
             $('#groupListBox'+ i+' option').each(function () {
 
                 if($(this).val().indexOf("Group")>-1){
-//                        alert("??"+$(this).val())
+                    console.log("**"+$("#groupName"+i+j).text().length)
+                    console.log("<<<"+groupLabel)
+
+                  if($("#groupName"+i+j).text().length==0 && groupLabel!=$(this).val() ){
+                     console.log("innnnn")
                     $("#groupName"+i+j).html($(this).val())
+                      groupLabel=$(this).val()
+                      groupFlag=true
+                    }
+                    else{
+                      groupFlag=false
+                  }
                 }
-                else{
+                else if(groupFlag){
                     $("#group"+i+j).append('<option value="'+$(this).val()+'">'+$('#groupListBox' +i+ ' option[value='+$(this).val()+']').text()+'</option>')
                 }
+
+
 
             })
 
