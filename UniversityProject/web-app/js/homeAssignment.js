@@ -28,7 +28,8 @@ function appendTerms(data){
     $("#checkTerms").empty()
     if(data['programType']=='Traditional'){
         for(var i=1;i<=data['totalYears'];i++){
-            $("#checkTerms").append('<label id="'+i+'">Term'+i+'<input type="checkbox" name="terms" id="'+i+'"/></label>')
+            $("#checkTerms").append('<label id="'+i+'">Term'+i+'<input type="checkbox" value="'+i+'"' +
+                ' name="terms" id="'+i+'"/></label>')
         }
     }
     else{
