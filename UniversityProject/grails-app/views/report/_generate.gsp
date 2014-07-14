@@ -110,7 +110,11 @@
 
 
 <g:elseif test="${totalListDailyAdmission}">
+<<<<<<< HEAD
     <h3> List of Students Who Have Taken Admission from Date ${fromDate} to ${toDate} at ${studyCentreName? studyCentreName:'All'} StudyCentre</h3>
+=======
+    <h3> List of Students Who Have Taken Admission from Date ${fromDate} fo ${toDate} at ${studyCentreName? studyCentreName:'All'} StudyCentre</h3>
+>>>>>>> 1cfdda126a27f446b8c766407b186b178d548ee0
     <table style=" text-align: center" class="gridtable">
         <th>Sr No.</th>
         <th>Roll No</th>
@@ -369,7 +373,7 @@
 
 
 <g:elseif test="${totalListApprovedUnapprovedRollNo}">
-<h3> Total ${type} Students in ${totalListApprovedUnapprovedRollNo.getAt(0).studyCentre[0].name} for ${approvedUnapprovedSessionVal} Session</h3><br></br>
+<h3> Total ${type} Students in ${totalListApprovedUnapprovedRollNo.getAt(0).studyCentre[0].name} for ${approvedUnapprovedSessionVal} Session</h3><br><br/>
     <h3>Course Name: ${program? program : 'All Programmes'} </h3>
     <table style=" text-align: center" class="gridtable">
         <th>Sr No</th>

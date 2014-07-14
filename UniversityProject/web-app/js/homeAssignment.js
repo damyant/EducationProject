@@ -29,6 +29,7 @@ function appendTerms(data){
     if(data['programType']=='Traditional'){
         for(var i=1;i<=data['totalYears'];i++){
             $("#checkTerms").append('<label id="'+i+'">Term'+i+'<input type="checkbox" value="'+i+'" name="terms" id="'+i+'"/></label>')
+
         }
     }
     else{
@@ -51,7 +52,7 @@ function appendTerms(data){
              }
         }
     });
-    var checkedBoxes = $('input[name=terms]:unchecked').length;
+    var checkedBoxes = $('input[name=terms]:not(:checked)').length;
     if(checkedBoxes==0){
         if(data.user=='Admin'){
 
