@@ -28,7 +28,7 @@
 </script>
 <body>
 <div id="main">
-    <fieldset>
+    <fieldset class="form">
         <h3>Generate Identity Card</h3>
         <g:if test="${flash.message}">
             <div class="university-status-message"> <label class="error">${flash.message}</label></div>

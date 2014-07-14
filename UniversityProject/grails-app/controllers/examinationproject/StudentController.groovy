@@ -242,19 +242,12 @@ class StudentController {
                 if(it.startAdmission_D!=null && it.endAdmission_D !=null) {
                     def start =df.parse(df.format(it.startAdmission_D))
                     def end =df.parse(df.format(it.endAdmission_D))
-//                    println("start>>>----"+start)
-//                    println("End>>>----"+end)
-//                    println("today>>>----"+today)
-//                    println(it.courseName)
-//                    println("start"+start.compareTo(today))
-//                    println("end"+today.compareTo(end))
                     if (start.compareTo(today) <= 0 && end.compareTo(today) >=0) {
                         programList.add(it)
                         count++
                     }
                 }
             }
-//            println("total "+count)
             if(count==0){
 //                flash.message="Admission Period Not Started Yet"
             }

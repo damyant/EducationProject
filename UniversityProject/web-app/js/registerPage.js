@@ -213,7 +213,7 @@ function loadProgramFeeAmount(t) {
 
 
     var program = $(t).val();
-    if (program == '19' || program == '21') {
+    if (program == '19' || program == '21'|| program == '25'|| program == '26') {
         $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>Admission to this Programme will be done through Entrance Examination only.</p><p>For more details, please contact <b>idol.gauhatiuniversity@gmail.com</b> . <p></p></div>").dialog({
             title: "Sorry",
             resizable: false,

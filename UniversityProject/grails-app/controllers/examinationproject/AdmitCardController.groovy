@@ -194,10 +194,10 @@ class AdmitCardController {
                 dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
                 timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
             }
-            if (dateList.size() == 0) {
-                flash.message = "Examination Date Not Assigned Yet"
-                redirect(controller: 'admitCard', action: 'bulkCreationOfAdmitCard')
-            }
+//            if (dateList.size() == 0) {
+//                flash.message = "Examination Date Not Assigned Yet"
+//                redirect(controller: 'admitCard', action: 'bulkCreationOfAdmitCard')
+//            }
             def count = 1
             def total = dateList.size()
             dateList.each {
@@ -232,8 +232,13 @@ class AdmitCardController {
             def fileName = stuList[0].programDetail[0].courseName + " " + month + " " + session[0]
 
             def year = new Date().format("yyyy")
+            if (dateList[0] != ''||timeList[0]!=null||dateList[0]!=null) {
+                flash.message = "Examination Date Not Assigned Yet"
+                redirect(controller: 'admitCard', action: 'bulkCreationOfAdmitCard')
+            } else {
             def args = [template: "printAdmitCard", model: [studentInstance: stuList, examTime: examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
+            }
         } else if (params.studyCenterId) {
             flash.message = "Admit Card Not Generated yet"
             redirect(controller: 'admitCard', action: 'studyCenterAdmitCard')
@@ -273,10 +278,12 @@ class AdmitCardController {
                 dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
                 timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
             }
-            if (dateList.size() == 0) {
-                flash.message = "Examination Date Not Assigned Yet"
-                redirect(controller: 'student', action: 'downloadAdmitCard')
-            }
+//            println("========================"+dateList[0])
+//            println("========================"+timeList[0])
+//            if (dateList[0] != ''||timeList[0]!=null||dateList[0]!=null) {
+//                flash.message = "Examination Date Not Assigned Yet"
+//                redirect(controller: 'student', action: 'downloadAdmitCard')
+//            }
             def count = 1
             def total = dateList.size()
             dateList.each {
@@ -310,8 +317,13 @@ class AdmitCardController {
             def fileName = stuList[0].programDetail[0].courseName + " " + month + " " + session[0]
 
             def year = new Date().format("yyyy")
+            if (dateList[0] != ''||timeList[0]!=null||dateList[0]!=null) {
+                flash.message = "Examination Date Not Assigned Yet"
+                redirect(controller: 'student', action: 'downloadAdmitCard')
+            } else {
             def args = [template: "printMyAdmitCard", model: [studentInstance: stuList, examTime: examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
+            }
         } else {
             flash.message = "Admit Card Not Generated yet"
             redirect(controller: 'student', action: 'downloadAdmitCard')
@@ -459,7 +471,7 @@ class AdmitCardController {
 
             def year = new Date().format("yyyy")
 //            println("year"+year)
-            if (dateList.size() == 0) {
+            if (dateList[0] != ''||timeList[0]!=null||dateList[0]!=null) {
                 flash.message = "Examination Date Not Assigned Yet"
                 redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
             } else {

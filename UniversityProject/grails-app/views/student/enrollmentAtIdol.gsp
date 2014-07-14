@@ -217,21 +217,21 @@
     </div>
     <div class="university-clear-both"></div>
     <div style="width: 100%;">&nbsp;</div>
-    <div style="width:100%;text-align: center;letter-spacing:2pt;font-family:Arial, Gadget, sans-serif;text-transform:capitalize;font-size: 11px;font-weight: 100;">
+    <div style="width:100%;text-align: center;letter-spacing:2pt;text-transform:capitalize;font-size: 11px;font-weight: 100;">
         <div>&nbsp;</div><div>&nbsp;</div>
-        <div style="text-transform:capitalize;font-size:11px;">State Bank of India</div>
+        <div style="text-transform:none;font-size:11px;">State Bank of India    /    United Bank of India</div>
         %{--<div style="text-transform:uppercase;font-size: 11px;">Gauhati University Branch (CODE-<g:message code="default.Bank.code"/>)</div>--}%
-        <div style="text-transform:capitalize;font-size: 11px;margin-top: 1px;margin-bottom: 1px;"><label style="border: 1px solid;padding-left: 5px;padding-right: 5px;">A/C No. <g:message code="default.Bank.AcNo"/></label></div>
-        <div style="text-transform:capitalize;font-size: 11px;">Institute of Distance and Open Learning</div>
+        <div style="text-transform:none;font-size: 11px;margin-top: 1px;margin-bottom: 1px;"><label style="border: 1px solid;padding-left: 5px;padding-right: 5px;">SBI A/C No. <g:message code="default.Bank.AcNo"/></label><label>     </label><label style="border: 1px solid;padding-left: 5px;padding-right: 5px;">UBI A/C No. <g:message code="default.Bank.UBI.AcNo"/></label></div>
+        <div style="text-transform:none;font-size: 11px;">Institute of Distance and Open Learning</div>
         <div style="text-transform:capitalize;font-size: 11px;">Gauhati University</div>
     </div>
 
     <div style="clear: both; margin-bottom: 10px;"></div>
-    <table  style="width:80%;margin:auto;letter-spacing:2pt;text-transform: capitalize;border: solid 0px black;font-family:Arial, Gadget, sans-serif;font-weight: 100;">
-        <tr><td style="width: 40%;font-size: 10px;padding-left: 5px;"><lable>Name</lable></td><td style="width: 60%;font-size: 11px;"><label id="studentName"></label></td></tr>
-        <tr><td  style="width: 40%;font-size: 10px;padding-left: 5px;"><lable>Roll No</lable></td><td style="width: 60%;font-size: 11px;letter-spacing:2px;"><label id="studentRollNo"></label></td></tr>
-        <tr><td  style="width: 40%;font-size: 10px;padding-left: 5px;">Type of Fee</td><td style="width: 60%;font-size: 11px;"><label id="feeType"></label></td></tr>
-        <tr><td  style="width: 40%;font-size: 10px;padding-left: 5px;"><lable>Amount</lable></td><td style="width: 60%;font-size: 11px;letter-spacing:2px;"><label id="amount"></label>
+    <table  style="width:80%;margin:auto;letter-spacing:2pt;text-transform: capitalize;border: solid 0px black;font-weight: 100;">
+        <tr><td style="width: 45%;font-size: 10px;padding-left: 5px;"><lable>Name</lable></td><td style="width: 55%;font-size: 11px;"><label id="studentName"></label></td></tr>
+        <tr><td  style="font-size: 10px;padding-left: 5px;"><lable>Roll No</lable></td><td style="font-size: 11px;letter-spacing:2px;"><label id="studentRollNo"></label></td></tr>
+        <tr><td  style="font-size: 10px;padding-left: 5px;">Type of Fee</td><td style="font-size: 11px;"><label id="feeType"></label></td></tr>
+        <tr><td  style="font-size: 10px;padding-left: 5px;"><lable>Amount</lable></td><td style="font-size: 11px;letter-spacing:2px;"><label id="amount"></label>
             <label style="display: block" id="lateFee"></label>
         </td></tr>
         <tr><td  style="height:60px">&nbsp;</td><td  style="height:60px">&nbsp;</td></tr>

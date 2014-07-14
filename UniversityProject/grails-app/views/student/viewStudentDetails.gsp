@@ -149,26 +149,16 @@
             <td class="university-size-1-2">
                 <g:if test="${studInstance?.studyCentre}">
                     <div class="label-header">Study Centre Name</div>
-
                     <div class="label-content">${studInstance?.studyCentre[0]?.name}</div>
-
                     <div class="label-header">Study Centre Address</div>
-
                     <div class="label-content">${studInstance?.studyCentre[0]?.address}</div>
                 </g:if>
                 <g:if test="${studInstance?.city}">
                     <div class="label-header">Preferred Examination Centre</div>
-
                     <div class="label-content">${studInstance?.city?.district[0]?.districtName}</div>
-
                     <div class="label-header">Examination Centre District</div>
-
                     <div class="label-content">${studInstance?.studyCentre[0]?.address}</div>
-
                 </g:if>
-                <div class="label-header">&nbsp;</div>
-
-                <div class="label-content">&nbsp;</div>
             </td>
         </tr>
     </table>
