@@ -175,8 +175,14 @@ class CourseDetailService {
 //        println("**************"+courseDetail)
         programSession.semester.each {
             def totalList=[],courseList=[]
-            courseList = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programSession.programDetailId, it, programSession).subjectSessionId.subjectId
-            totalList<<courseList
+            def newCourseMap=[:]
+            courseList = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programSession.programDetailId, it, programSession).subjectSessionId
+            courseList.each{
+                newCourseMap.id=it.id
+                newCourseMap.subjectName=it.subjectId.subjectName
+
+            }
+            totalList<<newCourseMap
             def groupIns=  ProgramGroup.findAllByProgramSessionAndSemester(programSession,it)
             if(groupIns){
                 def groupList=[]
