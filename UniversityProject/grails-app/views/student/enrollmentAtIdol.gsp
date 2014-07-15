@@ -242,7 +242,6 @@
         </tr>
     </table>
 </div>
-</div>
 </fieldset>
 </g:else>
 

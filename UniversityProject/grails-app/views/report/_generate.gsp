@@ -34,7 +34,12 @@
         border-color: #666666;
         background-color: #ffffff;
     }
+    @page {
+        size: 210mm 287mm;
+        margin: 30px;
+    }
     </style>
+
 </head>
 
 <body>
@@ -110,11 +115,8 @@
 
 
 <g:elseif test="${totalListDailyAdmission}">
-<<<<<<< HEAD
     <h3> List of Students Who Have Taken Admission from Date ${fromDate} to ${toDate} at ${studyCentreName? studyCentreName:'All'} StudyCentre</h3>
-=======
-    <h3> List of Students Who Have Taken Admission from Date ${fromDate} fo ${toDate} at ${studyCentreName? studyCentreName:'All'} StudyCentre</h3>
->>>>>>> 1cfdda126a27f446b8c766407b186b178d548ee0
+
     <table style=" text-align: center" class="gridtable">
         <th>Sr No.</th>
         <th>Roll No</th>

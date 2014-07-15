@@ -111,7 +111,7 @@ def springSecurityService
         SimpleDateFormat f1 = new SimpleDateFormat("dd/MM/yyyy");
         def subjectList=params.subjectIdList.split(",")
         def count=0
-//        println("+++++++++"+params)
+        println("+++++++++"+params)
 
         def sessionObj=ProgramSession.findById(Long.parseLong(params.SessionList))
         subjectList.each{

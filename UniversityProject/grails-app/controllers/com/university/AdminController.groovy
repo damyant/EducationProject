@@ -259,6 +259,7 @@ class AdminController {
 
     def saveExamDate = {
         def checkStatus = [:]
+        println(params)
         def status = adminInfoService.saveExamDate(params)
 
         if (status.size() > 1) {

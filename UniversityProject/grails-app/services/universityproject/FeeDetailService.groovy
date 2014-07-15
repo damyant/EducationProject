@@ -260,7 +260,7 @@ class FeeDetailService {
                     stuList = obj.list {
                         programDetail { eq('id', Long.parseLong(params.program)) }
                         studyCentre { eq('id', Long.parseLong(currentUser.studyCentreId.toString())) }
-                        not { 'in'('id', Student.findById(studentsWhoFeePaid).id) }
+                        not { 'in'('id', studentsWhoFeePaid) }
                         and{
                             isNotNull("rollNo")
                         }
@@ -268,7 +268,7 @@ class FeeDetailService {
                 } else {
                     stuList = obj.list {
                         studyCentre { eq('id', Long.parseLong(currentUser.studyCentreId.toString()))}
-                        not { 'in'('id', Student.findById(studentsWhoFeePaid).id) }
+                        not { 'in'('id', studentsWhoFeePaid) }
                         and{
                             isNotNull("rollNo")
                         }

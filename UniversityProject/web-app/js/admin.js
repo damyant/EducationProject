@@ -85,7 +85,6 @@ function a(id) {
 }
 
 function saveExamDate() {
-//    alert("submit")
     var course = $('#programList').val();
     $.ajax({
         type: "post",
@@ -362,6 +361,7 @@ function appendSubjects(obj) {
                 '</tr>')
             ++counter;
         }
+
         count++;
     }
     $("#subjectList").append('<tr><td colspan="2"><input type="button" id="submitExamDate" class="university-button" value="Submit" onclick="validateFields(' + counter + ')"/></td></tr>')
@@ -377,6 +377,7 @@ function appendSubjects(obj) {
     });
 }
 function validateFields(counter) {
+    alert(counter)
     var date = null;
     var time = null;
     var bool = true;
@@ -384,7 +385,7 @@ function validateFields(counter) {
         date = $('#examDate' + i).val();
         time = $('#examTime' + i).val()
         if ((date == "null" || date.length == 0)) {
-            //$('#dateError' + i).text("Please Select Examination Date")
+//            $('#dateError' + i).text("Please Select Examination Date")
             bool = true
         }
         else if (date.length != 10) {
@@ -392,11 +393,11 @@ function validateFields(counter) {
             bool = false
         }
         if ((time == "null" || time == "")) {
-            // $('#timeError' + i).text("Please Select Examination Time")
+            $('#timeError' + i).text("Please Select Examination Time")
             bool = true
         }
         else if (time.length != 8) {
-            $('#timeError' + i).text("Please Enter Proper Date")
+//            $('#timeError' + i).text("Please Enter Proper Date")
             bool = false
         }
     }

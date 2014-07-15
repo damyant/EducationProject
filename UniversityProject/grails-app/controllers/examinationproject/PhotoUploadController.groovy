@@ -1,7 +1,10 @@
 package examinationproject
 
+import grails.plugins.springsecurity.Secured
+
 class PhotoUploadController {
     def photoUploadService
+    @Secured(["ROLE_ADMIN"])
     def photoUpload() {
         def appNo=[]
         def studentListInst=Student.findAllByStudentImageIsNull()
@@ -18,6 +21,7 @@ class PhotoUploadController {
         sessionList << Integer.parseInt(year) + 1
         [studentListInst:studentListInst,sessionList:sessionList]
     }
+    @Secured(["ROLE_ADMIN"])
     def uploadPhoto(){
         println(params)
         def result=photoUploadService.saveBulkPhoto(params)

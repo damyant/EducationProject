@@ -209,13 +209,15 @@
                 code="default.mainMenu6.subMenu20"/></g:link></li>
         <li> <a href="#"><g:message code="default.mainMenu6.subMenu21"/></a>
             <ul>
-           <li> <g:link controller="homeAssignment" action="studentAddressSingle"><g:message
+                <li> <g:link controller="homeAssignment" action="studentAddressSingle"><g:message
                 code="default.mainMenu3.subMenu2.submenu1.submemu1"/></g:link> </li>
-                <li> <g:link controller="homeAssignment" action="studentAddress"><g:message
-                 code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link> </li>
-                </ul>
+                <li><g:link controller="homeAssignment" action="studentAddress"><g:message
+                        code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link></li>
+             </ul>
 
         </li>
+        <li><g:link controller="photoUpload" action="photoUpload"><g:message
+                code="default.mainMenu3.subMenu2.submenu5"/></g:link></li>
 
 
     </ul>
