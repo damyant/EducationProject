@@ -14,5 +14,6 @@ class ProgramSession {
         sessionOfProgram column: "SessionOfProgram"
         programDetailId column: "ProgramDetailId"
         semester cascade:"all,delete-orphan"
+        programGroup cascade:"all,delete-orphan"
     }
 }

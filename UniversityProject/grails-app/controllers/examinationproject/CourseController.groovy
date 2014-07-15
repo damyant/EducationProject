@@ -29,9 +29,9 @@ class CourseController {
     }
 
     def getCourseByCategory() {
-        println("these are the params " + params)
+
         def subObj = Subject.findAllByProgramTypeId(ProgramType.findById(Long.parseLong(params.courseType)))
-        println("------------" + subObj)
+
         render subObj as JSON
 
 
@@ -212,10 +212,10 @@ class CourseController {
     }
 
     def getCourseOnProgramCode(){
-        println("************"+params)
+
         def subjectList=[]
        subjectList= courseDetailService.getCourseOnProgramCode(params)
-        println(subjectList.size())
+       println(subjectList.size())
        render subjectList as JSON
 
     }
