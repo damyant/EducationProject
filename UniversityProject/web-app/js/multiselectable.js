@@ -235,14 +235,13 @@ function ConvertFormToJSON(form) {
 
 
         if($("#groupListBox"+j).length>0){
-//            alert("hi")
 
             $('#groupListBox' + j + ' option').each(function () {
 
                 subGroupList.push($(this).val() || '');
 
             });
-//            alert("<<<<<<<<"+$('input[name=groupSelection'+j+']:radio:checked').val())
+
             groupSelectionTypeList.push($('input[name=groupSelection'+j+']:radio:checked').val())
             noOfSubjects.push($("#noOfSubjects"+j).val())
             totalList.push(subGroupList);
