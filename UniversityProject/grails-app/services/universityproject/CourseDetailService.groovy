@@ -29,28 +29,31 @@ class CourseDetailService {
 
     def saveCourseInfo(params) {
         def status = ""
-        def semObj
+        def updateStatus=""
         def existingCourseObj
-//        println(params.courseId)
+        println(params)
         if (params.courseId) {
             existingCourseObj = ProgramDetail.findById(Integer.parseInt(params.courseId))
-        }
+            updateStatus="update"
+
+      }
 
         def session = ProgramSession.count()
         def sessionObj
 
         if (existingCourseObj) {
             existingCourseObj.courseName = params.courseName
-            existingCourseObj.courseCode = Integer.parseInt(params.courseCode)
+            existingCourseObj.courseCode = params.courseCode
             existingCourseObj.courseMode = CourseMode.findById(params.courseMode)
             existingCourseObj.courseType = CourseType.findById(params.courseType)
             existingCourseObj.noOfTerms = Integer.parseInt(params.noOfTerms)
             existingCourseObj.noOfAcademicYears = Integer.parseInt(params.noOfAcademicYears)
             existingCourseObj.noOfPapers = Integer.parseInt(params.noOfPapers)
             existingCourseObj.totalMarks = Integer.parseInt(params.totalMarks)
-            existingCourseObj.marksPerPaper = Integer.parseInt(params.marksPerPaper)
+//            existingCourseObj.marksPerPaper = Integer.parseInt(params.marksPerPaper)
             existingCourseObj.totalCreditPoints = Integer.parseInt(params.totalCreditPoints)
             existingCourseObj.save(failOnError: true, flush: true)
+
             if (session > 0) {
                 if (ProgramSession.findByProgramDetailIdAndSessionOfProgram(existingCourseObj, params.session)) {
                     sessionObj = ProgramSession.findByProgramDetailIdAndSessionOfProgram(existingCourseObj, params.session)
@@ -67,26 +70,42 @@ class CourseDetailService {
 
             }
             CourseSubject.removeAll(existingCourseObj, sessionObj)
+            def programGroupIns= ProgramGroup.findAllByProgramSession(sessionObj)
             semesterList.each {
                 it.delete(failOnError: true)
+//                it.removeFromProgramGroup(programGroupIns)
             }
 
-            for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
-                semObj = new Semester()
-                semObj.semesterNo = i
-                semObj.programSession = sessionObj
-                semObj.save(failOnError: true)
+        programGroupIns.each {
+            ProgramGroupDetail.removeAll(it)
+            it.delete()
+        }
 
-                params.semesterList.each {
-                    i
-                    def subjectList = it."semester${i}".sort()
-                    subjectList.each { obj ->
-                        CourseSubject.create existingCourseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj, sessionObj
-                    }
-                    status = 'updated'
-                }
 
+
+
+            status=  saveAndUpdateCourseInformation(params,sessionObj,existingCourseObj)
+
+//            for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
+//                semObj = new Semester()
+//                semObj.semesterNo = i
+//                semObj.programSession = sessionObj
+//                semObj.save(failOnError: true)
+//
+//                params.semesterList.each {
+//                    i
+//                    def subjectList = it."semester${i}".sort()
+//                    subjectList.each { obj ->
+//                        CourseSubject.create existingCourseObj, Subject.findById(Integer.parseInt(obj.toString())), semObj, sessionObj
+//                    }
+//                    status = 'updated'
+//                }
+//
+//            }
+            if(status){
+                status=updateStatus
             }
+            println("************"+status)
             return status
         }
         else {
@@ -104,49 +123,9 @@ class CourseDetailService {
             } else {
                 sessionObj = new ProgramSession(sessionOfProgram: params.session, programDetailId: courseObj).save(flush: true, failOnError: true)
             }
-            for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
-                semObj = new Semester()
 
-
-                semObj.semesterNo = i
-                semObj.programSession = sessionObj
-                semObj.save(failOnError: true)
-
-                params.semesterList.each {
-                    i
-                    def subjectList = it."semester${i}".sort()
-
-                    for(def j=0;j<subjectList.size();j++){
-//                        println("*********"+subjectList[j])
-                        def groupIns
-                        for(def k=0;k<subjectList[j].size();k++){
-                            println(subjectList[j][k])
-                            if(subjectList[j][k].toString().contains("Group")){
-                                groupIns= new ProgramGroup()
-                                groupIns.groupName=subjectList[j][k].toString()
-                                groupIns.programSession=sessionObj
-                                groupIns.semester= semObj
-                                groupIns.save(failOnError: true,flush: true)
-                            }
-                            else{
-                                println("after"+groupIns)
-                                if(groupIns){
-                                    ProgramGroupDetail.create groupIns, SubjectSession.findById(Integer.parseInt(subjectList[j][k].toString()))
-                                }
-                                else{
-
-                        CourseSubject.create courseObj, SubjectSession.findById(Integer.parseInt(subjectList[j][k].toString())), semObj, sessionObj
-
-                                }
-
-                            }
-                        }
-                    }
-
-                    status = 'Created'
-                }
-
-            }
+            status=  saveAndUpdateCourseInformation(params,sessionObj,courseObj)
+            println("*******4343*****"+status)
             return status
         }
 
@@ -172,36 +151,49 @@ class CourseDetailService {
         courseDetail.courseMode = programSession.programDetailId.courseMode.modeName
         courseDetail.sessionOfCourse = programSession.sessionOfProgram
 
-//        println("**************"+courseDetail)
-        programSession.semester.each {
+        programSession.semester.sort().each {
             def totalList=[],courseList=[]
-            def newCourseMap=[:]
+
             courseList = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programSession.programDetailId, it, programSession).subjectSessionId
             courseList.each{
-                newCourseMap.id=it.id
-                newCourseMap.subjectName=it.subjectId.subjectName
-
+                def returnMap=[:]
+                returnMap["id"]=it.id
+                returnMap["subjectName"]=it.subjectId.subjectName
+                totalList<<returnMap;
             }
-            totalList<<newCourseMap
+
+
             def groupIns=  ProgramGroup.findAllByProgramSessionAndSemester(programSession,it)
             if(groupIns){
-                def groupList=[]
+
+                def groupList=[],groupSelectionType=[],groupNoOfSubjects=[]
                 groupIns.each {
                 groupList<<it.groupName
-                def groupSubjectIns= ProgramGroupDetail.findAllByProgramGroupId(it).subjectSessionId.subjectId
+                if(groupSelectionType.size()<1){
+                groupSelectionType<<it.groupSelectionType
+                groupNoOfSubjects<<it.numberOfSubjectsToSelect
+                    }
+                def groupSubjectIns= ProgramGroupDetail.findAllByProgramGroupId(it).subjectSessionId
                     groupSubjectIns.each{
-                        groupList<<it
+                        def returnMap=[:]
+                        returnMap["id"]=it.id
+                        returnMap["subjectName"]=it.subjectId.subjectName
+                        groupList<<returnMap
                     }
 
                }
                 totalList<<groupList
-                println("<<<<<<"+totalList)
+                totalList<<groupSelectionType
+                totalList<<groupNoOfSubjects
+
 
             }
-//            println("semster no=="+it.semesterNo)
+
             subMap[it.semesterNo]=totalList
             subList = subMap
         }
+//        courseDetail.groupSelectionType=groupSelectionType
+//        courseDetail.groupNoOfSubjects=groupNoOfSubjects
         courseDetail.semesterList = subList
 
         println("=="+courseDetail)
@@ -319,4 +311,58 @@ class CourseDetailService {
 
 
     }
+
+    def saveAndUpdateCourseInformation(params,sessionObj,courseObj){
+        def semObj,status
+        def indexVal=0;
+        for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
+            semObj = new Semester()
+            semObj.semesterNo = i
+            semObj.programSession = sessionObj
+            semObj.save(failOnError: true)
+
+            params.semesterList.each {
+                i
+                def subjectList = it."semester${i}".sort()
+
+                for(def j=0;j<subjectList.size();j++){
+//                        println("*********"+subjectList[j])
+                    def groupIns
+                    for(def k=0;k<subjectList[j].size();k++){
+
+                        if(subjectList[j][k].toString().contains("Group")){
+                            groupIns= new ProgramGroup()
+                            groupIns.groupName=subjectList[j][k].toString()
+                            groupIns.programSession=sessionObj
+                            groupIns.semester= semObj
+                            groupIns.groupSelectionType=params.groupSelectionType[indexVal]
+                            if(params.noOfSubjects[indexVal]){
+                                groupIns.numberOfSubjectsToSelect=Integer.parseInt(params.noOfSubjects[indexVal])
+                            }
+                            groupIns.save(failOnError: true,flush: true)
+                        }
+                        else{
+                            if(groupIns){
+                                ProgramGroupDetail.create groupIns, SubjectSession.findById(Integer.parseInt(subjectList[j][k].toString()))
+                            }
+                            else{
+
+                                CourseSubject.create courseObj, SubjectSession.findById(Integer.parseInt(subjectList[j][k].toString())), semObj, sessionObj
+
+                            }
+
+                        }
+                    }
+                }
+
+                status = 'Created'
+            }
+            ++indexVal;
+        }
+
+        return status
+
+    }
+
 }
+

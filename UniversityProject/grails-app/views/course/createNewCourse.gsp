@@ -56,6 +56,7 @@
             </g:if>
             <g:else>
                 <g:message code="course.create.message"/>
+
             </g:else>
         </div>
 

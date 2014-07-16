@@ -4,10 +4,10 @@ var groups= ["A", "B", "C","D","E","F","G","H","I"];
 var selectedSubjectValues = [];
 var numberOfGroups = [];
 //var selectedValues = [];
-
+var flagg =true;
 $(document).ready(function(){
 
-    alert(updateModeFlag)
+
 
     $("#courseName").blur(function(){
         if($("#courseName").val()==""){
@@ -59,7 +59,8 @@ $(document).ready(function(){
 
     });
     $("#courseCode").change(function(){
-        $('#multiSelectTab tbody').empty()
+        $('#multiSelectTab tbody tr').remove()
+       // $('#subjectGroup1 tbody tr').remove()
         numberOfGroups=[]
         $("#noOfTerms").val("");
         if($("#courseCode").val()==""){
@@ -77,8 +78,6 @@ $(document).ready(function(){
 //
 });
 
-
-
 function semesterList(jsonObject) {
 
     var courseType= $('#programType').val()
@@ -90,7 +89,7 @@ function semesterList(jsonObject) {
         success: function (data) {
             subjectList=data
 
-           // showSemesterAndSubjects()
+            // showSemesterAndSubjects()
             if(subjectList.length>0) {
                 showSemesterAndSubjects(jsonObject)
                 $("#worningMsg").hide();
@@ -131,7 +130,7 @@ function addToList(j) {
     $('#allsubjectList' + j + ' :selected').each(function (l, list1Selected) {
         selectedValues[l] = $(list1Selected).val();
         inList2 = false;
-        alert(">>>>>>>>>>>>>>>>"+l)
+
         $('#semester' + j + ' option').each(function (m, list2Selected) {
             //alert("in addToList function")
             nonSelected[m] = $(list2Selected).val();
@@ -142,8 +141,6 @@ function addToList(j) {
             }
         });
 
-
-        alert(inList2)
         if (inList2 != true) {
             $('#semester' + j).append("<option value='" + selectedValues[l] + "'>" + $(list1Selected).text() + "</option>");
 
@@ -232,15 +229,7 @@ function updateInfo(obj) {
     }
 
     semesterList(courseDetailJson)
-//    for (var i = 1; i <= $('#noOfTerms').val(); i++) {
-//
-//        for (var j = 0; j < courseDetailJson['semesterList'][i].length; j++) {
-//            alert(courseDetailJson['semesterList'][i][j].subjectName)
-//            alert(i)
-//            $('#semester' + i).append('<option value="' + courseDetailJson['semesterList'][i][j].id + '">' + courseDetailJson['semesterList'][i][j].subjectName + '</option> ')
-//        }
-//
-//    }
+
 }
 function enableNoOfSem(t) {
 //    alert($(t).val())
@@ -309,7 +298,7 @@ function ConvertFormToJSON(form) {
     var semesterList = {};
 
     var counter=0;
-
+    var groupSelectionTypeList=[],noOfSubjects=[];
     for (var j = 1; j <= $('#noOfTerms').val(); j++) {
         var totalList=[];
         var subList = [], subGroupList=[]
@@ -317,6 +306,7 @@ function ConvertFormToJSON(form) {
         $('#semester' + j + ' option').each(function () {
 
             subList.push($(this).val() || '');
+
         })
         totalList.push(subList);
 
@@ -324,14 +314,25 @@ function ConvertFormToJSON(form) {
         if($("#groupListBox"+j).length>0){
             $('#groupListBox' + j + ' option').each(function () {
                 subGroupList.push($(this).val() || '');
-            })
-            totalList.push(subGroupList);
 
 
+            });
+            groupSelectionTypeList.push($('input[name=groupSelection'+j+']:radio:checked').val())
+            noOfSubjects.push($("#noOfSubjects"+j).val())
+                totalList.push(subGroupList);
+                totalList
+
+
+        }
+        else{
+            groupSelectionTypeList.push(" ")
+            noOfSubjects.push(" ")
         }
         semesterList["semester" + j] = totalList;
 
     }
+      json["groupSelectionType"]=groupSelectionTypeList;
+    json["noOfSubjects"]=noOfSubjects;
     finalList.push(semesterList);
     console.log("hello java"+semesterList)
     json["semesterList"] = finalList;
@@ -354,9 +355,9 @@ function save() {
 
     validate();
     var status = $("#createCourse").valid();
-    if (!fireMultiValidate()) {
-        return;
-    }
+//    if (!fireMultiValidate()) {
+//        return;
+//    }
     if (status && $("#errorMsg").text().length==0) {
         var formObj = $("#createCourse");
         var data = ConvertFormToJSON(formObj);
@@ -368,11 +369,13 @@ function save() {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
-                if (data.response1=='updated') {
+                if (data.response1=='update') {
                     document.getElementById("statusMessage").style.display = "block";
                 }
                 else if(data.response1=='Created'){
                     document.getElementById("statusMessage").style.display = "block";
+                    window.location="/UniversityProject/course/createNewCourse"
+                    $('#creationMessage').text('Program Successfully Created')
                     clearField()
                 }
                 $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -474,28 +477,34 @@ function showSemesterAndSubjects(courseDetailJson){
 function showGroup(j) {
 
     initializeDialog(j)
-    if(numberOfGroups[j]){
-        k=numberOfGroups[j];
-        groupListIndex=numberOfGroups[j];
-    }else{
+//    if(numberOfGroups[j]){
+//        k=numberOfGroups[j];
+//        groupListIndex=numberOfGroups[j];
+//    }else{
+
         groupListIndex=0;
-    }
+    //}
 
     $('#groupDialog' + j).dialog('open');
 }
 
 function addGroups(id){
-    var rowCount = $('#subjectGroup'+id+' tr').length;
+    var rowCount = $('#subjectGroup'+id+' tbody tr').length;
+    alert(rowCount)
+
     $("#removeGroupOnPopUp"+id).prop('disabled',false)
     $("#saveGroups"+id).prop('disabled',false)
     groupListIndex = rowCount
 
-        $('#subjectGroup'+id+' tbody').append('<tr id="groupTr' + id + groupListIndex + '"><td style="width:30% "></div> <label>All Course <span class="university-obligatory">*</span></label>' +
+
+        $('#subjectGroup' + id + ' tbody').append('<tr id="groupTr' + id + groupListIndex + '"><td style="width:30% "></div> <label>All Course <span class="university-obligatory">*</span></label>' +
             '<select style="width: 60%" name="listOfAllsubject' + id + groupListIndex + '" id="listOfAllsubject' + id + groupListIndex + '"  multiple="true"  /></td>' +
             ' <td style="width:10% "> <button type="button" class="multiSelect-buttons-button" onclick="addToGroupList(' + id + groupListIndex + ')" name="add' + id + groupListIndex + '"  id="add' + id + groupListIndex + '">Add</button>' +
             '  <button type="button" class="multiSelect-buttons-button" onclick="removeGroupFromList(' + id + groupListIndex + ')" name="remove' + id + groupListIndex + '"  id="remove' + id + groupListIndex + '">Remove</button> </td>' +
             '<td style="width:30%;"><select class="select-to" style="width: 50%"  name="group' + id + groupListIndex + '" id="group' + id + groupListIndex + '"  multiple="true"  />' +
             '<div style="color:#FF0000;" id="error-select' + id + groupListIndex + '" ></div></div></td></tr>')
+
+
 
     $("<div>Group <label id='groupName'>"+groups[rowCount]+"</label></div>").insertBefore($('#group' + id +''+groupListIndex))
 
@@ -507,6 +516,7 @@ function addGroups(id){
 
         $("#listOfAllsubject" + id +''+groupListIndex).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
     }
+
 }
 
 function removeSubjectGroup(t){
@@ -520,6 +530,7 @@ function removeSubjectGroup(t){
     if(rowCount==0){
         $("#removeGroupOnPopUp"+t).prop('disabled',true)
     }
+
 }
 
 function addToGroupList(j) {
@@ -555,8 +566,7 @@ function addToGroupList(j) {
 }
 
 function saveSubjectGroup(j,closeVal){
-    alert("hi")
-  var isVaid =validateGroupSubjects(j)
+   var isVaid =validateGroupSubjects(j)
     if(!isVaid){
         return false
     }
@@ -564,7 +574,7 @@ function saveSubjectGroup(j,closeVal){
     var subGroupMap;
     var rowCount = $('#subjectGroup'+j+' tr').length;
     var count = $('#group' + j + groupListIndex+' option').size();
-    numberOfGroups[j]=rowCount;
+   // numberOfGroups[j]=rowCount;
     if($("#groupListBox"+j+" option").length>0){
         $('#multiSelectTab tbody #tr'+j).find("td:last").remove()
     }
@@ -581,9 +591,10 @@ function saveSubjectGroup(j,closeVal){
 
         }
         if(!document.getElementById('groupOption' + j)) {
-            $('#multiSelectTab tbody #tr' + j + ':last').append('<td><div id="groupOption' + j + '"><label><span>Single Subject</span><input type="radio" name="groupSelection' + j + '" value="singleSubject" onclick="hideTextBox(' + j + ')" class="radioInput"/></label></div><br/>' +
-                '<label><span>Multiple Subject</span><input type="radio" name="groupSelection' + j + '" value="multipleSubject" class="radioInput" onclick="openTextBox(' + j + ')" id="multiSubjects' + j + '" /></label><input type="text" hidden="hidden" id="noOfSubjects' + j + '" ><br/>' +
-                '<label><span>Test Subject</span><input type="radio" name="groupSelection' + j + '" value="Test" class="radioInput" onclick="hideTextBox(' + j + ')"/></label></div></td>')
+
+            $('#multiSelectTab tbody #tr' + j + ':last').append('<td><div name="groupSelection" id="groupOption' + j + '"><label><span>Single Subject</span><input type="radio" name="groupSelection' + j + '" value="singleSubject" onclick="hideTextBox(' + j + ')" class="radioInput"/></label></div><br/>' +
+                '<label><span>Multiple Subject</span><input type="radio" name="groupSelection" id="groupSelection' + j + '" value="multipleSubject" class="radioInput" onclick="openTextBox(' + j + ')"/></label><input type="text" hidden="hidden" id="noOfSubjects' + j + '" ><br/>' +
+                '<label><span>Test Subject</span><input type="radio" name="groupSelection" id="groupSelection' + j + '" value="Test" class="radioInput" onclick="hideTextBox(' + j + ')"/></label></div></td>')
 
         }
         $("#groupListBox" + j).empty()
@@ -595,9 +606,11 @@ function saveSubjectGroup(j,closeVal){
                     //alert("appening the options"+subGroupMap[key])
                     $("#groupListBox" + j).append('<option value="' + key + '"><label>' + subGroupMap[key] + '</label></option>');
                 }
+
             }
             subGroupMap=null;
         }
+
     }
     if(closeVal=="") {
         $('#groupDialog' + j).dialog('close');
@@ -646,8 +659,8 @@ function ConvertGroupFormToJSON(id) {
         $('#group' +id+''+ j + ' option').each(function () {
                 var key=$(this).val()
                 subMap[key]=$('#group' +id+''+ j + ' option[value='+$(this).val()+']').text()
-                 groupMap["group" +id+''+ j] = subMap;
-                 }
+                groupMap["group" +id+''+ j] = subMap;
+            }
         )
 
     }
@@ -673,8 +686,8 @@ function initializeDialog(j) {
             $.unblockUI();
         },
         open: function() {
-                showSubjectGroupInDialog(j)
 
+               showSubjectGroupInDialog(j)
         }
     });
 }
@@ -697,105 +710,139 @@ function appendSubjectsInUpdateMode(courseDetailJson){
     {
         for (var j = 0; j < courseDetailJson['semesterList'][i].length; j++)
         {
-            var groupFalg=false
-            for( var k=0;k<courseDetailJson['semesterList'][i][j].length;k++){
+            var groupFlag=false
+
+            if(courseDetailJson['semesterList'][i][j].length!=undefined)
+            {
+
+            for( var k=0;k<courseDetailJson['semesterList'][i][j].length;k++)
+            {
+
 
                 if(courseDetailJson['semesterList'][i][j][k].toString().indexOf("Group")>-1){
+
                     appendSubjectGroupInUpdate(i)
                     $('#groupListBox' + i).append('<option value="' + courseDetailJson['semesterList'][i][j][k] + '">' + courseDetailJson['semesterList'][i][j][k] + '</option> ')
-                    groupFalg=true
+
+                    groupFlag=true
                 }
-                else if(groupFalg){
-                        $('#groupListBox' + i).append('<option value="' + courseDetailJson['semesterList'][i][j][k].id + '">' + courseDetailJson['semesterList'][i][j][k].subjectName + '</option> ')
+                else if(groupFlag){
+
+                    $('#groupListBox' + i).append('<option value="' + courseDetailJson['semesterList'][i][j][k].id + '">' + courseDetailJson['semesterList'][i][j][k].subjectName + '</option> ')
                 }
                 else{
-                        $('#semester' + i).append('<option value="' + courseDetailJson['semesterList'][i][j][k].id + '">' + courseDetailJson['semesterList'][i][j][k].subjectName + '</option> ')
+                   $('input[name="groupSelection'+i+'"][value='+courseDetailJson['semesterList'][i][j][k]+']').prop('checked', true);
+                   if(courseDetailJson['semesterList'][i][j][k]=="multipleSubject"){
+                       $('input[name="groupSelection'+i+'"][value='+courseDetailJson['semesterList'][i][j][k]+']').prop('checked', true).trigger("click");
+
+                   }
+                    else{
+                       $("#noOfSubjects"+i).val(courseDetailJson['semesterList'][i][j][k])
+                   }
 
                 }
+
             }
+            }
+                else{
+
+                    $('#semester' + i).append('<option value="' + courseDetailJson['semesterList'][i][j].id + '">' + courseDetailJson['semesterList'][i][j].subjectName + '</option> ')
+
+                }
+
 
         }
     }
+
 }
 
+
+
 function appendSubjectGroupInUpdate(i) {
+
     if (document.getElementById("groupListBox" + i)) {
     }
     else {
         $('#multiSelectTab tbody #tr' + i + ':last').append('<td style="width:30%;"><select multiple="multiple" id="groupListBox' + i + '" style="height: 100px; width: 150px;">' +
-            '</select> </td><td><div id="groupOption"><label><span>Single Subject</span>' +
-            '<input type="radio" name="groupSelection' + i + '" value="singleSubject" onclick="hideTextBox(' + i + ')" class="radioInput"/></label></div><br/>' +
-            '<label><span>Multiple Subject</span><input type="radio" name="groupSelection' + i + '" value="multipleSubject" class="radioInput" onclick="openTextBox(' + i + ')" id="multiSubjects' + i + '" /></label>' +
-            '<input type="text" hidden="hidden" id="noOfSubjects' + i + '" ><br/>' +
-            '<label><span>Test Subject</span><input type="radio" name="groupSelection' + i + '" value="Test" class="radioInput" onclick="hideTextBox(' + i + ')"/></label></div></td>')
+            '</select> </td><td><div id="groupOption"><label><span>Select One Group</span>' +
+            '<input type="radio" name="groupSelection' + i + '" id="groupSelection' + i + '"  value="single"  onclick="hideTextBox(' + i + ')" class="radioInput"/></label></div><br/>' +
+            '<label><span>Multiple Subject in Group</span><input type="radio" id="groupSelection' + i + '"  name="groupSelection' + i + '" value="multipleSubject" class="radioInput" onclick="openTextBox(' + i + ')" id="multiSubjects' + i + '" /></label>' +
+            '<input type="text" hidden="hidden" name="noOfSubjects" id="noOfSubjects' + i + '" ><br/>' +
+            '<label><span>Select Multiple Group</span><input type="radio" id="groupSelection' + i + '"  name="groupSelection' + i + '" value="multiple" class="radioInput" onclick="hideTextBox(' + i + ')"/></label></div></td>')
+
     }
 }
 
-    function showSubjectGroupInDialog(i){
+function showSubjectGroupInDialog(i){
     var groupRowCounter=0;
 
     if (document.getElementById("groupListBox" + i)) {
 
-            $('#groupListBox'+ i+' option').each(function () {
+        $('#groupListBox'+ i+' option').each(function () {
 
-                if($(this).val().indexOf("Group")>-1){
-                    ++groupRowCounter
-                }
+            if($(this).val().indexOf("Group")>-1){
+                ++groupRowCounter
+            }
 
-            })
-        $('#subjectGroup'+i+' tbody tr:not(first)').remove();
+        })
+
     }
+    $('#subjectGroup'+i+' tbody tr:not(first)').remove();
 
-        var  groupLabel
-        var groupLabelList=[]
-        for( var j=0;j<groupRowCounter;j++){
+    var tempList=["GroupA","GroupB","GroupC","GroupD","GroupE","GroupF","GroupG","GroupH","GroupI"]
+
+
+    for( var j=0;j<groupRowCounter;j++){
+        groupFlag=false;
         if((document.getElementById("subjectGroup" + i))){
+                alert("***************************")
 
-         $("#subjectGroup"+i+' tbody').append('<tr id="groupTr' + i +j+ '"><td style="width:30% "></div> <label>All Course <span class="university-obligatory">*</span></label>' +
-        '<select style="width: 60%" name="listOfAllsubject' + i +j+ '" id="listOfAllsubject' + i +j+ '"  multiple="true"  /></td>' +
-        ' <td style="width:10% "> <button type="button" class="multiSelect-buttons-button" onclick="addToGroupList(' + i +j+ ')" name="add' + i +j+ '"  id="add' + i +j+ '">Add</button>' +
-        '  <button type="button" class="multiSelect-buttons-button" onclick="removeGroupFromList('+ i +j+ ')" name="remove' + i +j+ '"  id="remove' + i +j+ '">Remove</button> </td>' +
-        '<td style="width:30%;"><div id="groupName'+i+j+'"></div><select class="select-to" style="width: 50%"  name="group' + i +j+ '" id="group' + i +j+ '"  multiple="true"  />' +
-        '<div id="error-select"></div></div></td></tr>')
+            $("#subjectGroup"+i+' tbody').append('<tr id="groupTr' + i +j+ '"><td style="width:30% "></div> <label>All Course <span class="university-obligatory">*</span></label>' +
+                '<select style="width: 60%" name="listOfAllsubject' + i +j+ '" id="listOfAllsubject' + i +j+ '"  multiple="true"  /></td>' +
+                ' <td style="width:10% "> <button type="button" class="multiSelect-buttons-button" onclick="addToGroupList(' + i +j+ ')" name="add' + i +j+ '"  id="add' + i +j+ '">Add</button>' +
+                '  <button type="button" class="multiSelect-buttons-button" onclick="removeGroupFromList('+ i +j+ ')" name="remove' + i +j+ '"  id="remove' + i +j+ '">Remove</button> </td>' +
+                '<td style="width:30%;"><div id="groupName'+i+j+'"></div><select class="select-to" style="width: 50%"  name="group' + i +j+ '" id="group' + i +j+ '"  multiple="true"  />' +
+                //'<td style="width:10% "> <button type="button" class="multiSelect-buttons-button" onclick="removeSubjectGroup(' +id+',' + id +l+ ')" name="removeGroup' + id +l+ '"  id="removeGroup' + id +l+ '">Remove Group</button>' +
+                '<div id="error-select"></div></div></td></tr>')
+
 
             $('#groupListBox'+ i+' option').each(function () {
 
                 if($(this).val().indexOf("Group")>-1){
-                  if($("#groupName"+i+j).text().length==0 && groupLabel!=$(this).val() ){
-                     console.log("innnnn")
-                    $("#groupName"+i+j).html($(this).val())
-                      groupLabel=$(this).val()
-                      groupFlag=true
+
+
+                    if($("#groupName"+i+j).text().length==0 && tempList[j]==$(this).val()){
+
+                        $("#groupName"+i+j).html($(this).val())
+                        groupFlag=true
+
                     }
                     else{
-                      groupFlag=false
-                  }
+                        groupFlag=false
+                    }
+
                 }
                 else if(groupFlag){
-                    $("#group"+i+j).append('<option value="'+$(this).val()+'">'+$('#groupListBox' +i+ ' option[value='+$(this).val()+']').text()+'</option>')
+                    $("#group"+i+j).append('<option value="'+$(this).val()+'">'+$(this).text()+'</option>')
                 }
             })
-
             for (var k = 0; k < subjectList.length; k++) {
 
                 $("#listOfAllsubject" + i +''+j).append('<option value="' + subjectList[k].id + '">' + subjectList[k].subjectName + '</option>')
             }
-
         }
-
-
-
     }
         var rowCount = $('#subjectGroup'+i+' tr').length;
-       if(rowCount>0){
-           groupListIndex=groupListIndex+rowCount;
-       }
-
-
+    if(rowCount>0){
+        alert("going to increase index"+rowCount)
+        groupListIndex=groupListIndex+rowCount;
+    }
 }
 
 function validateGroupSubjects(j){
-    var rowCount = $('#subjectGroup'+j+' tr').length;
+    var rowCount=0
+    rowCount = $('#subjectGroup'+j+' tr').length;
+    alert(rowCount)
     var isValid = false
     for (var i = 0; i < rowCount; i++) {
         var count = $('#group' + j + i + ' option').size();
@@ -810,9 +857,4 @@ function validateGroupSubjects(j){
     return isValid
 
 }
-
-
-
-
-
 
