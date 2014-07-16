@@ -68,14 +68,14 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td> Session<span class="university-obligatory">*</span></td>
-                    <td>
-                        <g:select name="session" class="university-size-1-2 allSession" id="sessionVal"
-                                  from="" optionKey="" optionValue=""
-                                  noSelection="['': ' Select Session']" />
-                    </td>
-                </tr>
+                %{--<tr>--}%
+                    %{--<td> Session<span class="university-obligatory">*</span></td>--}%
+                    %{--<td>--}%
+                        %{--<g:select name="session" class="university-size-1-2 allSession" id="sessionVal"--}%
+                                  %{--from="" optionKey="" optionValue=""--}%
+                                  %{--noSelection="['': ' Select Session']" />--}%
+                    %{--</td>--}%
+                %{--</tr>--}%
 
 
                 <!----------------------------------------- Semester Name --------------------------------------------->

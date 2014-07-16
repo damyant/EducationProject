@@ -700,12 +700,17 @@ class AdminController {
     @Secured("ROLE_ADMIN")
     def loadSubject = {
         def returnMap=[:]
+        def subSessionList=[],subjectNameList=[]
         def programType = ProgramType.findById(Long.parseLong(params.type))
         def subjectList = Subject.findAllByProgramTypeId(programType)
-        def subSessionList= SubjectSession.findAllBySubjectId(subjectList)
-        println("***"+subSessionList)
+
+        subjectList.each{
+         subSessionList<< SubjectSession.findAllBySubjectId(it)
+         subjectNameList<<SubjectSession.findAllBySubjectId(it).subjectId
+        }
+   
         returnMap.subSession=subSessionList
-        returnMap.subject=subSessionList.subjectId
+        returnMap.subject=subjectNameList
         def response = [subjectList: subSessionList]
 //        println(response.programList[0].courseName)
         render returnMap as JSON

@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="077f1796-d040-41bf-b232-8f8d04f12860" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/CourseController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/CourseController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/CourseDetailService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/CourseDetailService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/ProgramGroup.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/ProgramGroup.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/ProgramSession.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/ProgramSession.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/course/createNewCourse.gsp" afterPath="$PROJECT_DIR$/grails-app/views/course/createNewCourse.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" afterPath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/dataEntry.js" afterPath="$PROJECT_DIR$/web-app/js/dataEntry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/postExamination/marksEntering.gsp" afterPath="$PROJECT_DIR$/grails-app/views/postExamination/marksEntering.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/i18n/messages.properties" afterPath="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/multiselectable.js" afterPath="$PROJECT_DIR$/web-app/js/multiselectable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/validation.js" afterPath="$PROJECT_DIR$/web-app/js/validation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UniversityProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,37 +71,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="multiselectable.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-app/js/multiselectable.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.6" vertical-offset="7548" max-vertical-offset="14722">
-              <caret line="464" column="77" selection-start-line="464" selection-start-column="62" selection-end-line="464" selection-end-column="77" />
-              <folding>
-                <marker date="1405506350453" expanded="false" signature="2862:2872" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="2945:2955" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="3030:3064" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="5656:5690" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="14515:14525" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="14613:14623" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="14739:14748" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="15096:15106" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="15141:15151" placeholder="..." />
-                <marker date="1405506350453" expanded="true" signature="17406:17416" placeholder="..." />
-                <marker date="1405506350453" expanded="true" signature="17693:17703" placeholder="..." />
-                <marker date="1405506350453" expanded="true" signature="18169:18179" placeholder="..." />
-                <marker date="1405506350453" expanded="true" signature="18214:18224" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="21174:21184" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="23117:23151" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="27290:27300" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="29006:29016" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="29269:29279" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="29656:29666" placeholder="..." />
-                <marker date="1405506350453" expanded="false" signature="29734:29744" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="StudentRegistrationService.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy">
           <provider selected="true" editor-type-id="text-editor">
@@ -184,12 +151,43 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CourseDetailService.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CourseDetailService.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/CourseDetailService.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.362121" vertical-offset="5392" max-vertical-offset="6052">
-              <caret line="127" column="32" selection-start-line="127" selection-start-column="32" selection-end-line="127" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5392" max-vertical-offset="6052">
+              <caret line="343" column="12" selection-start-line="343" selection-start-column="12" selection-end-line="343" selection-end-column="12" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="multiselectable.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web-app/js/multiselectable.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.42040184" vertical-offset="12563" max-vertical-offset="14773">
+              <caret line="755" column="5" selection-start-line="755" selection-start-column="5" selection-end-line="755" selection-end-column="5" />
+              <folding>
+                <marker date="1405507288581" expanded="false" signature="2879:2889" placeholder="..." />
+                <marker date="1405507288581" expanded="false" signature="2962:2972" placeholder="..." />
+                <marker date="1405507288581" expanded="false" signature="3047:3081" placeholder="..." />
+                <marker date="1405507288581" expanded="false" signature="5673:5707" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="14240:14250" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="14338:14348" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="14464:14473" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="14821:14831" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="14866:14876" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="17131:17141" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="17418:17428" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="17894:17904" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="17939:17949" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="20899:20909" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="22842:22876" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="27041:27051" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="28757:28767" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="29020:29030" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="29407:29417" placeholder="..." />
+                <marker date="1405507288581" expanded="true" signature="29485:29495" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -239,8 +237,8 @@
         <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/CourseController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/CourseDetailService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/course/createNewCourse.gsp" />
-        <option value="$PROJECT_DIR$/web-app/js/multiselectable.js" />
         <option value="$PROJECT_DIR$/web-app/js/validation.js" />
+        <option value="$PROJECT_DIR$/web-app/js/multiselectable.js" />
       </list>
     </option>
   </component>
@@ -644,12 +642,12 @@
       <workItem from="1405412308990" duration="5015000" />
       <workItem from="1405419938970" duration="11763000" />
       <workItem from="1405485906121" duration="374000" />
-      <workItem from="1405491338664" duration="8514000" />
+      <workItem from="1405491338664" duration="8928000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="230043000" />
+    <option name="totallyTimeSpent" value="230457000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="0" />
@@ -1154,35 +1152,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/js/multiselectable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.6" vertical-offset="7548" max-vertical-offset="14722">
-          <caret line="464" column="77" selection-start-line="464" selection-start-column="62" selection-end-line="464" selection-end-column="77" />
-          <folding>
-            <marker date="1405506350453" expanded="false" signature="2862:2872" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="2945:2955" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="3030:3064" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="5656:5690" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="14515:14525" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="14613:14623" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="14739:14748" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="15096:15106" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="15141:15151" placeholder="..." />
-            <marker date="1405506350453" expanded="true" signature="17406:17416" placeholder="..." />
-            <marker date="1405506350453" expanded="true" signature="17693:17703" placeholder="..." />
-            <marker date="1405506350453" expanded="true" signature="18169:18179" placeholder="..." />
-            <marker date="1405506350453" expanded="true" signature="18214:18224" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="21174:21184" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="23117:23151" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="27290:27300" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="29006:29016" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="29269:29279" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="29656:29666" placeholder="..." />
-            <marker date="1405506350453" expanded="false" signature="29734:29744" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/validation.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-49.08" vertical-offset="4893" max-vertical-offset="13702">
@@ -1193,9 +1162,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/CourseDetailService.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.362121" vertical-offset="5392" max-vertical-offset="6052">
-          <caret line="127" column="32" selection-start-line="127" selection-start-column="32" selection-end-line="127" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5392" max-vertical-offset="6052">
+          <caret line="343" column="12" selection-start-line="343" selection-start-column="12" selection-end-line="343" selection-end-column="12" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/js/multiselectable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42040184" vertical-offset="12563" max-vertical-offset="14773">
+          <caret line="755" column="5" selection-start-line="755" selection-start-column="5" selection-end-line="755" selection-end-column="5" />
+          <folding>
+            <marker date="1405507288581" expanded="false" signature="2879:2889" placeholder="..." />
+            <marker date="1405507288581" expanded="false" signature="2962:2972" placeholder="..." />
+            <marker date="1405507288581" expanded="false" signature="3047:3081" placeholder="..." />
+            <marker date="1405507288581" expanded="false" signature="5673:5707" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="14240:14250" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="14338:14348" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="14464:14473" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="14821:14831" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="14866:14876" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="17131:17141" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="17418:17428" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="17894:17904" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="17939:17949" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="20899:20909" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="22842:22876" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="27041:27051" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="28757:28767" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="29020:29030" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="29407:29417" placeholder="..." />
+            <marker date="1405507288581" expanded="true" signature="29485:29495" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

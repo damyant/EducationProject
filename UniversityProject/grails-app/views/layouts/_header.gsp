@@ -151,11 +151,21 @@
                     code="default.mainMenu4.subMenu1"/>
             </g:link>
         </li>
-        <li>
-            <g:link controller="postExamination"
-                    action="marksEntering"><g:message
-                    code="default.mainMenu4.subMenu2"/>
-            </g:link>
+        <li><a href="#"><g:message code="default.mainMenu4.subMenu2"/></a>
+            <ul>
+                <li>
+                <g:link controller="postExamination"
+                        action="marksEntering"><g:message
+                        code="default.mainMenu4.subMenu2.subMenu1"/> </g:link>
+                </li>
+                <li>
+                    <g:link controller="postExamination"
+                            action="marksEntering"><g:message
+                            code="default.mainMenu4.subMenu2.subMenu2"/> </g:link>
+                </li>
+
+
+            </ul>
         </li>
         <li>
             <g:link controller="postExamination"
