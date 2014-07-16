@@ -36,7 +36,7 @@ function semesterList(jsonObject) {
 function viewSemesterList() {
     $('#multiSelectTab tr').remove()
     for (var j = 1; j <= $('#noOfTerms').html(); j++) {
-        $('#multiSelectTab').append('<tr><td style="width: 40%"><label>Term - ' + j + ' Course</label></td>' +
+        $('#multiSelectTab').append('<tr id="tr' + j + '"><td style="width: 40%"><label>Term - ' + j + ' Course</label></td>' +
             '<td style="width: 60%"><select class="select-to university-size-2-3" readonly="readonly" style="width: 75%;border: 0px;margin: 0px" name="semester' + j + '" id="semester' + j + '"  multiple="true" /></td></tr>')
 
     }
@@ -182,14 +182,9 @@ function viewCourseInfo(obj) {
     $('#noOfPapers').html(courseDetailJson['course'].noOfPapers)
     $('#courseId').html(courseDetailJson['course'].id)
     viewSemesterList()
-    for (var i = 1; i <= courseDetailJson['course'].noOfTerms; i++) {
 
-        for (var j = 0; j < courseDetailJson['semesterList'][i].length; j++) {
+    appendSubjectsInUpdateMode(courseDetailJson)
 
-            $('#semester' + i).append('<option value="' + courseDetailJson['semesterList'][i][j].id + '">' + courseDetailJson['semesterList'][i][j].subjectName + '</option> ')
-        }
-
-    }
 
 }
 
@@ -648,8 +643,10 @@ function hideTextBox(data){
 function appendSubjectsInUpdateMode(courseDetailJson){
 
 
-    for (var i = 1; i <= $('#noOfTerms').val(); i++)
+
+    for (var i = 1; i <= courseDetailJson['course'].noOfTerms; i++)
     {
+
         for (var j = 0; j < courseDetailJson['semesterList'][i].length; j++)
         {
             var groupFlag=false
@@ -698,7 +695,6 @@ function appendSubjectsInUpdateMode(courseDetailJson){
 }
 
 function appendSubjectGroupInUpdate(i) {
-
 
     if (document.getElementById("groupListBox" + i)) {
 

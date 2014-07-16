@@ -709,10 +709,12 @@ function loadProgramList(t) {
         data: {type: type},
         success: function (data) {
              if(data.subSession.length>0) {
+
                 for (var i=0;i<data.subSession.length;i++){
+
                     var count=i+1
-                    $('#courseTable tbody').append('<tr><td>'+count+'</td><td>'+ data.subject[i].subjectName+'</td><td>'+ data.subSession[i].sessionOfSubject+'</td>' +
-                        '<td><input type="button" class="university-button"  onclick="deleteCourse(' +  data.subSession[i].id  + ')" value="Delete"/> <input type="button" class="university-button" onclick="editCourse(' + data.subSession[i].id  + ')" value="Edit"/></td>' +
+                    $('#courseTable tbody').append('<tr><td>'+count+'</td><td>'+ data.subject[i][0].subjectName+'</td><td>'+ data.subSession[i][0].sessionOfSubject+'</td>' +
+                        '<td><input type="button" class="university-button"  onclick="deleteCourse(' +  data.subSession[i][0].id  + ')" value="Delete"/> <input type="button" class="university-button" onclick="editCourse(' + data.subSession[i][0].id  + ')" value="Edit"/></td>' +
                         '</tr>')
                 }
                 document.getElementById("paginationDiv").style.visibility = "visible";
