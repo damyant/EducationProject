@@ -3,7 +3,7 @@
  */
 function validate() {
 
-    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#marksTypeForm,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
+    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#groupsOfSubject,#marksTypeForm,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
 
         rules: {
 
@@ -12,6 +12,7 @@ function validate() {
             marksTypeName:"required",
             programTypeId:"required",
             imageValidate:"required",
+            //groupSelection:"required",
             subjectName: {required: true,
                 lettersnumberswithbasicpunc: true
             },
@@ -357,6 +358,7 @@ function validate() {
             registrationNo2:{
                 minlength:"Please Enter 7 Character"
             },
+           // groupSelection:"Please Select AtLeast One Group",
             studyMaterialText:{
                 required:'Please Enter Roll Number',
                 number: "Only accepts Numbers"

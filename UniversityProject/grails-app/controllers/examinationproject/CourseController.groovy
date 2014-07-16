@@ -85,10 +85,13 @@ class CourseController {
         response.response1 = status
 //        println(response)
         render response as JSON
+      // redirect( controller: "course", action: "listOfCourses", params: [message:status])
 
     }
 
     def listOfCourses() {
+
+
 
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
 //        def c = ProgramDetail.createCriteria()
@@ -106,7 +109,6 @@ class CourseController {
         def programList = c.list(params) {
 
         }
-
 
         [courseSessionList: programList, courseInstanceTotal: ProgramSession.count()]
 

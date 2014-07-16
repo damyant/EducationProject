@@ -29,12 +29,14 @@ class CourseDetailService {
 
     def saveCourseInfo(params) {
         def status = ""
-
+        def updateStatus=""
         def existingCourseObj
         println(params)
         if (params.courseId) {
             existingCourseObj = ProgramDetail.findById(Integer.parseInt(params.courseId))
-        }
+            updateStatus="update"
+
+      }
 
         def session = ProgramSession.count()
         def sessionObj
@@ -100,6 +102,10 @@ class CourseDetailService {
 //                }
 //
 //            }
+            if(status){
+                status=updateStatus
+            }
+            println("************"+status)
             return status
         }
         else {
@@ -119,7 +125,7 @@ class CourseDetailService {
             }
 
             status=  saveAndUpdateCourseInformation(params,sessionObj,courseObj)
-
+            println("*******4343*****"+status)
             return status
         }
 
@@ -147,6 +153,7 @@ class CourseDetailService {
 
         programSession.semester.sort().each {
             def totalList=[],courseList=[]
+
             courseList = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programSession.programDetailId, it, programSession).subjectSessionId
             courseList.each{
                 def returnMap=[:]
@@ -154,6 +161,7 @@ class CourseDetailService {
                 returnMap["subjectName"]=it.subjectId.subjectName
                 totalList<<returnMap;
             }
+
 
             def groupIns=  ProgramGroup.findAllByProgramSessionAndSemester(programSession,it)
             if(groupIns){
@@ -351,6 +359,8 @@ class CourseDetailService {
             }
             ++indexVal;
         }
+
+        return status
 
     }
 
