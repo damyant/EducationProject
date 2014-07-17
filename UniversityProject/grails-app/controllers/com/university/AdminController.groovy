@@ -708,7 +708,7 @@ class AdminController {
          subSessionList<< SubjectSession.findAllBySubjectId(it)
          subjectNameList<<SubjectSession.findAllBySubjectId(it).subjectId
         }
-   
+
         returnMap.subSession=subSessionList
         returnMap.subject=subjectNameList
         def response = [subjectList: subSessionList]
