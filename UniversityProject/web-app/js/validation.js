@@ -3,7 +3,7 @@
  */
 function validate() {
 
-    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#groupsOfSubject,#marksTypeForm,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
+    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#marksTypeForm,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
 
         rules: {
 
@@ -22,7 +22,7 @@ function validate() {
             creditPoints:{required:true},
             //theoryMarks:{required:true},
            // homeAssignmentMarks:{required:true},
-           // totalMarks:{required:true},
+            totalMarks:{required:true},
 
             registrationNo1:{
                 minlength:5

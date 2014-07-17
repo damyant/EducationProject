@@ -78,7 +78,7 @@
                     </td>
                     <td style="width: 60%">
                         <select id="session" name="session" class="university-size-1-2" disabled >
-                            <option value="">Select Session</option>
+                            <option value="0">Select Session</option>
                             <g:each in="${programSessions}" var="session">
                                 <option value="${session.sessionOfProgram}">${session.sessionOfProgram}</option>
                             </g:each>
@@ -94,19 +94,19 @@
                     <td><label>Select Mode :<span class="university-obligatory">*</span></label></td>
                     <td><g:select name="courseMode" id="modeName" optionKey="id" optionValue="modeName" disabled="disabled"
                                   onchange="enableNoOfSem(this)" class="university-size-1-2"
-                                  from="${CourseMode.findAll()}" noSelection="['': ' Select Mode']"/></td>
+                                  from="${CourseMode.findAll()}" noSelection="['0': ' Select Mode']"/></td>
                 </tr>
                 <tr>
                     <td><label>Select Programme Type :<span class="university-obligatory">*</span></label></td>
                     <td><g:select name="courseType" id="courseTypeName" optionKey="id" optionValue="courseTypeName" disabled="disabled"
                                   class="university-size-1-2" from="${CourseType.findAll()}"
-                                  noSelection="['': ' Select Programme Type']"/></td>
+                                  noSelection="['0': ' Select Programme Type']"/></td>
                 </tr>
                 <tr>
                     <td><label>Select Program Category :<span class="university-obligatory">*</span></label></td>
                     <td><g:select name="programType" id="programType" optionKey="id" optionValue="type"  disabled="disabled"
                                   class="university-size-1-2" from="${examinationproject.ProgramType.findAll()}"
-                                  noSelection="['': ' Select Programme Category']"/></td>
+                                  noSelection="['0': ' Select Programme Category']"/></td>
                 </tr>
                 <tr>
                     <td><label>Programme Code :<span class="university-obligatory">*</span></label></td>
