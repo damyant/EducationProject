@@ -17,6 +17,7 @@
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+
             $(".dialog").dialog({
                 autoOpen: false,
                 draggable: false,
