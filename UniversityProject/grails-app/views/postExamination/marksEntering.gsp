@@ -85,6 +85,17 @@
                         <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2" disabled="disabled"
                                   value=""
                                   optionValue="" from="" noSelection="['': ' Select Semester']"
+                                  onchange="loadGroup()"
+                        />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Group<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2" disabled="disabled"
+                                  value=""
+                                  optionValue="" from="" noSelection="['': ' Select Group']"
                                   onchange="loadCourse(this)"
                         />
                     </td>

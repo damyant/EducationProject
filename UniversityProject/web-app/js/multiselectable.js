@@ -316,7 +316,7 @@ function ConvertFormToJSON(form) {
             groupSelectionTypeList.push($('input[name=groupSelection'+j+']:radio:checked').val())
             noOfSubjects.push($("#noOfSubjects"+j).val())
                 totalList.push(subGroupList);
-                totalList
+//                totalList
 
 
         }

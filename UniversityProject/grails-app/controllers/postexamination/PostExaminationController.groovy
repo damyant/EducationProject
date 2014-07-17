@@ -1,18 +1,21 @@
-package examinationproject
+package postexamination
 
+import examinationproject.CourseSubject
+import examinationproject.ProgramDetail
+import examinationproject.ProgramSession
+import examinationproject.Semester
+import examinationproject.Status
+import examinationproject.Student
 import grails.converters.JSON
-import universityproject.PostExaminationService
 
 import javax.activation.MimetypesFileTypeMap
-
-import static examinationproject.ProgramDetail.*
-import static examinationproject.ProgramSession.*
 
 /**
  * Created by Digvijay on 3/6/14.
  */
 class PostExaminationController {
     def pdfRenderingService
+    def marksEnteringService
     def postExaminationService
     def createMarksFoil = {
         println("Inside PostExaminationController-->Params = "+params)
@@ -46,6 +49,11 @@ class PostExaminationController {
           resultMap.subject = subjectList.subject
           resultMap.subjectList= subjectList
           render resultMap as JSON
+    }
+
+    def getGroup={
+            println("<<<<<<<<<<<<<<"+params)
+        marksEnteringService.getGroupDetail(params)
     }
 
     def generateMarksFoilSheet={
@@ -117,13 +125,6 @@ class PostExaminationController {
     def marksEntering={
         println("Inside marksEntering Action.....")
         println('Params === ' +params)
-//        def subjectList=CourseSubject.findAllBySemesterAndProgramSessionAndCourseDetail(Semester.findById(Integer.parseInt(params.semester)),ProgramSession.findBySessionOfProgram(params.session),ProgramDetail.findById(params.program))*.subject
-//        println("Semester--"+Semester.findById(Integer.parseInt(params.semester)))
-//        println("Program Session--"+ProgramSession.findBySessionOfProgram(params.session))
-//        println("Program Details--"+ProgramDetail.findById(params.program))
-//
-//        println("Inside PostExamination Controller-22->subjectList=="+subjectList[0].id)
-//        render subjectList as JSON
         def programList = ProgramDetail.list()
         println("Inside PostExaminationController-->programList = "+programList)
         [programList:programList]

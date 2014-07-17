@@ -1,4 +1,4 @@
-package universityproject
+package postExamination
 
 import examinationproject.CourseSubject
 import examinationproject.ProgramDetail
@@ -6,7 +6,6 @@ import examinationproject.ProgramSession
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
-import examinationproject.StudyCenter
 import examinationproject.Subject
 import grails.transaction.Transactional
 import jxl.Workbook
@@ -67,7 +66,7 @@ class PostExaminationService {
             println('Student List :: '+ stuList)
             int count = 0
             def status=  MarksFoilExcelService.excelReport(params,stuList,subject,count, workbook)
-println("status--"+status)
+
             workbook.write();
             workbook.close();
             return status

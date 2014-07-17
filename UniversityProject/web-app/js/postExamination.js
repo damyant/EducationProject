@@ -52,6 +52,26 @@ function loadSemester(){
     }
 }
 
+function loadGroup(){
+    var program = $('#programId').val();
+    var session = $('#SessionList').val();
+    var semester = $('#semesterList').val();
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'getGroup', ''),
+        data: {program: program,session: session,semester: semester},
+
+        success: function (data) {
+
+            $('#courseCode').empty().append('<option value="">Select Course</option>')
+            for(i=0; i<data.subject.length;i++){
+                $('#courseCode').append('<option value="' + data.subjectList[i].subject.id + '">' + data.subject[i].subjectName + '</option>')
+
+            }
+        }
+    });
+}
+
 function loadCourse() {
     var program = $('#programId').val();
     var session = $('#SessionList').val();
