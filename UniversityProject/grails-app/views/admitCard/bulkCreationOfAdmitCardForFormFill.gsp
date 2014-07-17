@@ -163,7 +163,7 @@
             </div>
 
             <div id="studentListPrintButton" style="margin: 10px auto;width:94%;text-align: center;" hidden="">
-                <input type="button" value="Download" onclick="generateAdmitCard()" class="university-button">
+                <input type="button" value="Download" onclick="generateBulkAdmitCard()" class="university-button">
             </div>
         </g:form>
     </fieldset>

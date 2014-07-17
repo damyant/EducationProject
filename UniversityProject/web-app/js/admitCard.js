@@ -8,7 +8,7 @@ var totalRows = 0;
 
 $(document).ready(function () {
 
-    if ($('#admitCardForm').length > 0) {
+    if ($('#admitCardForm').length > 0||$('#admitCardFormFill').length > 0) {
         var count = 0;
         // $("input[name='studentCheckbox']").change(function () {
         $(document).on('change', "input[name='studentCheckbox']", function () {
@@ -446,47 +446,47 @@ function getStudentsForAdmitCard() {
         data: $("#admitCardForm").serialize(),
         success: function (data) {
 
-//            $('#admitCardTab').find("tr:gt(0)").remove();
+            $('#admitCardTab').find("tr:gt(0)").remove();
             if (data.length != undefined) {
-//                $('#studentListTable').prop('hidden', false)
-//                $('#studentListPrint').prop('hidden', false)
-//                $('#studentListPrintButton').prop('hidden', false)
-//                var count = 1;
-//                for (var i = 0; i < data.length; i++) {
-//                    $('#admitCardTab tbody').append('<tr id="rowID' + i + '"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id=' + data[i].id + '></td><td>' + count + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].firstName + ' ' + data[i].lastName + '</td></tr>')
-//                    ++count;
-//                }
-//                totalRows = count;
-//                document.getElementById("paginationDiv").style.visibility = "visible";
-//                $table_rows = $('#admitCardTab tbody tr');
-//
-//                var table_row_limit = 10;
-//
-//                var page_table = function (page) {
-//
-//                    // calculate the offset and limit values
-//                    var offset = (page - 1) * table_row_limit,
-//                        limit = page * table_row_limit;
-//
-//                    // hide all table rows
-//                    $table_rows.hide();
-//
-//                    // show only the n rows
-//                    $table_rows.slice(offset, limit).show();
-//
-//                }
-//                var pageNo = 0
-//                if ($table_rows.length % table_row_limit) {
-//                    pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
-//                }
-//                else {
-//                    pageNo = parseInt($table_rows.length / table_row_limit)
-//                }
-//                $('.pagination').jqPagination({
-//                    max_page: pageNo,
-//                    paged: page_table
-//                });
-//                page_table(1);
+                $('#studentListTable').prop('hidden', false)
+                $('#studentListPrint').prop('hidden', false)
+                $('#studentListPrintButton').prop('hidden', false)
+                var count = 1;
+                for (var i = 0; i < data.length; i++) {
+                    $('#admitCardTab tbody').append('<tr id="rowID' + i + '"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id=' + data[i].id + '></td><td>' + count + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].firstName + ' ' + data[i].lastName + '</td></tr>')
+                    ++count;
+                }
+                totalRows = count;
+                document.getElementById("paginationDiv").style.visibility = "visible";
+                $table_rows = $('#admitCardTab tbody tr');
+
+                var table_row_limit = 10;
+
+                var page_table = function (page) {
+
+                    // calculate the offset and limit values
+                    var offset = (page - 1) * table_row_limit,
+                        limit = page * table_row_limit;
+
+                    // hide all table rows
+                    $table_rows.hide();
+
+                    // show only the n rows
+                    $table_rows.slice(offset, limit).show();
+
+                }
+                var pageNo = 0
+                if ($table_rows.length % table_row_limit) {
+                    pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
+                }
+                else {
+                    pageNo = parseInt($table_rows.length / table_row_limit)
+                }
+                $('.pagination').jqPagination({
+                    max_page: pageNo,
+                    paged: page_table
+                });
+                page_table(1);
             }
             else {
                 document.getElementById("paginationDiv").style.visibility = "hidden";
@@ -696,6 +696,39 @@ function generateAdmitCard() {
 
         setTimeout(function () {
             getStudentsForAdmitCard()
+        }, 300);
+
+        return true;
+
+    }
+    else {
+        alert("Select the student first.");
+        return false;
+    }
+}
+
+function generateBulkAdmitCard() {
+
+    var selectedStudentList = []
+    if ($("input[name=studentCheckbox]:checked").length != 0) {
+        $("input[name=studentCheckbox]:checked").each(function (i) {
+
+            if ($(this).attr("checked", true)) {
+                selectedStudentList[i] = $(this).attr("id");
+
+            }
+
+        })
+        $("#studentList").val(selectedStudentList)
+        var studentList = $("#studentList").val()
+        var venue = $("#examCenterList").val()
+        var programSessionId = $("#SessionList").val()
+//        window.open('/UniversityProject/admitCard/printAdmitCard/?studentList='+studentList+'&examinationVenue='+venue+'&programSessionId='+programSessionId);
+        $("#admitCardFormFill").submit();
+//        studentsSelected(selectedStudentList)
+
+        setTimeout(function () {
+            getStudentsForBulkAdmitCard()
         }, 300);
 
         return true;

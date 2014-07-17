@@ -341,7 +341,7 @@ function appendSubjects(obj) {
 
         $("#subjectList").append('<tr><th>' + "Term" + obj.semesterNoList[i][0].semesterNo + " Courses" + '</th><th>Examination Date</th><th>Examination Time</th></tr>')
         for (var j = 0; j < obj.allSubjects[i].length; j++) {
-            subjectIdList[counter] = obj.allSubjects[i][j].id
+            subjectIdList[counter] = obj.allSubjects[i][j].id+"-"+obj.semesterNoList[i][0].semesterNo
             var datesInNewFormat = "", examTime = ""
 
             if (obj.dateList[counter] != undefined && obj.dateList[counter].toString() != 'noo') {
@@ -377,7 +377,7 @@ function appendSubjects(obj) {
     });
 }
 function validateFields(counter) {
-    alert(counter)
+//    alert(counter)
     var date = null;
     var time = null;
     var bool = true;
@@ -393,11 +393,11 @@ function validateFields(counter) {
             bool = false
         }
         if ((time == "null" || time == "")) {
-            $('#timeError' + i).text("Please Select Examination Time")
+//            $('#timeError' + i).text("Please Select Examination Time")
             bool = true
         }
         else if (time.length != 8) {
-//            $('#timeError' + i).text("Please Enter Proper Date")
+            $('#timeError' + i).text("Please Enter Proper Date")
             bool = false
         }
     }

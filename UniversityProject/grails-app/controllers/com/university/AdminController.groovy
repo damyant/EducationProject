@@ -194,6 +194,8 @@ class AdminController {
                     maxResults(1)
                     order("semesterValue", "desc")
                 }
+                println("---------------"+studentsPaidTill)
+                if(Integer.parseInt(params.term)>1){
                 if (studentsPaidTill[0].semesterValue + 1 == Integer.parseInt(params.term)) {
 
                     challanNo = studentRegistrationService.getChallanNumber()
@@ -222,6 +224,32 @@ class AdminController {
                 } else {
                     response.statusError = "Invalid Semester or Fees Already Paid."
                 }
+                }
+                else{
+                    challanNo = studentRegistrationService.getChallanNumber()
+//            println(params.term)
+                    student.migratingStudyCentre = studyCenterId
+                    if (student.save(failOnError: true)) {
+                        def feeInst = new FeeDetails()
+                        feeInst.student = student
+                        feeInst.feeType = FeeType.findById(params.feeType)
+                        feeInst.isApproved = Status.findById(1)
+                        feeInst.challanNo = challanNo
+                        feeInst.paidAmount = programFeeAmount
+                        feeInst.semesterValue = Integer.parseInt(params.term)
+                        feeInst.save(failOnError: true)
+
+                        feeInst.challanDate = new Date()
+
+                    }
+                    response.student = student
+                    response.lateFee = lateFee
+                    response.term = params.term
+                    response.challanNo = challanNo
+                    response.courseName = student.programDetail.courseName
+                    response.programFeeAmount = programFeeAmount
+                    response.feeType = feeType
+                }
             }
         }
 
@@ -248,7 +276,6 @@ class AdminController {
     def getSubjectList = {
         def subMap = [:]
         subMap = adminInfoService.subjectList(params)
-
         if (subMap.allSubjects.size() < 1) {
             subMap.noSubjects = true
             render subMap as JSON
@@ -259,16 +286,14 @@ class AdminController {
 
     def saveExamDate = {
         def checkStatus = [:]
-        println(params)
+//        println(params)
         def status = adminInfoService.saveExamDate(params)
-
         if (status.size() > 1) {
             checkStatus.saveFlag = true
         } else {
             checkStatus.saveFlag = false
         }
         render checkStatus as JSON
-
     }
 
     def saveExamVenue = {

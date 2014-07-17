@@ -158,7 +158,7 @@
                 <tr><td style="font-size: 10px;padding-left: 5px;"><lable>Roll No</lable></td><td
                         style="font-size: 11px;letter-spacing:2px;"><label id="studentRollNo"></label></td></tr>
                 <tr><td style="font-size: 10px;padding-left: 5px;">Type of Fee</td><td style="font-size: 11px;"><label
-                        id="feeType"></label></td></tr>
+                        id="Check"></label></td></tr>
                 <tr><td style="font-size: 10px;padding-left: 5px;"><lable>Amount</lable></td><td
                         style="font-size: 11px;letter-spacing:2px;"><label id="amount"></label>
                     <label style="display: block" id="lateFee"></label>

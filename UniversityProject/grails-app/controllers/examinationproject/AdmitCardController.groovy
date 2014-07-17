@@ -232,7 +232,7 @@ class AdmitCardController {
             def fileName = stuList[0].programDetail[0].courseName + " " + month + " " + session[0]
 
             def year = new Date().format("yyyy")
-            if (dateList[0] != ''||timeList[0]!=null||dateList[0]!=null) {
+            if (dateList[0] == ''||timeList[0]==null||dateList[0]==null) {
                 flash.message = "Examination Date Not Assigned Yet"
                 redirect(controller: 'admitCard', action: 'bulkCreationOfAdmitCard')
             } else {
@@ -317,7 +317,7 @@ class AdmitCardController {
             def fileName = stuList[0].programDetail[0].courseName + " " + month + " " + session[0]
 
             def year = new Date().format("yyyy")
-            if (dateList[0] != ''||timeList[0]!=null||dateList[0]!=null) {
+            if (dateList[0] == ''||timeList[0]==null||dateList[0]==null) {
                 flash.message = "Examination Date Not Assigned Yet"
                 redirect(controller: 'student', action: 'downloadAdmitCard')
             } else {
@@ -427,6 +427,10 @@ class AdmitCardController {
             flash.message = "Admission and Examination Fee Not Paid or Approved."
 //            redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
         }
+        Set<City> cityInst = City.findAllById(8)
+        if (stuList[0].city == cityInst) {
+            admitInst = AdmitCard.findByExamVenue(stuList[0]?.examinationVenue)
+        }
         if (stuList[0]) {
             def programSessionIns = ProgramSession.findById(stuList[0].programSession.id)
             def subjectList = CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester, stuList[0].programSession), programSessionIns)*.subject
@@ -471,7 +475,7 @@ class AdmitCardController {
 
             def year = new Date().format("yyyy")
 //            println("year"+year)
-            if (dateList[0] != ''||timeList[0]!=null||dateList[0]!=null) {
+            if (dateList[0] == ''||timeList[0]==null||dateList[0]==null) {
                 flash.message = "Examination Date Not Assigned Yet"
                 redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
             } else {

@@ -70,7 +70,7 @@ def springSecurityService
             }
 
         }
-         newSemesterList.each{
+        newSemesterList.each{
             dateList<<CourseSubject.findAllByProgramSessionAndSemester(programSessionIns,it)
         }
 
@@ -111,13 +111,16 @@ def springSecurityService
         SimpleDateFormat f1 = new SimpleDateFormat("dd/MM/yyyy");
         def subjectList=params.subjectIdList.split(",")
         def count=0
-        println("+++++++++"+params)
+//        println("+++++++++"+params)
 
         def sessionObj=ProgramSession.findById(Long.parseLong(params.SessionList))
         subjectList.each{
 //            println("@@@@@@@"+Subject.findById(Long.parseLong(it)))
 //            println("@@@@@@@"+sessionObj)
-         def courseSubjectObj=CourseSubject.findBySubjectAndProgramSession(Subject.findById(Long.parseLong(it)),sessionObj)
+            def subj=it.toString().split('-')[0]
+            def sem=it.toString().split('-')[1]
+//            println("+++++++++++++++"+subj+"===================="+sem)
+         def courseSubjectObj=CourseSubject.findBySubjectAndProgramSessionAndSemester(Subject.findById(Long.parseLong(subj)),sessionObj,Semester.findBySemesterNoAndProgramSession(sem,sessionObj))
 //            println("###33333"+courseSubjectObj.programSession+courseSubjectObj.courseDetail)
           def dateList =[]
           def timeList = []

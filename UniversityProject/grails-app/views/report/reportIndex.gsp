@@ -32,10 +32,10 @@
             </li></a></div>
             </div>
         </sec:ifAnyGranted>
-        <sec:ifAnyGranted roles="ROLE_IDOL_USER, ROLE_STUDY_CENTRE, ROLE_ACCOUNT">
+        <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_IDOL_USER, ROLE_STUDY_CENTRE, ROLE_ACCOUNT">
                 <div id="session"> <a href="#"> <li>By Session </li></a></div>
         </sec:ifAnyGranted>
-        <sec:ifAnyGranted roles="ROLE_IDOL_USER, ROLE_ACCOUNT">
+        <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_IDOL_USER, ROLE_ACCOUNT">
                 <div id="sessions"> <a href="#"> <li>By Sessions</li></a></div>
                 <div id="course"> <a href="#"> <li>By Programme</li></a></div>
                 <div id="comparativeReport"> <a href="#">   <li>Comparative Enrolment Report</li></a></div>
@@ -643,6 +643,7 @@
 //            return true;
         }
         else if(val=='admissionUnapproved'){
+            $('#admissionApprovedStudyCentre').val('')
             check1 =$('#admissionUnapprovedStudyCentre').val()
             if(check1=='null' ){
                 alert("please select values")
@@ -651,6 +652,7 @@
 //            return true;
         }
        else if(val=="admissionApproved") {
+            $('#admissionUnapprovedStudyCentre').val('')
             check1 =$('#admissionApprovedStudyCentre').val()
             if(check1=='null'){
                 alert("please select values")

@@ -406,6 +406,17 @@ class FeeDetailsController {
         def bank = Bank.findById(params.bankName)
         def branch = Branch.findById(params.branchLocation)
         def termList = []
+        def prevFeeStatus=true
+        feeDetailsInstance.each {
+            println(it.semesterValue)
+            if(it.semesterValue>1){
+                def feeDInst=FeeDetails.findByStudentAndFeeTypeAndSemesterValueAndIsApproved(it.student,FeeType.findById(3),(it.semesterValue-1),Status.findById(4))
+                if(!feeDInst){
+                    prevFeeStatus=false
+                }
+            }
+        }
+        if(prevFeeStatus){
         feeDetailsInstance.each {
             termList << it.semesterValue
             it.paymentModeId = paymentModeName
@@ -433,11 +444,17 @@ class FeeDetailsController {
                 }
             }
         }
-        def challanNo = params.searchChallanNo
-        def paymentDate = params.paymentDate
-        def paymentReferenceNumber = params.paymentReferenceNumber
-        def args = [template: "printPayChallan", model: [bank: bank, termList: termList, lateFee: lateFee, studyCentre: studyCentre, branch: branch, paymentReferenceNumber: paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
-        pdfRenderingService.render(args + [controller: this], response)
+            def challanNo = params.searchChallanNo
+            def paymentDate = params.paymentDate
+            def paymentReferenceNumber = params.paymentReferenceNumber
+            def args = [template: "printPayChallan", model: [bank: bank, termList: termList, lateFee: lateFee, studyCentre: studyCentre, branch: branch, paymentReferenceNumber: paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
+            pdfRenderingService.render(args + [controller: this], response)
+        }
+        else{
+            flash.message="Please Pay Previous Term Fee First."
+            redirect(action: 'payAdmissionFee')
+        }
+
 
     }
     def payMiscFeeChallan = {
@@ -497,10 +514,10 @@ class FeeDetailsController {
         resultMap.studentId = studentId
         render resultMap as JSON
     }
-    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT","ROLE_IDOL_USER","ROLE_STUDY_CENTRE"])
     def feeStatusForRollNumber = {
     }
-    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT","ROLE_IDOL_USER","ROLE_STUDY_CENTRE"])
     def checkRollNoFeeStatus = {
         def resultMap = [:]
         resultMap = feeDetailService.rollNumberFeeStatus(params)
@@ -536,7 +553,7 @@ class FeeDetailsController {
 
             } else {
                 int semValue = Integer.parseInt(params.semester) - 1
-                def misFeeObj = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(studObj, semValue, FeeType.findById(Long.parseLong(params.postFeeType)), Status.findById(4))
+                def misFeeObj = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(studObj, semValue, FeeType.findById(Long.parseLong(params.postFeeType)), Status.findById(1))
                 if (misFeeObj) {
                 } else {
                     returnMap.feePaid = false

@@ -16,7 +16,8 @@ class PhotoUploadService {
         def studentListInst = Student.findAllByRegistrationYearAndStudentImageIsNull(params.admissionYear)
         def directryName = (studentListInst[0].applicationNo).substring(0, 4)
         if (directryName == params.admissionYear) {
-            def dirPath = params.filePath + directryName + "\\"
+            def dirPath = params.filePath + directryName + "/"
+            println("================="+dirPath)
             File f = new File(dirPath);
             if (f.exists() && f.isDirectory()) {
                 resultMap.dirStatus = true
@@ -28,16 +29,19 @@ class PhotoUploadService {
                     File png = new File(filePathPng);
                     File jpeg = new File(filePathJpeg);
                     if ((jpg.exists() && !jpg.isDirectory())) {
+                        println("--------------"+filePathJpg)
                         def byte[] studentPhoto = new File(filePathJpg).bytes
                         it.studentImage = studentPhoto
                         rollNo << it.rollNo
                     }
                     else if((png.exists() && !png.isDirectory())){
+                        println("--------------"+filePathPng)
                         def byte[] studentPhoto = new File(filePathPng).bytes
                         it.studentImage = studentPhoto
                         rollNo << it.rollNo
                     }
                     else if((jpeg.exists() && !jpeg.isDirectory())){
+                        println("--------------"+filePathJpeg)
                         def byte[] studentPhoto = new File(filePathJpeg).bytes
                         it.studentImage = studentPhoto
                         rollNo << it.rollNo
