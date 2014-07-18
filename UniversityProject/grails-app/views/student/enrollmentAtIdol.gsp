@@ -232,7 +232,7 @@
         <tr><td  style="font-size: 10px;padding-left: 5px;"><lable>Roll No</lable></td><td style="font-size: 11px;letter-spacing:2px;"><label id="studentRollNo"></label></td></tr>
         <tr><td  style="font-size: 10px;padding-left: 5px;">Type of Fee</td><td style="font-size: 11px;"><label id="feeType"></label></td></tr>
         <tr><td  style="font-size: 10px;padding-left: 5px;"><lable>Amount</lable></td><td style="font-size: 11px;letter-spacing:2px;"><label id="amount"></label>
-            <label style="display: block" id="lateFee"></label>
+            <label style="display: block" id="feeInWord"></label><label style="display: block" id="lateFee"></label>
         </td></tr>
         <tr><td  style="height:60px">&nbsp;</td><td  style="height:60px">&nbsp;</td></tr>
         <tr><td style="vertical-align: bottom;width: 40%;font-size: 10px;text-transform: capitalize;padding-left: 5px;"><g:formatDate format="dd/MM/yyyy" date="${new Date()}"/></td>

@@ -553,7 +553,7 @@ class FeeDetailsController {
 
             } else {
                 int semValue = Integer.parseInt(params.semester) - 1
-                def misFeeObj = FeeDetails.findByStudentAndSemesterValueAndFeeTypeAndIsApproved(studObj, semValue, FeeType.findById(Long.parseLong(params.postFeeType)), Status.findById(1))
+                def misFeeObj = FeeDetails.findByStudentAndSemesterValueAndFeeType(studObj, semValue, FeeType.findById(Long.parseLong(params.postFeeType)))
                 if (misFeeObj) {
                 } else {
                     returnMap.feePaid = false

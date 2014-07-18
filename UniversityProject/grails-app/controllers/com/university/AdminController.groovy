@@ -8,7 +8,9 @@ import examinationproject.FeeDetails
 import examinationproject.FeeSession
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
-
+import groovy.sql.Sql
+import org.codehaus.groovy.grails.commons.ApplicationHolder
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
@@ -148,7 +150,7 @@ class AdminController {
         def student = Student.findByRollNo(params.rollNo)
         def program = student.programDetail
         def feeTypeId
-        def feeType = FeeType.findById(params.feeType).type
+        def feeType = FeeType.findById(params.feeType)
         def challanNo
         def lateFee = 0
         def programFeeAmount = 0
@@ -850,5 +852,15 @@ class AdminController {
 
         render returnMap as JSON
     }
+//    def dbdump(){
+//        def initialSize = 4096
+//        def outStream = new ByteArrayOutputStream(initialSize)
+//        def errStream = new ByteArrayOutputStream(initialSize)
+//        def proc = "ls".execute()
+//        proc.consumeProcessOutput(outStream, errStream)
+//        proc.waitFor()
+//        println 'out:\n' + outStream
+//        println 'err:\n' + errStream
+//    }
 
 }

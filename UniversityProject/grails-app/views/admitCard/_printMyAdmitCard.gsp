@@ -26,7 +26,7 @@
     <div id="viewAdmit">
         <div>
             <div style="display: inline;width: 100%; ">
-                <label style="float: left">Gauhati University Schedule Ex-111, Form No. 11</label>
+                <label style="float: left;font-size: 12px;">Gauhati University Schedule Ex-111, Form No. 11</label>
             </div><br/>
             <div class="university-clear-both"></div>
             <div style="width:100%;text-align: center;text-transform: uppercase;display: block;">
@@ -85,7 +85,7 @@
                                 <strong>
                                     <div style="width: 70%;float: right;" id="registrationlNo">
                                         <g:if test="${student.registrationNo1}">
-                                            ${student?.registrationNo1}-${student?.registrationNo2}
+                                            <label> ${student?.registrationNo1} of ${student?.registrationNo2}</label>
                                         </g:if>
                                         <g:else>
                                             A/F
@@ -109,20 +109,28 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <div style="width: 100%;">
-                                <div style="width: 25%;float: left;font-size: 12px;"><b>Date of Examination:</b></div>
-                                <b><div id="examDates">${examDate}</div></b>
-                            </div>
+                            <table cellpadding="0px"
+                                   style="border: 1px solid black;width: 80%;margin: auto;text-align: center;">
+                                <tr>
+                                    <g:each in="${0..dateCount - 1}" var="i">
+                                        <g:if test="${i > 0}">
+                                            <td style="border: 1px solid black;"><g:formatDate format="dd-MMM-yyyy"
+                                                                                               date="${examDate[i]}"/></td>
+                                        </g:if>
+                                        <g:else>
+                                            <td style="border: 1px solid black;">${examDate[i]}</td>
+                                        </g:else>
+                                    </g:each>
+                                </tr>
+                                <tr>
+                                    <g:each in="${0..dateCount - 1}" var="i">
+                                        <td style="border: 1px solid black;">${examTime[i]}</td>
+                                    </g:each>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
-                            <div style="width: 100%;">
-                                <div style="width: 25%;float: left;font-size: 12px;"><b>Time of Examination:</b></div>
-                                <b><div id="examTimes">${examTime}</div></b>
-                            </div>
-                        </td>
-                    </tr>
+
                     <tr>
                         <td colspan="2">
                             <table style="margin: auto;width: 100%;"><tr>

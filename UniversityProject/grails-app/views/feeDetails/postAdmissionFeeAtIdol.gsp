@@ -31,11 +31,11 @@
 
         <tr>
             <td><label> Enter RollNumber</label></td>
-            <td><input type="text" name="rollNumberInput" id="rollNumberInput" onchange="searchByRollNumber()" ></td>
+            <td><input type="text" class="university-size-1-2" name="rollNumberInput" id="rollNumberInput" onchange="searchByRollNumber()" ></td>
         </tr>
         <tr>
             <td><label>Course</label></td>
-            <td><input type="text" name="course" id="course" readonly></td>
+            <td><input type="text" class="university-size-1-2" value="" name="course" id="course" readonly></td>
         </tr>
         <tr>
             <td><label>Fee Type</label></td>
@@ -83,7 +83,7 @@
                 <tr><td  style="width: 40%;font-size: 9px;padding-left: 5px;">Type Of Fee:</td><td style="width: 60%;font-size: 10px;"><label id="feeType"></label></td></tr>
                 <tr><td  style="width: 40%;font-size: 9px;padding-left: 5px;">Term/Semester:</td><td style="width: 60%;font-size: 10px;"><label id="term"></label></td></tr>
                 <tr><td  style="width: 40%;font-size: 9px;padding-left: 5px;"><lable>Amount:</lable></td><td style="width: 60%;font-size: 11px;font-weight: bolder;letter-spacing:2px;"><label id="amount"></label>
-                    <label style="display: block" id="lateFee"></label>
+                    <label style="display: block" id="feeInWord"></label><label style="display: block" id="lateFee"></label>
                 </td></tr>
                 <tr><td  style="height:60px">&nbsp;</td><td  style="height:60px">&nbsp;</td></tr>
                 <tr><td style="vertical-align: bottom;width: 40%;font-size: 9px;padding-left: 5px;">${new Date()}</td>
@@ -132,6 +132,7 @@
         $('#amount').text(''+amount)
         $('#term').text(''+term)
         $('#amount').text(''+amount)
+        $('#feeInWord').text(''+inWords(amount)+" only")
         $('#challanDiv').dialog('open')
         }
     });

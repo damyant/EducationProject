@@ -189,7 +189,7 @@ class AdmitCardController {
             }
             def subjectList = CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester, stuList[0].programSession), programSessionIns)*.subject
 
-            def dateList = [], timeList = []
+            def dateList = ['Exam Date'], timeList = ['Exam Time']
             subjectList.each {
                 dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
                 timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
@@ -200,26 +200,26 @@ class AdmitCardController {
 //            }
             def count = 1
             def total = dateList.size()
-            dateList.each {
-                if (it) {
-                    examDate.append(it.format("dd/MM/yyyy"))
-                    if (count != total)
-                        examDate.append(", ")
-                    count++
-                }
-            }
-            def count1 = 1
-            def total1 = timeList.size()
-
-            timeList.each {
-                if (it) {
-                    examTime.append(it)
-                    if (count1 != total1)
-                        examTime.append(", ")
-                    count1++
-                }
-
-            }
+//            dateList.each {
+//                if (it) {
+//                    examDate.append(it.format("dd/MM/yyyy"))
+//                    if (count != total)
+//                        examDate.append(", ")
+//                    count++
+//                }
+//            }
+//            def count1 = 1
+//            def total1 = timeList.size()
+//
+//            timeList.each {
+//                if (it) {
+//                    examTime.append(it)
+//                    if (count1 != total1)
+//                        examTime.append(", ")
+//                    count1++
+//                }
+//
+//            }
 //            println("ffffffffffffff"+examTime)
             def month = ""
             if (stuList[0].semester % 2 == 0) {
@@ -236,7 +236,7 @@ class AdmitCardController {
                 flash.message = "Examination Date Not Assigned Yet"
                 redirect(controller: 'admitCard', action: 'bulkCreationOfAdmitCard')
             } else {
-            def args = [template: "printAdmitCard", model: [studentInstance: stuList, examTime: examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
+            def args = [template: "printAdmitCard", model: [studentInstance: stuList, examTime: timeList,dateCount: total, courseName: courseName, examType: examType, examDate: dateList, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
             }
         } else if (params.studyCenterId) {
@@ -273,7 +273,7 @@ class AdmitCardController {
             }
             def subjectList = CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester, stuList[0].programSession), programSessionIns)*.subject
 
-            def dateList = [], timeList = []
+            def dateList = ['Exam Date'], timeList = ['Exam Time']
             subjectList.each {
                 dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
                 timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
@@ -286,26 +286,26 @@ class AdmitCardController {
 //            }
             def count = 1
             def total = dateList.size()
-            dateList.each {
-                if (it) {
-                    examDate.append(it.format("dd/MM/yyyy"))
-                    if (count != total)
-                        examDate.append(", ")
-                    count++
-                }
-            }
-            def count1 = 1
-            def total1 = timeList.size()
-
-            timeList.each {
-                if (it) {
-                    examTime.append(it)
-                    if (count1 != total1)
-                        examTime.append(", ")
-                    count1++
-                }
-
-            }
+//            dateList.each {
+//                if (it) {
+//                    examDate.append(it.format("dd/MM/yyyy"))
+//                    if (count != total)
+//                        examDate.append(", ")
+//                    count++
+//                }
+//            }
+//            def count1 = 1
+//            def total1 = timeList.size()
+//
+//            timeList.each {
+//                if (it) {
+//                    examTime.append(it)
+//                    if (count1 != total1)
+//                        examTime.append(", ")
+//                    count1++
+//                }
+//
+//            }
             def month = ""
             if (stuList[0].semester % 2 == 0) {
                 month = "July"
@@ -321,7 +321,7 @@ class AdmitCardController {
                 flash.message = "Examination Date Not Assigned Yet"
                 redirect(controller: 'student', action: 'downloadAdmitCard')
             } else {
-            def args = [template: "printMyAdmitCard", model: [studentInstance: stuList, examTime: examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
+            def args = [template: "printMyAdmitCard", model: [studentInstance: stuList, examTime: timeList,dateCount: total, courseName: courseName, examType: examType, examDate: dateList, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
             }
         } else {
@@ -435,7 +435,7 @@ class AdmitCardController {
             def programSessionIns = ProgramSession.findById(stuList[0].programSession.id)
             def subjectList = CourseSubject.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester, stuList[0].programSession), programSessionIns)*.subject
 
-            def dateList = [], timeList = []
+            def dateList = ['Exam Date'], timeList = ['Exam Time']
             subjectList.each {
                 dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
                 timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
@@ -443,26 +443,26 @@ class AdmitCardController {
 
             def count = 1
             def total = dateList.size()
-            dateList.each {
-                if (it) {
-                    examDate.append(it.format("dd/MM/yyyy"))
-                    if (count != total)
-                        examDate.append(", ")
-                    count++
-                }
-            }
-            def count1 = 1
-            def total1 = timeList.size()
-
-            timeList.each {
-                if (it) {
-                    examTime.append(it)
-                    if (count1 != total1)
-                        examTime.append(", ")
-                    count1++
-                }
-
-            }
+//            dateList.each {
+//                if (it) {
+//                    examDate.append(it.format("dd/MM/yyyy"))
+//                    if (count != total)
+//                        examDate.append(", ")
+//                    count++
+//                }
+//            }
+//            def count1 = 1
+//            def total1 = timeList.size()
+//
+//            timeList.each {
+//                if (it) {
+//                    examTime.append(it)
+//                    if (count1 != total1)
+//                        examTime.append(", ")
+//                    count1++
+//                }
+//
+//            }
             def month = ""
             if (stuList[0].semester % 2 == 0) {
                 month = "July"
@@ -480,7 +480,7 @@ class AdmitCardController {
                 redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
             } else {
                 status = admitCardService.updateStudentRecord(stuList, params.examinationVenue)
-                def args = [template: "printAdmitCard", model: [studentInstance: stuList, examTime: examTime, courseName: courseName, examType: examType, examDate: examDate, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
+                def args = [template: "printAdmitCard", model: [studentInstance: stuList,dateCount:total, examTime: timeList, courseName: courseName, examType: examType, examDate: dateList, year: year, guLogo: logo, admitInst: admitInst], filename: fileName + ".pdf"]
                 pdfRenderingService.render(args + [controller: this], response)
             }
         } else {

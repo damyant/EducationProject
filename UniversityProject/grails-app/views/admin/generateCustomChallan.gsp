@@ -59,9 +59,14 @@
                 <div class="university-clear-both"></div>
                 <div style="text-align: center;text-transform:capitalize;font-size: 9px;letter-spacing:2px;">
                     <div>&nbsp;</div><div>&nbsp;</div>
-                    <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">State Bank of India</div>
-                    <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">Gauhati University Branch (CODE-<g:message code="default.Bank.code"/>)</div>
-                    <div style="text-transform:capitalize;font-size: 11px;font-weight: bolder;margin-top: 1px;margin-bottom: 1px;"><label style="border: 1px solid;padding-left: 5px;padding-right: 5px;">A/C No. <g:message code="default.Bank.AcNo"/></label></div>
+                    <div style="text-transform:none;font-size:11px;">State Bank of India    /    United Bank of India</div>
+                    %{--<div style="text-transform:uppercase;font-size: 11px;">Gauhati University Branch (CODE-<g:message code="default.Bank.code"/>)</div>--}%
+                    <div style="text-transform:none;font-size: 11px;margin-top: 1px;margin-bottom: 1px;"><label
+                            style="border: 1px solid;padding-left: 5px;padding-right: 5px;">SBI A/C No. <g:message
+                                code="default.Bank.AcNo"/></label><label></label><label
+                            style="border: 1px solid;padding-left: 5px;padding-right: 5px;">UBI A/C No. <g:message
+                                code="default.Bank.UBI.AcNo"/></label></div>
+
                     <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">Institute of Distance and Open Learning</div>
                     <div style="text-transform:capitalize;font-size: 9px;font-weight: bold;">Gauhati University</div>
                 </div>
@@ -70,7 +75,9 @@
                 <table  style="width:80%;margin:auto;text-transform:capitalize;border: solid 0px black;letter-spacing:1px;font-family: Times New Roman, Times, serif;font-style: normal;font-weight: bold;">
                     <tr><td style="width: 40%;font-size: 9px;padding-left: 5px;"><lable>Name:</lable></td><td style="width: 60%;font-size: 10px;"><label id="cName"></label></td></tr>
                     <tr><td  style="width: 40%;font-size: 9px;padding-left: 5px;">Type Of Fee:</td><td style="width: 60%;font-size: 10px;"><label id="feeType"></label></td></tr>
-                    <tr><td  style="width: 40%;font-size: 9px;padding-left: 5px;"><lable>Amount:</lable></td><td style="width: 60%;font-size: 11px;font-weight: bolder;letter-spacing:2px;">Rs <label id="feeAmount"></label></td></tr>
+                    <tr><td  style="width: 40%;font-size: 9px;padding-left: 5px;"><lable>Amount:</lable></td><td style="width: 60%;font-size: 11px;font-weight: bolder;letter-spacing:2px;">Rs <label id="feeAmount"></label>
+                        <br/><label id="feeInWord"></label>
+                    </td></tr>
                     <tr><td  style="height:60px">&nbsp;</td><td  style="height:60px">&nbsp;</td></tr>
                     <tr><td style="vertical-align: bottom;width: 40%;font-size: 9px;padding-left: 5px;">${new Date()}</td>
                         <td style="vertical-align: bottom;">

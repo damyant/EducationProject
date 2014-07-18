@@ -24,12 +24,14 @@
 </head>
 
 <body>
+<g:set var="counter" value="${1}"/>
 <g:each in="${studentInstance}" var="student">
+
     <div id="viewAdmit">
         <div>
             <div style="display: inline;width: 100%; ">
-                <label style="float: left">Gauhati University Schedule Ex-111, Form No. 11</label>
-                <label style="float: right;margin-right: 100px;">Serial No:</label>
+                <label style="float: left;font-size: 12px;">Gauhati University Schedule Ex-111, Form No. 11</label>
+                <label style="float: right;margin-right: 100px;font-size: 12px;">Serial No:</label>
 
             </div><br/>
 
@@ -73,7 +75,9 @@
                         <td rowspan="3" style="width: 20%;">
                             <div id="profile-image" style="float: right;">
                                 <g:if test="${student?.studentImage}">
-                                    <rendering:inlineJpeg bytes="${student?.getStudentImage()}" class="university-registration-photo" style="margin:auto; width: 110px;"/>
+                                    <rendering:inlineJpeg bytes="${student?.getStudentImage()}"
+                                                          class="university-registration-photo"
+                                                          style="margin:auto; width: 110px;"/>
                                 </g:if>
                                 <g:else>
                                     <div style="margin:auto; height: 130px;width:110px;text-align: center ; vertical-align:middle;border: 1px solid;">
@@ -92,7 +96,7 @@
                                 <strong>
                                     <div style="width: 70%;float: right;" id="registrationlNo">
                                         <g:if test="${student.registrationNo1}">
-                                            ${student?.registrationNo1}-${student?.registrationNo2}
+                                            <label>${student?.registrationNo1} of ${student?.registrationNo2}</label>
                                         </g:if>
                                         <g:else>
                                             A/F
@@ -108,26 +112,33 @@
                             <div style="width: 100%;">
                                 <div style="width: 25%;float: left;font-size: 12px;"><b>Examination:</b></div>
                                 <i><b><label id="mode">Previous/Semester</label> Examination <label
-                                        id="year">${year} </label></b><label
-                                        style="font-size: 12px;">Under the Institute of Distance and Open Learning for </label><b>${student.programDetail[0].courseName}
-                                    <label> Term ${student.semester} </label>
+                                        id="year">${year}</label></b><label
+                                        style="font-size: 12px;">Under the Institute of Distance and Open Learning for</label><b>${student.programDetail[0].courseName}
+                                    <label>Term ${student.semester}</label>
                                 </b></i></div>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <div style="width: 100%;">
-                                <div style="width: 25%;float: left;font-size: 12px;"><b>Date of Examination:</b></div>
-                                <b><div id="examDates">${examDate}</div></b>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <div style="width: 100%;">
-                                <div style="width: 25%;float: left;font-size: 12px;"><b>Time of Examination:</b></div>
-                                <b><div id="examTimes">${examTime}</div></b>
-                            </div>
+                            <table cellpadding="0px"
+                                   style="border: 1px solid black;width: 80%;margin: auto;text-align: center;">
+                                <tr>
+                                    <g:each in="${0..dateCount - 1}" var="i">
+                                        <g:if test="${i > 0}">
+                                            <td style="border: 1px solid black;"><g:formatDate format="dd-MMM-yyyy"
+                                                                                               date="${examDate[i]}"/></td>
+                                        </g:if>
+                                        <g:else>
+                                            <td style="border: 1px solid black;">${examDate[i]}</td>
+                                        </g:else>
+                                    </g:each>
+                                </tr>
+                                <tr>
+                                    <g:each in="${0..dateCount - 1}" var="i">
+                                        <td style="border: 1px solid black;">${examTime[i]}</td>
+                                    </g:each>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr>
@@ -169,6 +180,10 @@
             </div>
         </div>
     </div>
+    <g:if test="${studentInstance.size() != counter}">
+        <div class="break"/>
+        <g:set var="counter" value="${counter + 1}"/>
+    </g:if>
 </g:each>
 </body>
 </html>
