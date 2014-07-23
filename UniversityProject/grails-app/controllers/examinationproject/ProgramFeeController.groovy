@@ -14,12 +14,39 @@ class ProgramFeeController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
     @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def listOfFeeType = {
+        def resultMap=[:]
+        def pName=[],session=[],examFeeName=[],examFee=[],certFeeName=[],certFee=[],feeId=[]
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         def c=FeeSession.createCriteria()
         def programFeeInstanceList=c.list(params){
+        }
+        programFeeInstanceList.each {
+        pName<<it.programDetailId.courseName
+        session<<it.sessionOfFee
+        feeId<<it.id
+        it.miscellaneousFee.each {
+            if(it.feeType.id==1){
+                examFeeName=it.feeType.type
+                examFee<<it.amount
+            }
+            else if(it.feeType.id==2){
+                certFeeName=it.feeType.type
+                certFee<<it.amount
+            }
+        }
 
         }
-        [programFeeInstanceList:programFeeInstanceList, admissionFeeTotal: FeeSession.count()]
+
+        resultMap.count=programFeeInstanceList.size()
+        resultMap.pName=pName
+        resultMap.feeId=feeId
+        resultMap.session=session
+        resultMap.examFeeName=examFeeName
+        resultMap.examFee=examFee
+        resultMap.certFeeName=certFeeName
+        resultMap.certFee=certFee
+
+        [programFeeInstanceList:programFeeInstanceList,resultMap:resultMap, admissionFeeTotal: FeeSession.count()]
     }
 
 //    def show(ProgramFee programFeeInstance) {
@@ -33,12 +60,12 @@ class ProgramFeeController {
             feeType = FeeType.findAllByShowValue(true)
 
         def programSessionList=FeeSession.list()
-        if(programSessionList.programDetailId.id){
-           programDetailList = ProgramDetail.findAllByIdNotInList(programSessionList.programDetailId.id)
-        }
-        else{
+//        if(programSessionList.programDetailId.id){
+//           programDetailList = ProgramDetail.findAllByIdNotInList(programSessionList.programDetailId.id)
+//        }
+//        else{
              programDetailList = ProgramDetail.list(sort:'courseCode')
-        }
+//        }
 
         def programSessions=   programFeeService.getProgramSessions(params)
         println("::::::::::::::::::::::::::::::: "+programDetailList)

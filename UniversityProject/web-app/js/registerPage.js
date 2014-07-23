@@ -103,7 +103,7 @@ function checkApplicationNumber(t) {
         success: function (data) {
 
             if (data.applicationNo == "true") {
-                $('#errorMsg').text("Application Number already Exist")
+                $('#errorMsg').text("Already Exist against Roll No "+data.rollNo)
             }
             else {
                 $('#errorMsg').text("")
@@ -137,7 +137,7 @@ function submitTempRegistration() {
                 $('#challanNo').text('' + data.student.challanNo)
                 $('#feeType').text('Course Fee - ' + data.student.semester)
                 $('#amount').text('' + data.programFeeAmount)
-                $('#feeInWord').text('' + inWords(data.programFeeAmount)+" only")
+                $('#feeInWord').text('(' + inWords(data.programFeeAmount)+" only)")
                 //                console.log(data.lateFee)
                 if (data.lateFee > 0)
                     $('#lateFee').text('(with late fee ' + data.lateFee + ')')

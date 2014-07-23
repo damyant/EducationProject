@@ -419,13 +419,11 @@ class AdmitCardController {
 
             } else {
                 flash.message = "Examination Fee Not Paid or Approved."
-//                redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
             }
         } else if (stuAdmissionFeeInst && (student.programDetail[0].programType.id == ProgramType.findById(1).id)) {
             stuList << student
         } else {
             flash.message = "Admission and Examination Fee Not Paid or Approved."
-//            redirect(controller: 'admitCard', action: 'SingleAdmitCardGenerate')
         }
         Set<City> cityInst = City.findAllById(8)
         if (stuList[0].city == cityInst) {
@@ -443,26 +441,6 @@ class AdmitCardController {
 
             def count = 1
             def total = dateList.size()
-//            dateList.each {
-//                if (it) {
-//                    examDate.append(it.format("dd/MM/yyyy"))
-//                    if (count != total)
-//                        examDate.append(", ")
-//                    count++
-//                }
-//            }
-//            def count1 = 1
-//            def total1 = timeList.size()
-//
-//            timeList.each {
-//                if (it) {
-//                    examTime.append(it)
-//                    if (count1 != total1)
-//                        examTime.append(", ")
-//                    count1++
-//                }
-//
-//            }
             def month = ""
             if (stuList[0].semester % 2 == 0) {
                 month = "July"

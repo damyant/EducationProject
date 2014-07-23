@@ -15,7 +15,7 @@ class ReportController {
     def index ={
     }
 
-    @Secured(["ROLE_ADMIN", "ROLE_STUDY_CENTRE", "ROLE_ACCOUNT"])
+    @Secured(["ROLE_ADMIN", "ROLE_STUDY_CENTRE", "ROLE_ACCOUNT","ROLE_IDOL_USER"])
     def reportIndex = {
 //        println('in report Index')
 

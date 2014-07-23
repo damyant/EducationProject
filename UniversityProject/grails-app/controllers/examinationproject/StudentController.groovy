@@ -276,6 +276,7 @@ class StudentController {
 //        println(applicationNoIns)
         if(applicationNoIns){
             status.applicationNo='true'
+            status.rollNo=applicationNoIns.rollNo
         }
         else{
             status.applicationNo='false'

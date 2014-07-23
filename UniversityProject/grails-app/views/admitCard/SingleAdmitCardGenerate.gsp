@@ -50,13 +50,6 @@
                     </select>
                 </td>
             </tr>
-            %{--<tr><td><label>Select a Session</label></td>--}%
-                %{--<td>--}%
-                    %{--<g:select name="programSession" from="" class="university-size-1-1" id="SessionList"--}%
-                              %{--onchange="enableShowCandidate()" noSelection="['': ' Select Session']"/>--}%
-
-                %{--</td>--}%
-            %{--</tr>--}%
             <tr>
                 <td><label for="semesterList">Select Examination Venue</label></td>
                 <td style="padding-left: 25px;">

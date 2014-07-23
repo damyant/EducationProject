@@ -147,7 +147,7 @@ function generateDuplicateChallan() {
                     $('#Check').text('' + data.feeType.type + ' for ' + data.courseName + ' Term ' + data.term)
                 }
                 $('#amount').text('' + data.programFeeAmount)
-                $('#feeInWord').text('' + inFullWords(data.programFeeAmount)+" only")
+                $('#feeInWord').text('(' + inFullWords(data.programFeeAmount)+" only)")
                 if (data.lateFee > 0)
                     $('#lateFee').text('(with late fee ' + data.lateFee + ')')
                 $('#challanDiv').dialog('open')
@@ -1004,15 +1004,12 @@ function populateChallanDetail() {
                     $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
                     $("#error").hide()
                 } else {
-//                    alert(data.rollStatus)
                     if (!data.rollStatus) {
                         $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">PLease Generate Roll Number Before Approving Pay-In-Slip</td></tr>')
                     }
                     else {
                         $("#allStudentList tbody").empty().append('<tr><td class="university-status-message">Already Approved or Wrong Challan Number</td></tr>')
                     }
-
-                    $("#allStudentList tbody").append('<tr><td><input type="button" value="Approve" onclick="submitStudents()"/> </td></tr>')
                     $("#error").hide()
 //            }else{
 ////                alert(data.rollStatus)

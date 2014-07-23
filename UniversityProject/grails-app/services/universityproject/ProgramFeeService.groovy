@@ -108,12 +108,14 @@ class ProgramFeeService {
         def admissionFeeIns,sessionObj
         def programDetailIns = ProgramDetail.findById(Integer.parseInt(params.programDetailId))
         def session = FeeSession.count()
-//        println("<<<<<<<<<<<<<<<<<"+params.programSessionId)
-//        println("session<<<<<<<<<<<<<<<<<"+session)
 
         if (session > 0) {
             if (FeeSession.findByProgramDetailIdAndSessionOfFee(programDetailIns,params.programSessionId)) {
                 sessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(programDetailIns,params.programSessionId)
+            }
+            else {
+                sessionObj = new FeeSession(sessionOfFee: params.programSessionId, programDetailId:programDetailIns).save(flush: true, failOnError: true)
+                newSessionStatus=true
             }
         } else {
             sessionObj = new FeeSession(sessionOfFee: params.programSessionId, programDetailId:programDetailIns).save(flush: true, failOnError: true)

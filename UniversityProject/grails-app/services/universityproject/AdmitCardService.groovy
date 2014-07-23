@@ -42,9 +42,7 @@ class AdmitCardService {
             and {
                 eq('semester', Integer.parseInt(params.programTerm))
             }
-            and {
-                eq('admitCardGenerated', false)
-            }
+            order("id", "asc")
         }
         stuList.each {
             def semValue

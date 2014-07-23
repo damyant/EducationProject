@@ -113,8 +113,10 @@
                                 <div style="width: 25%;float: left;font-size: 12px;"><b>Examination:</b></div>
                                 <i><b><label id="mode">Previous/Semester</label> Examination <label
                                         id="year">${year}</label></b><label
-                                        style="font-size: 12px;">Under the Institute of Distance and Open Learning for</label><b>${student.programDetail[0].courseName}
-                                    <label>Term ${student.semester}</label>
+                                        style="font-size: 12px;text-transform: none;"> Under the Institute of Distance and Open Learning for </label><b>${student.programDetail[0].courseName}
+                                    <label><g:if test="${student.programDetail[0].courseMode.id==1}">Semester ${student.semester}</g:if><g:else>
+                                    <g:if test="${student.semester==1}"> Previous</g:if><g:else> Final</g:else>
+                                    </g:else> </label>
                                 </b></i></div>
                         </td>
                     </tr>
@@ -155,7 +157,7 @@
                         <td colspan="2">
                             <g:if test="${admitInst?.signatureImg}">
                                 <rendering:inlineJpeg bytes="${admitInst.getSignatureImg()}"
-                                                      style="margin:auto; width: 150px; height: 70px"/>
+                                                      style="margin:auto; width: 150px; height: 50px"/>
                             </g:if>
                             <g:else>
                                 <br/><br/><br/>

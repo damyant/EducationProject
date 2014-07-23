@@ -38,7 +38,7 @@ class StudentRegistrationService {
         def endYear
         def programSession
         def studentRegistration
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy")
         if (params.studentId) {
             studentRegistration = Student.findById(Long.parseLong(params.studentId))
             studentRegistration.firstName = params.firstName
@@ -140,8 +140,9 @@ class StudentRegistrationService {
                 studentRegistration.studentImage = photographe.bytes
         } else {
         }
-        studentRegistration.applicationNo = ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear.toString()+params.applicationNo
-
+        if(params.applicationNo){
+             studentRegistration.applicationNo = ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear.toString()+params.applicationNo
+        }
         studentRegistration.semester = 1
         studentRegistration.admitCardGenerated = false
 //        println('This is the final studycentre going to save '+studentRegistration.studyCentre)

@@ -22,45 +22,27 @@
                     <th><g:message code="programFee.programDetail.label" default="Programme Detail"/></th>
 
                     <th><g:message code="programFee.session.label" default="Program Fee Session"/></th>
-                    <g:if test="${programFeeInstanceList}">
-                        <g:each in="${programFeeInstanceList[0]}" status="i" var="programFeeInstance">
-                            <g:each in="${programFeeInstance.miscellaneousFee.feeType.type}" var="mFeeTypeInstance">
-                                <th>${mFeeTypeInstance}</th>
-                            </g:each>
-                        </g:each>
-                    </g:if>
-
-                %{--<g:sortableColumn property="feeAmountAtIDOL"--}%
-                %{--title="${message(code: 'programFee.feeAmountAtIDOL.label', default: 'Fee Amount At IDOL')}"/>--}%
-
-                %{--<g:sortableColumn property="feeAmountAtSC"--}%
-                %{--title="${message(code: 'programFee.feeAmountAtSC.label', default: 'Fee Amount At SC')}"/>--}%
-
-                %{--<g:sortableColumn property="lateFeeAmount"--}%
-                %{--title="${message(code: 'programFee.lateFeeAmount.label', default: 'Late Fee Amount')}"/>--}%
-
+                     <th>${resultMap.examFeeName}</th>
+                     <th>${resultMap.certFeeName}</th>
                     <th></th>
 
                 </tr>
                 </thead>
                 <tbody>
                 <g:if test="${programFeeInstanceList}">
-                    <g:each in="${programFeeInstanceList}" status="i" var="programFeeInstance">
-                        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                    <g:each in="${0..resultMap.count}" status="i" var="index">
+                        <tr>
 
-                            <td>${programFeeInstance.programDetailId.courseName}</td>
-                            <td>${programFeeInstance.sessionOfFee}</td>
-                        %{--<td>${programFeeInstance.miscellaneousFee.feeType.type}</td>--}%
-                            <g:each in="${programFeeInstance.miscellaneousFee.amount}" var="mFeeInstance">
-                                <td>${mFeeInstance}</td>
-                            </g:each>
-                        %{--<td>${programFeeInstance.miscellaneousFee.amount}</td>--}%
-                        %{--<td>${programFeeInstance.admissionFee.lateFeeAmount[0]}</td>--}%
+                            <td>${resultMap.pName[index]}</td>
+                            <td>${resultMap.session[index]}</td>
+                            <td>${resultMap.examFee[index]}</td>
+                            <td>${resultMap.certFee[index]}</td>
+
                             <td>
-                                <g:link action="deleteFeeType" id="${programFeeInstance.id}"
+                                <g:link action="deleteFeeType" id="${resultMap.feeId[index]}"
                                         class="university-text-decoration-none"><button
                                         class="university-button">Delete</button></g:link>
-                                <g:link action="editFeeType" id="${programFeeInstance.id}"
+                                <g:link action="editFeeType" id="${resultMap.feeId[index]}"
                                         class="university-text-decoration-none"><button
                                         class="university-button">Edit Miscellaneous</button></g:link>
                             </td>

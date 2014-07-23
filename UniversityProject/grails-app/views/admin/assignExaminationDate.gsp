@@ -57,8 +57,8 @@
                     <td class="university-size-1-4">
                      <select name="sessionType" id="sessionType" class="university-size-1-1"  onchange="getSemesterAndSubjectList()">
                          <option value="0">Select Session Type</option>
-                         <option value="1">July</option>
-                         <option value="2">January</option>
+                         <option value="1">Even Term</option>
+                         <option value="2">Odd Term</option>
                      </select>
                     </td>
                 </tr>

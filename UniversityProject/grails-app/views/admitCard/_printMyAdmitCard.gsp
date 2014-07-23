@@ -101,9 +101,11 @@
                             <div style="width: 100%;">
                                 <div style="width: 25%;float: left;font-size: 12px;"><b>Examination:</b></div>
                                 <i><b><label id="mode">Previous/Semester</label> Examination <label
-                                        id="year">${year} </label></b><label
-                                        style="font-size: 12px;">Under the Institute of Distance and Open Learning for </label><b>${student.programDetail[0].courseName}
-                                    <g:if test="${student?.programDetail?.programType == ProgramType?.findById(1)}"><label> Term ${student.programDetail[0].noOfAcademicYears} </label></g:if><g:else><label>Semester ${student.programDetail[0].noOfTerms}</label></g:else>
+                                        id="year">${year}</label></b><label
+                                        style="font-size: 12px;text-transform: none;"> Under the Institute of Distance and Open Learning for </label><b>${student.programDetail[0].courseName}
+                                    <label><g:if test="${student.programDetail[0].courseMode.id==1}">Semester ${student.semester}</g:if><g:else>
+                                        <g:if test="${student.semester==1}"> Previous</g:if><g:else> Final</g:else>
+                                    </g:else> </label>
                                 </b></i></div>
                         </td>
                     </tr>
