@@ -138,8 +138,9 @@ class HomeAssignmentController {
         println("-------------------------------"+params)
         def studentName=[],studentAddress=[],studentPin=[],studentMobNo=[],stuList=[] ,studentTown=[],studentDistrict=[],studentState=[]
         if(params.type=='single'){
-            println('in single')
-            def studentInst = Student.findByRollNo(Integer.parseInt(params.rollNo))
+            println('in single'+params.rollNo)
+            def studentInst = Student.findByRollNo(params.rollNo)
+            println('in single'+studentInst)
             if(studentInst){
                 studentName<<studentInst.firstName+" "+(studentInst.middleName?studentInst.middleName:'')+" "+(studentInst.lastName?studentInst.lastName:'')
                 studentAddress<<studentInst.studentAddress

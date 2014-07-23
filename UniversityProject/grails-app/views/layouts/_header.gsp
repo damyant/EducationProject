@@ -260,7 +260,7 @@
                 <li><g:link controller="homeAssignment" action="studentAddressSingle"><g:message
                         code="default.mainMenu3.subMenu2.submenu1.submemu1"/></g:link></li>
                 <li><g:link controller="homeAssignment" action="studentAddress"><g:message
-                        code="default.mainMenu3.subMenu2.submenu1.submenu2"/></g:link></li>
+                        code="default.mainMenu3.subMenu2.submenu4"/></g:link></li>
             </ul>
 
         </li>

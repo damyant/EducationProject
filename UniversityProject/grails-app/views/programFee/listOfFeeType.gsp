@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                 <g:if test="${programFeeInstanceList}">
-                    <g:each in="${0..resultMap.count}" status="i" var="index">
+                    <g:each in="${0..resultMap.count-1}" status="i" var="index">
                         <tr>
 
                             <td>${resultMap.pName[index]}</td>

@@ -88,6 +88,7 @@ $(document).ready(function () {
         $(document).on('change', "input[name='selectAll']", function () {
             $("#from").val("")
             $("#to").val("")
+
             $('#admitCardTab').find('.rowID').find('input[type="checkbox"]').prop('checked', $("#selectAll").prop("checked"))
 
             $('input:checked').each(function () {
@@ -520,7 +521,7 @@ function getStudentsForIdentityCard() {
                     $('#studentListPrintButton').prop('hidden', false)
                     var count = 1;
                     for (var i = 0; i < data.length; i++) {
-                        $('#admitCardTab tbody').append('<tr id="rowID' + i + '"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id=' + data[i].id + '></td><td>' + count + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].firstName + ' ' + data[i].lastName + '</td></tr>')
+                        $('#admitCardTab tbody').append('<tr class="rowID"><td><input name="studentCheckbox" class="studentCheckbox" type="checkbox" id=' + data[i].id + '></td><td>' + count + '</td><td>' + data[i].rollNo + '</td><td>' + data[i].firstName + ' ' + data[i].lastName + '</td></tr>')
                         ++count;
                     }
                     totalRows = count;

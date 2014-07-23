@@ -98,22 +98,22 @@
                     <a href="#" class="last" data-action="last">&raquo;</a>
                 </div>
             </div>
-            %{--<div id="studentListPrint"--}%
-                 %{--style="margin: 5px auto;width:94%;text-align: center;vertical-align: middle; border: 1px solid #BDBDBD; padding: 0.5%;border-radius: 4px;"--}%
-                 %{--hidden="">--}%
+            <div id="studentListPrint"
+                 style="margin: 5px auto;width:94%;text-align: center;vertical-align: middle; border: 1px solid #BDBDBD; padding: 0.5%;border-radius: 4px;"
+                 hidden="">
 
-                %{--<label class="university-left-right-margin">--}%
-                    %{--Download Range--}%
-                %{--</label>--}%
-                %{--<label class="university-left-margin" style="color: #000; font-size: 17px;"><b>From</b></label>--}%
-                %{--<input type="text" name="from" id="from" placeholder="Enter SrNo" width="7" onclick="this.value = ''" onkeypress="return isNumber(event)"--}%
-                       %{--style="width: 80px;margin: auto 20px;text-align: center;border-radius: 2px;">--}%
-                %{--<label class="university-left-right-margin" style="color: #000;font-size: 17px;"><b>To</b></label>--}%
-                %{--<input type="text" name="to" id="to" class="university-left-right-margin" placeholder="Enter SrNo" width="7" onclick="this.value = ''"--}%
-                       %{--onkeypress="return isNumber(event)"--}%
-                       %{--style="width: 80px;margin: auto 20px;text-align: center;border-radius: 2px;">--}%
+                <label class="university-left-right-margin">
+                    Download Range
+                </label>
+                <label class="university-left-margin" style="color: #000; font-size: 17px;"><b>From</b></label>
+                <input type="text" name="from" id="from" placeholder="Enter SrNo" width="7" onclick="this.value = ''" onkeypress="return isNumber(event)"
+                       style="width: 80px;margin: auto 20px;text-align: center;border-radius: 2px;">
+                <label class="university-left-right-margin" style="color: #000;font-size: 17px;"><b>To</b></label>
+                <input type="text" name="to" id="to" class="university-left-right-margin" placeholder="Enter SrNo" width="7" onclick="this.value = ''"
+                       onkeypress="return isNumber(event)"
+                       style="width: 80px;margin: auto 20px;text-align: center;border-radius: 2px;">
 
-            %{--</div>--}%
+            </div>
 
             <div id="studentListPrintButton" style="margin: 10px auto;width:94%;text-align: center;" hidden="">
                 <input type="button" value="Download" onclick="generateIdentityCard()" class="university-button">

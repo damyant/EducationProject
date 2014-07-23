@@ -25,11 +25,7 @@
 <body>
 <g:each in="${0..studentName.size()-1}" var="i">
     <div style="width: 790px;height:335px; border: 0px solid black">
-<<<<<<< HEAD
-        <div style="padding-left: 380px;padding-top:70px; border: 0px solid black">
-=======
         <div style="padding-left: 380px;padding-top: 170px; border: 0px solid black">
->>>>>>> b59b19a9ddcb8657404976097e21f4f239c4fc43
              <div>${studentName[i]}</div>
             <div>${studentAddress[i]}</div>
             <div>${studentTown[i]}, ${studentDistrict[i]} </div>
