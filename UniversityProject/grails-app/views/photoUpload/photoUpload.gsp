@@ -51,10 +51,8 @@
                 </td></tr>
                 <tr><td></td><td><input type="submit" value="Upload" class="university-button"/></td></tr>
             </table>
-            %{--<div style="text-align: center;">Total Student Without Photo :  ${studentListInst.size()}</div>--}%
             <h4>Note:</h4>
             <ul>
-                <li>Currently Total Student Without Photo :  ${studentListInst.size()}.</li>
                 <li>The Directory Path is the Directory location where all session directory are created.</li>
                 <li>Enter the Directory location as "/home/Photo/".</li>
                 <li>The Image file extension supported are (.jpg / .png / .jpeg)</li>
