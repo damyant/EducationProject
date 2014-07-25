@@ -616,10 +616,8 @@ function saveSubjectGroup(j,closeVal){
     var groupSubjectJson = ConvertGroupFormToJSON(j);
     subList= groupSubjectJson["groupList"];
     var subMap = subList[0];
-//    alert("rowCount "+rowCount)
 
-    var count = $('#group' + j + groupListIndex+' option').size();
-    alert("???????????"+rowCount)
+
     if(rowCount!=0) {
         if(!document.getElementById("groupListBox" + j)) {
             $('#multiSelectTab tbody #tr' + j + ':last').append('<td style="width:30%;"><select multiple="multiple" id="groupListBox' + j + '" style="height: 100px; width: 150px;">' +
@@ -888,8 +886,7 @@ function showSubjectGroupInDialog(i){
 function validateGroupSubjects(j){
     var rowCount=0
     rowCount = $('#subjectGroup'+j+' tr').length;
-    alert(rowCount)
-    var isValid = false
+     var isValid = false
     if(rowCount!=0) {
         for (var i = 0; i < rowCount; i++) {
             var count = $('#group' + j + i + ' option').size();

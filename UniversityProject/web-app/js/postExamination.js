@@ -158,13 +158,11 @@ function loadMismatchStudents(){
 
 $(document).ready(function(){
     $('#pdfButton').on('click', function(){
-        alert("clicked pdf")
-        $("#btn").val("pdf")
+         $("#btn").val("pdf")
         $("#marksFoilId").submit()
     })
 
     $('#excelButton').on('click', function(){
-        alert("clicked excel")
         $("#btn").val("excel")
         $("#marksFoilId").submit()
     })

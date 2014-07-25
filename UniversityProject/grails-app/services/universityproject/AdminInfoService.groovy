@@ -159,6 +159,7 @@ def springSecurityService
     }
     def updateStudentList(params){
 //        println("==========="+springSecurityService.principal.id)
+        println("innnnnnnnnnnn"+params)
         def subjectMap=[:]
         def studyCenterId=0
         def status=[]
@@ -169,21 +170,22 @@ def springSecurityService
         }
         else{
             def currentUser=springSecurityService.getCurrentUser()
-
             studyCenterId=currentUser.studyCentreId
         }
 
          def obj=Student .createCriteria()
 //        println("session<<<<<<<<<<<"+ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,ProgramDetail.findById(Long.parseLong(params.programId))))
+        println("======"+studyCenterId)
+        println(ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,ProgramDetail.findById(Long.parseLong(params.programId))))
         def studList = obj.list {
             if (params.session) {
 
                 programDetail {
                     eq('id', Long.parseLong(params.programId))
                 }
-                studyCentre {
-                    eq('id', Long.parseLong(studyCenterId.toString()))
-                }
+//                studyCentre {
+//                    eq('id', Long.parseLong(studyCenterId.toString()))
+//                }
                 and {
                             eq('programSession', ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,ProgramDetail.findById(Long.parseLong(params.programId))))
                         }
@@ -196,6 +198,7 @@ def springSecurityService
                 }
             }
         }
+        println("#####"+studList)
         subjectMap.studList=studList
         studList.each {
             if(it.status.id<4){
