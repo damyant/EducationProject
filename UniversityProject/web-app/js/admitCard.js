@@ -140,7 +140,7 @@ function getSemester(t){
     }
 //    $('#generateFeeChallan').prop('hidden', true)
     var data = $(t).val();
-    $('#semesterList').prop('disabled',false)
+
     $('#SessionList').prop('disabled',false)
     if(data){
         $.ajax({
@@ -148,27 +148,30 @@ function getSemester(t){
             url: url('admitCard', 'getSemesterList', ''),
             data: {data: data},
             success: function (data) {
-                $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+//                $("#semesterList").empty().append('data <option value="">Select Semester</option>')
 
                 $("#SessionList").empty().append('data <option value="">Select Session</option>')
 
-                for (var i = 1; i <= data.totalSem; i++) {
-                    $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
-                }
+//                for (var i = 1; i <= data.totalSem; i++) {
+//                    $("#semesterList").append('<option value="' + i + '">' + i + '</option>')
+//                }
                 for (var i = 0; i < data.session.length; i++) {
                     $("#SessionList").append('<option value="' + data.session[i].id + '">' + data.session[i].sessionOfProgram + '</option>')
                 }
+
             }
         })
     }
     else{
-        $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+//        $("#semesterList").empty().append('data <option value="">Select Semester</option>')
         $("#SessionList").empty().append('data <option value="">Select Session</option>')
         $("#sessionType").val(0)
         $("#subjectList").empty();
 
 
     }
+
+    $("#SessionList").attr("disabled",false)
 
 }
 function getTermByCatagory(t){

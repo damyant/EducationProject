@@ -10,12 +10,18 @@ class StudentMarks {
     int semesterNo
     int marksObtained
     Role roleId
+    MarksType marksTypeId
     static belongsTo = [student:Student]
 
     static constraints = {
     }
 
     static mapping ={
-        student column: "studentId"
+        subjectId column: 'SubjectId'
+        semesterNo column: 'SemesterNo'
+        marksObtained column: 'MarksObtained'
+        student column: "StudentId"
+        marksTypeId column: "MarksTypeId"
+        roleId column: "RoleId"
     }
 }

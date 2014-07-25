@@ -16,59 +16,89 @@ import jxl.write.WritableWorkbook
 class PostExaminationService {
     //def writeExcelService
     def marksFoilExcelService
+
     def serviceMethod() {
 
     }
 
-    def generateMarksFoilService(params){
+    def generateMarksFoilService(params) {
         println("Inside PostExaminationService 1")
         def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
 //      def programIns=ProgramDetail.findById(Long.parseLong(params.programList))
-        def programSessionIns=ProgramSession.findById(Long.parseLong(params.sessionId))
-        def semesterList=Semester.findAllByProgramSession(programSessionIns)
-        def courseSubjectObj=CourseSubject.findBySubjectAndProgramSession(Subject.findById(Long.parseLong(it)),sessionObj)
+        def programSessionIns = ProgramSession.findById(Long.parseLong(params.sessionId))
+        def semesterList = Semester.findAllByProgramSession(programSessionIns)
+        def courseSubjectObj = CourseSubject.findBySubjectAndProgramSession(Subject.findById(Long.parseLong(it)), sessionObj)
+
+    }
+
+    def dataForMarksFoilSheetPdf(params, semester) {
+        def stuList = []
+
+        try {
+            def regYear = (ProgramSession.findById(params.programSessionId).sessionOfProgram).substring(0, 4)
+
+            def studentObj = Student.createCriteria()
+            stuList = studentObj.list {
+                programDetail {
+                    eq('id', Long.parseLong(params.programId))
+                }
+                and
+                        {
+                            eq('semester', semester.semesterNo)
+                            eq('status', Status.findById(4))
+                            eq("admitCardGenerated", true)
+                            eq('registrationYear', Integer.parseInt(regYear))
+
+                        }
+            }.rollNo
+
+        }
+        catch (Exception e) {
+            println(" Problem in service for generating marks foil sheet for PDF" + e)
+        }
+        return stuList
 
     }
 
     def getMarksFoilData(params, excelPath) {
-        println("inside service class...111.................")
-        if(params.btn=="excel"){
-            File file = new File(''+excelPath);
-            WorkbookSettings  wbSettings = new WorkbookSettings();
+
+        def stuList = []
+        def status = false
+        if (params.btn == "excel") {
+            File file = new File('' + excelPath);
+            WorkbookSettings wbSettings = new WorkbookSettings();
             wbSettings.setLocale(new Locale("en", "EN"));
             WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
-            println("inside service class..222..................")
 
-        def course = ProgramDetail.findById(params.programId).courseName
-        def subject = ProgramDetail.findById(params.programId)
-        def semester = Semester.findById(params.programTerm).semesterNo
-        def session =ProgramSession.findBySessionOfProgram(params.session)
-        def regYear =(ProgramSession.findBySessionOfProgram(params.session).sessionOfProgram).substring(0,4)
+            def course = ProgramDetail.findById(Integer.parseInt(params.programId)).courseName
+            def programSession = ProgramSession.get(Integer.parseInt(params.programSessionId))
+            def semester = Semester.findByProgramSessionAndId(programSession, Integer.parseInt(params.semester))
+            def subjectName = Subject.get(Integer.parseInt(params.courseCode)).subjectName
+            def regYear = (ProgramSession.findById(params.programSessionId).sessionOfProgram).substring(0, 4)
+            def currentYear = new Date().format("yyyy")
+            def studentObj = Student.createCriteria()
+            stuList = studentObj.list {
+                programDetail {
+                    eq('id', Long.parseLong(params.programId))
+                }
+                and
+                        {
+                            eq('semester', semester.semesterNo)
+                            eq('status', Status.findById(4))
+                            eq("admitCardGenerated", true)
+                            eq('registrationYear', Integer.parseInt(regYear))
 
-        def studentObj = Student.createCriteria()
-        def stuList = studentObj.list{
-            programDetail{
-                eq('id', subject.id)
-            }
-            and
-                    {
-                        eq('semester', Integer.parseInt(params.programTerm) )
-                    }
-            and
-                    {
-                        eq('status', Status.findById(4))
-                    }
-            and{
-                eq('registrationYear',Integer.parseInt(regYear ))
-            }
-        }
+                        }
+            }.rollNo
 
-            println('Student List :: '+ stuList)
             int count = 0
-            def status=  MarksFoilExcelService.excelReport(params,stuList,subject,count, workbook)
+            if (stuList) {
+                status = marksFoilExcelService.excelReport(params, stuList, course, count, workbook, currentYear, semester.semesterNo)
+                workbook.write();
+                workbook.close();
+            }
 
-            workbook.write();
-            workbook.close();
+
             return status
         }
     }
