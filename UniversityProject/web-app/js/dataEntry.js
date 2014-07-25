@@ -713,7 +713,7 @@ function loadProgramList(t) {
                 for (var i=0;i<data.subSession.length;i++){
 
                     var count=i+1
-                    $('#courseTable tbody').append('<tr><td>'+count+'</td><td>'+ data.subject[i][0].subjectName+'</td><td>'+ data.subSession[i][0].sessionOfSubject+'</td>' +
+                    $('#courseTable tbody').append('<tr><td>'+data.subject[i][0].subjectCode+'</td><td>'+ data.subject[i][0].subjectName+'</td><td>'+ data.subSession[i][0].sessionOfSubject+'</td>' +
                         '<td><input type="button" class="university-button"  onclick="deleteCourse(' +  data.subSession[i][0].id  + ')" value="Delete"/> <input type="button" class="university-button" onclick="editCourse(' + data.subSession[i][0].id  + ')" value="Edit"/></td>' +
                         '</tr>')
                 }

@@ -712,7 +712,7 @@ class AdminController {
         returnMap.subSession=subSessionList
         returnMap.subject=subjectNameList
         def response = [subjectList: subSessionList]
-//        println(response.programList[0].courseName)
+            println(subjectNameList)
         render returnMap as JSON
     }
 

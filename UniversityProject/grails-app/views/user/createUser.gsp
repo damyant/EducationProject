@@ -3,8 +3,12 @@
 
 <head>
     <meta name="layout" content="main">
+    <g:javascript src='tabulator.js'/>
+    %{--<link rel='stylesheet' href="${resource(dir: 'css', file: 'tabulator.css')}" type='text/css'>--}%
+
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
+
 </head>
 
 <body>
@@ -121,13 +125,24 @@
                             <label>${fieldValue(bean: roleInstance, field: "authority")}</label>
                         </div>
 
-                        <div class="university-size-1-3" ><g:checkBox name="myCheckbox" value="${roleInstance.id}"
-                                                                     checked=""/></div>
-                        <g:if test="${roleInstance.authority=='TABULATOR1' || roleInstance.authority=='TABULATOR2'}">
-                        <div class="university-size-1-3" style="width: 10%">
-                        <input type='button' onclick='assignCourses(this)' id="button${roleInstance.id}" value="Assign Courses" hidden="hidden" />
-                        </div>
+
+                        <g:if test="${roleInstance.authority=='ROLE_TABULATOR1'}">
+                            <div class="university-size-1-3" ><g:checkBox name="myCheckbox" id="tab1" value="${roleInstance.id}"
+                                                                          checked="" onchange="openTabulator()" /></div>
                         </g:if>
+                        <g:elseif test="${roleInstance.authority=='ROLE_TABULATOR2'}">
+                            <div class="university-size-1-3" ><g:checkBox name="myCheckbox" id="tab2" value="${roleInstance.id}"
+                                                                          checked="" onchange="openTabulator()" /></div>
+                        </g:elseif>
+                       <g:else>
+                           <div class="university-size-1-3" ><g:checkBox name="myCheckbox"  value="${roleInstance.id}"
+                                                                         checked=""/></div>
+                       </g:else>
+
+                        <div class="university-size-1-3" style="width: 10%">
+                        %{--<input type='button' onclick='assignCourses(this)' id="button${roleInstance.id}" value="Assign Courses" hidden="hidden" />--}%
+                        </div>
+
                     </div>
                 </g:each>
 
@@ -161,26 +176,62 @@
                 </fieldset>
             </g:form>
         </div>
-    </fieldset>
-   <div id="coursePopup" class="dialog">
+
+   <div id="coursePopup">
     <g:form >
-        <div style="height: 300px; overflow-y: scroll; background: snow; border: 1px solid #000000">
-            <g:each in="${programList}" status="i" var="program">
-                <div>
-                    <label style="color: #0000ff">${program.courseName}</label>
-                </div>
-                <g:each in="${1..program.noOfTerms}" status="j" var="index">
-                    <div id="checkboxes">
-                        <input type="checkbox" id="" name= "${program.id}" value="${index}"/>
-                        <label>${j+1} Semester</label>
-                    </div>
-                </g:each>
-            </g:each>
+    <div class="dialogTab1" id="dialogTab1" style="height: 650px; display: none;">
+        <div> <button name="submit" onclick="return saveSelectedSemesters()">Save</button></div>
+        <div  id="tabulator1"   style="height: 550px; width:750px;  border: 1px">
+           %{--<g:each in="${programList}" status="i" var="program">--}%
+                %{--<g:javascript>--}%
+                    %{--programIdList.push(${program.id})--}%
+                %{--</g:javascript>--}%
+            %{--<div>--}%
+            %{--<h5> <input type="checkbox"  name= "programCheck${program.id}" id="programCheck${program.id}"  value="" onclick="togleProgram(${program.id})">${program.programDetailId.courseName}</h5>--}%
+                 %{--</div>--}%
+            %{--<div id="${program.id}" hidden="hidden"  >--}%
+            %{--<g:each in="${program.semester}" status="j" var="index">--}%
+                %{--<div id="checkboxes${program.id}" name="checkboxes${program.id}">--}%
+
+                    %{--<input type="checkbox"  name= "programSemster${program.id}" id= "programSemster${program.id}${j+1}" value=""/>--}%
+                    %{--<label>${j+1} Semester</label>--}%
+                %{--</div>--}%
+            %{--</g:each>--}%
+                %{--</p>--}%
+            %{--</div>--}%
+            %{--</g:each>--}%
+    </div>
+
+
+    </div>
+
+        %{--<div class="dialogTab2" id="dialogTab2" style="height: 650px; display: none;">--}%
+            %{--<div> <button name="submit" onclick="return saveSelectedSemesters()">Submit</button></div>--}%
+            %{--<div  id="tabulator2"   style="height: 750px; width:750px;  border: 1px">--}%
+                %{--<div class="accordion2" id="accordion2" style="height: 750px; width: 750px">--}%
+
+                    %{--<g:each in="${programList}" status="i" var="program">--}%
+                        %{--<div>--}%
+                            %{--<h5> <input type="checkbox"  name= "${program.id}"  value="" onclick="togleProgram(${program.id})">${program.programDetailId.courseName}</h5>--}%
+                        %{--</div>--}%
+                        %{--<div id="${program.id}" hidden="hidden"  >--}%
+                            %{--<g:each in="${program.semester}" status="j" var="index">--}%
+                                %{--<div id="checkboxes">--}%
+                                    %{--<input type="checkbox" id="${index}" name= "${program.id}" value="${index}"/>--}%
+                                    %{--<label>${j+1} Semester</label>--}%
+                                %{--</div>--}%
+                            %{--</g:each>--}%
+                        %{--</div>--}%
+                    %{--</g:each>--}%
+                %{--</div>--}%
+            %{--</div>--}%
+        %{--</div>--}%
+        <button name="submit" onclick="return saveSelectedSemesters()">Submit</button>
+        </g:form>
         </div>
-        <button name="submit" onclick="return submitCourses()">Submit</button>
-    </g:form>
+</fieldset>
  </div>
-</div>
+
 <script type="text/javascript">
     $(document).ready(function () {
         document.getElementById("studyCentreId").multiple = false;
@@ -228,18 +279,13 @@
             }
         }
     })
-    function assignCourses(val){
-<<<<<<< HEAD
-        alert('helo kuldeep'+val.id)
-        $('#coursePopup').dialog('open')
-
-
-//        window.open("/UniversityProject/user/assignCourse?userId="+val.id,'_self', false)
-=======
+//    function assignCourses(val){
+//
 //        alert('helo kuldeep'+val.id)
-        window.open("/UniversityProject/user/assignCourse?userId="+val.id,'_self', false)
->>>>>>> 49c7936171909e93685dd7977688c4a704572bdc
-    }
+//        $('#coursePopup').dialog('open')
+//       // window.open("/UniversityProject/user/assignCourse?userId="+val.id,'_self', false)
+//
+//    }
 </script>
 </body>
 

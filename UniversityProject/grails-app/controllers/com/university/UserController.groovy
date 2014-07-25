@@ -2,7 +2,9 @@
 package com.university
 
 import examinationproject.ProgramDetail
+import examinationproject.ProgramSession
 import examinationproject.StudyCenter
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 import javax.validation.constraints.Null
@@ -54,7 +56,9 @@ class UserController {
         def userInstance = new User()
         userInstance.properties = params
         def stydyCentreList=StudyCenter.list(sort: 'name')
-        def programList = ProgramDetail.list(sort: 'courseCode')
+        def programList = ProgramSession.list()
+
+        println(">>>>>>>>>>>>>>>>>>>>>"+programList.size())
         def roleList=userService.getRoleList()
         [userInstance: userInstance,roles:roleList, stydyCentreList:stydyCentreList, programList: programList]
     }
@@ -66,7 +70,20 @@ class UserController {
 
     }
 
+def getProgramList={
 
+    def programListMap=[]
+    def programList = ProgramSession.list()
+    programList.each {
+        def returnMap=[:]
+        returnMap.id =it.id
+        returnMap.programName=it.programDetailId.courseName
+        returnMap.noOfSemester= it.programDetailId.noOfTerms
+        programListMap.add(returnMap)
+    }
+    println("??????????"+programListMap)
+    render programListMap as JSON
+}
 //    def saveUser(User userInstance) {
 //
 //        userInstance = new User(params)
