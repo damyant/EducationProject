@@ -227,6 +227,7 @@ class CourseDetailService {
 
     def saveCourseDetail(params) {
         def subjectIns
+        def isSaved =""
 
         try {
             if (params.subjectId) {
@@ -236,9 +237,11 @@ class CourseDetailService {
                 subjectIns.aliasCode = params.aliasCode
                 subjectIns.creditPoints = Integer.parseInt(params.creditPoints)
                 subjectIns.save(flush: true)
+                isSaved ="update"
             } else {
                 subjectIns = new Subject(params)
                 subjectIns.save(failOnError: true, flush: true)
+                isSaved ="create"
             }
             def session = SubjectSession.count()
             def sessionObj
@@ -253,13 +256,16 @@ class CourseDetailService {
                 sessionObj = new SubjectSession(sessionOfSubject: params.session, subjectId: subjectIns).save(flush: true, failOnError: true)
             }
 
+            if(sessionObj.subjectMarksDetail) {
                   sessionObj.subjectMarksDetail.toList().each {
                       sessionObj.removeFromSubjectMarksDetail(it)
                     it.delete()
                 }
+            }
 
             def marksTypeList = MarksType.list()
             def i = 0
+
             marksTypeList.each {
                 if (params.totalMarks[i]) {
                     def subjectMarksDetailIns = new SubjectMarksDetail()
@@ -272,13 +278,15 @@ class CourseDetailService {
                 ++i
             }
 
+
         }
 
         catch (Exception e) {
             println(" There is some problem in saving Course=" + e)
-
+            isSaved= false
         }
 
+        return isSaved
     }
 
     def getCourseOnProgramCode(params){

@@ -185,7 +185,13 @@ class CourseController {
     //ADDED BY DIGVIJAY ON 20 May 2014
    // Modified By Ajay
     def saveCourses() {
-      courseDetailService.saveCourseDetail(params)
+      def isSaved =courseDetailService.saveCourseDetail(params)
+        if(isSaved=="update"){
+            flash.message = "Course Successfully Updated."
+        }else{
+            flash.message = "Course Successfully Created"
+        }
+
       redirect(controller: 'admin', action: 'addCourses')
     }
 

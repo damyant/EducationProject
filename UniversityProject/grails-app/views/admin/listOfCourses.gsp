@@ -44,7 +44,7 @@
             <table style="visibility: hidden" class="inner university-size-full-1-1" id="courseTable">
                 <thead>
                 <tr>
-                    <th>Serial No</th><th>Course Name</th><th>Session Of Course</th><th></th>
+                    <th>Course Code</th><th>Course Name</th><th>Session Of Course</th><th></th>
                 </tr>
                 </thead>
                 <tbody>

@@ -13,7 +13,7 @@
     <g:javascript src='admin.js'/>
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
-    <g:javascript src='admin.js'/>
+
     <script type="text/javascript">
         $(window).bind("load", function () {
 
