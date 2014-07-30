@@ -468,16 +468,16 @@ class StudentRegistrationService {
         }
         a++
         def existingChallanInst
-        if(ExistingChallan.findById(1)){
-        existingChallanInst=ExistingChallan.findById(1)
+        if(ExistingChallan.findBySession(2014)){
+            existingChallanInst=ExistingChallan.findBySession(2014)
+            existingChallanInst.challan=challanNo
         }
         else{
             existingChallanInst=new ExistingChallan()
+            existingChallanInst.challan=challanNo
+            existingChallanInst.session=2014
+            existingChallanInst.save(flush: true, failOnError: true)
         }
-
-        existingChallanInst.challan=challanNo
-//        println("----------------"+challanNo)
-        existingChallanInst.save(flush: true, failOnError: true)
         return challanNo
     }
 
