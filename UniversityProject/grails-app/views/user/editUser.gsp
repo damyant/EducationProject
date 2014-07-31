@@ -4,6 +4,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
+    <g:javascript src='tabulator.js'/>
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
     <title><g:message code="default.edit.label" args="[entityName]"/></title>
 </head>
@@ -142,17 +143,68 @@
                     <g:each in="${roles}" status="i" var='roleInstance'>
 
                         <tr>
-                            <td class='name'>
+                            <td class='name university-size-1-4' >
                                 <label> ${fieldValue(bean: roleInstance, field: "authority")} </label>
                             </td>
-                            <td class='value'>
+                            <td class='value university-size-3-4'>
                                 <g:set var="userRoleIds" value="${userRoles.id}"/>
+
                                 <g:if test="${userRoleIds.contains(roleInstance.id)}">
+                                    <g:if test="${roleInstance.authority=='ROLE_TABULATOR1'}">
+                                        <div class="university-size-1-3" ><g:checkBox name="myCheckbox" id="tab1" value="${roleInstance.id}"
+                                                                                      checked="true" onchange="openTabulator()" /></div>
+                                        <div id="viewSelected1" class="university-size-1-3">
+                                            <select class="university-size-2-3"  multiple="true">
+                                        <g:if test="${tab1OptionValue.size()>0}">
+                                                <g:each in="${0..tab1OptionValue.size()-1}" var="index">
+                                                    <option value="${tab1OptionValue.get(index)}">${tab1OptionText.get(index)}</option>
+                                                </g:each>
+                                        </g:if>
+                                            </select>
+                                            <input type="hidden" value="${tab1HProgList}" id="tab1Program" name="tab1Program">
+                                            <input type="hidden" value="${tab1HSemList}" id="tab1Semester" name="tab1Semester">
+                                        </div>
+                                    </g:if>
+                                    <g:elseif test="${roleInstance.authority=='ROLE_TABULATOR2'}">
+                                        <div class="university-size-1-3" ><g:checkBox name="myCheckbox" id="tab2" value="${roleInstance.id}"
+                                                                                      checked="true" onchange="openTabulator()" /></div>
+                                        <div id="viewSelected2" class="university-size-1-3">
+                                            <select class="university-size-2-3"  multiple="true">
+                                            <g:if test="${tab2OptionValue.size()>0}">
+                                                <g:each in="${0..tab2OptionValue.size()-1}" var="index">
+                                                    <option value="${tab2OptionValue.get(index)}">${tab2OptionText.get(index)}</option>
+                                                </g:each>
+                                            </g:if>
+                                            </select>
+                                            <input type="hidden" value="${tab2HProgList}" id="tab2Program" name="tab2Program">
+                                            <input type="hidden" value="${tab2HSemList}" id="tab2Semester" name="tab2Semester">
+                                        </div>
+                                    </g:elseif>
+                                    <g:else>
                                     <g:checkBox name="myCheckbox" value="${roleInstance.id}" checked="true"/>
+                                    </g:else>
                                 </g:if>
                                 <g:else>
+                                    <g:if test="${roleInstance.authority=='ROLE_TABULATOR1'}">
+                                        <div class="university-size-1-3" ><g:checkBox name="myCheckbox" id="tab1" value="${roleInstance.id}"
+                                                                                      checked="false" onchange="openTabulator()" /></div>
+                                        <div id="viewSelected1" class="university-size-1-3"><select class="university-size-2-3" multiple="true"></select>
+                                            <input type="hidden" value="" id="tab1Program" name="tab1Program">
+                                            <input type="hidden" value="" id="tab1Semester" name="tab1Semester">
+                                        </div>
+                                    </g:if>
+                                    <g:elseif test="${roleInstance.authority=='ROLE_TABULATOR2'}">
+                                        <div class="university-size-1-3" ><g:checkBox name="myCheckbox" id="tab2" value="${roleInstance.id}"
+                                                                                      checked="false" onchange="openTabulator()" /></div>
+                                        <div id="viewSelected2" class="university-size-1-3"><select class="university-size-2-3"  multiple="true"></select>
+                                            <input type="hidden" value="" id="tab2Program" name="tab2Program">
+                                            <input type="hidden" value="" id="tab2Semester" name="tab2Semester">
+                                        </div>
+                                    </g:elseif>
+                                    <g:else>
                                     <g:checkBox name="myCheckbox" value="${roleInstance.id}" checked="false"/>
                                 </g:else>
+                        </g:else>
                             </td>
 
                         </tr>
@@ -189,11 +241,33 @@
             </fieldset>
         </g:form>
     </div>
+<div id="coursePopup">
+    <g:form>
+        <div class="dialogTab1" id="dialogTab" style="height: 650px; display: none;">
+
+        </div>
+    </g:form>
+</div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-        document.getElementById("studyCentreId").multiple = false;
-    })
+            $(document).ready(function () {
+                document.getElementById("studyCentreId").multiple = false;
+                $(".dialog").dialog({
+                    autoOpen: false,
+                    draggable: false,
+                    position: ['center',0],
+                    width: 550,
+                    resizable: false,
+                    height: 400,
+                    modal: true,
+                    title:'Assign Semesters',
+                    close: function(ev, ui) {
+                        $.unblockUI();
+                    }
+
+                });
+            })
+
     $('input[name="myCheckbox"]').change(function () {
         if ($(this).is(':checked')) {
             if ($(this).val() == 3) {

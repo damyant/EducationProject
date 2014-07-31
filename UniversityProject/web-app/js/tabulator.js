@@ -4,82 +4,105 @@
 
 var programIdList=[]
 var programList = []
+var programSemesterListTab1= []
+var programSemesterListTab2= []
 function openTabulator() {
 
     $('#tab1').click(function () {
-        initializeDailog1();
-
-
+        initializeDailog();
         if ($('#tab1').is(':checked')) {
-            $.ajax({
-                type: "post",
-                url: url('user', 'getProgramList', ''),
-                data: {},
-                success: function (data) {
-                    if (data) {
-                        programList = data
-                        appendTab(programList)
-                    }
-                    else {
-                        $('#errorMsg').text("")
-                        return true
-                    }
-
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                }
-            });
+            getProgramList(1);
             $('.dialogTab1').dialog('open');
             console.log("in js"+programList.length)
-//            for(){
-//
-//            }
-           // appendTab($(programList))
         }
     });
     $('#tab2').click(function () {
+        initializeDailog();
         if ($('#tab2').is(':checked')) {
-            $('.dialogTab2').dialog('open');
+            getProgramList(2);
+
+            $('.dialogTab1').dialog('open');
         }
     });
 }
 
-function saveSelectedSemesters() {
 
-    var programMap={};
-
-    var noOfPrograms = programIdList.length
-    alert(noOfPrograms)
-
-    for(var i=0;i<noOfPrograms;i++){
-        var listOfSem =[];
-        if($('#programCheck'+programIdList[i]).is(':checked')){
-            var noOfSemester = $('input[name=programSemster'+programIdList[i]+']').length
-            alert(programIdList[i])
-            for(var j=1;j<=noOfPrograms;j++){
-                if($('#programSemster' + programIdList[i]+j).is(":checked")){
-//                 alert("Checked"+j)
-                    listOfSem.push(j)
+function getProgramList(tab){
+    if(programList.length==0) {
+        $.ajax({
+            type: "post",
+            url: url('user', 'getProgramList', ''),
+            data: {},
+            success: function (data) {
+                if (data) {
+                    programList = data
+                    appendTab(programList,tab)
+                    console.log("in success"+programList.length)
+                }
+                else {
+                    $('#errorMsg').text("")
+                    return true
                 }
 
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
             }
-            programMap[programIdList[i]]=listOfSem
-            console.log("list of sem"+listOfSem)
-        }else{
-            //  alert("hi")
-        }
-        console.log("final list "+ programMap)
+        });
+    }else{
+        appendTab(programList,tab)
+    }
 
+
+}
+function saveSelectedSemesters(tabId) {
+    $('#tab' + tabId +'Semester').val('')
+    $('#tab' + tabId +'Program').val('')
+    $('#dialogTab').dialog('close');
+    var programMap={};
+    var programSemester={};
+    var noOfPrograms = programList.length
+    $('#viewSelected' + tabId +' select').empty().append('')
+    for(var i=0;i<noOfPrograms;i++){
+        var listOfSem =[];
+        var programIndex =[];
+        if($('#programCheck'+programList[i].id).is(':checked')){
+            var noOfSemester = $('input[name=semCheckBox'+programList[i].id+']').length
+            for(var j=1;j<=noOfPrograms;j++){
+                if($('#semCheckBox' + programList[i].id+j).is(":checked")){
+                    listOfSem.push(j)
+                }
+            }
+            programIndex.push(programList[i].id)
+            programMap[programList[i].id]=listOfSem
+            programSemester["id"]=programList[i].id
+            programSemester["semesterList"] =listOfSem
+            console.log("selected Sem"+programSemester)
+        }else{
+        }
+
+
+        for(var k=0;k<programIndex.length;k++) {
+            if($('#tab' + tabId +'Semester').val()!=''){
+                $('#tab' + tabId +'Semester').val($('#tab' + tabId +'Semester').val()+"/"+programMap[programIndex[k]])
+            }
+            else{
+                $('#tab' + tabId +'Semester').val(programMap[programIndex[k]])
+            }
+            if($('#tab' + tabId +'Program').val()!=''){
+                $('#tab' + tabId +'Program').val($('#tab' + tabId +'Program').val()+" "+programList[i].id)
+            }
+            else{
+                $('#tab' + tabId +'Program').val(programList[i].id)
+            }
+            $('#viewSelected' + tabId +' select').append('<option value="'+ programList[i].id+'/'+programMap[programIndex[k]]+'">'+ programList[i].programName+'( Semesters '+ programMap[programIndex[k]]+')</option>')
+        }
     }
 }
 
 function togleProgram(id){
-
     $("#"+id).toggle()
-
 }
-function initializeDailog1(){
-    alert("hi")
+function initializeDailog(){
     $(".dialogTab1").dialog({
         autoOpen: false,
         draggable: false,
@@ -92,66 +115,57 @@ function initializeDailog1(){
         close: function(ev, ui) {
             $.unblockUI();
         }
-
     });
 }
 
-function initializeDailog2(){
-    $(".dialogTab2").dialog({
-        autoOpen: false,
-        draggable: false,
-        position: ['center', 0],
-        width: 850,
-        resizable: true,
-        height: 750,
-        modal: true,
-        title:'Assign Semesters',
-        close: function(ev, ui) {
-            $.unblockUI();
-        }
-
-    });
-}
-
-function ConvertGroupFormToJSON(id) {
-    var json = {};
-    var finalList = new Array();
-    var i = 0;
-    var groupMap = {};
-    var rowCount = $('#subjectGroup'+id+' tr').length;
-
-    for (var j = 0; j < rowCount; j++) {
-        var subMap = {};
-        $('#group' +id+''+ j + ' option').each(function () {
-                var key=$(this).val()
-                subMap[key]=$('#group' +id+''+ j + ' option[value='+$(this).val()+']').text()
-                groupMap["group" +id+''+ j] = subMap;
-            }
-        )
-
-    }
-    finalList.push(groupMap);
-
-    json["groupList"] = finalList;
-
-
-    return json
-}
-
-
-function appendTab(programList){
-    alert("programlist size"+programList.length)
+function appendTab(programList,tabId){
+    $('#dialogTab').empty().append(' <div> <button name="submit" id="saveSelectedSemesters" onclick="return saveSelectedSemesters('+tabId+')">Save</button></div>')
+      $('#dialogTab').append('<div style="height: 550px; width:750px;  border: 1px" id="tabulator'+tabId+'"> </div>')
+//    alert(programList.length)
+    $('#tabulator'+tabId).empty().append('')
     for(var i=0;i<programList.length;i++){
-        $('#tabulator1').append('<div><h5> <input type="checkbox"  name= "programCheck'+programList[i].id+'" id="programCheck'+programList[i].id+'"  value="" ' +
+           $('#tabulator'+tabId).append('<div><h5> <input type="checkbox"  name= "programCheck'+programList[i].id+'" id="programCheck'+programList[i].id+'"  value="" ' +
             'onclick="togleProgram('+programList[i].id+')"/>'+programList[i].programName+'</h5></div>' +
             '<div id="'+programList[i].id+'" hidden="hidden"/></div>');
+        $('#'+programList[i].id).empty().append('')
          for(var j=0;j<programList[i].noOfSemester;j++){
-              $('#'+programList[i].id).append('<div id="checkboxes'+programList[i].id+'" name="checkboxes'+programList[i].id+'"' +
-                  '<input type="checkbox" name="checkbox"/>' +
+              $('#'+programList[i].id).append('<div id="checkboxes'+programList[i].id+'" name="checkboxes'+programList[i].id+'">' +
+                  '<input type="checkbox" id="semCheckBox'+programList[i].id+(j+1)+'" name="semCheckBox'+programList[i].id+'" />' +
                   '<label>'+(j+1)+' Semester</label>' +
                   '</div>')
          }
-
+    }
+    for (var l=1; l<=$('#viewSelected'+tabId+' select option').length;l++){
+        var arrProgram=$('#viewSelected'+tabId+' select option:nth-child('+l+')').val().split('/')
+        $('#programCheck'+arrProgram[0]).click()
+        var arrSem=arrProgram[1].split(',')
+        for (var m=0; m<arrSem.length;m++){
+            $('#semCheckBox'+arrProgram[0]+''+arrSem[m]).prop('checked', true);
+        }
+    }
+    var otherTab
+    if(tabId==1){
+        otherTab=2
+    }
+    else{
+        otherTab=1
+    }
+    if($('#viewSelected'+otherTab + ' select option').length>0) {
+        for (var l = 1; l <= $('#viewSelected' + otherTab + ' select option').length; l++) {
+            var arrProgram = $('#viewSelected' + otherTab + ' select option:nth-child(' + l + ')').val().split('/')
+            var arrSem = arrProgram[1].split(',')
+            var totalCheckedSem=arrSem.length
+            var totalSem=$("input[name='semCheckBox"+arrProgram[0]+"']").length
+            if(totalSem==totalCheckedSem){
+                $('#programCheck' + arrProgram[0]).prop('disabled', true);
+            }
+            else{
+                for (var m = 0; m < arrSem.length; m++) {
+                    $('#semCheckBox' + arrProgram[0] + '' + arrSem[m]).prop('disabled', true);
+                }
+            }
+        }
     }
 
 }
+

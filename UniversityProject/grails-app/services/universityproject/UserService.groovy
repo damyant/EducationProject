@@ -1,8 +1,12 @@
 package universityproject
 
 import com.university.Role
+import com.university.TabulatorProgram
+import com.university.TabulatorSemester
 import com.university.User
 import com.university.UserRole
+import examinationproject.ProgramDetail
+import examinationproject.StudyCenter
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsHttpSession
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
@@ -123,5 +127,249 @@ class UserService {
         }
         return userList
     }
+    def saveUserDetails(params){
+        def resultMap=[:]
+        def userInstance = new User(params)
+        def checked = params.list('myCheckbox')
+        def roleList = Role.getAll()
+        if (userInstance.save(flush: true)) {
+            for (int i = 0; i < checked.size(); i++) {
+                def role = Role.findById(checked[i])
+                UserRole.create userInstance, role
 
+                if (checked[i] == '9') {
+                    String[] tab1Prog
+                    String[] tab1Sem
+                    tab1Prog = (params.tab1Program).split(" ")
+                    tab1Sem = (params.tab1Semester).toString().split("/")
+                    for (int l = 0; l < tab1Prog.length; l++) {
+                        def tabProgramInst = new TabulatorProgram()
+                        tabProgramInst.program = ProgramDetail.findById(Integer.parseInt(tab1Prog[l]))
+                        tabProgramInst.user = userInstance
+                        tabProgramInst.role = role
+                        String[] sem
+                        if (tabProgramInst.save(flush: true)) {
+                            sem = tab1Sem[l].split(",")
+                            for (int j = 0; j < sem.length; j++) {
+                                def tabSemesterInst = new TabulatorSemester()
+                                tabSemesterInst.semester = sem[j]
+                                tabSemesterInst.tabulatorProgram = tabProgramInst
+                                tabSemesterInst.save(flush: true)
+                            }
+                        }
+                    }
+                } else if (checked[i] == '10') {
+                    String[] tab2Prog
+                    String[] tab2Sem
+                    tab2Prog = (params.tab2Program).toString().split(" ")
+                    tab2Sem = (params.tab2Semester).toString().split("/")
+                    for (int k = 0; k < tab2Prog.length; k++) {
+                        def tabProgramInst = new TabulatorProgram()
+                        tabProgramInst.program = ProgramDetail.findById(Integer.parseInt(tab2Prog[k]))
+                        tabProgramInst.user = userInstance
+                        tabProgramInst.role = role
+                        String[] sem
+                        if (tabProgramInst.save(flush: true)) {
+                            sem = tab2Sem[k].split(",")
+                            for (int j = 0; j < sem.length; j++) {
+                                def tabSemesterInst = new TabulatorSemester()
+                                tabSemesterInst.semester = sem[j]
+                                tabSemesterInst.tabulatorProgram = tabProgramInst
+                                tabSemesterInst.save(flush: true)
+                            }
+                        }
+                    }
+                }
+            }
+            resultMap.userInstance=userInstance
+            resultMap.status=true
+        }
+        else{
+            resultMap.status=false
+        }
+        return resultMap
+    }
+
+   def updateUserDetails(params){
+       def resultMap=[:]
+       def UserInstance = User.get(params.id)
+       if (UserInstance) {
+           if (params.version) {
+
+               def version = params.version.toLong()
+               if (UserInstance.version > version) {
+
+                   UserInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(default: 'User')] as Object[], "Another user has updated this User while you were editing")
+                   render(view: "editUser", model: [UserInstance: UserInstance])
+                   return
+               }
+           }
+
+           UserInstance.properties = params
+
+           def secUserSecRoleInstance = UserRole.findAllByUser(UserInstance)
+           secUserSecRoleInstance.each {
+               it.delete()
+           }
+           def checked = params.list('myCheckbox')
+           if (UserInstance.save(flush: true)) {
+               def count = 0
+               for (int i = 0; i < checked.size(); i++) {
+                   def role = Role.findById(checked[i])
+                   UserRole.create UserInstance, role
+                   if (checked[i] == '9' || checked[i] == '10') {
+                       if (count == 0) {
+                           def tabProgramsList = TabulatorProgram.findAllByUser(UserInstance)
+                           if (tabProgramsList) {
+                               tabProgramsList.each {
+                                   def tabSemLists = TabulatorSemester.findAllByTabulatorProgram(it)
+                                   tabSemLists.each {
+                                       it.delete()
+                                   }
+                                   it.delete()
+                               }
+                           }
+                           count++
+                       }
+                   }
+                   if (checked[i] == '9') {
+                       String[] tab1Prog
+                       String[] tab1Sem
+                       tab1Prog = (params.tab1Program).split(" ")
+                       tab1Sem = (params.tab1Semester).toString().split("/")
+                       for (int l = 0; l < tab1Prog.length; l++) {
+                           def tabProgramInst = new TabulatorProgram()
+                           tabProgramInst.program = ProgramDetail.findById(Integer.parseInt(tab1Prog[l]))
+                           tabProgramInst.user = UserInstance
+                           tabProgramInst.role = role
+                           if (tabProgramInst.save(flush: true, failOnError: true)) {
+                               String[] sem = tab1Sem[l].split(",")
+                               for (int j = 0; j < sem.length; j++) {
+                                   def tabSemesterInst = new TabulatorSemester()
+                                   tabSemesterInst.semester = sem[j]
+                                   tabSemesterInst.tabulatorProgram = tabProgramInst
+                                   if (tabSemesterInst.save(flush: true, failOnError: true))
+                                       println("Saved")
+                               }
+                           }
+                       }
+                   } else if (checked[i] == '10') {
+                       String[] tab2Prog
+                       String[] tab2Sem
+                       tab2Prog = (params.tab2Program).toString().split(" ")
+                       tab2Sem = (params.tab2Semester).toString().split("/")
+                       for (int k = 0; k < tab2Prog.length; k++) {
+                           def tabProgramInst
+                           tabProgramInst = new TabulatorProgram()
+                           tabProgramInst.program = ProgramDetail.findById(Integer.parseInt(tab2Prog[k]))
+                           tabProgramInst.user = UserInstance
+                           tabProgramInst.role = role
+                           tabProgramInst.save(flush: true)
+
+                           String[] sem
+                           sem = tab2Sem[k].split(",")
+                           for (int j = 0; j < sem.length; j++) {
+                               def tabSemesterInst
+                               tabSemesterInst = new TabulatorSemester()
+                               tabSemesterInst.semester = sem[j]
+                               tabSemesterInst.tabulatorProgram = tabProgramInst
+                               tabSemesterInst.save(flush: true)
+                           }
+                       }
+                   }
+               }
+               resultMap.status=true
+           }
+           else{
+               resultMap.status=false
+           }
+           resultMap.userInstance=UserInstance
+       }
+       return resultMap
+   }
+    def editUserDetails(params){
+        def resultMap=[:]
+        def currentUser = springSecurityService.getCurrentUser().getUsername()
+        def studyCentreList = StudyCenter.list(sort: 'name')
+        def boolean compare = false
+        def userInstance = User.get(params.id)
+        if (currentUser == userInstance.username) {
+            compare = true
+        }
+        def userRoles = UserRole.findAllByUser(userInstance)*.role
+        if (!userInstance) {
+            resultMap.status=false
+        }
+        else{
+            def roles = Role.getAll()
+            def studyCentre = null
+            if (userInstance.studyCentreId != 0) {
+                studyCentre = StudyCenter.findById(userInstance.studyCentreId).id
+            }
+            def tab1ProgramList, tab2ProgramList, tab1OptionValue = [], tab1OptionText = []
+            def tab1HProgList = '', tab2HProgList = '', tab1HSemList = '', tab2HSemList = '', tab2OptionValue = [], tab2OptionText = []
+            tab1ProgramList = TabulatorProgram.findAllByUserAndRole(userInstance, Role.findById(9))
+            tab2ProgramList = TabulatorProgram.findAllByUserAndRole(userInstance, Role.findById(10))
+            if (tab1ProgramList) {
+                for (int j = 0; j < tab1ProgramList.size(); j++) {
+                    def semList = TabulatorSemester.findAllByTabulatorProgram(tab1ProgramList[j])
+                    String semester = ''
+                    for (int i = 0; i < semList.size(); i++) {
+                        if (i == 0) {
+                            semester = semList[i].semester
+                        } else {
+                            semester += "," + semList[i].semester
+                        }
+                    }
+                    tab1OptionValue << tab1ProgramList[j].program.id + "/" + semester
+                    tab1OptionText << tab1ProgramList[j].program.courseName + "(Semesters " + semester + ")"
+                    if (j == 0) {
+                        tab1HProgList = tab1ProgramList[j].program.id
+                        tab1HSemList = semester
+                    } else {
+                        tab1HProgList += " " + tab1ProgramList[j].program.id
+                        tab1HSemList += "/" + semester
+                    }
+                }
+            }
+            if (tab2ProgramList) {
+                for (int j = 0; j < tab2ProgramList.size(); j++) {
+                    def semList = TabulatorSemester.findAllByTabulatorProgram(tab2ProgramList[j])
+                    String semester = ''
+                    for (int i = 0; i < semList.size(); i++) {
+                        if (i == 0) {
+                            semester = semList[i].semester
+                        } else {
+                            semester += "," + semList[i].semester
+                        }
+                    }
+                    if (j == 0) {
+                        tab2HProgList = tab2ProgramList[j].program.id
+                        tab2HSemList = semester
+                    } else {
+                        tab2HProgList += " " + tab2ProgramList[j].program.id
+                        tab2HSemList += "/" + semester
+                    }
+                    tab2OptionValue << tab2ProgramList[j].program.id + "/" + semester
+                    tab2OptionText << tab2ProgramList[j].program.courseName + "(Semesters " + semester + ")"
+                }
+            }
+            resultMap.status=true
+            resultMap.tab1HProgList=tab1HProgList
+            resultMap.tab1HSemList=tab1HSemList
+            resultMap.tab2HProgList=tab2HProgList
+            resultMap.tab2HSemList=tab2HSemList
+            resultMap.tab1OptionText=tab1OptionText
+            resultMap.tab2OptionText=tab2OptionText
+            resultMap.tab1OptionValue=tab1OptionValue
+            resultMap.tab2OptionValue=tab2OptionValue
+            resultMap.userInstance=userInstance
+            resultMap.roles=roles
+            resultMap.userRoles=userRoles
+            resultMap.compare=compare
+            resultMap.studyCentreList=studyCentreList
+            resultMap.studyCentre=studyCentre
+        }
+        return resultMap
+    }
 }

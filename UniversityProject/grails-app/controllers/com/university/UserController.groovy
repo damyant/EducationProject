@@ -1,4 +1,3 @@
-
 package com.university
 
 import examinationproject.ProgramDetail
@@ -18,208 +17,105 @@ class UserController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
     def userService
     def springSecurityService
+
     @Secured(["ROLE_ADMIN"])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond User.list(params), model:[userInstanceCount: User.count()]
+        respond User.list(params), model: [userInstanceCount: User.count()]
     }
 
     def show(User userInstance) {
         respond userInstance
     }
 
-    def resetPassword(){
+    def resetPassword() {
 
     }
 
 
     @Transactional
     @Secured(["ROLE_ADMIN"])
-    def updatePwd(){
-//        println("?????????????????????"+params)
-        def userInstance=User.findById(params.id)
-        userInstance.password=params.newPwd
+    def updatePwd() {
+        def userInstance = User.findById(params.id)
+        userInstance.password = params.newPwd
         userInstance.save(flush: true)
-//        println newPassword
-//        userInstance.password=newPassword
-//         if (!userInstance.hasErrors() && userInstance.save(flush: true)) {
-//             mailerService.sendForgetPassword(newPassword,userInstance)
 
-        flash.message = "${message(code:'password.reset.msg',args:[userInstance.username,userInstance.email])}"
+        flash.message = "${message(code: 'password.reset.msg', args: [userInstance.username, userInstance.email])}"
         redirect(action: "userlist")
-//         }
-        /* flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
-         redirect(action: "userList")*/
     }
+
     @Secured(["ROLE_ADMIN"])
     def createUser() {
         def userInstance = new User()
         userInstance.properties = params
-        def stydyCentreList=StudyCenter.list(sort: 'name')
+        def stydyCentreList = StudyCenter.list(sort: 'name')
         def programList = ProgramSession.list()
-
-        println(">>>>>>>>>>>>>>>>>>>>>"+programList.size())
-        def roleList=userService.getRoleList()
-        [userInstance: userInstance,roles:roleList, stydyCentreList:stydyCentreList, programList: programList]
+        def roleList = userService.getRoleList()
+        [userInstance: userInstance, roles: roleList, stydyCentreList: stydyCentreList, programList: programList]
     }
 
     @Secured(["ROLE_ADMIN"])
-    def userlist(Integer max){
+    def userlist(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond User.list(params), model:[userInstanceCount: User.count()]
+        respond User.list(params), model: [userInstanceCount: User.count()]
 
     }
 
-def getProgramList={
+    def getProgramList = {
 
-    def programListMap=[]
-    def programList = ProgramSession.list()
-    programList.each {
-        def returnMap=[:]
-        returnMap.id =it.id
-        returnMap.programName=it.programDetailId.courseName
-        returnMap.noOfSemester= it.programDetailId.noOfTerms
-        programListMap.add(returnMap)
+        def programListMap = []
+        def programList = ProgramSession.list()
+        programList.each {
+            def returnMap = [:]
+            returnMap.id = it.id
+            returnMap.programName = it.programDetailId.courseName
+            returnMap.noOfSemester = it.programDetailId.noOfTerms
+            programListMap.add(returnMap)
+        }
+        render programListMap as JSON
     }
-    println("??????????"+programListMap)
-    render programListMap as JSON
-}
-//    def saveUser(User userInstance) {
-//
-//        userInstance = new User(params)
-//        def role=Role.findByAuthority(params?.userRole)
-//        if (userInstance.save(flush: true)) {
-//            UserRole.create userInstance, role
-//            redirect(action: "index")
-//        }
-//        else {
-//            render(view: "createUser", model: [userInstance: userInstance])
-//        }
-//    }
+
     @Secured(["ROLE_ADMIN"])
     def save = {
-
-        def userInstance = new User(params)
-        def checked = params.list('myCheckbox')
-        def roleList=Role.getAll()
-        if (userInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])}"
-            for(int i=0;i<checked.size();i++){
-                def role=Role.findById(checked[i])
-                UserRole.create userInstance, role
-
-            }
-            redirect(action: "index")
-        }
-        else {
-
-            render(view: "createUser", model: [userInstance: userInstance])
-
+        println("________________________" + params)
+        def result=userService.saveUserDetails(params)
+       if(result.status){
+           flash.message = "${message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), result.userInstance.id])}"
+           redirect(action: "index")
+        } else {
+            render(view: "createUser", model: [userInstance: result.userInstance])
         }
     }
-
-
-
     @Secured(["ROLE_ADMIN"])
-    def editUser= {
-        def currentUser= springSecurityService.getCurrentUser().getUsername()
-        def studyCentreList=StudyCenter.list(sort: 'name')
-        def boolean compare= false
-        def userInstance = User.get(params.id)
-        if(currentUser==userInstance.username){
-            compare=true
-        }
-        def userRoles = UserRole.findAllByUser(userInstance)*.role
-        if (!userInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message( default: 'User'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
 
-            def roles=Role.getAll()
-            def studyCentre = null
-//            println("^^^^^^^^^^&&&&&&  "+userInstance.studyCentreId)
-            if(userInstance.studyCentreId!=0) {
-                studyCentre = StudyCenter.findById(userInstance.studyCentreId).id
-//            println(roles.id)
-//                println("&&&&&&&&&&&&&&&&&&" + studyCentre)
-            }
-            return [userInstance: userInstance,roles:roles, userRoles:userRoles, compare:compare, studyCentreList:studyCentreList, studyCentre:studyCentre]
+
+    def editUser = {
+        def result=userService.editUserDetails(params)
+        if (!result.status) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(default: 'User'), params.id])}"
+            redirect(action: "list")
+        } else {
+            return [tab1HProgList: result.tab1HProgList, tab1HSemList: result.tab1HSemList, tab2HProgList: result.tab2HProgList, tab2HSemList: result.tab2HSemList, tab1OptionText: result.tab1OptionText, tab2OptionText: result.tab2OptionText, tab1OptionValue: result.tab1OptionValue, tab2OptionValue: result.tab2OptionValue, userInstance: result.userInstance, roles: result.roles, userRoles: result.userRoles, compare: result.compare, studyCentreList: result.studyCentreList, studyCentre: result.studyCentre]
         }
     }
 
-
-//    def update(User userInstance) {
-//        userInstance = User.get(params.id)
-//        def role=Role.findByAuthority(params?.userRole)
-//        if (userInstance) {
-//            if (params.version) {
-//                def version = params.version.toLong()
-//                if (userInstance.version > version) {
-//                    userInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'user.label', default: 'User')] as Object[], "Another user has updated this User while you were editing")
-//                    render(view: "edit", model: [userInstance: userInstance])
-//                    return
-//                }
-//            }
-//            userInstance.properties = params
-//            if (!userInstance.hasErrors() && userInstance.save(flush: true)) {
-//                if(role)
-//                    userService.updateUserRole(userInstance,role)
-//                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.username])}"
-//                redirect(action: "userList", id: userInstance.id)
-//            }
-//            else {
-//                render(view: "editUser", model: [userInstance: userInstance])
-//            }
-//        }
-//        else {
-//            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
-//            redirect(action: "userList")
-//        }
-//    }
 
     @Secured(["ROLE_ADMIN"])
     def updateUser = {
-        println("hello kuldeeppppppppppppppppppppppppppp" + params)
-        def UserInstance = User.get(params.id)
-        if (UserInstance) {
-            if (params.version) {
+        println("========================>" + params)
+        def result=userService.updateUserDetails(params)
+        if(result.userInstance){
+            if(result.status){
+                flash.message = "${message(code: 'default.updated.message', args: [message(default: 'User'), result.userInstance.id])}"
 
-                def version = params.version.toLong()
-                if (UserInstance.version > version) {
+                redirect(action: "index", id: result.userInstance.id)
+            } else {
 
-                    UserInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message( default: 'User')] as Object[], "Another user has updated this User while you were editing")
-                    render(view: "editUser", model: [UserInstance: UserInstance])
-                    return
-                }
+                log.debug "-----------" + result.userInstance.errors
+                render(view: "editUser", model: [userInstance: result.userInstance])
             }
-
-            UserInstance.properties=params
-
-            def secUserSecRoleInstance = UserRole.findAllByUser(UserInstance)
-            secUserSecRoleInstance.each{
-                it.delete()
-            }
-            def checked = params.list('myCheckbox')
-            if (UserInstance.save(flush: true)) {
-
-                flash.message = "${message(code: 'default.updated.message', args: [message( default: 'User'),   UserInstance.id])}"
-                for(int i=0;i<checked.size();i++){
-                    def role=Role.findById(checked[i])
-                    UserRole.create    UserInstance, role
-
-                }
-
-                redirect(action: "index", id:    UserInstance.id)
-            }
-            else {
-
-                log.debug "-----------" +    UserInstance.errors
-                render(view: "editUser", model: [userInstance:UserInstance])
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message( default: 'User'), params.id])}"
+        } else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(default: 'User'), params.id])}"
             redirect(action: "index")
         }
     }
@@ -233,14 +129,14 @@ def getProgramList={
             return
         }
 
-        userInstance.delete flush:true
+        userInstance.delete flush: true
 
         request.withFormat {
             form {
 
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -249,20 +145,20 @@ def getProgramList={
             form {
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 
-    def assignCourse(){
-        println('these are the parameters '+params)
+    def assignCourse() {
+        println('these are the parameters ' + params)
 
 
         def programList = ProgramDetail.list(sort: 'courseCode')
         [programList: programList]
     }
 
-    def saveCourseForTabulator(){
-        println('these are the parameters '+ params)
+    def saveCourseForTabulator() {
+        println('these are the parameters ' + params)
         def sizeP = ProgramDetail.list().size()
 //        for(int i=1; i<=sizeP; i++){
 //            def programVar = 'program'+i
