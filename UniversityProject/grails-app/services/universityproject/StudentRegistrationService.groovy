@@ -91,9 +91,12 @@ class StudentRegistrationService {
                             isAdmin = true
                         }
                 }
+
                 if (isAdmin) {
-                    Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentre))
+
+                    Set<StudyCenter> studyCentre  = StudyCenter.findAllByCenterCode((params.studyCentreCode))
                     studentRegistration.studyCentre = studyCentre
+
                 } else {
                     Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
                     studentRegistration.studyCentre = studyCentre
@@ -103,11 +106,10 @@ class StudentRegistrationService {
             studentRegistration = new Student(params)
             studentRegistration.registrationYear = Integer.parseInt(year)
             if (springSecurityService.isLoggedIn()) {
-                println('executed yaha tak')
                 studentRegistration.referenceNumber = 0
                 studentRegistration.status = Status.findById(2)
                 studentRegistration.rollNo = getStudentRollNumber(params)
-                println('executed yaha tak 2')
+
             } else {
                 studentRegistration.referenceNumber = getStudentReferenceNumber()
                 studentRegistration.status = Status.findById(1)

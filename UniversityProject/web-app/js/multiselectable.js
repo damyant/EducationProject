@@ -377,6 +377,7 @@ function clearField() {
 //    $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 function save() {
+
     var isTrue = validateGroupSelection()
 
     validate();
@@ -615,10 +616,8 @@ function saveSubjectGroup(j,closeVal){
     var groupSubjectJson = ConvertGroupFormToJSON(j);
     subList= groupSubjectJson["groupList"];
     var subMap = subList[0];
-//    alert("rowCount "+rowCount)
 
-    var count = $('#group' + j + groupListIndex+' option').size();
-    alert("???????????"+rowCount)
+
     if(rowCount!=0) {
         if(!document.getElementById("groupListBox" + j)) {
             $('#multiSelectTab tbody #tr' + j + ':last').append('<td style="width:30%;"><select multiple="multiple" id="groupListBox' + j + '" style="height: 100px; width: 150px;">' +
@@ -887,8 +886,7 @@ function showSubjectGroupInDialog(i){
 function validateGroupSubjects(j){
     var rowCount=0
     rowCount = $('#subjectGroup'+j+' tr').length;
-    alert(rowCount)
-    var isValid = false
+     var isValid = false
     if(rowCount!=0) {
         for (var i = 0; i < rowCount; i++) {
             var count = $('#group' + j + i + ' option').size();
@@ -907,6 +905,7 @@ function validateGroupSubjects(j){
 
 }
 
+
 function validateGroupSelection(){
     var isValidRadio =false;
     var isText=false
@@ -914,40 +913,40 @@ function validateGroupSelection(){
     var row=$('#multiSelectTab tbody tr').length
 
     for(var i=1;i<=row;i++) {
-    if (document.getElementById("groupListBox" + i)) {
+        if (document.getElementById("groupListBox" + i)) {
 
-               if ($('[name="groupSelection'+i+'"]').is(':checked')) {
+            if ($('[name="groupSelection'+i+'"]').is(':checked')) {
 
-                        var multiSubject = $('input[name=groupSelection'+i+']:radio:checked').val()
-                        if (multiSubject == "multipleSubject") {
-                            var noOfSubject = $('#noOfSubjects'+i).val()
-                            if(noOfSubject==""){
-                                $('#radioError'+i).text('Please Enter Number Of Subject ');
-                                $('#radioError'+i).show()
-                                 isValidRadio= false;
+                var multiSubject = $('input[name=groupSelection'+i+']:radio:checked').val()
+                if (multiSubject == "multipleSubject") {
+                    var noOfSubject = $('#noOfSubjects'+i).val()
+                    if(noOfSubject==""){
+                        $('#radioError'+i).text('Please Enter Number Of Subject ');
+                        $('#radioError'+i).show()
+                        isValidRadio= false;
+                    }else{
+                        $('#radioError'+i).hide()
+                        isValidRadio = true;
+
+                    }
+
+
                 }else{
-                    $('#radioError'+i).hide()
-                      isValidRadio = true;
-
+                    isValidRadio=true
                 }
 
-
-            }else{
-                isValidRadio=true
-            }
-
-                   if(!isValidRadio)
+                if(!isValidRadio)
                     return isValidRadio
 
-        } else {
+            } else {
 
-            $('#radioRuleError'+i).text('Please Select Criteria ');
-            $('#radioRuleError'+i).show()
-            isValidRadio= false;
-            return isValidRadio
+                $('#radioRuleError'+i).text('Please Select Criteria ');
+                $('#radioRuleError'+i).show()
+                isValidRadio= false;
+                return isValidRadio
+            }
         }
     }
-}
 //    alert("valid"+isValidRadio)
-   return isValidRadio
+    return isValidRadio
 }

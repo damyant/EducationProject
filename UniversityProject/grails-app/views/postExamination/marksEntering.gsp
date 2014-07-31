@@ -32,7 +32,7 @@
 <div id="main">
     <fieldset class="form">
         <h3>Marks Entering Interface</h3>
-        <g:form name="marksFoilId" id="marksFoilId" controller="postExamination" action="generateMarksFoilSheet">
+        <g:form name="studentMarksForm" id="studentMarksForm">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
             <g:hiddenField name="btn"  id="btn" value=""/>
@@ -50,7 +50,7 @@
                     <td>
                         <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                                   value=""
-                                  optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"
+                                  optionValue="courseName" from="${programList.programDetailId}" noSelection="['': ' Select Program']"
                                   onchange="getSemester(this)"
                         />
                     </td>
@@ -61,43 +61,25 @@
                     <td>Program Session<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="SessionList" id="SessionList" optionKey="id" class="university-size-1-2"
-                                  value=""
-                                  optionValue="session" from="" noSelection="['': ' Select Session']" onchange="setSessions()"
-
-                        />
+                        value="" optionValue="session" from="" noSelection="['': ' Select Session']" onchange="loadSemester()" disabled="true"  />
                     </td>
                 </tr>
-
-                %{--<tr>--}%
-                    %{--<td> Session<span class="university-obligatory">*</span></td>--}%
-                    %{--<td>--}%
-                        %{--<g:select name="session" class="university-size-1-2 allSession" id="sessionVal"--}%
-                                  %{--from="" optionKey="" optionValue=""--}%
-                                  %{--noSelection="['': ' Select Session']" />--}%
-                    %{--</td>--}%
-                %{--</tr>--}%
 
 
                 <!----------------------------------------- Semester Name --------------------------------------------->
                 <tr>
                     <td>Semester<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2" disabled="disabled"
-                                  value=""
-                                  optionValue="" from="" noSelection="['': ' Select Semester']"
-                                  onchange="loadGroup()"
-                        />
+                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2" disabled="true"
+                             value="" optionValue="" from="" noSelection="['': ' Select Semester']" onchange="loadGroup()" />
                     </td>
                 </tr>
 
                 <tr>
                     <td>Group<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2" disabled="disabled"
-                                  value=""
-                                  optionValue="" from="" noSelection="['': ' Select Group']"
-                                  onchange="loadCourse(this)"
-                        />
+                        <g:select name="groupId" id="groupList" optionKey="" class="university-size-1-2"
+                        value="" optionValue="" from="" noSelection="['': ' Select Group']" onchange="loadCourse()" disabled="true" />
                     </td>
                 </tr>
 
@@ -106,71 +88,39 @@
                     <td>Course<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="courseCode" id="courseCode" optionKey="id" class="university-size-1-2"
-                                  value=""
-                                  optionValue="courseCode" from="" noSelection="['': ' Select Course']"/>
+                                  value="" optionValue="courseCode" from="" noSelection="['': ' Select Course']" disabled="true" onchange="enableMarksType()"/>
                     </td>
                 </tr>
 
-                %{--<tr>--}%
-                    %{--<td>Marks Type<span class="university-obligatory">*</span></td>--}%
-                    %{--<td>--}%
-                        %{--<g:select name="marksType" id="marksType" optionKey="id" class="university-size-1-2"--}%
-                                  %{--value=""--}%
-                                  %{--optionValue="marksTypeName" from="" noSelection="['': ' Select Marks Type']"/>--}%
-                                  %{----}%
-                        %{--<select class="university-size-1-2">--}%
-                            %{--<option value="volvo">Select Marks Type</option>--}%
-                            %{--<option value="saab">Theory Marks</option>--}%
-                            %{--<option value="mercedes">Home Assignment Marks</option>--}%
-                            %{--<option value="audi">Practical Marks</option>--}%
-                        %{--</select>--}%
-                    %{--</td>--}%
-                %{--</tr>--}%
+                <tr>
+                    <td>Marks Type<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="marksType" id="marksType" optionKey="id" class="university-size-1-2"
+                        value="" optionValue="marksTypeName" from="${marksTypeList}" noSelection="['0': ' Select Marks Type']" disabled="true" onchange="enableButton()"/>
+
+                    </td>
+                </tr>
+
             </table>
 
             <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1">
-                <input type="button" value="Show Students" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;">
+                <input type="button" value="Show Students" id="showButton" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;" disabled="true">
+                <input type="button" value="Set" id="setButton" onclick="disableAllSelectBox()" class="ui-button university-size-1-4" style="margin: auto;" disabled="true">
+                <input type="button" value="Reset" id="resetButton" onclick="enableAllSelectBox()" class="ui-button university-size-1-4" style="margin: auto;" disabled="true">
             </div>
 
             <table class="inner" id="dataTable" style="visibility: hidden">
                 <tr>
-                    <td>List of Roll Numbers
-                    %{--<span class="university-obligatory">*</span>--}%
-                    </td>
+                    <td>List of Roll Numbers</td>
                     <td style="text-align: center">
-                        <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  multiple="true" />
+                        <g:select name="rollNoList" id="rollNoList" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  />
                     </td>
                 </tr>
+
                 <tr>
-                    <td>Marks Type<span class="university-obligatory">*</span></td>
+                    <td>Enter Marks</td>
                     <td class="university-size-3-4" style="text-align: center">
-                        %{--<g:select name="marksType" id="marksType" optionKey="id" class="university-size-1-2"--}%
-                        %{--value=""--}%
-                        %{--optionValue="marksTypeName" from="" noSelection="['': ' Select Marks Type']"/>
-                        --}%
-                        <select class="university-size-1-3">
-                            <option value="volvo">Select Marks Type</option>
-                            <option value="saab">Theory Marks</option>
-                            <option value="mercedes">Home Assignment Marks</option>
-                            <option value="audi">Practical Marks</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr> <td></td></tr>
-                <tr>  <td></td></tr>
-                <tr> <td></td></tr>
-                <tr>  <td></td></tr>
-                <tr>
-                    <td>Enter Marks
-                    %{--<span class="university-obligatory">*</span>--}%
-                    </td>
-                    <td class="university-size-3-4" style="text-align: center">
-                        <input type="text" class="university-size-1-3" id="" name="" maxlength="10" onkeypress="return isNumber(event)"/>
+                        <input type="text" class="university-size-1-3" id="marksValue" name="marksValue" maxlength="10" onkeypress="return isNumber(event)" onblur="matchMarks()"/>
                     </td>
                 </tr>
             </table>

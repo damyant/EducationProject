@@ -1,11 +1,13 @@
 package postexamination
 
+import com.university.Role
 import examinationproject.CourseSubject
 import examinationproject.ProgramDetail
 import examinationproject.ProgramSession
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
+import examinationproject.Subject
 import grails.converters.JSON
 
 import javax.activation.MimetypesFileTypeMap
@@ -17,11 +19,10 @@ class PostExaminationController {
     def pdfRenderingService
     def marksEnteringService
     def postExaminationService
+
     def createMarksFoil = {
-        println("Inside PostExaminationController-->Params = "+params)
-        def programList = ProgramDetail.list()
-        println("Inside PostExaminationController-->programList = "+programList)
-        [programList:programList]
+        def programList = ProgramSession.list()
+        [programList: programList]
     }
     def markMismatchReport = {
 
@@ -31,140 +32,158 @@ class PostExaminationController {
     }
 
 
-    def getCourseData={
-        def programDetail
-        def programSession
-        def semester
-        def subjectList
+    def getCourseData = {
+
+        def subjectIns = []
         try {
-            programDetail = ProgramDetail.findById(params.program)
-            programSession = ProgramSession.get(Integer.parseInt(params.session))
-            semester = Semester.findByProgramSessionAndSemesterNo(programSession, Integer.parseInt(params.semester))
-            subjectList = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programDetail, semester, programSession)
-        }catch(Exception e){
-            flash.message = "Unable To Get SubjectList "
-            redirect(action: "marksEntering")
+            subjectIns = marksEnteringService.getCourseDetail(params)
         }
-          def resultMap = [:]
-          resultMap.subject = subjectList.subject
-          resultMap.subjectList= subjectList
-          render resultMap as JSON
-    }
-
-    def getGroup={
-            println("<<<<<<<<<<<<<<"+params)
-        marksEnteringService.getGroupDetail(params)
-    }
-
-    def generateMarksFoilSheet={
-        if(params.btn=="pdf"){
-            println('PostExamination Controller-->generateMarksFoilSheet-->Params :: ' +params)
-
-            def course = ProgramDetail.findById(params.programId).courseName
-            def subject = ProgramDetail.findById(params.programId)
-            def semester = Semester.findById(params.programTerm).semesterNo
-            def session =ProgramSession.findBySessionOfProgram(params.session)
-            def regYear =(ProgramSession.findBySessionOfProgram(params.session).sessionOfProgram).substring(0,4)
-
-            println("Registration Year =="+subject.id)
-
-            def studentObj = Student.createCriteria()
-            def stuList = studentObj.list{
-                programDetail{
-                    eq('id', subject.id)
-                }
-                and
-                {
-                    eq('semester', Integer.parseInt(params.programTerm) )
-                }
-                and
-                        {
-                            eq('status', Status.findById(4))
-                        }
-                and{
-                    eq('registrationYear',Integer.parseInt(regYear ))
-                }
-            }
-
-            println('this is the list of students '+ stuList.referenceNumber)
-            println("SEMESTER =::"+semester)
-
-            def args = [template: "generateMarksFoil",model: [program:course,semester:semester,stuList:stuList.referenceNumber],filename:"MarksFoilSheet.pdf"]
-            pdfRenderingService.render(args + [controller: this], response)
-        }else{
-
-            println('PostExamination Controller-->generateMarksFoilSheet-->Params :: ' +params)
-            println('PostExamination Controller-->generateMarksFoilSheet-->Params value :: ' +params.value)
-//            if(params.value=='session' && params.session){
-//                if(params.inExcel){
-                    def webRootDir = servletContext.getRealPath("/")
-                    println("webRootDir-"+webRootDir)
-                    def userDir = new File(webRootDir,'/Report')
-                    println("userDir--"+userDir)
-                    userDir.mkdirs()
-                    def excelPath = servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'MarksFoilSheet.xls'
-                    println('excelPath-- '+excelPath)
-                    def status = postExaminationService.getMarksFoilData(params, excelPath)
-
-                    if(status){
-                        println("back in controller "+ status)
-                        File myFile = new File(servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'MarksFoilSheet.xls')
-                        //response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.session+".xls"
-                        response.setHeader "Content-disposition", "attachment; filename="+'MarksFoilSheet'+".xls"
-                        response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
-                        response.outputStream << myFile .bytes
-                        response.outputStream.flush()
-                        myFile.delete()
-                    }
-                }
-//            }
-//        }
-    }
-
-
-    def marksEntering={
-        println("Inside marksEntering Action.....")
-        println('Params === ' +params)
-        def programList = ProgramDetail.list()
-        println("Inside PostExaminationController-->programList = "+programList)
-        [programList:programList]
-    }
-
-    def getRollNoList={
-        println("chandan--- "+params)
-        def studentObj = Student.createCriteria()
-        def stuList = studentObj.list{
-            programDetail{
-                eq('id', Long.parseLong(params.program))
-            }
-            and {
-            eq('semester', Integer.parseInt(params.semester) )
-            eq('programSession', ProgramSession.get(Integer.parseInt(params.session)))
-            eq('registrationYear', Integer.parseInt(params.stuSession))
-//            eq('ProgramDetail', ProgramDetail.findById(Long.parseLong(params.program)))
+        catch (Exception e) {
+            println("<<<<< Problem in getting subjects" + e)
         }
+        render subjectIns as JSON
     }
-        println('List of students '+ stuList)
-       render stuList as JSON
+
+    def getSemesterOfProgram = {
+
+        def semesterIns = []
+        try {
+            semesterIns = Semester.findAllByProgramSession(ProgramSession.get(Integer.parseInt(params.program)))
+        }
+        catch (Exception e) {
+            println("<<<<<<<<< Problem in getting semester of Program" + e)
+        }
+        render semesterIns as JSON
+    }
+
+    def getGroup = {
+
+        def groupIns = []
+        try {
+            groupIns = marksEnteringService.getGroupDetail(params)
+        }
+        catch (Exception e) {
+            println("<<<<< Problem in getting groups on semester" + e)
+        }
+        render groupIns as JSON
+    }
+
+    def generateMarksFoilSheet = {
+
+        try {
+            if (params.btn == "pdf") {
+                def course = ProgramDetail.findById(Integer.parseInt(params.programId)).courseName
+                def programSession = ProgramSession.get(Integer.parseInt(params.programSessionId))
+                def semester = Semester.findByProgramSessionAndId(programSession, Integer.parseInt(params.semester))
+                def subjectName = Subject.get(Integer.parseInt(params.courseCode)).subjectName
+                def studentList = postExaminationService.dataForMarksFoilSheetPdf(params, semester)
+                if (studentList) {
+                    def args = [template: "generateMarksFoil", model: [program: course, semester: semester.semesterNo, subjectName: subjectName, stuList: studentList], filename: "MarksFoilSheet.pdf"]
+                    pdfRenderingService.render(args + [controller: this], response)
+                } else {
+                    flash.message="No Roll Number Found"
+                    redirect(controller: 'postExamination', action: 'createMarksFoil')
+                }
+
+            } else {
+                def webRootDir = servletContext.getRealPath("/")
+                def userDir = new File(webRootDir, '/Report')
+                userDir.mkdirs()
+                println("userDir--" + userDir)
+                def excelPath = servletContext.getRealPath("/") + 'Report' + System.getProperty('file.separator') + 'MarksFoilSheet.xls'
+                def status = postExaminationService.getMarksFoilData(params, excelPath)
+
+                if (status) {
+                    println("back in controller " + status)
+                    File myFile = new File(servletContext.getRealPath("/") + 'Report' + System.getProperty('file.separator') + 'MarksFoilSheet.xls')
+                    //response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.session+".xls"
+                    response.setHeader "Content-disposition", "attachment; filename=" + 'MarksFoilSheet' + ".xls"
+                    response.contentType = new MimetypesFileTypeMap().getContentType(myFile)
+                    response.outputStream << myFile.bytes
+                    response.outputStream.flush()
+                    myFile.delete()
+                } else {
+                    flash.message="No Roll Number Found"
+                    redirect(controller: 'postExamination', action: 'createMarksFoil')
+                }
+
+            }
+        }
+        catch (Exception e) {
+            println("<<<<<<<< Problem in generating marks foil sheet" + e)
+        }
+
     }
 
 
-    def resultProcessing={
+    def marksEntering = {
+        def programList = ProgramSession.list()
+        def marksTypeList = MarksType.list()
+        [programList: programList, marksTypeList: marksTypeList]
+    }
+
+    def getRollNoList = {
+        def finalList = []
+        try {
+            finalList = marksEnteringService.getRollNumbers(params)
+        }
+        catch (Exception e) {
+            println("Exception in getting roll number list for marks" + e)
+        }
+
+        render finalList as JSON
+    }
+
+
+    def resultProcessing = {
         println("Inside resultProcessing Action..")
     }
 
-    def finalResult={
+    def finalResult = {
         println("Inside finalResult Action")
     }
 
-    def absenteeProcessing={
+    def absenteeProcessing = {
         println("Inside absenteeProcessing Action..")
     }
-    def bulkMarksSheet={
+    def bulkMarksSheet = {
         println("Inside bulkMarksSheet Action ..")
     }
 
-    def singleMarksSheet={
+    def singleMarksSheet = {
         println("Inside singleMarksSheet Action..")
+    }
+
+    def saveMarks = {
+        println("saving marks=====" + params)
+        def status = marksEnteringService.saveMarks(params)
+        println(status)
+        if (status) {
+            render status as JSON
+        }
+
+    }
+
+    def checkMarks = {
+
+        def returnMap = [:]
+
+        def stuIns = StudentMarks.findAllBySubjectIdAndSemesterNoAndRoleIdAndMarksTypeId(Subject.get(Integer.parseInt(params.subjectId)),
+                Integer.parseInt(params.semester), Role.get(9), MarksType.get(Integer.parseInt(params.marksType)))
+
+        if (stuIns) {
+            if (stuIns.marksObtained == Integer.parseInt(params.marksValue)) {
+                returnMap.status = true
+
+            } else {
+                returnMap.status = false
+            }
+        } else {
+            returnMap.status = true
+        }
+
+        render returnMap as JSON
+
+
     }
 }// CLOSING BRACKETS
