@@ -27,6 +27,7 @@
 <table class="university-size-1-2 inner">
     <tr>
         <td>Enter Challan Number</td> <td><input type="text" id="challanNoText"> </td><td><input type="button" value="Show"  onclick="showChallanNumberStatus()"> </td>
+
     </tr>
 </table>
 

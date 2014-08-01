@@ -50,8 +50,8 @@
                     <td>
                         <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                                   value=""
-                                  optionValue="courseName" from="${programList.programDetailId}" noSelection="['': ' Select Program']"
-                                  onchange="getSemester(this)"
+                                  optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"
+                                  onchange="getTabulatorSemester(this)"
                         />
                     </td>
                 </tr>
@@ -61,7 +61,7 @@
                     <td>Program Session<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="SessionList" id="SessionList" optionKey="id" class="university-size-1-2"
-                        value="" optionValue="session" from="" noSelection="['': ' Select Session']" onchange="loadSemester()" disabled="true"  />
+                        value="" optionValue="session" from="" noSelection="['': ' Select Session']" disabled="true"  />
                     </td>
                 </tr>
 

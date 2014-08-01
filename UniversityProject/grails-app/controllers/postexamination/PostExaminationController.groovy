@@ -1,6 +1,8 @@
 package postexamination
 
 import com.university.Role
+import com.university.TabulatorProgram
+import com.university.TabulatorSemester
 import examinationproject.CourseSubject
 import examinationproject.ProgramDetail
 import examinationproject.ProgramSession
@@ -19,6 +21,7 @@ class PostExaminationController {
     def pdfRenderingService
     def marksEnteringService
     def postExaminationService
+    def springSecurityService
 
     def createMarksFoil = {
         def programList = ProgramSession.list()
@@ -117,7 +120,15 @@ class PostExaminationController {
 
 
     def marksEntering = {
-        def programList = ProgramSession.list()
+
+        def currentUser = springSecurityService.currentUser
+        def progList=TabulatorProgram.findAllByUser(currentUser).program
+        println(progList)
+        def programList=[]
+        progList.each {
+            programList<<ProgramDetail.findById(it.id)
+        }
+        println("??????????????????????????"+programList)
         def marksTypeList = MarksType.list()
         [programList: programList, marksTypeList: marksTypeList]
     }
@@ -162,6 +173,19 @@ class PostExaminationController {
             render status as JSON
         }
 
+    }
+    def getTabulatorSemester={
+        def returnMap = [:]
+        def currentUser = springSecurityService.currentUser
+        def tabProgramInst=TabulatorProgram.findByProgramAndUser(ProgramDetail.findById(Integer.parseInt(params.program)),currentUser)
+        println(tabProgramInst)
+        def programSession = ProgramSession.findAllByProgramDetailId(ProgramDetail.findById(Integer.parseInt(params.program)))
+        def tabSemesterList=TabulatorSemester.findAllByTabulatorProgram(tabProgramInst).semester
+        println("tabSemesterList-----"+tabSemesterList)
+        println("programSession-----"+programSession)
+        returnMap.tabSemesterList=tabSemesterList
+        returnMap.session=programSession
+        render returnMap as JSON
     }
 
     def checkMarks = {

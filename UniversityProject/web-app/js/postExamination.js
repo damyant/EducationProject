@@ -309,7 +309,29 @@ function matchMarks(){
     }
 
 }
+function getTabulatorSemester(t){
+    var program=$(t).val()
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'getTabulatorSemester', ''),
+        data: {program: program},
+        success: function (data) {
+            if(data.tabSemesterList){
+                $('#SessionList').prop('disabled',false)
+                $('#semesterList').prop('disabled',false)
+                $("#SessionList").empty().append('data <option value="">Select Session</option>')
+                $('#semesterList').empty().append("<option value=''>Select Semester</option>")
+                for(var i=0;i<data.tabSemesterList.length;i++){
+                    $('#semesterList').append("<option value='"+data.tabSemesterList[i]+"'>"+data.tabSemesterList[i]+"</option>")
+                }
+                for (var j = 0; j < data.session.length; j++) {
+                    $("#SessionList").append('<option value="' + data.session[j].id + '">' + data.session[j].sessionOfProgram + '</option>')
+                }
+            }
 
+        }
+    })
+}
 function resetData(){
 
 }
