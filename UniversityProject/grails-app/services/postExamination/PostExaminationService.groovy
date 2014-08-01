@@ -1,5 +1,6 @@
 package postExamination
 
+import com.university.Role
 import examinationproject.CourseSubject
 import examinationproject.ProgramDetail
 import examinationproject.ProgramSession
@@ -11,6 +12,7 @@ import grails.transaction.Transactional
 import jxl.Workbook
 import jxl.WorkbookSettings
 import jxl.write.WritableWorkbook
+import postexamination.StudentMarks
 
 @Transactional
 class PostExaminationService {
@@ -101,5 +103,81 @@ class PostExaminationService {
 
             return status
         }
+    }
+
+
+    def getDetailForMisMatch(params,courseList,programSessionIns,semesterIns){
+
+        def finalList=[],counter=1
+        def stuList=studentList(params,semesterIns)
+        if(stuList && courseList){
+        for(def i=0;i<stuList.size();i++){
+            def resultList=[],checkFlag=false
+            resultList<<counter
+            resultList<<stuList[i].rollNo
+            for(def j=0;j<courseList.size();j++){
+
+             def stuMarks1=   StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId,stuList[i], Role.get(8))
+             def stuMarks2=   StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId,stuList[i],Role.get(9))
+
+                if(stuMarks1==null || stuMarks2==null){
+                    resultList<<"X"
+                }
+                else if(stuMarks1?.marksObtained!=stuMarks2?.marksObtained){
+                    resultList<<"?"
+                    checkFlag=true
+                }
+                else{
+                    resultList<<""
+                }
+
+            }
+            if(checkFlag){
+                resultList<<"R"
+            }
+            else{
+                resultList<<"F"
+            }
+            finalList<<resultList
+            ++counter;
+        }
+
+        }
+
+println("endddddd"+finalList)
+
+        return finalList
+
+
+    }
+
+
+
+    def studentList(params, semester) {
+        def stuList = []
+         try {
+            def regYear = (ProgramSession.findById(params.programId).sessionOfProgram).substring(0, 4)
+
+            def studentObj = Student.createCriteria()
+            stuList = studentObj.list {
+                programDetail {
+                    eq('id', Long.parseLong(params.programId))
+                }
+                and
+                        {
+                            eq('semester', semester.semesterNo)
+                            eq('status', Status.findById(4))
+                            eq("admitCardGenerated", true)
+                            eq('registrationYear', Integer.parseInt(regYear))
+
+                        }
+            }
+
+        }
+        catch (Exception e) {
+            println(" Problem in service for getting student list for mis-match report" + e)
+        }
+        return stuList
+
     }
 }// MAIN CLOSING TAG
