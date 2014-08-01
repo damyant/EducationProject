@@ -10,13 +10,17 @@ function loadSession(t){
             url: url('programFee', 'getProgramSession', ''),
             data: {program: program},
             success: function (data) {
+
                 $("#session").empty().append('');
+
                 $("#session").append('<option value="">Select Session</option>');
                 for (var i = 0; i < data.length-1; i++) {
                     $("#session").append('<option value="' + data[i].sessionOfProgram + '">' + data[i].sessionOfProgram + '</option>')
                 }
+                $("#session").attr('disabled',false)
             }
         });
+
     }
     else{
         $("#session").empty().append('');
@@ -143,6 +147,7 @@ function loadSemester(){
                 $('#semesterList').append('<option value="' + data[i].id + '">' + data[i].semesterNo + '</option>')
 
             }
+            $("#semesterList").attr('disabled',false)
         }
     });
 
@@ -169,6 +174,11 @@ $(document).ready(function(){
 
     $("#SessionList").on('change',function(){
         $("#semesterList").removeAttr('disabled')
+    })
+
+    $("#missMatchedButton").on('click',function(){
+
+        $("#marksMissMatchForm").submit()
     })
 
 })
@@ -266,6 +276,28 @@ function saveMarks(){
 
 }
 
+function enableSession(){
+
+        $.ajax({
+            type: "post",
+            url: url('postExamination', 'getStudentSession', ''),
+           success: function (data) {
+
+               $('#studentSession').empty().append('<option value="">Select Student Session</option>')
+               if(data.length>0){
+                   for (var i=0;i<data.length;i++){
+                       $('#studentSession').append('<option value="'+data[i]+'">'+data[i]+'</option>')
+                   }
+                   $("#studentSession").attr('disabled',false)
+
+               }
+
+            }
+        });
+
+
+}
+
 function disableAllSelectBox(){
 
     $("select").attr("disabled", true);
@@ -285,6 +317,11 @@ function enableAllSelectBox(){
 
     document.getElementById("dataTable").style.visibility = "hidden";
     document.getElementById("buttonDiv").style.visibility = "hidden";
+}
+
+function enableButtonOfMissMatch(){
+    $("input[type=button]").removeAttr("disabled");
+
 }
 
 

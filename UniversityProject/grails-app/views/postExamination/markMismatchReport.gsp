@@ -32,7 +32,7 @@
 <div id="main">
     <fieldset class="form">
         <h3>Marks Miss Match Report</h3>
-        <g:form name="" id="" controller="postExamination" action="">
+        <g:form name="marksMissMatchForm" id="marksMissMatchForm" controller="postExamination" action="marksMissMatchData">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
 
@@ -49,22 +49,18 @@
                     <td>Program<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
-                                  value=""
-                                  optionValue="courseName" from="${ProgramDetail.list(sort: 'courseCode')}" noSelection="['': ' Select Program']"
-                                  onchange="loadSession(this)"
-                        />
+                               optionValue="courseName" from="${ProgramDetail.list(sort: 'courseCode')}" noSelection="['': ' Select Program']"
+                                  onchange="loadSession(this)" />
                     </td>
                 </tr>
 
                 <!----------------------------------------- Session Name --------------------------------------------->
                 <tr>
-                    <td>Session<span class="university-obligatory">*</span></td>
+                    <td>Program Session<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="session" id="session" optionKey="id" class="university-size-1-2"
-                                  value=""
-                                  optionValue="session" from="" noSelection="['': ' Select Session']"
-                                  onchange="loadSemester(this)"
-                        />
+                        <g:select name="session" id="session" optionKey="id" class="university-size-1-2" disabled="true"
+                                 optionValue="session" from="" noSelection="['': ' Select Program Session']"
+                                  onchange="loadSemester()"/>
                     </td>
                 </tr>
 
@@ -72,18 +68,23 @@
                 <tr>
                     <td>Semester<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2"
-                                  value=""
-                                  optionValue="" from="" noSelection="['': ' Select Semester']"
+                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2" disabled="true"
+                                  optionValue="" from="" noSelection="['': ' Select Semester']" onchange="enableSession()"/>
+                    </td>
+                </tr>
 
-                        />
+                <tr>
+                    <td>Student Session<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="studentSession" id="studentSession" optionKey="" class="university-size-1-2" disabled="true"
+                                  optionValue="" from="" noSelection="['': ' Select Student Session']" onchange="enableButtonOfMissMatch()" />
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="2" style="text-align: center">
-                        <input type="button" value="Download Miss-Match Report" onclick="validate()" class="university-button">
-                        <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
+                        <input type="button" id="missMatchedButton" value="Download Miss-Match Report" onclick="validate()" class="university-button" disabled="true">
+                        <input type="button" id="resetButton" value="Cancel" onclick="resetImage()" class="university-button" disabled="true">
                     </td>
                 </tr>
 

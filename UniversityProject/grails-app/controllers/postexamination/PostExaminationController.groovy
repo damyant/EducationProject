@@ -5,6 +5,8 @@ import com.university.TabulatorProgram
 import com.university.TabulatorSemester
 import examinationproject.CourseSubject
 import examinationproject.ProgramDetail
+import examinationproject.ProgramGroup
+import examinationproject.ProgramGroupDetail
 import examinationproject.ProgramSession
 import examinationproject.Semester
 import examinationproject.Status
@@ -28,6 +30,7 @@ class PostExaminationController {
         [programList: programList]
     }
     def markMismatchReport = {
+
 
     }
     def marksUpdation = {
@@ -84,7 +87,7 @@ class PostExaminationController {
                     def args = [template: "generateMarksFoil", model: [program: course, semester: semester.semesterNo, subjectName: subjectName, stuList: studentList], filename: "MarksFoilSheet.pdf"]
                     pdfRenderingService.render(args + [controller: this], response)
                 } else {
-                    flash.message="No Roll Number Found"
+                    flash.message = "No Roll Number Found"
                     redirect(controller: 'postExamination', action: 'createMarksFoil')
                 }
 
@@ -106,7 +109,7 @@ class PostExaminationController {
                     response.outputStream.flush()
                     myFile.delete()
                 } else {
-                    flash.message="No Roll Number Found"
+                    flash.message = "No Roll Number Found"
                     redirect(controller: 'postExamination', action: 'createMarksFoil')
                 }
 
@@ -208,6 +211,54 @@ class PostExaminationController {
 
         render returnMap as JSON
 
+
+    }
+
+    def getStudentSession = {
+
+        def criteria = Student.createCriteria()
+        def stuSessionList = criteria.list() {
+            projections {
+                distinct("registrationYear")
+            }
+        }
+        println(stuSessionList)
+
+        render stuSessionList as JSON
+
+    }
+
+    def marksMissMatchData = {
+
+//        println("??????"+params)
+
+        def groupSubList = [], groupSubjectCount = []
+        def count = 0
+
+        def programSessionIns = ProgramSession.findById(Long.parseLong(params.programId))
+        def semesterIns = Semester.get(params.programTerm)
+
+        def courseList = CourseSubject.findAllByProgramSessionAndSemester(programSessionIns, semesterIns).subjectSessionId
+        def groupIns = ProgramGroup.findAllByProgramSessionAndSemester(programSessionIns, semesterIns)
+
+        if (groupIns) {
+            groupIns.each {
+                groupSubList << ProgramGroupDetail.findAllByProgramGroupId(it).subjectSessionId
+                groupSubjectCount << groupSubList[0].size()
+                ++count
+            }
+        }
+
+        def finalList = postExaminationService.getDetailForMisMatch(params, courseList, programSessionIns, semesterIns)
+
+        if (finalList) {
+            def args = [template: "missMatchReportTemplate", model: [programName: programSessionIns.programDetailId.courseName, semester: semesterIns.semesterNo,
+                    subjectList: courseList, finalList: finalList, groupIns: groupIns, groupSubList: groupSubList, groupSubjectCount: groupSubjectCount], filename: "Mis-Match Report.pdf"]
+            pdfRenderingService.render(args + [controller: this], response)
+        } else {
+            flash.message = "No Roll Number Found"
+            redirect(controller: 'postExamination', action: 'markMismatchReport')
+        }
 
     }
 }// CLOSING BRACKETS
