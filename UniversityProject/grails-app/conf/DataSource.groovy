@@ -34,7 +34,6 @@ environments {
                 validationQuery="SELECT 1"
             }
         }
-
     }
     test {
         dataSource {
