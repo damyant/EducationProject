@@ -72,8 +72,6 @@ class HomeController {
                         eq('student',studentInst)
                         eq('isApproved',Status.findById(4))
                     }
-                println("feeUnApprove.size()"+feeUnApprove.size())
-                println("feeApprove.size()"+feeApprove.size())
                         if(feeUnApprove.size()>0){
                             feeUnapprov=feeUnapprov+feeUnApprove.size()
                         }

@@ -16,7 +16,6 @@ class CourseSubject implements Serializable  {
         if (!(other instanceof CourseSubject)) {
             return false
         }
-
         other.courseDetail?.id == courseDetail?.id &&
         other.subject?.id == subject?.id
         other.semester?.id==semester?.id

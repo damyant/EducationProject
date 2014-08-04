@@ -18,9 +18,9 @@ $('#profile-image').on('click', function () {
 
 
 function readURL(input, type) {
-    if (input.files && input.files[0]) {
+    $('#imageValidate').val("")
+    if (input.files && input.files[0]){
         var FileUploadPath = $("#profileImage").val()
-//        alert($('#imageValidate').val())
         var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
         var imgkbytes = Math.round(parseInt(input.files[0].size) / 1024)
         if (imgkbytes <= 50 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg")) {
@@ -56,18 +56,23 @@ function readURL(input, type) {
             if ($('#imageValidate').length > 0) {
                 $('#imageValidate').val("uploded")
             }
-//            alert($('#imageValidate').val())
+            reader.readAsDataURL(input.files[0]);
         }
         else {
-            if ($('#imageValidate').length > 0) {
-                $('#imageValidate').val("")
-            }
+            $('#imageValidate').val("")
             $("#profileImage").val('')
             $("#picture").attr('src', ' ')
-            alert("Please upload an image of size less then 50kb and image Extension should be gif/png/bmp/jpeg/jpg.")
+            $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>Please upload an image of size less then 50kb and image Extension should be gif/png/bmp/jpeg/jpg.</p></div>").dialog({
+                title: "Sorry",
+                resizable: false,
+                modal: true,
+                buttons: {
+                    "Ok": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
         }
-
-        reader.readAsDataURL(input.files[0]);
     }
 }
 
@@ -356,19 +361,25 @@ function Popup2(data) {
 function enableDisableCheckbox() {
     if ($('#registrationNo1').val() != '') {
         $('#isAppliedFor').prop('disabled', true)
+        $('#regNoCheck').val($('#registrationNo1').val())
     }
     else {
         $('#isAppliedFor').prop('disabled', false)
+        $('#regNoCheck').prop('checked', false)
+        $('#regNoCheck').val('')
     }
 }
 function enableDisableTextBox() {
     if ($('#isAppliedFor').is(':checked')) {
         $('#registrationNo1').prop('disabled', true)
         $('#registrationNo2').prop('disabled', true)
+        $('#regNoCheck').val('Y')
     }
     else {
         $('#registrationNo1').prop('disabled', false)
         $('#registrationNo2').prop('disabled', false)
+        $('#regNoCheck').prop('checked', false)
+        $('#regNoCheck').val('')
     }
 }
 function putOtherBank() {
@@ -392,6 +403,19 @@ function putOtherBank() {
         $('#bankName').prop('hidden', false)
         $('#branchLocation').prop('hidden', false)
     }
-
+}
+    function putOtherBranch() {
+        if ($("#bankCheckBox").prop('checked') == true) {
+            $('#otherBankBranch').prop('disabled', false)
+            $('#branchLocation').prop('disabled', true)
+            $('#otherBankBranch').prop('hidden', false)
+            $('#branchLocation').prop('hidden', true)
+        }
+        else {
+            $('#branchLocation').prop('disabled', false)
+            $('#otherBankBranch').prop('disabled', true)
+            $('#otherBankBranch').prop('hidden', true)
+            $('#branchLocation').prop('hidden', false)
+        }
 }
 

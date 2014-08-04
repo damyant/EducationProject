@@ -295,9 +295,9 @@ function appendTable(data) {
         $('#msg').html("")
         document.getElementById("studentList").style.visibility = "visible";
         document.getElementById("paginationDiv").style.visibility = "visible";
-        $('#studentList thead').append('<tr><th><input type="checkbox" name="chkbox" onchange="toggleChecked(this.checked)"/> <label for="chkbox">Select All</label> </th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th></tr>')
+        $('#studentList thead').append('<tr><th><input type="checkbox" name="chkbox" onchange="toggleChecked(this.checked)"/> <label for="chkbox">Select All</label> </th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th><th></th></tr>')
         for (var i = 0; i < data.stuList.length; i++) {
-            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName + ' ' + (data.stuList[i].middleName ? data.stuList[i].middleName : '') + ' ' + data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td></tr>')
+            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName + ' ' + (data.stuList[i].middleName ? data.stuList[i].middleName : '') + ' ' + data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td><td><input type="button" class="university-button" id="view" value="View" onclick="updateStudent(' + data.stuList[i].id + ')"/></td></tr>')
         }
         $table_rows = $('#studentList tbody tr');
         var table_row_limit = 10;
@@ -1464,6 +1464,7 @@ function loadTermByFeeType(t) {
                 for (var i = 1; i <= data.term; i++) {
                     $('#semester').append("<option value='" + i + "'>" + i + "</option> ")
                 }
+
             }
             else {
                 $("#semester").attr('disabled', true)
@@ -1548,6 +1549,61 @@ function generateSingleAdmitCard() {
         url: url('admitCard', 'generateSingleAdmitCard', ''),
         data: {roll: roll, term: term, examFee: examFee},
         success: function (data) {
+
+        }
+    })
+}
+
+function showCustomChallanByDate(){
+    var challanDate=$('#customChallanDate').val()
+    $.ajax({
+        type: "post",
+        url: url('feeDetails', 'loadCustomChallanByDate', ''),
+        data: {challanDate:challanDate},
+        success: function (data) {
+            if(data.challanList){
+                $('#showCustomChallanList thead').empty().append('<tr><th>Challan No</th><th>Amount</th><th>Challan Name</th><th>Type of Fee</th></tr>')
+                $('#showCustomChallanList tbody').empty()
+                for(var i= 0;i<data.listSize;i++){
+                    $('#showCustomChallanList tbody').append('<tr><td>'+data.challanList[i].challanNo+'</td><td>'+data.challanList[i].amount+'</td><td>'+data.challanList[i].challanName+'</td><td>'+data.challanList[i].typeOfFee+'</td></tr>')
+                }document.getElementById("paginationDiv").style.visibility = "visible";
+                $table_rows = $('#showCustomChallanList tbody tr');
+
+                var table_row_limit = 10;
+
+                var page_table = function (page) {
+
+                    // calculate the offset and limit values
+                    var offset = (page - 1) * table_row_limit,
+                        limit = page * table_row_limit;
+
+                    // hide all table rows
+                    $table_rows.hide();
+
+                    // show only the n rows
+                    $table_rows.slice(offset, limit).show();
+
+                }
+                var pageNo = 0
+                if ($table_rows.length % table_row_limit) {
+                    pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
+                }
+                else {
+                    pageNo = parseInt($table_rows.length / table_row_limit)
+                }
+//                alert(5%5)
+                $('.pagination').jqPagination({
+                    max_page: pageNo,
+                    paged: page_table
+                });
+                page_table(1);
+            }
+            else{
+              $('#errorMessage').html(data.status)
+              $('#showCustomChallanList thead').empty()
+              $('#showCustomChallanList tbody').empty()
+              document.getElementById("paginationDiv").style.visibility = "hidden";
+            }
 
         }
     })

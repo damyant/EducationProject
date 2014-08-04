@@ -7,6 +7,7 @@ function validate() {
         rules: {
 
             //Add Course
+
             bankName:"required",
             programTypeId:"required",
             imageValidate:"required",
@@ -43,6 +44,7 @@ function validate() {
             },
             district: "required",
             city: "required",
+            regNoCheck: "required",
             districtName: "required",
             parentsName:"required",
             studentAddress:"required",
@@ -335,6 +337,7 @@ function validate() {
         messages: {
             programTypeId:"Please Select Programme Type",
             imageValidate:"Please Upload Image",
+            regNoCheck:"Please Enter Reg. No. or Click A/F",
             subjectName: {required: "Please Enter Course Name",
                 lettersnumberswithbasicpunc: "Letters or numbers or punctuation only please"
             },

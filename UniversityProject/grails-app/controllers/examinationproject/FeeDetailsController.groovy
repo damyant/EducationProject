@@ -362,7 +362,7 @@ class FeeDetailsController {
 
 
     def payChallanForStudyCenterStu = {
-//       println("***************"+params)
+       println("***************"+params)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         def courseNameList = [], courseFee = []
         def feeDetailsInstance = FeeDetails.findAllByChallanNo(params.searchChallanNo)
@@ -404,7 +404,15 @@ class FeeDetailsController {
         }
         def paymentModeName = PaymentMode.findById(params.paymentMode)
         def bank = Bank.findById(params.bankName)
-        def branch = Branch.findById(params.branchLocation)
+        def branchInst
+        if(params.bankCheckBox){
+            branchInst=new Branch()
+            branchInst.bank=bank
+            branchInst.branchLocation=params.branchLocation
+            branchInst.save(flush: true)
+        }else {
+            branchInst = Branch.findById(params.branchLocation)
+        }
         def termList = []
         def prevFeeStatus=true
         feeDetailsInstance.each {
@@ -422,7 +430,7 @@ class FeeDetailsController {
             it.paymentModeId = paymentModeName
             it.paymentReferenceNumber = params.paymentReferenceNumber
             it.bankId = Bank.findById(params.bankName)
-            it.branchId = Branch.findById(params.branchLocation)
+            it.branchId = branchInst
             it.paymentDate = df.parse(params.paymentDate)
             if (PaymentMode.findById(params.paymentMode)!= PaymentMode.findById(1)) {
                 it.isApproved = Status.findById(3)
@@ -447,7 +455,7 @@ class FeeDetailsController {
             def challanNo = params.searchChallanNo
             def paymentDate = params.paymentDate
             def paymentReferenceNumber = params.paymentReferenceNumber
-            def args = [template: "printPayChallan", model: [bank: bank, termList: termList, lateFee: lateFee, studyCentre: studyCentre, branch: branch, paymentReferenceNumber: paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
+            def args = [template: "printPayChallan", model: [bank: bank, termList: termList, lateFee: lateFee, studyCentre: studyCentre, branch: branchInst, paymentReferenceNumber: paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         }
         else{
@@ -479,7 +487,15 @@ class FeeDetailsController {
         }
         def paymentModeName = PaymentMode.findById(params.paymentMode)
         def bank = Bank.findById(params.bankName)
-        def branch = Branch.findById(params.branchLocation)
+        def branch
+        if(params.bankCheckBox){
+            branch=new Branch()
+            branch.bank=bank
+            branch.branchLocation=params.branchLocation
+            branch.save(flush: true)
+        }else {
+            branch = Branch.findById(params.branchLocation)
+        }
         def feeDetailsInstance = FeeDetails.findAllByChallanNo(params.searchChallanNo)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         def status = false
@@ -654,5 +670,48 @@ class FeeDetailsController {
             }
         }
         render returnMap as JSON
+    }
+    def editChallanData={
+        def feeDetailList=FeeDetails.findAllByChallanNo(params.challanNoText)
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        if(feeDetailList){
+            feeDetailList.each {
+                it.bankId=Bank.findById(Integer.parseInt(params.bankName))
+                it.paymentModeId=PaymentMode.findById(Integer.parseInt(params.paymentMode))
+                it.paymentReferenceNumber=params.paymentReferenceNumber
+                it.bankId = Bank.findById(Integer.parseInt(params.bankName))
+                it.branchId = Branch.findById(Integer.parseInt(params.branchLocation))
+                it.paymentDate = df.parse(params.paymentDate)
+            }
+            flash.message="Updated Succesfully."
+        }
+        else{
+            flash.message="Unable to updated Succesfully."
+        }
+
+        redirect(action: 'challanNumberStatus')
+    }
+    def searchCustomChallan(){
+
+    }
+    def loadCustomChallanByDate(){
+        def resultMap=[:]
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy")
+        def challList=CustomChallan.list()
+        def challanList=[]
+        challList.each {
+            if(df.format(it.challanDate).compareTo(params.challanDate)==0){
+                challanList<<it
+            }
+
+        }
+        resultMap.listSize = challanList.size()
+        if(challanList.size()>0) {
+            resultMap.challanList = challanList
+        }
+        else{
+            resultMap.status="No Custom Challan on this Date"
+        }
+        render resultMap as JSON
     }
 }

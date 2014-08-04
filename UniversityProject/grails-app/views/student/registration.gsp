@@ -29,7 +29,7 @@
         $('#studentRegister').ready(function () {
 //    alert($("input.radioInput[name='nationality'][value="+nationality+"]").val())
             $("input[name='nationality'][value=" + nationality + "]").attr('checked', 'checked');
-            $("input.radioInput[name='category'][value=" + category + "]").attr('checked', 'checked');
+            $("input.radioInput[name='category'][value='" + category + "']").attr('checked', 'checked');
             $(".radioInput[name='gender'][value=" + gender + "]").attr('checked', 'checked');
             $(".radioInput[name='state'][value=" + state + "]").attr('checked', 'checked');
             if(isAppliedFor)  {
@@ -345,11 +345,11 @@
          <g:if test="${!studInstance?.registrationNo2}">
              &nbsp;&nbsp;&nbsp;Or&nbsp;&nbsp;&nbsp;
         <label style="text-align: left">
-        <input type="checkbox" value="Y" onclick="enableDisableTextBox()"
-                                                                                     name="isAppliedFor"
+        <input type="checkbox" value="Y" onclick="enableDisableTextBox()" name="isAppliedFor"
                                                                                      id="isAppliedFor"
                                                                                      class="university-size-1-4"/>A/F
     </label>
+             <input type="text" name="regNoCheck" id="regNoCheck" value="" style="width: 1px;height: 1px;border: 0px;"/>
              </g:if>
     </td>
 </tr>
@@ -438,7 +438,7 @@
                 <input type='file' id="profileImage" onchange="readURL(this, 'picture2');" class="university-button"
                        name="photograph"/>
             </g:else>
-            <input type="text" id="imageValidate" name="imageValidate" style="width: 1px;height: 1px;border: 0px;"/>
+            <input type="text" id="imageValidate" name="imageValidate" value="" style="width: 1px;height: 1px;border: 0px;"/>
 
         </td>
     </tr>

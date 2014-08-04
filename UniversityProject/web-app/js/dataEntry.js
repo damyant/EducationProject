@@ -853,4 +853,81 @@ function showChallanNumberStatus() {
         $('#errorMsg').html("Please Enter Challan Number")
     }
 }
+function editChallanDetails(){
+    var challanNo = $("#challanNoText").val()
+//    alert(challanNo)
+    if(challanNo){
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'challanDetails', ''),
+            data: {challanNo: challanNo},
+            success: function (data) {
+                if (data.challanError) {
+                    $('#errorMsg').html(data.challanError)
+                    $("#challanStatus thead").empty()
+                    $("#challanStatus tbody").empty()
+                    $('#challanStatusStaticData').empty()
+                    $('#challanDataEdit').empty()
+                    document.getElementById("horizontalLine").style.visibility = "hidden";
+                }
+                else {
+                    if(data.editable) {
+                        $('#errorMsg').html('')
+                        $("#challanStatus thead").empty().append('<tr><th>Roll Number</th><th>Course</th><th>Amount</th></tr>')
+                        $("#challanStatus tbody").empty()
+                        for (var i = 0; i < data.challanInst.length; i++) {
+                            $("#challanStatus tbody").append('<tr><td>' + data.rollNo[i] + '</td><td>' + data.program[i] + '</td><td>' + data.feeAmount[i] + '</td></tr>')
+                        }
+                        $('#challanStatusStaticData').empty()
+                        $('#challanDataEdit').empty().append('<tr><td class="university-size-1-3">Payment Mode</td><td class="university-size-2-3"><select name="paymentMode" class="university-size-1-2" id="paymentMode"><option value="">Select Payment Mode</option> </select></td></tr>')
+                        if (data.editPaydate != 'N/A') {
+                            $('#challanDataEdit').append('<tr><td class="university-size-1-3">Payment Date</td><td class="university-size-2-3"><input type="text" class="university-size-1-2" id="paymentDate" value="' + data.editPaydate + '" name="paymentDate"></td></tr>')
+                        }
+                        if (data.refNo != 'N/A') {
+                            $('#challanDataEdit').append('<tr><td class="university-size-1-3">Reference No</td><td class="university-size-2-3"><input type="text" name="paymentReferenceNumber" maxlength="10" value="' + data.refNo + '" onkeypress="return isNumber(event)" class="university-size-1-2" id="paymentReferenceNumber" value=""></td></tr>')
+                        }
+                        $('#challanDataEdit').append('<tr><td class="university-size-1-3">Bank</td><td class="university-size-2-3"><select name="bankName"  class="university-size-1-2" id="bankName"  onchange="loadBranch(this)"><option value="">Select Bank</option></select></td></tr>')
+                        $('#challanDataEdit').append('<tr><td class="university-size-1-3">Branch</td><td class="university-size-2-3"><select name="branchLocation"  class="university-size-1-2" id="branchLocation"><option value="">Select Branch</option></select></td></tr>')
+                        $('#challanDataEdit').append('<tr><td class="university-size-1-3"></td><td class="university-size-2-3"><input type="submit" value="Update"  class="university-button"></td></tr>')
+                        for (var i = 0; i < data.allPaymentMode.length; i++) {
+                            $("#paymentMode").append('<option value="'+data.allPaymentMode[i].id+'">'+data.allPaymentMode[i].paymentModeName+'</option>')
+                        }
+                        for (var i = 0; i < data.allBank.length; i++) {
+                            $("#bankName").append('<option value="'+data.allBank[i].id+'">'+data.allBank[i].bankName+'</option>')
+                        }
+                        for (var i = 0; i < data.allBranch.length; i++) {
+                            $("#branchLocation").append('<option value="'+data.allBranch[i].id+'">'+data.allBranch[i].branchLocation+'</option>')
+                        }
+                        if (data.paymentModeId != 'N/A') {
+                            $("#paymentMode").val(data.paymentModeId)
+                        }
+                        if (data.bankId != 'N/A') {
+                            $("#bankName").val(data.bankId)
+                        }
+                        if (data.branchId != 'N/A') {
+                            $("#branchLocation").val(data.branchId)
+                        }
+                        $("#paymentDate").datepicker({
+                            changeMonth: true,
+                            changeYear: true,
+                            dateFormat: "dd/mm/yy",
+                            maxDate: 0
+                        });
+                    }
+                    else{
+                        $('#errorMsg').html("Challan Not Paid.")
+                        $("#challanStatus thead").empty()
+                        $("#challanStatus tbody").empty()
+                        $('#challanStatusStaticData').empty()
+                        $('#challanDataEdit').empty()
+                        document.getElementById("horizontalLine").style.visibility = "hidden";
+                    }
+                }
 
+            }
+        });
+    }
+    else{
+        $('#errorMsg').html("Please Enter Challan Number")
+    }
+}

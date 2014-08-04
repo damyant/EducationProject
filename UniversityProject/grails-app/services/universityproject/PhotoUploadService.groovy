@@ -11,13 +11,13 @@ class PhotoUploadService {
     }
 
     def saveBulkPhoto(params) {
+        println("@@@@@@@@@@@@@@@@@@@@@"+params.admissionYear)
         def resultMap = [:]
         def rollNo = []
-        def studentListInst = Student.findAllByRegistrationYearAndStudentImageIsNull(params.admissionYear)
+        def studentListInst = Student.findAllByRegistrationYearAndStudentImageIsNullAndReferenceNumber(params.admissionYear,0)
         def directryName = (studentListInst[0].applicationNo).substring(0, 4)
         if (directryName == params.admissionYear) {
             def dirPath = params.filePath + directryName + "/"
-            println("================="+dirPath)
             File f = new File(dirPath);
             if (f.exists() && f.isDirectory()) {
                 resultMap.dirStatus = true

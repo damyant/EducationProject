@@ -116,6 +116,9 @@
                                   optionValue=""
                                   from="" noSelection="['': ' Select Branch']"
                                   onchange=""/>
+                        <input type="text" disabled name="branchLocation" hidden="true" id="otherBankBranch" class="university-size-1-2"/>
+                        <label style="margin-left: 10px;">
+                            <input type="checkbox" id="bankCheckBox" name="bankCheckBox" onclick="putOtherBranch()" value="other"/>Other</label>
                     </td>
                 </tr>
 

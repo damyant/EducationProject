@@ -311,6 +311,8 @@
                         code="default.mainMenu7.subMenu1.subMenu1"/></g:link></li>
                 <li><g:link controller="admin" action="generateCustomChallan"><g:message
                         code="default.mainMenu6.subMenu12"/></g:link></li>
+                <li><g:link controller="feeDetails" action="searchCustomChallan"><g:message
+                        code="default.mainMenu6.subMenu8"/></g:link></li>
             </ul>
         </li>
     </sec:ifNotGranted>
