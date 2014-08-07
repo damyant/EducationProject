@@ -125,13 +125,18 @@ class PostExaminationController {
     def marksEntering = {
 
         def currentUser = springSecurityService.currentUser
-        def progList=TabulatorProgram.findAllByUser(currentUser).program
-        println(progList)
+//        def progList=TabulatorProgram.findAllByUser(currentUser).program
+        def criteria = TabulatorProgram.createCriteria()
+        def progList = criteria.listDistinct() {
+            projections {
+                distinct("program")
+            }
+            eq('user',currentUser)
+        }
         def programList=[]
         progList.each {
             programList<<ProgramDetail.findById(it.id)
         }
-        println("??????????????????????????"+programList)
         def marksTypeList = MarksType.list()
         [programList: programList, marksTypeList: marksTypeList]
     }
@@ -179,13 +184,15 @@ class PostExaminationController {
     }
     def getTabulatorSemester={
         def returnMap = [:]
+        def tabSemesterList=[]
         def currentUser = springSecurityService.currentUser
-        def tabProgramInst=TabulatorProgram.findByProgramAndUser(ProgramDetail.findById(Integer.parseInt(params.program)),currentUser)
-        println(tabProgramInst)
+        def tabProgramInstList=TabulatorProgram.findAllByProgramAndUser(ProgramDetail.findById(Integer.parseInt(params.program)),currentUser)
+
         def programSession = ProgramSession.findAllByProgramDetailId(ProgramDetail.findById(Integer.parseInt(params.program)))
-        def tabSemesterList=TabulatorSemester.findAllByTabulatorProgram(tabProgramInst).semester
-        println("tabSemesterList-----"+tabSemesterList)
-        println("programSession-----"+programSession)
+        tabProgramInstList.each{
+            tabSemesterList<<TabulatorSemester.findAllByTabulatorProgram(it).semester
+        }
+
         returnMap.tabSemesterList=tabSemesterList
         returnMap.session=programSession
         render returnMap as JSON

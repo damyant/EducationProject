@@ -72,6 +72,7 @@ class UserController {
             returnMap.noOfSemester = it.programDetailId.noOfTerms
             programListMap.add(returnMap)
         }
+
         render programListMap as JSON
     }
 

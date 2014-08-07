@@ -358,8 +358,12 @@ function getTabulatorSemester(t){
                 $('#semesterList').prop('disabled',false)
                 $("#SessionList").empty().append('data <option value="">Select Session</option>')
                 $('#semesterList').empty().append("<option value=''>Select Semester</option>")
-                for(var i=0;i<data.tabSemesterList.length;i++){
-                    $('#semesterList').append("<option value='"+data.tabSemesterList[i]+"'>"+data.tabSemesterList[i]+"</option>")
+
+                for(var i=0;i<data.tabSemesterList.length;i++)
+                {
+                    for(var j=0;j<data.tabSemesterList[i].length;j++){
+                         $('#semesterList').append("<option value='"+data.tabSemesterList[i][j]+"'>"+data.tabSemesterList[i][j]+"</option>")
+                        }
                 }
                 for (var j = 0; j < data.session.length; j++) {
                     $("#SessionList").append('<option value="' + data.session[j].id + '">' + data.session[j].sessionOfProgram + '</option>')
