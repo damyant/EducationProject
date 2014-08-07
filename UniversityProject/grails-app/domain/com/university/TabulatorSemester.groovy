@@ -1,17 +1,20 @@
 package com.university
 
+import examinationproject.Semester
+
 //ADDED BY Chandan
 class TabulatorSemester {
 
-    String semester
+    Semester semesterId
 
     static belongsTo = [tabulatorProgram:TabulatorProgram]
     static mapping = {
         tabulatorProgram cascade: "none"
-        semester column: 'semester'
+        semesterId column: 'SemesterId'
+        tabulatorProgram column: 'TabulatorProgramId'
     }
     static constraints = {
-        semester(nullable: false)
+        semesterId(nullable: false)
     }
 
 

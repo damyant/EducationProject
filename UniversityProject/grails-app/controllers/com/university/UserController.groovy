@@ -75,6 +75,7 @@ class UserController {
             println("-----------------"+Semester.findAllByProgramSession(it))
             programListMap.add(returnMap)
         }
+
         render programListMap as JSON
     }
 

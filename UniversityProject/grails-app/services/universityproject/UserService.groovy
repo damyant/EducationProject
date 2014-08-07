@@ -246,7 +246,7 @@ class UserService {
                                String[] sem = tab1Sem[l].split(",")
                                for (int j = 0; j < sem.length; j++) {
                                    def tabSemesterInst = new TabulatorSemester()
-                                   tabSemesterInst.semester = sem[j]
+                                   tabSemesterInst.semesterId = sem[j]
                                    tabSemesterInst.tabulatorProgram = tabProgramInst
                                    if (tabSemesterInst.save(flush: true, failOnError: true))
                                        println("Saved")
@@ -271,7 +271,7 @@ class UserService {
                            for (int j = 0; j < sem.length; j++) {
                                def tabSemesterInst
                                tabSemesterInst = new TabulatorSemester()
-                               tabSemesterInst.semester = sem[j]
+                               tabSemesterInst.semesterId = sem[j]
                                tabSemesterInst.tabulatorProgram = tabProgramInst
                                tabSemesterInst.save(flush: true)
                            }

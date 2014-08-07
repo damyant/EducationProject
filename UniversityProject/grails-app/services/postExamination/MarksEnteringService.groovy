@@ -28,6 +28,7 @@ class MarksEnteringService {
     }
 
     def getGroupDetail(params) {
+        println("***"+params)
         def programSessionObj = ProgramSession.findByProgramDetailId(ProgramDetail.get(params.program))
         def programGroupIns = ProgramGroup.findAllByProgramSessionAndSemester(programSessionObj, Semester.get(params.semester))
         return programGroupIns

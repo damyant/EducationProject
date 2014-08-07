@@ -12,6 +12,9 @@ class TabulatorProgram implements Serializable{
             tabulatorSemester : TabulatorSemester
     ]
     static mapping = {
+        user column: 'UserId'
+        role column: 'RoleId'
+        program column: 'ProgramId'
     }
     static constraints = {
         program(nullable: false)
