@@ -8,14 +8,13 @@ class FeeDetails {
     PaymentMode paymentModeId
     Date paymentDate
     Date challanDate
-    Integer paymentReferenceNumber
+    String paymentReferenceNumber
     Bank bankId
     Branch branchId
     FeeType feeType
     Student student
     int semesterValue
-    int isApproved = 0
-
+    Status isApproved
 
 
     static constraints = {

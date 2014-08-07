@@ -23,7 +23,7 @@
         <label>Select Programme</label>
         <g:select id="ms" multiple="multiple" name="ms" class="university-size-1-7 form-control" onchange="select(this)"
                   optionKey="id" optionValue="courseName"
-                   from="${ProgramDetail.findAll()}">
+                   from="${ProgramDetail.list(sort: 'courseCode')}">
 
 
         </g:select>

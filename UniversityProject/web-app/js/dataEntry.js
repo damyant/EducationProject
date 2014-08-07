@@ -296,7 +296,7 @@ function appendStudentList(data) {
                 '<input type="text" class="university-size-1-1" name="rollNo" id="rollNo' + i + '" value="' + data.studentList[i].rollNo + '" readonly></td>' +
                 '<td>' + data.studentList[i].firstName + ' ' + data.studentList[i].lastName + '</td>' +
                 '<td><input type="text" id="feeAmount' + i + '" name="feeAmount" readonly/></td>' +
-                '<td><input type="text" id="semester' + i + '" name="semester" value="' + data.term+ '" readonly/></td></tr>');
+                '<td><input type="text" id="semester' + i + '" name="semester" value="' + data.term + '" readonly/></td></tr>');
             if (type == '') {
                 $("#feeType" + i).empty().append('<option value="1">Education Fee</option>')
                 $("#feeAmount" + i).val(data.feeAmount[i])
@@ -329,11 +329,11 @@ function appendStudentList(data) {
 
         }
         var pageNo = 0
-        if($table_rows.length % table_row_limit){
-            pageNo=parseInt(parseInt($table_rows.length) / table_row_limit)+1
+        if ($table_rows.length % table_row_limit) {
+            pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
         }
-        else{
-            pageNo=parseInt($table_rows.length / table_row_limit)
+        else {
+            pageNo = parseInt($table_rows.length / table_row_limit)
         }
 //                alert(5%5)
         $('.pagination').jqPagination({
@@ -409,37 +409,42 @@ function enterSrNo(t) {
 }
 
 function populateStudentList() {
-
-    var program = $('#programList').val();
-    var semester = $('#semesterList').val();
+    var feeType = $('#feeCategory').val();
     var catagory = $('#programCategory').val();
-    var chkBox1 = document.getElementById('allProgram');
-//    alert(chkBox1.checked)
-    if (program != '' && semester != '' && chkBox1.checked == false) {
-        program = $('#programList').val();
-        semester = $('#semesterList').val();
-    }
-    else if (program == '' && semester == '' && chkBox1.checked == true) {
-        program = 'All';
-        semester = '1';
-    }
-    else if (program == '' && semester != '' && chkBox1.checked == true) {
-        program = 'All';
-        semester = $('#semesterList').val();
+    var program = $('#programList').val();
+    if (feeType != '2') {
+        var semester = $('#semesterList').val();
+        var chkBox1 = document.getElementById('allProgram');
+        if (program != '' && semester != '' && chkBox1.checked == false) {
+            program = $('#programList').val();
+            semester = $('#semesterList').val();
+        }
+        else if (program == '' && semester == '' && chkBox1.checked == true) {
+            program = 'All';
+            semester = '1';
+        }
+        else {
+            alert("Please Fill the Filters.")
+        }
     }
     else {
-        alert("Please Fill the Filters.")
+        if (program == '' && chkBox1.checked == true) {
+            program = 'All';
+        }
+        else {
+            program = $('#programList').val();
+        }
     }
-    if (program) {
+    if (feeType) {
         $.ajax({
             type: "post",
             url: url('feeDetails', 'populateStudentsForStudyCenter', ''),
-            data: {program: program,semester:semester,catagory:catagory},
+            data: {program: program, semester: semester, catagory: catagory, feeType: feeType},
             success: function (data) {
-                if(data.studentError){
-                        $('#noStudentMsg').html(data.studentError)
-                }else{
-                appendStudentList(data)
+                if (data.studentError) {
+                    $('#noStudentMsg').html(data.studentError)
+                } else {
+                    appendStudentList(data)
                 }
             }
         });
@@ -574,17 +579,16 @@ function loadAdmissionDate(t) {
             url: url('admin', 'getAdmissionDate', ''),
             data: {programCode: programCode},
             success: function (data) {
-                if (data.startDate) {
+                if (data) {
                     $("#startAdmission_D").datepicker({ dateFormat: "dd/mm/yy" }).val(data.startDate)
+                    $("#endAdmission_D").datepicker({ dateFormat: "dd/mm/yy" }).val(data.endDate)
+                    $("#admissionYear").val(data.year)
+
                 }
                 else {
                     $("#startAdmission_D").val("")
-                }
-                if (data.endDate) {
-                    $("#endAdmission_D").datepicker({ dateFormat: "dd/mm/yy" }).val(data.endDate)
-                }
-                else {
                     $("#endAdmission_D").val("")
+                    $("#admissionYear").val("")
                 }
             }
 
@@ -664,6 +668,11 @@ function clearFields() {
     $('#programCategory').val('')
     $('#programList').val('')
     $('#semesterList').val('')
+    if ($('#allProgram').prop('checked')) {
+        $('#programCategory').prop('disabled', true)
+    } else {
+        $('#programCategory').prop('disabled', false)
+    }
     $('#studyCenterFeeEntryTable').prop('hidden', true);
     $('#rangeRadioButtons').prop('hidden', true);
     document.getElementById("paginationDiv").style.visibility = "hidden";
@@ -716,6 +725,8 @@ function loadProgramList(t) {
                     $('#courseTable tbody').append('<tr><td>'+data.subject[i][0].subjectCode+'</td><td>'+ data.subject[i][0].subjectName+'</td><td>'+ data.subSession[i][0].sessionOfSubject+'</td>' +
                         '<td><input type="button" class="university-button"  onclick="deleteCourse(' +  data.subSession[i][0].id  + ')" value="Delete"/> <input type="button" class="university-button" onclick="editCourse(' + data.subSession[i][0].id  + ')" value="Edit"/></td>' +
                         '</tr>')
+
+
                 }
                 document.getElementById("paginationDiv").style.visibility = "visible";
                 document.getElementById("courseTable").style.visibility = "visible"
@@ -723,7 +734,7 @@ function loadProgramList(t) {
 
                 var table_row_limit = 10;
 
-                var page_table = function(page) {
+                var page_table = function (page) {
 
                     // calculate the offset and limit values
                     var offset = (page - 1) * table_row_limit,
@@ -736,12 +747,12 @@ function loadProgramList(t) {
                     $table_rows.slice(offset, limit).show();
 
                 }
-                var pageNo=0
-                if($table_rows.length % table_row_limit){
-                    pageNo=parseInt(parseInt($table_rows.length) / table_row_limit)+1
+                var pageNo = 0
+                if ($table_rows.length % table_row_limit) {
+                    pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
                 }
-                else{
-                    pageNo=parseInt($table_rows.length / table_row_limit)
+                else {
+                    pageNo = parseInt($table_rows.length / table_row_limit)
                 }
 //                alert(5%5)
                 $('.pagination').jqPagination({
@@ -750,7 +761,7 @@ function loadProgramList(t) {
                 });
                 page_table(1);
             }
-            else{
+            else {
                 document.getElementById("courseTable").style.visibility = "hidden"
                 $('#courseTable tbody').empty()
                 $('#errorMsg').text('No Result Found !')
@@ -758,13 +769,13 @@ function loadProgramList(t) {
         }
     });
 }
-function editCourse(data){
-    window.open ('/UniversityProject/admin/addCourses/'+data,'_self',false)
+function editCourse(data) {
+    window.open('/UniversityProject/admin/addCourses/' + data, '_self', false)
 }
-function deleteCourse(data){
+function deleteCourse(data) {
     $('#deleteCityId').val(data)
 //        alert($('#deleteCityId').val())
-        $('#deleteCityInst').submit()
+    $('#deleteCityInst').submit()
 }
 function loadStudents(t) {
     var challanNo = $(t).value();
@@ -786,29 +797,65 @@ function loadStudents(t) {
     });
 }
 function enableAll() {
+    if($("#feeCategory").val()!=""){
+    $("#programList").val('')
+    $("#semesterList").val('')
     $('#programCategory').attr('disabled', false);
     $('#programList').attr('disabled', false);
     $('#allProgram').attr('disabled', false);
-    $('#semesterList').attr('disabled', false);
+    if ($('#feeCategory').val() != '2') {
+        $('#semesterList').attr('disabled', false);
+
+    }
+}
+    else{
+        $("#programList").val('')
+        $("#programCategory").val('')
+        $("#semesterList").val('')
+        $('#programCategory').attr('disabled', true);
+        $('#programList').attr('disabled', true);
+        $('#allProgram').attr('disabled', true);
+        $('#semesterList').attr('disabled', true);
+    }
 
 }
 
 function showChallanNumberStatus() {
-    $("#challanNoText").val()
+    var challanNo = $("#challanNoText").val()
+//    alert(challanNo)
+    if(challanNo){
     $.ajax({
         type: "post",
         url: url('feeDetails', 'challanDetails', ''),
         data: {challanNo: challanNo},
         success: function (data) {
-            $("#studyCenterFeeEntryTable tbody tr").remove()
-            for (var i = 0; i < data.studList.length; i++) {
-                $("#studyCenterFeeEntryTable tbody").append('<tr><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td>' +
-                    '<td>' + data.studList[i].rollNo + '</td>' +
-                    '<td>' + data.studList[i].rollNo + '</td>' +
-                    '</tr>')
+            if (data.challanError) {
+                $('#errorMsg').html(data.challanError)
+                $("#challanStatus thead").empty()
+                $("#challanStatus tbody").empty()
+                $('#challanStatusStaticData').empty()
+                document.getElementById("horizontalLine").style.visibility = "hidden";
             }
-
+            else {
+                $('#errorMsg').html('')
+                $("#challanStatus thead").empty().append('<tr><th>Roll Number</th><th>Course</th><th>Amount</th></tr>')
+                $("#challanStatus tbody").empty()
+                for (var i = 0; i < data.challanInst.length; i++) {
+                    $("#challanStatus tbody").append('<tr><td>' + data.rollNo[i] + '</td><td>' + data.program[i] + '</td><td>' + data.feeAmount[i] + '</td></tr>')
+                }
+                $('#challanStatusStaticData').empty().append('<tr><td class="university-size-1-3">Total Amount</td><td class="university-size-2-3">' + data.total + '</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Payment Date</td><td class="university-size-2-3">' + data.paydate + '</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Payment Mode</td><td class="university-size-2-3">' + data.paymentMode + '</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Study Centre</td><td class="university-size-2-3">' + data.studyCentre + '</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Status</td><td class="university-size-2-3">' + data.status + '</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Bank</td><td class="university-size-2-3">' + data.bank + '</td></tr>')
+                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Branch</td><td class="university-size-2-3">' + data.branch + '</td></tr>')
+            }
         }
     });
+    }
+    else{
+        $('#errorMsg').html("Please Enter Challan Number")
+    }
 }
 

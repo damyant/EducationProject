@@ -5,7 +5,7 @@
         <div class="university-size-full-1-1" style="margin-bottom: 25px;"> <div style="float: right"><lable>Challan. No. </lable><label >${student?.challanNo}</label></div>
             <div class="university-clear-both"></div>
         </div>
-    <div style="clear: both; margin-bottom: 1px;width:100%;">&nbsp;</div>
+    <div style="clear: both; margin-bottom: 1px;width:100%;"></div>
         <p style="width:100%; margin-left: 3px; margin-top: 1px; text-align: center;text-transform: uppercase;font-size: 13px">
          <div  style="width:100%;"></div>
         <div  style="width:100%;">State Bank of India</div>
@@ -22,7 +22,7 @@
         <table width="100%" class="university-table-1-2" style="font-size: 13px;">
             <tr><td><lable>Name:</lable></td><td><label>${student?.firstName} ${student?.middleName} ${student?.lastName} </label></td></tr>
             <tr><td><lable>Roll No:</lable></td><td><label>${student?.rollNo}</label></td></tr>
-            <tr><td>Type Of Fee:</td><td>Admission Fee for ${programFee?.programDetail?.courseName}</td></tr>
+            <tr><td>Type Of Fee:</td><td>Admission Fee for ${ feeSessionObj?.programDetailId?.courseName}</td></tr>
             <tr><td><lable>Amount:</lable></td><td><label>${programFeeAmount}</label>
                 <g:if test="${lateFee!=0}">
                     <label style="font-size: 13px;display: block">(with late fee ${lateFee})</label>

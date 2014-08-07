@@ -2,6 +2,7 @@ package examinationproject
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import groovy.transform.Synchronized
 import org.apache.commons.lang.ObjectUtils.Null
 
 import java.text.DateFormat
@@ -9,6 +10,7 @@ import java.text.SimpleDateFormat
 
 //@Secured("ROLE_STUDYCENTRE")
 class StudentController {
+    private final myLock = new Object()
     def studentRegistrationService
     def pdfRenderingService
     def springSecurityService
@@ -54,12 +56,12 @@ class StudentController {
             flash.message="Please Assign Admission Date"
         }
         if(params.studentId){
-            programList = ProgramDetail.list()
+            programList = ProgramDetail.list(sort: 'courseCode')
              studyCentreList = StudyCenter.list()
         }
         def districtList=District.list(sort: 'districtName')
         def bankName=Bank.list(sort:'bankName')
-        def paymentMode=PaymentMode.list(sort:'paymentModeName')
+        def paymentMode=PaymentMode.findById(2)
         def centreList =  City.findAllByIsExamCentre(1)
 //        println("sss"+studInstance.status)
         [studyCentre: studyCentre,studInstance:studInstance, studyCenterList: studyCentreList, programList: programList,centreList:centreList,districtList:districtList,registered:params.registered,studentID:params.studentID,bankName:bankName,paymentMode:paymentMode,fee:params.fee]
@@ -76,7 +78,9 @@ class StudentController {
             if(params.studentId){
                 if(springSecurityService.isLoggedIn()){
                     flash.message = "${message(code: 'register.updated.message')}"
-                    redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
+//                    redirect(action: "registration", params: [ studentID: studentRegistration.id,registered:"reg"])
+                    redirect(controller: 'admin', action: "individualStudentUpdate")
+
                 }else{
                     flash.message = "${message(code: 'register.updated.message')}"
                     redirect(action: "registration", params: [ fee:fee,studentID: studentRegistration.id,registered:"registered"])
@@ -95,11 +99,11 @@ class StudentController {
                         def today = new Date()
                         if(lateFeeDate!=null) {
                             if (today.compareTo(lateFeeDate) > 0) {
-                                lateFee = AdmissionFee.findByFeeSession(FeeSession.findByProgramDetailId(student.programDetail[0])).lateFeeAmount
+                                lateFee = AdmissionFee.findByFeeSessionAndTerm(FeeSession.findByProgramDetailId(student.programDetail[0]),1).lateFeeAmount
                             }
                         }
-                        println(student.programDetail)
-                        def feeAmount = AdmissionFee.findByFeeSession(FeeSession.findByProgramDetailId(student.programDetail[0]));
+//                        println(student.programDetail)
+                        def feeAmount = AdmissionFee.findByFeeSessionAndTerm(FeeSession.findByProgramDetailId(student.programDetail[0]),1);
                         payableFee = feeAmount.feeAmountAtIDOL + lateFee
                     }
                     catch(NullPointerException e){
@@ -148,11 +152,11 @@ class StudentController {
             if(lateFeeDate!=null) {
                 if (today.compareTo(lateFeeDate) > 0) {
 //                    lateFee = AdmissionFee.findByProgramDetail(student.programDetail).lateFeeAmount
-                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+                    lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1).lateFeeAmount
                 }
             }
 //            def feeAmount = AdmissionFee.findByProgramDetail(student.programDetail);
-            def feeAmount = AdmissionFee.findByFeeSession(feeSessionObj);
+            def feeAmount = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1);
             payableFee = feeAmount.feeAmountAtIDOL + lateFee
         }
         catch(NullPointerException e){
@@ -194,7 +198,7 @@ class StudentController {
 
     }
 
-    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT","ROLE_IDOL_USER"])
     def studentListView = {
         def studyCenterList=StudyCenter.list(sort: 'name')
         def programList=ProgramDetail.list(sort: 'courseCode')
@@ -207,7 +211,8 @@ class StudentController {
         response.setContentType(params.mime)
         response.outputStream << image
     }
-    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def enrollmentAtIdol={
         def studyCentre
         def programList =[]
@@ -228,7 +233,7 @@ class StudentController {
 
         }
 
-        def allProgramList = ProgramDetail.list(sort: 'courseName')
+        def allProgramList = ProgramDetail.list(sort: 'courseCode')
         try {
             DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
             def today =df.parse(df.format(new Date()))
@@ -237,19 +242,12 @@ class StudentController {
                 if(it.startAdmission_D!=null && it.endAdmission_D !=null) {
                     def start =df.parse(df.format(it.startAdmission_D))
                     def end =df.parse(df.format(it.endAdmission_D))
-//                    println("start>>>----"+start)
-//                    println("End>>>----"+end)
-//                    println("today>>>----"+today)
-//                    println(it.courseName)
-//                    println("start"+start.compareTo(today))
-//                    println("end"+today.compareTo(end))
                     if (start.compareTo(today) <= 0 && end.compareTo(today) >=0) {
                         programList.add(it)
                         count++
                     }
                 }
             }
-//            println("total "+count)
             if(count==0){
 //                flash.message="Admission Period Not Started Yet"
             }
@@ -272,10 +270,13 @@ class StudentController {
     }
     def checkApplicationNo(){
         def status=[:]
-        def applicationNoIns=Student.findByApplicationNo(params.applicationNo)
+        def year = ProgramDetail.findById(Long.parseLong(params.programme)).admissionYear
+        def applicationNo = year+''+params.applicationNo
+        def applicationNoIns=Student.findByApplicationNo(applicationNo)
 //        println(applicationNoIns)
         if(applicationNoIns){
             status.applicationNo='true'
+            status.rollNo=applicationNoIns.rollNo
         }
         else{
             status.applicationNo='false'
@@ -283,37 +284,33 @@ class StudentController {
         render status as JSON
 
     }
+
+    @Synchronized("myLock")
     def tempRegistration() {
        def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, "", "")
         if (studentRegistration) {
-         // kuldeep's code for pop up start from here..............................................................
             def infoMap =[:]
+//            println("---------------------------------"+studentRegistration.rollNo)
             def student = Student.findByRollNo(studentRegistration.rollNo)
-//            println("program"+student.programDetail)
             def program = student.programDetail
             def feeTypeId
             def feeType = null
             def args
             def lateFee=0
             def programFeeAmount = 0
-
             Calendar cal = Calendar.getInstance();
             int year = cal.get(cal.YEAR);
             def sessionVal= year+1
             sessionVal= year+'-'+sessionVal
-
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
-            def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
-            println('this is the programFee '+programFee)
-
+            def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1)
+//            println('this is the programFee '+programFee)
             try{
                 def lateFeeDate=student.programDetail.lateFeeDate[0]
                 def today=new Date()
                 if(lateFeeDate!=null) {
                     if (today.compareTo(lateFeeDate) > 0) {
-
-                        lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
-
+                        lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1).lateFeeAmount
                     }
                 }
                 feeType = null
@@ -324,21 +321,23 @@ class StudentController {
                 redirect(controller: student, action:enrollmentAtIdol)
 
             }
+            def feeDetailInst=new FeeDetails()
+            feeDetailInst.student=student
+            feeDetailInst.paidAmount=programFeeAmount
+            feeDetailInst.semesterValue=1
+            feeDetailInst.challanDate=new Date()
+            feeDetailInst.isApproved=Status.findById(1)
+            feeDetailInst.feeType=FeeType.findById(3)
+            feeDetailInst.challanNo = student.challanNo
+            feeDetailInst.save(failOnError: true, flush: true)
+//              println("__________________"+lateFee)
              infoMap.student=student
              infoMap.programFee=programFee
              infoMap.lateFee=lateFee
              infoMap.courseName=programFee.feeSession.programDetailId.courseName
              infoMap.programFeeAmount=programFeeAmount
              infoMap.feeType=feeType
-
-
-//             args = [template: "feeVoucherAtIdol", model: [student: student, programFee: programFee,lateFee:lateFee, programFeeAmount: programFeeAmount, feeType: feeType]]
-
              render infoMap as JSON
-
-
-         //ends here.................................................................................................
-//            render studentRegistration as JSON
         } else {
             flash.message = "${message(code: 'register.notCreated.message')}"
             redirect(action: "enrollmentAtIdol")
@@ -368,16 +367,13 @@ class StudentController {
     }
 
     def viewStudent = {
-//        println("??????????????????????"+params)
         def student = Student.findById(params.studentId)
-//        println("Challan Number"+student.addressDistrict)
-        def feeDetails = FeeDetails.findByChallanNo(student.challanNo)
-        def miscellaneousFeeChallan = FeeDetails.findById(student.id)
-        [studInstance:student,feeDetails: feeDetails]
+//        println(student.rollNo)
+        redirect(controller: 'student', action: "viewStudentDetails", params: [studentId:student.rollNo.toString()])
     }
-    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN"])
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def customChallanSave={
-        println(params)
+//        println(params)
         def resultMap = studentRegistrationService.saveCChallan(params)
         if(resultMap.status){
             def infoMap =[:]
@@ -391,5 +387,70 @@ class StudentController {
             flash.message = "${message(code: 'register.notCreated.message')}"
             redirect(controller: 'admin', action: "generateCustomChallan")
         }
+    }
+    @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
+    def generateIdentityCard={
+        def programList=ProgramDetail.list(sort: 'courseCode')
+        def sessionList = Student.createCriteria().list {
+            projections {
+                distinct("registrationYear")
+            }
+        }
+        [programList:programList,sessionList:sessionList]
+    }
+    def getStudentsForIdentityCard={
+        def prgramInst=ProgramDetail.findById(Long.parseLong(params.programList))
+        def status=Status.findById(4)
+        def stuObj=Student.createCriteria()
+        def studentList=stuObj.list{
+            programDetail {
+                eq('id', prgramInst.id)
+            }
+            and {
+                eq('status',status)
+                eq('registrationYear', Integer.parseInt(params.admissionYear))
+                eq('identityCardGenerated', false)
+            }
+        }
+
+//                Student.findAllByProgramDetailAndRegistrationYearAndIdentityCardGeneratedAndStatus(prgramInst,Integer.parseInt(params.admissionYear),false,Status.findById(4))
+
+        if(studentList){
+            render studentList as JSON
+        }
+        else{
+            def resultMap = [:]
+            resultMap.status = false
+            render resultMap as JSON
+        }
+    }
+    def printIdentityCard={
+        def year=Integer.parseInt(params.admissionYear)
+        def fileName=year+"-"+(year+1)
+        def studentName=[],studentProgram=[],studentRoll=[],studentDOB=[],studentAddress=[],studentPin=[],studentMobNo=[],stuList=[]
+        def studentList = params.studentList.split(",")
+        DateFormat df = new SimpleDateFormat("dd-MMM-yyyy")
+        studentList.each {
+            def studentInst = Student.findById(Integer.parseInt(it.toString()))
+            stuList<<studentInst
+            studentName<<studentInst.firstName+" "+(studentInst.middleName?studentInst.middleName:"")+" "+studentInst.lastName
+            studentProgram<<studentInst.programDetail[0].courseName
+            studentRoll<<studentInst.rollNo
+            studentDOB<<df.format(studentInst.dob)
+            studentAddress<<studentInst.studentAddress+", "+studentInst.addressTown+", "+studentInst.addressDistrict+", "+studentInst.addressState
+            studentPin<<studentInst.addressPinCode
+            studentMobNo<<studentInst.mobileNo
+        }
+        def args = [template: "printIdentityCard", model: [studentInstance: stuList,studentMobNo:studentMobNo,studentPin:studentPin,studentAddress:studentAddress,studentDOB:studentDOB,studentRoll:studentRoll,studentProgram:studentProgram,studentName:studentName], filename: fileName + ".pdf"]
+        pdfRenderingService.render(args + [controller: this], response)
+    }
+    @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT","ROLE_IDOL_USER","ROLE_STUDY_CENTRE"])
+    def viewStudentDetails={
+        def student = Student.findByRollNo(params.studentId)
+        println(student)
+        def feeDetails = FeeDetails.findAllByStudent(student)
+        def homeAssignment=HomeAssignment.findAllByStudent(student)
+        def studyMaterials=StudyMaterial.findAllByStudentId(student)
+        [studInstance:student,feeDetails: feeDetails,homeAssignment:homeAssignment,studyMaterials:studyMaterials]
     }
 }

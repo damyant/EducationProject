@@ -134,7 +134,7 @@ class CourseDetailService {
 
     def getAllCourses() {
 
-        def courseObj = ProgramDetail.list(sort: 'courseName')
+        def courseObj = ProgramDetail.list(sort: 'courseCode')
 
 
     }
@@ -195,8 +195,6 @@ class CourseDetailService {
 //        courseDetail.groupSelectionType=groupSelectionType
 //        courseDetail.groupNoOfSubjects=groupNoOfSubjects
         courseDetail.semesterList = subList
-
-        println("=="+courseDetail)
 
         return courseDetail
 

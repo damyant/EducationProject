@@ -11,7 +11,7 @@
 
 <div style="border: 1px solid; padding: 10px;">
     <div class="university-size-full-1-1" style="margin-bottom: 25px;"><div
-            style="float: right"><lable>Challan No. </lable><label>${studList[0].challanNo}</label></div>
+            style="float: right"><lable>Challan No. </lable><label>${challanNo}</label></div>
 
         <div class="university-clear-both"></div>
     </div>
@@ -23,9 +23,15 @@
     <div>INSTITUTE OF DISTANCE AND OPEN LEARNING</div>
 
     <div>Guwahati, Assam</div>
+    <div style="margin-top: 5px;"><label style="border: 1px solid;padding-left: 5px;padding-right: 5px; margin-top: 8px;">SBI A/C No.
+        <g:message code="default.Bank.AcNo"/> &amp; <label>IFSC Code - <g:message code="default.Bank.IFSCcode"/>  </label></label>
+        </div>
+    <div style="margin-top: 8px;"><label style="border: 1px solid;padding-left: 5px;padding-right: 5px;margin-top: 8px;">UBI A/C No.
+        <g:message code="default.Bank.UBI.AcNo"/> &amp; <label> IFSC Code - <g:message code="default.Bank.UBI.IFSCcode"/></label></label></div>
 
 </p>
-    %{--<div style="font-weight: bold;width: 100%;text-align: center;">Admission Fee </div>--}%
+    <div style="font-weight: bold;width: 100%;text-align: center;">${feeTypeName} for Term ${term}
+    </div>
     <table style="width: 80%;margin: auto; text-align: center;">
         <tr>
             <g:if test="${studyCentre.centerCode[0] != '11111'}">

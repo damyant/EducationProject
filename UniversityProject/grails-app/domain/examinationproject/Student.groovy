@@ -26,6 +26,7 @@ class Student {
     String location
     String applicationNo
     String parentsName
+    int migratingStudyCentre
     String rollNo
     int semester
     Status status
@@ -34,6 +35,7 @@ class Student {
     byte[] studentImage
     ProgramSession programSession
     Boolean admitCardGenerated
+    Boolean identityCardGenerated=false
     ExaminationVenue examinationVenue
     Date admissionDate =new Date()
     
@@ -47,6 +49,7 @@ class Student {
         middleName(nullable: true)
         parentsName(nullable: true)
         dob(nullable: true)
+        migratingStudyCentre(nullable: true)
         isAppliedFor(nullable: true)
         category(nullable: true)
         gender(nullable: true)
@@ -106,6 +109,7 @@ class Student {
         status column: 'StatusId'
         programSession column: 'ProgramSession'
         admitCardGenerated column: 'AdmitCardGenerated'
+        identityCardGenerated column: 'IdentityCardGenerated'
         examinationVenue column: 'examinationVenue'
         challanNo column: 'ChallanNo'
     }

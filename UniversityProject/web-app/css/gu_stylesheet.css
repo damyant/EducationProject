@@ -126,6 +126,26 @@ body {
 .university-display-inline{
     display: inline-block;
 }
+.main-Content{
+    width: 100%;
+    display: inline-block;
+}
+.label-header{
+    width: 35%;
+    font-size: 13px;
+    float: left;
+    text-align: left;
+    padding: 11px;
+}
+.label-content{
+    width: 55%;
+    font-size: 15px;
+    font-weight: bold;
+    float: right;
+    text-align: left;
+    padding: 11px;
+}
+
 /*button*/
 .university-button {
     border-radius: 0;
@@ -188,12 +208,11 @@ input.error, select.error {
     border: #cd0a0a solid 1px;
 }
 
-label.error {
+div.error, label.error {
     margin-left: 2px;
     color: #cd0a0a;
     text-transform: capitalize;
 }
-
 label.error1 {
     margin-left: 2px;
     color: #cd0a0a;
@@ -266,7 +285,18 @@ table.ui-datepicker-calendar {
     text-align: center;
 
 }
+.university-signature {
+    height: 150px;
+    width: 250px;
+    border: 1px solid lavender;
+    border-radius: 3px;
+    display: block;
+    background: url("../images/signature.jpg") no-repeat;
+    background-position: bottom;
+    background-size: 100%;
+    text-align: center;
 
+}
 #examCenterSelect td {
     vertical-align: top;
 }
@@ -822,7 +852,9 @@ textarea:-moz-placeholder {
 textarea {
     resize: none;
 }
-
+#statusTable{
+    border-bottom: 1px solid darkgrey;
+}
 .ui-datepicker {
     background: #fff;
     border: 1px solid #555;
@@ -922,5 +954,79 @@ th{
 }
 .paginateButtons span {
     padding: 2px 3px;
+}
+.CSSTableGenerator {
+    margin:0px;padding:0px;
+    width:100%;
+    border:1px solid #aaaaff;
+
+    -moz-border-radius-bottomleft:0px;
+    -webkit-border-bottom-left-radius:0px;
+    border-bottom-left-radius:0px;
+
+    -moz-border-radius-bottomright:0px;
+    -webkit-border-bottom-right-radius:0px;
+    border-bottom-right-radius:0px;
+
+    -moz-border-radius-topright:0px;
+    -webkit-border-top-right-radius:0px;
+    border-top-right-radius:0px;
+
+    -moz-border-radius-topleft:0px;
+    -webkit-border-top-left-radius:0px;
+    border-top-left-radius:0px;
+}.CSSTableGenerator table{
+     border-collapse: collapse;
+     border-spacing: 0;
+     width:100%;
+     height:100%;
+     margin:0px;padding:0px;
+ }.CSSTableGenerator tr:last-child td:last-child {
+      -moz-border-radius-bottomright:0px;
+      -webkit-border-bottom-right-radius:0px;
+      border-bottom-right-radius:0px;
+  }
+.CSSTableGenerator table tr:first-child td:first-child {
+    -moz-border-radius-topleft:0px;
+    -webkit-border-top-left-radius:0px;
+    border-top-left-radius:0px;
+}
+.CSSTableGenerator table tr:first-child td:last-child {
+    -moz-border-radius-topright:0px;
+    -webkit-border-top-right-radius:0px;
+    border-top-right-radius:0px;
+}.CSSTableGenerator tr:last-child td:first-child{
+     -moz-border-radius-bottomleft:0px;
+     -webkit-border-bottom-left-radius:0px;
+     border-bottom-left-radius:0px;
+ }.CSSTableGenerator tr:hover td{
+
+  }
+.CSSTableGenerator tr:nth-child(odd){ background-color:#e5e5e5; }
+.CSSTableGenerator tr:nth-child(even)    { background-color:#ffffff; }.CSSTableGenerator td{
+                                                                          vertical-align:middle;
+
+
+                                                                          border:1px solid #aaaaff;
+                                                                          border-width:0px 1px 1px 0px;
+                                                                          text-align:center;
+                                                                          padding:7px;
+                                                                          font-size:13px;
+                                                                          font-family:Times New Roman;
+                                                                          font-weight:normal;
+                                                                          color:#000000;
+                                                                      }.CSSTableGenerator tr:last-child td{
+                                                                           border-width:0px 1px 0px 0px;
+                                                                       }.CSSTableGenerator tr td:last-child{
+                                                                            border-width:0px 0px 1px 0px;
+                                                                        }.CSSTableGenerator tr:last-child td:last-child{
+                                                                             border-width:0px 0px 0px 0px;
+                                                                         }
+.CSSTableGenerator tr:hover td{
+    background:-o-linear-gradient(bottom, #b2b2b2 5%, #c9ab8f 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b2b2b2), color-stop(1, #c9ab8f) );
+    background:-moz-linear-gradient( center top, #b2b2b2 5%, #c9ab8f 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#b2b2b2", endColorstr="#c9ab8f");	background: -o-linear-gradient(top,#b2b2b2,c9ab8f);
+
+    background-color:#b2b2b2;
 }
 

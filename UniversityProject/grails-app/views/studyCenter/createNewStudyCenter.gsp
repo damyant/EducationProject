@@ -167,7 +167,7 @@
             <td><label><g:message code="default.createStudy.phoneNoOfHeadIns"/> <span
                     class="university-obligatory">*</span></label></td>
             <td><input type="text" name="phoneNoOfHeadIns" value="${studyCentreInstance?.phoneNoOfHeadIns}"
-                       id="phoneNoOfHeadIns" class="university-size-1-2" maxlength="10"
+                       id="phoneNoOfHeadIns" class="university-size-1-2" maxlength="12"
                        onkeypress="return isNumber(event)"/></td>
         </tr>
         <tr>
@@ -188,7 +188,7 @@
                     class="university-obligatory">*</span></label></td>
             <td><input type="text" name="phoneNoOfCoordinator"
                        value="${studyCentreInstance?.phoneNoOfCoordinator}" class="university-size-1-2"
-                       maxlength="10" onkeypress="return isNumber(event)"/></td>
+                       maxlength="12" onkeypress="return isNumber(event)"/></td>
         </tr>
         <tr>
             <td><label><g:message code="default.createStudy.emailIdOfCoordinator"/> <span
@@ -207,7 +207,7 @@
             </td>
             <td><input type="text" name="asstMobile"
                        value="${studyCentreInstance?.asstMobile}" class="university-size-1-2"
-                       maxlength="10" onkeypress="return isNumber(event)"/></td>
+                       maxlength="12" onkeypress="return isNumber(event)"/></td>
         </tr>
         <tr>
             <td><label><g:message code="default.createStudy.emailIdOfAsstCoordinator"/></label>

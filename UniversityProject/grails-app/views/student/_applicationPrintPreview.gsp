@@ -45,7 +45,7 @@
 <body onload="funload()">
 <div id="main" style="text-transform: capitalize">
     <div>
-        <table align="center" cellpadding="15" style="width: 100%;height:150px">
+        <table align="center" cellpadding="13" style="width: 100%;height:150px">
             <tr>
                 <td style="width: 80%; vertical-align: top;">
                     <div class="preview-header" style="text-align: center; top:2px;">
@@ -90,7 +90,7 @@
                 </td>
             </tr>
         </table>
-        <table align="center" cellpadding="4" id="preview-pdf" class="university-table-1-2"
+        <table align="center" cellpadding="2" id="preview-pdf" class="university-table-1-2"
                style="width: 100%;margin: auto; border: 1px solid; ">
             <tr>
                 <td style="width: 60%;">
@@ -189,7 +189,7 @@
         </table>
         <hr style="border-top: dashed 2px;" />
 
-        <table cellpadding="4"  class="university-table-1-2"
+        <table cellpadding="2"  class="university-table-1-2"
                style="width: 100%;margin: auto; border: 1px solid; ">
             <tr><td style="width: 60%;">Challan Number</td><td style="width: 40%;">${feeDetails.challanNo}</td></tr>
             <tr><td>Fee</td><td>${feeDetails.admissionFeeAmount}</td></tr>
@@ -205,6 +205,16 @@
                 <td style="width:50%;height: 70px;"><label style="float: left; margin-left:10px;">Date:</label></td>
                 <td style="width:50%;"><label style="float: right; margin-right:10px;">Signature</label></td>
             </tr>
+        </table>
+        <table style="width:100%;margin: auto;font-size: 10px; border:1px double #3b3b3b;">
+            <td>
+                <b>Enclosures:</b>
+                <ol>
+                    <li>Two copies of Passport size photographs, signed by the candidate.</li>
+                    <li>Self attested copies of degree marksheets.</li>
+                    <li>Self attested copy of G.U. Registration certificate (for a student of GU).</li>
+                </ol>
+            </td>
         </table>
 
     </div>

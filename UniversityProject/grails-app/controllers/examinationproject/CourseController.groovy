@@ -29,12 +29,8 @@ class CourseController {
     }
 
     def getCourseByCategory() {
-
         def subObj = Subject.findAllByProgramTypeId(ProgramType.findById(Long.parseLong(params.courseType)))
-
         render subObj as JSON
-
-
     }
 
     def viewCourses() {
@@ -47,7 +43,7 @@ class CourseController {
 
         def response = [:]
         def data = request.JSON
-        println("============================="+data);
+
         try {
             if (data.uploadSyllabus) {
 //                println("############>>" + data.uploadSyllabus);
@@ -82,6 +78,7 @@ class CourseController {
         catch (Exception e) {
             println("There is some problem parsing Document file" + e);
         }
+
         def status = courseDetailService.saveCourseInfo(data)
         response.response1 = status
 //        println(response)
@@ -209,12 +206,12 @@ class CourseController {
 
     //ADDED BY RAJ
     def checkAliasCode = {
-        println("Check"+params)
         def status = [:]
         def courseCodeIns = Subject.findAllByAliasCode(params.aliasCode)
         if (courseCodeIns) {
             status.aliasCode = 'true'
         } else {
+
             status.aliasCode = 'false'
         }
         render status as JSON

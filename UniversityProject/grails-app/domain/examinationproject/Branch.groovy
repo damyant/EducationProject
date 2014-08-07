@@ -5,7 +5,6 @@ class Branch {
     String branchLocation
 
     static belongsTo = [bank:Bank]
-
     static constraints = {
         branchLocation(nullable: false)
     }

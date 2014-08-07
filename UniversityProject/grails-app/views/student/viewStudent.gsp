@@ -80,7 +80,7 @@
 </tr>
 </g:if>
 <!----- Program Name ---------------------------------------------------------->
-<g:if test="${studInstance?.programDetail[0].courseName}">
+<g:if test="${studInstance?.programDetail[0]?.courseName}">
 <tr>
     <td>Programme<span class="university-obligatory"></span></td>
     <td>
@@ -155,16 +155,16 @@
 <tr>
 
     <!----- Contact centre/study centre ---------------------------------------------------------->
-<g:if test="${studInstance.studyCentre[0]?.name}">
+<g:if test="${studInstance?.studyCentre[0]?.name}">
     <td>Study centre <span class="university-obligatory"></span></td>
     <td>
-        <input type="text" readonly class="university-size-1-2" value="${studInstance.studyCentre[0]?.name}" readonly/>
+        <input type="text" readonly class="university-size-1-2" value="${studInstance?.studyCentre[0]?.name}" readonly/>
     </td>
 </tr>
 </g:if>
 <tr>
     <!----- Preference of examination centre ---------------------------------------------------------->
-<g:if test="${studInstance.studyCentre[0]?.name}">
+<g:if test="${studInstance?.studyCentre[0]?.name}">
     <td>Preference of examination Centre<span class="university-obligatory"></span></td>
     <td>
             <g:if test="${studInstance?.addressDistrict}">
@@ -263,13 +263,14 @@
 
     </td>
 </tr>
-
+<g:if test="${feeDetails.bankId}">
     <tr>
 
         <td colspan="2">
             <fieldset>
                 <legend>Fee Details</legend>
                 <table class="inner">
+
                     <tr>
                         <td>Bank Name</td>
                         <td><input type="text" value="${feeDetails?.bankId?.bankName}" readonly/></td>
@@ -282,24 +283,29 @@
                         %{--<td>Admission Fee Amount</td>--}%
                         %{--<td><input type="text" value="${feeAmount}"/></td>--}%
                     %{--</tr>--}%
+                    <g:if test="${feeDetails.paymentModeId}">
                     <tr>
                         <td>Payment Mode</td>
 
                         <td><input type="text" value="${feeDetails?.paymentModeId?.paymentModeName}" readonly/></td>
 
                     </tr>
+                    </g:if>
                     %{--<tr>--}%
                         %{--<td>Reference Number</td>--}%
                         %{--<td><input type="text" value="${feeDetails?.paymentReferenceNumber}" readonly/></td>--}%
                     %{--</tr>--}%
+                    <g:if test="${feeDetails.paymentDate}">
                     <tr>
                         <td>Payment Date</td>
                         <td><input type="text" readonly value="<g:formatDate format="MM/dd/yyyy" date="${feeDetails?.paymentDate}"/>" class="university-size-1-2" id="paymentDate"/></td>
                     </tr>
+                    </g:if>
                 </table>
             </fieldset>
         </td>
     </tr>
+</g:if>
 
 
 

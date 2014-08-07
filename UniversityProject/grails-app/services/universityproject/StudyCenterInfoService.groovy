@@ -40,17 +40,17 @@ class StudyCenterInfoService {
             if (params) {
                 def studyCenterObj = new StudyCenter(params)
                 if (studyCenterObj.save(flush: true, failOnError: true)) {
-                    def studyCentreUser = User.findByUsername(params.emailIdOfHeadIns) ?: new User(
-                            username: params.emailIdOfHeadIns,
-                            password: 'admin',
-                            email: params.emailIdOfHeadIns,
-                            studyCentreId: studyCenterObj.id,
-                            enabled: true).save(failOnError: true)
-
-                    def studyCentreRole = Role.findByAuthority('ROLE_STUDY_CENTRE')
-                    if (!studyCentreUser.authorities.contains(studyCentreRole)) {
-                        UserRole.create studyCentreUser, studyCentreRole
-                    }
+//                    def studyCentreUser = User.findByUsername(params.emailIdOfHeadIns) ?: new User(
+//                            username: params.emailIdOfHeadIns,
+//                            password: 'admin',
+//                            email: params.emailIdOfHeadIns,
+//                            studyCentreId: studyCenterObj.id,
+//                            enabled: true).save(failOnError: true)
+//
+//                    def studyCentreRole = Role.findByAuthority('ROLE_STUDY_CENTRE')
+//                    if (!studyCentreUser.authorities.contains(studyCentreRole)) {
+//                        UserRole.create studyCentreUser, studyCentreRole
+//                    }
                     saveStatus = 'created'
                 }
             }

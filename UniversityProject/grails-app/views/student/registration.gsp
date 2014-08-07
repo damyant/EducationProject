@@ -1,12 +1,12 @@
 <%--
   Created by IntelliJ IDEA.
-  User: shweta
+  User: Kuldeep
   Date: 2/6/14
   Time: 3:36 PM
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="java.text.SimpleDateFormat; javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
+<%@ page import="examinationproject.StudyCenter; java.text.SimpleDateFormat; javax.validation.constraints.Null; examinationproject.City; examinationproject.District; examinationproject.ProgramDetail" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Student Registration</title>
@@ -158,13 +158,32 @@
         </td>
     </tr>
 </g:if>
+<!----- Program Name ---------------------------------------------------------->
+<tr>
+    <td>Programme<span class="university-obligatory">*</span></td>
+    %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
+    <td>
+        <sec:ifNotLoggedIn>
+            <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
+                      value="${studInstance?.programDetail?.id?.get(0)}"
+                      optionValue="courseName" onchange="loadProgramFeeAmount(this),checkCourseCodeLength(this)" from="${programList}"
+                      noSelection="['': ' Select Programme']"/>
+        </sec:ifNotLoggedIn>
+        <sec:ifLoggedIn>
+            <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
+                      value="${studInstance?.programDetail?.id?.get(0)}"
+                      optionValue="courseName" onchange="enableApplicationNo(),checkCourseCodeLength(this)" from="${programList}" noSelection="['': ' Select Programme']"/>
+        </sec:ifLoggedIn>
+        <label id="courseCodeLength" class="error"></label>
+    </td>
+</tr>
 <sec:ifLoggedIn>
     <g:if test="${studInstance}">
         <g:if test="${studInstance.applicationNo}">
             <tr>
                 <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
                 <td class="university-size-2-3">
-                    <input type="text" name="applicationNo" value="${studInstance.applicationNo}"
+                    <input type="text" name="applicationNo" value="${studInstance.applicationNo.substring(4)}"
                            onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="5"
                            class="university-size-1-2"/>
 
@@ -177,7 +196,7 @@
         <tr>
             <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
             <td class="university-size-2-3">
-                <input type="text" name="applicationNo" value="${studInstance?.applicationNo}"
+                <input type="text" name="applicationNo" id="applicationNo" value="${studInstance?.applicationNo}" disabled="true"
                        onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="10"
                        class="university-size-1-2"/>
                 <label id="errorMsg" class="error1"></label>
@@ -200,28 +219,8 @@
     </td>
 </tr>
 
-<!----- Program Name ---------------------------------------------------------->
-<tr>
-    <td>Programme<span class="university-obligatory">*</span></td>
-    %{--<td><input type="text" name="program" maxlength="30" class="university-size-1-2"/>--}%
-    <td>
-        <sec:ifNotLoggedIn>
-            <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
-                      value="${studInstance?.programDetail?.id?.get(0)}"
-                      optionValue="courseName" onchange="loadProgramFeeAmount(this)" from="${programList}"
-                      noSelection="['': ' Select Programme']"/>
-        </sec:ifNotLoggedIn>
-        <sec:ifLoggedIn>
-            <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
-                      value="${studInstance?.programDetail?.id?.get(0)}"
-                      optionValue="courseName" from="${programList}" noSelection="['': ' Select Programme']"/>
-        </sec:ifLoggedIn>
 
-    </td>
 
-    <td> <input id="addGroup" onclick="subjectDialog()" type="reset"
-                value="Add Subject Groups"  class="university-button"></td>
-</tr>
 <!----- category ----------------------------------------------------------->
 <tr>
     <td>Category <span class="university-obligatory">*</span></td>
@@ -294,21 +293,29 @@
 <tr>
 
     <!----- Contact centre/study centre ---------------------------------------------------------->
-    <td>Study centre <span class="university-obligatory">*</span></td>
-   <sec:ifAnyGranted roles="ROLE_ADMIN">
-       <td>
-       <g:select name="studyCentre" id="studyCentre" optionKey="id" class="university-size-1-2"
-                 value="${studInstance?.studyCentre?.id?.get(0)}"
-                 optionValue="name" from="${studyCenterList}" noSelection="['': ' Select StudyCentre']"/>
-       </td>
-   </sec:ifAnyGranted>
-    <sec:ifNotGranted roles="ROLE_ADMIN" >
-    <td>
-        <input type="text" name="studyCentre" class="university-size-1-2" value="${studyCentre?.name}" readonly/>
-    </td>
-    </sec:ifNotGranted>
+   <td>Study centre <span class="university-obligatory">*</span></td>
+    <g:if test="${studInstance}">
+           <sec:ifAnyGranted roles="ROLE_ADMIN">
+               <td>
+                   <g:select name="studyCentre" id="studyCentre" optionKey="id" class="university-size-1-2"
+                             value="${studInstance?.studyCentre?.id?.get(0)}"
+                             optionValue="name" from="${StudyCenter.list()}" noSelection="['': ' Select StudyCentre']"/>
+               </td>
+           </sec:ifAnyGranted>
+            <sec:ifNotGranted roles="ROLE_ADMIN" >
+                <td>
+                    <input type="text" name="studyCentre" class="university-size-1-2" value="${studInstance?.studyCentre?.name?.get(0)}" readonly/>
+                </td>
+            </sec:ifNotGranted>
+    </g:if>
+    <g:if test="${!studInstance}">
+         <td>
+            <input type="text" name="studyCentre" class="university-size-1-2" value="${studyCentre?.name}" readonly/>
+        </td>
+    </g:if>
 </tr>
 <tr>
+
     <!----- Preference of examination centre ---------------------------------------------------------->
     <td>Select Preference of examination Centre<span class="university-obligatory">*</span></td>
     <td>
@@ -348,16 +355,20 @@
     <td>GU Registration Number (if already registered in GU)</td>
     <td>
         <input type="text" name="registrationNo1" id="registrationNo1" maxlength="9" onchange="enableDisableCheckbox()"
-               class="university-size-1-4"
+               class="university-size-1-4"  value="${studInstance?.registrationNo1}"
                onkeypress="return isNumber(event)"/> Of
         <input type="text" name="registrationNo2" id="registrationNo2" maxlength="7" class="university-size-1-4"
-               onkeypress="return isNumberWithDash(event)"/>
-        &nbsp;&nbsp;&nbsp;Or&nbsp;&nbsp;&nbsp;<label style="text-align: left"><input type="checkbox" value="Y"
-                                                                                     onclick="enableDisableTextBox()"
+               onkeypress="return isNumberWithDash(event)"  value="${studInstance?.registrationNo2}"/>
+
+         <g:if test="${!studInstance?.registrationNo2}">
+             &nbsp;&nbsp;&nbsp;Or&nbsp;&nbsp;&nbsp;
+        <label style="text-align: left">
+        <input type="checkbox" value="Y" onclick="enableDisableTextBox()"
                                                                                      name="isAppliedFor"
                                                                                      id="isAppliedFor"
                                                                                      class="university-size-1-4"/>A/F
     </label>
+             </g:if>
     </td>
 </tr>
 
@@ -483,6 +494,12 @@
                 <legend>Fee Details</legend>
                 <table class="inner">
                     <tr>
+                        <td>Payment Mode<span class="university-obligatory">*</span></td>
+                        <td><g:select name="paymentMode" class="university-size-1-2" optionKey="id"
+                                      optionValue="paymentModeName" id="paymentMode"
+                                      from="${paymentMode}" noSelection="['': ' Select PaymentMode']"/></td>
+                    </tr>
+                    <tr>
                         <td>Bank Name<span class="university-obligatory">*</span></td>
                         <td><g:select name="bankName" class="university-size-1-2" id="bankName" optionKey="id"
                                       optionValue="bankName"
@@ -506,12 +523,7 @@
                         <td><input type="text" name="admissionFeeAmount" class="university-size-1-2"
                                    id="admissionFeeAmount" readonly/></td>
                     </tr>
-                    <tr>
-                        <td>Payment Mode<span class="university-obligatory">*</span></td>
-                        <td><g:select name="paymentMode" class="university-size-1-2" optionKey="id"
-                                      optionValue="paymentModeName" id="paymentMode"
-                                      from="${paymentMode}" noSelection="['': ' Select PaymentMode']"/></td>
-                    </tr>
+
                     <tr>
                         <td>DD/RTGS/NEFT Number<span class="university-obligatory">*</span></td>
                         <td><input type="text" name="feeReferenceNumber" maxlength="8" class="university-size-1-2"
@@ -549,9 +561,16 @@
     </td>
 </tr>
 <tr>
-    <td>
-        <input type="hidden" name="studyCentreCode" value="${studyCentre?.centerCode}">
-    </td>
+    <g:if test="${studInstance}">
+        <td>
+            <input type="hidden" name="studyCentreCode" value="${studInstance?.studyCentre?.id?.get(0)}">
+        </td>
+    </g:if>
+    <g:else>
+        <td>
+            <input type="hidden" name="studyCentreCode" value="${studyCentre?.centerCode}">
+        </td>
+    </g:else>
 </tr>
 </table>
 
@@ -641,19 +660,13 @@
 </g:else>
 </div>
 <script>
-
-
-
     $('#signatureFile').bind('change', function () {
 //    alert('This file size is: ' + this.files[0].size/1024/1024 + "MB");
     })
-
-
     function resetImage() {
         $("#signature").attr('src', '#')
         $("#picture").attr('src', '#')
     }
-
     $(function () {
         $(function () {
             $("#datepicker").datepicker({
@@ -662,7 +675,6 @@
                 dateFormat: "dd/mm/yy",
                 maxDate: 0
             });
-
             $("#paymentDate").datepicker({
                 changeMonth: true,
                 changeYear: true,

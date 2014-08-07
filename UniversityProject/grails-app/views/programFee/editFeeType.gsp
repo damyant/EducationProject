@@ -47,7 +47,7 @@
                                       class="many-to-one university-size-1-2" onchange="loadSession(this)"/>
 
                             <g:hiddenField name="programDetailId" id="programDetailId" value="${programFeeInstance.programDetailId.id}"></g:hiddenField>
-                            <g:hiddenField name="admissionFee" id="admissionFee" value="${programFeeInstance.admissionFee[0].id}"></g:hiddenField>
+                            %{--<g:hiddenField name="admissionFee" id="admissionFee" value="${programFeeInstance.admissionFee[0].id}"></g:hiddenField>--}%
                         </div>
                     </div>
                     <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'programDetail', 'error')} ">
@@ -67,47 +67,47 @@
                         </select>
                     </div>
                         </div>
-                    <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'feeAmountAtIDOL', 'error')} required">
-                        <div class="university-size-1-3">
-                            <label for="feeAmountAtIDOL">
-                            <g:message code="programFee.feeAmountAtIDOL.label" default="Fee Amount At IDOL" />
-                                <span class="university-obligatory">*</span>
-                        </label>
-                        </div>
+                    %{--<div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'feeAmountAtIDOL', 'error')} required">--}%
+                        %{--<div class="university-size-1-3">--}%
+                            %{--<label for="feeAmountAtIDOL">--}%
+                            %{--<g:message code="programFee.feeAmountAtIDOL.label" default="Fee Amount At IDOL" />--}%
+                                %{--<span class="university-obligatory">*</span>--}%
+                        %{--</label>--}%
+                        %{--</div>--}%
 
-                        <div class="university-size-2-3">
-                            <g:textField name="feeAmountAtIDOL" class="university-size-1-2" type="number"
-                                         value="${programFeeInstance?.admissionFee?.feeAmountAtIDOL[0]}"/>
-                        </div>
-                    </div>
+                        %{--<div class="university-size-2-3">--}%
+                            %{--<g:textField name="feeAmountAtIDOL" class="university-size-1-2" type="number"--}%
+                                         %{--value="${programFeeInstance?.admissionFee?.feeAmountAtIDOL[0]}"/>--}%
+                        %{--</div>--}%
+                    %{--</div>--}%
 
-                    <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'feeAmountAtSC', 'error')} required">
-                        <div class="university-size-1-3">
-                            <label for="feeAmountAtSC">
-                            <g:message code="programFee.feeAmountAtSC.label" default="Fee Amount At SC" />
-                                <span class="university-obligatory">*</span>
-                        </label>
-                        </div>
+                    %{--<div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'feeAmountAtSC', 'error')} required">--}%
+                        %{--<div class="university-size-1-3">--}%
+                            %{--<label for="feeAmountAtSC">--}%
+                            %{--<g:message code="programFee.feeAmountAtSC.label" default="Fee Amount At SC" />--}%
+                                %{--<span class="university-obligatory">*</span>--}%
+                        %{--</label>--}%
+                        %{--</div>--}%
 
-                        <div class="university-size-2-3">
-                            <g:textField name="feeAmountAtSC" type="number" class="university-size-1-2"
-                                         value="${programFeeInstance?.admissionFee?.feeAmountAtSC[0]}"/>
-                        </div>
-                    </div>
+                        %{--<div class="university-size-2-3">--}%
+                            %{--<g:textField name="feeAmountAtSC" type="number" class="university-size-1-2"--}%
+                                         %{--value="${programFeeInstance?.admissionFee?.feeAmountAtSC[0]}"/>--}%
+                        %{--</div>--}%
+                    %{--</div>--}%
 
-                    <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">
-                        <div class="university-size-1-3">
-                            <label for="lateFeeAmount">
-                            <g:message code="programFee.lateFeeAmount.label" default="Late Fee Amount" />
-                                <span class="university-obligatory">*</span>
-                        </label>
-                        </div>
+                    %{--<div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">--}%
+                        %{--<div class="university-size-1-3">--}%
+                            %{--<label for="lateFeeAmount">--}%
+                            %{--<g:message code="programFee.lateFeeAmount.label" default="Late Fee Amount" />--}%
+                                %{--<span class="university-obligatory">*</span>--}%
+                        %{--</label>--}%
+                        %{--</div>--}%
 
-                        <div class="university-size-2-3">
-                            <g:textField name="lateFeeAmount" type="number" class="university-size-1-2"
-                                         value="${programFeeInstance?.admissionFee?.lateFeeAmount[0]}"/>
-                        </div>
-                    </div>
+                        %{--<div class="university-size-2-3">--}%
+                            %{--<g:textField name="lateFeeAmount" type="number" class="university-size-1-2"--}%
+                                         %{--value="${programFeeInstance?.admissionFee?.lateFeeAmount[0]}"/>--}%
+                        %{--</div>--}%
+                    %{--</div>--}%
               <g:if test ="${miscFee}">
                     <g:each in="${0..miscFee.size()-1}" var="index">
                         <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">

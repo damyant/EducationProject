@@ -10,6 +10,8 @@ import examinationproject.FeeDetails
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
+import examinationproject.ProgramGroup
+import examinationproject.ProgramGroupDetail
 import examinationproject.RollNoGenerationFixture
 import examinationproject.ProgramSession
 import examinationproject.Semester
@@ -17,6 +19,7 @@ import examinationproject.Status
 import examinationproject.Student
 import examinationproject.StudyMaterial
 import examinationproject.Subject
+import examinationproject.SubjectSession
 import grails.transaction.Transactional
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -40,7 +43,7 @@ def springSecurityService
                 isNull('rollNo')
             }
         }
-        println("list of students "+ stuList+"-----------------"+params.programId)
+//        println("list of students "+ stuList+"-----------------"+params.programId)
         return  stuList
 
 
@@ -50,8 +53,10 @@ def springSecurityService
     def subjectList(params){
 
         def subjectMap=[:]
-        def subList=[],totalDateList=[],totalTimeList=[],examDateList=[],newSemesterList=[],semesterNumberList=[],examTimeList=[]
-        def dateList=[]
+        def subList=[],totalDateList=[],totalTimeList=[],gList=[],subNameList=[],
+                examDateList=[],newSemesterList=[],semesterNumberList=[],examTimeList=[],sList=[], dateList=[],groupNameList=[]
+        def semCounter=0
+
         def programSessionIns=ProgramSession.findById(Long.parseLong(params.sessionId))
         def semesterList=Semester.findAllByProgramSession(programSessionIns)
         def count=0
@@ -70,21 +75,58 @@ def springSecurityService
             }
 
         }
-         newSemesterList.each{
-            dateList<<CourseSubject.findAllByProgramSessionAndSemester(programSessionIns,it)
+
+
+        def groupSubjectDateList=[], groupObj=[]
+        newSemesterList.each{
+            def obj=CourseSubject.findAllByProgramSessionAndSemester(programSessionIns,it)
+            if(obj){
+            dateList<<obj
+            }
+             groupObj=ProgramGroup.findAllByProgramSessionAndSemester(programSessionIns,it)
+            if(groupObj){
+                groupObj.each{
+                groupSubjectDateList<< ProgramGroupDetail.findAllByProgramGroupId(it)
+                }
+            }
         }
 
         dateList.each{
-            subList<<it.subject
+
+            subList<<it.subjectSessionId
+            subNameList<<it.subjectSessionId.subjectId.subjectName
             semesterNumberList<<it.semester
             examDateList<<it.examDate
             examTimeList<<it.examTime
-
+            groupNameList<<""
         }
 
-        println("??????"+examTimeList)
 
-        for(def i=0;i<dateList.examDate.size();i++){
+        groupSubjectDateList.each{
+            sList<< groupObj[semCounter].semester
+            subList<<it.subjectSessionId
+            subNameList<<it.subjectSessionId.subjectId.subjectName
+            semesterNumberList<<sList
+            examDateList<<it.examDate
+            examTimeList<<it.examTime
+            groupNameList<<groupObj[semCounter].groupName
+            ++semCounter;
+        }
+//        semesterNumberList<<sList
+
+//        println("??????"+examTimeList)
+
+        def cond=dateList.examDate.size()+groupSubjectDateList.examDate.size()
+//        for (def i=0;i<subList.size();i++){
+//            def groupName=groupObj[i].groupName
+//            if(groupName){
+//                groupNameList<<groupName
+//            }else{
+//            groupNameList<<""
+//            }
+//
+//        }
+        for(def i=0;i<cond;i++){
 
             for(def j=0;j<examDateList[i].size();j++){
                 if(examDateList[i][j]!=null){
@@ -96,11 +138,15 @@ def springSecurityService
                 }
             }
         }
+
+
         subjectMap.allSubjects=subList
         subjectMap.semesterNoList=semesterNumberList
         subjectMap.dateList=totalDateList
         subjectMap.examTimeList=examTimeList
-//        println("?????????"+subjectMap)
+        subjectMap.groupNameList=groupNameList
+        subjectMap.subNameList=subNameList
+        println("?????????"+subjectMap)
 
       return subjectMap
 
@@ -108,38 +154,59 @@ def springSecurityService
 
     def saveExamDate(params){
 
+        println("exam date param value=="+params)
+
         SimpleDateFormat f1 = new SimpleDateFormat("dd/MM/yyyy");
         def subjectList=params.subjectIdList.split(",")
+        def groupSubjectList=[],programGroupDetail=[],courseSubjectObj=[]
+        if(params.groupSubjectList){
+         groupSubjectList=params.groupSubjectList.split(",")
+        }
         def count=0
-        println("+++++++++"+params)
-
         def sessionObj=ProgramSession.findById(Long.parseLong(params.SessionList))
         subjectList.each{
-//            println("@@@@@@@"+Subject.findById(Long.parseLong(it)))
-//            println("@@@@@@@"+sessionObj)
-         def courseSubjectObj=CourseSubject.findBySubjectAndProgramSession(Subject.findById(Long.parseLong(it)),sessionObj)
-//<<<<<<< HEAD
-//            println("###33333"+courseSubjectObj)
-//         if(params.examinationDate[count]){
-//             println("innnnnnnnnnn")
-//         courseSubjectObj.examDate=f1.parse(params.examinationDate[count])
-//=======
-//            println("###33333"+courseSubjectObj.programSession+courseSubjectObj.courseDetail)
+            def subj=it.toString().split('-')[0]
+            def sem=it.toString().split('-')[1]
+            def groupName=groupSubjectList[count].toString().split('-')[2]
+            if(groupName!="no"){
+            def progGroup =ProgramGroup.findByProgramSessionAndSemesterAndGroupName(sessionObj,Semester.findBySemesterNoAndProgramSession(sem,sessionObj),groupName)
+
+            programGroupDetail=ProgramGroupDetail.findByProgramGroupIdAndSubjectSessionId(progGroup,SubjectSession.findById(Long.parseLong(subj)))
+                println("!!!!!!!!!!=="+programGroupDetail)
+
+            }
+            else{
+                 courseSubjectObj=CourseSubject.findBySubjectSessionIdAndProgramSessionAndSemester(SubjectSession.findById(Long.parseLong(subj)),sessionObj,Semester.findBySemesterNoAndProgramSession(sem,sessionObj))
+
+            }
+
+
           def dateList =[]
           def timeList = []
-            dateList.addAll(params.examinationDate)
+          dateList.addAll(params.examinationDate)
+          timeList.addAll(params.examinationTime)
+
           if(dateList[count]){
-             println("innnnnnnnnnn"+params.examinationDate[count])
-            courseSubjectObj.examDate=f1.parse(dateList[count])
-             println("Date is in if"+courseSubjectObj.examDate)
+
+            if(groupName!="no"){
+                programGroupDetail.examDate=f1.parse(dateList[count])
+                programGroupDetail.examTime=timeList[count]
+                programGroupDetail.save(failOnError: true,flush: true)
+
+              }
+              else{
+                courseSubjectObj.examDate=f1.parse(dateList[count])
+                courseSubjectObj.examTime=timeList[count]
+                courseSubjectObj.save(failOnError: true,flush: true)
+              }
 
           }
           else{
-             courseSubjectObj.examDate=null
+              courseSubjectObj.examDate=null
+              courseSubjectObj.save(failOnError: true,flush: true)
+//              programGroupDetail.examDate=null
+//              programGroupDetail.save(failOnError: true,flush: true)
           }
-            timeList.addAll(params.examinationTime)
-            courseSubjectObj.examTime=timeList[count]
-            courseSubjectObj.save(failOnError: true)
 
          ++count
         }
@@ -147,13 +214,29 @@ def springSecurityService
     }
 
     def saveExamVenue(params){
+        def courseIns
+        if(params.programList=='All'){
+            courseIns=ProgramDetail.list()
+        }
+        else{
+           courseIns=ProgramDetail.findAllById(Long.parseLong(params.programList))
+        }
 
-        def courseIns=ProgramDetail.findById(Long.parseLong(params.programList))
         def examCentreIns=City.findById(Long.parseLong(params.examinationCentre))
         def venueList=params.venueList.split(",")
-        ProgramExamVenue.removeAll(examCentreIns,courseIns)
-        venueList.each {it ->
-         ProgramExamVenue.create courseIns,examCentreIns, ExaminationVenue.findById(Integer.parseInt(it.toString()))
+//        ProgramExamVenue.removeAll(examCentreIns,courseIns)
+        def preSavedVenues = ProgramExamVenue.findAllByExamCenterAndCourseDetailInList(examCentreIns,courseIns)
+        println('pre saved venue is '+ preSavedVenues)
+        preSavedVenues.each{
+            it.delete(flush: true)
+        }
+        venueList.each {
+          def venue = it
+          courseIns.each{
+             def course = it
+              println(venue+' venue '+ course)
+                   ProgramExamVenue.create course , examCentreIns, ExaminationVenue.findById(Integer.parseInt(venue.toString()))
+          }
 
         }
     }
@@ -174,9 +257,7 @@ def springSecurityService
         }
 
          def obj=Student .createCriteria()
-//        println("session<<<<<<<<<<<"+ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,ProgramDetail.findById(Long.parseLong(params.programId))))
-        println("======"+studyCenterId)
-        println(ProgramSession.findBySessionOfProgramAndProgramDetailId(params.session,ProgramDetail.findById(Long.parseLong(params.programId))))
+
         def studList = obj.list {
             if (params.session) {
 
@@ -198,7 +279,7 @@ def springSecurityService
                 }
             }
         }
-        println("#####"+studList)
+
         subjectMap.studList=studList
         studList.each {
             if(it.status.id<4){
@@ -220,7 +301,7 @@ def springSecurityService
         }
         subjectMap.status=status
         subjectMap.feeStatus=feeStatus
-        println(status)
+//        println(status)
         return  subjectMap
     }
     def savePayInSlip(params){
@@ -301,6 +382,7 @@ def springSecurityService
         def endAdmission_D = df.parse(params.endAdmission_D)
         def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
         programIns.endAdmission_D=endAdmission_D
+        programIns.admissionYear=Integer.parseInt(params.admissionYear)
         programIns.startAdmission_D=startAdmission_D
         if(programIns.save(flush: true, failOnError: true)){
             status=true

@@ -3,7 +3,11 @@
  */
 function validate() {
 
+
     $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#marksTypeForm,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail").validate({
+
+//    $("#studyMaterialPage,#bankForm,#addCoursesFrmId,#tempEnrollment,#districtForm,#addNewFeeType,#uploadInternalMarks,#rollNoGenerationDate,#saveExaminationCentre,#createStudyCenter,#individualDownloadAdmitCard,#studentRegister,#createCourse,#generateFeeVoucher,#generateExamFeeVoucher, #createFeeDetail, #crateNewCategory").validate({
+//>>>>>>> damyant
 
         rules: {
 
@@ -320,6 +324,9 @@ function validate() {
                 required:true,
                 date: true
             },
+            categoryName:{
+                required:true
+            },
 
             //Exam Centre
 //            examinationCentreName: {required: true, textonly: true},
@@ -346,12 +353,15 @@ function validate() {
             subjectName: {required: "Please Enter Course Name",
                 lettersnumberswithbasicpunc: "Letters or numbers or punctuation only please"
             },
+
             subjectCode:{required: "Please Enter Course Code"},
             aliasCode:{required:"Please Enter Alias Code"},
             creditPoints:{required:"Please Enter Credit Points"},
             theoryMarks:{required:"Please Enter Examination Marks"},
             homeAssignmentMarks:{required:"Please Enter Home-assignment Marks"},
             totalMarks:{required:"Please Enter Total Marks"},
+  categoryName:{required:'Please Enter Category Name'},
+
             registrationNo1:{
                 minlength:"Please Enter 5 Character"
             },
@@ -631,7 +641,7 @@ function onlyAlphabets(evt) {
 function isAlphaNumeric(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode == 9 ||charCode == 11||charCode == 8 || (charCode > 47 && charCode < 58) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
+    if ((charCode == 32 ||charCode == 9 ||charCode == 11||charCode == 8 || (charCode > 47 && charCode < 58) || (charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))) {
         return true;
     }
     return false;
@@ -752,12 +762,29 @@ function checkValidation() {
 }
 function validateProgramFee() {
 //    alert("hi")
-    $("#createNewFee, #individualStudentUpdate, #customChallanSave").validate({
+    $("#createNewFee,#createAdmissionFee, #individualStudentUpdate,#printIdentityCard, #customChallanSave, #signatureImage, #generateSingleAdmitCard").validate({
         rules: {
+//          printIdentityCard
+            programList:'required',
+            admissionYear:'required',
+//          printIdentityCard
+//          generateSingleAdmitCard
+            rollNoForFeeStatus:{
+                required: true,
+                number: true,
+                minlength: 8
+            },
+            examinationVenue:"required",
+//          generateSingleAdmitCard
+//          #signatureImage
+            examVenue:"required",
+            signature:"required",
+//          #signatureImage
             programDetailId:"required",
             programSessionId:"required",
             feeAmountAtIDOL:"required",
             feeAmountAtSC:"required",
+            semesterList:"required",
             lateFeeAmount:"required",
             rollNo: {
                 required: true,
@@ -769,11 +796,19 @@ function validateProgramFee() {
             amount:'required'
         },
         messages: {
-
+            programList:'Please Select Program',
+            admissionYear:'Please Select Admission Session',
+            rollNoForFeeStatus:{ required:"Please Enter a Roll Number",
+                minlength:"Please Enter 8 digit Roll Number"
+            } ,
+            examinationVenue:"Please Select Examination Venue",
+            examVenue:"Please Select Examination Venue",
+            signature:"Please Upload Signature Image",
             programDetailId:"Please Select Programme Detail",
             programSessionId:"Please Select Programme Session",
-            feeAmountAtIDOL:"Please  Enter Programme Fee At Idol",
-            feeAmountAtSC:"Please  Enter Programme Fee At Study Centre",
+            feeAmountAtIDOL:"Please  Enter Admission Fee at Idol",
+            semesterList:"Please  Select Term",
+            feeAmountAtSC:"Please  Enter Admission Fee at Study Centre",
             lateFeeAmount:"Please Enter Late Fee Amount",
             rollNo:{ required:"Please Enter a Roll Number",
                 minlength:"Please Enter 8 digit Roll Number"
