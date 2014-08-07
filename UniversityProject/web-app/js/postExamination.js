@@ -182,8 +182,47 @@ $(document).ready(function(){
     })
 
 })
+function populateStudentListForMarksUpdate(){
+    var program = $('#programId').val();
+    var session = $('#SessionList').val();
+    var semester = $('#semesterList').val();
+    var groupType= $("#groupList").val();
+    var subjectId=$("#courseCode").val()
+    var marksType=$("#marksType").val()
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'marksMissMatchUpdate', ''),
+        data: {program: program, session: session, semester: semester,groupType:groupType,subjectId:subjectId,marksType:marksType},
+        success: function (data) {
+            $('#rollNoList').empty()
+            if(data.length>0){
 
-function populateStudentList() {
+                for (var i=0;i<data.length;i++){
+                    $('#rollNoList').append('<option value="'+data[i].id+'">'+data[i].rollNo+'</option>')
+                }
+                document.getElementById("dataTable").style.visibility = "visible";
+                document.getElementById("buttonDiv").style.visibility = "visible";
+                $("#rollNoList option:first").attr('selected','selected');
+            }
+            else{
+                $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>No Roll numbers found.</p></div>").dialog({
+                    title: "Sorry",
+                    resizable: false,
+                    modal: true,
+                    buttons: {
+                        "Ok": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            }
+
+        }
+    });
+
+}
+
+function populateStudentListForMarks() {
     var program = $('#programId').val();
     var session = $('#SessionList').val();
     var semester = $('#semesterList').val();
@@ -210,7 +249,16 @@ function populateStudentList() {
                     $("#rollNoList option:first").attr('selected','selected');
                 }
                 else{
-                    alert("No Roll numbers found")
+                    $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>No Roll numbers found.</p></div>").dialog({
+                        title: "Sorry",
+                        resizable: false,
+                        modal: true,
+                        buttons: {
+                            "Ok": function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
                 }
 
             }
@@ -253,7 +301,6 @@ function deleteMarksType(id){
 
 
 function saveMarks(){
-
     if($("#rollNoList").val()){
        $.ajax({
         type: "post",
@@ -263,7 +310,7 @@ function saveMarks(){
         success: function (data) {
 
             $("#marksValue").val('')
-            populateStudentList()
+            populateStudentListForMarks()
 
         }
          });
@@ -326,37 +373,39 @@ function enableButtonOfMissMatch(){
 
 
 function matchMarks(){
+    if($("#marksValue").length!=0) {
+        if ($("#marksValue").val().length > 1) {
+            $.ajax({
+                type: "post",
+                url: url('postExamination', 'checkMarks', ''),
+                data: {program: $('#programId').val(), session: $('#SessionList').val(), semester: $('#semesterList').val(), groupType: $("#groupList").val(),
+                    subjectId: $("#courseCode").val(), marksType: $("#marksType").val(), rollNoId: $("#rollNoList").val(), marksValue: $("#marksValue").val()},
+                success: function (data) {
 
-    if($("#marksValue").length!=0){
-        $.ajax({
-            type: "post",
-            url: url('postExamination', 'checkMarks', ''),
-            data: {program: $('#programId').val(), session: $('#SessionList').val(), semester:  $('#semesterList').val(),groupType:$("#groupList").val(),
-                subjectId:$("#courseCode").val(),marksType:$("#marksType").val(),rollNoId:$("#rollNoList").val(),marksValue:$("#marksValue").val()},
-            success: function (data) {
+                    if (data.status == false) {
+                        alertPopup("Current entered marks did not match,the marks entered by "+data.tabulator)
 
-               if(data.status==false){
-                alert("Current entered marks did not match marks entered by another Tabulator")
-               }
-            }
-        });
+                    }
+                }
+            });
+        }
     }
     else{
         alert(" There is no roll numbers to enter marks")
     }
 
 }
-function getTabulatorSemester(t){
+function getTabulatorSession(t){
     var program=$(t).val()
     $.ajax({
         type: "post",
-        url: url('postExamination', 'getTabulatorSemester', ''),
+        url: url('postExamination', 'getTabulatorSession', ''),
         data: {program: program},
         success: function (data) {
-            if(data.tabSemesterList){
+            if(data.session){
                 $('#SessionList').prop('disabled',false)
-                $('#semesterList').prop('disabled',false)
                 $("#SessionList").empty().append('data <option value="">Select Session</option>')
+<<<<<<< HEAD
                 $('#semesterList').empty().append("<option value=''>Select Semester</option>")
 
                 for(var i=0;i<data.tabSemesterList.length;i++)
@@ -365,6 +414,8 @@ function getTabulatorSemester(t){
                          $('#semesterList').append("<option value='"+data.tabSemesterList[i][j]+"'>"+data.tabSemesterList[i][j]+"</option>")
                         }
                 }
+=======
+>>>>>>> 0996f8400af68779da890e611d7aa3c7e58678c0
                 for (var j = 0; j < data.session.length; j++) {
                     $("#SessionList").append('<option value="' + data.session[j].id + '">' + data.session[j].sessionOfProgram + '</option>')
                 }
@@ -373,6 +424,65 @@ function getTabulatorSemester(t){
         }
     })
 }
-function resetData(){
+function getSemesterForMarksUpdate(t){
+    var program=$('#programId').val()
+    var session=$(t).val()
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'getSemesterForMarksUpdate', ''),
+        data: {program: program,session:session},
+        success: function (data) {
+            if(data.semesterList){
+                $('#semesterList').prop('disabled',false)
+                $('#semesterList').empty().append("<option value=''>Select Semester</option>")
+                for(var i=0;i<data.semesterList.length;i++){
+                    $('#semesterList').append("<option value='"+data.semesterList[i].id+"'>"+data.semesterList[i].semesterNo+"</option>")
+                }
+            }
+        }
+    });
+}
+function getTabulatorSemester(t){
+    var program=$('#programId').val()
+    var session=$(t).val()
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'getTabulatorSemester', ''),
+        data: {program: program,session:session},
+        success: function (data) {
+            if(data.tabSemesterList){
+                $('#semesterList').prop('disabled',false)
+                $('#semesterList').empty().append("<option value=''>Select Semester</option>")
+                for(var i=0;i<data.tabSemesterList.length;i++){
+                    $('#semesterList').append("<option value='"+data.tabSemesterList[i].id+"'>"+data.tabSemesterList[i].semesterNo+"</option>")
+                }
+            }
 
+        }
+    })
+}
+function alertPopup(data){
+    $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>"+data+".</p></div>").dialog({
+        title: "Alert!",
+        resizable: false,
+        modal: true,
+        buttons: {
+            "Ok": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+}
+
+function sorryPopup(data){
+    $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>"+data+".</p></div>").dialog({
+        title: "Sorry",
+        resizable: false,
+        modal: true,
+        buttons: {
+            "Ok": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
 }

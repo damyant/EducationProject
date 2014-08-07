@@ -491,8 +491,11 @@ function showSemesterAndSubjects(courseDetailJson){
         }
 
         for (var i = 0; i < subjectList.length; i++) {
-
-            $("#allsubjectList" + j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
+//            alert(subjectList[i].subjectCode)
+           var sem=(subjectList[i].subjectCode).substring(2, 3);
+            if(sem==j){
+                $("#allsubjectList" + j).append('<option value="' + subjectList[i].id + '">' + subjectList[i].subjectName + '</option>')
+            }
         }
         $("#createCourse").append('<div id="groupDialog'  + j +'" class="dialog" hidden="hidden">'+
             '<g:form method="post" name="groupsOfSubject" id="groupsOfSubject" enctype="multipart/form-data">'+
@@ -939,7 +942,6 @@ function validateGroupSelection(){
                     return isValidRadio
 
             } else {
-
                 $('#radioRuleError'+i).text('Please Select Criteria ');
                 $('#radioRuleError'+i).show()
                 isValidRadio= false;
@@ -947,6 +949,5 @@ function validateGroupSelection(){
             }
         }
     }
-//    alert("valid"+isValidRadio)
     return isValidRadio
 }

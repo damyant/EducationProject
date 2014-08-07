@@ -2,161 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="077f1796-d040-41bf-b232-8f8d04f12860" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/SC1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/SC2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/SC3.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/SC4.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/SC5.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/SC6.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/Report/Student_List_.xls" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/Report/Student_List_1.xls" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/Report/Student_List_2.xls" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/Report/Student_List_General.xls" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/pic1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/pic2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/pic3.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/signature.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/AsyncController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/AsyncSpec.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/CategoryController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/examinationproject/CategoryControllerSpec.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/CliTests.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/Controller.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/Controller.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/Controller.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/DomainClass.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/DomainClass.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/ExistingChallan.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/Filters.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/Filters.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/Generic.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/HomeAssignment.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/HomeAssignmentController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/examinationproject/HomeAssignmentControllerSpec.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/examinationproject/HomeAssignmentSpec.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/Integration.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/PhotoUploadController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/PhotoUploadService.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/ScaffoldingController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/Script.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/Service.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/Service.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/admitCard/SingleAdmitCardGenerate.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/Spec.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/TagLib.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/TagLib.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/Tests.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/UnitTest.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/WebTest.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/WriteExcelForFeeService.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/universityproject/WriteExcelForFeeServiceSpec.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/_form.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/student/_printIdentityCard.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/admitCard/_printMyAdmitCard.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/homeAssignment/_printStudentAddress.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/admitCard/bulkCreationOfAdmitCardForFormFill.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/category/categoryList.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/create.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/programFee/createAdmissionFee.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/category/createNewCategory.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/edit.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/student/generateIdentityCard.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/js/homeAssignment.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/home/index.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/index.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/programFee/listOfAdmissionFee.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/admitCard/loadIdolSignatureInAdmit.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/photoUpload/photoUpload.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/renderEditor.template" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/show.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/homeAssignment/studentAddress.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/homeAssignment/studentAddressSingle.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/homeAssignment/submitHomeAssignment.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/student/viewStudentDetails.gsp" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/MiscellaneousFeeChallan.groovy" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/com/university/AdminController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/AdminInfoService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/AdmissionFee.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/AdmissionFee.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/AdmitCard.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/AdmitCard.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/AdmitCardController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/AdmitCardController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/AdmitCardService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/AdmitCardService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/AttendanceService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/AttendanceService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/BankController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/BankController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/Branch.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/Branch.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/BranchController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/BranchController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/BuildConfig.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/BuildConfig.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/CourseController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/CourseController.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/CourseDetailService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/CourseDetailService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/DistrictController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/DistrictController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ExaminationCenterController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ExaminationCenterController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/ExaminationCentreService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/ExaminationCentreService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/FeeDetailService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/FeeDetails.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/FeeDetails.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/HomeController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/HomeController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/ProgramDetail.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/ProgramDetail.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ProgramFeeController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ProgramFeeController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/ProgramFeeService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/ProgramFeeService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/ReportController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/ReportService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/ReportService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/examinationproject/Student.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/StudentRegistrationService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudyCenterController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/examinationproject/StudyCenterController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/StudyCenterInfoService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/StudyCenterInfoService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/UrlMappings.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/UrlMappings.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/com/university/UserController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/com/university/UserController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/universityproject/WriteExcelService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/universityproject/WriteExcelService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/_applicationPrintPreview.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/_applicationPrintPreview.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/_feeVoucher.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/_feeVoucher.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/_feeVoucherAtIdol.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/_feeVoucherAtIdol.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/report/_generate.gsp" afterPath="$PROJECT_DIR$/grails-app/views/report/_generate.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" afterPath="$PROJECT_DIR$/grails-app/views/layouts/_header.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/_postFeeVoucher.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/_postFeeVoucher.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admitCard/_printAdmitCard.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admitCard/_printAdmitCard.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/_printChallan.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/_printChallan.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/_printMiscFeeChallan.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/_printMiscFeeChallan.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/_printPayChallan.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/_printPayChallan.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/_printPayMiscFeeChallan.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/_printPayMiscFeeChallan.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admin.js" afterPath="$PROJECT_DIR$/web-app/js/admin.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/postExamination/MarksEnteringService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/postExamination/MarksEnteringService.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/postexamination/PostExaminationController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/postexamination/PostExaminationController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/postExamination/PostExaminationService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/postExamination/PostExaminationService.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/admitCard.js" afterPath="$PROJECT_DIR$/web-app/js/admitCard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/assignAdmissionPeriod.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/assignAdmissionPeriod.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/user/assignCourse.gsp" afterPath="$PROJECT_DIR$/grails-app/views/user/assignCourse.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/assignExaminationDate.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/assignExaminationDate.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/assignExaminationVenue.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/assignExaminationVenue.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/branch/branchList.gsp" afterPath="$PROJECT_DIR$/grails-app/views/branch/branchList.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admitCard/bulkCreationOfAdmitCard.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admitCard/bulkCreationOfAdmitCard.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/challanForMiscellaneousFee.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/challanForMiscellaneousFee.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/challanNumberStatus.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/challanNumberStatus.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/programFee/createNewFeeType.gsp" afterPath="$PROJECT_DIR$/grails-app/views/programFee/createNewFeeType.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/studyCenter/createNewStudyCenter.gsp" afterPath="$PROJECT_DIR$/grails-app/views/studyCenter/createNewStudyCenter.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/dataEntry.js" afterPath="$PROJECT_DIR$/web-app/js/dataEntry.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/downloadAdmitCard.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/downloadAdmitCard.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/programFee/editFeeType.gsp" afterPath="$PROJECT_DIR$/grails-app/views/programFee/editFeeType.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/enrollmentAtIdol.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/enrollmentAtIdol.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/feeVoucher.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/feeVoucher.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/generateChallanSCAdmissionFee.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/generateChallanSCAdmissionFee.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/generateCustomChallan.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/generateCustomChallan.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/css/gu_stylesheet.css" afterPath="$PROJECT_DIR$/web-app/css/gu_stylesheet.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/admin/individualStudentUpdate.gsp" afterPath="$PROJECT_DIR$/grails-app/views/admin/individualStudentUpdate.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/css/jquery.ui.base.css" afterPath="$PROJECT_DIR$/web-app/css/jquery.ui.base.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/css/jquery.ui.theme.css" afterPath="$PROJECT_DIR$/web-app/css/jquery.ui.theme.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/programFee/listOfFeeType.gsp" afterPath="$PROJECT_DIR$/grails-app/views/programFee/listOfFeeType.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/layouts/main.gsp" afterPath="$PROJECT_DIR$/grails-app/views/layouts/main.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/i18n/messages.properties" afterPath="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/postExamination/marksEntering.gsp" afterPath="$PROJECT_DIR$/grails-app/views/postExamination/marksEntering.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/postExamination/marksUpdation.gsp" afterPath="$PROJECT_DIR$/grails-app/views/postExamination/marksUpdation.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/multiselectable.js" afterPath="$PROJECT_DIR$/web-app/js/multiselectable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/payAdmissionFee.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/payAdmissionFee.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/payMiscellaneousFee.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/payMiscellaneousFee.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/feeDetails/postAdmissionFeeAtIdol.gsp" afterPath="$PROJECT_DIR$/grails-app/views/feeDetails/postAdmissionFeeAtIdol.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/registerPage.js" afterPath="$PROJECT_DIR$/web-app/js/registerPage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/registration.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/registration.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/report.js" afterPath="$PROJECT_DIR$/web-app/js/report.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/report/reportIndex.gsp" afterPath="$PROJECT_DIR$/grails-app/views/report/reportIndex.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/validation.js" afterPath="$PROJECT_DIR$/web-app/js/validation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/student/viewStudent.gsp" afterPath="$PROJECT_DIR$/grails-app/views/student/viewStudent.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/postExamination.js" afterPath="$PROJECT_DIR$/web-app/js/postExamination.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="UniversityProject.iws" />
@@ -242,16 +97,25 @@
       <file leaf-file-name="bulkCreationOfAdmitCard.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/admitCard/bulkCreationOfAdmitCard.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="96" column="61" selection-start="4816" selection-end="4816" vertical-scroll-proportion="-4.256757" vertical-offset="1125" max-vertical-offset="2475">
+            <state line="96" column="61" selection-start="4816" selection-end="4816" vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="2475">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdmitCardController.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="AdmitCardController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/AdmitCardController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="201" column="34" selection-start="7666" selection-end="7684" vertical-scroll-proportion="0.3326572" vertical-offset="2791" max-vertical-offset="7155">
+            <state line="201" column="34" selection-start="7666" selection-end="7684" vertical-scroll-proportion="2.6086957" vertical-offset="3015" max-vertical-offset="7155">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostExaminationController.groovy" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/postexamination/PostExaminationController.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="208" column="87" selection-start="7296" selection-end="7296" vertical-scroll-proportion="0.4174397" vertical-offset="2655" max-vertical-offset="4785">
               <folding />
             </state>
           </provider>
@@ -263,7 +127,7 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="6" selection-start="34" selection-end="34" vertical-scroll-proportion="-0.6122449" vertical-offset="0" max-vertical-offset="405">
+            <state line="2" column="6" selection-start="34" selection-end="34" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="405">
               <folding />
             </state>
           </provider>
@@ -272,7 +136,7 @@
       <file leaf-file-name="AdmitCardService.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/AdmitCardService.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="0" selection-start="568" selection-end="568" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="2010">
+            <state line="25" column="0" selection-start="568" selection-end="568" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="2190">
               <folding />
             </state>
           </provider>
@@ -281,7 +145,7 @@
       <file leaf-file-name="admitCard.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/js/admitCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="464" column="54" selection-start="16547" selection-end="16570" vertical-scroll-proportion="0.0" vertical-offset="6706" max-vertical-offset="14400">
+            <state line="464" column="46" selection-start="16547" selection-end="16570" vertical-scroll-proportion="0.0" vertical-offset="6960" max-vertical-offset="14385">
               <folding />
             </state>
           </provider>
@@ -305,7 +169,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/grails-app/views/admitCard/bulkCreationOfAdmitCardForFormFill.gsp" />
         <option value="$PROJECT_DIR$/grails-app/views/student/viewStudentDetails.gsp" />
         <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/FeeDetailsController.groovy" />
         <option value="$PROJECT_DIR$/web-app/css/gu_stylesheet.css" />
@@ -356,6 +219,7 @@
         <option value="$PROJECT_DIR$/grails-app/views/programFee/createAdmissionFee.gsp" />
         <option value="$PROJECT_DIR$/grails-app/services/universityproject/AdmitCardService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/examinationproject/AdmitCardController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/postexamination/PostExaminationController.groovy" />
       </list>
     </option>
   </component>
@@ -392,7 +256,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -493,6 +356,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="postexamination" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="UniversityProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="UniversityProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="examinationproject" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -500,6 +385,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -815,6 +701,7 @@
       <workItem from="1407126205741" duration="4618000" />
       <workItem from="1407299400165" duration="29724000" />
       <workItem from="1407386811563" duration="9906000" />
+      <workItem from="1407417081202" duration="674000" />
     </task>
     <task id="LOCAL-00001" summary="chandan">
       <created>1402988300326</created>
@@ -912,45 +799,45 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="374977000" />
+    <option name="totallyTimeSpent" value="375651000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1368" height="744" extended-state="7" />
+    <frame x="-1" y="0" width="1368" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28700906" sideWeight="0.43576828" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31623933" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31623933" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.56171286" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.06570513" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40224358" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18731117" sideWeight="0.56171286" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.064914994" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40293637" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40224358" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952693" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -958,14 +845,14 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38499185" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28700906" sideWeight="0.43576828" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31623933" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31623933" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Console" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37398374" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -976,10 +863,10 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6065041" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -987,8 +874,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952693" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -1024,11 +911,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grails-app/views/student/enrollmentAtIdol.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="113" selection-start="4870" selection-end="4870" vertical-scroll-proportion="0.0" vertical-offset="1802" max-vertical-offset="4862" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/student/_applicationPrintPreview.gsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="134" column="12" selection-start="5009" selection-end="5009" vertical-scroll-proportion="-27.755102" vertical-offset="918" max-vertical-offset="3876" />
@@ -1217,9 +1099,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/admin/assignExaminationDate.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="114" selection-start="2830" selection-end="2830" vertical-scroll-proportion="1.4006025" vertical-offset="390" max-vertical-offset="1230">
-          <folding />
-        </state>
+        <state line="57" column="114" selection-start="2830" selection-end="2830" vertical-scroll-proportion="1.4006025" vertical-offset="390" max-vertical-offset="1230" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/domain/examinationproject/City.groovy">
@@ -1241,30 +1121,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/admin/assignExaminationVenue.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="59" selection-start="2330" selection-end="2330" vertical-scroll-proportion="0.6081081" vertical-offset="450" max-vertical-offset="1755">
-          <folding />
-        </state>
+        <state line="45" column="59" selection-start="2330" selection-end="2330" vertical-scroll-proportion="0.6081081" vertical-offset="450" max-vertical-offset="1755" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/admin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="633" column="9" selection-start="26402" selection-end="26402" vertical-scroll-proportion="0.33333334" vertical-offset="9356" max-vertical-offset="24840">
-          <folding>
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-            <marker date="1407320520828" expanded="false" signature="-1:-1" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1278,22 +1141,14 @@
     <entry file="file://$PROJECT_DIR$/grails-app/views/postExamination/createMarksFoil.gsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="53" column="141" selection-start="2080" selection-end="2080" vertical-scroll-proportion="-4.106383" vertical-offset="602" max-vertical-offset="1710">
-          <folding>
-            <marker date="1406872167621" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1406872167621" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1406872167621" expanded="true" signature="-1:-1" placeholder="{&quot;border&quot;: 'none'...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/postExamination/markMismatchReport.gsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="52" column="50" selection-start="2084" selection-end="2084" vertical-scroll-proportion="-2.2340426" vertical-offset="675" max-vertical-offset="1575">
-          <folding>
-            <marker date="1406872167621" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1406872167621" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1406872167621" expanded="true" signature="-1:-1" placeholder="{&quot;border&quot;: 'none'...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1306,9 +1161,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/ExaminationCentreService.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="78" selection-start="4551" selection-end="4562" vertical-scroll-proportion="0.0" vertical-offset="1402" max-vertical-offset="3195">
-          <folding />
-        </state>
+        <state line="111" column="78" selection-start="4551" selection-end="4562" vertical-scroll-proportion="0.0" vertical-offset="1402" max-vertical-offset="3195" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/ProgramFeeController.groovy">
@@ -1320,16 +1173,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/services/universityproject/ProgramFeeService.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="182" column="8" selection-start="7073" selection-end="7073" vertical-scroll-proportion="0.0" vertical-offset="2545" max-vertical-offset="3030">
-          <folding />
-        </state>
+        <state line="182" column="8" selection-start="7073" selection-end="7073" vertical-scroll-proportion="0.0" vertical-offset="2545" max-vertical-offset="3030" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/programFee/createAdmissionFee.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="177" column="6" selection-start="8995" selection-end="9134" vertical-scroll-proportion="0.69574034" vertical-offset="2312" max-vertical-offset="2805">
-          <folding />
-        </state>
+        <state line="177" column="6" selection-start="8995" selection-end="9134" vertical-scroll-proportion="0.69574034" vertical-offset="2312" max-vertical-offset="2805" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/StudentController.groovy">
@@ -1351,14 +1200,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/admitCard/bulkCreationOfAdmitCard.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="61" selection-start="4816" selection-end="4816" vertical-scroll-proportion="-4.256757" vertical-offset="1125" max-vertical-offset="2475">
+        <state line="96" column="61" selection-start="4816" selection-end="4816" vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="2475">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web-app/js/admitCard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="464" column="54" selection-start="16547" selection-end="16570" vertical-scroll-proportion="0.0" vertical-offset="6706" max-vertical-offset="14400">
+        <state line="464" column="46" selection-start="16547" selection-end="16570" vertical-scroll-proportion="0.0" vertical-offset="6960" max-vertical-offset="14385">
           <folding />
         </state>
       </provider>
@@ -1385,14 +1234,21 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="6" selection-start="34" selection-end="34" vertical-scroll-proportion="-0.6122449" vertical-offset="0" max-vertical-offset="405">
+        <state line="2" column="6" selection-start="34" selection-end="34" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="405">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/examinationproject/AdmitCardController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="201" column="34" selection-start="7666" selection-end="7684" vertical-scroll-proportion="0.3326572" vertical-offset="2791" max-vertical-offset="7155">
+        <state line="201" column="34" selection-start="7666" selection-end="7684" vertical-scroll-proportion="2.6086957" vertical-offset="3015" max-vertical-offset="7155">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/postexamination/PostExaminationController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="208" column="87" selection-start="7296" selection-end="7296" vertical-scroll-proportion="0.4174397" vertical-offset="2655" max-vertical-offset="4785">
           <folding />
         </state>
       </provider>

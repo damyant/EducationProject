@@ -44,41 +44,41 @@
 
             <table align="center" cellpadding="10" class="university-table-1-2 inner" style="width: 100%;margin: auto;" border="0">
 
-                <!----------------------------------------- Program Name --------------------------------------------->
                 <tr>
                     <td>Program<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                                   value=""
-                                  optionValue="courseName" from="${ProgramDetail.list(sort: 'courseCode')}" noSelection="['': ' Select Program']"
-                                  onchange="loadSession(this)"
+                                  optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"
+                                  onchange="getTabulatorSession(this)"
                         />
                     </td>
                 </tr>
 
                 <!----------------------------------------- Session Name --------------------------------------------->
                 <tr>
-                    <td>Session<span class="university-obligatory">*</span></td>
+                    <td>Program Session<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="session" id="session" optionKey="id" class="university-size-1-2"
-                                  value=""
-                                  optionValue="session" from="" noSelection="['': ' Select Session']"
-                                  onchange="loadSemester(this)"
-                        />
+                        <g:select name="SessionList" id="SessionList" optionKey="id" class="university-size-1-2"
+                                  value="" optionValue="session" from="" noSelection="['': ' Select Session']" disabled="true"  onchange="getSemesterForMarksUpdate(this)" />
                     </td>
                 </tr>
-
 
 
                 <!----------------------------------------- Semester Name --------------------------------------------->
                 <tr>
                     <td>Semester<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2"
-                                  value=""
-                                  optionValue="" from="" noSelection="['': ' Select Semester']"
-                                  onchange="loadCourse(this)"
-                        />
+                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2" disabled="true"
+                                  value="" optionValue="" from="" noSelection="['': ' Select Semester']" onchange="loadGroup()" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Group<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="groupId" id="groupList" optionKey="" class="university-size-1-2"
+                                  value="" optionValue="" from="" noSelection="['': ' Select Group']" onchange="loadCourse()" disabled="true" />
                     </td>
                 </tr>
 
@@ -87,17 +87,33 @@
                     <td>Course<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="courseCode" id="courseCode" optionKey="id" class="university-size-1-2"
-                                  value=""
-                                  optionValue="courseCode" from="" noSelection="['': ' Select Course']"  onchange="loadMismatchStudents()"/>
+                                  value="" optionValue="courseCode" from="" noSelection="['': ' Select Course']" disabled="true" onchange="enableMarksType()"/>
                     </td>
                 </tr>
 
+                <tr>
+                    <td>Marks Type<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="marksType" id="marksType" optionKey="id" class="university-size-1-2"
+                                  value="" optionValue="marksTypeName" from="${marksTypeList}" noSelection="['0': ' Select Marks Type']" disabled="true" onchange="enableButton()"/>
+
+                    </td>
+                </tr>
+
+            </table>
+
+            <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1">
+                <input type="button" value="Show Students" id="showButton" onclick="populateStudentListForMarksUpdate()" class="ui-button university-size-1-4" style="margin: auto;" disabled="true">
+                <input type="button" value="Set" id="setButton" onclick="disableAllSelectBox()" class="ui-button university-size-1-4" style="margin: auto;" disabled="true">
+                <input type="button" value="Reset" id="resetButton" onclick="enableAllSelectBox()" class="ui-button university-size-1-4" style="margin: auto;" disabled="true">
+            </div>
+            <table>
                 <tr>
                     <td>List of  Roll Numbers
                         %{--<span class="university-obligatory">*</span>--}%
                     </td>
                     <td>
-                        <g:select name="selectBox" id="selectBox" optionKey="id" class="university-size-1-2" value="" optionValue="" from=""  multiple="true" />
+                        <g:select name="rollNoList" id="rollNoList" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  />
                     </td>
                 </tr>
 

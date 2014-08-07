@@ -104,6 +104,28 @@ class PostExaminationService {
             return status
         }
     }
+    def getRollNoForMisMatchUpdate(params){
+        def finalList=[],counter=1
+        def progSession=ProgramSession.findByProgramDetailIdAndSessionOfProgram(ProgramDetail.findById(params.program),ProgramSession.findById())
+        def semesterIns= Semester.findAllByProgramSession()
+        def stuList=studentList(params,semesterIns)
+        if(stuList && courseList) {
+            for (def i = 0; i < stuList.size(); i++) {
+                def resultList = [], checkFlag = false
+                resultList << counter
+                resultList << stuList[i].rollNo
+                for (def j = 0; j < courseList.size(); j++) {
+
+                    def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId, stuList[i], Role.get(9))
+                    def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId, stuList[i], Role.get(10))
+
+                    if (stuMarks1 == null || stuMarks2 == null) {
+                        finalList << stuList[i]
+                    }
+                }
+            }
+        }
+    }
 
 
     def getDetailForMisMatch(params,courseList,programSessionIns,semesterIns){
@@ -117,8 +139,8 @@ class PostExaminationService {
             resultList<<stuList[i].rollNo
             for(def j=0;j<courseList.size();j++){
 
-             def stuMarks1=   StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId,stuList[i], Role.get(8))
-             def stuMarks2=   StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId,stuList[i],Role.get(9))
+             def stuMarks1=   StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId,stuList[i], Role.get(9))
+             def stuMarks2=   StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId,stuList[i],Role.get(10))
 
                 if(stuMarks1==null || stuMarks2==null){
                     resultList<<"X"

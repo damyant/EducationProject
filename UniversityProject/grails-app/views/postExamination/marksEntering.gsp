@@ -51,7 +51,7 @@
                         <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                                   value=""
                                   optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"
-                                  onchange="getTabulatorSemester(this)"
+                                  onchange="getTabulatorSession(this)"
                         />
                     </td>
                 </tr>
@@ -61,7 +61,7 @@
                     <td>Program Session<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="SessionList" id="SessionList" optionKey="id" class="university-size-1-2"
-                        value="" optionValue="session" from="" noSelection="['': ' Select Session']" disabled="true"  />
+                        value="" optionValue="session" from="" noSelection="['': ' Select Session']" disabled="true"  onchange="getTabulatorSemester(this)" />
                     </td>
                 </tr>
 
@@ -104,7 +104,7 @@
             </table>
 
             <div style="text-align: center; margin: 10px auto;" class="university-size-full-1-1">
-                <input type="button" value="Show Students" id="showButton" onclick="populateStudentList()" class="ui-button university-size-1-4" style="margin: auto;" disabled="true">
+                <input type="button" value="Show Students" id="showButton" onclick="populateStudentListForMarks()" class="ui-button university-size-1-4" style="margin: auto;" disabled="true">
                 <input type="button" value="Set" id="setButton" onclick="disableAllSelectBox()" class="ui-button university-size-1-4" style="margin: auto;" disabled="true">
                 <input type="button" value="Reset" id="resetButton" onclick="enableAllSelectBox()" class="ui-button university-size-1-4" style="margin: auto;" disabled="true">
             </div>
@@ -120,7 +120,7 @@
                 <tr>
                     <td>Enter Marks</td>
                     <td class="university-size-3-4" style="text-align: center">
-                        <input type="text" class="university-size-1-3" id="marksValue" name="marksValue" maxlength="10" onkeypress="return isNumber(event)" onblur="matchMarks()"/>
+                        <input type="text" class="university-size-1-3" id="marksValue" name="marksValue" maxlength="2" onkeypress="return isNumber(event)" onkeyup="matchMarks()"/>
                     </td>
                 </tr>
             </table>
