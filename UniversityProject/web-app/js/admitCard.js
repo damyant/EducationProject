@@ -138,7 +138,6 @@ function getSemester(t){
     if($("#generateFeeChallan").length>0) {
         document.getElementById("generateFeeChallan").style.visibility = "hidden"
     }
-//    $('#generateFeeChallan').prop('hidden', true)
     var data = $(t).val();
 
     $('#SessionList').prop('disabled',false)

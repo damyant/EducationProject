@@ -3,6 +3,8 @@ package postexamination
 import com.university.Role
 import com.university.TabulatorProgram
 import com.university.TabulatorSemester
+import com.university.User
+import com.university.UserRole
 import examinationproject.CourseSubject
 import examinationproject.ProgramDetail
 import examinationproject.ProgramGroup
@@ -34,7 +36,9 @@ class PostExaminationController {
 
     }
     def marksUpdation = {
-
+            def programList=ProgramDetail.list(sort: 'courseCode')
+            def marksTypeList = MarksType.list()
+            [programList: programList, marksTypeList: marksTypeList]
     }
 
 
@@ -47,6 +51,7 @@ class PostExaminationController {
         catch (Exception e) {
             println("<<<<< Problem in getting subjects" + e)
         }
+        println("###########333"+subjectIns)
         render subjectIns as JSON
     }
 
@@ -136,6 +141,7 @@ class PostExaminationController {
         [programList: programList, marksTypeList: marksTypeList]
     }
 
+
     def getRollNoList = {
         def finalList = []
         try {
@@ -168,50 +174,80 @@ class PostExaminationController {
         println("Inside singleMarksSheet Action..")
     }
 
+
     def saveMarks = {
         println("saving marks=====" + params)
         def status = marksEnteringService.saveMarks(params)
-        println(status)
+        println("<<<<"+status)
         if (status) {
             render status as JSON
         }
 
     }
-    def getTabulatorSemester={
+    def getTabulatorSession={
         def returnMap = [:]
         def currentUser = springSecurityService.currentUser
-        def tabProgramInst=TabulatorProgram.findByProgramAndUser(ProgramDetail.findById(Integer.parseInt(params.program)),currentUser)
-        println(tabProgramInst)
         def programSession = ProgramSession.findAllByProgramDetailId(ProgramDetail.findById(Integer.parseInt(params.program)))
-        def tabSemesterList=TabulatorSemester.findAllByTabulatorProgram(tabProgramInst).semester
-        println("tabSemesterList-----"+tabSemesterList)
-        println("programSession-----"+programSession)
-        returnMap.tabSemesterList=tabSemesterList
         returnMap.session=programSession
+        println("programSession-----"+programSession)
+        render returnMap as JSON
+    }
+    def getTabulatorSemester={
+        def returnMap = [:]
+        def semesterList=[]
+        def currentUser = springSecurityService.currentUser
+        def tabProgramInst=TabulatorProgram.findByProgramAndUser(ProgramDetail.findById(Integer.parseInt(params.program)),currentUser)
+        def session=ProgramSession.findById(params.session).sessionOfProgram
+        def programSession = ProgramSession.findByProgramDetailIdAndSessionOfProgram(ProgramDetail.findById(Integer.parseInt(params.program)),session)
+        def tabSemesterList=TabulatorSemester.findAllByTabulatorProgram(tabProgramInst).semester
+        tabSemesterList.each {
+            semesterList<<Semester.findByProgramSessionAndSemesterNo(programSession,it)
+        }
+        returnMap.tabSemesterList=semesterList
+        render returnMap as JSON
+    }
+def getSemesterForMarksUpdate={
+        def returnMap = [:]
+        def semesterList=[]
+        def session=ProgramSession.findById(params.session).sessionOfProgram
+        def programSession = ProgramSession.findByProgramDetailIdAndSessionOfProgram(ProgramDetail.findById(Integer.parseInt(params.program)),session)
+        semesterList=Semester.findAllByProgramSession(programSession)
+
+        returnMap.semesterList=semesterList
         render returnMap as JSON
     }
 
     def checkMarks = {
-
         def returnMap = [:]
-
-        def stuIns = StudentMarks.findAllBySubjectIdAndSemesterNoAndRoleIdAndMarksTypeId(Subject.get(Integer.parseInt(params.subjectId)),
-                Integer.parseInt(params.semester), Role.get(9), MarksType.get(Integer.parseInt(params.marksType)))
-
+        def programSession = ProgramSession.get(Integer.parseInt(params.session))
+        def semester = Semester.findByProgramSessionAndId(programSession, Integer.parseInt(params.semester))
+        def currentUser = springSecurityService.currentUser
+        def role=UserRole.findAllByUser(currentUser).role
+        def role_id
+        role.each {
+            role_id = TabulatorSemester.findBySemesterAndTabulatorProgram(semester.semesterNo, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
+        }
+        def otherRoll_Id
+        if(role_id==9){
+            otherRoll_Id=10
+        }
+        else{
+            otherRoll_Id=9
+        }
+        def stuIns = StudentMarks.findBySubjectIdAndSemesterNoAndRoleIdAndMarksTypeId(Subject.get(Integer.parseInt(params.subjectId)),
+                Integer.parseInt(params.semester), Role.get(otherRoll_Id), MarksType.get(Integer.parseInt(params.marksType)))
         if (stuIns) {
             if (stuIns.marksObtained == Integer.parseInt(params.marksValue)) {
                 returnMap.status = true
 
             } else {
                 returnMap.status = false
+                returnMap.tabulator =  Role.get(otherRoll_Id).authority
             }
         } else {
             returnMap.status = true
         }
-
         render returnMap as JSON
-
-
     }
 
     def getStudentSession = {
@@ -260,5 +296,15 @@ class PostExaminationController {
             redirect(controller: 'postExamination', action: 'markMismatchReport')
         }
 
+    }
+    def marksMissMatchUpdate = {
+
+        println("??????"+params)
+
+
+        def finalList = postExaminationService.getRollNoForMisMatchUpdate(params)
+
+
+        render finalList as JSON
     }
 }// CLOSING BRACKETS

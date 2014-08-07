@@ -170,9 +170,9 @@ class CourseDetailService {
                 groupIns.each {
                 groupList<<it.groupName
                 if(groupSelectionType.size()<1){
-                groupSelectionType<<it.groupSelectionType
-                groupNoOfSubjects<<it.numberOfSubjectsToSelect
-                    }
+                    groupSelectionType<<it.groupSelectionType
+                    groupNoOfSubjects<<it.numberOfSubjectsToSelect
+                }
                 def groupSubjectIns= ProgramGroupDetail.findAllByProgramGroupId(it).subjectSessionId
                     groupSubjectIns.each{
                         def returnMap=[:]
@@ -180,13 +180,10 @@ class CourseDetailService {
                         returnMap["subjectName"]=it.subjectId.subjectName
                         groupList<<returnMap
                     }
-
                }
                 totalList<<groupList
                 totalList<<groupSelectionType
                 totalList<<groupNoOfSubjects
-
-
             }
 
             subMap[it.semesterNo]=totalList
@@ -256,6 +253,8 @@ class CourseDetailService {
                 sessionObj = new SubjectSession(sessionOfSubject: params.session, subjectId: subjectIns).save(flush: true, failOnError: true)
             }
 
+            println("***"+sessionObj.subjectMarksDetail)
+
             if(sessionObj.subjectMarksDetail) {
                   sessionObj.subjectMarksDetail.toList().each {
                       sessionObj.removeFromSubjectMarksDetail(it)
@@ -290,7 +289,7 @@ class CourseDetailService {
     }
 
     def getCourseOnProgramCode(params){
-        def resultList=[],courseNameList=[],returnList=[]
+        def resultList=[],courseNameList=[],returnList=[],courseCodeList=[]
         def counter=0
 
         def subList=Subject.createCriteria()
@@ -300,16 +299,19 @@ class CourseDetailService {
                eq('programTypeId',ProgramType.get(params.programType))
            }
          }
-
+//        println("++++++++++"+finalSubjectList)
         finalSubjectList.each{
             resultList<< SubjectSession.findBySubjectId(it)
+//            println("++++++++++"+SubjectSession.findBySubjectId(it))
             courseNameList<<SubjectSession.findBySubjectId(it).subjectId.subjectName
+            courseCodeList<<SubjectSession.findBySubjectId(it).subjectId.subjectCode
 
         }
 
         resultList.each{
            def returnMap=[:]
             returnMap["id"]=it.id
+            returnMap["subjectCode"]=courseCodeList[counter]
             returnMap["subjectName"]=courseNameList[counter]
             ++counter;
             returnList<<returnMap
@@ -325,6 +327,7 @@ class CourseDetailService {
         def indexVal=0;
         for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
             semObj = new Semester()
+
             semObj.semesterNo = i
             semObj.programSession = sessionObj
             semObj.save(failOnError: true)
