@@ -572,8 +572,6 @@ function getStudentsForIdentityCard() {
         });
     }
 }
-
-
 function showExamVenueList1() {
     $('#addExamCentre').empty();
     var data = $('#examinationCentre').val();
