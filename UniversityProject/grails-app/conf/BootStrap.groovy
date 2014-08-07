@@ -36,9 +36,7 @@ class BootStrap {
         if (!adminUser.authorities.contains(courseRole)) {
             UserRole.create adminUser, courseRole
         }
-//        if (!adminUser.authorities.contains(idolUserRole)) {
-//            UserRole.create adminUser, idolUserRole
-//        }
+
         if (!adminUser.authorities.contains(admitCardRole)) {
             UserRole.create adminUser, admitCardRole
         }

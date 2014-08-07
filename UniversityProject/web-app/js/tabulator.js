@@ -61,15 +61,17 @@ function saveSelectedSemesters(tabId) {
     var programMap={};
     var programSemester={};
     var noOfPrograms = programList.length
+
     $('#viewSelected' + tabId +' select').empty().append('')
-    for(var i=0;i<noOfPrograms;i++){
+    for(var i=0;i<programList.length;i++){
         var listOfSem =[];
         var programIndex =[];
         if($('#programCheck'+programList[i].id).is(':checked')){
-            var noOfSemester = $('input[name=semCheckBox'+programList[i].id+']').length
-            for(var j=1;j<=noOfPrograms;j++){
-                if($('#semCheckBox' + programList[i].id+j).is(":checked")){
-                    listOfSem.push(j)
+            var noOfSemester = programList[i].semesterList.length
+            alert(programList[i].semesterList.length)
+            for(var j=0;j<programList[i].semesterList.length;j++){
+                if($('#semCheckBox' + programList[i].id+programList[i].semesterList[j].id).is(":checked")){
+                    listOfSem.push(programList[i].semesterList[j].id)
                 }
             }
             programIndex.push(programList[i].id)
@@ -128,10 +130,10 @@ function appendTab(programList,tabId){
             'onclick="togleProgram('+programList[i].id+')"/>'+programList[i].programName+'</h5></div>' +
             '<div id="'+programList[i].id+'" hidden="hidden"/></div>');
         $('#'+programList[i].id).empty().append('')
-         for(var j=0;j<programList[i].noOfSemester;j++){
+         for(var j=0;j<programList[i].semesterList.length;j++){
               $('#'+programList[i].id).append('<div id="checkboxes'+programList[i].id+'" name="checkboxes'+programList[i].id+'">' +
-                  '<input type="checkbox" id="semCheckBox'+programList[i].id+(j+1)+'" name="semCheckBox'+programList[i].id+'" />' +
-                  '<label>'+(j+1)+' Semester</label>' +
+                  '<input type="checkbox" id="semCheckBox'+programList[i].id+programList[i].semesterList[j].id+'" name="semCheckBox'+programList[i].id+'" />' +
+                  '<label>'+programList[i].semesterList[j].semesterNo+' Semester</label>' +
                   '</div>')
          }
     }

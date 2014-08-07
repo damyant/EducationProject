@@ -12,6 +12,7 @@ import grails.transaction.Transactional
 import jxl.Workbook
 import jxl.WorkbookSettings
 import jxl.write.WritableWorkbook
+import postexamination.MarksType
 import postexamination.StudentMarks
 
 @Transactional
@@ -104,12 +105,29 @@ class PostExaminationService {
             return status
         }
     }
-    def getRollNoForMisMatchUpdate(params){
-        def finalList=[],counter=1
-        def progSession=ProgramSession.findByProgramDetailIdAndSessionOfProgram(ProgramDetail.findById(params.program),ProgramSession.findById())
-        def semesterIns= Semester.findAllByProgramSession()
-        def stuList=studentList(params,semesterIns)
-        if(stuList && courseList) {
+
+    def getRollNoForMisMatchUpdate(params) {
+        def finalList = [], counter = 1
+        def semesterIns = Semester.findById(params.semester)
+        def stuList = studentList(params, semesterIns)
+        if (stuList) {
+            for (def i = 0; i < stuList.size(); i++) {
+                def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleId(Subject.findById(params.subjectId), stuList[i], Role.get(9))
+                def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleId(Subject.findById(params.subjectId), stuList[i], Role.get(10))
+                if (stuMarks1?.marksObtained != stuMarks2?.marksObtained) {
+                    finalList<< stuList[i]
+                }
+            }
+        }
+        return finalList
+    }
+
+
+    def getDetailForMisMatch(params, courseList, programSessionIns, semesterIns) {
+
+        def finalList = [], counter = 1
+        def stuList = studentList(params, semesterIns)
+        if (stuList && courseList) {
             for (def i = 0; i < stuList.size(); i++) {
                 def resultList = [], checkFlag = false
                 resultList << counter
@@ -120,53 +138,27 @@ class PostExaminationService {
                     def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId, stuList[i], Role.get(10))
 
                     if (stuMarks1 == null || stuMarks2 == null) {
-                        finalList << stuList[i]
+                        resultList << "X"
+                    } else if (stuMarks1?.marksObtained != stuMarks2?.marksObtained) {
+                        resultList << "?"
+                        checkFlag = true
+                    } else {
+                        resultList << ""
                     }
+
                 }
-            }
-        }
-    }
-
-
-    def getDetailForMisMatch(params,courseList,programSessionIns,semesterIns){
-
-        def finalList=[],counter=1
-        def stuList=studentList(params,semesterIns)
-        if(stuList && courseList){
-        for(def i=0;i<stuList.size();i++){
-            def resultList=[],checkFlag=false
-            resultList<<counter
-            resultList<<stuList[i].rollNo
-            for(def j=0;j<courseList.size();j++){
-
-             def stuMarks1=   StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId,stuList[i], Role.get(9))
-             def stuMarks2=   StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId,stuList[i],Role.get(10))
-
-                if(stuMarks1==null || stuMarks2==null){
-                    resultList<<"X"
+                if (checkFlag) {
+                    resultList << "R"
+                } else {
+                    resultList << "F"
                 }
-                else if(stuMarks1?.marksObtained!=stuMarks2?.marksObtained){
-                    resultList<<"?"
-                    checkFlag=true
-                }
-                else{
-                    resultList<<""
-                }
-
+                finalList << resultList
+                ++counter;
             }
-            if(checkFlag){
-                resultList<<"R"
-            }
-            else{
-                resultList<<"F"
-            }
-            finalList<<resultList
-            ++counter;
-        }
 
         }
 
-println("endddddd"+finalList)
+        println("endddddd" + finalList)
 
         return finalList
 
@@ -174,11 +166,10 @@ println("endddddd"+finalList)
     }
 
 
-
     def studentList(params, semester) {
         def stuList = []
-         try {
-            def regYear = (ProgramSession.findById(params.programId).sessionOfProgram).substring(0, 4)
+        try {
+            def regYear = (ProgramSession.findById(params.session).sessionOfProgram).substring(0, 4)
 
             def studentObj = Student.createCriteria()
             stuList = studentObj.list {
@@ -201,5 +192,45 @@ println("endddddd"+finalList)
         }
         return stuList
 
+    }
+    def getTabulatorMarks(params){
+        def marks = [:]
+        def tab1MarksInst=[],tab2MarksInst=[]
+        def tab1Obj = StudentMarks.createCriteria()
+        def tab2Obj = StudentMarks.createCriteria()
+        tab1MarksInst = tab1Obj.list {
+            student {
+                eq('id', Long.parseLong(params.studentId))
+            }
+
+            and{
+                        eq('marksTypeId', MarksType.findById(Long.parseLong(params.marksType)))
+                        eq('semesterNo', Semester.findById(Long.parseLong(params.semester)).semesterNo)
+                        eq("subjectId", Subject.get(1))
+                        eq('roleId', Role.get(9))
+
+            }
+        }
+        tab2MarksInst = tab2Obj.list {
+            student {
+                eq('id', Long.parseLong(params.studentId))
+            }
+            and{
+                        eq('marksTypeId', MarksType.findById(Long.parseLong(params.marksType)))
+                        eq('semesterNo', Semester.findById(Long.parseLong(params.semester)).semesterNo)
+                        eq("subjectId", Subject.get(Integer.parseInt(params.subjectId)))
+                        eq('roleId', Role.get(10))
+            }
+        }
+        println("==========Semester================="+Semester.findById(Long.parseLong(params.semester)).semesterNo)
+        println("=============MarksType=============="+MarksType.findById(Long.parseLong(params.marksType)))
+        println("============Subject==============="+Subject.get(Integer.parseInt(params.subjectId)))
+        println("===========Role================"+Role.get(10))
+        println("___________tab1MarksInst________________"+tab1MarksInst)
+        println("____________tab2MarksInst_______________"+tab2MarksInst)
+        marks.tab1Marks=tab1MarksInst[0].marksObtained
+        marks.tab2Marks=tab2MarksInst[0].marksObtained
+        println(marks)
+        return marks
     }
 }// MAIN CLOSING TAG

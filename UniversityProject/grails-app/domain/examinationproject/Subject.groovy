@@ -13,7 +13,7 @@ class Subject {
 //    static hasMany = [subjectMarksDetail:SubjectMarksDetail]
 
     static mapping = {
-        id column: "SubjectId"
+//        id column: "SubjectId"
         subjectName column: "SubjectName"
         subjectCode column: "SubjectCode"
         aliasCode column: "AliasCode"

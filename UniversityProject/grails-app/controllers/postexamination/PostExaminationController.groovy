@@ -298,13 +298,12 @@ def getSemesterForMarksUpdate={
 
     }
     def marksMissMatchUpdate = {
-
-        println("??????"+params)
-
-
         def finalList = postExaminationService.getRollNoForMisMatchUpdate(params)
-
-
+        render finalList as JSON
+    }
+    def loadTabulatorMarks={
+        println("++++++++++++++++++"+params)
+        def finalList = postExaminationService.getTabulatorMarks(params)
         render finalList as JSON
     }
 }// CLOSING BRACKETS
