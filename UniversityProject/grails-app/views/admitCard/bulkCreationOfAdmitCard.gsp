@@ -10,6 +10,8 @@
 <head>
     <title></title>
     <meta name="layout" content="main"/>
+    <g:javascript src='admin.js'/>
+    <g:javascript src='admitCard.js'/>
     <script type="text/javascript" src="${resource(dir: 'js/jquery/timePicker', file: 'jquery.jqpagination.min.js')}"></script>
     <link rel='stylesheet' href="${resource(dir: 'css', file: 'jqpagination.css')}" type='text/css'/>
 </head>
@@ -33,7 +35,7 @@
         <g:if test="${flash.message}">
             <div class="university-status-message"> <label class="error">${flash.message}</label></div>
         </g:if>
-    <g:form name="admitCardForm" id="admitCardForm" >
+    <g:form name="admitCardForm" id="admitCardForm" controller="admitCard" action="printAdmitCard">
             <g:hiddenField name="studentList" id="studentList"/>
             <div>
                 <table class="university-table-1-3 inner" style="width: 80%;margin-left: 20px;">
@@ -43,16 +45,17 @@
                             <g:select name="examinationCentre" id="examinationCentre" optionKey="id" class="university-size-1-1"
                                       optionValue="cityName" from="${examinationCenterList}"
                                       noSelection="['': ' Select Exam Centre']"
-                                      onchange="enableShowCandidate()"/>
+                                      onchange="enableShowCandidate(),emptyProgram(this)"/>
                         </td>
                     </tr>
                     <tr>
-                        <td><label>Select a Course</label></td>
+                        <td><label>Select a Programme</label></td>
                         <td>
                             <g:select name="programList" class="university-size-1-1" optionKey="id"
-                                      optionValue="courseName"
+                                      optionValue="courseName" disabled=""
                                       from="${programList}" noSelection="['': ' Select Programme']"
-                                      onchange="showExamVenueList(),getSemester(this),enableShowCandidate()"/>
+                                      onchange="showExamVenueList(),loadSemesterForAdmitCard(),enableShowCandidate(),getSemester(this)"/>
+                                      %{--onchange="showExamVenueList(),loadProgramTerm(),getSession(this),enableShowCandidate()"/>--}%
                         </td>
                         <td></td>
                     </tr>

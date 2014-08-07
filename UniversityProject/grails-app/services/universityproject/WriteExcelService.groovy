@@ -28,10 +28,15 @@ class WriteExcelService {
     private WritableCellFormat times;
     private WritableCellFormat times1;
    Boolean excelReport(params, finalList, course, sheetNo, WritableWorkbook workbook, studyCentreName, session){
-       println("creating this sheet "+ sheetNo)
+//       println("creating this sheet "+ sheetNo)
        WritableSheet sheet= null
        WritableSheet excelSheet=null
-       sheet = workbook.createSheet(""+course.courseName, sheetNo);
+       String courseName= course.courseName
+       if(courseName.contains('/')){
+           println("courseName is "+ courseName)
+           courseName = courseName.replace('/', ' ')
+       }
+       sheet = workbook.createSheet(""+courseName, sheetNo);
        excelSheet = workbook.getSheet(sheetNo);
       createLabel(excelSheet, params, course, studyCentreName, session);
       createContent(excelSheet, finalList);
@@ -44,11 +49,7 @@ class WriteExcelService {
 
     private void createLabel(WritableSheet sheet, params, course, studyCentreName, session )
             throws WriteException {
-        println("calling this method")
-//<<<<<<< HEAD
-////        def formatSession = Integer.parseInt(params.session)+1
-//        def formatSession = (params.session)
-//=======
+
         def formatSession = Integer.parseInt(session)+1
 
         // Lets create a times font
@@ -79,7 +80,7 @@ class WriteExcelService {
         cv.setAutosize(true);
         int row = 0
         int cols = 6
-        WritableCell titleCell = new Label(0, row, "Total Students In "+course.courseName +" For "+ session+"-"+formatSession +" Session In "+(studyCentreName? studyCentreName:'All Study Centres'));
+        WritableCell titleCell = new Label(0, row, "Total Students In "+course.courseName +" For "+ session+"-"+formatSession +" Session In "+(studyCentreName? studyCentreName:'All Study Centres')+""+(params.studentCategory?' In '+params.studentCategory+' Category':''));
         titleCell.setCellFormat(times)
         sheet.addCell(titleCell);
         sheet.mergeCells(0, row, cols, row);
@@ -110,14 +111,14 @@ class WriteExcelService {
 
     void createContent(WritableSheet sheet, List finalList) throws WriteException,
             RowsExceededException {
-        println("now creating contents")
+//        println("now creating contents")
         // Write a few number
         for (int i = 0; i < finalList.size(); i++) {
             int j = 0
             addLabel(sheet, j, i + 2, (finalList[i].rollNo? finalList[i].rollNo:'Not Generated' ));
             addLabel(sheet, j + 1, i + 2, finalList[i].firstName+' '+(finalList[i].middleName? finalList[i].middleName:'' )+' '+finalList[i].lastName);
             addLabel(sheet, j + 2, i + 2, finalList[i].studyCentre[0].name);
-            addLabel(sheet, j + 3, i + 2, finalList[i].city[0]?.cityName);
+            addLabel(sheet, j + 3, i + 2, ''+finalList[i].city[0]?.cityName);
             addLabel(sheet, j + 4, i + 2, finalList[i].challanNo);
             addLabel(sheet, j + 5, i + 2, "91"+finalList[i].mobileNo);
             addLabel(sheet, j + 6, i + 2, finalList[i].status.status);

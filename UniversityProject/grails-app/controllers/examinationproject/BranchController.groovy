@@ -21,7 +21,7 @@ class BranchController {
 
     def getBranchList = {
         def list = Bank.findById(Integer.parseInt(params.bank));
-         println(list.branch)
+//         println("this is the branch list "+list.branch)
          render list.branch as JSON
     }
 
@@ -32,18 +32,30 @@ class BranchController {
 
     @Transactional
     def saveBranch() {
-       println("params"+params)
-       def branch =  new Branch(branchLocation: params.branchName,bank: Integer.parseInt(params.bankId[0])).save(flush: true)
-        Set<Branch> branches = new HashSet<Branch>()
-        branches.add(branch)
-        def bank = Bank.findById(Integer.parseInt(params.bankId[0]))
-        bank.branch=branches
-       if(bank.save(flush: true)){
+//       println("params"+params)
+//       def branch =  new Branch(branchLocation: params.branchName,bank: Integer.parseInt(params.bankId[0])).save(flush: true)
+//        Set<Branch> branches = new HashSet<Branch>()
+//        branches.add(branch)
+//        def bank = Bank.findById(Integer.parseInt(params.bankId[0]))
+//        bank.branch=branches
+//       if(bank.save(flush: true)){
+//         flash.message ="Branch Added Successfully"
+//      }else{
+//           flash.message ="Unable To Add Branch"
+//       }
+//        redirect(action: "createBranch")
+        def branch = new Branch()
+        branch.bank= Bank.findById(Integer.parseInt(params.bankId))
+        branch.branchLocation= params.branchName
+        if(branch.save(flush: true, failOnError: true)){
          flash.message ="Branch Added Successfully"
+            redirect(action: "createBranch")
       }else{
            flash.message ="Unable To Add Branch"
+            redirect(action: "createBranch")
        }
-        redirect(action: "createBranch")
+
+
     }
 
     def editBranch() {

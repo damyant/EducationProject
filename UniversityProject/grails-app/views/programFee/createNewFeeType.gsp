@@ -100,64 +100,64 @@
 
 
 
-                <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'feeAmountAtIDOL', 'error')} required">
-                    <div class="university-size-1-3">
-                        <label for="feeAmountAtIDOL">
-                            <g:message code="programFee.feeAmountAtIDOL.label" default="Fee Amount At IDOL"/>
-                            <span class="university-obligatory">*</span>
-                        </label>
-                    </div>
+                %{--<div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'feeAmountAtIDOL', 'error')} required">--}%
+                    %{--<div class="university-size-1-3">--}%
+                        %{--<label for="feeAmountAtIDOL">--}%
+                            %{--<g:message code="programFee.feeAmountAtIDOL.label" default="Fee Amount At IDOL"/>--}%
+                            %{--<span class="university-obligatory">*</span>--}%
+                        %{--</label>--}%
+                    %{--</div>--}%
 
 
-                    <div class="university-size-2-3">
-                        <g:textField name="feeAmountAtIDOL" class="university-size-1-2" type="number"
-                                     value=""
-                                     onkeypress="return isNumber(event)"/>
-                    </div>
-                </div>
+                    %{--<div class="university-size-2-3">--}%
+                        %{--<g:textField name="feeAmountAtIDOL" class="university-size-1-2" type="number"--}%
+                                     %{--value=""--}%
+                                     %{--onkeypress="return isNumber(event)"/>--}%
+                    %{--</div>--}%
+                %{--</div>--}%
 
 
-                <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'feeAmountAtSC', 'error')} required">
-                    <div class="university-size-1-3">
-                        <label for="feeAmountAtSC">
-                            <g:message code="programFee.feeAmountAtSC.label" default="Fee Amount At SC"/>
-                            <span class="university-obligatory">*</span>
-                        </label>
-                    </div>
+                %{--<div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'feeAmountAtSC', 'error')} required">--}%
+                    %{--<div class="university-size-1-3">--}%
+                        %{--<label for="feeAmountAtSC">--}%
+                            %{--<g:message code="programFee.feeAmountAtSC.label" default="Fee Amount At SC"/>--}%
+                            %{--<span class="university-obligatory">*</span>--}%
+                        %{--</label>--}%
+                    %{--</div>--}%
 
 
-                    <div class="university-size-2-3">
-                        <g:textField name="feeAmountAtSC"
-                                     class="university-size-1-2"
-                                     type="number"
-                                     value=""
-                                     onkeypress="return isNumber(event)"/>
-                    </div>
-                </div>
+                    %{--<div class="university-size-2-3">--}%
+                        %{--<g:textField name="feeAmountAtSC"--}%
+                                     %{--class="university-size-1-2"--}%
+                                     %{--type="number"--}%
+                                     %{--value=""--}%
+                                     %{--onkeypress="return isNumber(event)"/>--}%
+                    %{--</div>--}%
+                %{--</div>--}%
 
 
-                <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">
-                    <div class="university-size-1-3">
-                        <label for="lateFeeAmount">
-                            <g:message code="programFee.lateFeeAmount.label" default="Late Fee Amount"/>
-                            <span class="university-obligatory">*</span>
-                        </label>
-                    </div>
+                %{--<div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">--}%
+                    %{--<div class="university-size-1-3">--}%
+                        %{--<label for="lateFeeAmount">--}%
+                            %{--<g:message code="programFee.lateFeeAmount.label" default="Late Fee Amount"/>--}%
+                            %{--<span class="university-obligatory">*</span>--}%
+                        %{--</label>--}%
+                    %{--</div>--}%
 
 
-                    <div class="university-size-2-3">
-                        <g:textField name="lateFeeAmount"
-                                     class="university-size-1-2"
-                                     type="number"
-                                     value="" onclick="this.value = ''"
-                                     onkeypress="return isNumber(event)"/>
-                    </div>
-                </div>
+                    %{--<div class="university-size-2-3">--}%
+                        %{--<g:textField name="lateFeeAmount"--}%
+                                     %{--class="university-size-1-2"--}%
+                                     %{--type="number"--}%
+                                     %{--value="" onclick="this.value = ''"--}%
+                                     %{--onkeypress="return isNumber(event)"/>--}%
+                    %{--</div>--}%
+                %{--</div>--}%
 
                 <g:each in="${feeType}" var="fee" status="i">
                 <div class="fieldcontain ${hasErrors(bean: programFeeInstance, field: 'lateFeeAmount', 'error')} required">
                     <div class="university-size-1-3">
-                        <label for="feeType">
+                        <label for="feeTypeAmount">
                             ${fee?.type}
                             <span class="university-obligatory">*</span>
                         </label>

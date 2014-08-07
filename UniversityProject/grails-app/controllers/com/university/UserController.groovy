@@ -102,7 +102,7 @@ class UserController {
 
     @Secured(["ROLE_ADMIN"])
     def updateUser = {
-        println("========================>" + params)
+
         def result=userService.updateUserDetails(params)
         if(result.userInstance){
             if(result.status){
@@ -149,9 +149,9 @@ class UserController {
         }
     }
 
-    def assignCourse() {
-        println('these are the parameters ' + params)
 
+    def assignCourse(){
+//        println('these are the parameters '+params)
 
         def programList = ProgramDetail.list(sort: 'courseCode')
         [programList: programList]

@@ -1,20 +1,15 @@
 package universityproject
 
 import examinationproject.AdmissionFee
-import examinationproject.Bank
-import examinationproject.Branch
 import examinationproject.City
 import examinationproject.CustomChallan
-import examinationproject.ExaminationVenue
+import examinationproject.ExistingChallan
 import examinationproject.FeeDetails
 
 
 import examinationproject.FeeSession
 
 import examinationproject.FeeType
-import examinationproject.MiscellaneousFee
-import examinationproject.MiscellaneousFeeChallan
-import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.Status
 import examinationproject.ProgramSession
@@ -29,14 +24,13 @@ import java.text.SimpleDateFormat
 
 @Transactional
 class StudentRegistrationService {
-
     private final myLock = new Object()
+    private final challanLock = new Object()
     def springSecurityService
     def springSecurityUtils
 
     @Synchronized("myLock")
     Student saveNewStudentRegistration(params, signature, photographe) {
-//    println(params)
         Boolean studentRegistrationInsSaved = false;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         String year = sdf.format(Calendar.getInstance().getTime());
@@ -44,7 +38,7 @@ class StudentRegistrationService {
         def endYear
         def programSession
         def studentRegistration
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy")
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy")
         if (params.studentId) {
             studentRegistration = Student.findById(Long.parseLong(params.studentId))
             studentRegistration.firstName = params.firstName
@@ -81,7 +75,6 @@ class StudentRegistrationService {
                     studentRegistration.rollNo = getStudentRollNumber(params)
                 }
             }
-//            studentRegistration.challanNo = getChallanNumber()
             if (springSecurityService.isLoggedIn()) {
                 def userDetails = springSecurityService.principal.getAuthorities()
                 boolean isAdmin = false
@@ -98,17 +91,19 @@ class StudentRegistrationService {
                     studentRegistration.studyCentre = studyCentre
 
                 } else {
-                    Set<StudyCenter> studyCentre = StudyCenter.findAllByCenterCode((params.studyCentreCode))
+                    Set<StudyCenter> studyCentre = StudyCenter.findAllById(Integer.parseInt(params.studyCentreCode))
                     studentRegistration.studyCentre = studyCentre
                 }
             }
-        } else {
+        }
+        else {
             studentRegistration = new Student(params)
-            studentRegistration.registrationYear = Integer.parseInt(year)
+            studentRegistration.registrationYear = ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear
             if (springSecurityService.isLoggedIn()) {
                 studentRegistration.referenceNumber = 0
                 studentRegistration.status = Status.findById(2)
-                studentRegistration.rollNo = getStudentRollNumber(params)
+                def rollNo=getStudentRollNumber(params)
+                studentRegistration.rollNo = rollNo
 
             } else {
                 studentRegistration.referenceNumber = getStudentReferenceNumber()
@@ -138,18 +133,23 @@ class StudentRegistrationService {
         }
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
-        if (params.idol == "idol")
+        if (params.idol == "idol"){
+            println('in idol')
             studentRegistration.challanNo = getChallanNumber()
+        }
         Set<City> examinationCentreList = City.findAllById(Integer.parseInt(params.examinationCentre))
         studentRegistration.city = examinationCentreList
         if (!params.appNo) {
             if (photographe.bytes)
                 studentRegistration.studentImage = photographe.bytes
         } else {
-            studentRegistration.applicationNo = params.applicationNo
+        }
+        if(params.applicationNo){
+             studentRegistration.applicationNo = ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear.toString()+params.applicationNo
         }
         studentRegistration.semester = 1
         studentRegistration.admitCardGenerated = false
+//        println('This is the final studycentre going to save '+studentRegistration.studyCentre)
         if (studentRegistration.save(flush: true, failOnError: true)) {
             if (!springSecurityService.isLoggedIn()) {
                 def feeDetails = new FeeDetails()
@@ -158,6 +158,7 @@ class StudentRegistrationService {
                 feeDetails.paidAmount = Integer.parseInt(params.admissionFeeAmount)
                 feeDetails.challanNo = studentRegistration.challanNo
                 feeDetails.challanDate = new Date()
+                feeDetails.isApproved=Status.findById(1)
                 feeDetails.student = studentRegistration
                 feeDetails.semesterValue = 1
                 feeDetails.save(failOnError: true, flush: true)
@@ -178,12 +179,11 @@ class StudentRegistrationService {
     def synchronized getStudentRollNumber(params) {
         def status = false
         try {
-            //  println("programId is "+Long.parseLong(params.programId))
             Set<ProgramDetail> course = ProgramDetail.findAllById(Long.parseLong(params.programId))
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
             String courseCodeStr = course[0].courseCode.toString()
-            String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2, 4)
+            String yearCode = (ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear).toString().substring(2, 4)
             int rollNo = 1
             String rollTemp = null
             int rollTemp1 = 0
@@ -256,7 +256,7 @@ class StudentRegistrationService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
             int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
             String courseCodeStr = course[0].courseCode.toString()
-            String yearCode = sdf.format(Calendar.getInstance().getTime()).substring(2, 4)
+            String yearCode = (ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear).toString().substring(2, 4)
             int rollNo = 1
             String rollTemp = null
             int rollTemp1 = 0
@@ -280,7 +280,7 @@ class StudentRegistrationService {
             }
             def studentIdList = params.studentList.split(",")
             if (studentByYearAndCourse.get(0).rollNo) {
-                println("In if")
+//                println("In if")
                 rollTemp = studentByYearAndCourse.get(0).rollNo.substring(4, 8)
                 for (int i = 1; i <= studentIdList.size(); i++) {
                     rollTemp1 = Integer.parseInt(rollTemp) + i
@@ -355,47 +355,13 @@ class StudentRegistrationService {
     }
 
     def seedStudent(params) {
-        println("Start Time" + new Date())
         def students
         Set<ProgramDetail> programDetails = ProgramDetail.findAllById(23)
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy"); // Just the year
         int year = Integer.parseInt(sdf.format(Calendar.getInstance().getTime()))
-//////       At Study Center
-//
-//        for (int i = 1; i <= 20000; i++) {
-//            println("Student Number is "+i)
-//            students = new Student()
-//            students.firstName = "StudentAtStudy"+i
-//            students.lastName="Test"
-//            students.gender = "Male"
-//            students.category = "GEN"
-//            students.programSession = ProgramSession.get(21)
-////            students.referenceNumber = getStudentReferenceNumber()
-////            students.challanNo = getChallanNumber()
-//            params.programId="21"
-//            students.rollNo = getStudentRollNumber(params)
-//            students.dob = new Date()
-//            students.admissionDate = new Date()
-//            students.programDetail = programDetails
-//            students.status = Status.findById(2)
-//            students.studyCentre = StudyCenter.findAllById(73)
-//            students.admitCardGenerated = false
-//            students.semester=1
-//            students.city=City.findAllById(8)
-//            students.programDetail = programDetails
-//            students.registrationYear = year
-//            students.city= City.findAllById(1)
-//            try{
-//            students.save(flush: true,failOnError: true)
-//            }catch (Exception e){
-//                println("????????"+e.printStackTrace())
-//            }
-//        }
-
-        //At IDOL
         for (int i = 250; i < 750; i++) {
-            println("Student Number is " + i)
+//            println("Student Number is " + i)
             students = new Student()
             students.firstName = "StudentAtIDOL" + i
             students.lastName = "Test"
@@ -420,11 +386,11 @@ class StudentRegistrationService {
                 println("????????" + e.printStackTrace())
             }
         }
-        println("End Time" + new Date())
     }
-
+    static int a=0
+    @Synchronized("challanLock")
     def getChallanNumber() {
-        println('getting challan no now')
+        println("--------------"+a)
         int serialNo = 1
         SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd"); // Just the year
         def date = (sdf.format(Calendar.getInstance().getTime()))
@@ -443,24 +409,24 @@ class StudentRegistrationService {
             def custObj = CustomChallan.createCriteria()
             def custByChallanNo = custObj.list {
                 maxResults(1)
+
                 order("id", "desc")
             }
-            if (feeDetailByChallanNo) {
-                if (custByChallanNo) {
-                    if (Integer.parseInt(feeDetailByChallanNo[0].challanNo)  > Integer.parseInt(custByChallanNo[0].challanNo)) {
-                        studentByChallanNo = feeDetailByChallanNo
-                        println('11')
-                    }  else {
-                        studentByChallanNo = custByChallanNo
-                        println('33')
-                    }
-                } else {
-                    studentByChallanNo = feeDetailByChallanNo
-                    println('333')
 
+                if (feeDetailByChallanNo) {
+                    if (custByChallanNo) {
+                        if (Integer.parseInt(feeDetailByChallanNo[0].challanNo)  > Integer.parseInt(custByChallanNo[0].challanNo)) {
+                            studentByChallanNo = feeDetailByChallanNo
+                        }  else {
+                            studentByChallanNo = custByChallanNo
+                        }
+                    } else {
+                            studentByChallanNo = feeDetailByChallanNo
+                    }
                 }
-            }
+
             def lastChallanDate
+
             if(studentByChallanNo){
                 if (studentByChallanNo[0].challanNo != null) {
                     lastChallanDate = studentByChallanNo[0].challanNo.substring(0, 6)
@@ -468,17 +434,17 @@ class StudentRegistrationService {
                     if (lastChallanDate.equalsIgnoreCase(challan)) {
                         serialNo = Integer.parseInt(studentByChallanNo[0].challanNo.substring(6, 10))
                         serialNo = serialNo + 1
-                    } else {
-                        serialNo = 1
+
+                       } else {
+                        serialNo=1
                     }
                 } else {
-                    serialNo = 1
+                    serialNo=1
                 }
             }else {
                 serialNo = 1
+
             }
-
-
 
             length = serialNo.toString().length()
             switch (length) {
@@ -501,7 +467,22 @@ class StudentRegistrationService {
             challanNo = challan + challanSr
 
         }
-        println('this is the challan no '+ challanNo)
+        def existingChallan=ExistingChallan.findByChallan(challanNo)
+        if(existingChallan){
+            challanNo=Integer.parseInt(challanNo)+1
+        }
+        a++
+        def existingChallanInst
+        if(ExistingChallan.findBySession(2014)){
+            existingChallanInst=ExistingChallan.findBySession(2014)
+            existingChallanInst.challan=challanNo
+        }
+        else{
+            existingChallanInst=new ExistingChallan()
+            existingChallanInst.challan=challanNo
+            existingChallanInst.session=2014
+            existingChallanInst.save(flush: true, failOnError: true)
+        }
         return challanNo
     }
 
@@ -537,8 +518,8 @@ class StudentRegistrationService {
         sessionVal = year + '-' + sessionVal
 
         def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id), sessionVal)
-        def programFee = AdmissionFee.findByFeeSession(feeSessionObj)
-        println('this is the programFee ' + programFee)
+        def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj, 1)
+//        println('this is the programFee ' + programFee)
 
         try {
             def lateFeeDate = student.programDetail.lateFeeDate[0]
@@ -546,7 +527,7 @@ class StudentRegistrationService {
             if (lateFeeDate != null) {
                 if (today.compareTo(lateFeeDate) > 0) {
 
-                    lateFee = AdmissionFee.findByFeeSession(feeSessionObj).lateFeeAmount
+                    lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1).lateFeeAmount
 
                 }
             }

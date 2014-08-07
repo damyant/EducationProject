@@ -378,8 +378,8 @@ function clearField() {
 }
 function save() {
 
-    var isTrue = validateGroupSelection()
 
+    var isTrue = validateGroupSelection()
     validate();
     if(!isTrue){
         return isTrue

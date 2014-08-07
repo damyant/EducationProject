@@ -58,11 +58,11 @@ class ExaminationCentreService {
                 }
             }
             catch (Exception e) {
-                println("????????????")
+//                println("????????????")
             }
         }
 
-        println("enddddddddddddddddddddd")
+//        println("enddddddddddddddddddddd")
         return examinationVenueInsSaved;
     }
 
@@ -70,20 +70,20 @@ class ExaminationCentreService {
     def examVenueList(params) {
 
         if (params) {
-            def list = City.findAllById(Integer.parseInt(params.examinationCentre))
-            println("<<<" + list)
+            def cityList = City.findAllById(Integer.parseInt(params.examinationCentre))
+//            println("<<<" + list)
 //            def obj=ExaminationVenue.createCriteria();
 //            def examVenueList=obj.list{
 //                ex
 //            }
-            return list.examVenue[0];
+           return cityList.examVenue[0];
 
         }
 
     }
 
     Boolean updateExaminationCentre(params) {
-        println(params)
+//        println(params)
         Boolean isSaved = false
         def examCentreIns = ExaminationVenue.get(params.id)
 //        examCentreIns.city = City.findById(Integer.parseInt(params.city))
@@ -101,10 +101,18 @@ class ExaminationCentreService {
     }
 
     def associatedExamVenue(params) {
-
         def examinationCentre = City.findById(Long.parseLong(params.examinationCentre))
-        def programIns = ProgramDetail.findById(Long.parseLong(params.programList))
-        def examVenue = ProgramExamVenue.findAllByCourseDetailAndExamCenter(programIns, examinationCentre)
+        def programIns
+        def examVenue
+        if(params.programList=='All'){
+            programIns= ProgramDetail.list()
+            examVenue = ProgramExamVenue.findAllByCourseDetailInListAndExamCenter(programIns, examinationCentre).unique{it.examVenue.id}
+        }
+        else{
+         programIns = ProgramDetail.findById(Long.parseLong(params.programList))
+         examVenue = ProgramExamVenue.findAllByCourseDetailAndExamCenter(programIns, examinationCentre)
+        }
+
         return examVenue.examVenue
     }
 

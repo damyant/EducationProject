@@ -45,6 +45,18 @@
                     <td class="university-size-1-4"></td>
                 </tr>
                 <tr>
+                    <td class="university-size-1-4">Select Session <span class="university-obligatory">*</span></td>
+                    <td class="university-size-1-2">
+                        <select name="admissionYear" class="university-size-1-2" id="admissionYear">
+                        <option value="">Select Session</option>
+                            <g:each in="${sessionList}" var="year">
+                                <option value="${year}">${year}-${year+1}</option>
+                            </g:each>
+                            </select>
+                    </td>
+                    <td class="university-size-1-4"></td>
+                </tr>
+                <tr>
                     <td class="university-size-1-4">Admission Start Date <span class="university-obligatory">*</span></td>
                     <td class="university-size-1-2">
                         <input type="text" name="startAdmission_D" id="startAdmission_D" onkeypress="disableKeyInput(this)" maxlength="10" class="university-size-1-2" value=""/>

@@ -33,15 +33,25 @@
 <div id="main">
 
     <fieldset class="form">
-            <h3>Generate Admission Fee Challan</h3>
+            <h3>Generate Fee Challan</h3>
     <g:form name="challanForStudyCenter" id="challanForStudyCenter" controller="feeDetails" action="challanForStudyCenterStu">
         <g:hiddenField name="studentListId" id="studentListId" value="" />
         <g:hiddenField name="semesterListHidden" id="semesterListHidden" value="" />
         <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
         <table class="inner university-size-full-1-1" style="margin: auto">
+            <tr><td><label>Select Fee Catagory</label></td>
+                <td>
+                    <g:select name="feeCategory" class="university-size-1-1" id="feeCategory" optionKey="id"
+                              optionValue="type"
+                              from="${miscFeeType}" noSelection="['': ' Select Fee Category']"
+                              onchange="enableAll()"/>
+                </td>
+                <td  style="text-align: center;"></td>
+                <td></td>
+            </tr>
             <tr><td><label>Select Programme Catagory</label></td>
                 <td>
-                    <g:select name="programCategory" class="university-size-1-1" id="programCategory" optionKey="id"
+                    <g:select name="programCategory" class="university-size-1-1" id="programCategory" optionKey="id" disabled=""
                               optionValue="type"
                               from="${programCategory}" noSelection="['': ' Select Programme Category']"
                               onchange="loadProgram(this)"/>
@@ -52,19 +62,19 @@
             <tr>
                 <td class="university-size-1-4"><label>Select a Programme</label></td>
                 <td class="university-size-1-4">
-                    <g:select name="programList" class="university-size-1-1" id="programList" optionKey="id"
+                    <g:select name="programList" class="university-size-1-1" id="programList" optionKey="id" disabled=""
                               optionValue="courseName"
                               from="" noSelection="['': ' Select Programme']"
                               onchange="getTermByCatagory(this)"/>
                 </td>
                 <td class="university-size-1-4" style="text-align: center;">OR</td>
-                <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" id="allProgram" name="allProgram"/><label for="allProgram">All Programmes (Only for Newly Admitted)</label></td>
+                <td class="university-size-1-4"><input type="checkbox" onchange="clearFields()" disabled id="allProgram" name="allProgram"/><label for="allProgram">All Programmes (Only for 1st Term)</label></td>
             </tr>
-            <tr><td><label>Select a Term</label></td>
+            <tr><td><label>Select Term</label></td>
                 <td>
 
-                    <select name="semesterList" onchange="hideAll()" class="university-size-1-1" id="semesterList" >
-                        <option value="">Select Semester</option>
+                    <select name="semesterList" onchange="hideAll()" disabled="" class="university-size-1-1" id="semesterList" >
+                        <option value="">Select Term</option>
                     </select>
                 </td>
                 <td  style="text-align: center;"></td>
@@ -116,10 +126,8 @@
 </div>
 <script>
     $('#generateFeeChallan').click(function(){
-//        alert("--------")
         if($('#serialNoTo').val()!="") {
             setTimeout(function () {
-//                $('#challanForStudyCenter')[0].reset();
                 $('#studyCenterFeeEntryTable').attr('hidden', true);
                 $('#rangeRadioButtons').attr('hidden', true);
                 document.getElementById("paginationDiv").style.visibility = "hidden";

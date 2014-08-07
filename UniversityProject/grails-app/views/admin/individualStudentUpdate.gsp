@@ -55,7 +55,9 @@
                 <td class="university-size-1-5">
                 </td>
                 <td class="university-size-1-3">
-                    <input type="button" name="view" id="rollNo" value="Update" class="university-button" onclick="updateStudentByRollNo()" disabled/>
+                    <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
+                        <input type="button" name="view" id="rollNo" value="Update" class="university-button" onclick="updateStudentByRollNo()" disabled/>
+                    </sec:ifNotGranted>
                     <input type="button" class="university-button" id="view" value="View" onclick="viewStudentByRollNo()" disabled/>
                 </td>
 

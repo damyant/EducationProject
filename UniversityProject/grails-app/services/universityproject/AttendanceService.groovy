@@ -76,7 +76,7 @@ class AttendanceService {
                                     eq('semester', i)
                             }
                         }
-                        println("this is the semester "+i+" this is the course "+pid+' this is the session '+ sessionId+' student list is '+studentList)
+//                        println("this is the semester "+i+" this is the course "+pid+' this is the session '+ sessionId+' student list is '+studentList)
 //                        def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
                         def programDetail = ProgramDetail.findById(pid)
                              def semester = Semester.findByProgramSessionAndSemesterNo(ProgramSession.findById(sessionId), i)
@@ -104,7 +104,7 @@ class AttendanceService {
 //            def sessions= ProgramSession.executeQuery( "select distinct  programSession.sessionOfProgram from ProgramSession programSession" );
             program.each{
                 def pid= it.courseDetail.id
-                println("-----------------------------------********"+ pid)
+//                println("-----------------------------------********"+ pid)
                 for(int i=1;i<=course[0]; i++){
                         def session=it
                         def obj = Student.createCriteria()
@@ -149,7 +149,7 @@ class AttendanceService {
             program.each{
                 def pid= it.courseDetail.id
                 def sessions =ProgramSession.findAllById(pid)
-                println("-----------------------------------********"+ pid)
+//                println("-----------------------------------********"+ pid)
                 sessions.each{
                     def sessionId=it.id
                     def obj = Student.createCriteria()
@@ -191,7 +191,7 @@ class AttendanceService {
 //            def course=ProgramDetail.executeQuery('select max(noOfTerms) from ProgramDetail')
             program.each{
                 def pid= it.courseDetail.id
-                println("-----------------------------------********"+ pid)
+//                println("-----------------------------------********"+ pid)
                     def obj = Student.createCriteria()
                     def studentList = obj.list {
                         programDetail {
@@ -248,7 +248,7 @@ class AttendanceService {
                         eq('semester', Integer.parseInt(params.programTerm))
                     }
                 }
-            println("this is the semester "+params.programTerm+" this is the course "+params.programList+' this is the session '+ params.programSession+' student list is '+studentList)
+//            println("this is the semester "+params.programTerm+" this is the course "+params.programList+' this is the session '+ params.programSession+' student list is '+studentList)
 
 //              def examinationCentre = ExaminationVenue.findById(Long.parseLong(params.examinationCentre))
                 def programDetail = ProgramDetail.findById(Long.parseLong(params.programList))
@@ -257,27 +257,27 @@ class AttendanceService {
                 status = writeAttendanceSheet(studentList, params, semester, courseSubject,  examinationVenueIns, workbook, sheetNo)
                 workbook.write();
                 workbook.close();
-                 println('back to first service '+ status)
+//                 println('back to first service '+ status)
                 return status
         }
 
     }
 
     boolean writeAttendanceSheet(studentList, params, semester, courseSubject,  ExaminationVenue examinationCentre, WritableWorkbook workbook, int sheetNo) {
-        println('writing attandance sheet now ')
+//        println('writing attandance sheet now ')
         try {
 
             WritableSheet sheet = workbook.createSheet("Report", sheetNo);
             WritableSheet excelSheet = workbook.getSheet(sheetNo);
             createLabel(excelSheet, courseSubject, examinationCentre);
-            println("back to excel method")
+//            println("back to excel method")
             createContent(excelSheet, studentList);
 
             return true
         }
         catch (Exception e) {
 
-            println("this is the exception " + e)
+//            println("this is the exception " + e)
             return false
         }
 
@@ -347,7 +347,7 @@ class AttendanceService {
         addCaption(sheet, 3, 2, "Name");
         int i = 4;
         courseSubject.each {
-              println("---------------------"+it.subject)
+//              println("---------------------"+it.subject)
               String date = it.examDate.getDateString()
 //            Date date = new Date()
 //              println("hello " + date + " date " + date.getClass())
@@ -374,7 +374,7 @@ class AttendanceService {
             RowsExceededException {
         // Write a few number
         for (int i = 0; i < finalList.size(); i++) {
-            println("*****************************"+i)
+//            println("*****************************"+i)
             int j = 0
             addNumber(sheet, j, i+3, i+1);
             addNumber(sheet, j+1, i+3, finalList[i].registrationYear);
