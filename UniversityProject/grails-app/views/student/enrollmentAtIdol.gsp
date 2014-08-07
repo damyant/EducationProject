@@ -104,7 +104,7 @@
         <tr>
             <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
             <td class="university-size-2-3">
-                <input type="text" name="applicationNo" id="applicationNo" tabindex="5" onchange="checkApplicationNumber(this)"
+                <input type="text" name="applicationNo" id="applicationNo" tabindex="5" onchange="return checkApplicationNumber(this)"
                        onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2" disabled/>
                 <label id="errorMsg" class="error1"></label>
             </td>

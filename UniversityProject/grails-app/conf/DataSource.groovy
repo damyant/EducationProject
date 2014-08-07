@@ -65,8 +65,8 @@ environments {
             driverClassName = "com.mysql.jdbc.Driver"
             url = "jdbc:mysql://localhost:3306/universityProject_dev?zeroDateTimeBehavior=convertToNull&useUnicode=true&autoreconnect=true"
             username = "root"
-            password = "W4X@z9a@6#ytH"
-//            password = "idol.781014"
+//            password = "W4X@z9a@6#ytH"
+            password = "idol.781014"
             properties {
                 minEvictableIdleTimeMillis=1800000
                 timeBetweenEvictionRunsMillis=1800000

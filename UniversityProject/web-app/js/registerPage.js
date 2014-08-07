@@ -109,9 +109,21 @@ function checkApplicationNumber(t) {
 
             if (data.applicationNo == "true") {
                 $('#errorMsg').text("Already Exist against Roll No "+data.rollNo)
+               if($('#idolSubmitButton').length>0) {
+                   $('#idolSubmitButton').attr("disabled", true)
+               }
+                if($('#submitButton').length>0){
+                    $('#submitButton').attr("disabled", true)
+                }
             }
             else {
                 $('#errorMsg').text("")
+                if($('#idolSubmitButton').length>0) {
+                    $('#idolSubmitButton').attr("disabled", false)
+                }
+                if($('#submitButton').length>0){
+                    $('#submitButton').attr("disabled", false)
+                }
             }
 
         },

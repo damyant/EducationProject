@@ -71,11 +71,6 @@ class ExaminationCentreService {
 
         if (params) {
             def list = City.findAllById(Integer.parseInt(params.examinationCentre))
-//            println("<<<" + list)
-//            def obj=ExaminationVenue.createCriteria();
-//            def examVenueList=obj.list{
-//                ex
-//            }
             return list.examVenue[0];
 
         }
