@@ -60,11 +60,13 @@ function saveSelectedSemesters(tabId) {
     $('#dialogTab').dialog('close');
     var programMap={};
     var programSemester={};
+    var semNoMap={};
     var noOfPrograms = programList.length
 
     $('#viewSelected' + tabId +' select').empty().append('')
     for(var i=0;i<programList.length;i++){
         var listOfSem =[];
+        var semNoList=[];
         var programIndex =[];
         if($('#programCheck'+programList[i].id).is(':checked')){
             var noOfSemester = programList[i].semesterList.length
@@ -72,12 +74,14 @@ function saveSelectedSemesters(tabId) {
             for(var j=0;j<programList[i].semesterList.length;j++){
                 if($('#semCheckBox' + programList[i].id+programList[i].semesterList[j].id).is(":checked")){
                     listOfSem.push(programList[i].semesterList[j].id)
+                    semNoList.push(programList[i].semesterList[j].semesterNo)
                 }
             }
             programIndex.push(programList[i].id)
             programMap[programList[i].id]=listOfSem
             programSemester["id"]=programList[i].id
             programSemester["semesterList"] =listOfSem
+            semNoMap[programList[i].id]=semNoList
             console.log("selected Sem"+programSemester)
         }else{
         }
@@ -96,7 +100,7 @@ function saveSelectedSemesters(tabId) {
             else{
                 $('#tab' + tabId +'Program').val(programList[i].id)
             }
-            $('#viewSelected' + tabId +' select').append('<option value="'+ programList[i].id+'/'+programMap[programIndex[k]]+'">'+ programList[i].programName+'( Semesters '+ programMap[programIndex[k]]+')</option>')
+            $('#viewSelected' + tabId +' select').append('<option value="'+ programList[i].id+'/'+programMap[programIndex[k]]+'">'+ programList[i].programName+'( Semesters '+ semNoMap[programIndex[k]]+')</option>')
         }
     }
 }
