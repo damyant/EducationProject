@@ -759,6 +759,20 @@ function checkValidation() {
             }
         }
     })
+
+}
+function validationPostExam(){
+    $("#marksUpdate").validate({
+        rules: {
+            //marksUpdate
+            rollNoList:'required',
+            updatedMarks:'required'
+        },
+        messages: {
+            rollNoList:'Please Select Roll Number',
+            updatedMarks:'Please Enter Correct Marks'
+        }
+    })
 }
 function validateProgramFee() {
 //    alert("hi")

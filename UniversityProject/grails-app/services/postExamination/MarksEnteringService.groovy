@@ -119,6 +119,7 @@ class MarksEnteringService {
                 eq('status', Status.get(4))
             }
         }
+        println("------------"+stuList.size())
         for (def i = 0; i < stuList.size(); i++) {
             for (def j = i; j < stuList1.size(); j++) {
                 if (stuList1[j].id == stuList[i].id) {

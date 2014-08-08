@@ -32,12 +32,12 @@
 <div id="main">
     <fieldset class="form">
         <h3>Marks Updation</h3>
-        <g:form name="" id="" controller="postExamination" action="">
+        <form name="marksUpdate" id="marksUpdate">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
 
             <g:if test="${flash.message}">
-                <div class="message"><div class="university-status-message">${flash.message}</div></div>
+                <div class="message"><div class="university-status-message" id="statusMsg">${flash.message}</div></div>
             </g:if>
 
             <div style="margin-left: 10px;"><label><h6>All [<span class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
@@ -122,7 +122,7 @@
                         %{--<span class="university-obligatory">*</span>--}%
                     </td>
                     <td class="university-size-3-4">
-                        <input type="text" class="university-size-1-2" id="tab1Marks"/>
+                        <input type="text" class="university-size-1-3" readonly id="tab1Marks"/>
                     </td>
                 </tr>
                 <tr>
@@ -130,7 +130,7 @@
                         %{--<span class="university-obligatory">*</span>--}%
                     </td>
                     <td class="university-size-3-4">
-                        <input type="text" class="university-size-1-2" id="tab2Marks"/>
+                        <input type="text" class="university-size-1-3" readonly id="tab2Marks"/>
                     </td>
                 </tr>
                 <tr>
@@ -138,20 +138,20 @@
                         %{--<span class="university-obligatory">*</span>--}%
                     </td>
                     <td class="university-size-3-4">
-                        <input type="text" class="university-size-1-2" id="" name=""/>
+                        <input type="text" class="university-size-1-3" id="updatedMarks" name="updatedMarks"/>
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="2" style="text-align: center">
-                        <input type="button" value="Update Marks" onclick="validate()" class="university-button">
-                        <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
+                        <input type="button" value="Update Marks" onclick="updateMisMatchMarks()" class="university-button">
+                        <input type="reset" value="Cancel" class="university-button"/>
                     </td>
                 </tr>
 
             </table>
 
-        </g:form>
+        </form>
         <div id="msgDiv"></div>
 
     </fieldset>

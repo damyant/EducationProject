@@ -222,15 +222,45 @@ class PostExaminationService {
                         eq('roleId', Role.get(10))
             }
         }
-        println("==========Semester================="+Semester.findById(Long.parseLong(params.semester)).semesterNo)
-        println("=============MarksType=============="+MarksType.findById(Long.parseLong(params.marksType)))
-        println("============Subject==============="+Subject.get(Integer.parseInt(params.subjectId)))
-        println("===========Role================"+Role.get(10))
-        println("___________tab1MarksInst________________"+tab1MarksInst)
-        println("____________tab2MarksInst_______________"+tab2MarksInst)
         marks.tab1Marks=tab1MarksInst[0].marksObtained
         marks.tab2Marks=tab2MarksInst[0].marksObtained
-        println(marks)
+        return marks
+    }
+    def saveMisMatchMarks(params){
+        def marks = [:]
+        def tab1MarksInst=[],tab2MarksInst=[]
+        def tab1Obj = StudentMarks.createCriteria()
+        def tab2Obj = StudentMarks.createCriteria()
+        tab1MarksInst = tab1Obj.list {
+            student {
+                eq('id', Long.parseLong(params.studentId))
+            }
+            and{
+                eq('marksTypeId', MarksType.findById(Long.parseLong(params.marksType)))
+                eq('semesterNo', Semester.findById(Long.parseLong(params.semester)).semesterNo)
+                eq("subjectId", Subject.get(1))
+                eq('roleId', Role.get(9))
+
+            }
+        }
+        tab2MarksInst = tab2Obj.list {
+            student {
+                eq('id', Long.parseLong(params.studentId))
+            }
+            and{
+                eq('marksTypeId', MarksType.findById(Long.parseLong(params.marksType)))
+                eq('semesterNo', Semester.findById(Long.parseLong(params.semester)).semesterNo)
+                eq("subjectId", Subject.get(Integer.parseInt(params.subjectId)))
+                eq('roleId', Role.get(10))
+            }
+        }
+        tab1MarksInst.each {
+            it.marksObtained=Integer.parseInt(params.updatedMarks)
+        }
+        tab2MarksInst.each {
+            it.marksObtained=Integer.parseInt(params.updatedMarks)
+        }
+        marks.status=true
         return marks
     }
 }// MAIN CLOSING TAG
