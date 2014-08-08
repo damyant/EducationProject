@@ -2,6 +2,34 @@
  * Created by Digvijay on 3/6/14.
  */
 var marksTypeId =0;
+function loadSessionForMissMatch(t){
+    var program=$(t).val();
+    if(program){
+        $.ajax({
+            type: "post",
+            url: url('programFee', 'programSessionForMarksMissMatch', ''),
+            data: {program: program},
+            success: function (data) {
+
+                $("#session").empty().append('');
+
+                $("#session").append('<option value="">Select Session</option>');
+                for (var i = 0; i < data.length; i++) {
+                    $("#session").append('<option value="' + data[i].id + '">' + data[i].sessionOfProgram + '</option>')
+                }
+                $("#session").attr('disabled',false)
+            }
+        });
+
+    }
+    else{
+        $("#session").empty().append('');
+        $("#session").append('<option value="">Select Session</option>');
+        $("#semesterList").empty().append('data <option value="">Select Semester</option>')
+        $('#courseCode').empty().append('<option value="">Select Course</option>')
+    }
+}
+
 function loadSession(t){
     var program=$(t).val();
     if(program){
@@ -14,8 +42,8 @@ function loadSession(t){
                 $("#session").empty().append('');
 
                 $("#session").append('<option value="">Select Session</option>');
-                for (var i = 0; i < data.length-1; i++) {
-                    $("#session").append('<option value="' + data[i].sessionOfProgram + '">' + data[i].sessionOfProgram + '</option>')
+                for (var i = 0; i < data.length; i++) {
+                    $("#session").append('<option value="' + data[i].id + '">' + data[i].sessionOfProgram + '</option>')
                 }
                 $("#session").attr('disabled',false)
             }
@@ -156,6 +184,62 @@ function loadSemester(){
 }
 
 
+function loadSemesterForMissMatch(){
+
+    var program = $('#programId').val();
+    var session = $('#session').val();
+//    var semester = $('#semesterList').val();
+//    var groupType= $("#groupList").val();
+
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'semesterForMarksMisMatch', ''),
+        data: {program: program,session: session},
+
+        success: function (data) {
+
+            $('#semesterList').empty().append('<option value="">Select Semester</option>')
+            for(i=0; i<data.length;i++){
+                $('#semesterList').append('<option value="' + data[i].id + '">' + data[i].semesterNo + '</option>')
+
+            }
+            $("#semesterList").attr('disabled',false)
+        }
+    });
+
+    $("#semesterList").attr('disabled',false)
+
+}
+
+
+function loadSemester(){
+
+    var program = $('#programId').val();
+    var session = $('#SessionList').val();
+//    var semester = $('#semesterList').val();
+//    var groupType= $("#groupList").val();
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'getSemesterOfProgram', ''),
+        data: {program: program,session: session},
+
+        success: function (data) {
+
+            $('#semesterList').empty().append('<option value="">Select Semester</option>')
+            for(i=0; i<data.length;i++){
+                $('#semesterList').append('<option value="' + data[i].id + '">' + data[i].semesterNo + '</option>')
+
+            }
+            $("#semesterList").attr('disabled',false)
+        }
+    });
+
+    $("#semesterList").attr('disabled',false)
+
+}
+
+
+
 function loadMismatchStudents(){
 //    alert("hello kuldeep")
 
@@ -259,7 +343,7 @@ function populateStudentListForMarks() {
                 if(data.length>0){
 
                     for (var i=0;i<data.length;i++){
-                        $('#rollNoList').append('<option value="'+data[i].id+'">'+data[i].rollNo+'</option>')
+                        $('#rollNoList').append('<option value="'+data[i]+'">'+data[i]+'</option>')
                     }
                     document.getElementById("dataTable").style.visibility = "visible";
                     document.getElementById("buttonDiv").style.visibility = "visible";

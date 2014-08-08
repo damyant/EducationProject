@@ -252,6 +252,12 @@ class ProgramFeeController {
      def programSessions=   programFeeService.getProgramSessions(params)
         render programSessions as JSON
     }
+
+    def programSessionForMarksMissMatch={
+       def programSessionIns=ProgramSession.findAllByProgramDetailId(ProgramDetail.get(params.program))
+        render programSessionIns as JSON
+
+    }
     @Secured(["ROLE_ADMIN","ROLE_ACCOUNT"])
     def isFeeCreated = {
         def response

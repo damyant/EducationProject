@@ -201,6 +201,7 @@ class ProgramFeeService {
             }catch(Exception ex){
                 println("..........Problem in creating program session for programs"+ex)
          }
+
             return programSessions
     }
 

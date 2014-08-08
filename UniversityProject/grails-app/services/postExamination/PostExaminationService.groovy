@@ -123,19 +123,36 @@ class PostExaminationService {
     }
 
 
-    def getDetailForMisMatch(params, courseList, programSessionIns, semesterIns) {
+    def getDetailForMisMatch(params, courseList, semesterIns,groupSubList) {
 
         def finalList = [], counter = 1
         def stuList = studentList(params, semesterIns)
         if (stuList && courseList) {
+            def marksTypeObj=MarksType.list()
             for (def i = 0; i < stuList.size(); i++) {
                 def resultList = [], checkFlag = false
                 resultList << counter
                 resultList << stuList[i].rollNo
                 for (def j = 0; j < courseList.size(); j++) {
+                    marksTypeObj.each{
+                        def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleIdAndMarksTypeId(courseList[j].subjectId, stuList[i], Role.get(9),it)
+                        def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleIdAndMarksTypeId(courseList[j].subjectId, stuList[i], Role.get(10),it)
 
-                    def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId, stuList[i], Role.get(9))
-                    def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId, stuList[i], Role.get(10))
+                         if (stuMarks1 == null || stuMarks2 == null) {
+                        resultList << "X"
+                        } else if (stuMarks1?.marksObtained != stuMarks2?.marksObtained) {
+                        resultList << "?"
+                        checkFlag = true
+                         } else {
+                        resultList << ""
+                        }
+                    }
+                }
+                for (def j = 0; j < groupSubList.size(); j++) {
+                    for (def k = 0; k < groupSubList[j].size(); k++) {
+                        marksTypeObj{
+                            def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleIdAndMarksTypeId(courseList[j].subjectId, stuList[i], Role.get(9),it)
+                            def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleIdAndMarksTypeId(courseList[j].subjectId, stuList[i], Role.get(10),it)
 
                     if (stuMarks1 == null || stuMarks2 == null) {
                         resultList << "X"
@@ -144,6 +161,10 @@ class PostExaminationService {
                         checkFlag = true
                     } else {
                         resultList << ""
+                    }
+
+                    }
+
                     }
 
                 }
