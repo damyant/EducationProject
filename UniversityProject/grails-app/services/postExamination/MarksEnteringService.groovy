@@ -41,7 +41,9 @@ class MarksEnteringService {
         def programDetail = ProgramDetail.findById(params.program)
         def programSession = ProgramSession.get(Integer.parseInt(params.session))
         def semester = Semester.findByProgramSessionAndId(programSession, Integer.parseInt(params.semester))
-
+        println(programDetail)
+        println(programSession)
+        println(semester)
         if (params.groupType == "0") {
             subjectList = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programDetail, semester, programSession).subjectSessionId.subjectId
         } else {
@@ -62,7 +64,10 @@ class MarksEnteringService {
             def role=UserRole.findAllByUser(currentUser).role
             def role_id
             role.each {
-                role_id = TabulatorSemester.findBySemesterAndTabulatorProgram(semester.semesterNo, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
+                def tabSemIns=TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it))
+                if(tabSemIns){
+                    role_id = TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
+                }
             }
             def studentMarksIns = new StudentMarks()
             studentMarksIns.subjectId = Subject.get(Integer.parseInt(params.subjectId))
@@ -87,7 +92,10 @@ class MarksEnteringService {
         def role=UserRole.findAllByUser(currentUser).role
         def role_id
         role.each {
-            role_id = TabulatorSemester.findBySemesterAndTabulatorProgram(semester.semesterNo, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
+            def tabSemIns=TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it))
+            if(tabSemIns){
+                role_id = TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
+            }
         }
 
         def stuObject = StudentMarks.createCriteria()
