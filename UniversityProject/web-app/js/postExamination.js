@@ -200,7 +200,7 @@ function populateStudentListForMarksUpdate(){
                 for (var i=0;i<data.length;i++){
                     $('#rollNoList').append('<option value="'+data[i].id+'">'+data[i].rollNo+'</option>')
                 }
-                $('#rollNoList').prop('disabled', false)
+//                $('#rollNoList').prop('disabled', false)
             }
             else{
                 $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>No Roll numbers found.</p></div>").dialog({
@@ -368,6 +368,7 @@ function disableAllSelectBox(){
     $("#showButton").attr("disabled",false)
     $("#resetButton").attr("disabled",false)
     $("#setButton").attr("disabled",true)
+    $("#rollNoList").attr("disabled", false);
 
 }
 
@@ -377,7 +378,7 @@ function enableAllSelectBox(){
     $("#resetButton").attr("disabled",true)
     $("#setButton").attr("disabled",false)
 
-    $("#rollNoList").attr("disabled",true)
+//    $("#rollNoList").attr("disabled",true)
 
     document.getElementById("dataTable").style.visibility = "hidden";
     document.getElementById("buttonDiv").style.visibility = "hidden";
@@ -422,17 +423,9 @@ function getTabulatorSession(t){
             if(data.session){
                 $('#SessionList').prop('disabled',false)
                 $("#SessionList").empty().append('data <option value="">Select Session</option>')
-<<<<<<< HEAD
+
                 $('#semesterList').empty().append("<option value=''>Select Semester</option>")
 
-                for(var i=0;i<data.tabSemesterList.length;i++)
-                {
-                    for(var j=0;j<data.tabSemesterList[i].length;j++){
-                         $('#semesterList').append("<option value='"+data.tabSemesterList[i][j]+"'>"+data.tabSemesterList[i][j]+"</option>")
-                        }
-                }
-=======
->>>>>>> 0996f8400af68779da890e611d7aa3c7e58678c0
                 for (var j = 0; j < data.session.length; j++) {
                     $("#SessionList").append('<option value="' + data.session[j].id + '">' + data.session[j].sessionOfProgram + '</option>')
                 }
@@ -452,6 +445,7 @@ function getSemesterForMarksUpdate(t){
             if(data.semesterList){
                 $('#semesterList').prop('disabled',false)
                 $('#semesterList').empty().append("<option value=''>Select Semester</option>")
+
                 for(var i=0;i<data.semesterList.length;i++){
                     $('#semesterList').append("<option value='"+data.semesterList[i].id+"'>"+data.semesterList[i].semesterNo+"</option>")
                 }
@@ -470,9 +464,14 @@ function getTabulatorSemester(t){
             if(data.tabSemesterList){
                 $('#semesterList').prop('disabled',false)
                 $('#semesterList').empty().append("<option value=''>Select Semester</option>")
-                for(var i=0;i<data.tabSemesterList.length;i++){
-                    $('#semesterList').append("<option value='"+data.tabSemesterList[i].id+"'>"+data.tabSemesterList[i].semesterNo+"</option>")
+
+                for(var i=0;i<data.tabSemesterList.length;i++)
+                {
+                    for(var j=0;j<data.tabSemesterList[i].length;j++){
+                         $('#semesterList').append("<option value='"+data.tabSemesterList[i][j].id+"'>"+data.tabSemesterList[i][j].semesterNo+"</option>")
+                        }
                 }
+//
             }
 
         }

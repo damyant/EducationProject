@@ -51,7 +51,6 @@ class PostExaminationController {
         catch (Exception e) {
             println("<<<<< Problem in getting subjects" + e)
         }
-        println("###########333"+subjectIns)
         render subjectIns as JSON
     }
 
@@ -183,7 +182,6 @@ class PostExaminationController {
     def saveMarks = {
         println("saving marks=====" + params)
         def status = marksEnteringService.saveMarks(params)
-        println("<<<<"+status)
         if (status) {
             render status as JSON
         }
@@ -194,12 +192,10 @@ class PostExaminationController {
         def currentUser = springSecurityService.currentUser
         def programSession = ProgramSession.findAllByProgramDetailId(ProgramDetail.findById(Integer.parseInt(params.program)))
         returnMap.session=programSession
-        println("programSession-----"+programSession)
         render returnMap as JSON
     }
     def getTabulatorSemester={
         def returnMap = [:]
-//<<<<<<< HEAD
         def tabSemesterList=[]
         def currentUser = springSecurityService.currentUser
         def tabProgramInstList=TabulatorProgram.findAllByProgramAndUser(ProgramDetail.findById(Integer.parseInt(params.program)),currentUser)
@@ -208,21 +204,9 @@ class PostExaminationController {
         tabProgramInstList.each{
             tabSemesterList<<TabulatorSemester.findAllByTabulatorProgram(it).semesterId
         }
-
         returnMap.tabSemesterList=tabSemesterList
         returnMap.session=programSession
-//=======
-//        def semesterList=[]
-//        def currentUser = springSecurityService.currentUser
-//        def tabProgramInst=TabulatorProgram.findByProgramAndUser(ProgramDetail.findById(Integer.parseInt(params.program)),currentUser)
-//        def session=ProgramSession.findById(params.session).sessionOfProgram
-//        def programSession = ProgramSession.findByProgramDetailIdAndSessionOfProgram(ProgramDetail.findById(Integer.parseInt(params.program)),session)
-//        def tabSemesterList=TabulatorSemester.findAllByTabulatorProgram(tabProgramInst).semester
-//        tabSemesterList.each {
-//            semesterList<<Semester.findByProgramSessionAndSemesterNo(programSession,it)
-//        }
-//        returnMap.tabSemesterList=semesterList
-//>>>>>>> 0996f8400af68779da890e611d7aa3c7e58678c0
+
         render returnMap as JSON
     }
 def getSemesterForMarksUpdate={
@@ -244,7 +228,10 @@ def getSemesterForMarksUpdate={
         def role=UserRole.findAllByUser(currentUser).role
         def role_id
         role.each {
-            role_id = TabulatorSemester.findBySemesterAndTabulatorProgram(semester.semesterNo, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
+            def tabSemIns=TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it))
+            if(tabSemIns){
+                role_id = TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
+            }
         }
         def otherRoll_Id
         if(role_id==9){
