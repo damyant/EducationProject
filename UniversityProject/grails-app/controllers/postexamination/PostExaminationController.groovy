@@ -56,6 +56,8 @@ class PostExaminationController {
 
     def getSemesterOfProgram = {
 
+        println("*******")
+
         def semesterIns = []
         try {
             semesterIns = Semester.findAllByProgramSession(ProgramSession.get(Integer.parseInt(params.program)))
@@ -64,6 +66,19 @@ class PostExaminationController {
             println("<<<<<<<<< Problem in getting semester of Program" + e)
         }
         render semesterIns as JSON
+    }
+
+    def semesterForMarksMisMatch={
+        println("?????"+params)
+        def semesterIns = []
+        try {
+            semesterIns = Semester.findAllByProgramSession(ProgramSession.get(Integer.parseInt(params.session)))
+        }
+        catch (Exception e) {
+            println("<<<<<<<<< Problem in getting semester of Program" + e)
+        }
+        render semesterIns as JSON
+
     }
 
     def getGroup = {
@@ -272,8 +287,6 @@ def getSemesterForMarksUpdate={
 
     def marksMissMatchData = {
 
-//        println("??????"+params)
-
         def groupSubList = [], groupSubjectCount = []
         def count = 0
 
@@ -291,7 +304,8 @@ def getSemesterForMarksUpdate={
             }
         }
 
-        def finalList = postExaminationService.getDetailForMisMatch(params, courseList, programSessionIns, semesterIns)
+
+        def finalList = postExaminationService.getDetailForMisMatch(params, courseList, semesterIns,groupSubList)
 
         if (finalList) {
             def args = [template: "missMatchReportTemplate", model: [programName: programSessionIns.programDetailId.courseName, semester: semesterIns.semesterNo,

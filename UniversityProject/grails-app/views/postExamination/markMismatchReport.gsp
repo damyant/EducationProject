@@ -50,7 +50,7 @@
                     <td>
                         <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                                optionValue="courseName" from="${ProgramDetail.list(sort: 'courseCode')}" noSelection="['': ' Select Program']"
-                                  onchange="loadSession(this)" />
+                                  onchange="loadSessionForMissMatch(this)" />
                     </td>
                 </tr>
 
@@ -60,7 +60,7 @@
                     <td>
                         <g:select name="session" id="session" optionKey="id" class="university-size-1-2" disabled="true"
                                  optionValue="session" from="" noSelection="['': ' Select Program Session']"
-                                  onchange="loadSemester()"/>
+                                  onchange="loadSemesterForMissMatch()"/>
                     </td>
                 </tr>
 
