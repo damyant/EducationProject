@@ -160,7 +160,8 @@ class PostExaminationController {
 
 
     def resultProcessing = {
-        println("Inside resultProcessing Action..")
+        def programList=ProgramDetail.list(sort: 'courseCode')
+        [programList:programList]
     }
 
     def finalResult = {
@@ -189,7 +190,6 @@ class PostExaminationController {
     }
     def getTabulatorSession={
         def returnMap = [:]
-        def currentUser = springSecurityService.currentUser
         def programSession = ProgramSession.findAllByProgramDetailId(ProgramDetail.findById(Integer.parseInt(params.program)))
         returnMap.session=programSession
         render returnMap as JSON
@@ -315,6 +315,11 @@ def getSemesterForMarksUpdate={
     def updateMisMatchMarks={
         println("++++++++++++++++++"+params)
         def result = postExaminationService.saveMisMatchMarks(params)
+        render result as JSON
+    }
+    def generateResults={
+        println("++++++++++++++++++"+params)
+        def result = postExaminationService.generateProgramResults(params)
         render result as JSON
     }
 }// CLOSING BRACKETS

@@ -3,6 +3,7 @@ package postExamination
 import com.university.Role
 import examinationproject.CourseSubject
 import examinationproject.ProgramDetail
+import examinationproject.ProgramGroup
 import examinationproject.ProgramSession
 import examinationproject.Semester
 import examinationproject.Status
@@ -262,5 +263,26 @@ class PostExaminationService {
         }
         marks.status=true
         return marks
+    }
+    def generateProgramResults(params){
+        def returnMap = [:]
+        def passInAll=[],partiallyPass=[]
+        def progSessionInst=ProgramSession.findById(Long.parseLong(params.sessionId))
+        def semesterInst=Semester.findById(Long.parseLong(params.semesterId))
+        def studentList=Student.findAllByProgramSessionAndSemester(progSessionInst,semesterInst.semesterNo)
+        def subjetList=CourseSubject.findAllByProgramSessionAndSemester(progSessionInst,semesterInst)
+        def subjetGroupList=ProgramGroup.findAllByProgramSessionAndSemester(progSessionInst,semesterInst)
+        def marksTypeList=MarksType.list()
+        for (def i=0;i<studentList.size();i++){
+            def pass=true
+            if(subjetList.size()>0){
+                for (def j=0;j<subjetList.size();j++){
+                    marksTypeList.each {
+//                        if(StudentMarks.findByStudentAndMarksTypeIdAndSubjectIdAndSemesterNo(studentList[i],))
+                    }
+                }
+            }
+        }
+
     }
 }// MAIN CLOSING TAG

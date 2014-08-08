@@ -106,6 +106,8 @@ function enableButton(){
 
 }
 
+
+
 function loadCourse() {
     var program = $('#programId').val();
     var session = $('#SessionList').val();
@@ -465,6 +467,19 @@ function getSemesterForMarksUpdate(t){
             }
         }
     });
+}
+function generateResults(){
+    var program=$('#programId').val()
+    var sessionId=$('#SessionList').val()
+    var semesterId=$('#semesterList').val()
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'generateResults', ''),
+        data: {program: program, session: session},
+        success: function (data) {
+
+        }
+    })
 }
 function getTabulatorSemester(t){
     var program=$('#programId').val()
