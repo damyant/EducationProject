@@ -153,12 +153,7 @@ class UserService {
                             sem = tab1Sem[l].split(",")
                             for (int j = 0; j < sem.length; j++) {
                                 def tabSemesterInst = new TabulatorSemester()
-<<<<<<< HEAD
-                                tabSemesterInst.semesterId = Semester.findById(sem[j])
-=======
-                                println("<<"+sem[j])
                                 tabSemesterInst.semesterId = Semester.findById(Long.parseLong(sem[j]))
->>>>>>> f09d6f9b7a72365efc7103428d682e2bb54ae833
                                 tabSemesterInst.tabulatorProgram = tabProgramInst
                                 tabSemesterInst.save(flush: true)
                             }
@@ -179,11 +174,7 @@ class UserService {
                             sem = tab2Sem[k].split(",")
                             for (int j = 0; j < sem.length; j++) {
                                 def tabSemesterInst = new TabulatorSemester()
-<<<<<<< HEAD
-                                tabSemesterInst.semesterId = Semester.findById(sem[j])
-=======
                                 tabSemesterInst.semesterId = Semester.findById(Long.parseLong(sem[j]))
->>>>>>> f09d6f9b7a72365efc7103428d682e2bb54ae833
                                 tabSemesterInst.tabulatorProgram = tabProgramInst
                                 tabSemesterInst.save(flush: true)
                             }
