@@ -69,11 +69,12 @@ class MarksEnteringService {
                     role_id = TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
                 }
             }
+
             def studentMarksIns = new StudentMarks()
             studentMarksIns.subjectId = Subject.get(Integer.parseInt(params.subjectId))
             studentMarksIns.semesterNo = Integer.parseInt(params.semester)
             studentMarksIns.marksObtained = Integer.parseInt(params.marksValue)
-            studentMarksIns.student = Student.get(Integer.parseInt(params.rollNoId))
+            studentMarksIns.student=Student.findByRollNo(params.rollNoId)
             studentMarksIns.marksTypeId = MarksType.get(Integer.parseInt(params.marksType))
             studentMarksIns.roleId = Role.get(role_id)
             studentMarksIns.save(flush: true, failOnError: true)
@@ -85,7 +86,6 @@ class MarksEnteringService {
     }
 
     def getRollNumbers(params) {
-        def finalList = []
         def programSession = ProgramSession.get(Integer.parseInt(params.session))
         def semester = Semester.findByProgramSessionAndId(programSession, Integer.parseInt(params.semester))
         def currentUser = springSecurityService.currentUser
@@ -105,8 +105,8 @@ class MarksEnteringService {
             eq('roleId', Role.get(role_id))
             eq('marksTypeId', MarksType.get(Integer.parseInt(params.marksType)))
             order('student', 'asc')
-        }.student
-        println("????studentList=="+stuList1)
+        }.student.rollNo
+
         def studentObj = Student.createCriteria()
         def stuList = studentObj.list {
             programDetail {
@@ -118,19 +118,18 @@ class MarksEnteringService {
                 eq("admitCardGenerated", true)
                 eq('status', Status.get(4))
             }
-        }
-        for (def i = 0; i < stuList.size(); i++) {
-            for (def j = i; j < stuList1.size(); j++) {
-                if (stuList1[j].id == stuList[i].id) {
-                    break;
-                } else {
-                    finalList << stuList[i]
-                }
-            }
-            if (i > stuList1.size() - 1) {
-                finalList << stuList[i]
+        }.rollNo
+
+        stuList1.each {
+            if(it){
+            def rollNoIndex=stuList.findIndexOf{ it in stuList1 }
+            stuList.remove(rollNoIndex)
             }
         }
-        return finalList
+
+        return stuList
+
     }
+
+
 }
