@@ -70,7 +70,7 @@ function saveSelectedSemesters(tabId) {
         var programIndex =[];
         if($('#programCheck'+programList[i].id).is(':checked')){
             var noOfSemester = programList[i].semesterList.length
-            alert(programList[i].semesterList.length)
+//            alert(programList[i].semesterList.length)
             for(var j=0;j<programList[i].semesterList.length;j++){
                 if($('#semCheckBox' + programList[i].id+programList[i].semesterList[j].id).is(":checked")){
                     listOfSem.push(programList[i].semesterList[j].id)
