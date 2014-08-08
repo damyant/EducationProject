@@ -6,6 +6,7 @@ import com.university.TabulatorSemester
 import com.university.User
 import com.university.UserRole
 import examinationproject.ProgramDetail
+import examinationproject.Semester
 import examinationproject.StudyCenter
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsHttpSession
@@ -246,7 +247,8 @@ class UserService {
                                String[] sem = tab1Sem[l].split(",")
                                for (int j = 0; j < sem.length; j++) {
                                    def tabSemesterInst = new TabulatorSemester()
-                                   tabSemesterInst.semesterId = sem[j]
+                                   println("*******"+sem[j])
+                                   tabSemesterInst.semesterId = Semester.get(sem[j])
                                    tabSemesterInst.tabulatorProgram = tabProgramInst
                                    if (tabSemesterInst.save(flush: true, failOnError: true))
                                        println("Saved")
@@ -271,7 +273,7 @@ class UserService {
                            for (int j = 0; j < sem.length; j++) {
                                def tabSemesterInst
                                tabSemesterInst = new TabulatorSemester()
-                               tabSemesterInst.semesterId = sem[j]
+                               tabSemesterInst.semesterId = Semester.get(sem[j])
                                tabSemesterInst.tabulatorProgram = tabProgramInst
                                tabSemesterInst.save(flush: true)
                            }
