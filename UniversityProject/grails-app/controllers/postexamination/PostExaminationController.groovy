@@ -326,4 +326,9 @@ def getSemesterForMarksUpdate={
         def finalList = postExaminationService.getTabulatorMarks(params)
         render finalList as JSON
     }
+    def updateMisMatchMarks={
+        println("++++++++++++++++++"+params)
+        def result = postExaminationService.saveMisMatchMarks(params)
+        render result as JSON
+    }
 }// CLOSING BRACKETS

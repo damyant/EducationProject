@@ -153,7 +153,6 @@ class UserService {
                             sem = tab1Sem[l].split(",")
                             for (int j = 0; j < sem.length; j++) {
                                 def tabSemesterInst = new TabulatorSemester()
-                                println("<<"+sem[j])
                                 tabSemesterInst.semesterId = Semester.findById(Long.parseLong(sem[j]))
                                 tabSemesterInst.tabulatorProgram = tabProgramInst
                                 tabSemesterInst.save(flush: true)
@@ -295,6 +294,7 @@ class UserService {
         def currentUser = springSecurityService.getCurrentUser().getUsername()
         def studyCentreList = StudyCenter.list(sort: 'name')
         def boolean compare = false
+        println("+++++++++++++++++++"+params.id)
         def userInstance = User.get(params.id)
         if (currentUser == userInstance.username) {
             compare = true
@@ -311,50 +311,59 @@ class UserService {
             }
             def tab1ProgramList, tab2ProgramList, tab1OptionValue = [], tab1OptionText = []
             def tab1HProgList = '', tab2HProgList = '', tab1HSemList = '', tab2HSemList = '', tab2OptionValue = [], tab2OptionText = []
-            tab1ProgramList = TabulatorProgram.findAllByUserAndRole(userInstance, Role.findById(9))
-            tab2ProgramList = TabulatorProgram.findAllByUserAndRole(userInstance, Role.findById(10))
-            if (tab1ProgramList) {
-                for (int j = 0; j < tab1ProgramList.size(); j++) {
-                    def semList = TabulatorSemester.findAllByTabulatorProgram(tab1ProgramList[j])
-                    String semester = ''
-                    for (int i = 0; i < semList.size(); i++) {
-                        if (i == 0) {
-                            semester = semList[i].semester
-                        } else {
-                            semester += "," + semList[i].semester
+            if(params.id==9) {
+                tab1ProgramList = TabulatorProgram.findAllByUserAndRole(userInstance, Role.findById(9))
+                if (tab1ProgramList) {
+                    for (int j = 0; j < tab1ProgramList.size(); j++) {
+                        def semList = TabulatorSemester.findAllByTabulatorProgram(tab1ProgramList[j])
+                        String semester = '',semValue=''
+                        for (int i = 0; i < semList.size(); i++) {
+                            if (i == 0) {
+                                semester = semList[i].semesterId.semesterNo
+                                semValue=semList[i].semesterId.id
+                            } else {
+                                semester = ","+semList[i].semesterId.semesterNo
+                                semValue=","+semList[i].semesterId.id
+                            }
                         }
-                    }
-                    tab1OptionValue << tab1ProgramList[j].program.id + "/" + semester
-                    tab1OptionText << tab1ProgramList[j].program.courseName + "(Semesters " + semester + ")"
-                    if (j == 0) {
-                        tab1HProgList = tab1ProgramList[j].program.id
-                        tab1HSemList = semester
-                    } else {
-                        tab1HProgList += " " + tab1ProgramList[j].program.id
-                        tab1HSemList += "/" + semester
+                        tab1OptionValue << tab1ProgramList[j].program.id + "/" + semValue
+                        tab1OptionText << tab1ProgramList[j].program.courseName + "(Semesters " + semester + ")"
+                        if (j == 0) {
+                            tab1HProgList = tab1ProgramList[j].program.id
+                            tab1HSemList = semValue
+                        } else {
+                            tab1HProgList += " " + tab1ProgramList[j].program.id
+                            tab1HSemList += "/" + semValue
+                        }
                     }
                 }
             }
-            if (tab2ProgramList) {
-                for (int j = 0; j < tab2ProgramList.size(); j++) {
-                    def semList = TabulatorSemester.findAllByTabulatorProgram(tab2ProgramList[j])
-                    String semester = ''
-                    for (int i = 0; i < semList.size(); i++) {
-                        if (i == 0) {
-                            semester = semList[i].semester
-                        } else {
-                            semester += "," + semList[i].semester
+            if(params.id==10) {
+                tab2ProgramList = TabulatorProgram.findAllByUserAndRole(userInstance, Role.findById(10))
+
+                if (tab2ProgramList) {
+                    for (int j = 0; j < tab2ProgramList.size(); j++) {
+                        def semList = TabulatorSemester.findAllByTabulatorProgram(tab2ProgramList[j])
+                        String semester = '',semValue=''
+                        for (int i = 0; i < semList.size(); i++) {
+                            if (i == 0) {
+                                semester = semList[i].semesterId.semesterNo
+                                semValue=semList[i].semesterId.id
+                            } else {
+                                semester = ","+semList[i].semesterId.semesterNo
+                                semValue=","+semList[i].semesterId.id
+                            }
                         }
+                        if (j == 0) {
+                            tab2HProgList = tab2ProgramList[j].program.id
+                            tab2HSemList = semValue
+                        } else {
+                            tab2HProgList += " " + tab2ProgramList[j].program.id
+                            tab2HSemList += "/" + semValue
+                        }
+                        tab2OptionValue << tab2ProgramList[j].program.id + "/" + semValue
+                        tab2OptionText << tab2ProgramList[j].program.courseName + "(Semesters " + semester + ")"
                     }
-                    if (j == 0) {
-                        tab2HProgList = tab2ProgramList[j].program.id
-                        tab2HSemList = semester
-                    } else {
-                        tab2HProgList += " " + tab2ProgramList[j].program.id
-                        tab2HSemList += "/" + semester
-                    }
-                    tab2OptionValue << tab2ProgramList[j].program.id + "/" + semester
-                    tab2OptionText << tab2ProgramList[j].program.courseName + "(Semesters " + semester + ")"
                 }
             }
             resultMap.status=true

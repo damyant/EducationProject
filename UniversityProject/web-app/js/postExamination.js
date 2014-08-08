@@ -316,9 +316,10 @@ function loadTabulatorMarks(){
         url: url('postExamination', 'loadTabulatorMarks', ''),
         data: {studentId:studentId,programId: program, session: session, semester: semester, groupType: groupType, subjectId: subjectId, marksType: marksType},
         success: function (data) {
+//            alertPopup(data[0].tab1Marks)
             if(data.tab1Marks) {
-                $('tab1Marks').val(data.tab1Marks)
-                $('tab2Marks').val(data.tab2Marks)
+                $('#tab1Marks').val(data.tab1Marks)
+                $('#tab2Marks').val(data.tab2Marks)
             }
         }
     })
@@ -350,24 +351,40 @@ function populateStudentListForMarks() {
                     $("#rollNoList option:first").attr('selected','selected');
                 }
                 else{
-                    $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>No Roll numbers found.</p></div>").dialog({
-                        title: "Sorry",
-                        resizable: false,
-                        modal: true,
-                        buttons: {
-                            "Ok": function () {
-                                $(this).dialog("close");
-                            }
-                        }
-                    });
+                    sorryPopup("No Roll numbers found.")
                 }
 
             }
         });
+}
 
-
-
-
+function updateMisMatchMarks(){
+    validationPostExam()
+    var result = $('#marksUpdate').valid()
+    if(result) {
+        var studentId = $('#rollNoList').val()
+        var program = $('#programId').val();
+        var session = $('#SessionList').val();
+        var semester = $('#semesterList').val();
+        var groupType = $("#groupList").val();
+        var subjectId = $("#courseCode").val()
+        var marksType = $("#marksType").val()
+        var updatedMarks = $("#updatedMarks").val()
+        $.ajax({
+            type: "post",
+            url: url('postExamination', 'updateMisMatchMarks', ''),
+            data: {updatedMarks: updatedMarks, studentId: studentId, programId: program, session: session, semester: semester, groupType: groupType, subjectId: subjectId, marksType: marksType},
+            success: function (data) {
+                if (data.status) {
+                    successPopup("Marks Updated Succesfully")
+                    populateStudentListForMarksUpdate()
+                    $('#tab1Marks').val('')
+                    $('#tab2Marks').val('')
+                    $('#updatedMarks').val('')
+                }
+            }
+        })
+    }
 }
 
 function setSessions(){
@@ -430,7 +447,6 @@ function enableSession(){
             type: "post",
             url: url('postExamination', 'getStudentSession', ''),
            success: function (data) {
-
                $('#studentSession').empty().append('<option value="">Select Student Session</option>')
                if(data.length>0){
                    for (var i=0;i<data.length;i++){
@@ -507,9 +523,6 @@ function getTabulatorSession(t){
             if(data.session){
                 $('#SessionList').prop('disabled',false)
                 $("#SessionList").empty().append('data <option value="">Select Session</option>')
-
-                $('#semesterList').empty().append("<option value=''>Select Semester</option>")
-
                 for (var j = 0; j < data.session.length; j++) {
                     $("#SessionList").append('<option value="' + data.session[j].id + '">' + data.session[j].sessionOfProgram + '</option>')
                 }
@@ -562,7 +575,7 @@ function getTabulatorSemester(t){
     })
 }
 function alertPopup(data){
-    $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>"+data+".</p></div>").dialog({
+    var dialog=$("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>"+data+".</p></div>").dialog({
         title: "Alert!",
         resizable: false,
         modal: true,
@@ -572,10 +585,13 @@ function alertPopup(data){
             }
         }
     });
+    setTimeout(function(){
+        dialog.dialog('destroy');
+    },3000);
 }
 
 function sorryPopup(data){
-    $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>"+data+".</p></div>").dialog({
+    var dialog=$("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>"+data+".</p></div>").dialog({
         title: "Sorry",
         resizable: false,
         modal: true,
@@ -585,4 +601,23 @@ function sorryPopup(data){
             }
         }
     });
+    setTimeout(function(){
+        dialog.dialog('destroy');
+    },3000);
+}
+
+function successPopup(data){
+    var dialog=$("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>"+data+".</p></div>").dialog({
+        title: "Success",
+        resizable: false,
+        modal: true,
+        buttons: {
+            "Ok": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+    setTimeout(function(){
+        dialog.dialog('destroy');
+    },3000);
 }

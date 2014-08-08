@@ -28,7 +28,6 @@ class MarksEnteringService {
     }
 
     def getGroupDetail(params) {
-        println("***"+params)
         def programSessionObj = ProgramSession.findByProgramDetailId(ProgramDetail.get(params.program))
         def programGroupIns = ProgramGroup.findAllByProgramSessionAndSemester(programSessionObj, Semester.get(params.semester))
         return programGroupIns
@@ -124,7 +123,7 @@ class MarksEnteringService {
             if(it){
             def rollNoIndex=stuList.findIndexOf{ it in stuList1 }
             stuList.remove(rollNoIndex)
-            }
+             }
         }
 
         return stuList
