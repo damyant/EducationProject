@@ -113,7 +113,7 @@
                         %{--<span class="university-obligatory">*</span>--}%
                     </td>
                     <td>
-                        <g:select name="rollNoList" id="rollNoList" optionKey="id" class="university-size-1-3" value="" optionValue="" from=""  />
+                        <g:select name="rollNoList" id="rollNoList" optionKey="id" class="university-size-1-3" value="" optionValue="" from="" onchange="loadTabulatorMarks()" />
                     </td>
                 </tr>
 
@@ -122,7 +122,7 @@
                         %{--<span class="university-obligatory">*</span>--}%
                     </td>
                     <td class="university-size-3-4">
-                        <input type="text" class="university-size-1-2" id="" name=""/>
+                        <input type="text" class="university-size-1-2" id="tab1Marks"/>
                     </td>
                 </tr>
                 <tr>
@@ -130,7 +130,7 @@
                         %{--<span class="university-obligatory">*</span>--}%
                     </td>
                     <td class="university-size-3-4">
-                        <input type="text" class="university-size-1-2" id="" name=""/>
+                        <input type="text" class="university-size-1-2" id="tab2Marks"/>
                     </td>
                 </tr>
                 <tr>

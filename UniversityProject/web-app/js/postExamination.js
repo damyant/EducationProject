@@ -192,17 +192,15 @@ function populateStudentListForMarksUpdate(){
     $.ajax({
         type: "post",
         url: url('postExamination', 'marksMissMatchUpdate', ''),
-        data: {program: program, session: session, semester: semester,groupType:groupType,subjectId:subjectId,marksType:marksType},
+        data: {programId: program, session: session, semester: semester,groupType:groupType,subjectId:subjectId,marksType:marksType},
         success: function (data) {
             $('#rollNoList').empty()
             if(data.length>0){
-
+                $('#rollNoList').append('<option value="">Select Roll Number</option>')
                 for (var i=0;i<data.length;i++){
                     $('#rollNoList').append('<option value="'+data[i].id+'">'+data[i].rollNo+'</option>')
                 }
-                document.getElementById("dataTable").style.visibility = "visible";
-                document.getElementById("buttonDiv").style.visibility = "visible";
-                $("#rollNoList option:first").attr('selected','selected');
+                $('#rollNoList').prop('disabled', false)
             }
             else{
                 $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>No Roll numbers found.</p></div>").dialog({
@@ -221,7 +219,26 @@ function populateStudentListForMarksUpdate(){
     });
 
 }
-
+function loadTabulatorMarks(){
+    var studentId=$('#rollNoList').val()
+    var program = $('#programId').val();
+    var session = $('#SessionList').val();
+    var semester = $('#semesterList').val();
+    var groupType= $("#groupList").val();
+    var subjectId=$("#courseCode").val()
+    var marksType=$("#marksType").val()
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'loadTabulatorMarks', ''),
+        data: {studentId:studentId,programId: program, session: session, semester: semester, groupType: groupType, subjectId: subjectId, marksType: marksType},
+        success: function (data) {
+            if(data.tab1Marks) {
+                $('tab1Marks').val(data.tab1Marks)
+                $('tab2Marks').val(data.tab2Marks)
+            }
+        }
+    })
+}
 function populateStudentListForMarks() {
     var program = $('#programId').val();
     var session = $('#SessionList').val();

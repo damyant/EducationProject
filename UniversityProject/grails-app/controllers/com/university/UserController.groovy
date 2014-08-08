@@ -2,6 +2,7 @@ package com.university
 
 import examinationproject.ProgramDetail
 import examinationproject.ProgramSession
+import examinationproject.Semester
 import examinationproject.StudyCenter
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
@@ -70,6 +71,8 @@ class UserController {
             returnMap.id = it.id
             returnMap.programName = it.programDetailId.courseName
             returnMap.noOfSemester = it.programDetailId.noOfTerms
+            returnMap.semesterList = Semester.findAllByProgramSession(it)
+            println("-----------------"+Semester.findAllByProgramSession(it))
             programListMap.add(returnMap)
         }
 
