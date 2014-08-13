@@ -204,7 +204,7 @@ class ReportController {
            def sessionVal
            def studyCentre=null
            if(params.admissionUnapprovedStudyCentre=='All' && params.admissionApprovedStudyCentre=='All') {
-               println('true')
+//               println('true')
                studyCentre = 'All'
            }
            def totalList = reportService.getReportDataAdmissionApprovedUnapproved(params)

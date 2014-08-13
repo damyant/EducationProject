@@ -25,7 +25,7 @@ class CourseDetailService {
         def status = ""
         def semObj
         def existingCourseObj
-        println(params)
+//        println(params)
         if (params.courseId) {
             existingCourseObj = ProgramDetail.findById(Integer.parseInt(params.courseId))
         }

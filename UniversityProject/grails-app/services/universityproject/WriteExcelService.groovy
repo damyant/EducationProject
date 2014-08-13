@@ -33,27 +33,21 @@ class WriteExcelService {
        WritableSheet excelSheet=null
        String courseName= course.courseName
        if(courseName.contains('/')){
-           println("courseName is "+ courseName)
+//           println("courseName is "+ courseName)
            courseName = courseName.replace('/', ' ')
        }
        sheet = workbook.createSheet(""+courseName, sheetNo);
        excelSheet = workbook.getSheet(sheetNo);
       createLabel(excelSheet, params, course, studyCentreName, session);
       createContent(excelSheet, finalList);
-//       workbook.write();
-//      workbook.close();
        return true
-
   }
-
-
     private void createLabel(WritableSheet sheet, params, course, studyCentreName, session )
             throws WriteException {
         if(params.studentCategory=='null')
         {
             params.studentCategory=null
         }
-
         def formatSession = Integer.parseInt(session)+1
         // Lets create a times font
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 12);
@@ -79,7 +73,6 @@ class WriteExcelService {
             int widthInChars = 25;
             sheet.setColumnView(i, widthInChars);
         }
-
         cv.setAutosize(true);
         int row = 0
         int cols = 6
@@ -93,8 +86,6 @@ class WriteExcelService {
         fontPointSize = 20;
         rowHeight = (int) ((1.5d * fontPointSize) * 20);
         sheet.setRowView(row, rowHeight, false);
-
-        // Write a few headers
         addCaption(sheet, 0, 1, "Roll No ");
         addCaption(sheet, 1, 1, "Name ");
         addCaption(sheet, 2, 1, "Study Centre ");

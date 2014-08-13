@@ -68,7 +68,7 @@ class ProgramFeeController {
 //        }
 
         def programSessions=   programFeeService.getProgramSessions(params)
-        println("::::::::::::::::::::::::::::::: "+programDetailList)
+//        println("::::::::::::::::::::::::::::::: "+programDetailList)
 
          [feeType:feeType,programDetailList:programDetailList,programSessions:programSessions]
 
@@ -113,7 +113,7 @@ class ProgramFeeController {
 
     @Secured("ROLE_ADMIN")
     def saveAdmissionFee(){
-        println(params)
+//        println(params)
         def response
         def result=programFeeService.saveAdmissionFeeType(params)
         if(result){
@@ -130,8 +130,8 @@ class ProgramFeeController {
         def programDetailIns = ProgramDetail.findById(Integer.parseInt(params.program))
         def sessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(programDetailIns,params.session)
         def admissionInst=AdmissionFee.findByFeeSessionAndTerm(sessionObj,Integer.parseInt(params.term))
-        println(admissionInst)
-        println(admissionInst.feeAmountAtIDOL)
+//        println(admissionInst)
+//        println(admissionInst.feeAmountAtIDOL)
         response.idolFee=admissionInst.feeAmountAtIDOL
         response.stFee=admissionInst.feeAmountAtSC
         response.lateFee=admissionInst.lateFeeAmount
@@ -243,7 +243,7 @@ class ProgramFeeController {
             }
         }
         catch (Exception e) {
-            println("<<<<<<<<<<<Problem in deleting study center$e")
+//            println("<<<<<<<<<<<Problem in deleting study center$e")
         }
     }
 
@@ -279,11 +279,11 @@ class ProgramFeeController {
         def program = ProgramDetail.findById(Integer.parseInt(params.data))
         if(program.programType==ProgramType.findById(1)){
             response.programlist=program.noOfAcademicYears
-            println("program.noOfAcademicYears"+program.noOfAcademicYears)
+//            println("program.noOfAcademicYears"+program.noOfAcademicYears)
         }
         else{
             response.programlist=program.noOfTerms
-            println("program.noOfTerms"+program.noOfTerms)
+//            println("program.noOfTerms"+program.noOfTerms)
         }
         render response as JSON
     }

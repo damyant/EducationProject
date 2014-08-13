@@ -475,7 +475,7 @@ class ReportService {
            def studentList
         if(params.value=='admissionUnapproved'){
             if(params.admissionUnapprovedStudyCentre=='All') {
-                println('me isme hu')
+//                println('me isme hu')
                 studentList = stuObj.list{
                     and{
                         eq('registrationYear' , Integer.parseInt(params.admissionUnapprovedSession))
@@ -646,7 +646,7 @@ class ReportService {
 
 
     def getReportDataComparative(startSession, endSession){
-        println('calling it')
+//        println('calling it')
         def categoryList =[]
         categoryList
         def totalByCategory=[]
@@ -969,9 +969,9 @@ class ReportService {
                                     }
                             }
                             else if(params.value =='sessionProgramWiseFeeNotPaid'){
-                                println("student list is "+ stuList)
+//                                println("student list is "+ stuList)
                                 def count = FeeDetails.findAllByStudentInListAndFeeTypeAndSemesterValueAndIsApprovedNotEqual(stuList,FeeType.findById(3), Integer.parseInt(params.programTerm), Status.findById(4))
-                                println("count is "+ count)
+//                                println("count is "+ count)
                                 if(count){
                                         status = writeExcelForFeeService.excelReport(params, count, it, sheetNo, workbook, studyCentreName , session)
                                         sheetNo= sheetNo+1

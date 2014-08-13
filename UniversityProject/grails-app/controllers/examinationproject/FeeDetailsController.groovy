@@ -362,7 +362,7 @@ class FeeDetailsController {
 
 
     def payChallanForStudyCenterStu = {
-       println("***************"+params)
+//       println("***************"+params)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         def courseNameList = [], courseFee = []
         def feeDetailsInstance = FeeDetails.findAllByChallanNo(params.searchChallanNo)
@@ -379,7 +379,7 @@ class FeeDetailsController {
         stuList.each {
             lateFee = 0
             def lateFeeDate = it.programDetail.lateFeeDate[0]
-            def today = new Date()
+            def today = feeDetailsInstance[0].challanDate
 
             int year = it.registrationYear
             def sessionVal = year + 1
@@ -416,7 +416,7 @@ class FeeDetailsController {
         def termList = []
         def prevFeeStatus=true
         feeDetailsInstance.each {
-            println(it.semesterValue)
+//            println(it.semesterValue)
             if(it.semesterValue>1){
                 def feeDInst=FeeDetails.findByStudentAndFeeTypeAndSemesterValueAndIsApproved(it.student,FeeType.findById(3),(it.semesterValue-1),Status.findById(4))
                 if(!feeDInst){

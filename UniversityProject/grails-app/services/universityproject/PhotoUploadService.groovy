@@ -11,7 +11,7 @@ class PhotoUploadService {
     }
 
     def saveBulkPhoto(params) {
-        println("@@@@@@@@@@@@@@@@@@@@@"+params.admissionYear)
+//        println("@@@@@@@@@@@@@@@@@@@@@"+params.admissionYear)
         def resultMap = [:]
         def rollNo = []
         def studentListInst = Student.findAllByRegistrationYearAndStudentImageIsNullAndReferenceNumber(params.admissionYear,0)
@@ -29,19 +29,19 @@ class PhotoUploadService {
                     File png = new File(filePathPng);
                     File jpeg = new File(filePathJpeg);
                     if ((jpg.exists() && !jpg.isDirectory())) {
-                        println("--------------"+filePathJpg)
+//                        println("--------------"+filePathJpg)
                         def byte[] studentPhoto = new File(filePathJpg).bytes
                         it.studentImage = studentPhoto
                         rollNo << it.rollNo
                     }
                     else if((png.exists() && !png.isDirectory())){
-                        println("--------------"+filePathPng)
+//                        println("--------------"+filePathPng)
                         def byte[] studentPhoto = new File(filePathPng).bytes
                         it.studentImage = studentPhoto
                         rollNo << it.rollNo
                     }
                     else if((jpeg.exists() && !jpeg.isDirectory())){
-                        println("--------------"+filePathJpeg)
+//                        println("--------------"+filePathJpeg)
                         def byte[] studentPhoto = new File(filePathJpeg).bytes
                         it.studentImage = studentPhoto
                         rollNo << it.rollNo

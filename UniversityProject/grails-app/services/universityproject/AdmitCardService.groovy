@@ -23,7 +23,7 @@ class AdmitCardService {
 
 
     def getStudents(params) {
-        println('these are the params ' + params)
+//        println('these are the params ' + params)
         def obj = Student.createCriteria()
         def studentList = []
         def stuList = obj.list {

@@ -19,7 +19,7 @@ environments {
 //            url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
             dbCreate = "update"
             driverClassName = "com.mysql.jdbc.Driver"
-            url = "jdbc:mysql://localhost:3306/universityProject_dev?zeroDateTimeBehavior=convertToNull&useUnicode=true&autoreconnect=true"
+            url = "jdbc:mysql://localhost:3306/OldUniversityProject_dev?zeroDateTimeBehavior=convertToNull&useUnicode=true&autoreconnect=true"
             username = "root"
             password = "root123"
             properties {

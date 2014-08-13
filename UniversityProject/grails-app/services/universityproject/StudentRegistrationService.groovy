@@ -130,7 +130,7 @@ class StudentRegistrationService {
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
         if (params.idol == "idol"){
-            println('in idol')
+//            println('in idol')
             studentRegistration.challanNo = getChallanNumber()
         }
         Set<City> examinationCentreList = City.findAllById(Integer.parseInt(params.examinationCentre))
@@ -312,7 +312,7 @@ class StudentRegistrationService {
 
             return rollNumber
         } catch (Exception e) {
-            println("Problem in roll number generation")
+//            println("Problem in roll number generation")
         }
     }
 
@@ -386,7 +386,7 @@ class StudentRegistrationService {
     static int a=0
     @Synchronized("challanLock")
     def getChallanNumber() {
-        println("--------------"+a)
+//        println("--------------"+a)
         int serialNo = 1
         SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd"); // Just the year
         def date = (sdf.format(Calendar.getInstance().getTime()))
