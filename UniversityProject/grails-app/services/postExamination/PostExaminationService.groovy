@@ -163,9 +163,9 @@ class PostExaminationService {
                         resultList << ""
                     }
 
-                    }
+                   }
 
-                    }
+                 }
 
                 }
                 if (checkFlag) {
