@@ -31,6 +31,7 @@ class Student {
     int semester
     Status status
     int registrationYear
+    String totalMarks
     String referenceNumber
     byte[] studentImage
     ProgramSession programSession
@@ -52,6 +53,7 @@ class Student {
         migratingStudyCentre(nullable: true)
         isAppliedFor(nullable: true)
         category(nullable: true)
+        totalMarks(nullable: true)
         gender(nullable: true)
         nationality(nullable: true)
         state(nullable: true)
@@ -72,18 +74,16 @@ class Student {
         admitCardGenerated(nullable: true)
         examinationVenue(nullable: true)
         challanNo(nullable: true)
-
-
     }
 
     static mapping ={
         studentImage column: "studentImage", sqlType: "blob"
         studyCentre cascade:'none'
         programDetail cascade: 'none'
-//        examinationCentre cascade:'none'
         firstName column: "firstName"
         isAppliedFor column: "isAppliedFor"
         lastName column: "lastName"
+        totalMarks column: "totalMarks"
         middleName column: "middleName"
         parentsName column: "parentsName"
         dob column: "Dob",index: 'Dob_Index'

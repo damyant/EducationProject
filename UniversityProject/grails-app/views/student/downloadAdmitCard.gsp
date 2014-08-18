@@ -33,9 +33,6 @@
     </div>
     <input type="button"  value="Submit" class="ui-button" onclick="downloadAdmitCard();" />
     </div>
-%{--<div id="statusofApp" style="display: none">--}%
-
-%{--</div>--}%
 </g:form>
         </fieldset>
     </div>

@@ -255,6 +255,7 @@ class ProgramFeeController {
 
     def programSessionForMarksMissMatch={
        def programSessionIns=ProgramSession.findAllByProgramDetailId(ProgramDetail.get(params.program))
+        println("???????????????"+programSessionIns)
         render programSessionIns as JSON
 
     }

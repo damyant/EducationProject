@@ -28,7 +28,6 @@
         } });
     }).ajaxStop($.unblockUI);
 </script>
-
 <div id="main">
     <fieldset class="form">
         <h3>Marks Entering Interface</h3>
@@ -88,15 +87,15 @@
                     <td>Course<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="courseCode" id="courseCode" optionKey="id" class="university-size-1-2"
-                                  value="" optionValue="courseCode" from="" noSelection="['': ' Select Course']" disabled="true" onchange="enableMarksType()"/>
+                                  value="" optionValue="courseCode" from="" noSelection="['': ' Select Course']" disabled="true" onchange="loadMarksType(this),enableMarksType()"/>
                     </td>
                 </tr>
 
                 <tr>
                     <td>Marks Type<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="marksType" id="marksType" optionKey="id" class="university-size-1-2"
-                        value="" optionValue="marksTypeName" from="${marksTypeList}" noSelection="['0': ' Select Marks Type']" disabled="true" onchange="enableButton()"/>
+                        <g:select name="marksType" id="marksType" optionKey="" class="university-size-1-2"
+                        value="" optionValue="" from="" noSelection="['': ' Select Marks Type']" disabled="true" onchange="enableButton()"/>
 
                     </td>
                 </tr>

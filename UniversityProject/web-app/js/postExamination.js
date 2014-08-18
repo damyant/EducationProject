@@ -114,7 +114,24 @@ function loadGroup(){
 
     $("#groupList").attr('disabled',false)
 }
+function loadMarksType(t){
+    var program = $('#programId').val();
+    var session = $('#SessionList').val();
+    var semester = $('#semesterList').val();
+    var subjectID = $(t).val();
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'loadMarksType', ''),
+        data: {subjectID: subjectID},
+        success: function (data) {
+            $('#marksType').empty().append('<option value="">Select Marks Type</option>')
+            for(var i=0;i<data.marksTypeList.length;i++){
+                $('#marksType').append('<option value="'+data.marksTypeList[i].id+'">'+data.marksTypeList[i].marksTypeName+'</option>')
+            }
+        }
+    })
 
+}
 
 function enableMarksType(){
     $("#marksType").attr('disabled',false)
@@ -133,6 +150,8 @@ function enableButton(){
   }
 
 }
+
+
 
 function loadCourse() {
     var program = $('#programId').val();
@@ -328,7 +347,6 @@ function populateStudentListForMarks() {
     var program = $('#programId').val();
     var session = $('#SessionList').val();
     var semester = $('#semesterList').val();
-//    var stuSession = $('#sessionVal').val();
     var groupType= $("#groupList").val();
     var subjectId=$("#courseCode").val()
     var marksType=$("#marksType").val()
@@ -349,6 +367,7 @@ function populateStudentListForMarks() {
                     document.getElementById("dataTable").style.visibility = "visible";
                     document.getElementById("buttonDiv").style.visibility = "visible";
                     $("#rollNoList option:first").attr('selected','selected');
+                    $('#marksValue').focus();
                 }
                 else{
                     sorryPopup("No Roll numbers found.")
@@ -377,13 +396,14 @@ function updateMisMatchMarks(){
             success: function (data) {
                 if (data.status) {
                     successPopup("Marks Updated Succesfully")
-                    populateStudentListForMarksUpdate()
+
                     $('#tab1Marks').val('')
                     $('#tab2Marks').val('')
                     $('#updatedMarks').val('')
                 }
             }
         })
+        populateStudentListForMarksUpdate()
     }
 }
 
@@ -549,6 +569,25 @@ function getSemesterForMarksUpdate(t){
             }
         }
     });
+}
+function generateResults(){
+    var program=$('#programId').val()
+    var sessionId=$('#SessionList').val()
+    var semesterId=$('#semesterList').val()
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'generateResults', ''),
+        data: {program: program, session: session},
+        success: function (data) {
+            if(data.status){
+
+            }
+            else{
+                sorryPopup(data.msg)
+            }
+
+        }
+    })
 }
 function getTabulatorSemester(t){
     var program=$('#programId').val()

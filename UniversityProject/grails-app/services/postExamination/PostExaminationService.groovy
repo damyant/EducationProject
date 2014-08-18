@@ -3,6 +3,7 @@ package postExamination
 import com.university.Role
 import examinationproject.CourseSubject
 import examinationproject.ProgramDetail
+import examinationproject.ProgramGroup
 import examinationproject.ProgramSession
 import examinationproject.Semester
 import examinationproject.Status
@@ -14,6 +15,7 @@ import jxl.WorkbookSettings
 import jxl.write.WritableWorkbook
 import postexamination.MarksType
 import postexamination.StudentMarks
+import postexamination.SubjectMarksDetail
 
 @Transactional
 class PostExaminationService {
@@ -112,10 +114,27 @@ class PostExaminationService {
         def stuList = studentList(params, semesterIns)
         if (stuList) {
             for (def i = 0; i < stuList.size(); i++) {
-                def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleId(Subject.findById(params.subjectId), stuList[i], Role.get(9))
-                def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleId(Subject.findById(params.subjectId), stuList[i], Role.get(10))
-                if (stuMarks1?.marksObtained != stuMarks2?.marksObtained) {
-                    finalList<< stuList[i]
+                def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleId(Subject.findById(params.subjectId), stuList[i], Role.get(9), MarksType.findById(params.marksType))
+                def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleId(Subject.findById(params.subjectId), stuList[i], Role.get(10), MarksType.findById(params.marksType))
+                def firstMarks,secondMarks
+                if(params.marksType=='1'){
+                    firstMarks=stuMarks1?.theoryMarks
+                    secondMarks=stuMarks2?.theoryMarks
+                }
+                else if(params.marksType=='2'){
+                    firstMarks=stuMarks1?.practicalMarks
+                    secondMarks=stuMarks2?.practicalMarks
+                }
+                else if(params.marksType=='3'){
+                    firstMarks=stuMarks1?.homeAssignmentMarks
+                    secondMarks=stuMarks2?.homeAssignmentMarks
+                }
+                else if(params.marksType=='4'){
+                    firstMarks=stuMarks1?.project
+                    secondMarks=stuMarks2?.project
+                }
+                if (firstMarks != secondMarks) {
+                    finalList << stuList[i]
                 }
             }
         }
@@ -123,49 +142,100 @@ class PostExaminationService {
     }
 
 
-    def getDetailForMisMatch(params, courseList, semesterIns,groupSubList) {
-
-        def finalList = [], counter = 1
+    def getDetailForMisMatch(params, courseList, semesterIns, groupSubList) {
+        def returnMap = [:]
+        def finalList = [], headerList = [], marksType = [], counter = 1
         def stuList = studentList(params, semesterIns)
         if (stuList && courseList) {
-            def marksTypeObj=MarksType.list()
+
             for (def i = 0; i < stuList.size(); i++) {
                 def resultList = [], checkFlag = false
                 resultList << counter
                 resultList << stuList[i].rollNo
                 for (def j = 0; j < courseList.size(); j++) {
-                    marksTypeObj.each{
-                        def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleIdAndMarksTypeId(courseList[j].subjectId, stuList[i], Role.get(9),it)
-                        def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleIdAndMarksTypeId(courseList[j].subjectId, stuList[i], Role.get(10),it)
-
-                         if (stuMarks1 == null || stuMarks2 == null) {
-                        resultList << "X"
-                        } else if (stuMarks1?.marksObtained != stuMarks2?.marksObtained) {
-                        resultList << "?"
-                        checkFlag = true
-                         } else {
-                        resultList << ""
+                    def marksTypeObj = SubjectMarksDetail.findAllBySubjectSession(courseList[j]).marksTypeId
+                    marksTypeObj.each {
+                        def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId, stuList[i], Role.get(9))
+                        def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId, stuList[i], Role.get(10))
+                        if (i == 0) {
+                            headerList << courseList[j].subjectId.subjectName
+                            marksType << it.marksTypeName
+                        }
+                        if (stuMarks1 == null && stuMarks2 == null) {
+                            resultList << "X"
+                        } else if (stuMarks1?.theoryMarks != stuMarks2?.theoryMarks && it.id==1) {
+                            resultList << "?"
+                            checkFlag = true
+                        }
+                        else if (stuMarks1?.practicalMarks != stuMarks2?.practicalMarks && it.id==2) {
+                            resultList << "?"
+                            checkFlag = true
+                        }
+                        else if (stuMarks1?.homeAssignmentMarks != stuMarks2?.homeAssignmentMarks && it.id==3) {
+                            resultList << "?"
+                            checkFlag = true
+                        }
+                        else if (stuMarks1?.project != stuMarks2?.project && it.id==4) {
+                            resultList << "?"
+                            checkFlag = true
+                        }
+                        else if (stuMarks1 != null && stuMarks2 == null) {
+                            resultList << "?"
+                            checkFlag = true
+                        } else if (stuMarks1 == null && stuMarks2 != null) {
+                            resultList << "?"
+                            checkFlag = true
+                        } else {
+                            resultList << ""
                         }
                     }
                 }
-                for (def j = 0; j < groupSubList.size(); j++) {
-                    for (def k = 0; k < groupSubList[j].size(); k++) {
-                        marksTypeObj{
-                            def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleIdAndMarksTypeId(courseList[j].subjectId, stuList[i], Role.get(9),it)
-                            def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleIdAndMarksTypeId(courseList[j].subjectId, stuList[i], Role.get(10),it)
+                if (groupSubList.size() > 0) {
+                    for (def j = 0; j < groupSubList.size(); j++) {
+                        for (def k = 0; k < groupSubList[j].size(); k++) {
+                            def marksTypeObj = SubjectMarksDetail.findAllBySubjectSession(groupSubList[j]).marksTypeId
+                            marksTypeObj.each {
+                                def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleId(groupSubList[j].subjectId, stuList[i], Role.get(9))
+                                def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleId(groupSubList[j].subjectId, stuList[i], Role.get(10))
+                                if (j == 0) {
+                                    headerList << groupSubList[j].subjectId.subjectName
+                                    marksType << it.marksTypeName
+                                }
+                                if (stuMarks1 == null && stuMarks2 == null) {
+                                    resultList << "X"
+                                }
+                                else if (stuMarks1?.theoryMarks != stuMarks2?.theoryMarks && it.id==1) {
+                                    resultList << "?"
+                                    checkFlag = true
+                                }
+                                else if (stuMarks1?.practicalMarks != stuMarks2?.practicalMarks && it.id==2) {
+                                    resultList << "?"
+                                    checkFlag = true
+                                }
+                                else if (stuMarks1?.homeAssignmentMarks != stuMarks2?.homeAssignmentMarks && it.id==3) {
+                                    resultList << "?"
+                                    checkFlag = true
+                                }
+                                else if (stuMarks1?.project != stuMarks2?.project && it.id==4) {
+                                    resultList << "?"
+                                    checkFlag = true
+                                }
+                                else if (stuMarks1 != null && stuMarks2 == null) {
+                                    resultList << "?"
+                                    checkFlag = true
+                                } else if (stuMarks1 == null && stuMarks2 != null) {
+                                    resultList << "?"
+                                    checkFlag = true
+                                } else {
+                                    resultList << ""
+                                }
 
-                    if (stuMarks1 == null || stuMarks2 == null) {
-                        resultList << "X"
-                    } else if (stuMarks1?.marksObtained != stuMarks2?.marksObtained) {
-                        resultList << "?"
-                        checkFlag = true
-                    } else {
-                        resultList << ""
-                    }
+                            }
 
                    }
 
                  }
+
 
                 }
                 if (checkFlag) {
@@ -178,10 +248,11 @@ class PostExaminationService {
             }
 
         }
+        returnMap.finalList = finalList
+        returnMap.headerList = headerList
+        returnMap.marksType = marksType
 
-        println("endddddd" + finalList)
-
-        return finalList
+        return returnMap
 
 
     }
@@ -214,9 +285,10 @@ class PostExaminationService {
         return stuList
 
     }
-    def getTabulatorMarks(params){
+
+    def getTabulatorMarks(params) {
         def marks = [:]
-        def tab1MarksInst=[],tab2MarksInst=[]
+        def tab1MarksInst = [], tab2MarksInst = []
         def tab1Obj = StudentMarks.createCriteria()
         def tab2Obj = StudentMarks.createCriteria()
         tab1MarksInst = tab1Obj.list {
@@ -224,42 +296,9 @@ class PostExaminationService {
                 eq('id', Long.parseLong(params.studentId))
             }
 
-            and{
-                        eq('marksTypeId', MarksType.findById(Long.parseLong(params.marksType)))
-                        eq('semesterNo', Semester.findById(Long.parseLong(params.semester)).semesterNo)
-                        eq("subjectId", Subject.get(1))
-                        eq('roleId', Role.get(9))
-
-            }
-        }
-        tab2MarksInst = tab2Obj.list {
-            student {
-                eq('id', Long.parseLong(params.studentId))
-            }
-            and{
-                        eq('marksTypeId', MarksType.findById(Long.parseLong(params.marksType)))
-                        eq('semesterNo', Semester.findById(Long.parseLong(params.semester)).semesterNo)
-                        eq("subjectId", Subject.get(Integer.parseInt(params.subjectId)))
-                        eq('roleId', Role.get(10))
-            }
-        }
-        marks.tab1Marks=tab1MarksInst[0].marksObtained
-        marks.tab2Marks=tab2MarksInst[0].marksObtained
-        return marks
-    }
-    def saveMisMatchMarks(params){
-        def marks = [:]
-        def tab1MarksInst=[],tab2MarksInst=[]
-        def tab1Obj = StudentMarks.createCriteria()
-        def tab2Obj = StudentMarks.createCriteria()
-        tab1MarksInst = tab1Obj.list {
-            student {
-                eq('id', Long.parseLong(params.studentId))
-            }
-            and{
-                eq('marksTypeId', MarksType.findById(Long.parseLong(params.marksType)))
+            and {
                 eq('semesterNo', Semester.findById(Long.parseLong(params.semester)).semesterNo)
-                eq("subjectId", Subject.get(1))
+                eq("subjectId", Subject.get(Integer.parseInt(params.subjectId)))
                 eq('roleId', Role.get(9))
 
             }
@@ -268,20 +307,155 @@ class PostExaminationService {
             student {
                 eq('id', Long.parseLong(params.studentId))
             }
-            and{
+            and {
                 eq('marksTypeId', MarksType.findById(Long.parseLong(params.marksType)))
                 eq('semesterNo', Semester.findById(Long.parseLong(params.semester)).semesterNo)
                 eq("subjectId", Subject.get(Integer.parseInt(params.subjectId)))
                 eq('roleId', Role.get(10))
             }
         }
+        if(params.marksType=='1'){
+            marks.tab1Marks = tab1MarksInst[0].theoryMarks
+            marks.tab2Marks = tab2MarksInst[0].theoryMarks
+        }
+        else if(params.marksType=='2'){
+            marks.tab1Marks = tab1MarksInst[0].practicalMarks
+            marks.tab2Marks = tab2MarksInst[0].practicalMarks
+        }
+        else if(params.marksType=='3'){
+            marks.tab1Marks = tab1MarksInst[0].homeAssignmentMarks
+            marks.tab2Marks = tab2MarksInst[0].homeAssignmentMarks
+        }
+        else if(params.marksType=='4'){
+            marks.tab1Marks = tab1MarksInst[0].project
+            marks.tab2Marks = tab2MarksInst[0].project
+        }
+        return marks
+    }
+
+    def saveMisMatchMarks(params) {
+        def marks = [:]
+        def tab1MarksInst = [], tab2MarksInst = []
+        def tab1Obj = StudentMarks.createCriteria()
+        def tab2Obj = StudentMarks.createCriteria()
+        tab1MarksInst = tab1Obj.list {
+            student {
+                eq('id', Long.parseLong(params.studentId))
+            }
+            and {
+                eq('semesterNo', Semester.findById(Long.parseLong(params.semester)).semesterNo)
+                eq("subjectId", Subject.get(Integer.parseInt(params.subjectId)))
+                eq('roleId', Role.get(9))
+            }
+        }
+        tab2MarksInst = tab2Obj.list {
+            student {
+                eq('id', Long.parseLong(params.studentId))
+            }
+            and {
+                eq('semesterNo', Semester.findById(Long.parseLong(params.semester)).semesterNo)
+                eq("subjectId", Subject.get(Integer.parseInt(params.subjectId)))
+                eq('roleId', Role.get(10))
+            }
+        }
         tab1MarksInst.each {
-            it.marksObtained=Integer.parseInt(params.updatedMarks)
+            def prevMarks
+            if(params.marksType=='1'){
+                prevMarks=it.theoryMarks
+                it.theoryMarks= params.updatedMarks
+            }
+            else if(params.marksType=='2'){
+                prevMarks=it.practicalMarks
+                it.practicalMarks = params.updatedMarks
+            }
+            else if(params.marksType=='3'){
+                prevMarks=it.homeAssignmentMarks
+                it.homeAssignmentMarks = params.updatedMarks
+            }
+            else if(params.marksType=='4'){
+                prevMarks=it.project
+                it.project = params.updatedMarks
+            }
+            it.totalMarks=(Integer.parseInt(it.totalMarks)-Integer.parseInt(prevMarks))+Integer.parseInt(params.updatedMarks)
         }
         tab2MarksInst.each {
-            it.marksObtained=Integer.parseInt(params.updatedMarks)
+            def prevMarks
+            if(params.marksType=='1'){
+                prevMarks=it.theoryMarks
+                it.theoryMarks= params.updatedMarks
+            }
+            else if(params.marksType=='2'){
+                prevMarks=it.practicalMarks
+                it.practicalMarks = params.updatedMarks
+            }
+            else if(params.marksType=='3'){
+                prevMarks=it.homeAssignmentMarks
+                it.homeAssignmentMarks = params.updatedMarks
+            }
+            else if(params.marksType=='4'){
+                prevMarks=it.project
+                it.project = params.updatedMarks
+            }
+            it.totalMarks=(Integer.parseInt(it.totalMarks)-Integer.parseInt(prevMarks))+Integer.parseInt(params.updatedMarks)
+
         }
-        marks.status=true
+        marks.status = true
         return marks
+    }
+
+    def generateProgramResults(params) {
+        def returnMap = [:]
+
+        def passInAll = [], partiallyPass = []
+//        def misMatchStatus = StudentMarks.findAllByCorrectMarkIsNull()
+//        if (misMatchStatus.size() == 0) {
+            def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
+            def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
+            def studentList = Student.findAllByProgramSessionAndSemester(progSessionInst, semesterInst.semesterNo)
+            def subjetList = CourseSubject.findAllByProgramSessionAndSemester(progSessionInst, semesterInst)
+            def subjetGroupList = ProgramGroup.findAllByProgramSessionAndSemester(progSessionInst, semesterInst)
+
+            def marksTypeList = MarksType.list()
+            for (def i = 0; i < studentList.size(); i++) {
+                def status = true
+                def pass = true
+                if (subjetList.size() > 0) {
+                    for (def j = 0; j < subjetList.size(); j++) {
+                        if (!pass || !status) {
+                            break
+                        } else {
+                            marksTypeList.each {
+                                if (pass) {
+                                    def tab1Marks = StudentMarks.findByStudentAndMarksTypeIdAndSubjectIdAndSemesterNoAndRoleId(studentList[i], it, subjetList[j].subjectSessionId.subjectId, semesterInst.semesterNo, Role.get(9))
+                                    def tab2Marks = StudentMarks.findByStudentAndMarksTypeIdAndSubjectIdAndSemesterNoAndRoleId(studentList[i], it, subjetList[j].subjectSessionId.subjectId, semesterInst.semesterNo, Role.get(10))
+                                    def passMarks = SubjectMarksDetail.findBySubjectSessionAndMarksTypeId(subjetList[j].subjectSessionId, it)
+                                    if (tab1Marks != null && tab2Marks != null) {
+                                        println("#########################"+tab1Marks.marksObtained +"---------------------"+ passMarks.minPassingMarks)
+                                        if (tab1Marks.marksObtained < passMarks.minPassingMarks) {
+                                            pass = false
+                                            partiallyPass << studentList[i]
+                                        }
+                                    } else {
+                                        status = false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                        if (pass) {
+                            passInAll << studentList[i]
+                        }
+                }
+            }
+            println("partiallyPass________________________"+partiallyPass)
+            println("passInAll________________________"+passInAll)
+                returnMap.studentPartialPassList = partiallyPass
+                returnMap.studentPassList = passInAll
+                returnMap.status = true
+//        } else {
+//            returnMap.status = false
+//            returnMap.msg = "Mismatch Exist in Marks For this Programme"
+//        }
+        return returnMap
     }
 }// MAIN CLOSING TAG
