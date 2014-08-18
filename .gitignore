@@ -59,10 +59,10 @@ UniversityProject/target
 # filesystem
 UniversityProject/filesystem/main/*
 UniversityProject/filesystem/staging/*
-UniversityProject/*.xml
+# UniversityProject/*.xml
 UniversityProject/*.iml
 *.log
-*.xml
+# *.xml
 # other kumulus project files
 *.iws
 /manager/target
