@@ -19,7 +19,6 @@ $(document).ready(function () {
                 break;
             }
         }
-
         if (flag == true) {
 
         }

@@ -14,7 +14,10 @@ import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
 import examinationproject.Subject
+import examinationproject.SubjectSession
 import grails.converters.JSON
+import grails.converters.XML
+import groovy.xml.MarkupBuilder
 
 import javax.activation.MimetypesFileTypeMap
 
@@ -142,9 +145,7 @@ class PostExaminationController {
 
 
     def marksEntering = {
-
         def currentUser = springSecurityService.currentUser
-//        def progList=TabulatorProgram.findAllByUser(currentUser).program
         def criteria = TabulatorProgram.createCriteria()
         def progList = criteria.listDistinct() {
             projections {
@@ -197,11 +198,58 @@ class PostExaminationController {
 
     def saveMarks = {
         println("saving marks=====" + params)
-        def status = marksEnteringService.saveMarks(params)
-        if (status) {
-            render status as JSON
+        def result = marksEnteringService.saveMarks(params)
+//        println("??????????????????"+status)
+        if (result.status) {
+            render result as JSON
         }
 
+    }
+    def xmlCreateData = {
+        def xmlObj = new StringWriter()
+        def xml = new MarkupBuilder(xmlObj)
+        xml.rule() {
+            program(code:'01') {
+                semester(id:1) {
+                    subject(code: '11001', credit: '8') {
+                        theory(total: '64', '24')
+                        home(total: '12', '0')
+                    }
+                    subject(code: '11002', credit: '8') {
+                        theory(total: '64', '24')
+                        home(total: '12', '0')
+                    }
+                    subject(code: '11003', credit: '8') {
+                        theory(total: '64', '24')
+                        home(total: '12', '0')
+                    }
+                    subject(code: '11004', credit: '8') {
+                        theory(total: '64', '24')
+                        home(total: '12', '0')
+                    }
+                    subject(code: '11005', credit: '8') {
+                        theory(total: '64', '24')
+                        home(total: '12', '0')
+                    }
+                }
+            }
+        }
+        def xmlString = xmlObj.toString()
+        println ("........................."+xmlString)
+
+    }
+    def xmlParseData = {
+        XmlParser parser = new XmlParser()
+        def xmldata1 = parser.parse (new FileInputStream("web-app/marksRule.xml"))
+        println(""+xmldata1)
+        def allRecords = xmldata1.program.semester.size()
+        println(allRecords)
+    }
+    def loadMarksType(){
+        def returnMap = [:]
+        def  marksTypeList=SubjectMarksDetail.findAllBySubjectSession(SubjectSession.findBySubjectId(Subject.findById(params.subjectID))).marksTypeId
+        returnMap.marksTypeList=marksTypeList
+        render returnMap as JSON
     }
     def getTabulatorSession={
         def returnMap = [:]
@@ -219,6 +267,7 @@ class PostExaminationController {
         tabProgramInstList.each{
             tabSemesterList<<TabulatorSemester.findAllByTabulatorProgram(it).semesterId
         }
+
         returnMap.tabSemesterList=tabSemesterList
         returnMap.session=programSession
 
@@ -255,15 +304,44 @@ def getSemesterForMarksUpdate={
         else{
             otherRoll_Id=9
         }
-        def stuIns = StudentMarks.findBySubjectIdAndSemesterNoAndRoleIdAndMarksTypeId(Subject.get(Integer.parseInt(params.subjectId)),
+        def stuIns = StudentMarks.findBySubjectIdAndSemesterNoAndRoleId(Subject.get(Integer.parseInt(params.subjectId)),
                 Integer.parseInt(params.semester), Role.get(otherRoll_Id), MarksType.get(Integer.parseInt(params.marksType)))
         if (stuIns) {
-            if (stuIns.marksObtained == Integer.parseInt(params.marksValue)) {
-                returnMap.status = true
+            if(params.marksType=='1'){
+                if (stuIns.theoryMarks== params.marksValue) {
+                    returnMap.status = true
 
-            } else {
-                returnMap.status = false
-                returnMap.tabulator =  Role.get(otherRoll_Id).authority
+                } else {
+                    returnMap.status = false
+                    returnMap.tabulator =  Role.get(otherRoll_Id).authority
+                }
+            }
+            else if (params.marksType=='2'){
+                if (stuIns.practicalMarks == params.marksValue) {
+                    returnMap.status = true
+
+                } else {
+                    returnMap.status = false
+                    returnMap.tabulator =  Role.get(otherRoll_Id).authority
+                }
+            }
+            else if (params.marksType=='3'){
+                if (stuIns.homeAssignmentMarks== params.marksValue) {
+                    returnMap.status = true
+
+                } else {
+                    returnMap.status = false
+                    returnMap.tabulator =  Role.get(otherRoll_Id).authority
+                }
+            }
+            else if (params.marksType=='4'){
+                if (stuIns.project == params.marksValue) {
+                    returnMap.status = true
+
+                } else {
+                    returnMap.status = false
+                    returnMap.tabulator =  Role.get(otherRoll_Id).authority
+                }
             }
         } else {
             returnMap.status = true
@@ -292,10 +370,10 @@ def getSemesterForMarksUpdate={
 
         def programSessionIns = ProgramSession.findById(Long.parseLong(params.programId))
         def semesterIns = Semester.get(params.programTerm)
-
+        println("*********************"+params.programTerm)
         def courseList = CourseSubject.findAllByProgramSessionAndSemester(programSessionIns, semesterIns).subjectSessionId
         def groupIns = ProgramGroup.findAllByProgramSessionAndSemester(programSessionIns, semesterIns)
-
+        println("???????????????????????"+groupIns)
         if (groupIns) {
             groupIns.each {
                 groupSubList << ProgramGroupDetail.findAllByProgramGroupId(it).subjectSessionId
@@ -305,11 +383,11 @@ def getSemesterForMarksUpdate={
         }
 
 
-        def finalList = postExaminationService.getDetailForMisMatch(params, courseList, semesterIns,groupSubList)
+        def result = postExaminationService.getDetailForMisMatch(params, courseList, semesterIns,groupSubList)
 
-        if (finalList) {
+        if (result) {
             def args = [template: "missMatchReportTemplate", model: [programName: programSessionIns.programDetailId.courseName, semester: semesterIns.semesterNo,
-                    subjectList: courseList, finalList: finalList, groupIns: groupIns, groupSubList: groupSubList, groupSubjectCount: groupSubjectCount], filename: "Mis-Match Report.pdf"]
+                    subjectList: courseList,marksType:result.marksType,headerList:result.headerList, finalList: result.finalList, groupIns: groupIns, groupSubList: groupSubList, groupSubjectCount: groupSubjectCount], filename: "Mis-Match Report.pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         } else {
             flash.message = "No Roll Number Found"
@@ -333,7 +411,17 @@ def getSemesterForMarksUpdate={
     }
     def generateResults={
         println("++++++++++++++++++"+params)
+        def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
+        def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
+        def studentList = Student.findAllByProgramSessionAndSemester(progSessionInst, semesterInst.semesterNo)
         def result = postExaminationService.generateProgramResults(params)
-        render result as JSON
+        if (result.status) {
+            def args = [template: "programResultSheet", model: [studPartialList: result.studentPartialPassList, studPassList: result.studentPassList,
+                                                                     courseName: progSessionInst.programDetailId.courseName,semester:semesterInst.semesterNo], filename: progSessionInst.programDetailId.courseName+".pdf"]
+            pdfRenderingService.render(args + [controller: this], response)
+        } else {
+            flash.message = result.msg
+            redirect(controller: 'postExamination', action: 'resultProcessing')
+        }
     }
 }// CLOSING BRACKETS

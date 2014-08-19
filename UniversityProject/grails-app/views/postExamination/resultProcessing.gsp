@@ -32,7 +32,7 @@
 <div id="main">
     <fieldset class="form">
         <h3>Result Processing</h3>
-        <g:form name="marksFoilId" id="marksFoilId" controller="postExamination" action="generateMarksFoilSheet">
+        <g:form name="resultSheet" id="resultSheet" controller="postExamination" action="generateResults">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
             <g:hiddenField name="btn"  id="btn" value=""/>
@@ -60,7 +60,7 @@
                 <tr>
                     <td>Session<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="Session" id="SessionList" optionKey="id" class="university-size-1-2"
+                        <g:select name="sessionId" id="SessionList" optionKey="id" class="university-size-1-2"
                                   value=""
                                   optionValue="session" from="" noSelection="['': ' Select Session']"
                                   onchange="loadSemester(this)"
@@ -72,7 +72,7 @@
                 <tr>
                     <td>Semester<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2"
+                        <g:select name="semesterId" id="semesterList" optionKey="" class="university-size-1-2"
                                   value=""
                                   optionValue="" from="" noSelection="['': ' Select Semester']"/>
                     </td>
@@ -80,7 +80,7 @@
 
                 <tr>
                     <td colspan="2" style="text-align: center">
-                        <input type="button" value="Generate Result" onclick="generateResults()" class="university-button" tag="1">
+                        <input type="submit" value="Generate Result" class="university-button">
                         <input type="reset" value="Cancel" class="university-button">
                     </td>
                 </tr>
