@@ -12,6 +12,7 @@ import java.io.File;
 class CourseController {
     def courseDetailService
     def programFeeService
+    def marksEnteringService
 
 
     def createNewCourse() {
@@ -147,6 +148,7 @@ class CourseController {
    // Modified By Ajay
     def saveCourses() {
       def isSaved =courseDetailService.saveCourseDetail(params)
+        def result = marksEnteringService.createXMLFile(params)
         if(isSaved=="update"){
             flash.message = "Course Successfully Updated."
         }else{

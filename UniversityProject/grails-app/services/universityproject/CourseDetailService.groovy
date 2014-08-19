@@ -22,7 +22,7 @@ import java.io.File;
 
 @Transactional
 class CourseDetailService {
-
+    def marksEnteringService
     def serviceMethod() {
 
     }

@@ -14,6 +14,7 @@ import examinationproject.Status
 import examinationproject.Student
 import examinationproject.Subject
 import grails.transaction.Transactional
+import groovy.xml.MarkupBuilder
 import postexamination.MarksType
 import postexamination.StudentMarks
 
@@ -198,6 +199,53 @@ class MarksEnteringService {
         return stuList
 
     }
+    def createXMLFile(params){
+        println (".........createXMLFile................"+params)
+        def xmlObj = new StringWriter()
+        XmlParser parser = new XmlParser()
+        def xmldata1 = parser.parse (new FileInputStream("web-app/marks/passMarks"))
+        println(""+xmldata1)
+        def allRecords = xmldata1.rule.program.semester.size()
+        xmldata1 .program.each{
+            if(it.@code==params.subjectId) {
+                it.semester.each {
+                    println("---------------------------" + it.@id)
+                    it.subject.each {
+                        println("============================" + it.@code)
+                    }
+                }
+            }
 
+        }
+        def xml = new MarkupBuilder(xmlObj)
+        xml.rule() {
+            program(code:'01') {
+                semester(id:1) {
+                    subject(code: '11001', credit: '8') {
+                        theory(total: '64', '24')
+                        home(total: '12', '0')
+                    }
+                    subject(code: '11002', credit: '8') {
+                        theory(total: '64', '24')
+                        home(total: '12', '0')
+                    }
+                    subject(code: '11003', credit: '8') {
+                        theory(total: '64', '24')
+                        home(total: '12', '0')
+                    }
+                    subject(code: '11004', credit: '8') {
+                        theory(total: '64', '24')
+                        home(total: '12', '0')
+                    }
+                    subject(code: '11005', credit: '8') {
+                        theory(total: '64', '24')
+                        home(total: '12', '0')
+                    }
+                }
+            }
+        }
+        def xmlString = xmlObj.toString()
+        println ("........................."+xmlString)
+    }
 
 }
