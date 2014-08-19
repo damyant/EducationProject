@@ -240,7 +240,7 @@ class PostExaminationController {
     }
     def xmlParseData = {
         XmlParser parser = new XmlParser()
-        def xmldata1 = parser.parse (new FileInputStream("web-app/ruleXml/marksRule.xml"))
+        def xmldata1 = parser.parse (new FileInputStream("web-app/marks/passMarks.xml"))
         println(""+xmldata1)
         def allRecords = xmldata1.program.semester.size()
         println(allRecords)
