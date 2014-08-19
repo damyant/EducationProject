@@ -232,9 +232,11 @@ class PostExaminationService {
 
                             }
 
-                        }
+                   }
 
-                    }
+                 }
+
+
                 }
                 if (checkFlag) {
                     resultList << "R"
