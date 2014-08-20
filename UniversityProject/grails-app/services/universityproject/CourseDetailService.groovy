@@ -1,5 +1,7 @@
 package universityproject
 
+import com.university.TabulatorProgram
+import com.university.TabulatorSemester
 import examinationproject.CourseMode
 import examinationproject.CourseType
 import examinationproject.ProgramDetail
@@ -70,18 +72,30 @@ class CourseDetailService {
 
             }
             CourseSubject.removeAll(existingCourseObj, sessionObj)
-            def programGroupIns= ProgramGroup.findAllByProgramSession(sessionObj)
+
             semesterList.each {
+                def programGroupIns= ProgramGroup.findAllByProgramSessionAndSemester(sessionObj,it)
+
+//               def tabProgList= TabulatorProgram.findAllByProgram(existingCourseObj)
+//                tabProgList.each{
+//                    def tabSemObjlist=TabulatorSemester.findByTabulatorProgram(it)
+//                    tabSemObjlist.each{tabSemIt ->
+//                        it.removeFromTabulatorSemester(tabSemIt)
+//                        tabSemIt.delete(failOnError:true)
+//                    }
+//
+//                }
+
+                programGroupIns.each{pit ->
+                    ProgramGroupDetail.removeAll(pit)
+                    it.removeFromProgramGroup(pit)
+                    pit.delete()
+                }
+
                 it.delete(failOnError: true)
-//                it.removeFromProgramGroup(programGroupIns)
+
+
             }
-
-        programGroupIns.each {
-            ProgramGroupDetail.removeAll(it)
-            it.delete()
-        }
-
-
 
 
             status=  saveAndUpdateCourseInformation(params,sessionObj,existingCourseObj)
@@ -321,6 +335,9 @@ class CourseDetailService {
     }
 
     def saveAndUpdateCourseInformation(params,sessionObj,courseObj){
+        println("parms=="+params)
+        println(sessionObj)
+        println(courseObj)
         def semObj,status
         def indexVal=0;
         for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
@@ -329,7 +346,7 @@ class CourseDetailService {
             semObj.semesterNo = i
             semObj.programSession = sessionObj
             semObj.save(failOnError: true)
-
+println("******************"+semObj)
             params.semesterList.each {
                 i
                 def subjectList = it."semester${i}".sort()
@@ -343,11 +360,13 @@ class CourseDetailService {
                             groupIns= new ProgramGroup()
                             groupIns.groupName=subjectList[j][k].toString()
                             groupIns.programSession=sessionObj
+                            println("################"+semObj.semesterNo)
                             groupIns.semester= semObj
                             groupIns.groupSelectionType=params.groupSelectionType[indexVal]
                             if(params.noOfSubjects[indexVal]){
                                 groupIns.numberOfSubjectsToSelect=Integer.parseInt(params.noOfSubjects[indexVal])
                             }
+
                             groupIns.save(failOnError: true,flush: true)
                         }
                         else{

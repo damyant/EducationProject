@@ -39,6 +39,7 @@ class Student {
     Boolean identityCardGenerated=false
     ExaminationVenue examinationVenue
     Date admissionDate =new Date()
+    String result
     
     String challanNo
 
@@ -74,6 +75,7 @@ class Student {
         admitCardGenerated(nullable: true)
         examinationVenue(nullable: true)
         challanNo(nullable: true)
+        result(nullable: true)
     }
 
     static mapping ={
@@ -112,6 +114,7 @@ class Student {
         identityCardGenerated column: 'IdentityCardGenerated'
         examinationVenue column: 'examinationVenue'
         challanNo column: 'ChallanNo'
+        result column: "Result"
     }
 
 }

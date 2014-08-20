@@ -181,7 +181,8 @@ class PostExaminationController {
     }
 
     def finalResult = {
-        println("Inside finalResult Action")
+        def programList=ProgramDetail.list(sort: 'courseCode')
+        [programList:programList]
     }
 
     def absenteeProcessing = {
@@ -206,24 +207,13 @@ class PostExaminationController {
 
     }
     def xmlCreateData() {
-        println("+++++++++++++++++++++++=====" + params)
         def result = marksEnteringService.createXMLFile(params)
-
 
     }
     def xmlParseData = {
         XmlParser parser = new XmlParser()
-        def xmldata1 = parser.parse (new FileInputStream("web-app/marks/passMarks"))
-        println(""+xmldata1)
-       xmldata1.program.each{
-           println("+++++++++++++++++++"+it.@code)
-           it.semester.each{
-               println("---------------------------"+it.@id)
-               it.subject.each{
-                   println("============================"+it.@code)
-               }
-           }
-       }
+        def xmlData = parser.parse (new FileInputStream("web-app/subjectPassMarks/subjectMarksRule.xml"))
+        return xmlData
 
     }
     def loadMarksType(){
@@ -273,9 +263,10 @@ def getSemesterForMarksUpdate={
         def role=UserRole.findAllByUser(currentUser).role
         def role_id
         role.each {
-            def tabSemIns=TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it))
+
+            def tabSemIns=TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRoleAndUser(ProgramDetail.findById(params.program),it,currentUser))
             if(tabSemIns){
-                role_id = TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
+                role_id = tabSemIns.tabulatorProgram.role.id
             }
         }
         def otherRoll_Id
@@ -285,8 +276,8 @@ def getSemesterForMarksUpdate={
         else{
             otherRoll_Id=9
         }
-        def stuIns = StudentMarks.findBySubjectIdAndSemesterNoAndRoleId(Subject.get(Integer.parseInt(params.subjectId)),
-                Integer.parseInt(params.semester), Role.get(otherRoll_Id), MarksType.get(Integer.parseInt(params.marksType)))
+        def stuIns = StudentMarks.findBySubjectIdAndSemesterNoAndRoleIdAndStudent(Subject.get(Integer.parseInt(params.subjectId)),
+                Integer.parseInt(params.semester), Role.get(otherRoll_Id),Student.findByRollNo(params.rollNoId))
         if (stuIns) {
             if(params.marksType=='1'){
                 if (stuIns.theoryMarks== params.marksValue) {
@@ -338,7 +329,6 @@ def getSemesterForMarksUpdate={
                 distinct("registrationYear")
             }
         }
-        println(stuSessionList)
 
         render stuSessionList as JSON
 
@@ -381,12 +371,10 @@ def getSemesterForMarksUpdate={
         render finalList as JSON
     }
     def loadTabulatorMarks={
-        println("++++++++++++++++++"+params)
         def finalList = postExaminationService.getTabulatorMarks(params)
         render finalList as JSON
     }
     def updateMisMatchMarks={
-        println("++++++++++++++++++"+params)
         def result = postExaminationService.saveMisMatchMarks(params)
         render result as JSON
     }
@@ -395,14 +383,33 @@ def getSemesterForMarksUpdate={
         def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
         def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
         def studentList = Student.findAllByProgramSessionAndSemester(progSessionInst, semesterInst.semesterNo)
-        def result = postExaminationService.generateProgramResults(params)
+        def xmlNodes=xmlParseData()
+
+        def result = postExaminationService.generateProgramResults(params,xmlNodes)
         if (result.status) {
-            def args = [template: "programResultSheet", model: [studPartialList: result.studentPartialPassList, studPassList: result.studentPassList,
+             def args = [template: "programResultSheet", model: [studPartialList: result.studentPartialPassList, studPassList: result.studentPassList,
                                                                      courseName: progSessionInst.programDetailId.courseName,semester:semesterInst.semesterNo], filename: progSessionInst.programDetailId.courseName+".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         } else {
             flash.message = result.msg
             redirect(controller: 'postExamination', action: 'resultProcessing')
         }
+    }
+
+    def generateFinalResult={
+        def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
+        def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
+        def studentList = Student.findAllByProgramSessionAndSemester(progSessionInst, semesterInst.semesterNo)
+
+        def result = postExaminationService.finalResult(params)
+        if (result.status) {
+            def args = [template: "programResultSheet", model: [studPartialList: result.studentPartialPassList, studPassList: result.studentPassList,
+                    courseName: progSessionInst.programDetailId.courseName,semester:semesterInst.semesterNo], filename: progSessionInst.programDetailId.courseName+".pdf"]
+            pdfRenderingService.render(args + [controller: this], response)
+        } else {
+            flash.message = result.msg
+            redirect(controller: 'postExamination', action: 'resultProcessing')
+        }
+
     }
 }// CLOSING BRACKETS

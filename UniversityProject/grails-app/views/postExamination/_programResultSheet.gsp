@@ -21,7 +21,7 @@
 
 <p>
     <g:if test="${studPassList}">
-        <g:each in="${studPassList}" var="stud" status="i">
+        <g:each in="${studPassList.reverse()}" var="stud" status="i">
             <label>${stud.rollNo},       </label>
 
         </g:each>
@@ -32,12 +32,12 @@
 </p>
 
 <div style="width: 100%;text-align: left; font-size: 14px;">List of candidates who have partially cleared the semester</div>
-<g:if test="${studentPartialPassList}">
-    <div style="width: 100%;text-align: left; font-size: 14px;">Total :  ${studentPartialPassList.size()}</div>
+<g:if test="${studPartialList}">
+    <div style="width: 100%;text-align: left; font-size: 14px;">Total :  ${studPartialList.size()}</div>
 </g:if>
 <p>
-    <g:if test="${studentPartialPassList}">
-        <g:each in="${studentPartialPassList}" var="stud" status="i">
+    <g:if test="${studPartialList}">
+        <g:each in="${studPartialList}" var="stud" status="i">
             <label>${stud.rollNo},       </label>
         </g:each>
     </g:if>

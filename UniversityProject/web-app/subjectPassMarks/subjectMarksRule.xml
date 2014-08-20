@@ -1,26 +1,27 @@
-<rule>
-    <program code='01'>
-        <semester id='1'>
-            <subject code='11001' credit='8'>
-                <theory total='64'>24</theory>
-                <home total='12'>0</home>
-            </subject>
-            <subject code='11002' credit='8'>
-                <theory total='64'>24</theory>
-                <home total='12'>0</home>
-            </subject>
-            <subject code='11003' credit='8'>
-                <theory total='64'>24</theory>
-                <home total='12'>0</home>
-            </subject>
-            <subject code='11004' credit='8'>
-                <theory total='64'>24</theory>
-                <home total='12'>0</home>
-            </subject>
-            <subject code='11005' credit='8'>
-                <theory total='64'>24</theory>
-                <home total='12'>0</home>
-            </subject>
-        </semester>
-    </program>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><rule abc="12" code="1112222">
+    <subject code="01101" credit="8">
+        <theory minMarks="38" total="100"/>
+        <home minMarks="37" total="100"/>
+        <practical minMarks="34" total="100"/>
+    </subject>
+    <subject code="01102" credit="8">
+        <theory minMarks="38" total="100"/>
+        <home minMarks="37" total="100"/>
+        <practical minMarks="40" total="100"/>
+    </subject>
+    <subject code="01103" credit="8">
+        <theory minMarks="38" total="100"/>
+        <home minMarks="36" total="100"/>
+        <practical minMarks="34" total="100"/>
+    </subject>
+    <subject code="01104" credit="8">
+        <theory minMarks="38" total="100"/>
+        <home minMarks="37" total="100"/>
+        <practical minMarks="34" total="100"/>
+    </subject>
+    <subject code="01105" credit="8">
+        <theory minMarks="38" total="100"/>
+        <home minMarks="37" total="100"/>
+        <practical minMarks="34" total="100"/>
+    </subject>
 </rule>

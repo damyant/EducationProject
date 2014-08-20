@@ -67,9 +67,9 @@ class MarksEnteringService {
             def role=UserRole.findAllByUser(currentUser).role
             def role_id
             role.each {
-                def tabSemIns=TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it))
+                def tabSemIns=TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRoleAndUser(ProgramDetail.findById(params.program),it,currentUser))
                 if(tabSemIns){
-                    role_id = TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
+                    role_id = tabSemIns.tabulatorProgram.role.id
                 }
             }
             if(StudentMarks.findBySubjectIdAndSemesterNoAndStudentAndRoleId(Subject.get(Integer.parseInt(params.subjectId)),Integer.parseInt(params.semester),Student.findByRollNo(params.rollNoId),Role.get(role_id))){
@@ -133,9 +133,10 @@ class MarksEnteringService {
         def role=UserRole.findAllByUser(currentUser).role
         def role_id
         role.each {
-            def tabSemIns=TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it))
+
+            def tabSemIns=TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRoleAndUser(ProgramDetail.findById(params.program),it,currentUser))
             if(tabSemIns){
-                role_id = TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
+                role_id = tabSemIns.tabulatorProgram.role.id
             }
         }
 
@@ -189,6 +190,8 @@ class MarksEnteringService {
                 eq('status', Status.get(4))
             }
         }.rollNo
+//        println("stuList1==="+stuList1)
+//        println("stuList==="+stuList)
         stuList1.each {
             if(it){
             def rollNoIndex=stuList.findIndexOf{ it in stuList1 }
@@ -201,51 +204,51 @@ class MarksEnteringService {
     }
     def createXMLFile(params){
         println (".........createXMLFile................"+params)
-        def xmlObj = new StringWriter()
-        XmlParser parser = new XmlParser()
-        def xmldata1 = parser.parse (new FileInputStream("web-app/marks/passMarks"))
-        println(""+xmldata1)
-        def allRecords = xmldata1.rule.program.semester.size()
-        xmldata1 .program.each{
-            if(it.@code==params.subjectId) {
-                it.semester.each {
-                    println("---------------------------" + it.@id)
-                    it.subject.each {
-                        println("============================" + it.@code)
-                    }
-                }
-            }
-
-        }
-        def xml = new MarkupBuilder(xmlObj)
-        xml.rule() {
-            program(code:'01') {
-                semester(id:1) {
-                    subject(code: '11001', credit: '8') {
-                        theory(total: '64', '24')
-                        home(total: '12', '0')
-                    }
-                    subject(code: '11002', credit: '8') {
-                        theory(total: '64', '24')
-                        home(total: '12', '0')
-                    }
-                    subject(code: '11003', credit: '8') {
-                        theory(total: '64', '24')
-                        home(total: '12', '0')
-                    }
-                    subject(code: '11004', credit: '8') {
-                        theory(total: '64', '24')
-                        home(total: '12', '0')
-                    }
-                    subject(code: '11005', credit: '8') {
-                        theory(total: '64', '24')
-                        home(total: '12', '0')
-                    }
-                }
-            }
-        }
-        def xmlString = xmlObj.toString()
-        println ("........................."+xmlString)
+//        def xmlObj = new StringWriter()
+//        XmlParser parser = new XmlParser()
+//        def xmldata1 = parser.parse (new FileInputStream("web-app/marks/passMarks"))
+//        println(""+xmldata1)
+//        def allRecords = xmldata1.rule.program.semester.size()
+//        xmldata1 .program.each{
+//            if(it.@code==params.subjectId) {
+//                it.semester.each {
+//                    println("---------------------------" + it.@id)
+//                    it.subject.each {
+//                        println("============================" + it.@code)
+//                    }
+//                }
+//            }
+//
+//        }
+//        def xml = new MarkupBuilder(xmlObj)
+//        xml.rule() {
+//            program(code:'01') {
+//                semester(id:1) {
+//                    subject(code: '11001', credit: '8') {
+//                        theory(total: '64', '24')
+//                        home(total: '12', '0')
+//                    }
+//                    subject(code: '11002', credit: '8') {
+//                        theory(total: '64', '24')
+//                        home(total: '12', '0')
+//                    }
+//                    subject(code: '11003', credit: '8') {
+//                        theory(total: '64', '24')
+//                        home(total: '12', '0')
+//                    }
+//                    subject(code: '11004', credit: '8') {
+//                        theory(total: '64', '24')
+//                        home(total: '12', '0')
+//                    }
+//                    subject(code: '11005', credit: '8') {
+//                        theory(total: '64', '24')
+//                        home(total: '12', '0')
+//                    }
+//                }
+//            }
+//        }
+//        def xmlString = xmlObj.toString()
+//        println ("........................."+xmlString)
     }
 
 }

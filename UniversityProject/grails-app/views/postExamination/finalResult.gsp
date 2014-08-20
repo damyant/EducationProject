@@ -39,7 +39,7 @@
 <div id="main">
     <fieldset class="form">
         <h3>Final result Sheet</h3>
-        <g:form name="" id="" controller="postExamination" action="">
+        <g:form name="" id="" controller="postExamination" action="generateFinalResult">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
             <g:hiddenField name="btn"  id="btn" value=""/>
@@ -58,7 +58,7 @@
                         <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
                                   value="${studInstance?.programDetail?.id?.get(0)}"
                                   optionValue="courseName" from="${programList}" noSelection="['': ' Select Program']"
-                                  onchange="loadSession(this)"
+                                  onchange="getTabulatorSession(this)"
                         />
                     </td>
                 </tr>
@@ -67,7 +67,7 @@
                 <tr>
                     <td>Session<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="session" id="session" optionKey="id" class="university-size-1-2"
+                        <g:select name="sessionId" id="SessionList" optionKey="id" class="university-size-1-2"
                                   value=""
                                   optionValue="session" from="" noSelection="['': ' Select Session']"
                                   onchange="loadSemester(this)"
@@ -79,19 +79,17 @@
                 <tr>
                     <td>Semester<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2"
+                        <g:select name="semesterId" id="semesterList" optionKey="" class="university-size-1-2"
                                   value=""
                                   optionValue="" from="" noSelection="['': ' Select Semester']"
-                                  onchange="loadCourse(this)"
                         />
                     </td>
                 </tr>
 
-               <tr>
+                <tr>
                     <td colspan="2" style="text-align: center">
-                        <input type="button" value="Final Result" onclick="validate()" class="university-button" tag="1">
-                        %{--<input type="button" id="excelid" value="Download Marks in excel" onclick="validate()" class="university-button" tag="2">--}%
-                        <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
+                        <input type="submit" value="Generate Final Result" class="university-button">
+                        <input type="reset" value="Cancel" class="university-button">
                     </td>
                 </tr>
 

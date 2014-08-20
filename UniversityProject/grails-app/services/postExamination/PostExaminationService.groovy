@@ -4,18 +4,30 @@ import com.university.Role
 import examinationproject.CourseSubject
 import examinationproject.ProgramDetail
 import examinationproject.ProgramGroup
+import examinationproject.ProgramGroupDetail
 import examinationproject.ProgramSession
 import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
 import examinationproject.Subject
+import grails.converters.JSON
 import grails.transaction.Transactional
 import jxl.Workbook
 import jxl.WorkbookSettings
 import jxl.write.WritableWorkbook
+import org.w3c.dom.Document
+import org.w3c.dom.Element
+import org.w3c.dom.*;
 import postexamination.MarksType
 import postexamination.StudentMarks
 import postexamination.SubjectMarksDetail
+
+import javax.xml.parsers.DocumentBuilder
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.Transformer
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
 @Transactional
 class PostExaminationService {
@@ -23,16 +35,6 @@ class PostExaminationService {
     def marksFoilExcelService
 
     def serviceMethod() {
-
-    }
-
-    def generateMarksFoilService(params) {
-        println("Inside PostExaminationService 1")
-        def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
-//      def programIns=ProgramDetail.findById(Long.parseLong(params.programList))
-        def programSessionIns = ProgramSession.findById(Long.parseLong(params.sessionId))
-        def semesterList = Semester.findAllByProgramSession(programSessionIns)
-        def courseSubjectObj = CourseSubject.findBySubjectAndProgramSession(Subject.findById(Long.parseLong(it)), sessionObj)
 
     }
 
@@ -231,7 +233,6 @@ class PostExaminationService {
                                 }
 
                             }
-
                    }
 
                  }
@@ -403,59 +404,193 @@ class PostExaminationService {
         return marks
     }
 
-    def generateProgramResults(params) {
+    def generateProgramResults(params,xmlNodes) {
         def returnMap = [:]
-
-        def passInAll = [], partiallyPass = []
+        println("1111"+xmlNodes)
+        def passInAll = [], partiallyPass = [],  finalStuList=[]
 //        def misMatchStatus = StudentMarks.findAllByCorrectMarkIsNull()
 //        if (misMatchStatus.size() == 0) {
             def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
             def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
-            def studentList = Student.findAllByProgramSessionAndSemester(progSessionInst, semesterInst.semesterNo)
-            def subjetList = CourseSubject.findAllByProgramSessionAndSemester(progSessionInst, semesterInst)
-            def subjetGroupList = ProgramGroup.findAllByProgramSessionAndSemester(progSessionInst, semesterInst)
+            def studentList = Student.findAllByProgramSessionAndSemesterAndAdmitCardGeneratedAndStatus(progSessionInst, semesterInst.semesterNo,true,Status.get(4))
+            def subjectList = CourseSubject.findAllByProgramSessionAndSemester(progSessionInst, semesterInst).subjectSessionId.subjectId
+            def subjectGroupList = ProgramGroup.findAllByProgramSessionAndSemester(progSessionInst, semesterInst)
+            if(subjectGroupList){
+                subjectGroupList.each {
+                    def groupSubjectList=ProgramGroupDetail.findAllByProgramGroupId(it).subjectSessionId.subjectId
+                         groupSubjectList.each{itr ->
+                            subjectList<<itr
+                        }
+                }
 
-            def marksTypeList = MarksType.list()
+            }
+
+       def subjectMarksList= minMarksForSubjectsFromXML(subjectList,xmlNodes)
+        def totalMarksList=[],totalStudentList=[]
+        def tempMarksVariable=0
             for (def i = 0; i < studentList.size(); i++) {
                 def status = true
                 def pass = true
-                if (subjetList.size() > 0) {
-                    for (def j = 0; j < subjetList.size(); j++) {
-                        if (!pass || !status) {
+                tempMarksVariable=0
+
+                if (subjectList.size() > 0) {
+
+                    for (def j = 0; j < subjectList.size(); j++) {
+
+                        if (!pass || !status)
+                        {
                             break
-                        } else {
-                            marksTypeList.each {
+                        }
+                        else {
                                 if (pass) {
-                                    def tab1Marks = StudentMarks.findByStudentAndMarksTypeIdAndSubjectIdAndSemesterNoAndRoleId(studentList[i], it, subjetList[j].subjectSessionId.subjectId, semesterInst.semesterNo, Role.get(9))
-                                    def tab2Marks = StudentMarks.findByStudentAndMarksTypeIdAndSubjectIdAndSemesterNoAndRoleId(studentList[i], it, subjetList[j].subjectSessionId.subjectId, semesterInst.semesterNo, Role.get(10))
-                                    def passMarks = SubjectMarksDetail.findBySubjectSessionAndMarksTypeId(subjetList[j].subjectSessionId, it)
-                                    if (tab1Marks != null && tab2Marks != null) {
-                                        println("#########################"+tab1Marks.marksObtained +"---------------------"+ passMarks.minPassingMarks)
-                                        if (tab1Marks.marksObtained < passMarks.minPassingMarks) {
-                                            pass = false
-                                            partiallyPass << studentList[i]
+                                    def tab1Marks = StudentMarks.findByStudentAndSubjectIdAndSemesterNoAndRoleId(studentList[i], subjectList[j], Integer.parseInt(semesterInst.id.toString()), Role.get(9))
+
+                                    if(tab1Marks){
+                                    tempMarksVariable+=Integer.parseInt(tab1Marks.totalMarks)
+
+                                    if (tab1Marks != null) {
+                                        subjectMarksList.each{
+
+                                            it.eachWithIndex{itr,index ->
+
+                                             if(Integer.parseInt(tab1Marks.theoryMarks)<Integer.parseInt(itr) && index==0){
+                                                 pass = false
+                                                 partiallyPass << studentList[i]
+                                              }
+                                            if(Integer.parseInt(tab1Marks.homeAssignmentMarks)<Integer.parseInt(itr) && index==1){
+                                                    pass = false
+                                                    partiallyPass << studentList[i]
+                                                }
+                                             if(Integer.parseInt(tab1Marks.practicalMarks)<Integer.parseInt(itr) && index==2){
+                                                   pass = false
+                                                    partiallyPass << studentList[i]
+                                                }
+                                            }
                                         }
-                                    } else {
+                                    }
+                                    else {
                                         status = false
                                     }
                                 }
-                            }
+                             }
                         }
+
                     }
-                        if (pass) {
-                            passInAll << studentList[i]
-                        }
+                    if (pass) {
+                          passInAll << studentList[i]
+                          finalStuList <<" "
+                    }
                 }
+
+                totalMarksList<<tempMarksVariable
+                totalStudentList<<studentList[i]
             }
-            println("partiallyPass________________________"+partiallyPass)
-            println("passInAll________________________"+passInAll)
+println(passInAll)
+        println(totalStudentList)
+        def ab=["2","3","4","5","6"]
+        def ab1=["4","5","6"]
+
+        ab1.each { it
+            if(it){
+            def abc=ab.findIndexOf{ it in ab1 }
+            println("???"+abc)
+            }
+//                    stuList.remove(rollNoIndex)
+        }
+        totalStudentList.eachWithIndex{it,index ->
+
+            if(it.totalMarks){
+                def getBackJsonObj = grails.converters.JSON.parse( it.totalMarks)
+                getBackJsonObj.putAt(it.semester,totalMarksList[index])
+                it.totalMarks= getBackJsonObj.toString()
+             }
+            else{
+                def tempMap=[:]
+                    tempMap[it.semester]=totalMarksList[index]
+                    def newJsonObj=tempMap as JSON
+                    it.totalMarks=newJsonObj.toString()
+            }
+            it.save(failOnError:true)
+        }
+
+        def tempMap=[:]
+        passInAll.each{
+            def getBackJsonObj = grails.converters.JSON.parse( it.totalMarks)
+          println(getBackJsonObj)
+            tempMap[it.id]=getBackJsonObj[it.semester.toString()]
+
+        }
+        Map sorted = tempMap.sort { a, b -> a.value <=> b.value }
+
+        def keyList=sorted.keySet()
+        for(int i=0;i<passInAll.size();i++){
+            for(int j=0;j<keyList.size();j++){
+                if(passInAll[i].id==keyList[j]){
+                    finalStuList.remove(j)
+                    finalStuList.add(j,passInAll[i])
+                }
+
+            }
+        }
+
                 returnMap.studentPartialPassList = partiallyPass
-                returnMap.studentPassList = passInAll
+                returnMap.studentPassList = finalStuList
                 returnMap.status = true
-//        } else {
-//            returnMap.status = false
-//            returnMap.msg = "Mismatch Exist in Marks For this Programme"
-//        }
+
         return returnMap
+    }
+
+    def minMarksForSubjectsFromXML(subjectList,xmlNodes){
+        def finalMarksList=[]
+        subjectList.each{
+            def marksList=[]
+            xmlNodes.subject.each{itr ->
+
+                if(it.subjectCode.contains(itr?.@code)){
+                   if(marksList.size()>0){
+                        marksList=[]
+                    }
+                    marksList<< itr?.theory?.@minMarks[0]
+                    marksList<< itr?.home?.@minMarks[0]
+                    marksList<< itr?.practical?.@minMarks[0]
+
+                }
+
+            }
+           finalMarksList<<marksList
+        }
+    return  finalMarksList
+
+    }
+
+    def finalResult(params){
+        def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
+        def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
+
+        def studentList = Student.findAllByProgramSessionAndSemesterAndAdmitCardGeneratedAndStatus(progSessionInst, semesterInst.semesterNo,true,Status.get(4))
+
+
+        def tempMap=[:]
+        studentList.each{
+            def getBackJsonObj = grails.converters.JSON.parse( it.totalMarks)
+            println(getBackJsonObj)
+            tempMap[it.id]=getBackJsonObj[it.semester.toString()]
+
+        }
+        Map sorted = tempMap.sort { a, b -> a.value <=> b.value }
+
+        def keyList=sorted.keySet()
+        for(int i=0;i<passInAll.size();i++){
+            for(int j=0;j<keyList.size();j++){
+                if(passInAll[i].id==keyList[j]){
+                    finalStuList.remove(j)
+                    finalStuList.add(j,passInAll[i])
+                }
+
+            }
+        }
+
+        returnMap.studentPartialPassList = partiallyPass
+
     }
 }// MAIN CLOSING TAG
