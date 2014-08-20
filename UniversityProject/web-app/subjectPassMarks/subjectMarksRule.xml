@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><rule abc="12" code="1112222">
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<rule>
     <subject code="01101" credit="8">
         <theory minMarks="38" total="100"/>
         <home minMarks="37" total="100"/>
@@ -25,3 +27,4 @@
         <practical minMarks="34" total="100"/>
     </subject>
 </rule>
+

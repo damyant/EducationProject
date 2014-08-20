@@ -1,10 +1,10 @@
 /**
  * Created by Digvijay on 3/6/14.
  */
-var marksTypeId =0;
-function loadSessionForMissMatch(t){
-    var program=$(t).val();
-    if(program){
+var marksTypeId = 0;
+function loadSessionForMissMatch(t) {
+    var program = $(t).val();
+    if (program) {
         $.ajax({
             type: "post",
             url: url('programFee', 'programSessionForMarksMissMatch', ''),
@@ -17,12 +17,12 @@ function loadSessionForMissMatch(t){
                 for (var i = 0; i < data.length; i++) {
                     $("#session").append('<option value="' + data[i].id + '">' + data[i].sessionOfProgram + '</option>')
                 }
-                $("#session").attr('disabled',false)
+                $("#session").attr('disabled', false)
             }
         });
 
     }
-    else{
+    else {
         $("#session").empty().append('');
         $("#session").append('<option value="">Select Session</option>');
         $("#semesterList").empty().append('data <option value="">Select Semester</option>')
@@ -30,27 +30,33 @@ function loadSessionForMissMatch(t){
     }
 }
 
-function loadSession(t){
-    var program=$(t).val();
-    if(program){
+function loadSession(t) {
+    var program = $(t).val();
+    if (program) {
         $.ajax({
             type: "post",
             url: url('programFee', 'getProgramSession', ''),
             data: {program: program},
             success: function (data) {
-
-                $("#session").empty().append('');
-
-                $("#session").append('<option value="">Select Session</option>');
-                for (var i = 0; i < data.length; i++) {
-                    $("#session").append('<option value="' + data[i].id + '">' + data[i].sessionOfProgram + '</option>')
+                if ($('#SessionList').length > 0) {
+                    $("#SessionList").empty().append('<option value="">Select Session</option>');
+                    for (var i = 0; i < data.length; i++) {
+                        $("#SessionList").append('<option value="' + data[i].id + '">' + data[i].sessionOfProgram + '</option>')
+                    }
+                    $("#SessionList").attr('disabled', false)
                 }
-                $("#session").attr('disabled',false)
+                if ($('#session').length > 0) {
+                    $("#session").empty().append('<option value="">Select Session</option>');
+                    for (var i = 0; i < data.length; i++) {
+                        $("#session").append('<option value="' + data[i].id + '">' + data[i].sessionOfProgram + '</option>')
+                    }
+                    $("#session").attr('disabled', false)
+                }
             }
         });
 
     }
-    else{
+    else {
         $("#session").empty().append('');
         $("#session").append('<option value="">Select Session</option>');
         $("#semesterList").empty().append('data <option value="">Select Semester</option>')
@@ -84,37 +90,37 @@ function loadSession(t){
 //    }
 //}
 
-function loadGroup(){
+function loadGroup() {
     var program = $('#programId').val();
     var session = $('#SessionList').val();
     var semester = $('#semesterList').val();
     $.ajax({
         type: "post",
         url: url('postExamination', 'getGroup', ''),
-        data: {program: program,session: session,semester: semester},
+        data: {program: program, session: session, semester: semester},
 
         success: function (data) {
 
             $("#groupList").empty().append('<option value="">Select Group</option>')
 
-               if(data.length>0){
-                   $("#groupList").append('<option value="0">Mandatory Subjects</option>')
-                   for(var i=0;i<data.length;i++){
-                       $("#groupList").append('<option value="'+data[i].id+'">'+data[i].groupName+'</option>')
-                   }
+            if (data.length > 0) {
+                $("#groupList").append('<option value="0">Mandatory Subjects</option>')
+                for (var i = 0; i < data.length; i++) {
+                    $("#groupList").append('<option value="' + data[i].id + '">' + data[i].groupName + '</option>')
+                }
 
 
-               }
-                else{
-                   $("#groupList").append('<option value="0">Mandatory Subjects</option>')
-                 }
+            }
+            else {
+                $("#groupList").append('<option value="0">Mandatory Subjects</option>')
+            }
 
         }
     });
 
-    $("#groupList").attr('disabled',false)
+    $("#groupList").attr('disabled', false)
 }
-function loadMarksType(t){
+function loadMarksType(t) {
     var program = $('#programId').val();
     var session = $('#SessionList').val();
     var semester = $('#semesterList').val();
@@ -125,58 +131,56 @@ function loadMarksType(t){
         data: {subjectID: subjectID},
         success: function (data) {
             $('#marksType').empty().append('<option value="">Select Marks Type</option>')
-            for(var i=0;i<data.marksTypeList.length;i++){
-                $('#marksType').append('<option value="'+data.marksTypeList[i].id+'">'+data.marksTypeList[i].marksTypeName+'</option>')
+            for (var i = 0; i < data.marksTypeList.length; i++) {
+                $('#marksType').append('<option value="' + data.marksTypeList[i].id + '">' + data.marksTypeList[i].marksTypeName + '</option>')
             }
         }
     })
 
 }
 
-function enableMarksType(){
-    $("#marksType").attr('disabled',false)
-    $("#pdfButton").attr('disabled',false)
-    $("#excelButton").attr('disabled',false)
-    $("#cancelButton").attr('disabled',false)
+function enableMarksType() {
+    $("#marksType").attr('disabled', false)
+    $("#pdfButton").attr('disabled', false)
+    $("#excelButton").attr('disabled', false)
+    $("#cancelButton").attr('disabled', false)
 
 }
 
-function enableButton(){
-     if($("#marksType").val()==0)
-     {
-     $("#setButton").attr('disabled',true)
-  }else{
-      $("#setButton").attr('disabled',false)
-  }
+function enableButton() {
+    if ($("#marksType").val() == 0) {
+        $("#setButton").attr('disabled', true)
+    } else {
+        $("#setButton").attr('disabled', false)
+    }
 
 }
-
 
 
 function loadCourse() {
     var program = $('#programId').val();
     var session = $('#SessionList').val();
     var semester = $('#semesterList').val();
-    var groupType= $("#groupList").val();
+    var groupType = $("#groupList").val();
     $.ajax({
         type: "post",
         url: url('postExamination', 'getCourseData', ''),
-        data: {program: program,session: session,semester: semester,groupType:groupType},
+        data: {program: program, session: session, semester: semester, groupType: groupType},
 
         success: function (data) {
 
-               $('#courseCode').empty().append('<option value="">Select Course</option>')
-               for(i=0; i<data.length;i++){
-                   $('#courseCode').append('<option value="' + data[i].id + '">' + data[i].subjectName + '</option>')
+            $('#courseCode').empty().append('<option value="">Select Course</option>')
+            for (i = 0; i < data.length; i++) {
+                $('#courseCode').append('<option value="' + data[i].id + '">' + data[i].subjectName + '</option>')
 
-               }
+            }
         }
     });
-    $("#courseCode").attr('disabled',false)
+    $("#courseCode").attr('disabled', false)
 }
 
 
-function loadSemester(){
+function loadSemester() {
 
     var program = $('#programId').val();
     var session = $('#SessionList').val();
@@ -185,25 +189,25 @@ function loadSemester(){
     $.ajax({
         type: "post",
         url: url('postExamination', 'getSemesterOfProgram', ''),
-        data: {program: program,session: session},
+        data: {program: program, session: session},
 
         success: function (data) {
 
             $('#semesterList').empty().append('<option value="">Select Semester</option>')
-            for(i=0; i<data.length;i++){
+            for (i = 0; i < data.length; i++) {
                 $('#semesterList').append('<option value="' + data[i].id + '">' + data[i].semesterNo + '</option>')
 
             }
-            $("#semesterList").attr('disabled',false)
+            $("#semesterList").attr('disabled', false)
         }
     });
 
-    $("#semesterList").attr('disabled',false)
+    $("#semesterList").attr('disabled', false)
 
 }
 
 
-function loadSemesterForMissMatch(){
+function loadSemesterForMissMatch() {
 
     var program = $('#programId').val();
     var session = $('#session').val();
@@ -213,25 +217,25 @@ function loadSemesterForMissMatch(){
     $.ajax({
         type: "post",
         url: url('postExamination', 'semesterForMarksMisMatch', ''),
-        data: {program: program,session: session},
+        data: {program: program, session: session},
 
         success: function (data) {
 
             $('#semesterList').empty().append('<option value="">Select Semester</option>')
-            for(i=0; i<data.length;i++){
+            for (i = 0; i < data.length; i++) {
                 $('#semesterList').append('<option value="' + data[i].id + '">' + data[i].semesterNo + '</option>')
 
             }
-            $("#semesterList").attr('disabled',false)
+            $("#semesterList").attr('disabled', false)
         }
     });
 
-    $("#semesterList").attr('disabled',false)
+    $("#semesterList").attr('disabled', false)
 
 }
 
 
-function loadSemester(){
+function loadSemester() {
 
     var program = $('#programId').val();
     var session = $('#SessionList').val();
@@ -240,72 +244,71 @@ function loadSemester(){
     $.ajax({
         type: "post",
         url: url('postExamination', 'getSemesterOfProgram', ''),
-        data: {program: program,session: session},
+        data: {program: program, session: session},
 
         success: function (data) {
 
             $('#semesterList').empty().append('<option value="">Select Semester</option>')
-            for(i=0; i<data.length;i++){
+            for (i = 0; i < data.length; i++) {
                 $('#semesterList').append('<option value="' + data[i].id + '">' + data[i].semesterNo + '</option>')
 
             }
-            $("#semesterList").attr('disabled',false)
+            $("#semesterList").attr('disabled', false)
         }
     });
 
-    $("#semesterList").attr('disabled',false)
+    $("#semesterList").attr('disabled', false)
 
 }
 
 
-
-function loadMismatchStudents(){
+function loadMismatchStudents() {
 //    alert("hello kuldeep")
 
 }
 
-$(document).ready(function(){
-    $('#pdfButton').on('click', function(){
-         $("#btn").val("pdf")
+$(document).ready(function () {
+    $('#pdfButton').on('click', function () {
+        $("#btn").val("pdf")
         $("#marksFoilId").submit()
     })
 
-    $('#excelButton').on('click', function(){
+    $('#excelButton').on('click', function () {
         $("#btn").val("excel")
         $("#marksFoilId").submit()
     })
 
-    $("#SessionList").on('change',function(){
+    $("#SessionList").on('change', function () {
         $("#semesterList").removeAttr('disabled')
     })
 
-    $("#missMatchedButton").on('click',function(){
+    $("#missMatchedButton").on('click', function () {
 
         $("#marksMissMatchForm").submit()
     })
 
 })
-function populateStudentListForMarksUpdate(){
+function populateStudentListForMarksUpdate() {
     var program = $('#programId').val();
     var session = $('#SessionList').val();
     var semester = $('#semesterList').val();
-    var groupType= $("#groupList").val();
-    var subjectId=$("#courseCode").val()
-    var marksType=$("#marksType").val()
+    var groupType = $("#groupList").val();
+    var subjectId = $("#courseCode").val()
+    var marksType = $("#marksType").val()
     $.ajax({
         type: "post",
         url: url('postExamination', 'marksMissMatchUpdate', ''),
-        data: {programId: program, session: session, semester: semester,groupType:groupType,subjectId:subjectId,marksType:marksType},
+        data: {programId: program, session: session, semester: semester, groupType: groupType, subjectId: subjectId, marksType: marksType},
         success: function (data) {
             $('#rollNoList').empty()
-            if(data.length>0){
+            if (data.length > 0) {
                 $('#rollNoList').append('<option value="">Select Roll Number</option>')
-                for (var i=0;i<data.length;i++){
-                    $('#rollNoList').append('<option value="'+data[i].id+'">'+data[i].rollNo+'</option>')
+                for (var i = 0; i < data.length; i++) {
+                    $('#rollNoList').append('<option value="' + data[i].id + '">' + data[i].rollNo + '</option>')
                 }
 //                $('#rollNoList').prop('disabled', false)
             }
-            else{
+            else {
                 $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>No Roll numbers found.</p></div>").dialog({
                     title: "Sorry",
                     resizable: false,
@@ -322,21 +325,21 @@ function populateStudentListForMarksUpdate(){
     });
 
 }
-function loadTabulatorMarks(){
-    var studentId=$('#rollNoList').val()
+function loadTabulatorMarks() {
+    var studentId = $('#rollNoList').val()
     var program = $('#programId').val();
     var session = $('#SessionList').val();
     var semester = $('#semesterList').val();
-    var groupType= $("#groupList").val();
-    var subjectId=$("#courseCode").val()
-    var marksType=$("#marksType").val()
+    var groupType = $("#groupList").val();
+    var subjectId = $("#courseCode").val()
+    var marksType = $("#marksType").val()
     $.ajax({
         type: "post",
         url: url('postExamination', 'loadTabulatorMarks', ''),
-        data: {studentId:studentId,programId: program, session: session, semester: semester, groupType: groupType, subjectId: subjectId, marksType: marksType},
+        data: {studentId: studentId, programId: program, session: session, semester: semester, groupType: groupType, subjectId: subjectId, marksType: marksType},
         success: function (data) {
 //            alertPopup(data[0].tab1Marks)
-            if(data.tab1Marks) {
+            if (data.tab1Marks) {
                 $('#tab1Marks').val(data.tab1Marks)
                 $('#tab2Marks').val(data.tab2Marks)
             }
@@ -347,40 +350,40 @@ function populateStudentListForMarks() {
     var program = $('#programId').val();
     var session = $('#SessionList').val();
     var semester = $('#semesterList').val();
-    var groupType= $("#groupList").val();
-    var subjectId=$("#courseCode").val()
-    var marksType=$("#marksType").val()
+    var groupType = $("#groupList").val();
+    var subjectId = $("#courseCode").val()
+    var marksType = $("#marksType").val()
 
 
     var course = $('#courseCode').val();
-        $.ajax({
-            type: "post",
-            url: url('postExamination', 'getRollNoList', ''),
-            data: {program: program, session: session, semester: semester,groupType:groupType,subjectId:subjectId,marksType:marksType},
-            success: function (data) {
-                $('#rollNoList').empty()
-                if(data.length>0){
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'getRollNoList', ''),
+        data: {program: program, session: session, semester: semester, groupType: groupType, subjectId: subjectId, marksType: marksType},
+        success: function (data) {
+            $('#rollNoList').empty()
+            if (data.length > 0) {
 
-                    for (var i=0;i<data.length;i++){
-                        $('#rollNoList').append('<option value="'+data[i]+'">'+data[i]+'</option>')
-                    }
-                    document.getElementById("dataTable").style.visibility = "visible";
-                    document.getElementById("buttonDiv").style.visibility = "visible";
-                    $("#rollNoList option:first").attr('selected','selected');
-                    $('#marksValue').focus();
+                for (var i = 0; i < data.length; i++) {
+                    $('#rollNoList').append('<option value="' + data[i] + '">' + data[i] + '</option>')
                 }
-                else{
-                    sorryPopup("No Roll numbers found.")
-                }
-
+                document.getElementById("dataTable").style.visibility = "visible";
+                document.getElementById("buttonDiv").style.visibility = "visible";
+                $("#rollNoList option:first").attr('selected', 'selected');
+                $('#marksValue').focus();
             }
-        });
+            else {
+                sorryPopup("No Roll numbers found.")
+            }
+
+        }
+    });
 }
 
-function updateMisMatchMarks(){
+function updateMisMatchMarks() {
     validationPostExam()
     var result = $('#marksUpdate').valid()
-    if(result) {
+    if (result) {
         var studentId = $('#rollNoList').val()
         var program = $('#programId').val();
         var session = $('#SessionList').val();
@@ -407,7 +410,7 @@ function updateMisMatchMarks(){
     }
 }
 
-function setSessions(){
+function setSessions() {
     $.ajax({
         type: "post",
         url: url('report', 'getSessionList', ''),
@@ -416,7 +419,7 @@ function setSessions(){
         success: function (data) {
             $(".allSession").empty().append('')
             for (var i = 0; i < data.length; i++) {
-                $(".allSession").append('<option value="' + data[i] + '">' + data[i]+'-'+ (data[i]+1) + '</option>')
+                $(".allSession").append('<option value="' + data[i] + '">' + data[i] + '-' + (data[i] + 1) + '</option>')
             }
         }, error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log("response in error")
@@ -426,77 +429,76 @@ function setSessions(){
 }
 
 
-function updateMarksType(id){
+function updateMarksType(id) {
     marksTypeId = id
     alert(marksTypeId)
     window.location.href = '/UniversityProject/marksType/createMarksType?marksTypeId=' + marksTypeId;
 }
-function deleteMarksType(id){
+function deleteMarksType(id) {
     marksTypeId = id
 //    alert(bankId)
     window.location.href = '/UniversityProject/marksType/deleteMarksType?marksTypeId=' + marksTypeId;
 }
 
 
-function saveMarks(){
-    if($("#rollNoList").val()){
-       $.ajax({
-        type: "post",
-        url: url('postExamination', 'saveMarks', ''),
-       data: {program: $('#programId').val(), session: $('#SessionList').val(), semester:  $('#semesterList').val(),groupType:$("#groupList").val(),
-               subjectId:$("#courseCode").val(),marksType:$("#marksType").val(),rollNoId:$("#rollNoList").val(),marksValue:$("#marksValue").val()},
-        success: function (data) {
-
-            $("#marksValue").val('')
-            populateStudentListForMarks()
-
-        }
-         });
-    }
-    else{
-            alert(" There is no roll numbers to enter marks")
-        }
-
-
-
-}
-
-function enableSession(){
-
+function saveMarks() {
+    if ($("#rollNoList").val()) {
         $.ajax({
             type: "post",
-            url: url('postExamination', 'getStudentSession', ''),
-           success: function (data) {
-               $('#studentSession').empty().append('<option value="">Select Student Session</option>')
-               if(data.length>0){
-                   for (var i=0;i<data.length;i++){
-                       $('#studentSession').append('<option value="'+data[i]+'">'+data[i]+'</option>')
-                   }
-                   $("#studentSession").attr('disabled',false)
+            url: url('postExamination', 'saveMarks', ''),
+            data: {program: $('#programId').val(), session: $('#SessionList').val(), semester: $('#semesterList').val(), groupType: $("#groupList").val(),
+                subjectId: $("#courseCode").val(), marksType: $("#marksType").val(), rollNoId: $("#rollNoList").val(), marksValue: $("#marksValue").val()},
+            success: function (data) {
 
-               }
+                $("#marksValue").val('')
+                populateStudentListForMarks()
 
             }
         });
+    }
+    else {
+        alert(" There is no roll numbers to enter marks")
+    }
 
 
 }
 
-function disableAllSelectBox(){
+function enableSession() {
+
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'getStudentSession', ''),
+        success: function (data) {
+            $('#studentSession').empty().append('<option value="">Select Student Session</option>')
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#studentSession').append('<option value="' + data[i] + '">' + data[i] + '</option>')
+                }
+                $("#studentSession").attr('disabled', false)
+
+            }
+
+        }
+    });
+
+
+}
+
+function disableAllSelectBox() {
 
     $("select").attr("disabled", true);
-    $("#showButton").attr("disabled",false)
-    $("#resetButton").attr("disabled",false)
-    $("#setButton").attr("disabled",true)
+    $("#showButton").attr("disabled", false)
+    $("#resetButton").attr("disabled", false)
+    $("#setButton").attr("disabled", true)
     $("#rollNoList").attr("disabled", false);
 
 }
 
-function enableAllSelectBox(){
+function enableAllSelectBox() {
     $("select").attr("disabled", false);
-    $("#showButton").attr("disabled",true)
-    $("#resetButton").attr("disabled",true)
-    $("#setButton").attr("disabled",false)
+    $("#showButton").attr("disabled", true)
+    $("#resetButton").attr("disabled", true)
+    $("#setButton").attr("disabled", false)
 
 //    $("#rollNoList").attr("disabled",true)
 
@@ -504,14 +506,14 @@ function enableAllSelectBox(){
     document.getElementById("buttonDiv").style.visibility = "hidden";
 }
 
-function enableButtonOfMissMatch(){
+function enableButtonOfMissMatch() {
     $("input[type=button]").removeAttr("disabled");
 
 }
 
 
-function matchMarks(){
-    if($("#marksValue").length!=0) {
+function matchMarks() {
+    if ($("#marksValue").length != 0) {
         if ($("#marksValue").val().length > 1) {
             $.ajax({
                 type: "post",
@@ -521,27 +523,27 @@ function matchMarks(){
                 success: function (data) {
 
                     if (data.status == false) {
-                        alertPopup("Current entered marks did not match,the marks entered by "+data.tabulator)
+                        alertPopup("Current entered marks did not match,the marks entered by " + data.tabulator)
 
                     }
                 }
             });
         }
     }
-    else{
+    else {
         alert(" There is no roll numbers to enter marks")
     }
 
 }
-function getTabulatorSession(t){
-    var program=$(t).val()
+function getTabulatorSession(t) {
+    var program = $(t).val()
     $.ajax({
         type: "post",
         url: url('postExamination', 'getTabulatorSession', ''),
         data: {program: program},
         success: function (data) {
-            if(data.session){
-                $('#SessionList').prop('disabled',false)
+            if (data.session) {
+                $('#SessionList').prop('disabled', false)
                 $("#SessionList").empty().append('data <option value="">Select Session</option>')
                 for (var j = 0; j < data.session.length; j++) {
                     $("#SessionList").append('<option value="' + data.session[j].id + '">' + data.session[j].sessionOfProgram + '</option>')
@@ -551,61 +553,60 @@ function getTabulatorSession(t){
         }
     })
 }
-function getSemesterForMarksUpdate(t){
-    var program=$('#programId').val()
-    var session=$(t).val()
+function getSemesterForMarksUpdate(t) {
+    var program = $('#programId').val()
+    var session = $(t).val()
     $.ajax({
         type: "post",
         url: url('postExamination', 'getSemesterForMarksUpdate', ''),
-        data: {program: program,session:session},
+        data: {program: program, session: session},
         success: function (data) {
-            if(data.semesterList){
-                $('#semesterList').prop('disabled',false)
+            if (data.semesterList) {
+                $('#semesterList').prop('disabled', false)
                 $('#semesterList').empty().append("<option value=''>Select Semester</option>")
 
-                for(var i=0;i<data.semesterList.length;i++){
-                    $('#semesterList').append("<option value='"+data.semesterList[i].id+"'>"+data.semesterList[i].semesterNo+"</option>")
+                for (var i = 0; i < data.semesterList.length; i++) {
+                    $('#semesterList').append("<option value='" + data.semesterList[i].id + "'>" + data.semesterList[i].semesterNo + "</option>")
                 }
             }
         }
     });
 }
-function generateResults(){
-    var program=$('#programId').val()
-    var sessionId=$('#SessionList').val()
-    var semesterId=$('#semesterList').val()
+function generateResults() {
+    var program = $('#programId').val()
+    var sessionId = $('#SessionList').val()
+    var semesterId = $('#semesterList').val()
     $.ajax({
         type: "post",
         url: url('postExamination', 'generateResults', ''),
         data: {program: program, session: session},
         success: function (data) {
-            if(data.status){
+            if (data.status) {
 
             }
-            else{
+            else {
                 sorryPopup(data.msg)
             }
 
         }
     })
 }
-function getTabulatorSemester(t){
-    var program=$('#programId').val()
-    var session=$(t).val()
+function getTabulatorSemester(t) {
+    var program = $('#programId').val()
+    var session = $(t).val()
     $.ajax({
         type: "post",
         url: url('postExamination', 'getTabulatorSemester', ''),
-        data: {program: program,session:session},
+        data: {program: program, session: session},
         success: function (data) {
-            if(data.tabSemesterList){
-                $('#semesterList').prop('disabled',false)
+            if (data.tabSemesterList) {
+                $('#semesterList').prop('disabled', false)
                 $('#semesterList').empty().append("<option value=''>Select Semester</option>")
 
-                for(var i=0;i<data.tabSemesterList.length;i++)
-                {
-                    for(var j=0;j<data.tabSemesterList[i].length;j++){
-                         $('#semesterList').append("<option value='"+data.tabSemesterList[i][j].id+"'>"+data.tabSemesterList[i][j].semesterNo+"</option>")
-                        }
+                for (var i = 0; i < data.tabSemesterList.length; i++) {
+                    for (var j = 0; j < data.tabSemesterList[i].length; j++) {
+                        $('#semesterList').append("<option value='" + data.tabSemesterList[i][j].id + "'>" + data.tabSemesterList[i][j].semesterNo + "</option>")
+                    }
                 }
 //
             }
@@ -613,8 +614,8 @@ function getTabulatorSemester(t){
         }
     })
 }
-function alertPopup(data){
-    var dialog=$("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>"+data+".</p></div>").dialog({
+function alertPopup(data) {
+    var dialog = $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>" + data + ".</p></div>").dialog({
         title: "Alert!",
         resizable: false,
         modal: true,
@@ -624,13 +625,13 @@ function alertPopup(data){
             }
         }
     });
-    setTimeout(function(){
+    setTimeout(function () {
         dialog.dialog('destroy');
-    },3000);
+    }, 3000);
 }
 
-function sorryPopup(data){
-    var dialog=$("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>"+data+".</p></div>").dialog({
+function sorryPopup(data) {
+    var dialog = $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>" + data + ".</p></div>").dialog({
         title: "Sorry",
         resizable: false,
         modal: true,
@@ -640,13 +641,13 @@ function sorryPopup(data){
             }
         }
     });
-    setTimeout(function(){
+    setTimeout(function () {
         dialog.dialog('destroy');
-    },3000);
+    }, 3000);
 }
 
-function successPopup(data){
-    var dialog=$("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>"+data+".</p></div>").dialog({
+function successPopup(data) {
+    var dialog = $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>" + data + ".</p></div>").dialog({
         title: "Success",
         resizable: false,
         modal: true,
@@ -656,7 +657,67 @@ function successPopup(data){
             }
         }
     });
-    setTimeout(function(){
+    setTimeout(function () {
         dialog.dialog('destroy');
-    },3000);
+    }, 3000);
+}
+function loadVenueProgram(t) {
+    var venue = $(t).val()
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'loadVenueProgram', ''),
+        data: {venue: venue},
+        success: function (data) {
+            if (data) {
+                $('#programId').empty().append('<option value="">Select Program</option>')
+                for (var i = 0; i < data.length; i++) {
+                    $('#programId').append('<option value="' + data[i].id + '">' + data[i].courseName + '</option>')
+                }
+            }
+        }
+    })
+}
+function enableLoadAbsentee() {
+    $('#loadAbsentee').prop('disabled', false)
+}
+function loadAbsenteeRollNo() {
+    var examVenue = $('#examVenue').val();
+    var session = $('#SessionList').val();
+    var semester = $('#semesterList').val();
+//    var groupType= $("#groupList").val();
+//    var subjectId=$("#courseCode").val()
+    $.ajax({
+        type: "post",
+        url: url('postExamination', 'loadAbsenteeRollNo', ''),
+        data: {examVenue: examVenue, session: session, semester: semester},
+        success: function (data) {
+            if (data) {
+                $('#canselect_code').empty()
+                for (var i = 0; i < data.length; i++) {
+                    $('#canselect_code').append('<option value="' + data[i].id + '">' + data[i].rollNo + '</option>')
+                }
+                $('#canselect_code').prop('disabled', false)
+                $('#add').prop('disabled', false)
+                $('#remove').prop('disabled', false)
+                $('#isselect_code').prop('disabled', false)
+                $('#absenteeSave').prop('disabled', false)
+                $('#absenteeCancel').prop('disabled', false)
+            }
+        }
+    })
+}
+function valueInBox() {
+    $('#canselect_code').find('option:selected').remove().appendTo('#isselect_code');
+
+//    for (var i = 0; i < $('#canselect_code').find('option:selected').length; i++) {
+//        if ($('#studentAddedList').val() == '') {
+//            $('#studentAddedList').val($('#canselect_code').find('option:selected').val())
+//        }
+//        else{
+//            $('#studentAddedList').val($('#studentAddedList').val()+","+$('#canselect_code').find('option:selected').val())
+//        }
+//    }
+}
+function valueOutBox() {
+    $('#isselect_code').find('option:selected').remove().appendTo('#canselect_code');
 }

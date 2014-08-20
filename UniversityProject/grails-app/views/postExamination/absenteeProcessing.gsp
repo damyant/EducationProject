@@ -16,14 +16,7 @@
 
 <body>
 <script>
-    function valueInBox() {
-    $('#btnRight_code').click(function (e) {
-        $(this).prev('select').find('option:selected').remove().appendTo('#isselect_code');
-    });
-    $('#btnLeft_code').click(function (e) {
-        $(this).next('select').find('option:selected').remove().appendTo('#canselect_code');
-    });
-    }
+
 </script>
 
 <script>
@@ -43,9 +36,7 @@
 <div id="main">
     <fieldset class="form">
         <h3>Absentee Processing</h3>
-        <g:form name="" id="" controller="postExamination" action="">
-            <g:hiddenField name="studentListId" id="studentListId" value="" />
-            <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
+        <g:form name="absenteeProcess" id="absenteeProcess" controller="postExamination" action="saveAbsentee">
 
             <g:if test="${flash.message}">
                 <div class="message"><div class="university-status-message">${flash.message}</div></div>
@@ -60,9 +51,7 @@
                     <td>Exam Venue<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="examVenue" id="examVenue" optionKey="id" class="university-size-1-2"
-                                  value=""
-                                  optionValue="" from="" noSelection="['': ' Select Exam Venue']"
-                        />
+                                  value="id" optionValue="name" from="${examVenueList}" onchange="loadVenueProgram(this)" noSelection="['': ' Select Exam Venue']"/>
                     </td>
                 </tr>
 
@@ -70,35 +59,36 @@
                 <tr>
                     <td>Program<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="programId" id="programId" optionKey="id" class="university-size-1-2"
+                        <g:select name="programId" id="programId" optionKey="" class="university-size-1-2"
                                   value=""
-                                  optionValue="courseName" from="${ProgramDetail.list(sort: 'courseCode')}" noSelection="['': ' Select Program']"
-                                  onchange="loadSession(this)"
+                                  optionValue="" from="" noSelection="['': ' Select Program']"
+                                  onchange="getTabulatorSession(this)"
                         />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Program Session<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="SessionList" id="SessionList" optionKey="id" class="university-size-1-2"
+                                  value="" optionValue="session" from="" noSelection="['': ' Select Session']" disabled="true"  onchange="loadSemester(this)" />
                     </td>
                 </tr>
 
-                <!----------------------------------------- Session Name --------------------------------------------->
-                <tr>
-                    <td>Session<span class="university-obligatory">*</span></td>
-                    <td>
-                        <g:select name="session" id="session" optionKey="id" class="university-size-1-2"
-                                  value=""
-                                  optionValue="session" from="" noSelection="['': ' Select Session']"
-                                  onchange="loadSemester(this)"
-                        />
-                    </td>
-                </tr>
 
                 <!----------------------------------------- Semester Name --------------------------------------------->
                 <tr>
                     <td>Semester<span class="university-obligatory">*</span></td>
                     <td>
-                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2"
-                                  value=""
-                                  optionValue="" from="" noSelection="['': ' Select Semester']"
-                                  onchange="loadCourse()"
-                        />
+                        <g:select name="programTerm" id="semesterList" optionKey="" class="university-size-1-2" disabled="true"
+                                  value="" optionValue="" from="" noSelection="['': ' Select Semester']" onchange="loadGroup()" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Group<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="groupId" id="groupList" optionKey="" class="university-size-1-2"
+                                  value="" optionValue="" from="" noSelection="['': ' Select Group']" onchange="loadCourse()" disabled="true" />
                     </td>
                 </tr>
 
@@ -107,44 +97,50 @@
                     <td>Course<span class="university-obligatory">*</span></td>
                     <td>
                         <g:select name="courseCode" id="courseCode" optionKey="id" class="university-size-1-2"
-                                  value=""
-                                  optionValue="courseCode" from="" noSelection="['': ' Select Course']"/>
+                                  value="" optionValue="courseCode" from="" noSelection="['': ' Select Course']" disabled="true" onchange="loadMarksType(this),enableMarksType()" />
                     </td>
                 </tr>
 
                 <tr>
+                    <td>Marks Type<span class="university-obligatory">*</span></td>
+                    <td>
+                        <g:select name="marksType" id="marksType" optionKey="" class="university-size-1-2"
+                                  value="" optionValue="" from="" noSelection="['': ' Select Marks Type']" disabled="true" onchange="enableLoadAbsentee()"/>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <input type="button" disabled id="loadAbsentee" value="Load Roll Numbers" class="university-size-1-4 university-button"onclick="loadAbsenteeRollNo()"/>
+                    </td>
+                </tr>
+                <tr>
                     <td style="text-align: center">
-                    <div>
-                        <select id='canselect_code' name='canselect_code' multiple class="university-size-1-3">
-                            <option>All Roll Numbers</option>
-                            <option value='1'>11111</option>
-                            <option value='2'>22222</option>
-                            <option value='3'>33333</option>
-                            <option value='4'>44444</option>
-                            <option value='5'>55555</option>
+                        <div style="margin: 10px;">All Roll Number</div>
+                    <div  style="line-height: 50px;">
+                        <select id='canselect_code' name='canselect_code' disabled multiple class="university-size-1-3">
+
                         </select>
-                        <input type='button' id='btnRight_code' value=' ADD >>  '  onclick="valueInBox()"/>
+                        <input type='button' id="add" style="vertical-align: middle;margin-top: -40px; border-radius: 6px;" disabled id='btnRight_code' value='==>>' class="university-button" onclick="valueInBox()"/>
                     </div>
                     </td>
                     <td style="text-align: center">
-                    <div>
-                        <input type='button' id='btnLeft_code' value=' REMOVE <<  ' onclick="valueInBox()"/>
-                        <select id='isselect_code' name='isselect_code' multiple class="university-size-1-3">
-                            <option>Absentee Roll Numbers</option>
-                            <option value='6'>66666</option>
-                            <option value='7'>77777</option>
-                            <option value='8'>88888</option>
-                            <option value='9'>99999</option>
-                            <option value='10'>10000</option>
+                        <div style="margin: 10px;">Absentee Roll Number</div>
+                    <div style="line-height: 50px;">
+                        <input type='button' id="remove" style="vertical-align:middle;margin-top: -40px;border-radius: 6px;" id='btnLeft_code' disabled value='<<==' class="university-button" onclick="valueOutBox()"/>
+                        <select id='isselect_code' disabled name='isselect_code' multiple class="university-size-1-3">
+
                         </select>
+                        <input type="hidden" id="studentAddedList" value="">
                     </div>
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="2" style="text-align: center">
-                        <input type="button" value="Save" onclick="validate()" class="university-button">
-                        <input type="reset" value="Cancel" onclick="resetImage()" class="university-button">
+                        <input type="submit" disabled id="absenteeSave" value="Save" onclick="validate()" class="university-button">
+                        <input type="reset" disabled id="absenteeCancel" value="Cancel" onclick="resetImage()" class="university-button">
                     </td>
                 </tr>
 

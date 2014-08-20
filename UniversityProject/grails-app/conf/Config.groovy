@@ -123,6 +123,6 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.university.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.university.UserRole'
 grails.plugins.springsecurity.authority.className = 'com.university.Role'
-
+xmlPath='D:\\mySpace\\myXml.xml'
 
 

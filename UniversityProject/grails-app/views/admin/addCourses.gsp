@@ -46,43 +46,34 @@
             <td>
                 <g:select id="programTypeId" name="programTypeId"
                           from="${programTypeList}" optionKey="id" value="${courseList?.programTypeId?.id}"
-                          optionValue="type" class="many-to-one university-size-1-2"
+                          optionValue="type" class="many-to-one university-size-2-3"
                           noSelection="['': 'Choose Type']"/>
             </td>
         </tr>
-
-        %{--<tr>--}%
-            %{--<td class="university-size-1-3"><p>Course Code :<span class="university-obligatory">*</span>--}%
-            %{--</p></td>--}%
-            %{--<td class="university-size-2-3"><g:textField name="subjectCode" id="subjectCode"--}%
-                                                         %{--class="university-size-1-2" required="true"--}%
-                                                         %{--onkeypress="return isNumber(event)"--}%
-            %{--/></td>--}%
-        %{--</tr>--}%
-
         <tr>
-            <td class="university-size-1-3"><p>Course Name <span class="university-obligatory">*</span>
+            <td class="university-size-1-4"><p>Course Name <span class="university-obligatory">*</span>
             </p></td>
-            <td class="university-size-2-3"><g:textField name="subjectName" id="subjectName" maxlength="150" value="${courseList?.subjectName}"
-                                                         class="university-size-1-2"/>
+            <td class="university-size-1-2"><g:textField name="subjectName" id="subjectName" maxlength="150" value="${courseList?.subjectName}"
+                                                         class="university-size-2-3"/>
                 <input type="hidden" value="${courseList?.id}" name="subjectId"/>
 
             </td>
+            <td class="university-size-1-4"></td><td class="university-size-1-4"></td>
         </tr>
         <tr>
-            <td class="university-size-1-3"><p>Course Code <span class="university-obligatory">*</span>
+            <td class="university-size-1-4"><p>Course Code <span class="university-obligatory">*</span>
             </p></td>
-            <td class="university-size-2-3"><g:textField name="subjectCode" id="subjectCode" maxlength="6"  value="${courseList?.subjectCode}"
-                                                         onchange="checkSubjectCode()" class="university-size-1-2"/>
+            <td class="university-size-1-4"><g:textField name="subjectCode" id="subjectCode" maxlength="6"  value="${courseList?.subjectCode}"
+                                                         onchange="checkSubjectCode()" class="university-size-2-3"/>
                 <label id="errorMsg" class="error1"></label>
 
             </td>
         </tr>
         <tr>
-            <td class="university-size-1-3"><p>Course Session <span class="university-obligatory">*</span>
+            <td class="university-size-1-4"><p>Course Session <span class="university-obligatory">*</span>
             </p></td>
-            <td class="university-size-2-3">
-                <select id="sessionOfCourse" name="session" class="university-size-1-2">
+            <td class="university-size-1-4">
+                <select id="sessionOfCourse" name="session" class="university-size-2-3">
                     <option value="0">Select Session</option>
                     <g:each in="${subjectSessions}" var="session">
                         <option value="${session.sessionOfProgram}">${session.sessionOfProgram}</option>
@@ -91,49 +82,61 @@
             </td>
         </tr>
         <tr>
-            <td class="university-size-1-3"><p>Alias Code <span class="university-obligatory">*</span>
+            <td class="university-size-1-4"><p>Alias Code <span class="university-obligatory">*</span>
             </p></td>
-            <td class="university-size-2-3"><g:textField name="aliasCode" id="aliasCode" maxlength="6" value="${courseList?.aliasCode}"
-                                                         onchange="checkAliasCode()" class="university-size-1-2"/>
+            <td class="university-size-1-4"><g:textField name="aliasCode" id="aliasCode" maxlength="6" value="${courseList?.aliasCode}"
+                                                         onchange="checkAliasCode()" class="university-size-2-3"/>
                 <label id="errorMsg1" class="error1"></label>
 
             </td>
         </tr>
         <tr>
-            <td class="university-size-1-3"><p>Credit Points <span class="university-obligatory">*</span>
+            <td class="university-size-1-4"><p>Credit Points <span class="university-obligatory">*</span>
             </p></td>
-            <td class="university-size-2-3"><g:textField name="creditPoints" id="creditPoints" onkeypress="return isNumber(event)" maxlength="4"  value="${courseList?.creditPoints}"
-                                                         class="university-size-1-2"/>
+            <td class="university-size-1-4"><g:textField name="creditPoints" id="creditPoints" onkeypress="return isNumber(event)" maxlength="4"  value="${courseList?.creditPoints}"
+                                                         class="university-size-2-3"/>
 
             </td>
         </tr>
 
-        <g:each in="${marksTypeList}" var="marksType" status="i">
-            <g:set var="counter" value="${i+1}" />
-
            <tr>
-               <td>${marksType.marksTypeName}</td></tr>
-            <tr><td>Min Passing Marks</td><td><g:textField name="minPassingMarks" maxlength="3" onkeypress="return isNumber(event)" id="${marksType.marksTypeName}"
-                                                           value="${marksMap.get('key'+ counter)?.minPassingMarks}"
-                                                           /></td>
-               <td>Total Marks</td><td class="university-size-2-3"><g:textField name="totalMarks" maxlength="3" onkeypress="return isNumber(event)" id="${marksType.marksTypeName}"
-                                                            value="${marksMap.get('key'+ counter)?.marks}"
-                                                            />
+               <td colspan="4" style="background-color:grey; "><strong>Theory Marks</strong></td></tr>
+            <tr><td>Total Marks</td><td><g:textField name="theoryTotal" maxlength="3" onkeypress="return isNumber(event)" id="theoryTotal"
+                                                           value=""/>
+            </td>
+               <td>Pass Marks</td><td class="university-size-2-3"><g:textField name="theoryPass" maxlength="3" onkeypress="return isNumber(event)" id="theoryPass"
+                                                            value=""/>
                </td>
 
            </tr>
+        <tr>
+            <td colspan="4" style="background-color:grey; "><strong>Home Assignment Marks</strong></td></tr>
+        <tr><td>Total Marks</td><td><g:textField name="homeTotal" maxlength="3" onkeypress="return isNumber(event)" id="homeTotal" value=""/>
+
+            <td>Pass Marks</td><td class="university-size-2-3"><g:textField name="homePass" maxlength="3" onkeypress="return isNumber(event)" id="homePass" value=""/>
+
+        </tr>
+
+        <tr>
+            <td colspan="4" style="background-color:grey; "><strong>Practical Marks</strong></td></tr>
+        <tr><td>Total Marks</td><td><g:textField name="practicalTotal" maxlength="3" onkeypress="return isNumber(event)" id="practicalTotal"
+                                                 value=""/>
+            <td>Pass Marks</td><td class="university-size-2-3"><g:textField name="practicalPass" maxlength="3" onkeypress="return isNumber(event)" id="practicalPass"
+                                                                            value=""/>
 
 
-            %{--<g:javascript>--}%
-                     %{--feeTypeList.push(${fee?.id})--}%
-
-            %{--</g:javascript>--}%
-
-        </g:each>
+        </tr>
+        <tr>
+            <td colspan="4" style="background-color:grey; "><strong>Project Marks</strong></td></tr>
+        <tr><td>Total Marks</td><td><g:textField name="projectTotal" maxlength="3" onkeypress="return isNumber(event)" id="projectTotal"
+                                                 value=""/>
+            <td>Pass Marks</td><td class="university-size-2-3"><g:textField name="projectPass" maxlength="3" onkeypress="return isNumber(event)" id="projectPass"
+                                                                            value=""/>
+        </tr>
 
 
         <tr><td colspan="2" style="text-align: center; ">
-            <g:submitButton name="submit" class="university-button" value="Save" onclick="validate()"
+            <g:submitButton name="submit" class="university-size-1-3" value="Save" onclick="validate()"
                                                                          style="margin-top: 15px;"></g:submitButton></td>
         </tr>
 
