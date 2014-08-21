@@ -221,6 +221,7 @@ class CourseDetailService {
     }
 
     def saveCourseDetail(params) {
+        println("-----------------------"+params)
         def subjectIns
         def isSaved =""
 
@@ -259,21 +260,56 @@ class CourseDetailService {
                     it.delete()
                 }
             }
-
-            def marksTypeList = MarksType.list()
-            def i = 0
-
-            marksTypeList.each {
-                if (params.totalMarks[i]) {
                     def subjectMarksDetailIns = new SubjectMarksDetail()
-                    subjectMarksDetailIns.marks = Integer.parseInt(params.totalMarks[i].toString())
-                    subjectMarksDetailIns.minPassingMarks = Integer.parseInt(params.minPassingMarks[i].toString())
-                    subjectMarksDetailIns.marksTypeId = it
+                    if(params.theoryTotal){
+                        if(params.theoryTotal!='0') {
+                            subjectMarksDetailIns.theory = true
+                        }
+                        else{
+                            subjectMarksDetailIns.theory=false
+                        }
+                    }
+                    else{
+                        subjectMarksDetailIns.theory=false
+                    }
+                    if(params.homeTotal){
+                        if(params.home!='0') {
+                            subjectMarksDetailIns.home = true
+                        }
+                        else{
+                            subjectMarksDetailIns.home=false
+                        }
+                    }
+                    else{
+                        subjectMarksDetailIns.home=false
+                    }
+                    if(params.practicalTotal){
+                        if(params.practical!='0') {
+                            subjectMarksDetailIns.practical = true
+                        }
+                        else{
+                            subjectMarksDetailIns.practical=false
+                        }
+                    }
+                    else{
+                        subjectMarksDetailIns.practical=false
+                    }
+                    if(params.projectTotal){
+                        if(params.project!='0') {
+                            subjectMarksDetailIns.project = true
+                        }
+                        else{
+                            subjectMarksDetailIns.project=false
+                        }
+                    }
+                    else{
+                        subjectMarksDetailIns.project=false
+                    }
                     subjectMarksDetailIns.subjectSession = sessionObj
                     subjectMarksDetailIns.save(failOnError: true)
-                }
-                ++i
-            }
+//                }
+//                ++i
+//            }
 
 
         }

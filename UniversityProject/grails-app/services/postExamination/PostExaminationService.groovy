@@ -153,83 +153,118 @@ class PostExaminationService {
                 resultList << counter
                 resultList << stuList[i].rollNo
                 for (def j = 0; j < courseList.size(); j++) {
-                    def marksTypeObj = SubjectMarksDetail.findAllBySubjectSession(courseList[j]).marksTypeId
+                    def missMatchBlank=false,missMatch=false
+                    def marksTypeObj=[]
+                    def subMarksInst= SubjectMarksDetail.findAllBySubjectSession(courseList[j])
+                    if(subMarksInst.theory){
+                        marksTypeObj<<MarksType.findById(1)
+                    }
+                    if(subMarksInst.home){
+                        marksTypeObj<<MarksType.findById(2)
+                    }
+                    if(subMarksInst.practical){
+                        marksTypeObj<<MarksType.findById(3)
+                    }
+                    if(subMarksInst.project){
+                        marksTypeObj<<MarksType.findById(4)
+                    }
+                    if (i == 0) {
+                        headerList << courseList[j].subjectId.subjectName
+                    }
                     marksTypeObj.each {
                         def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId, stuList[i], Role.get(9))
                         def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleId(courseList[j].subjectId, stuList[i], Role.get(10))
-                        if (i == 0) {
-                            headerList << courseList[j].subjectId.subjectName
-                            marksType << it.marksTypeName
+                        if(!missMatch) {
+                            if (stuMarks1 == null && stuMarks2 == null) {
+                                missMatchBlank = true
+                            } else if (stuMarks1?.theoryMarks != stuMarks2?.theoryMarks && it.id == 1) {
+                                missMatch = true
+                                missMatchBlank = false
+                            } else if (stuMarks1?.practicalMarks != stuMarks2?.practicalMarks && it.id == 2) {
+                                missMatch = true
+                                missMatchBlank = false
+                            } else if (stuMarks1?.homeAssignmentMarks != stuMarks2?.homeAssignmentMarks && it.id == 3) {
+                                missMatch = true
+                                missMatchBlank = false
+                            } else if (stuMarks1?.project != stuMarks2?.project && it.id == 4) {
+                                missMatch = true
+                                missMatchBlank = false
+                            } else if (stuMarks1 != null && stuMarks2 == null) {
+                                missMatch = true
+                                missMatchBlank = false
+                            } else if (stuMarks1 == null && stuMarks2 != null) {
+                                missMatch = true
+                                missMatchBlank = false
+                            }
                         }
-                        if (stuMarks1 == null && stuMarks2 == null) {
-                            resultList << "X"
-                        } else if (stuMarks1?.theoryMarks != stuMarks2?.theoryMarks && it.id==1) {
-                            resultList << "?"
-                            checkFlag = true
-                        }
-                        else if (stuMarks1?.practicalMarks != stuMarks2?.practicalMarks && it.id==2) {
-                            resultList << "?"
-                            checkFlag = true
-                        }
-                        else if (stuMarks1?.homeAssignmentMarks != stuMarks2?.homeAssignmentMarks && it.id==3) {
-                            resultList << "?"
-                            checkFlag = true
-                        }
-                        else if (stuMarks1?.project != stuMarks2?.project && it.id==4) {
-                            resultList << "?"
-                            checkFlag = true
-                        }
-                        else if (stuMarks1 != null && stuMarks2 == null) {
-                            resultList << "?"
-                            checkFlag = true
-                        } else if (stuMarks1 == null && stuMarks2 != null) {
-                            resultList << "?"
-                            checkFlag = true
-                        } else {
-                            resultList << ""
-                        }
+                    }
+                    if(!missMatchBlank && !missMatch){
+                        resultList << ""
+                    }
+                    else if(missMatchBlank){
+                        resultList << "X"
+                    }
+                    else if(missMatch){
+                        resultList << "?"
                     }
                 }
                 if (groupSubList.size() > 0) {
                     for (def j = 0; j < groupSubList.size(); j++) {
                         for (def k = 0; k < groupSubList[j].size(); k++) {
-                            def marksTypeObj = SubjectMarksDetail.findAllBySubjectSession(groupSubList[j]).marksTypeId
+                            def missMatchBlank=false,missMatch=false
+                            def marksTypeObj = []
+                            def subMarksInst= SubjectMarksDetail.findAllBySubjectSession(groupSubList[j])
+                            if(subMarksInst.theory){
+                                marksTypeObj<<MarksType.findById(1)
+                            }
+                            if(subMarksInst.home){
+                                marksTypeObj<<MarksType.findById(2)
+                            }
+                            if(subMarksInst.practical){
+                                marksTypeObj<<MarksType.findById(3)
+                            }
+                            if(subMarksInst.project){
+                                marksTypeObj<<MarksType.findById(4)
+                            }
+                            if (j == 0) {
+                                headerList << groupSubList[j].subjectId.subjectName
+                            }
                             marksTypeObj.each {
                                 def stuMarks1 = StudentMarks.findBySubjectIdAndStudentAndRoleId(groupSubList[j].subjectId, stuList[i], Role.get(9))
                                 def stuMarks2 = StudentMarks.findBySubjectIdAndStudentAndRoleId(groupSubList[j].subjectId, stuList[i], Role.get(10))
-                                if (j == 0) {
-                                    headerList << groupSubList[j].subjectId.subjectName
-                                    marksType << it.marksTypeName
-                                }
-                                if (stuMarks1 == null && stuMarks2 == null) {
-                                    resultList << "X"
-                                }
-                                else if (stuMarks1?.theoryMarks != stuMarks2?.theoryMarks && it.id==1) {
-                                    resultList << "?"
-                                    checkFlag = true
-                                }
-                                else if (stuMarks1?.practicalMarks != stuMarks2?.practicalMarks && it.id==2) {
-                                    resultList << "?"
-                                    checkFlag = true
-                                }
-                                else if (stuMarks1?.homeAssignmentMarks != stuMarks2?.homeAssignmentMarks && it.id==3) {
-                                    resultList << "?"
-                                    checkFlag = true
-                                }
-                                else if (stuMarks1?.project != stuMarks2?.project && it.id==4) {
-                                    resultList << "?"
-                                    checkFlag = true
-                                }
-                                else if (stuMarks1 != null && stuMarks2 == null) {
-                                    resultList << "?"
-                                    checkFlag = true
-                                } else if (stuMarks1 == null && stuMarks2 != null) {
-                                    resultList << "?"
-                                    checkFlag = true
-                                } else {
-                                    resultList << ""
-                                }
 
+                                if(!missMatch) {
+                                    if (stuMarks1 == null && stuMarks2 == null) {
+                                        missMatchBlank = true
+                                    } else if (stuMarks1?.theoryMarks != stuMarks2?.theoryMarks && it.id == 1) {
+                                        missMatch = true
+                                        missMatchBlank = false
+                                    } else if (stuMarks1?.practicalMarks != stuMarks2?.practicalMarks && it.id == 2) {
+                                        missMatch = true
+                                        missMatchBlank = false
+                                    } else if (stuMarks1?.homeAssignmentMarks != stuMarks2?.homeAssignmentMarks && it.id == 3) {
+                                        missMatch = true
+                                        missMatchBlank = false
+                                    } else if (stuMarks1?.project != stuMarks2?.project && it.id == 4) {
+                                        missMatch = true
+                                        missMatchBlank = false
+                                    } else if (stuMarks1 != null && stuMarks2 == null) {
+                                        missMatch = true
+                                        missMatchBlank = false
+                                    } else if (stuMarks1 == null && stuMarks2 != null) {
+                                        missMatch = true
+                                        missMatchBlank = false
+                                    }
+                                }
+                            }
+                            if(!missMatchBlank && !missMatch){
+                                resultList << ""
+                            }
+                            else if(missMatchBlank){
+                                resultList << "X"
+                            }
+                            else if(missMatch){
+                                resultList << "?"
                             }
 
                    }

@@ -29,7 +29,7 @@
             <th style="font-size: 9px;text-align: center;">Roll No</th>
 
             <g:each in="${0..headerList.size()-1}" var="index">
-                <th style="font-size: 9px;width: 12%;text-align: center;">${headerList[index]}<hr/>${marksType[index]}</th>
+                <th style="font-size: 9px;width: 12%;text-align: center;">${headerList[index]}</th>
             </g:each>
             <th style="font-size: 9px;width: 12%;text-align: center;">Full/ Repeat</th>
         </tr>

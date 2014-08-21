@@ -6,7 +6,9 @@ import com.university.TabulatorSemester
 import com.university.User
 import com.university.UserRole
 import examinationproject.CourseSubject
+import examinationproject.ExaminationVenue
 import examinationproject.ProgramDetail
+import examinationproject.ProgramExamVenue
 import examinationproject.ProgramGroup
 import examinationproject.ProgramGroupDetail
 import examinationproject.ProgramSession
@@ -39,9 +41,9 @@ class PostExaminationController {
 
     }
     def marksUpdation = {
-            def programList=ProgramDetail.list(sort: 'courseCode')
-            def marksTypeList = MarksType.list()
-            [programList: programList, marksTypeList: marksTypeList]
+        def programList = ProgramDetail.list(sort: 'courseCode')
+        def marksTypeList = MarksType.list()
+        [programList: programList, marksTypeList: marksTypeList]
     }
 
 
@@ -71,8 +73,8 @@ class PostExaminationController {
         render semesterIns as JSON
     }
 
-    def semesterForMarksMisMatch={
-        println("?????"+params)
+    def semesterForMarksMisMatch = {
+        println("?????" + params)
         def semesterIns = []
         try {
             semesterIns = Semester.findAllByProgramSession(ProgramSession.get(Integer.parseInt(params.session)))
@@ -151,11 +153,11 @@ class PostExaminationController {
             projections {
                 distinct("program")
             }
-            eq('user',currentUser)
+            eq('user', currentUser)
         }
-        def programList=[]
+        def programList = []
         progList.each {
-            programList<<ProgramDetail.findById(it.id)
+            programList << ProgramDetail.findById(it.id)
         }
         def marksTypeList = MarksType.list()
         [programList: programList, marksTypeList: marksTypeList]
@@ -176,8 +178,8 @@ class PostExaminationController {
 
 
     def resultProcessing = {
-        def programList=ProgramDetail.list(sort: 'courseCode')
-        [programList:programList]
+        def programList = ProgramDetail.list(sort: 'courseCode')
+        [programList: programList]
     }
 
     def finalResult = {
@@ -185,7 +187,8 @@ class PostExaminationController {
     }
 
     def absenteeProcessing = {
-        println("Inside absenteeProcessing Action..")
+        def examVenueList = ExaminationVenue.list(sort: 'name')
+        [examVenueList: examVenueList]
     }
     def bulkMarksSheet = {
         println("Inside bulkMarksSheet Action ..")
@@ -205,6 +208,7 @@ class PostExaminationController {
         }
 
     }
+
     def xmlCreateData() {
         println("+++++++++++++++++++++++=====" + params)
         def result = marksEnteringService.createXMLFile(params)
@@ -213,55 +217,69 @@ class PostExaminationController {
     }
     def xmlParseData = {
         XmlParser parser = new XmlParser()
-        def xmldata1 = parser.parse (new FileInputStream("web-app/marks/passMarks"))
-        println(""+xmldata1)
-       xmldata1.program.each{
-           println("+++++++++++++++++++"+it.@code)
-           it.semester.each{
-               println("---------------------------"+it.@id)
-               it.subject.each{
-                   println("============================"+it.@code)
-               }
-           }
-       }
-
-    }
-    def loadMarksType(){
-        def returnMap = [:]
-        def  marksTypeList=SubjectMarksDetail.findAllBySubjectSession(SubjectSession.findBySubjectId(Subject.findById(params.subjectID))).marksTypeId
-        returnMap.marksTypeList=marksTypeList
-        render returnMap as JSON
-    }
-    def getTabulatorSession={
-        def returnMap = [:]
-        def programSession = ProgramSession.findAllByProgramDetailId(ProgramDetail.findById(Integer.parseInt(params.program)))
-        returnMap.session=programSession
-        render returnMap as JSON
-    }
-    def getTabulatorSemester={
-        def returnMap = [:]
-        def tabSemesterList=[]
-        def currentUser = springSecurityService.currentUser
-        def tabProgramInstList=TabulatorProgram.findAllByProgramAndUser(ProgramDetail.findById(Integer.parseInt(params.program)),currentUser)
-
-        def programSession = ProgramSession.findAllByProgramDetailId(ProgramDetail.findById(Integer.parseInt(params.program)))
-        tabProgramInstList.each{
-            tabSemesterList<<TabulatorSemester.findAllByTabulatorProgram(it).semesterId
+        def xmldata1 = parser.parse(new FileInputStream("web-app/marks/passMarks"))
+        println("" + xmldata1)
+        xmldata1.program.each {
+            println("+++++++++++++++++++" + it.@code)
+            it.semester.each {
+                println("---------------------------" + it.@id)
+                it.subject.each {
+                    println("============================" + it.@code)
+                }
+            }
         }
 
-        returnMap.tabSemesterList=tabSemesterList
-        returnMap.session=programSession
+    }
+
+    def loadMarksType() {
+        def returnMap = [:]
+        def marksTypeObj = []
+        def subMarksInst = SubjectMarksDetail.findAllBySubjectSession(SubjectSession.findBySubjectId(Subject.findById(params.subjectID)))
+        if (subMarksInst.theory) {
+            marksTypeObj << MarksType.findById(1)
+        }
+        if (subMarksInst.home) {
+            marksTypeObj << MarksType.findById(2)
+        }
+        if (subMarksInst.practical) {
+            marksTypeObj << MarksType.findById(3)
+        }
+        if (subMarksInst.project) {
+            marksTypeObj << MarksType.findById(4)
+        }
+        returnMap.marksTypeList = marksTypeObj
+        render returnMap as JSON
+    }
+    def getTabulatorSession = {
+        def returnMap = [:]
+        def programSession = ProgramSession.findAllByProgramDetailId(ProgramDetail.findById(Integer.parseInt(params.program)))
+        returnMap.session = programSession
+        render returnMap as JSON
+    }
+    def getTabulatorSemester = {
+        def returnMap = [:]
+        def tabSemesterList = []
+        def currentUser = springSecurityService.currentUser
+        def tabProgramInstList = TabulatorProgram.findAllByProgramAndUser(ProgramDetail.findById(Integer.parseInt(params.program)), currentUser)
+
+        def programSession = ProgramSession.findAllByProgramDetailId(ProgramDetail.findById(Integer.parseInt(params.program)))
+        tabProgramInstList.each {
+            tabSemesterList << TabulatorSemester.findAllByTabulatorProgram(it).semesterId
+        }
+
+        returnMap.tabSemesterList = tabSemesterList
+        returnMap.session = programSession
 
         render returnMap as JSON
     }
-def getSemesterForMarksUpdate={
+    def getSemesterForMarksUpdate = {
         def returnMap = [:]
-        def semesterList=[]
-        def session=ProgramSession.findById(params.session).sessionOfProgram
-        def programSession = ProgramSession.findByProgramDetailIdAndSessionOfProgram(ProgramDetail.findById(Integer.parseInt(params.program)),session)
-        semesterList=Semester.findAllByProgramSession(programSession)
+        def semesterList = []
+        def session = ProgramSession.findById(params.session).sessionOfProgram
+        def programSession = ProgramSession.findByProgramDetailIdAndSessionOfProgram(ProgramDetail.findById(Integer.parseInt(params.program)), session)
+        semesterList = Semester.findAllByProgramSession(programSession)
 
-        returnMap.semesterList=semesterList
+        returnMap.semesterList = semesterList
         render returnMap as JSON
     }
 
@@ -270,58 +288,53 @@ def getSemesterForMarksUpdate={
         def programSession = ProgramSession.get(Integer.parseInt(params.session))
         def semester = Semester.findByProgramSessionAndId(programSession, Integer.parseInt(params.semester))
         def currentUser = springSecurityService.currentUser
-        def role=UserRole.findAllByUser(currentUser).role
+        def role = UserRole.findAllByUser(currentUser).role
         def role_id
         role.each {
-            def tabSemIns=TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it))
-            if(tabSemIns){
-                role_id = TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program),it)).tabulatorProgram.role.id
+            def tabSemIns = TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program), it))
+            if (tabSemIns) {
+                role_id = TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRole(ProgramDetail.findById(params.program), it)).tabulatorProgram.role.id
             }
         }
         def otherRoll_Id
-        if(role_id==9){
-            otherRoll_Id=10
-        }
-        else{
-            otherRoll_Id=9
+        if (role_id == 9) {
+            otherRoll_Id = 10
+        } else {
+            otherRoll_Id = 9
         }
         def stuIns = StudentMarks.findBySubjectIdAndSemesterNoAndRoleId(Subject.get(Integer.parseInt(params.subjectId)),
                 Integer.parseInt(params.semester), Role.get(otherRoll_Id), MarksType.get(Integer.parseInt(params.marksType)))
         if (stuIns) {
-            if(params.marksType=='1'){
-                if (stuIns.theoryMarks== params.marksValue) {
+            if (params.marksType == '1') {
+                if (stuIns.theoryMarks == params.marksValue) {
                     returnMap.status = true
 
                 } else {
                     returnMap.status = false
-                    returnMap.tabulator =  Role.get(otherRoll_Id).authority
+                    returnMap.tabulator = Role.get(otherRoll_Id).authority
                 }
-            }
-            else if (params.marksType=='2'){
+            } else if (params.marksType == '2') {
                 if (stuIns.practicalMarks == params.marksValue) {
                     returnMap.status = true
-
                 } else {
                     returnMap.status = false
-                    returnMap.tabulator =  Role.get(otherRoll_Id).authority
+                    returnMap.tabulator = Role.get(otherRoll_Id).authority
                 }
-            }
-            else if (params.marksType=='3'){
-                if (stuIns.homeAssignmentMarks== params.marksValue) {
+            } else if (params.marksType == '3') {
+                if (stuIns.homeAssignmentMarks == params.marksValue) {
                     returnMap.status = true
 
                 } else {
                     returnMap.status = false
-                    returnMap.tabulator =  Role.get(otherRoll_Id).authority
+                    returnMap.tabulator = Role.get(otherRoll_Id).authority
                 }
-            }
-            else if (params.marksType=='4'){
+            } else if (params.marksType == '4') {
                 if (stuIns.project == params.marksValue) {
                     returnMap.status = true
 
                 } else {
                     returnMap.status = false
-                    returnMap.tabulator =  Role.get(otherRoll_Id).authority
+                    returnMap.tabulator = Role.get(otherRoll_Id).authority
                 }
             }
         } else {
@@ -331,30 +344,22 @@ def getSemesterForMarksUpdate={
     }
 
     def getStudentSession = {
-
         def criteria = Student.createCriteria()
         def stuSessionList = criteria.list() {
             projections {
                 distinct("registrationYear")
             }
         }
-        println(stuSessionList)
-
         render stuSessionList as JSON
-
     }
 
     def marksMissMatchData = {
-
         def groupSubList = [], groupSubjectCount = []
         def count = 0
-
         def programSessionIns = ProgramSession.findById(Long.parseLong(params.programId))
         def semesterIns = Semester.get(params.programTerm)
-        println("*********************"+params.programTerm)
         def courseList = CourseSubject.findAllByProgramSessionAndSemester(programSessionIns, semesterIns).subjectSessionId
         def groupIns = ProgramGroup.findAllByProgramSessionAndSemester(programSessionIns, semesterIns)
-        println("???????????????????????"+groupIns)
         if (groupIns) {
             groupIns.each {
                 groupSubList << ProgramGroupDetail.findAllByProgramGroupId(it).subjectSessionId
@@ -362,47 +367,84 @@ def getSemesterForMarksUpdate={
                 ++count
             }
         }
-
-
-        def result = postExaminationService.getDetailForMisMatch(params, courseList, semesterIns,groupSubList)
-
+        def result = postExaminationService.getDetailForMisMatch(params, courseList, semesterIns, groupSubList)
         if (result) {
             def args = [template: "missMatchReportTemplate", model: [programName: programSessionIns.programDetailId.courseName, semester: semesterIns.semesterNo,
-                    subjectList: courseList,marksType:result.marksType,headerList:result.headerList, finalList: result.finalList, groupIns: groupIns, groupSubList: groupSubList, groupSubjectCount: groupSubjectCount], filename: "Mis-Match Report.pdf"]
+                                                                     subjectList: courseList, marksType: result.marksType, headerList: result.headerList, finalList: result.finalList, groupIns: groupIns, groupSubList: groupSubList, groupSubjectCount: groupSubjectCount], filename: "Mis-Match Report.pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         } else {
             flash.message = "No Roll Number Found"
             redirect(controller: 'postExamination', action: 'markMismatchReport')
         }
-
     }
     def marksMissMatchUpdate = {
         def finalList = postExaminationService.getRollNoForMisMatchUpdate(params)
         render finalList as JSON
     }
-    def loadTabulatorMarks={
-        println("++++++++++++++++++"+params)
+    def loadTabulatorMarks = {
         def finalList = postExaminationService.getTabulatorMarks(params)
         render finalList as JSON
     }
-    def updateMisMatchMarks={
-        println("++++++++++++++++++"+params)
+    def updateMisMatchMarks = {
         def result = postExaminationService.saveMisMatchMarks(params)
         render result as JSON
     }
-    def generateResults={
-        println("++++++++++++++++++"+params)
+    def generateResults = {
         def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
         def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
         def studentList = Student.findAllByProgramSessionAndSemester(progSessionInst, semesterInst.semesterNo)
         def result = postExaminationService.generateProgramResults(params)
         if (result.status) {
             def args = [template: "programResultSheet", model: [studPartialList: result.studentPartialPassList, studPassList: result.studentPassList,
-                                                                     courseName: progSessionInst.programDetailId.courseName,semester:semesterInst.semesterNo], filename: progSessionInst.programDetailId.courseName+".pdf"]
+                                                                courseName     : progSessionInst.programDetailId.courseName, semester: semesterInst.semesterNo], filename: progSessionInst.programDetailId.courseName + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         } else {
             flash.message = result.msg
             redirect(controller: 'postExamination', action: 'resultProcessing')
         }
     }
-}// CLOSING BRACKETS
+
+    def loadVenueProgram() {
+        def programList = ProgramExamVenue.findAllByExamVenue(ExaminationVenue.findById(Integer.parseInt(params.venue))).courseDetail
+        render programList as JSON
+    }
+
+    def loadAbsenteeRollNo() {
+        def programSessionIns = ProgramSession.findById(Long.parseLong(params.session))
+        def semesterIns = Semester.findById(params.semester)
+        def examVenue = ExaminationVenue.findById(Long.parseLong(params.examVenue))
+
+        def studentList = Student.findAllByProgramSessionAndSemesterAndExaminationVenueAndAdmitCardGenerated(programSessionIns, semesterIns.semesterNo, examVenue, true)
+        render studentList as JSON
+    }
+
+    def saveAbsentee() {
+        def result = [:]
+        println("===========================" + params)
+        for (def i = 0; i < params.isselect_code.size(); i++) {
+
+            def studentMarksIns
+            def programSession = ProgramSession.get(Integer.parseInt(params.session))
+            def semester = Semester.findByProgramSessionAndId(programSession, Integer.parseInt(params.semester))
+
+            studentMarksIns = new StudentMarks()
+            studentMarksIns.subjectId = Subject.get(Integer.parseInt(params.subjectId))
+            studentMarksIns.semesterNo = Integer.parseInt(params.semester)
+            if (Integer.parseInt(params.marksType) == 1) {
+                studentMarksIns.theoryMarks = "Abs"
+            } else if (Integer.parseInt(params.marksType) == 2) {
+                studentMarksIns.practicalMarks = "Abs"
+            } else if (Integer.parseInt(params.marksType) == 3) {
+                studentMarksIns.homeAssignmentMarks = "Abs"
+            } else if (Integer.parseInt(params.marksType) == 4) {
+                studentMarksIns.project = "Abs"
+            }
+            studentMarksIns.totalMarks = params.marksValue
+            studentMarksIns.student = Student.findByRollNo(params.isselect_code[i])
+            if (studentMarksIns.save(flush: true, failOnError: true)) {
+                result.status = true
+            }
+        }
+        redirect(controller: 'postExamination', action: 'absenteeProcessing', params: [result:result])
+    }
+}

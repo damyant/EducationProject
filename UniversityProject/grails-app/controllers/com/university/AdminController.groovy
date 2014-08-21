@@ -531,10 +531,9 @@ class AdminController {
         def subjectSessions = programFeeService.getProgramSessions(params)
         def subjectMarksList=SubjectMarksDetail.findAllBySubjectSession(courseSession)
         def marksMap=[:]
-        subjectMarksList.each {
-            marksMap["key"+it.marksTypeId.id]=it
+//
 
-        }
+
 
         [programTypeList: programTypeList, courseList: courseList,courseSession:courseSession,updateMode:updateMode,
                 marksTypeList:marksTypeList,marksMap:marksMap,subjectSessions:subjectSessions]
