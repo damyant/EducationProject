@@ -20,8 +20,13 @@ import examinationproject.SubjectSession
 import grails.converters.JSON
 import grails.converters.XML
 import groovy.xml.MarkupBuilder
+import org.w3c.dom.Document
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.activation.MimetypesFileTypeMap
+import javax.xml.parsers.DocumentBuilder
+import javax.xml.parsers.DocumentBuilderFactory
 
 /**
  * Created by Digvijay on 3/6/14.
@@ -119,7 +124,6 @@ class PostExaminationController {
                 def webRootDir = servletContext.getRealPath("/")
                 def userDir = new File(webRootDir, '/Report')
                 userDir.mkdirs()
-                println("userDir--" + userDir)
                 def excelPath = servletContext.getRealPath("/") + 'Report' + System.getProperty('file.separator') + 'MarksFoilSheet.xls'
                 def status = postExaminationService.getMarksFoilData(params, excelPath)
 
@@ -217,6 +221,11 @@ class PostExaminationController {
     def xmlParseData = {
         XmlParser parser = new XmlParser()
         def xmlData = parser.parse (new FileInputStream("web-app/subjectPassMarks/subjectMarksRule.xml"))
+//        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+//        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+//        Document document = documentBuilder.parse("web-app/subjectPassMarks/subjectMarksRule.xml");
+//        Node mainNode = document.getElementsByTagName("rule").item(0);
+//        NodeList nodes = mainNode.getChildNodes();
         return xmlData
 
     }
@@ -393,7 +402,7 @@ class PostExaminationController {
         if (result.status) {
 
              def args = [template: "programResultSheet", model: [studPartialList: result.studentPartialPassList, studPassList: result.studentPassList,
-                                                                     courseName: progSessionInst.programDetailId.courseName,semester:semesterInst.semesterNo], filename: progSessionInst.programDetailId.courseName+".pdf"]
+                                                                     courseName: progSessionInst.programDetailId.courseName,semester:semesterInst.semesterNo], filename: progSessionInst.programDetailId.courseName+"Result.pdf"]
            pdfRenderingService.render(args + [controller: this], response)
         } else {
             flash.message = result.msg
@@ -405,16 +414,16 @@ class PostExaminationController {
     def generateFinalResult={
         def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
         def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
-        def studentList = Student.findAllByProgramSessionAndSemester(progSessionInst, semesterInst.semesterNo)
+//        def studentList = Student.findAllByProgramSessionAndSemester(progSessionInst, semesterInst.semesterNo)
 
         def result = postExaminationService.finalResult(params)
         if (result.status) {
-            def args = [template: "programResultSheet", model: [studPartialList: result.studentPartialPassList, studPassList: result.studentPassList,
-                    courseName: progSessionInst.programDetailId.courseName,semester:semesterInst.semesterNo], filename: progSessionInst.programDetailId.courseName+".pdf"]
+            def args = [template: "finalMeritList", model: [studentMeritList: result.studentMeritList,totalStudentsAppeared:result.totalStudentsAppeared,courseName: progSessionInst.programDetailId.courseName,semester:semesterInst.semesterNo],
+                        filename: progSessionInst.programDetailId.courseName+".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         } else {
             flash.message = result.msg
-            redirect(controller: 'postExamination', action: 'resultProcessing')
+            redirect(controller: 'postExamination', action: 'generateFinalResult')
         }
 
     }
@@ -462,6 +471,42 @@ class PostExaminationController {
             }
         }
         redirect(controller: 'postExamination', action: 'absenteeProcessing', params: [result:result])
+    }
+
+   def meritRegister={
+       def programList=ProgramDetail.list(sort: 'courseCode')
+       [programList:programList]
+
+   }
+    def generateMeritRegister={
+
+            def webRootDir = servletContext.getRealPath("/")
+            def userDir = new File(webRootDir, '/Report')
+            userDir.mkdirs()
+            println("userDir--" + userDir)
+            def excelPath = servletContext.getRealPath("/") + 'Report' + System.getProperty('file.separator') + 'StudentMeritRegister.xls'
+            def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
+            def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
+            def subjectList = CourseSubject.findAllByProgramSessionAndSemester(progSessionInst, semesterInst).subjectSessionId.subjectId
+            def studentList = Student.findAllByProgramSessionAndSemesterAndAdmitCardGeneratedAndStatus(progSessionInst, semesterInst.semesterNo,true,Status.get(4))
+            def xmlNodes=xmlParseData()
+            def status = postExaminationService.studentMeritRegisterData(params, excelPath,studentList,xmlNodes,subjectList,semesterInst)
+
+            if (status) {
+                println("back in controller " + status)
+                File myFile = new File(servletContext.getRealPath("/") + 'Report' + System.getProperty('file.separator') + 'StudentMeritRegister.xls')
+                //response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.session+".xls"
+                response.setHeader "Content-disposition", "attachment; filename=" + 'StudentMeritRegister' + ".xls"
+                response.contentType = new MimetypesFileTypeMap().getContentType(myFile)
+                response.outputStream << myFile.bytes
+                response.outputStream.flush()
+                myFile.delete()
+            } else {
+                flash.message = "No Roll Number Found"
+                redirect(controller: 'postExamination', action: 'generateMeritRegister')
+            }
+
+
     }
 }
 

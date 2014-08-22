@@ -1,27 +1,32 @@
 
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--<?xml version="1.0" encoding="UTF-8" standalone="no"?>-->
 <rule>
-    <subject code="01101" credit="8">
+    <subject code="81101" credit="8" minMarks="109">
         <theory minMarks="38" total="100"/>
         <home minMarks="37" total="100"/>
         <practical minMarks="34" total="100"/>
     </subject>
-    <subject code="01102" credit="8">
+    <subject code="01101" credit="8" minMarks="109">
+        <theory minMarks="38" total="100"/>
+        <home minMarks="37" total="100"/>
+        <practical minMarks="34" total="100"/>
+    </subject>
+    <subject code="01102" credit="8" minMarks="115">
         <theory minMarks="38" total="100"/>
         <home minMarks="37" total="100"/>
         <practical minMarks="40" total="100"/>
     </subject>
-    <subject code="01103" credit="8">
-        <theory minMarks="38" total="100"/>
-        <home minMarks="36" total="100"/>
-        <practical minMarks="34" total="100"/>
-    </subject>
-    <subject code="01104" credit="8">
+    <subject code="01103" credit="8" minMarks="109">
         <theory minMarks="38" total="100"/>
         <home minMarks="37" total="100"/>
         <practical minMarks="34" total="100"/>
     </subject>
-    <subject code="01105" credit="8">
+    <subject code="01104" credit="8" minMarks="109">
+        <theory minMarks="38" total="100"/>
+        <home minMarks="37" total="100"/>
+        <practical minMarks="34" total="100"/>
+    </subject>
+    <subject code="01105" credit="8" minMarks="109">
         <theory minMarks="38" total="100"/>
         <home minMarks="37" total="100"/>
         <practical minMarks="34" total="100"/>

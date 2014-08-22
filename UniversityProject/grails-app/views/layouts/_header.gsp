@@ -162,16 +162,6 @@
                                 code="default.mainMenu3.subMenu2.submenu1.submenu3"/></g:link></li>
                     </ul>
                 </li>
-                %{--<li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>--}%
-                    %{--<ul>--}%
-                        %{--<li><g:link controller="admin" action="addCourses"><g:message--}%
-                                %{--code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>--}%
-                        %{--<li><g:link controller="admin" action="listOfCourses"><g:message--}%
-                                %{--code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>--}%
-                    %{--</ul>--}%
-                %{--</li>--}%
-            %{--</ul>--}%
-        %{--</li>--}%
 
         <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
             <ul>
@@ -182,119 +172,7 @@
     </ul>
 </li>
 
-%{--<li><a href="#"><g:message code="default.mainMenu4"/></a>--}%
- %{--ADDED BY DIGVIJAY ON 3rd JUNE 2014--}%
-    %{--<ul>--}%
 
-    %{--<li><a href="#"><g:message code="default.mainMenu4.subMenu9"/></a>--}%
-        %{--<ul>--}%
-            %{--<li>--}%
-                %{--<g:link controller="marksType"--}%
-                        %{--action="createMarksType"><g:message--}%
-                        %{--code="default.mainMenu4.subMenu9.submenu1"/>--}%
-                %{--</g:link>--}%
-            %{--</li>--}%
-            %{--<li>--}%
-                %{--<g:link controller="marksType"--}%
-                        %{--action="marksTypeList"><g:message--}%
-                        %{--code="default.mainMenu4.subMenu9.submenu2"/>--}%
-                %{--</g:link>--}%
-            %{--</li>--}%
-        %{--</ul>--}%
-    %{--</li>--}%
-        %{--<li>--}%
-            %{--<g:link controller="postExamination"--}%
-                    %{--action="createMarksFoil"><g:message--}%
-                    %{--code="default.mainMenu4.subMenu1"/>--}%
-            %{--</g:link>--}%
-        %{--</li>--}%
-    %{--<li>--}%
-        %{--<g:link controller="postExamination"--}%
-                %{--action="marksEntering"><g:message--}%
-                %{--code="default.mainMenu4.subMenu2"/>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
-        %{--<li><a href="#"><g:message code="default.mainMenu4.subMenu2"/></a>--}%
-            %{--<ul>--}%
-                %{--<li>--}%
-                %{--<g:link controller="postExamination"--}%
-                        %{--action="marksEntering"><g:message--}%
-                        %{--code="default.mainMenu4.subMenu2.subMenu1"/> </g:link>--}%
-                %{--</li>--}%
-                %{--<li>--}%
-                    %{--<g:link controller="postExamination"--}%
-                            %{--action="marksEntering"><g:message--}%
-                            %{--code="default.mainMenu4.subMenu2.subMenu2"/> </g:link>--}%
-                %{--</li>--}%
-
-
-            %{--</ul>--}%
-        %{--</li>--}%
-        %{--<li>--}%
-            %{--<g:link controller="postExamination"--}%
-                    %{--action="markMismatchReport"><g:message--}%
-                    %{--code="default.mainMenu4.subMenu3"/>--}%
-            %{--</g:link>--}%
-        %{--</li>--}%
-        %{--<li>--}%
-            %{--<g:link controller="postExamination"--}%
-                    %{--action="absenteeProcessing"><g:message--}%
-                    %{--code="default.mainMenu4.subMenu4"/>--}%
-            %{--</g:link>--}%
-        %{--</li>--}%
-        %{--<li>--}%
-            %{--<g:link controller="postExamination"--}%
-                    %{--action="marksUpdation"><g:message--}%
-                    %{--code="default.mainMenu4.subMenu5"/>--}%
-            %{--</g:link>--}%
-        %{--</li>--}%
-        %{--<li>--}%
-            %{--<g:link controller="postExamination"--}%
-                    %{--action="resultProcessing"><g:message--}%
-                    %{--code="default.mainMenu4.subMenu6"/>--}%
-            %{--</g:link>--}%
-        %{--</li>--}%
-        %{--<li>--}%
-            %{--<g:link controller="postExamination"--}%
-                    %{--action="finalResult"><g:message--}%
-                    %{--code="default.mainMenu4.subMenu7"/>--}%
-            %{--</g:link>--}%
-        %{--</li>--}%
-        %{--<li>--}%
-            %{--<g:link controller="postExamination"--}%
-                    %{--action=""><g:message--}%
-                    %{--code="default.mainMenu4.subMenu8"/>--}%
-            %{--</g:link>--}%
-        %{--</li>--}%
-        %{--<li>--}%
-            %{--<g:link controller="postExamination"--}%
-                    %{--action=""><g:message--}%
-                    %{--code="default.mainMenu4.subMenu9"/>--}%
-            %{--</g:link>--}%
-        %{--</li>--}%
-
-        %{--<li><a href="#"><g:message code="default.mainMenu4.subMenu8"/></a>--}%
-            %{--<ul>--}%
-                %{--<li>--}%
-                    %{--<g:link controller="postExamination"--}%
-                            %{--action="bulkMarksSheet"><g:message--}%
-                            %{--code="default.mainMenu4.subMenu8.submenu1"/>--}%
-                    %{--</g:link>--}%
-                %{--</li>--}%
-                %{--<li>--}%
-                    %{--<g:link controller="postExamination"--}%
-                            %{--action="singleMarksSheet"><g:message--}%
-                            %{--code="default.mainMenu4.subMenu8.submenu2"/>--}%
-                    %{--</g:link>--}%
-                %{--</li>--}%
-            %{--</ul>--}%
-        %{--</li>--}%
-
-    %{--</ul>--}%
-%{--</li>--}%
-
-%{--<li><a href="#"><g:message code="default.mainMenu5"/></a></li>--}%
-%{--=======--}%
     </sec:ifNotGranted>
 </sec:ifLoggedIn>
 <sec:ifLoggedIn>
@@ -331,22 +209,7 @@
                             code="default.mainMenu4.subMenu2"/>
                     </g:link>
                 </li>
-                %{--<li><a href="#"><g:message code="default.mainMenu4.subMenu2"/></a>--}%
-                %{--<ul>--}%
-                %{--<li>--}%
-                %{--<g:link controller="postExamination"--}%
-                %{--action="marksEntering"><g:message--}%
-                %{--code="default.mainMenu4.subMenu2.subMenu1"/> </g:link>--}%
-                %{--</li>--}%
-                %{--<li>--}%
-                %{--<g:link controller="postExamination"--}%
-                %{--action="marksEntering"><g:message--}%
-                %{--code="default.mainMenu4.subMenu2.subMenu2"/> </g:link>--}%
-                %{--</li>--}%
 
-
-                %{--</ul>--}%
-                %{--</li>--}%
                 <li>
                     <g:link controller="postExamination"
                             action="markMismatchReport"><g:message
@@ -377,18 +240,13 @@
                             code="default.mainMenu4.subMenu7"/>
                     </g:link>
                 </li>
-                %{--<li>--}%
-                %{--<g:link controller="postExamination"--}%
-                %{--action=""><g:message--}%
-                %{--code="default.mainMenu4.subMenu8"/>--}%
-                %{--</g:link>--}%
-                %{--</li>--}%
-                %{--<li>--}%
-                %{--<g:link controller="postExamination"--}%
-                %{--action=""><g:message--}%
-                %{--code="default.mainMenu4.subMenu9"/>--}%
-                %{--</g:link>--}%
-                %{--</li>--}%
+            <li>
+                <g:link controller="postExamination"
+                        action="meritRegister"><g:message
+                        code="default.mainMenu4.subMenu10"/>
+                </g:link>
+            </li>
+
 
                 <li><a href="#"><g:message code="default.mainMenu4.subMenu8"/></a>
                     <ul>

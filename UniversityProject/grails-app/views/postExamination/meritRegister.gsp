@@ -38,8 +38,8 @@
 
 <div id="main">
     <fieldset class="form">
-        <h3>Merit List</h3>
-        <g:form name="" id="" controller="postExamination" action="generateFinalResult">
+        <h3>Merit Register</h3>
+        <g:form name="" id="" controller="postExamination" action="generateMeritRegister">
             <g:hiddenField name="studentListId" id="studentListId" value="" />
             <input type="hidden" name="paramType" id="paramType" value="${params?.type}"/>
             <g:hiddenField name="btn"  id="btn" value=""/>
@@ -88,7 +88,7 @@
 
                 <tr>
                     <td colspan="2" style="text-align: center">
-                        <input type="submit" value="Generate Merit List" class="university-button">
+                        <input type="submit" value="Generate Merit Register" class="university-button">
                         <input type="reset" value="Cancel" class="university-button">
                     </td>
                 </tr>
