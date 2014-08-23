@@ -27,6 +27,7 @@
         var isAppliedFor = "${studInstance?.isAppliedFor}"
         var state = "${studInstance?.state}"
         $('#studentRegister').ready(function () {
+//            $('#submitButton').attr("disabled", false)
 //    alert($("input.radioInput[name='nationality'][value="+nationality+"]").val())
             $("input[name='nationality'][value=" + nationality + "]").attr('checked', 'checked');
             $("input.radioInput[name='category'][value='" + category + "']").attr('checked', 'checked');
@@ -37,6 +38,11 @@
              $('#registrationNo1').attr('disabled', true)
              $('#registrationNo2').attr('disabled', true)
             }
+            $( "#submitButton" ).click(function(event) {
+                if($('#studentRegister').valid()) {
+                    $(event.target).attr("hidden", "true");
+                }
+            });
         });
     </script>
 

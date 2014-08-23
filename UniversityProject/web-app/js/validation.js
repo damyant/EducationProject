@@ -811,3 +811,6 @@ function validateProgramFee() {
 function disableKeyInput(t){
     $(t).keydown(false);
 }
+//function disableThisButton(t){
+//    $(t).attr("disabled", true)
+//}

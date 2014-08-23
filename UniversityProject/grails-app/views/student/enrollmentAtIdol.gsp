@@ -18,12 +18,7 @@
     %{--<link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>--}%
 
 </head>
-<script>
-
-</script>
-
 <body>
-
 <div id="main">
 <g:if test="${!studyCentre}">
     <fieldset class="form">

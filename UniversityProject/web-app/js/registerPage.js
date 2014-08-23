@@ -133,6 +133,7 @@ function checkApplicationNumber(t) {
 }
 
 function submitTempRegistration() {
+    $('#idolSubmitButton').attr("hidden", "true");
     validate();
     var result = $('#tempEnrollment').valid()
     if (result) {
@@ -141,6 +142,7 @@ function submitTempRegistration() {
             url: url('student', 'tempRegistration', ''),
             data: $("#tempEnrollment").serialize(),
             success: function (data) {
+                $('#idolSubmitButton').attr("hidden", "false");
                 $('#studentName').text('')
                 $('#studentRollNo').text('')
                 $('#challanNo').text('')
