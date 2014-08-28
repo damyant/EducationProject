@@ -16,9 +16,6 @@ class BootStrap {
         def adminRole =Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
         def accountRole =Role.findByAuthority('ROLE_ACCOUNT') ?: new Role(authority: 'ROLE_ACCOUNT').save(failOnError: true)
 
-//        def tabulatorRole1 =Role.findByAuthority('TABULATOR1') ?: new Role(authority: 'TABULATOR1').save(failOnError: true)
-//        def tabulatorRole2 =Role.findByAuthority('TABULATOR2') ?: new Role(authority: 'TABULATOR2').save(failOnError: true)
-//        def homeAssignmentRole =Role.findByAuthority('HOME_ASSIGNMENT_ROLE') ?: new Role(authority: 'HOME_ASSIGNMENT_ROLE').save(failOnError: true)
 
         def adminUser = User.findByUsername('admin') ?: new User(
                 username: 'admin',
@@ -36,9 +33,6 @@ class BootStrap {
         if (!adminUser.authorities.contains(courseRole)) {
             UserRole.create adminUser, courseRole
         }
-//        if (!adminUser.authorities.contains(idolUserRole)) {
-//            UserRole.create adminUser, idolUserRole
-//        }
         if (!adminUser.authorities.contains(admitCardRole)) {
             UserRole.create adminUser, admitCardRole
         }
@@ -59,19 +53,6 @@ class BootStrap {
         if (!iuser.authorities.contains(idolUserRole)) {
             UserRole.create iuser, idolUserRole
         }
-//        def studyC=User.findByUsername('studycentre') ?:new User(
-//                username:'studycentre',
-//                password:'admin',
-//                email:'idol@email.com',
-//                studyCentreId:73,
-//                enabled:true,
-//                accountExpired:false,
-//                accountLocked:false,
-//                passwordExpired:false,
-//        ).save()
-//        if (!studyC.authorities.contains(studyCentreRole)) {
-//            UserRole.create studyC, studyCentreRole
-//        }
         RollNoGenerationFixture gb = new RollNoGenerationFixture (
                 startD:new Date(),
                 endD:new  Date(),
