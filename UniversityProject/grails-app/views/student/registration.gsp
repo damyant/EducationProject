@@ -116,19 +116,19 @@
             <tr>
                 <td>
                     <input type="text" placeholder="First Name" name="firstName"
-                           style="margin-left: -10px;text-transform: capitalize;"
+                           style="margin-left: -10px;"
                            onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.firstName}"/>
                 </td>
                 <td style="vertical-align: top;">
                     <input type="text" placeholder="Middle Name" name="middleName"
-                           style="margin-left: -10px;text-transform: capitalize;"
+                           style="margin-left: -10px;"
                            onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.middleName}"/>
                 </td>
                 <td>
                     <input type="text" placeholder="Last Name" name="lastName"
-                           style="margin-left: -10px;text-transform: capitalize;"
+                           style="margin-left: -10px;"
                            onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.lastName}"/>
                 </td>

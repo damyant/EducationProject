@@ -367,9 +367,14 @@ class StudentController {
     }
 
     def viewStudent = {
-        def student = Student.findById(params.studentId)
-//        println(student.rollNo)
-        redirect(controller: 'student', action: "viewStudentDetails", params: [studentId:student.rollNo.toString()])
+        println(params)
+        def student = Student.findById(Long.parseLong(params.studentId))
+        redirect(controller: 'student', action: "viewStudentDetails", params: [studentId:student.id.toString()])
+    }
+    def showStudentDetails = {
+        println(params)
+        def student = Student.findByRollNo(params.studentRoll)
+        redirect(controller: 'student', action: "viewStudentDetails", params: [studentId:student.id.toString()])
     }
     @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def customChallanSave={
@@ -446,8 +451,7 @@ class StudentController {
     }
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT","ROLE_IDOL_USER","ROLE_STUDY_CENTRE"])
     def viewStudentDetails={
-        def student = Student.findByRollNo(params.studentId)
-        println(student)
+        def student = Student.findById(params.studentId)
         def feeDetails = FeeDetails.findAllByStudent(student)
         def homeAssignment=HomeAssignment.findAllByStudent(student)
         def studyMaterials=StudyMaterial.findAllByStudentId(student)

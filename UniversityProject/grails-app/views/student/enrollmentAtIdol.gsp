@@ -64,20 +64,20 @@
                     <tr>
                         <td>
                             <input type="text" tabindex="1" name="firstName"
-                                   style="margin-left: -10px;text-transform: capitalize;"
+                                   style="margin-left: -10px;"
                                    onkeypress="return onlyAlphabets(event);"
                                    maxlength="50" class="university-size-1-1" value="" placeholder="First Name"/>
 
                         </td>
                         <td style="vertical-align: top;">
                             <input type="text" tabindex="2" name="middleName"
-                                   style="margin-left: -10px;text-transform: capitalize;"
+                                   style="margin-left: -10px;"
                                    onkeypress="return onlyAlphabets(event);"
                                    maxlength="50" class="university-size-1-1" value="" placeholder="Middle Name"/>
                         </td>
                         <td>
                             <input type="text" tabindex="3" name="lastName"
-                                   style="margin-left: -10px;text-transform: capitalize;"
+                                   style="margin-left: -10px;"
                                    onkeypress="return onlyAlphabets(event);"
                                    maxlength="50" class="university-size-1-1" value="" placeholder="Last Name"/>
                         </td>

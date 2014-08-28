@@ -61,9 +61,7 @@ class StudentRegistrationService {
             studentRegistration.addressTown = params.addressTown
             studentRegistration.studentAddress = params.studentAddress
             studentRegistration.addressDistrict = params.addressDistrict
-//            println("roll number is "+params.rollNo)
             if (params.rollNo) {
-//                println("roll number is "+params.rollNo)
                 def studentToBeUpdate
                 try {
                     studentToBeUpdate = Student.findByRollNo(params.rollNo)

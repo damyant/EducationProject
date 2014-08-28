@@ -155,9 +155,9 @@
                 </g:if>
                 <g:if test="${studInstance?.city}">
                     <div class="label-header">Preferred Exam Centre</div>
-                    <div class="label-content">${studInstance?.city?.district[0]?.districtName}</div>
-                    <div class="label-header">Exam Centre District</div>
                     <div class="label-content">${studInstance?.studyCentre[0]?.address}</div>
+                    <div class="label-header">Exam Centre District</div>
+                    <div class="label-content">${studInstance?.city?.district[0]?.districtName}</div>
                 </g:if>
             </td>
         </tr>

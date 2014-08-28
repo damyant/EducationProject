@@ -140,14 +140,14 @@ function generateDuplicateChallan() {
                 $('#studentName').text('' + data.student.firstName + ' ' + (data.student.middleName ? data.student.middleName : '') + ' ' + data.student.lastName)
                 $('#studentRollNo').text('' + data.student.rollNo)
                 $('#challanNo').text('' + data.challanNo)
-                if(data.feeType.id==3){
-                $('#Check').text(' Course Fee - ' + data.term)
+                if (data.feeType.id == 3) {
+                    $('#Check').text(' Course Fee - ' + data.term)
                 }
-                else{
+                else {
                     $('#Check').text('' + data.feeType.type + ' for ' + data.courseName + ' Term ' + data.term)
                 }
                 $('#amount').text('' + data.programFeeAmount)
-                $('#feeInWord').text('(' + inFullWords(data.programFeeAmount)+" only)")
+                $('#feeInWord').text('(' + inFullWords(data.programFeeAmount) + " only)")
                 if (data.lateFee > 0)
                     $('#lateFee').text('(with late fee ' + data.lateFee + ')')
                 $('#challanDiv').dialog('open')
@@ -226,6 +226,7 @@ function updateStudentByRollNo() {
 //    alert($('#individualStudentUpdate').valid())
     if ($('#individualStudentUpdate').valid()) {
         if (rollNo.length == 8) {
+
             window.location.href = '/UniversityProject/student/updateStudent?rollNo=' + rollNo;
         }
         else {
@@ -240,7 +241,7 @@ function viewStudentByRollNo() {
 //    alert(rollNo)
     if ($('#individualStudentUpdate').valid()) {
         if (rollNo.length == 8) {
-            window.location.href = '/UniversityProject/student/viewStudentDetails?studentId=' + rollNo;
+            window.location.href = '/UniversityProject/student/showStudentDetails?studentRoll=' + rollNo;
         }
         else {
             alert("Please enter 8 digit roll number!")
@@ -297,7 +298,7 @@ function appendTable(data) {
         document.getElementById("paginationDiv").style.visibility = "visible";
         $('#studentList thead').append('<tr><th><input type="checkbox" name="chkbox" onchange="toggleChecked(this.checked)"/> <label for="chkbox">Select All</label> </th><th>' + "Student Name" + '</th><th>' + "Reference Number" + '</th><th></th></tr>')
         for (var i = 0; i < data.stuList.length; i++) {
-            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName + ' ' + (data.stuList[i].middleName ? data.stuList[i].middleName : '') + ' ' + data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td><td><input type="button" class="university-button" id="view" value="View" onclick="updateStudent(' + data.stuList[i].id + ')"/></td></tr>')
+            $('#studentList tbody').append('<tr><td><input type="checkbox" name="rollno_checkbox"  class="checkbox" id="' + data.stuList[i].id + '"/></td><td>' + data.stuList[i].firstName + ' ' + (data.stuList[i].middleName ? data.stuList[i].middleName : '') + ' ' + data.stuList[i].lastName + '</td><td>' + data.stuList[i].referenceNumber + '</td><td><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.stuList[i].id + ')"/></td></tr>')
         }
         $table_rows = $('#studentList tbody tr');
         var table_row_limit = 10;
@@ -364,7 +365,7 @@ function appendSubjects(obj) {
 
         $("#subjectList").append('<tr><th>' + "Term" + obj.semesterNoList[i][0].semesterNo + " Courses" + '</th><th>Examination Date</th><th>Examination Time</th></tr>')
         for (var j = 0; j < obj.allSubjects[i].length; j++) {
-            subjectIdList[counter] = obj.allSubjects[i][j].id+"-"+obj.semesterNoList[i][0].semesterNo
+            subjectIdList[counter] = obj.allSubjects[i][j].id + "-" + obj.semesterNoList[i][0].semesterNo
             var datesInNewFormat = "", examTime = ""
 
             if (obj.dateList[counter] != undefined && obj.dateList[counter].toString() != 'noo') {
@@ -488,22 +489,22 @@ function generateStudentsList() {
                 document.getElementById("studentList").style.visibility = "visible";
                 document.getElementById("paginationDiv").style.visibility = "visible";
 //                $('#paginationDiv').after(data.studList[0].firstName)
-                $('#studentList thead').append('<tr><th>' + "Roll Number" + '</th><th>' + "Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Mobile No" + '</th><th>Fee Status</th><th>Admission Status</th><th>&nbsp;</th></tr>')
+                $('#studentList thead').append('<tr><th>Sr. No.</th><th>' + "Roll Number" + '</th><th>' + "Student Name" + '</th><th>' + "Date of Birth" + '</th><th>' + "Gender" + '</th><th>' + "Mobile No" + '</th><th>Fee Status</th><th>Admission Status</th><th>&nbsp;</th></tr>')
                 for (var i = 0; i < data.studList.length; i++) {
                     if (data.studList[i].middleName != null) {
                         if (data.studList[i].rollNo != null) {
-                            $('#studentList tbody').append('<tr><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">' + data.feeStatus[i] + '</td><td style="text-align: center;">' + data.status[i] + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button" id="updateStudentButton"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                            $('#studentList tbody').append('<tr><td>'+ (parseInt(i)+1) +'</td><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">' + data.feeStatus[i] + '</td><td style="text-align: center;">' + data.status[i] + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button" id="updateStudentButton"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
                         }
                         else {
-                            $('#studentList tbody').append('<tr><td>' + "Not Generated Yet" + '</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">' + data.feeStatus[i] + '</td><td style="text-align: center;">' + data.status[i] + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id+ ')"/><input type="button" class="university-button" id="updateStudentButton" value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                            $('#studentList tbody').append('<tr><td>'+ (parseInt(i)+1) +'</td><td>' + "Not Generated Yet" + '</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].middleName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">' + data.feeStatus[i] + '</td><td style="text-align: center;">' + data.status[i] + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button" id="updateStudentButton" value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
                         }
                     }
                     else {
                         if (data.studList[i].rollNo != null) {
-                            $('#studentList tbody').append('<tr><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">' + data.feeStatus[i] + '</td><td style="text-align: center;">' + data.status[i] + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button" id="updateStudentButton"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                            $('#studentList tbody').append('<tr><td>'+ (parseInt(i)+1) +'</td><td>' + data.studList[i].rollNo + '</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">' + data.feeStatus[i] + '</td><td style="text-align: center;">' + data.status[i] + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button" id="updateStudentButton"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
                         }
                         else {
-                            $('#studentList tbody').append('<tr><td>' + "Not Generated Yet" + '</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">' + data.feeStatus[i] + '</td><td style="text-align: center;">' + data.status[i] + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button" id="updateStudentButton"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
+                            $('#studentList tbody').append('<tr><td>'+ (parseInt(i)+1) +'</td><td>' + "Not Generated Yet" + '</td><td>' + data.studList[i].firstName + ' ' + data.studList[i].lastName + '</td><td>' + $.datepicker.formatDate('MM dd, yy', new Date(data.studList[i].dob)) + '</td><td>' + data.studList[i].gender + '</td><td>' + data.studList[i].mobileNo + '</td><td style="text-align: center;">' + data.feeStatus[i] + '</td><td style="text-align: center;">' + data.status[i] + '</td><td style="text-align: center;"><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studList[i].id + ')"/><input type="button" class="university-button" id="updateStudentButton"  value="Update" onclick="updateStudent(' + data.studList[i].id + ')"/></td></tr>')
                         }
                     }
                 }
@@ -549,6 +550,11 @@ function generateStudentsList() {
 
         }
     });
+}
+
+function viewStudentDetails(studentId){
+    var data = studentId
+    alert(data)
 }
 function viewStudent(studentId) {
     var data = studentId
@@ -1179,7 +1185,7 @@ function loadPayInSlipDetails(t) {
             }
         })
     }
-    else{
+    else {
         $('#datepicker').prop('readonly', false)
         $('#paymentReferenceNumber').prop('readonly', false)
         $('#bankName').prop('readonly', false)
@@ -1303,56 +1309,51 @@ function deleteExamCentre(data) {
 function searchStudentList() {
     var session = $('#session').val()
     var student = $('#searchStudent').val()
-    $.ajax({
-        type: "post",
-        url: url('admin', 'searchStudentList', ''),
-        data: {student: student, session: session},
-        success: function (data) {
-            $('#studentListTable tbody').empty().append('')
-            if (data.studentListByFName) {
-                document.getElementById("studentListTable").style.visibility = "visible";
-                for (var i = 0; i < data.studentListByFName.length; i++) {
-                    if (data.studentListByFName[i].middleName != null) {
-                        $('#studentListTable tbody').append('<tr><td>' + data.studentListByFName[i].firstName + ' ' + data.studentListByFName[i].middleName + ' ' + data.studentListByFName[i].lastName + '</td><td>' + data.studentListByFName[i].rollNo + '</td><td>' + data.studyOfFName[i] + '</td><td>' + data.courseOfFName[i] + '</td></tr>')
+    if (session && student) {
+        $.ajax({
+            type: "post",
+            url: url('admin', 'searchStudentList', ''),
+            data: {student: student, session: session},
+            success: function (data) {
+                $('#studentListTable tbody').empty().append('')
+                if (data.studentListByFName) {
+                    document.getElementById("studentListTable").style.visibility = "visible";
+                    for (var i = 0; i < data.studentListByFName.length; i++) {
+                        if (data.studentListByFName[i].middleName != null) {
+                            $('#studentListTable tbody').append('<tr><td>' + data.studentListByFName[i].firstName + ' ' + data.studentListByFName[i].middleName + ' ' + data.studentListByFName[i].lastName + '</td><td>' + data.studentListByFName[i].rollNo + '</td><td>' + data.studyOfFName[i] + '</td><td>' + data.courseOfFName[i] + '</td><td><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studentListByFName[i].id + ')"/></td></tr>')
+                        }
+                        else {
+                            $('#studentListTable tbody').append('<tr><td>' + data.studentListByFName[i].firstName + ' ' + data.studentListByFName[i].lastName + '</td><td>' + data.studentListByFName[i].rollNo + '</td><td>' + data.studyOfFName[i] + '</td><td>' + data.courseOfFName[i] + '</td><td><input type="button" class="university-button" id="view" value="View" onclick="viewStudent(' + data.studentListByFName[i].id + ')"/></td></tr>')
+                        }
+                    }
+                    document.getElementById("paginationDiv").style.visibility = "visible";
+                    $table_rows = $('#studentListTable tbody tr');
+
+                    var table_row_limit = 10;
+
+                    var page_table = function (page) {
+                        var offset = (page - 1) * table_row_limit,
+                            limit = page * table_row_limit;
+                        $table_rows.hide();
+                        $table_rows.slice(offset, limit).show();
+
+                    }
+                    var pageNo = 0
+                    if ($table_rows.length % table_row_limit) {
+                        pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
                     }
                     else {
-                        $('#studentListTable tbody').append('<tr><td>' + data.studentListByFName[i].firstName + ' ' + data.studentListByFName[i].lastName + '</td><td>' + data.studentListByFName[i].rollNo + '</td><td>' + data.studyOfFName[i] + '</td><td>' + data.courseOfFName[i] + '</td></tr>')
+                        pageNo = parseInt($table_rows.length / table_row_limit)
                     }
+                    $('.pagination').jqPagination({
+                        max_page: pageNo,
+                        paged: page_table
+                    });
+                    page_table(1);
                 }
-                document.getElementById("paginationDiv").style.visibility = "visible";
-                $table_rows = $('#studentListTable tbody tr');
-
-                var table_row_limit = 10;
-
-                var page_table = function (page) {
-
-                    // calculate the offset and limit values
-                    var offset = (page - 1) * table_row_limit,
-                        limit = page * table_row_limit;
-
-                    // hide all table rows
-                    $table_rows.hide();
-
-                    // show only the n rows
-                    $table_rows.slice(offset, limit).show();
-
-                }
-                var pageNo = 0
-                if ($table_rows.length % table_row_limit) {
-                    pageNo = parseInt(parseInt($table_rows.length) / table_row_limit) + 1
-                }
-                else {
-                    pageNo = parseInt($table_rows.length / table_row_limit)
-                }
-//                alert(5%5)
-                $('.pagination').jqPagination({
-                    max_page: pageNo,
-                    paged: page_table
-                });
-                page_table(1);
             }
-        }
-    });
+        });
+    }
 }
 
 
@@ -1493,7 +1494,7 @@ function saveCustomChallan() {
                 $('#challanNo').text('' + data.challanNo)
                 $('#feeType').text('' + data.feeType)
                 $('#feeAmount').text('' + data.feeAmount)
-                $('#feeInWord').text('(' + inFullWords(data.feeAmount)+" only)")
+                $('#feeInWord').text('(' + inFullWords(data.feeAmount) + " only)")
                 $('#challanDiv').dialog('open')
             }
         })
@@ -1554,19 +1555,20 @@ function generateSingleAdmitCard() {
     })
 }
 
-function showCustomChallanByDate(){
-    var challanDate=$('#customChallanDate').val()
+function showCustomChallanByDate() {
+    var challanDate = $('#customChallanDate').val()
     $.ajax({
         type: "post",
         url: url('feeDetails', 'loadCustomChallanByDate', ''),
-        data: {challanDate:challanDate},
+        data: {challanDate: challanDate},
         success: function (data) {
-            if(data.challanList){
+            if (data.challanList) {
                 $('#showCustomChallanList thead').empty().append('<tr><th>Challan No</th><th>Amount</th><th>Challan Name</th><th>Type of Fee</th></tr>')
                 $('#showCustomChallanList tbody').empty()
-                for(var i= 0;i<data.listSize;i++){
-                    $('#showCustomChallanList tbody').append('<tr><td>'+data.challanList[i].challanNo+'</td><td>'+data.challanList[i].amount+'</td><td>'+data.challanList[i].challanName+'</td><td>'+data.challanList[i].typeOfFee+'</td></tr>')
-                }document.getElementById("paginationDiv").style.visibility = "visible";
+                for (var i = 0; i < data.listSize; i++) {
+                    $('#showCustomChallanList tbody').append('<tr><td>' + data.challanList[i].challanNo + '</td><td>' + data.challanList[i].amount + '</td><td>' + data.challanList[i].challanName + '</td><td>' + data.challanList[i].typeOfFee + '</td></tr>')
+                }
+                document.getElementById("paginationDiv").style.visibility = "visible";
                 $table_rows = $('#showCustomChallanList tbody tr');
 
                 var table_row_limit = 10;
@@ -1598,11 +1600,11 @@ function showCustomChallanByDate(){
                 });
                 page_table(1);
             }
-            else{
-              $('#errorMessage').html(data.status)
-              $('#showCustomChallanList thead').empty()
-              $('#showCustomChallanList tbody').empty()
-              document.getElementById("paginationDiv").style.visibility = "hidden";
+            else {
+                $('#errorMessage').html(data.status)
+                $('#showCustomChallanList thead').empty()
+                $('#showCustomChallanList tbody').empty()
+                document.getElementById("paginationDiv").style.visibility = "hidden";
             }
 
         }
