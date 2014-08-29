@@ -1610,3 +1610,58 @@ function showCustomChallanByDate() {
         }
     })
 }
+function checkSelfEnrollmentStatus(){
+//    alert("fgfgfgfgfg")
+    $.ajax({
+        type: "post",
+        url: url('home', 'selfEnrollStatus', ''),
+        data: {data:'data'},
+        success: function (data) {
+            if(data){
+                $('#showCounts thead').empty().append('<tr><td colspan="2"><h3>SELF ENROLLMENT STUDENT COUNT</h3></td></tr>')
+                $('#showCounts tbody').empty().append('<tr><td class="university-size-1-2" style="text-align: center; font-size: 13px; font-weight: bold;">Total Number of Student: '+data.selfEnrollmentCount+'</td><td class="university-size-1-2" style="text-align: center;font-size: 13px; font-weight: bold;">Total Number of Student without Roll No: '+data.rollNoNotCount+'</td></tr>')
+                $('#showStudyCenterCount thead').empty().append('<tr><th class="university-size-2-3">Program Name</th><th class="university-size-1-3">Total Student</th></tr>')
+                $('#showStudyCenterCount tbody').empty()
+                for(var i=0;i<data.programListSize;i++){
+                    $('#showStudyCenterCount tbody').append('<tr><td>'+data.programName[i]+'</td><td>'+data.programCount[i]+'</td></tr>')
+                }
+            }
+        }
+    })
+}
+function checkFeeStatus(){
+    $.ajax({
+        type: "post",
+        url: url('home', 'feeChallanStatus', ''),
+        data: {data:'data'},
+        success: function (data) {
+            if(data){
+                $('#showCounts thead').empty().append('<tr><td colspan="3"><h3>FEE CHALLAN STATUS COUNT</h3></td></tr>')
+                $('#showCounts tbody').empty()
+                $('#showStudyCenterCount thead').empty().append('<tr><th class="university-size-1-2">Study Centre Name</th><th class="university-size-1-4">Approved </th><th class="university-size-1-4">Unapproved</th></tr>')
+                $('#showStudyCenterCount tbody').empty()
+                for(var i=0;i<data.studyCentreCount;i++){
+                    $('#showStudyCenterCount tbody').append('<tr><td>'+data.studyCentreName[i]+'</td><td>'+data.studyCentreFeeAppCount[i]+'</td><td>'+data.studyCentreFeeUnAppCount[i]+'</td></tr>')
+                }
+            }
+        }
+    })
+}
+function checkStudyCentreStatus(){
+    $.ajax({
+        type: "post",
+        url: url('home', 'studyCentreStudentStatus', ''),
+        data: {data:'data'},
+        success: function (data) {
+            if(data){
+                $('#showCounts thead').empty().append('<tr><td colspan="3"><h3>STUDY CENTRE WISE STUDENT COUNT</h3></td></tr>')
+                $('#showCounts tbody').empty()
+                $('#showStudyCenterCount thead').empty().append('<tr><th class="university-size-1-2">Study Centre Name</th><th class="university-size-1-4">Approved </th><th class="university-size-1-4">Unapproved</th></tr>')
+                $('#showStudyCenterCount tbody').empty()
+                for(var i=0;i<data.studyCentreCount;i++){
+                    $('#showStudyCenterCount tbody').append('<tr><td>'+data.studyCentreName[i]+'</td><td>'+data.studyCentreAppCount[i]+'</td><td>'+data.studyCentreUnAppCount[i]+'</td></tr>')
+                }
+            }
+        }
+    })
+}
