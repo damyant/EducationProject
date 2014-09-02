@@ -295,22 +295,21 @@ class StudentRegistrationService {
             int j = 0
             ArrayList<String> rollNoKeyList = new ArrayList<String>(rollNoList.keySet());
 //            println("keys"+rollNoKeyList)
+            def studReturnList=[]
             studentIdList.each { i ->
                 rollNumber = rollNoList.get(rollNoKeyList.get(j))
                 stuObj = Student.findById(i)
-                if (!stuObj.rollNo)
+                if (!stuObj.rollNo){
                     stuObj.rollNo = rollNumber
+                }
                 stuObj.status = Status.findById(Long.parseLong("2"))
                 stuObj.save(flush: true, failOnError: true)
                 j++
             }
 
-
-
-
             return rollNumber
         } catch (Exception e) {
-//            println("Problem in roll number generation")
+            println("Problem in roll number generation")
         }
     }
 
@@ -392,6 +391,7 @@ class StudentRegistrationService {
         def challanSr
         def length
         def challanNo
+        def returnChallanNo
         def studentByChallanNo
         if (Student.count() > 0) {
             def stdObj = Student.createCriteria()
@@ -417,7 +417,6 @@ class StudentRegistrationService {
                             studentByChallanNo = feeDetailByChallanNo
                     }
                 }
-//            println("+++++++++++++++++"+studentByChallanNo.challanNo)
                 def lastChallanDate
             if(studentByChallanNo){
                 if (studentByChallanNo[0].challanNo != null) {
@@ -464,19 +463,21 @@ class StudentRegistrationService {
         if(existingChallan){
             challanNo=Integer.parseInt(challanNo)+1
         }
-        a++
         def existingChallanInst
         if(ExistingChallan.findBySession(2014)){
             existingChallanInst=ExistingChallan.findBySession(2014)
             existingChallanInst.challan=challanNo
+            returnChallanNo=challanNo
         }
         else{
             existingChallanInst=new ExistingChallan()
             existingChallanInst.challan=challanNo
             existingChallanInst.session=2014
-            existingChallanInst.save(flush: true, failOnError: true)
+            if(existingChallanInst.save(flush: true, failOnError: true)){
+                returnChallanNo=challanNo
+            }
         }
-        return challanNo
+        return returnChallanNo
     }
 
     def saveCChallan(params) {
@@ -512,8 +513,6 @@ class StudentRegistrationService {
 
         def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id), sessionVal)
         def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj, 1)
-//        println('this is the programFee ' + programFee)
-
         try {
             def lateFeeDate = student.programDetail.lateFeeDate[0]
             def today = new Date()

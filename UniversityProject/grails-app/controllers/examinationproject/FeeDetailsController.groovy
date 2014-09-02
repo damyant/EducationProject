@@ -150,6 +150,7 @@ class FeeDetailsController {
     def populateStudentsForStudyCenter = {
         def resultMap = [:]
         if(params.feeType=='3'){
+            println("Admission")
             resultMap = feeDetailService.StudentListForAdmission(params)
         }
         else if(params.feeType=='2'){
@@ -362,21 +363,20 @@ class FeeDetailsController {
 
 
     def payChallanForStudyCenterStu = {
-//       println("***************"+params)
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         def courseNameList = [], courseFee = []
         def feeDetailsInstance = FeeDetails.findAllByChallanNo(params.searchChallanNo)
         def stuList=[]
-
         feeDetailsInstance.each {
             stuList<<it.student
         }
         def currentUser = springSecurityService.currentUser
         def totalFee = 0;
         def lateFee = 0
-        def studyCentre
+        def studyCentre0
         studyCentre = stuList[0].studyCentre
         stuList.each {
+            println(params.semester[0])
             lateFee = 0
             def lateFeeDate = it.programDetail.lateFeeDate[0]
             def today = feeDetailsInstance[0].challanDate
@@ -387,7 +387,7 @@ class FeeDetailsController {
 
             def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(it.programDetail[0].id), sessionVal)
 
-            if (lateFeeDate != null) {
+            if (lateFeeDate &&(Integer.parseInt(params.semester[0])==1)) {
                 if (today.compareTo(lateFeeDate) > 0) {
                     lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,feeDetailsInstance[0].semesterValue).lateFeeAmount
                 }
@@ -637,6 +637,7 @@ class FeeDetailsController {
             amount = misFee.amount
         }
         misFeeObj.paidAmount= amount
+        misFeeObj.challanDate=new Date()
         misFeeObj.save(failOnError: true)
         redirect(action: 'postAdmissionFeeAtIdol', params:[misFeeObject: misFeeObj.id, amount: amount])
         }

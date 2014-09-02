@@ -277,7 +277,20 @@ function generateRollNo(value) {
         url: url('admin', 'generateRollNo', ''),
         data: {studyCenterId: $('#studyCenter').val(), programId: $('#programId').val(), studentList: $("#studentId").val(), pageType: value},
         success: function (data) {
-            getStudents()
+            if(data.studentName){
+                $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'>" +
+                        "<div>"+data.studentName+"</div></div>").dialog({
+                    title: "Success",
+                    resizable: false,
+                    modal: true,
+                    buttons: {
+                        "Ok": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+                getStudents()
+            }
 //            appendTable(data)
         }
     });

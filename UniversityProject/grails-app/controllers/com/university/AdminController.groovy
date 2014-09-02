@@ -49,17 +49,26 @@ class AdminController {
         def stuList = []
         def responseMap = [:]
         def status
+        def refNo=[], rollNum=[]
         if (params.pageType == "Approve RollNo") {
             status = studentRegistrationService.approvedStudents(params)
         } else {
-//            println("Start    " + new Date())
             def studentIdList = params.studentList.split(",")
             rollNumber = studentRegistrationService.getUpdatedStudentRollNumber(params)
+
+            if(rollNumber){
+                studentIdList.each { i ->
+                   def stuObjs = Student.findById(i)
+                    def stmt="# Ref No : "+stuObjs.referenceNumber.concat("  Roll No "+stuObjs.rollNo+"     ")
+                    refNo<<stmt
+            }
+            }
         }
         if (stuObj) {
             stuList = adminInfoService.provisionalStudentList(params)
         }
         responseMap.status = 'rollNo'
+        responseMap.studentName = refNo
         responseMap.stuList = stuList
         render responseMap as JSON
         render stuList as JSON

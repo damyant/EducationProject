@@ -71,8 +71,6 @@ class Student {
         admitCardGenerated(nullable: true)
         examinationVenue(nullable: true)
         challanNo(nullable: true)
-
-
     }
 
     static mapping ={
