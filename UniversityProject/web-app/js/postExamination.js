@@ -721,3 +721,15 @@ function valueInBox() {
 function valueOutBox() {
     $('#isselect_code').find('option:selected').remove().appendTo('#canselect_code');
 }
+function checkFileExtension(){
+    var FileUploadPath = $("#homeAssignment").val()
+
+    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+    if (Extension == "xls") {
+//        alertPopup(Extension)
+    }
+    else{
+        sorryPopup("Please Upload a Excel File with xls Extension")
+    }
+
+    }

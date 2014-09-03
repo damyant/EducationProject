@@ -146,6 +146,19 @@
                                 <input type="hidden" value="" id="tab2Semester" name="tab2Semester">
                             </div>
                         </g:elseif>
+                        <g:elseif test="${roleInstance.authority == 'ROLE_EXAM_ADMIN'}">
+                            <g:if test="${examAdminCount>0}">
+                                <div class="university-size-1-3">Already Exist</div>
+
+                                <div class="university-size-1-3"></div>
+                            </g:if>
+                            <g:else>
+                                <div class="university-size-1-3"><g:checkBox name="myCheckbox" value="${roleInstance.id}"
+                                                                             checked=""/></div>
+
+                                <div class="university-size-1-3"></div>
+                            </g:else>
+                        </g:elseif>
                         <g:else>
                             <div class="university-size-1-3"><g:checkBox name="myCheckbox" value="${roleInstance.id}"
                                                                          checked=""/></div>

@@ -3,30 +3,18 @@ package postexamination
 import com.university.Role
 import com.university.TabulatorProgram
 import com.university.TabulatorSemester
-import com.university.User
 import com.university.UserRole
-import examinationproject.CourseSubject
-import examinationproject.ExaminationVenue
-import examinationproject.ProgramDetail
-import examinationproject.ProgramExamVenue
-import examinationproject.ProgramGroup
-import examinationproject.ProgramGroupDetail
-import examinationproject.ProgramSession
-import examinationproject.Semester
-import examinationproject.Status
-import examinationproject.Student
-import examinationproject.Subject
-import examinationproject.SubjectSession
+import examinationproject.*
 import grails.converters.JSON
-import grails.converters.XML
-import groovy.xml.MarkupBuilder
-import org.w3c.dom.Document
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import grails.plugins.springsecurity.Secured
+import jxl.Cell
+
+//import grails.plugin.jxl.Cell
+import jxl.Sheet
+import jxl.Workbook
+import org.codehaus.groovy.grails.web.context.ServletContextHolder
 
 import javax.activation.MimetypesFileTypeMap
-import javax.xml.parsers.DocumentBuilder
-import javax.xml.parsers.DocumentBuilderFactory
 
 /**
  * Created by Digvijay on 3/6/14.
@@ -41,10 +29,12 @@ class PostExaminationController {
         def programList = ProgramSession.list()
         [programList: programList]
     }
+    @Secured(["ROLE_EXAM_ADMIN"])
     def markMismatchReport = {
 
 
     }
+    @Secured(["ROLE_EXAM_ADMIN"])
     def marksUpdation = {
         def programList = ProgramDetail.list(sort: 'courseCode')
         def marksTypeList = MarksType.list()
@@ -180,15 +170,15 @@ class PostExaminationController {
         render finalList as JSON
     }
 
-
+    @Secured(["ROLE_EXAM_ADMIN"])
     def resultProcessing = {
         def programList = ProgramDetail.list(sort: 'courseCode')
         [programList: programList]
     }
 
     def finalResult = {
-        def programList=ProgramDetail.list(sort: 'courseCode')
-        [programList:programList]
+        def programList = ProgramDetail.list(sort: 'courseCode')
+        [programList: programList]
     }
 
     def absenteeProcessing = {
@@ -220,7 +210,7 @@ class PostExaminationController {
     }
     def xmlParseData = {
         XmlParser parser = new XmlParser()
-        def xmlData = parser.parse (new FileInputStream("web-app/subjectPassMarks/subjectMarksRule.xml"))
+        def xmlData = parser.parse(new FileInputStream("web-app/subjectPassMarks/subjectMarksRule.xml"))
 //        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 //        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 //        Document document = documentBuilder.parse("web-app/subjectPassMarks/subjectMarksRule.xml");
@@ -229,7 +219,8 @@ class PostExaminationController {
         return xmlData
 
     }
-    def loadMarksType(){
+
+    def loadMarksType() {
 
         def returnMap = [:]
         def marksTypeObj = []
@@ -290,8 +281,8 @@ class PostExaminationController {
         def role = UserRole.findAllByUser(currentUser).role
         def role_id
         role.each {
-            def tabSemIns=TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRoleAndUser(ProgramDetail.findById(params.program),it,currentUser))
-            if(tabSemIns){
+            def tabSemIns = TabulatorSemester.findBySemesterIdAndTabulatorProgram(semester, TabulatorProgram.findByProgramAndRoleAndUser(ProgramDetail.findById(params.program), it, currentUser))
+            if (tabSemIns) {
                 role_id = tabSemIns.tabulatorProgram.role.id
 
             }
@@ -303,7 +294,7 @@ class PostExaminationController {
             otherRoll_Id = 9
         }
         def stuIns = StudentMarks.findBySubjectIdAndSemesterNoAndRoleIdAndStudent(Subject.get(Integer.parseInt(params.subjectId)),
-                Integer.parseInt(params.semester), Role.get(otherRoll_Id),Student.findByRollNo(params.rollNoId))
+                Integer.parseInt(params.semester), Role.get(otherRoll_Id), Student.findByRollNo(params.rollNoId))
         if (stuIns) {
             if (params.marksType == '1') {
                 if (stuIns.theoryMarks == params.marksValue) {
@@ -371,7 +362,7 @@ class PostExaminationController {
         def result = postExaminationService.getDetailForMisMatch(params, courseList, semesterIns, groupSubList)
         if (result) {
             def args = [template: "missMatchReportTemplate", model: [programName: programSessionIns.programDetailId.courseName, semester: semesterIns.semesterNo,
-                                                                     subjectList: courseList, marksType: result.marksType, headerList: result.headerList, finalList: result.finalList, groupIns: groupIns, groupSubList: groupSubList, groupSubjectCount: groupSubjectCount], filename: "Mis-Match Report.pdf"]
+                    subjectList: courseList, marksType: result.marksType, headerList: result.headerList, finalList: result.finalList, groupIns: groupIns, groupSubList: groupSubList, groupSubjectCount: groupSubjectCount], filename: "Mis-Match Report.pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         } else {
             flash.message = "No Roll Number Found"
@@ -383,11 +374,11 @@ class PostExaminationController {
         render finalList as JSON
     }
 
-    def loadTabulatorMarks={
+    def loadTabulatorMarks = {
         def finalList = postExaminationService.getTabulatorMarks(params)
         render finalList as JSON
     }
-    def updateMisMatchMarks={
+    def updateMisMatchMarks = {
 
         def result = postExaminationService.saveMisMatchMarks(params)
         render result as JSON
@@ -396,14 +387,14 @@ class PostExaminationController {
         def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
         def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
         def studentList = Student.findAllByProgramSessionAndSemester(progSessionInst, semesterInst.semesterNo)
-        def xmlNodes=xmlParseData()
+        def xmlNodes = xmlParseData()
 
-        def result = postExaminationService.generateProgramResults(params,xmlNodes)
+        def result = postExaminationService.generateProgramResults(params, xmlNodes)
         if (result.status) {
 
-             def args = [template: "programResultSheet", model: [studPartialList: result.studentPartialPassList, studPassList: result.studentPassList,
-                                                                     courseName: progSessionInst.programDetailId.courseName,semester:semesterInst.semesterNo], filename: progSessionInst.programDetailId.courseName+"Result.pdf"]
-           pdfRenderingService.render(args + [controller: this], response)
+            def args = [template: "programResultSheet", model: [studPartialList: result.studentPartialPassList, studPassList: result.studentPassList,
+                    courseName: progSessionInst.programDetailId.courseName, semester: semesterInst.semesterNo], filename: progSessionInst.programDetailId.courseName + "Result.pdf"]
+            pdfRenderingService.render(args + [controller: this], response)
         } else {
             flash.message = result.msg
             redirect(controller: 'postExamination', action: 'resultProcessing')
@@ -411,15 +402,15 @@ class PostExaminationController {
     }
 
 
-    def generateFinalResult={
+    def generateFinalResult = {
         def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
         def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
 //        def studentList = Student.findAllByProgramSessionAndSemester(progSessionInst, semesterInst.semesterNo)
 
         def result = postExaminationService.finalResult(params)
         if (result.status) {
-            def args = [template: "finalMeritList", model: [studentMeritList: result.studentMeritList,totalStudentsAppeared:result.totalStudentsAppeared,courseName: progSessionInst.programDetailId.courseName,semester:semesterInst.semesterNo],
-                        filename: progSessionInst.programDetailId.courseName+".pdf"]
+            def args = [template: "finalMeritList", model: [studentMeritList: result.studentMeritList, totalStudentsAppeared: result.totalStudentsAppeared, courseName: progSessionInst.programDetailId.courseName, semester: semesterInst.semesterNo],
+                    filename: progSessionInst.programDetailId.courseName + ".pdf"]
             pdfRenderingService.render(args + [controller: this], response)
         } else {
             flash.message = result.msg
@@ -470,43 +461,56 @@ class PostExaminationController {
                 result.status = true
             }
         }
-        redirect(controller: 'postExamination', action: 'absenteeProcessing', params: [result:result])
+        redirect(controller: 'postExamination', action: 'absenteeProcessing', params: [result: result])
     }
 
-   def meritRegister={
-       def programList=ProgramDetail.list(sort: 'courseCode')
-       [programList:programList]
+    def meritRegister = {
+        def programList = ProgramDetail.list(sort: 'courseCode')
+        [programList: programList]
 
-   }
-    def generateMeritRegister={
+    }
+    def generateMeritRegister = {
 
-            def webRootDir = servletContext.getRealPath("/")
-            def userDir = new File(webRootDir, '/Report')
-            userDir.mkdirs()
-            println("userDir--" + userDir)
-            def excelPath = servletContext.getRealPath("/") + 'Report' + System.getProperty('file.separator') + 'StudentMeritRegister.xls'
-            def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
-            def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
-            def subjectList = CourseSubject.findAllByProgramSessionAndSemester(progSessionInst, semesterInst).subjectSessionId.subjectId
-            def studentList = Student.findAllByProgramSessionAndSemesterAndAdmitCardGeneratedAndStatus(progSessionInst, semesterInst.semesterNo,true,Status.get(4))
-            def xmlNodes=xmlParseData()
-            def status = postExaminationService.studentMeritRegisterData(params, excelPath,studentList,xmlNodes,subjectList,semesterInst)
+        def webRootDir = servletContext.getRealPath("/")
+        def userDir = new File(webRootDir, '/Report')
+        userDir.mkdirs()
+        println("userDir--" + userDir)
+        def excelPath = servletContext.getRealPath("/") + 'Report' + System.getProperty('file.separator') + 'StudentMeritRegister.xls'
+        def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
+        def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
+        def subjectList = CourseSubject.findAllByProgramSessionAndSemester(progSessionInst, semesterInst).subjectSessionId.subjectId
+        def studentList = Student.findAllByProgramSessionAndSemesterAndAdmitCardGeneratedAndStatus(progSessionInst, semesterInst.semesterNo, true, Status.get(4))
+        def xmlNodes = xmlParseData()
+        def status = postExaminationService.studentMeritRegisterData(params, excelPath, studentList, xmlNodes, subjectList, semesterInst)
 
-            if (status) {
-                println("back in controller " + status)
-                File myFile = new File(servletContext.getRealPath("/") + 'Report' + System.getProperty('file.separator') + 'StudentMeritRegister.xls')
-                //response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.session+".xls"
-                response.setHeader "Content-disposition", "attachment; filename=" + 'StudentMeritRegister' + ".xls"
-                response.contentType = new MimetypesFileTypeMap().getContentType(myFile)
-                response.outputStream << myFile.bytes
-                response.outputStream.flush()
-                myFile.delete()
-            } else {
-                flash.message = "No Roll Number Found"
-                redirect(controller: 'postExamination', action: 'generateMeritRegister')
-            }
+        if (status) {
+            println("back in controller " + status)
+            File myFile = new File(servletContext.getRealPath("/") + 'Report' + System.getProperty('file.separator') + 'StudentMeritRegister.xls')
+            //response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.session+".xls"
+            response.setHeader "Content-disposition", "attachment; filename=" + 'StudentMeritRegister' + ".xls"
+            response.contentType = new MimetypesFileTypeMap().getContentType(myFile)
+            response.outputStream << myFile.bytes
+            response.outputStream.flush()
+            myFile.delete()
+        } else {
+            flash.message = "No Roll Number Found"
+            redirect(controller: 'postExamination', action: 'generateMeritRegister')
+        }
 
 
     }
+
+    def homeAssignmentExcelUpload() {
+        def programList = ProgramDetail.list(sort: 'courseCode')
+        [programList: programList]
+    }
+
+    def uploadHomeAssignmentMarks() {
+        def fileToBeUploaded = request.getFile('homeAssignment')
+        def result=postExaminationService.homeAssignmentExcelUpload(fileToBeUploaded, params)
+        redirect(action: 'homeAssignmentExcelUpload')
+    }
+
+
 }
 

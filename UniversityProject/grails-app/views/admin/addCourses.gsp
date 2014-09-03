@@ -98,7 +98,14 @@
 
             </td>
         </tr>
+        <tr>
+            <td class="university-size-1-4"><p>Subject Pass Marks <span class="university-obligatory">*</span>
+            </p></td>
+            <td class="university-size-1-4"><g:textField name="subjPassMarks" id="subjPassMarks" onkeypress="return isNumber(event)" maxlength="4"  value=""
+                                                         class="university-size-2-3"/>
 
+            </td>
+        </tr>
            <tr>
                <td colspan="4" style="background-color:grey; "><strong>Theory Marks</strong></td></tr>
             <tr><td>Total Marks</td><td><g:textField name="theoryTotal" maxlength="3" onkeypress="return isNumber(event)" id="theoryTotal"

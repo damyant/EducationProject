@@ -130,6 +130,7 @@ class UserService {
     }
     def saveUserDetails(params){
         def resultMap=[:]
+        def status=true
         def userInstance = new User(params)
         def checked = params.list('myCheckbox')
         def roleList = Role.getAll()
@@ -294,7 +295,6 @@ class UserService {
         def currentUser = springSecurityService.getCurrentUser().getUsername()
         def studyCentreList = StudyCenter.list(sort: 'name')
         def boolean compare = false
-        println("+++++++++++++++++++"+params.id)
         def userInstance = User.get(params.id)
         if (currentUser == userInstance.username) {
             compare = true
@@ -311,7 +311,7 @@ class UserService {
             }
             def tab1ProgramList, tab2ProgramList, tab1OptionValue = [], tab1OptionText = []
             def tab1HProgList = '', tab2HProgList = '', tab1HSemList = '', tab2HSemList = '', tab2OptionValue = [], tab2OptionText = []
-            if(params.id==9) {
+            if(UserRole.findByUserAndRole(userInstance,Role.findById(9))) {
                 tab1ProgramList = TabulatorProgram.findAllByUserAndRole(userInstance, Role.findById(9))
                 if (tab1ProgramList) {
                     for (int j = 0; j < tab1ProgramList.size(); j++) {
@@ -322,8 +322,8 @@ class UserService {
                                 semester = semList[i].semesterId.semesterNo
                                 semValue=semList[i].semesterId.id
                             } else {
-                                semester = ","+semList[i].semesterId.semesterNo
-                                semValue=","+semList[i].semesterId.id
+                                semester += ","+semList[i].semesterId.semesterNo
+                                semValue+=","+semList[i].semesterId.id
                             }
                         }
                         tab1OptionValue << tab1ProgramList[j].program.id + "/" + semValue
@@ -338,7 +338,7 @@ class UserService {
                     }
                 }
             }
-            if(params.id==10) {
+            if(UserRole.findByUserAndRole(userInstance,Role.findById(10))) {
                 tab2ProgramList = TabulatorProgram.findAllByUserAndRole(userInstance, Role.findById(10))
 
                 if (tab2ProgramList) {
@@ -350,8 +350,8 @@ class UserService {
                                 semester = semList[i].semesterId.semesterNo
                                 semValue=semList[i].semesterId.id
                             } else {
-                                semester = ","+semList[i].semesterId.semesterNo
-                                semValue=","+semList[i].semesterId.id
+                                semester += ","+semList[i].semesterId.semesterNo
+                                semValue+=","+semList[i].semesterId.id
                             }
                         }
                         if (j == 0) {
@@ -361,6 +361,7 @@ class UserService {
                             tab2HProgList += " " + tab2ProgramList[j].program.id
                             tab2HSemList += "/" + semValue
                         }
+
                         tab2OptionValue << tab2ProgramList[j].program.id + "/" + semValue
                         tab2OptionText << tab2ProgramList[j].program.courseName + "(Semesters " + semester + ")"
                     }

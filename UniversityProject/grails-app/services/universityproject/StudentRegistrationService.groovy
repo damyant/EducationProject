@@ -387,10 +387,8 @@ class StudentRegistrationService {
             }
         }
     }
-    static int a=0
     @Synchronized("challanLock")
     def getChallanNumber() {
-        println("--------------"+a)
         int serialNo = 1
         SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd"); // Just the year
         def date = (sdf.format(Calendar.getInstance().getTime()))

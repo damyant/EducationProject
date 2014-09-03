@@ -155,6 +155,7 @@
                                                                                       checked="true" onchange="openTabulator()" /></div>
                                         <div id="viewSelected1" class="university-size-1-3">
                                             <select class="university-size-2-3"  multiple="true">
+
                                         <g:if test="${tab1OptionValue.size()>0}">
                                                 <g:each in="${0..tab1OptionValue.size()-1}" var="index">
                                                     <option value="${tab1OptionValue.get(index)}">${tab1OptionText.get(index)}</option>

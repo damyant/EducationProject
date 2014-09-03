@@ -51,6 +51,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         runtime 'mysql:mysql-connector-java:5.1.27'
         runtime 'org.springframework:spring-test:3.1.0.RELEASE'
+        runtime 'net.sourceforge.jexcelapi:jxl:2.6.12'
 //        runtime('com.lowagie:itext:2.1.0')
 
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
@@ -68,6 +69,7 @@ grails.project.dependency.resolution = {
 //        compile ':sitemaps:0.1.0'
         compile ":scaffolding:2.0.1"
         compile ':cache:1.1.1'
+        compile ":jxl:0.54"
         runtime ":jquery:1.11.0"
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.7" // or ":hibernate4:4.1.11.6"

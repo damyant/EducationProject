@@ -12,10 +12,13 @@ import examinationproject.Student
 import examinationproject.Subject
 import grails.converters.JSON
 import grails.transaction.Transactional
+import jxl.Cell
+import jxl.Sheet
 import jxl.Workbook
 import jxl.WorkbookSettings
 import jxl.write.WritableWorkbook
 import org.apache.tools.ant.taskdefs.Exit
+import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.*;
@@ -814,5 +817,124 @@ class PostExaminationService {
 
             return status
 
+    }
+
+    def homeAssignmentExcelUpload(fileToBeUploaded, params){
+        String fileName = fileToBeUploaded.originalFilename
+        def docDirectory = ServletContextHolder.servletContext.getRealPath(System.getProperty("file.separator"))
+        def dir = new File(docDirectory + System.getProperty("file.separator") + "documentFile" + System.getProperty("file.separator"))
+        dir.mkdirs()
+        def subjectList = []
+        String path = ServletContextHolder.servletContext.getRealPath(System.getProperty("file.separator") + "documentFile" + System.getProperty("file.separator"))
+        fileToBeUploaded.transferTo(new File(path, fileName))
+        File inputWorkbook = new File(path + "/" + fileName)
+        def programDetail = ProgramDetail.findById(params.programId)
+        def programSession = ProgramSession.get(Integer.parseInt(params.SessionList))
+        def semester = Semester.findByProgramSessionAndId(programSession, Integer.parseInt(params.programTerm))//        def groupType=ProgramGroup.findAllBySemester(semester)
+        def subjectGenList = CourseSubject.findAllByCourseDetailAndSemesterAndProgramSession(programDetail, semester, programSession).subjectSessionId.subjectId
+        if (subjectGenList) {
+            subjectGenList.each {
+                subjectList << it.id
+            }
+        }
+        def programGroupIns = ProgramGroup.findByProgramSessionAndSemester(programSession, semester)
+        def subjectGrpList = ProgramGroupDetail.findAllByProgramGroupId(programGroupIns).subjectSessionId.subjectId
+        if (subjectGrpList) {
+            subjectGrpList.each {
+                subjectList << it.id
+            }
+        }
+        Workbook w;
+        try {
+            w = Workbook.getWorkbook(inputWorkbook);
+            Sheet sheet = w.getSheet(0);
+            def headRow = 5
+            Cell col = sheet.getCell(j, headRow);
+            def semg
+            for (int j = 0; j < sheet.getColumns(); j++) {
+                def rollNo
+                for (int i = headRow + 1; i < sheet.getRows(); i++) {
+                    if (col.getContents().toLowerCase() == 'roll no.') {
+                        Cell cols = sheet.getCell(j, i);
+                        rollNo = cols.getContents()
+                    }
+                    subjectList.each {
+                        def subjectInst = Subject.findById(it)
+                        if (subjectInst.aliasCode.matches(".*(A|B|C|D).*")) {
+                            print('++++++++++++++++++++++++ group +++++++++++++++')
+                            if (programGroupIns.groupSelectionType.toLowerCase() == 'single') {
+                                if (col.getContents().toLowerCase() == 'semg') {
+                                    Cell cols = sheet.getCell(j, i);
+                                    semg = cols.getContents()
+                                }
+                                if (semg != null || semg != '') {
+                                    if (col.getContents().concat(semg) == subjectInst.aliasCode) {
+                                        Cell cols = sheet.getCell(j, i);
+                                        updateStudentMarksExcel(rollNo, semester, subjectInst, cols.getContents())
+                                    }
+                                }
+                            } else if ((programGroupIns.groupSelectionType.toLowerCase() == 'multiplesubject') || (programGroupIns.groupSelectionType.toLowerCase() == 'multiplesubject')) {
+                                Cell prev = sheet.getCell(j - 1, i);
+                                def optg = prev.getContents()
+                                if (optg != null || optg != '') {
+                                    if (col.getContents().concat(optg) == subjectInst.aliasCode.substring(0, subjectInst.aliasCode.length() - 1)) {
+                                        Cell cols = sheet.getCell(j, i);
+                                        updateStudentMarksExcel(rollNo, semester, subjectInst, cols.getContents())
+                                    }
+                                }
+                            }
+                        } else {
+                            if (col.getContents() == subjectInst.aliasCode) {
+                                Cell cols = sheet.getCell(j, i);
+                                println("==================No Group===================")
+                                updateStudentMarksExcel(rollNo, semester, subjectInst, cols.getContents())
+
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (inputWorkbook.exists()) {
+            println("Document file is deleted...")
+            inputWorkbook.delete()
+        }
+    }
+    def updateStudentMarksExcel(rollNo, semester, subjectInst, cellContent) {
+        println("*************service*******************")
+        def studentMarksInst=[]
+        if (rollNo != '') {
+            studentMarksInst = StudentMarks.findAllByStudentAndSemesterNoAndSubjectId(Student.findByRollNo(rollNo), semester.semesterNo, subjectInst)
+        }
+        if (studentMarksInst.size()==0) {
+            println("@@@@@@@@@@@@@@@@@@@   New   @@@@@@@@@@@@@@@@@@@")
+            def tab9marks = new StudentMarks()
+            tab9marks.homeAssignmentMarks = cellContent
+            tab9marks.semesterNo = semester.semesterNo
+            tab9marks.roleId = Role.findById(9)
+            tab9marks.student = Student.findByRollNo(rollNo)
+            tab9marks.totalMarks = cellContent
+            tab9marks.save(flush: true, failOnError: true)
+            def tab10marks = new StudentMarks()
+            tab10marks.homeAssignmentMarks = cellContent
+            tab10marks.semesterNo = semester.semesterNo
+            tab10marks.roleId = Role.findById(10)
+            tab10marks.student = Student.findByRollNo(rollNo)
+            tab10marks.totalMarks = cellContent
+            tab10marks.save(flush: true, failOnError: true)
+        } else {
+            println("#######################old Update#################")
+            studentMarksInst.each {
+                def prevMarks=0
+                if(it.homeAssignmentMarks){
+                    prevMarks=Integer.parseInt(it.homeAssignmentMarks)
+                }
+                it.homeAssignmentMarks = cellContent
+
+                it.totalMarks = Integer.parseInt(it.totalMarks) + Integer.parseInt(cellContent)-prevMarks
+            }
+        }
     }
 }// MAIN CLOSING TAG

@@ -17,7 +17,7 @@ class BootStrap {
         def accountsRole =Role.findByAuthority('ROLE_ACCOUNT') ?: new Role(authority: 'ROLE_ACCOUNT').save(failOnError: true)
         def tabulatorRole1 =Role.findByAuthority('ROLE_TABULATOR1') ?: new Role(authority: 'ROLE_TABULATOR1').save(failOnError: true)
         def tabulatorRole2 =Role.findByAuthority('ROLE_TABULATOR2') ?: new Role(authority: 'ROLE_TABULATOR2').save(failOnError: true)
-
+        def examAdmin =Role.findByAuthority('ROLE_EXAM_ADMIN') ?: new Role(authority: 'ROLE_EXAM_ADMIN').save(failOnError: true)
 
 
         def adminUser = User.findByUsername('admin') ?: new User(
@@ -57,6 +57,17 @@ class BootStrap {
         if (!iuser.authorities.contains(idolUserRole)) {
             UserRole.create iuser, idolUserRole
         }
+        def examAdminUser = User.findByUsername('examAdmin') ?: new User(
+                username: 'examAdmin',
+                password: 'admin',
+                email: 'exam_admin@damyant.com',
+                studyCentreId: 0,
+                enabled: true).save(failOnError: true)
+
+        if (!examAdminUser.authorities.contains(examAdmin)) {
+            UserRole.create examAdminUser, examAdmin
+        }
+
 //        def studyC=User.findByUsername('studycentre') ?:new User(
 //                username:'studycentre',
 //                password:'admin',

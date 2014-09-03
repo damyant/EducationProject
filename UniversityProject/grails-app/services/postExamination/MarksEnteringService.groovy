@@ -221,6 +221,7 @@ class MarksEnteringService {
         Element subject = document.createElement("subject");
         subject.setAttribute('code', params.subjectCode)
         subject.setAttribute('credit', params.creditPoints)
+        subject.setAttribute('subMinMarks', params.subjPassMarks)
         if (params.theoryTotal != '' || params.theoryTotal != '0') {
             Element theory = document.createElement("theory");
             theory.setAttribute('total', params.theoryTotal)
@@ -254,6 +255,7 @@ class MarksEnteringService {
                     updateStatus=true
                     nodes.item(i).setAttribute('code', params.subjectCode)
                     nodes.item(i).setAttribute('credit', params.creditPoints)
+                    nodes.item(i).setAttribute('subMinMarks', params.subjPassMarks)
                     for (int j = 0; j < nodes.item(i).getChildNodes().getLength(); j++) {
                         if('theory'.equals(nodes.item(i).item(j).getNodeName())) {
                             nodes.item(i).item(j).setAttribute('total', params.theoryTotal)

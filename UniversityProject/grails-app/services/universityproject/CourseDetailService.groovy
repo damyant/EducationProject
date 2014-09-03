@@ -235,7 +235,6 @@ class CourseDetailService {
     }
 
     def saveCourseDetail(params) {
-        println("-----------------------"+params)
         def subjectIns
         def isSaved =""
 
@@ -347,10 +346,10 @@ class CourseDetailService {
                eq('programTypeId',ProgramType.get(params.programType))
            }
          }
-//        println("++++++++++"+finalSubjectList)
+        println("++++++++++"+finalSubjectList)
         finalSubjectList.each{
             resultList<< SubjectSession.findBySubjectId(it)
-//            println("++++++++++"+SubjectSession.findBySubjectId(it))
+            println("++++++++++"+SubjectSession.findBySubjectId(it))
             courseNameList<<SubjectSession.findBySubjectId(it).subjectId.subjectName
             courseCodeList<<SubjectSession.findBySubjectId(it).subjectId.subjectCode
 

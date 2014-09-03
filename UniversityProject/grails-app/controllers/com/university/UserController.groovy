@@ -51,8 +51,9 @@ class UserController {
         userInstance.properties = params
         def stydyCentreList = StudyCenter.list(sort: 'name')
         def programList = ProgramSession.list()
+        def examAdminCount=UserRole.findAllByRole(Role.findById(11)).size()
         def roleList = userService.getRoleList()
-        [userInstance: userInstance, roles: roleList, stydyCentreList: stydyCentreList, programList: programList]
+        [userInstance: userInstance, roles: roleList,examAdminCount:examAdminCount, stydyCentreList: stydyCentreList, programList: programList]
     }
 
     @Secured(["ROLE_ADMIN"])
@@ -81,7 +82,6 @@ class UserController {
 
     @Secured(["ROLE_ADMIN"])
     def save = {
-        println("________________________" + params)
         def result=userService.saveUserDetails(params)
        if(result.status){
            flash.message = "${message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), result.userInstance.id])}"
