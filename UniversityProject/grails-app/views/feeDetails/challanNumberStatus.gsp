@@ -37,6 +37,7 @@
                                                                                                      onclick="showChallanNumberStatus()">
                 <sec:ifAnyGranted roles="ROLE_ADMIN">
                     <td><input type="button" value="Edit"  class="university-button" onclick="editChallanDetails()"> </td>
+                    <td><input type="button" value="Remove Students"  class="university-button" onclick="removeStudentDetails()"> </td>
                 </sec:ifAnyGranted>
             </td>
             </tr>

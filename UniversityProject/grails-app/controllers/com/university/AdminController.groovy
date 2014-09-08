@@ -185,12 +185,11 @@ class AdminController {
                     maxResults(1)
                     order("semesterValue", "desc")
                 }
-//                println("---------------"+studentsPaidTill)
                 if (Integer.parseInt(params.term) > 1) {
                     if (studentsPaidTill[0].semesterValue + 1 == Integer.parseInt(params.term)) {
 
                         challanNo = studentRegistrationService.getChallanNumber()
-//            println(params.term)
+
                         student.migratingStudyCentre = studyCenterId
                         if (student.save(failOnError: true)) {
                             def feeInst = new FeeDetails()

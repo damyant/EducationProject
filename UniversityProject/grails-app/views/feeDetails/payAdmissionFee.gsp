@@ -53,8 +53,7 @@
         <g:if test="${flash.message}">
             <div class="message" role="status"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
-        <g:form controller="feeDetails" action="payChallanForStudyCenterStu" name="paychallanForStudyCenter"
-                id="paychallanForStudyCenter">
+        <g:form controller="feeDetails" action="payChallanForStudyCenterStu" name="paychallanForStudyCenter" id="paychallanForStudyCenter">
             <table class="inner university-size-full-1-1" style="margin: auto">
                 <thead>
                 <tr>
@@ -103,8 +102,8 @@
                 </tr>
                 <tr>
                     <td class="university-size-1-3">Payment Ref. No</td>
-                    <td class="university-size-2-3"><input type="text" name="paymentReferenceNumber" maxlength="10"
-                                                           onkeypress="return isNumber(event)"
+                    <td class="university-size-2-3"><input type="text" name="paymentReferenceNumber" maxlength="70"
+                                                           onkeypress="return isNumberWithSpaceComma(event)"
                                                            class="university-size-1-2" id="paymentReferenceNumber"
                                                            value=""></td>
                 </tr>

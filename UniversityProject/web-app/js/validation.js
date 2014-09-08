@@ -585,6 +585,15 @@ function isNumberWithDash(evt) {
     }
     return false;
 }
+function isNumberWithSpaceComma(evt) {
+
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if ((charCode > 47 && charCode < 58) || charCode == 9 ||charCode == 11 ||charCode == 8 || charCode == 45|| charCode == 32 || charCode == 44) {
+        return true;
+    }
+    return false;
+}
 //function onlyAlphabets(e, t) {
 //    try {
 //        if (window.event) {
@@ -697,8 +706,7 @@ function checkValidation() {
                 required: true,
                 minlength:10
             },
-            paymentReferenceNumber: {required: true,
-                number:true
+            paymentReferenceNumber: {required: true
             },
             bankName:"required",
             branchLocation:"required"

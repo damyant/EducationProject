@@ -668,6 +668,8 @@ class FeeDetailService {
         def returnMap = [:]
         def challanInst = FeeDetails.findAllByChallanNo(params.challanNo)
         def rollNo = []
+        def studentIDList = []
+        def semester = [],feeTypeId=[]
         def program = []
         def feeAmount = []
         DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
@@ -676,6 +678,9 @@ class FeeDetailService {
         if (challanInst) {
             challanInst.each {
                 rollNo << it.student.rollNo
+                studentIDList << it.id
+                semester << it.semesterValue
+                feeTypeId << it.feeType.id
                 program << it.student.programDetail.courseName
                 feeAmount << it.paidAmount
                 total += it.paidAmount
@@ -724,6 +729,9 @@ class FeeDetailService {
             }
             returnMap.challanInst = challanInst
             returnMap.rollNo = rollNo
+            returnMap.semester = semester
+            returnMap.feeTypeId = feeTypeId
+            returnMap.studentIDList = studentIDList
             returnMap.allPaymentMode = PaymentMode.list(sort:'paymentModeName')
             returnMap.allBank = Bank.list(sort:'bankName')
             if (challanInst[0].bankId) {

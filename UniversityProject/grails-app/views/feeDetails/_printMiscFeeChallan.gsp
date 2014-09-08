@@ -51,7 +51,7 @@
         </tr>
         <g:each in="${0..studList.size() - 1}" var="index">
             <tr>
-                <td>${studList[index].firstName} ${studList[index].lastName}</td>
+                <td>${studList[index]?.firstName}${studList[index]?.middleName} ${studList[index]?.lastName}</td>
                 <td>${studList[index].rollNo}</td>
                 <td>${miscellaneousFee[index]}</td>
             </tr>

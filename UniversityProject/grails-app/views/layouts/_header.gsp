@@ -1,6 +1,6 @@
 <div>
 <div class="logo">
-    <div class="header-parts"><img src="${resource(dir: 'images', file: 'logo.png')}" class="logo-image"></div>
+    <div class="header-parts"><img src="${resource(dir: 'images', file: 'logo.png')}" class="window"></div>
 
     <div class="header-parts" name="logout">
         <sec:ifLoggedIn>

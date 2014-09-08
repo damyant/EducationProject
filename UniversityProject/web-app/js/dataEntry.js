@@ -931,3 +931,51 @@ function editChallanDetails(){
         $('#errorMsg').html("Please Enter Challan Number")
     }
 }
+function removeStudentDetails(){
+    var challanNo = $("#challanNoText").val()
+//    alert(challanNo)
+    if(challanNo){
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'challanDetails', ''),
+            data: {challanNo: challanNo},
+            success: function (data) {
+                if (data.challanError) {
+                    $('#errorMsg').html(data.challanError)
+                    $("#challanStatus thead").empty()
+                    $("#challanStatus tbody").empty()
+                    $('#challanStatusStaticData').empty()
+                    $('#challanDataEdit').empty()
+                    document.getElementById("horizontalLine").style.visibility = "hidden";
+                }
+                else {
+                    if(data.editable) {
+                        $('#errorMsg').html('')
+                        $("#challanStatus thead").empty().append('<tr><th>Roll Number</th><th>Course</th><th>Amount</th><th></th></tr>')
+                        $("#challanStatus tbody").empty()
+                        for (var i = 0; i < data.challanInst.length; i++) {
+                            $("#challanStatus tbody").append('<tr><td>' + data.rollNo[i] + '</td><td>' + data.program[i] + '</td><td>' + data.feeAmount[i] + '</td><td><input type="button" value="Delete" class="university-button" onclick="removeStuFromChallan(' + data.studentIDList[i] + ')"></td></tr>')
+                        }
+                        $('#challanStatusStaticData').empty()
+                    }
+                    else{
+                        $('#errorMsg').html("Challan Not Paid.")
+                        $("#challanStatus thead").empty()
+                        $("#challanStatus tbody").empty()
+                        $('#challanStatusStaticData').empty()
+                        $('#challanDataEdit').empty()
+                        document.getElementById("horizontalLine").style.visibility = "hidden";
+                    }
+                }
+
+            }
+        });
+    }
+    else{
+        $('#errorMsg').html("Please Enter Challan Number")
+    }
+}
+function removeStuFromChallan(studentID){
+    var data = studentID
+    window.location.href = '/UniversityProject/feeDetails/deleteStudentFromChallan?studentId=' + data;
+}

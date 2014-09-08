@@ -149,7 +149,7 @@
                                                       style="margin:auto; width: 150px; height: 70px"/>
                             </g:if>
                             <g:else>
-                                <br/><br/><br/>
+                                <br/><br/>
                             </g:else>
                             <div style="width: 100%;display: inline-block;font-size:13px;">
                                 <label style="width: 30%;text-align: left;float: left;">

@@ -3,7 +3,7 @@
         <p>
             Copyright © 2014 Institute of Distance and Open Learning, Gauhati University
         </p>
-        <p>            Powered by :: <a href="http://www.damyant.com/">Damyant Software Pvt. Ltd</a>.
+        <p>            Powered by :: <strong><a href="http://www.damyant.com/" class=" blink_me">Damyant Software Pvt. Ltd</a></strong>.
         </p>
     </div>
 </div>
