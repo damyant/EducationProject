@@ -130,6 +130,7 @@
             setTimeout(function () {
                 $('#studyCenterFeeEntryTable').attr('hidden', true);
                 $('#rangeRadioButtons').attr('hidden', true);
+                $('.pagination input').replaceWith('<input type="text" readonly="readonly">')
                 document.getElementById("paginationDiv").style.visibility = "hidden";
                 document.getElementById("generateFeeChallan").style.visibility = "hidden";
                 document.getElementById("paymentDetails").style.visibility = "hidden";

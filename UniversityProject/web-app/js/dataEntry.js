@@ -316,8 +316,6 @@ function appendStudentList(data) {
         var table_row_limit = 10;
 
         var page_table = function (page) {
-
-            // calculate the offset and limit values
             var offset = (page - 1) * table_row_limit,
                 limit = page * table_row_limit;
 
@@ -335,10 +333,11 @@ function appendStudentList(data) {
         else {
             pageNo = parseInt($table_rows.length / table_row_limit)
         }
-//                alert(5%5)
         $('.pagination').jqPagination({
             max_page: pageNo,
-            paged: page_table
+            current_page : 1,
+            paged: page_table,
+            trigger : true
         });
         page_table(1);
         $(".datePickers").datepicker({

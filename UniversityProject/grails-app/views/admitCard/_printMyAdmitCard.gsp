@@ -45,22 +45,23 @@
                     <tr>
                         <td style="width: 80%;">
                             <div style="width: 100%;display: inline;">
-                                <div style="width: 25%;float: left;font-size: 11px;"><b>Name of the Candidate:</b></div>
+                                %{--<div style="width: 25%;float: left;font-size: 11px;"><b>Name of the Candidate:</b></div>--}%
+                                <div style="width: 25%;float: left;font-size: 11px;"><b> </b></div>
                                 <strong>
-                                    <div style="width: 70%;float: right;"
-                                         id="studentName">${student?.firstName} ${student?.middleName} ${student?.lastName}</div>
+                                    <div style="width: 70%;float: right;" id="studentName"></div>
+                                    %{--<div style="width: 70%;float: right;" id="studentName">${student?.firstName} ${student?.middleName} ${student?.lastName}</div>--}%
                                 </strong>
                             </div>
                         </td>
                         <td rowspan="4" style="width: 20%;">
                             <div id="profile-image" style="float: right;">
                                 <g:if test="${student?.studentImage}">
-                                    <rendering:inlineJpeg bytes="${student?.getStudentImage()}" class="university-registration-photo" style="margin:auto; width: 110px;"/>
+                                    %{--<rendering:inlineJpeg bytes="${student?.getStudentImage()}" class="university-registration-photo" style="margin:auto; width: 110px;"/>--}%
                                 </g:if>
                                 <g:else>
                                     <div style="margin:auto; height: 130px;width:110px;text-align: center ; vertical-align:middle;border: 1px solid;">
                                         <div style="margin: 20px 0px;">
-                                            Affix Passport Size Photo
+                                            %{--Affix Passport Size Photo--}%
                                         </div>
                                     </div>
                                 </g:else>
@@ -69,9 +70,11 @@
                     <tr>
                         <td style="width: 80%;">
                             <div style="width: 100%;display: inline;">
-                                <div style="width: 25%;float: left;font-size: 11px;"><b>Roll Number:</b></div>
+                                <div style="width: 25%;float: left;font-size: 11px;"><b></b></div>
+                                %{--<div style="width: 25%;float: left;font-size: 11px;"><b>Roll Number:</b></div>--}%
                                 <strong>
-                                    <div style="width: 70%;float: right;" id="rollNo">${student.rollNo}</div>
+                                    <div style="width: 70%;float: right;" id="rollNo"></div>
+                                    %{--<div style="width: 70%;float: right;" id="rollNo">${student.rollNo}</div>--}%
                                 </strong>
                             </div>
                         </td>
@@ -81,14 +84,15 @@
                     <tr>
                         <td>
                             <div style="width: 100%;display: inline;">
-                                <div style="width: 25%;float: left;font-size: 12px;"><b>Registration Number:</b></div>
+                                %{--<div style="width: 25%;float: left;font-size: 12px;"><b>Registration Number:</b></div>--}%
+                                <div style="width: 25%;float: left;font-size: 12px;"><b></b></div>
                                 <strong>
                                     <div style="width: 70%;float: right;" id="registrationlNo">
                                         <g:if test="${student.registrationNo1}">
-                                            <label> ${student?.registrationNo1} of ${student?.registrationNo2}</label>
+                                            %{--<label> ${student?.registrationNo1} of ${student?.registrationNo2}</label>--}%
                                         </g:if>
                                         <g:else>
-                                            A/F
+                                            %{--A/F--}%
                                         </g:else>
                                     </div>
                                 </strong>
@@ -97,36 +101,37 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td style="width: 80%;">
-                            <div style="width: 100%;">
-                                <div style="width: 25%;float: left;font-size: 12px;"><b>Examination:</b></div>
-                                <i><b><label id="mode">Previous/Semester</label> Examination <label
-                                        id="year">${year}</label></b><label
-                                        style="font-size: 12px;text-transform: none;"> Under the Institute of Distance and Open Learning for </label><b>${student.programDetail[0].courseName}
-                                    <label><g:if test="${student.programDetail[0].courseMode.id==1}">Semester ${student.semester}</g:if><g:else>
-                                        <g:if test="${student.semester==1}"> Previous</g:if><g:else> Final</g:else>
-                                    </g:else> </label>
-                                </b></i></div>
+                        <td style="width: 80%;" rowspan="2">
+                            %{--<div style="width: 100%;">--}%
+                                %{--<div style="width: 25%;float: left;font-size: 12px;"><b>Examination:</b></div>--}%
+                                %{--<i><b><label id="mode">Previous/Semester</label> Examination <label--}%
+                                        %{--id="year">${year}</label></b><label--}%
+                                        %{--style="font-size: 12px;text-transform: none;"> Under the Institute of Distance and Open Learning for </label><b>${student.programDetail[0].courseName}--}%
+                                    %{--<label><g:if test="${student.programDetail[0].courseMode.id==1}">Semester ${student.semester}</g:if><g:else>--}%
+                                        %{--<g:if test="${student.semester==1}"> Previous</g:if><g:else> Final</g:else>--}%
+                                    %{--</g:else> </label>--}%
+                                %{--</b></i></div>--}%
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <table cellpadding="0px"
-                                   style="border: 1px solid black;width: 80%;margin: auto;text-align: center;">
+                                   style="border: 0px solid black;width: 80%;margin: auto;text-align: center;">
                                 <tr>
-                                    <g:each in="${0..dateCount - 1}" var="i">
-                                        <g:if test="${i > 0}">
-                                            <td style="border: 1px solid black;"><g:formatDate format="dd-MMM-yyyy"
-                                                                                               date="${examDate[i]}"/></td>
-                                        </g:if>
-                                        <g:else>
-                                            <td style="border: 1px solid black;">${examDate[i]}</td>
-                                        </g:else>
-                                    </g:each>
+                                    %{--<g:each in="${0..dateCount - 1}" var="i">--}%
+                                        %{--<g:if test="${i > 0}">--}%
+                                            %{--<td style="border: 1px solid black;"><g:formatDate format="dd-MMM-yyyy"--}%
+                                                                                               %{--date="${examDate[i]}"/></td>--}%
+                                        %{--</g:if>--}%
+                                        %{--<g:else>--}%
+                                            %{--<td style="border: 1px solid black;">${examDate[i]}</td>--}%
+                                        %{--</g:else>--}%
+                                    %{--</g:each>--}%
                                 </tr>
                                 <tr>
                                     <g:each in="${0..dateCount - 1}" var="i">
-                                        <td style="border: 1px solid black;">${examTime[i]}</td>
+                                        %{--<td style="border: 1px solid black;">${examTime[i]}</td>--}%
+                                        <td style="border: 1px solid black;"></td>
                                     </g:each>
                                 </tr>
                             </table>
@@ -136,8 +141,10 @@
                     <tr>
                         <td colspan="2">
                             <table style="margin: auto;width: 100%;"><tr>
-                                <td style="width: 25%;font-size: 12px;"><b>Examination Centre/Venue:</b></td>
-                                <td><label style="width: 75%;" id="examCentre"><b>${studentInstance[0]?.examinationVenue?.name}</b></label>
+                                <td style="width: 25%;font-size: 12px;"><b></b></td>
+                                %{--<td style="width: 25%;font-size: 12px;"><b>Examination Centre/Venue:</b></td>--}%
+                                %{--<td><label style="width: 75%;" id="examCentre"><b>${studentInstance[0]?.examinationVenue?.name}{studentInstance[0]?.examinationVenue?.name}</b></label>--}%
+                                <td><label style="width: 75%;" id="examCentre"><b></b></label>
                                 </td>
                             </tr></table>
                         </td>

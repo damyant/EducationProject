@@ -227,7 +227,6 @@ class FeeDetailsController {
         def challanNo
         def studyCentre
         def feeForStudent
-        print("================================" + new Date())
         def today = new Date()
         def feeTypeName = FeeType.findById(params.feeCategory).type
 
@@ -333,7 +332,6 @@ class FeeDetailsController {
                 feeDetails.semesterValue = Integer.parseInt(semesterList[i])
                 feeDetails.save(failOnError: true, flush: true)
                 addmissionFee.add(feeForStudent)
-                print("================================" + new Date())
             }
         }
 

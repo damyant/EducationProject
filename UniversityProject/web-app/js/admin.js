@@ -568,7 +568,7 @@ function generateStudentsList() {
 
 function viewStudentDetails(studentId){
     var data = studentId
-    alert(data)
+//    alert(data)
 }
 function viewStudent(studentId) {
     var data = studentId
