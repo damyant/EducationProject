@@ -269,6 +269,8 @@
         <sec:ifAnyGranted roles="ROLE_ADMIN">
         <li><g:link controller="photoUpload" action="photoUpload"><g:message
                 code="default.mainMenu3.subMenu2.submenu5"/></g:link></li>
+        <li><g:link controller="feeDetails" action="printAChallan"><g:message
+                    code="default.mainMenu3.subMenu2.submenu3"/></g:link></li>
         </sec:ifAnyGranted>
     </ul>
 </li>

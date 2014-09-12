@@ -297,11 +297,6 @@ class StudentRegistrationService {
         }
     }
 
-    /**
-     * Service to generate the reference no.
-     * @param courseId
-     * @return
-     */
     def getStudentReferenceNumber() {
         /* Assign a string that contains the set of characters you allow. */
         String symbols = "123456789987654321";
@@ -391,22 +386,32 @@ class StudentRegistrationService {
                 order("id", "desc")
             }
             def envChallanInst=ExistingChallan.findBySession(2014)
+            println("+++++++++++++++++++++"+envChallanInst.challan)
             if (feeDetailByChallanNo) {
                 if (custByChallanNo) {
+                    if (envChallanInst) {
+                        if((Integer.parseInt(envChallanInst.challan)>Integer.parseInt(feeDetailByChallanNo[0].challanNo))&&(Integer.parseInt(feeDetailByChallanNo[0].challanNo) > Integer.parseInt(custByChallanNo[0].challanNo))){
+                            studentByChallanNo=envChallanInst.challan
+                        }
+                        else if((Integer.parseInt(envChallanInst.challan)<Integer.parseInt(feeDetailByChallanNo[0].challanNo))&&(Integer.parseInt(feeDetailByChallanNo[0].challanNo) < Integer.parseInt(custByChallanNo[0].challanNo))){
+                            studentByChallanNo=custByChallanNo[0].challanNo
+                        }
+                        else{
+                            studentByChallanNo = feeDetailByChallanNo[0].challanNo
+                        }
+                    }
+                    else{
                     if (Integer.parseInt(feeDetailByChallanNo[0].challanNo) > Integer.parseInt(custByChallanNo[0].challanNo)) {
                         studentByChallanNo = feeDetailByChallanNo[0].challanNo
                     } else {
                         studentByChallanNo = custByChallanNo[0].challanNo
                     }
+                    }
                 } else {
                     studentByChallanNo = feeDetailByChallanNo[0].challanNo
                 }
             }
-            if(envChallanInst){
-                if(Integer.parseInt(envChallanInst.challan)>Integer.parseInt(studentByChallanNo)){
-                    studentByChallanNo=envChallanInst.challan
-                }
-            }
+
             def lastChallanDate
             if (studentByChallanNo) {
                 if (studentByChallanNo != null) {
@@ -425,9 +430,6 @@ class StudentRegistrationService {
             } else {
                 serialNo = 1
             }
-
-
-
             length = serialNo.toString().length()
             switch (length) {
                 case 1:

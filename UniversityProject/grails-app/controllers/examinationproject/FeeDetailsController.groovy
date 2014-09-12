@@ -214,6 +214,8 @@ class FeeDetailsController {
     @Synchronized("challanLock")
     def challanForStudyCenterStu() {
 //        println("***************" + params)
+
+        DateFormat dfp = new SimpleDateFormat("MM/dd/yyyy");
         List<Student> studList = []
         List<AdmissionFee> addmissionFee = []
         studList.clear()
@@ -227,7 +229,7 @@ class FeeDetailsController {
         def challanNo
         def studyCentre
         def feeForStudent
-        def today = new Date()
+        def today = dfp.parse(dfp.format(new Date()))
         def feeTypeName = FeeType.findById(params.feeCategory).type
 
         if (params.rollNoSearch) {
@@ -244,7 +246,8 @@ class FeeDetailsController {
             if (params.feeCategory == '3') {
                 stuIns.challanNo = challanNo
                 stuIns.save(failOnError: true)
-                def lateFeeDate = stuIns.programDetail.lateFeeDate[0]
+
+                def lateFeeDate = dfp.parse(dfp.format(stuIns.programDetail.lateFeeDate[0]))
                 feeForStudent = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj, Integer.parseInt(params.semesterListHidden)).feeAmountAtSC
                 if (lateFeeDate != null) {
                     if (today.compareTo(lateFeeDate) > 0) {
@@ -354,6 +357,7 @@ class FeeDetailsController {
 
     def payChallanForStudyCenterStu = {
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat dfp = new SimpleDateFormat("MM/dd/yyyy");
         def courseNameList = [], courseFee = []
         def feeDetailsInstance = FeeDetails.findAllByChallanNo(params.searchChallanNo)
         def stuList = []
@@ -368,8 +372,8 @@ class FeeDetailsController {
         stuList.each {
 //            println(params.semester[0])
             lateFee = 0
-            def lateFeeDate = it.programDetail.lateFeeDate[0]
-            def today = feeDetailsInstance[0].challanDate
+            def lateFeeDate = dfp.parse(dfp.format(it.programDetail.lateFeeDate[0]))
+            def today = dfp.parse(dfp.format(feeDetailsInstance[0].challanDate))
 
             int year = it.registrationYear
             def sessionVal = year + 1
@@ -645,6 +649,10 @@ class FeeDetailsController {
         def result = feeDetailService.getChallanDetails(params)
         render result as JSON
     }
+    def challanDetailsRemove = {
+        def result = feeDetailService.getChallanDetailsForRemove(params)
+        render result as JSON
+    }
     def getTermForFeeType = {
         def returnMap = [:]
         def feeTypeInst = FeeType.findById(Long.parseLong(params.feeType))
@@ -703,20 +711,126 @@ class FeeDetailsController {
         }
         render resultMap as JSON
     }
-    def deleteStudentFromChallan={
+    def deleteStudentFromChallan = {
         def resultMap = [:]
-        def feeDetailInst=FeeDetails.findById(Long.parseLong(params.studentId))
+        def feeDetailInst = FeeDetails.findById(Long.parseLong(params.studentId))
         def status
-        if(feeDetailInst){
+        if (feeDetailInst) {
             feeDetailInst.delete(flush: true, failOnError: true)
-            if(FeeDetails.exists(feeDetailInst.id)){
+            if (FeeDetails.exists(feeDetailInst.id)) {
                 flash.message = "Unable to Delete Successfully."
-            }
-            else{
+            } else {
                 flash.message = "Delete Successfully."
             }
 
         }
         redirect(action: 'challanNumberStatus')
+    }
+    @Secured(["ROLE_ADMIN"])
+    def printAChallan() {
+
+    }
+    @Secured(["ROLE_ADMIN"])
+    def printTheChallan() {
+        def challanInst = FeeDetails.findAllByChallanNo(params.challanNo)
+        if (challanInst) {
+            if (challanInst[0].isApproved == Status.findById(1)) {
+                redirect(action: 'printUnapproveChallan', params: [challanNo: params.challanNo])
+            } else {
+                redirect(action: 'printApproveChallan', params: [challanNo: params.challanNo])
+            }
+        } else {
+            flash.message = "Please Enter a Correct Challan Number"
+            redirect(action: 'printAChallan')
+        }
+    }
+    @Secured(["ROLE_ADMIN"])
+    def printUnapproveChallan = {
+        println("=================" + params)
+        def feeDetailsInstance = FeeDetails.findAllByChallanNo(params.challanNo)
+        DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        DateFormat dfp= new SimpleDateFormat("MM/dd/yy");
+        def courseNameList = [], courseFee = []
+        def totalFee = 0;
+        def lateFee = 0
+        def studyCentre
+        def stuList = []
+        def termList = []
+        feeDetailsInstance.each {
+            termList << it.semesterValue
+            stuList << it.student
+            courseFee << it.paidAmount
+            courseNameList<<it.student.programDetail[0].courseName
+            totalFee = totalFee + it.paidAmount
+        }
+        stuList.each {
+            lateFee = 0
+            def lateFeeDate = dfp.parse(dfp.format(it.programDetail.lateFeeDate[0]))
+            def today = dfp.parse(dfp.format(feeDetailsInstance[0].challanDate))
+            int year = it.registrationYear
+            def sessionVal = year + 1
+            sessionVal = year + '-' + sessionVal
+            def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(it.programDetail[0].id), sessionVal)
+            if (lateFeeDate && (termList[0] == 1)) {
+                if (today.compareTo(lateFeeDate) > 0) {
+                    lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj, feeDetailsInstance[0].semesterValue).lateFeeAmount
+                }
+            }
+        }
+        studyCentre = stuList[0].studyCentre
+        def challanNo = params.challanNo
+        def args = [template: "printChallan", model: [studList: stuList, challanNo: challanNo, feeTypeName: feeDetailsInstance[0].feeType.type, term: termList[0], studyCentre: studyCentre, addmissionFee: courseFee, totalFee: totalFee, lateFee: lateFee], filename: challanNo + ".pdf"]
+        pdfRenderingService.render(args + [controller: this], response)
+
+    }
+    def printApproveChallan = {
+        def feeDetailsInstance = FeeDetails.findAllByChallanNo(params.challanNo)
+        DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        DateFormat dfp= new SimpleDateFormat("MM/dd/yy");
+        def courseNameList = [], courseFee = []
+        def totalFee = 0;
+        def lateFee = 0
+        def studyCentre
+        def stuList = []
+        def termList = []
+        def feeType = []
+        feeDetailsInstance.each {
+            termList << it.semesterValue
+            stuList << it.student
+            courseFee << it.paidAmount
+            courseNameList<<it.student.programDetail[0].courseName
+            totalFee = totalFee + it.paidAmount
+            feeType<<it.feeType.type
+        }
+        studyCentre = stuList[0].studyCentre
+        def paymentModeName = feeDetailsInstance[0].paymentModeId
+        def bank = feeDetailsInstance[0].bankId
+        def branchInst = feeDetailsInstance[0].branchId
+        def challanNo = params.challanNo
+        def paymentDate =df.format(feeDetailsInstance[0].paymentDate)
+        def paymentReferenceNumber = feeDetailsInstance[0].paymentReferenceNumber
+        if(feeDetailsInstance[0].feeType.id==3){
+            stuList.each {
+                lateFee = 0
+                def lateFeeDate = dfp.parse(dfp.format(it.programDetail.lateFeeDate[0]))
+                def today = dfp.parse(dfp.format(feeDetailsInstance[0].challanDate))
+                int year = it.registrationYear
+                def sessionVal = year + 1
+                sessionVal = year + '-' + sessionVal
+                def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(it.programDetail[0].id), sessionVal)
+                if (lateFeeDate && (termList[0] == 1)) {
+                    if (today.compareTo(lateFeeDate) > 0) {
+                        lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj, feeDetailsInstance[0].semesterValue).lateFeeAmount
+                    }
+                }
+            }
+            def args = [template: "printPayChallan", model: [bank: bank, termList: termList, lateFee: lateFee, studyCentre: studyCentre, branch: branchInst, paymentReferenceNumber: paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
+            pdfRenderingService.render(args + [controller: this], response)
+        }
+        else{
+            def args = [template: "printPayMiscFeeChallan", model: [bank: bank, studyCentre: studyCentre, feeType: feeType[0], branch: branchInst, termValue: termList, paymentReferenceNumber: paymentReferenceNumber, paymentModeName: paymentModeName, paymentDate: paymentDate, stuList: stuList, courseFee: courseFee, totalFee: totalFee, courseNameList: courseNameList, challanNo: challanNo,], filename: challanNo + ".pdf"]
+            pdfRenderingService.render(args + [controller: this], response)
+        }
+
     }
 }

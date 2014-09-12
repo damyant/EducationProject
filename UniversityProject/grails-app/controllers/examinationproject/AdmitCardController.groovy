@@ -150,15 +150,14 @@ class AdmitCardController {
 
         def stuList = [], mode = [], examType = [], courseName = []
         def status
+        def month
         def admitInst = null
         def user = springSecurityService.currentUser
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         StringBuilder examDate = new StringBuilder()
         StringBuilder examTime = new StringBuilder()
         def webRootDir = servletContext.getRealPath("/")
-//        println('*******************************************************' + webRootDir)
         def byte[] logo = new File(webRootDir + "/images/gu-logo.jpg").bytes
-//        println("these are the logo bytes " + logo);
 
         if (params.rollNumber && springSecurityService.currentUser) {
             stuList = admitCardService.getStudentByRollNo(user, params)
@@ -170,7 +169,6 @@ class AdmitCardController {
             def studentList = params.studentList.split(",")
             studentList.each {
                 def studentInst = Student.findById(Integer.parseInt(it.toString()))
-//                println("AAAAAAAAAAAAAAAAAAAA"+studentInst.studyCentre[0].centerCode)
                 Set<City> cityInst = City.findAllById(8)
                 if (studentInst.city == cityInst) {
                     admitInst = AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examinationVenue))
@@ -194,34 +192,7 @@ class AdmitCardController {
                 dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
                 timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
             }
-//            if (dateList.size() == 0) {
-//                flash.message = "Examination Date Not Assigned Yet"
-//                redirect(controller: 'admitCard', action: 'bulkCreationOfAdmitCard')
-//            }
-            def count = 1
             def total = dateList.size()
-//            dateList.each {
-//                if (it) {
-//                    examDate.append(it.format("dd/MM/yyyy"))
-//                    if (count != total)
-//                        examDate.append(", ")
-//                    count++
-//                }
-//            }
-//            def count1 = 1
-//            def total1 = timeList.size()
-//
-//            timeList.each {
-//                if (it) {
-//                    examTime.append(it)
-//                    if (count1 != total1)
-//                        examTime.append(", ")
-//                    count1++
-//                }
-//
-//            }
-//            println("ffffffffffffff"+examTime)
-            def month = ""
             if (stuList[0].semester % 2 == 0) {
                 month = "July"
             } else {
@@ -252,6 +223,7 @@ class AdmitCardController {
 
         def stuList = [], mode = [], examType = [], courseName = []
         def status
+        def month
         def admitInst = null
         def user = springSecurityService.currentUser
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -278,35 +250,8 @@ class AdmitCardController {
                 dateList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examDate
                 timeList << CourseSubject.findBySubjectAndProgramSession(it, programSessionIns).examTime
             }
-//            println("========================"+dateList[0])
-//            println("========================"+timeList[0])
-//            if (dateList[0] != ''||timeList[0]!=null||dateList[0]!=null) {
-//                flash.message = "Examination Date Not Assigned Yet"
-//                redirect(controller: 'student', action: 'downloadAdmitCard')
-//            }
-            def count = 1
+
             def total = dateList.size()
-//            dateList.each {
-//                if (it) {
-//                    examDate.append(it.format("dd/MM/yyyy"))
-//                    if (count != total)
-//                        examDate.append(", ")
-//                    count++
-//                }
-//            }
-//            def count1 = 1
-//            def total1 = timeList.size()
-//
-//            timeList.each {
-//                if (it) {
-//                    examTime.append(it)
-//                    if (count1 != total1)
-//                        examTime.append(", ")
-//                    count1++
-//                }
-//
-//            }
-            def month = ""
             if (stuList[0].semester % 2 == 0) {
                 month = "July"
             } else {

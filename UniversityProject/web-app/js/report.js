@@ -126,6 +126,10 @@ $(function() {
 //        alert("clicked")
         openPopUp(13)
     })
+    $('#studyCentreStudentDetails').on('click', function(){
+//        alert("clicked")
+        openPopUp(25)
+    })
 
     $('#examinationCentreStudentList').on('click', function(){
 //        alert("clicked")
@@ -386,6 +390,15 @@ function openPopUp(value){
         $('tr').hide()
         $('#flagValue').val('paymentModeReport')
         $("#byPaymentModeReport").show()
+        $("#submitButton").show()
+//        alert("condition is true")
+        $('#sessionDialog').dialog('open')
+    }
+    else if(value==25){
+        $('tr').hide()
+        $('#flagValue').val('StudyCentreStudentDetails')
+        $('#inExcel').val('true')
+        $("#byStudyCentreStudentDetails").show()
         $("#submitButton").show()
 //        alert("condition is true")
         $('#sessionDialog').dialog('open')

@@ -663,6 +663,33 @@ class FeeDetailService {
         }
         return returnMap
     }
+    def getChallanDetailsForRemove(params) {
+        def returnMap = [:]
+        def challanInst = FeeDetails.findAllByChallanNo(params.challanNo)
+        def rollNo = []
+        def studentIDList = []
+        def program = []
+        def feeAmount = []
+        def total = 0
+        if (challanInst) {
+            challanInst.each {
+                rollNo << it.student.rollNo
+                studentIDList << it.id
+                program << it.student.programDetail.courseName
+                feeAmount << it.paidAmount
+                total += it.paidAmount
+            }
+            returnMap.challanInst = challanInst
+            returnMap.rollNo = rollNo
+            returnMap.studentIDList = studentIDList
+            returnMap.program = program
+            returnMap.feeAmount = feeAmount
+            returnMap.total = total
+        } else {
+            returnMap.challanError = 'Incorrect Challan Number or Its a custom Challan Number.'
+        }
+        return returnMap
+    }
 
     def getChallanDetails(params) {
         def returnMap = [:]
@@ -679,8 +706,6 @@ class FeeDetailService {
             challanInst.each {
                 rollNo << it.student.rollNo
                 studentIDList << it.id
-                semester << it.semesterValue
-                feeTypeId << it.feeType.id
                 program << it.student.programDetail.courseName
                 feeAmount << it.paidAmount
                 total += it.paidAmount
@@ -729,8 +754,6 @@ class FeeDetailService {
             }
             returnMap.challanInst = challanInst
             returnMap.rollNo = rollNo
-            returnMap.semester = semester
-            returnMap.feeTypeId = feeTypeId
             returnMap.studentIDList = studentIDList
             returnMap.allPaymentMode = PaymentMode.list(sort:'paymentModeName')
             returnMap.allBank = Bank.list(sort:'bankName')
