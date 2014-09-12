@@ -262,7 +262,7 @@ class ReportService {
 //                    }
                     }
 //                /println(pId+ "--"+params.studyCentre +"------------------"+count)
-                    status = writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCentreName.name, session)
+                    status = writeExcelService.excelReport(params, count, it, sheetNo, workbook, studyCentreName, session)
                     sheetNo = sheetNo + 1
                 }
                 workbook.write();
