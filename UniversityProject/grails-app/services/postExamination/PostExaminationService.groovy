@@ -10,6 +10,7 @@ import examinationproject.Semester
 import examinationproject.Status
 import examinationproject.Student
 import examinationproject.Subject
+import examinationproject.SubjectSession
 import grails.converters.JSON
 import grails.transaction.Transactional
 import jxl.Cell
@@ -680,142 +681,133 @@ class PostExaminationService {
 
     }
 
-    def studentMeritRegisterData(params, excelPath,studentList,xmlNodes,subjectList,semesterInst) {
-        println("in merit register service")
+    def studentMeritRegisterData(params, excelPath,studentList,xmlNodes,subjectList,semesterIns,programSession) {
 
-        def stuList = [],marksList=[],subjectMarksList=[],finalList=[],passingSubjectNoList=[]
-//        def status = false
+        def subMarksObj=SubjectMarksDetail
 
-            studentList.each{it ->
-                subjectMarksList=[]
-                def counter=0
-                subjectList.each{ itr ->
-                     ++counter
+        def marksList=[],finalMarksTypeList=[],subjectMarksList=[],finalList=[],passingSubjectNoList=[]
+        studentList.eachWithIndex{it ,index ->
+            def stuMarksList=[]
+            def counter=0
+            subjectList.each{ itr ->
 
-//                    for(def i=0;i<xmlNodes.childNodes.length;i++){
-//                        marksList=[]
-//                        def status=false
-//
-//                        if(xmlNodes.item(i).getNodeName()!="#text" && xmlNodes.item(i).getAttribute("code").contains(itr.subjectCode) ){
-//                            def stuMarksObject = StudentMarks.findByStudentAndSubjectIdAndSemesterNoAndRoleId(it, itr, Integer.parseInt(semesterInst.id.toString()), Role.get(9))
-//
-//
-//                            for(def j=0;j<xmlNodes.item(i).getChildNodes().getLength();j++){
-//
-//                                 if(xmlNodes.item(i).item(j).getNodeName()!="#text" ){
-//                                     if(Integer.parseInt(xmlNodes.item(i).item(j).getAttribute("minMarks"))>0){
-//
-//                                     if(xmlNodes.item(i).item(j).getNodeName()=="theory"){
-//                                        marksList<<stuMarksObject.theoryMarks
-//                                         status=true
-//                                     }
-//                                     if(xmlNodes.item(i).item(j).getNodeName()=="home"){
-//                                         marksList<<stuMarksObject.homeAssignmentMarks
-//                                         status=true
-//                                     }
-//                                     if(xmlNodes.item(i).item(j).getNodeName()=="practical"){
-//                                         marksList<<stuMarksObject.practicalMarks
-//                                         status=true
-//                                        }
-//                                     }
-//                                     else{
-//                                         marksList<<"no"
-//                                     }
-//
-//                                 }
-//
+
+                subMarksObj=SubjectMarksDetail.findBySubjectSession(SubjectSession.findBySubjectId(itr))
+                if(index==0){
+                    def marksTypeList=[]
+                    if(subMarksObj.theory){
+                        marksTypeList<<"Exam"
+                    }
+                    if(subMarksObj.home){
+                        marksTypeList<<"HA"
+                    }
+                    if(subMarksObj.practical){
+                        marksTypeList<<"Practical"
+
+                    }
+                    if(subMarksObj.project){
+                        marksTypeList<<"Project"
+                    }
+                    marksTypeList<<"Total"
+                    ++counter
+                    finalMarksTypeList<<marksTypeList
+                }
+
+                def stuMarksObj=StudentMarks.findBySubjectIdAndStudentAndSemesterNo(itr,it,Integer.parseInt(semesterIns.id.toString()))
+
+                if(subMarksObj.theory){
+                    stuMarksList<<stuMarksObj.theoryMarks
+                }
+                if(subMarksObj.home){
+                    stuMarksList<<stuMarksObj.homeAssignmentMarks
+                }
+                if(subMarksObj.practical){
+                    stuMarksList<<stuMarksObj.practicalMarks
+                }
+                if(subMarksObj.project){
+                    stuMarksList<<stuMarksObj.project
+                }
+//                    stuMarksList<<stuMarksObj.totalMarks
+
+                marksList=[]
+                def subMinPassingMarks=0
+//                    def stuMarksObject = StudentMarks.findByStudentAndSubjectIdAndSemesterNoAndRoleId(it, itr, Integer.parseInt(semesterIns.id.toString()), Role.get(9))
+
+                xmlNodes.subject.each{itr1 ->
+
+
+                    if(itr.subjectCode.contains(itr1?.@code)){
+
+                        subMinPassingMarks=Integer.parseInt(itr1?.@minMarks)
+
+                        //                            else{
+//                                marksList<<"no"
 //                            }
-//                            println("br"+i)
-//                            subjectMarksList<<marksList
-//
+//                            if(Integer.parseInt(itr1?.home?.@minMarks[0])>0){
+//                                marksList<<stuMarksObj.homeAssignmentMarks
+//                            }
+//                            else{
+//                                marksList<<"no"
+//                            }
+//                            if(Integer.parseInt(itr1?.practical?.@minMarks[0])>0){
+//                                marksList<<stuMarksObject.practicalMarks
+//                            }
+//                            else{
+//                                marksList<<"no"
+//                            }
 //
 //                        }
-//
-//                    }
-                    marksList=[]
-                    def subMinPassingMarks=0
-                    def stuMarksObject = StudentMarks.findByStudentAndSubjectIdAndSemesterNoAndRoleId(it, itr, Integer.parseInt(semesterInst.id.toString()), Role.get(9))
-
-                    xmlNodes.subject.each{itr1 ->
-
-
-                        if(itr.subjectCode.contains(itr1?.@code)){
-
-                            subMinPassingMarks=Integer.parseInt(itr1?.@minMarks)
-
-                            if(Integer.parseInt(itr1?.theory?.@minMarks[0])>0){
-
-                               marksList<< stuMarksObject.theoryMarks
-                            }
-                            else{
-                                marksList<<"no"
-                            }
-                            if(Integer.parseInt(itr1?.home?.@minMarks[0])>0){
-                                marksList<<stuMarksObject.homeAssignmentMarks
-                            }
-                            else{
-                                marksList<<"no"
-                            }
-                            if(Integer.parseInt(itr1?.practical?.@minMarks[0])>0){
-                                marksList<<stuMarksObject.practicalMarks
-                            }
-                            else{
-                                marksList<<"no"
-                            }
-
-                        }
 //                        if(Integer.parseInt(stuMarksObject.totalMarks)<Integer.parseInt(itr1?.@minMarks)){
 //                            passingSubjectNoList<<"0"
 //
 //                        }else{
 //                            passingSubjectNoList<<counter
-//                        }
-
                     }
-                    if(stuMarksObject.totalMarks && Integer.parseInt(stuMarksObject.totalMarks)< subMinPassingMarks){
-                        marksList<<stuMarksObject.totalMarks
-                        passingSubjectNoList<<counter
-
-                    }
-                    else{
-                        marksList<<"NC"
-                        passingSubjectNoList<<"No"
-                    }
-
-                    subjectMarksList<<marksList
 
                 }
-                finalList<<subjectMarksList
+                println(subMinPassingMarks)
+                println(stuMarksObj.totalMarks)
+                if(stuMarksObj.totalMarks && Integer.parseInt(stuMarksObj.totalMarks)> subMinPassingMarks){
+                    stuMarksList<<stuMarksObj.totalMarks
+                    passingSubjectNoList<<counter
+
+                }
+                else{
+                    stuMarksList<<"NC"
+                    passingSubjectNoList<<"No"
+                }
+
+                subjectMarksList<<marksList
+
+            }
+//                println("======="+studentSubjectMarksList)
+            finalList<<stuMarksList
 //                finalList
-            }
-
-
-        println("sub==="+finalList)
+        }
 
 
 
-            File file = new File('' + excelPath);
-            WorkbookSettings wbSettings = new WorkbookSettings();
-            wbSettings.setLocale(new Locale("en", "EN"));
-            WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
-
-            def course = ProgramDetail.findById(Integer.parseInt(params.programId)).courseName
-            def programSession = ProgramSession.get(Integer.parseInt(params.programSessionId))
-            def semester = Semester.findByProgramSessionAndId(programSession, Integer.parseInt(params.semester))
-            def subjectName = Subject.get(Integer.parseInt(params.courseCode)).subjectName
-            def regYear = (ProgramSession.findById(params.programSessionId).sessionOfProgram).substring(0, 4)
-            def currentYear = new Date().format("yyyy")
+        def status=""
+        File file = new File('' + excelPath);
+        WorkbookSettings wbSettings = new WorkbookSettings();
+        wbSettings.setLocale(new Locale("en", "EN"));
+        WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
 
 
+        if (studentList) {
             int count = 0
-            if (stuList) {
-                status = marksFoilExcelService.excelReport(params, stuList, course, count, workbook, currentYear, semester.semesterNo)
-                workbook.write();
-                workbook.close();
-            }
+            def subjectCount=subjectList.size()
+            def course = ProgramDetail.findById(Integer.parseInt(params.programId)).courseName
+            println("******stuuu====="+studentList)
+            println("******markstype====="+finalMarksTypeList)
+            println("******stuuu====="+finalList)
+            status = marksFoilExcelService.excelReport1(studentList,finalList,finalMarksTypeList,subjectCount, course, count, workbook, semesterIns.semesterNo)
+            workbook.write();
+            workbook.close();
+        }
 
 
-            return status
+        return status
 
     }
 

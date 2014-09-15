@@ -474,14 +474,29 @@ class PostExaminationController {
         def webRootDir = servletContext.getRealPath("/")
         def userDir = new File(webRootDir, '/Report')
         userDir.mkdirs()
-        println("userDir--" + userDir)
+        println("userDir--" + params)
         def excelPath = servletContext.getRealPath("/") + 'Report' + System.getProperty('file.separator') + 'StudentMeritRegister.xls'
-        def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
-        def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
-        def subjectList = CourseSubject.findAllByProgramSessionAndSemester(progSessionInst, semesterInst).subjectSessionId.subjectId
-        def studentList = Student.findAllByProgramSessionAndSemesterAndAdmitCardGeneratedAndStatus(progSessionInst, semesterInst.semesterNo, true, Status.get(4))
-        def xmlNodes = xmlParseData()
-        def status = postExaminationService.studentMeritRegisterData(params, excelPath, studentList, xmlNodes, subjectList, semesterInst)
+//        def progSessionInst = ProgramSession.findById(Long.parseLong(params.sessionId))
+//        def semesterInst = Semester.findById(Long.parseLong(params.semesterId))
+//        def subjectList = CourseSubject.findAllByProgramSessionAndSemester(progSessionInst, semesterInst).subjectSessionId.subjectId
+//        def studentList = Student.findAllByProgramSessionAndSemesterAndAdmitCardGeneratedAndStatus(progSessionInst, semesterInst.semesterNo, true, Status.get(4))
+//        def xmlNodes = xmlParseData()
+//        def status = postExaminationService.studentMeritRegisterData(params, excelPath, studentList, xmlNodes, subjectList, semesterInst)
+
+
+        def programSession = ProgramSession.get(Integer.parseInt(params.sessionId))
+        println("********"+programSession)
+        def semesterIns = Semester.findByProgramSessionAndId(programSession, params.semesterId)
+        println("&&&&&&&&&&&"+semesterIns.semesterNo)
+        def subjectList = CourseSubject.findAllByProgramSessionAndSemester(programSession, semesterIns).subjectSessionId.subjectId
+        def studentList = Student.findAllByProgramSessionAndSemesterAndAdmitCardGeneratedAndStatus(programSession, semesterIns.semesterNo,true,Status.get(4))
+//
+        def xmlNodes=xmlParseData()
+//        def studentList=[],subjectList=[]
+
+        def status = postExaminationService.studentMeritRegisterData(params, excelPath,studentList,xmlNodes,subjectList,semesterIns,programSession)
+
+
 
         if (status) {
             println("back in controller " + status)
