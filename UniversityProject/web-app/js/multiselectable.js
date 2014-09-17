@@ -378,16 +378,16 @@ function clearField() {
 }
 function save() {
 
-
-    var isTrue = validateGroupSelection()
-    validate();
-    if(!isTrue){
-        return isTrue
-    }
+//    var isTrue = validateGroupSelection()
+//    validate();
+//    if(!isTrue){
+//        return isTrue
+//    }
     var status = $("#createCourse").valid();
 //    if (!fireMultiValidate()) {
 //        return;
 //    }
+
     if (status && $("#errorMsg").text().length==0) {
         var formObj = $("#createCourse");
         var data = ConvertFormToJSON(formObj);
@@ -752,6 +752,7 @@ function appendSubjectsInUpdateMode(courseDetailJson){
     for (var i = 1; i <= courseDetailJson['course'].noOfTerms; i++)
 
     {
+     if(courseDetailJson['semesterList'][i]!=undefined){
 
         for (var j = 0; j < courseDetailJson['semesterList'][i].length; j++)
         {
@@ -796,6 +797,7 @@ function appendSubjectsInUpdateMode(courseDetailJson){
                 }
 
 
+        }
         }
     }
 

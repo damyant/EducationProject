@@ -84,14 +84,14 @@
                             Total Student
                         </th>
                     </tr>
-                    <g:each in="${0..programName.size()-1}" var="index">
-                        <g:if test="${programCount[index]!=0}">
-                        <tr>
-                            <td>${programName[index]}</td>
-                            <td>${programCount[index]}</td>
-                        </tr>
-                        </g:if>
-                    </g:each>
+                    %{--<g:each in="${0..programName.size()-1}" var="index">--}%
+                        %{--<g:if test="${programCount[index]!=0}">--}%
+                        %{--<tr>--}%
+                            %{--<td>${programName[index]}</td>--}%
+                            %{--<td>${programCount[index]}</td>--}%
+                        %{--</tr>--}%
+                        %{--</g:if>--}%
+                    %{--</g:each>--}%
 
                 </table>
             </div>
@@ -110,15 +110,15 @@
                         <th>Approve Challan</th>
                         <th>Unapprove Challan</th>
                     </tr>
-                    <g:each in="${0..studyCentreName.size()-1}" var="index">
-                        <g:if test="${studyCentreFeeUnAppCount[index]!=0&&studyCentreFeeAppCount[index]!=0}">
-                        <tr>
-                            <td class="university-size-1-2">${studyCentreName[index]}</td>
-                            <td class="university-size-1-4">${studyCentreFeeAppCount[index]}</td>
-                            <td class="university-size-1-4">${studyCentreFeeUnAppCount[index]}</td>
-                        </tr>
-                            </g:if>
-                    </g:each>
+                    %{--<g:each in="${0..studyCentreName.size()-1}" var="index">--}%
+                        %{--<g:if test="${studyCentreFeeUnAppCount[index]!=0&&studyCentreFeeAppCount[index]!=0}">--}%
+                        %{--<tr>--}%
+                            %{--<td class="university-size-1-2">${studyCentreName[index]}</td>--}%
+                            %{--<td class="university-size-1-4">${studyCentreFeeAppCount[index]}</td>--}%
+                            %{--<td class="university-size-1-4">${studyCentreFeeUnAppCount[index]}</td>--}%
+                        %{--</tr>--}%
+                            %{--</g:if>--}%
+                    %{--</g:each>--}%
                 </table>
             </div>
     </div>
