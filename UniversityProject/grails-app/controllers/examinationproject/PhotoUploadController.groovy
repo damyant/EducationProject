@@ -23,7 +23,7 @@ class PhotoUploadController {
     }
     @Secured(["ROLE_ADMIN"])
     def uploadPhoto(){
-        println(params)
+//        println(params)
         def result=photoUploadService.saveBulkPhoto(params)
         if(result.status){
             if(result.dirStatus){

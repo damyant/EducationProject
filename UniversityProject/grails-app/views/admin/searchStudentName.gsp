@@ -50,7 +50,7 @@
         <table class="university-size-full-1-1 inner" id="studentListTable" style="visibility:hidden;">
             <thead>
                     <tr>
-                        <th class="university-size-1-4">Name</th><th>Roll Number</th><th>Study Centre</th><th>Programme</th>
+                        <th class="university-size-1-4">Name</th><th>Roll Number</th><th>Study Centre</th><th>Programme</th><th></th>
                     </tr>
             </thead>
             <tbody>

@@ -290,7 +290,6 @@ class StudentController {
        def studentRegistration = studentRegistrationService.saveNewStudentRegistration(params, "", "")
         if (studentRegistration) {
             def infoMap =[:]
-//            println("---------------------------------"+studentRegistration.rollNo)
             def student = Student.findByRollNo(studentRegistration.rollNo)
             def program = student.programDetail
             def feeTypeId
@@ -304,7 +303,6 @@ class StudentController {
             sessionVal= year+'-'+sessionVal
             def feeSessionObj=FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id),sessionVal)
             def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1)
-//            println('this is the programFee '+programFee)
             try{
                 def lateFeeDate=student.programDetail.lateFeeDate[0]
                 def today=new Date()
@@ -319,7 +317,6 @@ class StudentController {
                 println("this exception occurred here "+ e)
                 flash.message="Late Fee Date is not assigned! "
                 redirect(controller: student, action:enrollmentAtIdol)
-
             }
             def feeDetailInst=new FeeDetails()
             feeDetailInst.student=student
@@ -330,7 +327,6 @@ class StudentController {
             feeDetailInst.feeType=FeeType.findById(3)
             feeDetailInst.challanNo = student.challanNo
             feeDetailInst.save(failOnError: true, flush: true)
-//              println("__________________"+lateFee)
              infoMap.student=student
              infoMap.programFee=programFee
              infoMap.lateFee=lateFee
@@ -344,14 +340,12 @@ class StudentController {
         }
     }
 
-
     def seedBulkStudents={
         studentRegistrationService.seedStudent(params)
         render "done"
     }
 
   def  updateStudent={
-//      println(params)
       try{
        def student = Student.findByRollNo(params.rollNo)
           if(student){
@@ -363,13 +357,17 @@ class StudentController {
       }catch(NullPointerException ex ){
           println("Problem in searching student by roll number"+ex.printStackTrace())
       }
-
     }
 
     def viewStudent = {
-        def student = Student.findById(params.studentId)
-//        println(student.rollNo)
-        redirect(controller: 'student', action: "viewStudentDetails", params: [studentId:student.rollNo.toString()])
+//        println(params)
+        def student = Student.findById(Long.parseLong(params.studentId))
+        redirect(controller: 'student', action: "viewStudentDetails", params: [studentId:student.id.toString()])
+    }
+    def showStudentDetails = {
+//        println(params)
+        def student = Student.findByRollNo(params.studentRoll)
+        redirect(controller: 'student', action: "viewStudentDetails", params: [studentId:student.id.toString()])
     }
     @Secured(["ROLE_IDOL_USER","ROLE_ADMIN", "ROLE_ACCOUNT"])
     def customChallanSave={
@@ -446,11 +444,21 @@ class StudentController {
     }
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT","ROLE_IDOL_USER","ROLE_STUDY_CENTRE"])
     def viewStudentDetails={
-        def student = Student.findByRollNo(params.studentId)
-        println(student)
+        def student = Student.findById(params.studentId)
         def feeDetails = FeeDetails.findAllByStudent(student)
         def homeAssignment=HomeAssignment.findAllByStudent(student)
         def studyMaterials=StudyMaterial.findAllByStudentId(student)
         [studInstance:student,feeDetails: feeDetails,homeAssignment:homeAssignment,studyMaterials:studyMaterials]
+    }
+    @Secured(["ROLE_ADMIN"])
+    def deleteStudents={
+        def result=studentRegistrationService.deleteStudentWithDetails(params)
+        if (result){
+            flash.message = "Successfully Deleted the Students"
+        }
+        else{
+            flash.message = "Unable to Delete the Students. This may be a Approved Student."
+        }
+        redirect(controller: 'student', action: "studentListView")
     }
 }

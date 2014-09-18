@@ -32,6 +32,9 @@
             </li></a></div>
             </div>
         </sec:ifAnyGranted>
+        <sec:ifAnyGranted roles="ROLE_ADMIN">
+
+        </sec:ifAnyGranted>
         <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_IDOL_USER, ROLE_STUDY_CENTRE, ROLE_ACCOUNT">
                 <div id="session"> <a href="#"> <li>By Session </li></a></div>
         </sec:ifAnyGranted>
@@ -45,6 +48,9 @@
                         <a href="#"> <li id="studyCentreNoOfStudents">Programme Wise No Of Students </li></a>
 
                         <a href="#">  <li id="studyCentreStudentList"> Programme Wise Student List</li></a>
+                        <sec:ifAnyGranted roles="ROLE_ADMIN">
+                            <a href="#">  <li id="studyCentreStudentDetails"> Student Details</li></a>
+                        </sec:ifAnyGranted>
                     </ul></a>
                 </div>
                 <div id="examinationCentreDiv"> <a href="#">
@@ -252,6 +258,21 @@
                </td>
 
            </tr>
+           <tr id="byStudyCentreStudentDetails">
+               <td style="width: 18%">
+                   <label for="studyCentre">Select Study Centre:</label>
+               </td>
+               <td style="width: 30%" >
+                   <g:select name="studyCentreStudentInfo" class="university-size-1-1" id="studyCentreStudentInfo"
+                             from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
+                             noSelection="['All': ' All Study Centre']" />
+               </td>
+               <td style="width: 10%" >
+                   <g:select name="studyCentreStudentSession" class="university-size-1-1 allSession" id="studyCentreStudentSession"
+                             from="${filterType}" optionKey="" optionValue=""
+                             noSelection="['null': ' Select Session']" />
+               </td>
+           </tr>
 
 
            <tr id="byPaymentModeReport">
@@ -413,9 +434,6 @@
            </tr>
 
            <tr id="sessionProgramFeePaid">
-               %{--<td style="width: 18%">--}%
-                   %{--<label for="sessionProgramFeePaidStudyCentre">Select Study Centre:</label>--}%
-               %{--</td>--}%
                <td style="width: 30%" >
                    <g:select name="sessionProgramFeePaidStudyCentre" class="university-size-1-1" id="sessionProgramFeePaidStudyCentre"
                              from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"
@@ -426,10 +444,6 @@
                              from="${filterType}" optionKey="" optionValue=""
                              noSelection="['null': ' Select Session']" />
                </td>
-
-                   %{--<g:select name="sessionProgramFeePaidFeeType" class="university-size-1-1" id="sessionProgramFeePaidFeeType"--}%
-                             %{--from="${FeeType.list([sort: 'type'])}" optionKey="id" optionValue="type"--}%
-                             %{--noSelection="['null': ' Select Fee Type']" />--}%
                <td style="width: 30%">
                    <select name="programTerm" class="university-size-1-1" id="semesterList"  >
                        <option value="null">Select Semester</option>
@@ -437,28 +451,6 @@
                </td>
 
            </tr>
-
-           %{--<tr id="sessionProgramFeeNotPaid">--}%
-               %{--<td style="width: 18%">--}%
-                   %{--<label for="sessionProgramFeeNotPaidStudyCentre">Select Study Centre:</label>--}%
-               %{--</td>--}%
-               %{--<td style="width: 30%" >--}%
-                   %{--<g:select name="sessionProgramFeeNotPaidStudyCentre" class="university-size-1-1" id="sessionProgramFeeNotPaidStudyCentre"--}%
-                             %{--from="${StudyCenter.list([sort: 'name'])}" optionKey="id" optionValue="name"--}%
-                             %{--noSelection="['All': 'All Study Centre']" />--}%
-               %{--</td>--}%
-               %{--<td style="width: 20%" >--}%
-                   %{--<g:select name="sessionProgramFeeNotPaidSession" class="university-size-1-1 allSession" id="sessionProgramFeeNotPaidSession"--}%
-                             %{--from="${filterType}" optionKey="" optionValue=""--}%
-                             %{--noSelection="['null': ' Select Session']" />--}%
-               %{--</td>--}%
-               %{--<td style="width: 30%" >--}%
-                   %{--<g:select name="sessionProgramFeeNotPaidFeeType" class="university-size-1-1" id="sessionProgramFeeNotPaidFeeType"--}%
-                             %{--from="${FeeType.list([sort: 'type'])}" optionKey="id" optionValue="type"--}%
-                             %{--noSelection="['null': ' Select Fee Type']" />--}%
-               %{--</td>--}%
-           %{--</tr>--}%
-
 
                <tr id="byExaminationCentre">
                    <table id="examCenterSelect" style="border: 0px solid black">
@@ -589,6 +581,14 @@
                 return false;
             }
 //            return true;
+        }
+        else if(val=='StudyCentreStudentDetails'){
+            check1 =$('#studyCentreStudentInfo').val()
+            check2 =$('#studyCentreStudentSession').val()
+            if(check1=='null' || check2==0){
+                alert("please select values")
+                return false;
+            }
         }
         else if(val=='courseApproved'){
             check1 =$('#courseApproved').val()

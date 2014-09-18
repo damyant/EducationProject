@@ -44,9 +44,10 @@
         var isAppliedFor = "${studInstance?.isAppliedFor}"
         var state = "${studInstance?.state}"
         $('#studentRegister').ready(function () {
+//            $('#submitButton').attr("disabled", false)
 //    alert($("input.radioInput[name='nationality'][value="+nationality+"]").val())
             $("input[name='nationality'][value=" + nationality + "]").attr('checked', 'checked');
-            $("input.radioInput[name='category'][value=" + category + "]").attr('checked', 'checked');
+            $("input.radioInput[name='category'][value='" + category + "']").attr('checked', 'checked');
             $(".radioInput[name='gender'][value=" + gender + "]").attr('checked', 'checked');
             $(".radioInput[name='state'][value=" + state + "]").attr('checked', 'checked');
             if(isAppliedFor)  {
@@ -54,6 +55,11 @@
              $('#registrationNo1').attr('disabled', true)
              $('#registrationNo2').attr('disabled', true)
             }
+            $( "#submitButton" ).click(function(event) {
+                if($('#studentRegister').valid()) {
+                    $(event.target).attr("hidden", "true");
+                }
+            });
         });
     </script>
 
@@ -127,19 +133,19 @@
             <tr>
                 <td>
                     <input type="text" placeholder="First Name" name="firstName"
-                           style="margin-left: -10px;text-transform: capitalize;"
+                           style="margin-left: -10px;"
                            onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.firstName}"/>
                 </td>
                 <td style="vertical-align: top;">
                     <input type="text" placeholder="Middle Name" name="middleName"
-                           style="margin-left: -10px;text-transform: capitalize;"
+                           style="margin-left: -10px;"
                            onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.middleName}"/>
                 </td>
                 <td>
                     <input type="text" placeholder="Last Name" name="lastName"
-                           style="margin-left: -10px;text-transform: capitalize;"
+                           style="margin-left: -10px;"
                            onkeypress="return onlyAlphabets(event);"
                            maxlength="50" class="university-size-1-1" value="${studInstance?.lastName}"/>
                 </td>
@@ -184,7 +190,7 @@
                 <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
                 <td class="university-size-2-3">
                     <input type="text" name="applicationNo" value="${studInstance.applicationNo.substring(4)}"
-                           onchange="checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="5"
+                           onchange="return checkApplicationNumber(this)" onkeypress="return isNumber(event)" maxlength="5"
                            class="university-size-1-2"/>
 
                     <label id="errorMsg" class="error1"></label>
@@ -363,11 +369,11 @@
          <g:if test="${!studInstance?.registrationNo2}">
              &nbsp;&nbsp;&nbsp;Or&nbsp;&nbsp;&nbsp;
         <label style="text-align: left">
-        <input type="checkbox" value="Y" onclick="enableDisableTextBox()"
-                                                                                     name="isAppliedFor"
+        <input type="checkbox" value="Y" onclick="enableDisableTextBox()" name="isAppliedFor"
                                                                                      id="isAppliedFor"
                                                                                      class="university-size-1-4"/>A/F
     </label>
+             <input type="text" name="regNoCheck" id="regNoCheck" value="" style="width: 1px;height: 1px;border: 0px;"/>
              </g:if>
     </td>
 </tr>
@@ -456,7 +462,7 @@
                 <input type='file' id="profileImage" onchange="readURL(this, 'picture2');" class="university-button"
                        name="photograph"/>
             </g:else>
-            <input type="text" id="imageValidate" name="imageValidate" style="width: 1px;height: 1px;border: 0px;"/>
+            <input type="text" id="imageValidate" name="imageValidate" value="" style="width: 1px;height: 1px;border: 0px;"/>
 
         </td>
     </tr>

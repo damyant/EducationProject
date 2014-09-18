@@ -44,9 +44,11 @@ class ExaminationCenterController {
             centre.id = result.id
             centre.assocaitedExamVenue=associatedExamVenue
             render centre as JSON
+
         } else {
-            render "<h5>No Examination Centre Found</h5>"
+            centre.status=false
         }
+        render centre as JSON
     }
     def getCentreList = {
 //        println("in getCentreList "+ params)

@@ -2,6 +2,7 @@ package universityproject
 
 import examinationproject.AdmissionFee
 import examinationproject.Bank
+import examinationproject.Branch
 import examinationproject.FeeDetails
 import examinationproject.FeeSession
 import examinationproject.FeeType
@@ -662,18 +663,49 @@ class FeeDetailService {
         }
         return returnMap
     }
+    def getChallanDetailsForRemove(params) {
+        def returnMap = [:]
+        def challanInst = FeeDetails.findAllByChallanNo(params.challanNo)
+        def rollNo = []
+        def studentIDList = []
+        def program = []
+        def feeAmount = []
+        def total = 0
+        if (challanInst) {
+            challanInst.each {
+                rollNo << it.student.rollNo
+                studentIDList << it.id
+                program << it.student.programDetail.courseName
+                feeAmount << it.paidAmount
+                total += it.paidAmount
+            }
+            returnMap.challanInst = challanInst
+            returnMap.rollNo = rollNo
+            returnMap.studentIDList = studentIDList
+            returnMap.program = program
+            returnMap.feeAmount = feeAmount
+            returnMap.total = total
+        } else {
+            returnMap.challanError = 'Incorrect Challan Number or Its a custom Challan Number.'
+        }
+        return returnMap
+    }
 
     def getChallanDetails(params) {
         def returnMap = [:]
         def challanInst = FeeDetails.findAllByChallanNo(params.challanNo)
         def rollNo = []
+        def studentIDList = []
+        def semester = [],feeTypeId=[]
         def program = []
         def feeAmount = []
         DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        DateFormat df1 = new SimpleDateFormat("dd/MM/yyyy");
         def total = 0
         if (challanInst) {
             challanInst.each {
                 rollNo << it.student.rollNo
+                studentIDList << it.id
                 program << it.student.programDetail.courseName
                 feeAmount << it.paidAmount
                 total += it.paidAmount
@@ -681,8 +713,10 @@ class FeeDetailService {
             returnMap.studyCentre = challanInst[0].student.studyCentre.name
             if (challanInst[0].paymentModeId) {
                 returnMap.paymentMode = challanInst[0].paymentModeId.paymentModeName
+                returnMap.paymentModeId = challanInst[0].paymentModeId.id
             } else {
                 returnMap.paymentMode = "N/A"
+                returnMap.paymentModeId = "N/A"
             }
             if (challanInst[0].paymentReferenceNumber) {
                 returnMap.refNo = challanInst[0].paymentReferenceNumber
@@ -691,22 +725,41 @@ class FeeDetailService {
             }
             if (challanInst[0].paymentDate) {
                 returnMap.paydate = df.format(challanInst[0].paymentDate)
+                returnMap.editPaydate = df1.format(challanInst[0].paymentDate)
             } else {
                 returnMap.paydate = "N/A"
+                returnMap.editPaydate = "N/A"
             }
             if (challanInst[0].bankId) {
                 returnMap.bank = challanInst[0].bankId.bankName
+                returnMap.bankId = challanInst[0].bankId.id
             } else {
                 returnMap.bank = "N/A"
+                returnMap.bankId = "N/A"
             }
             if (challanInst[0].branchId) {
                 returnMap.branch = challanInst[0].branchId.branchLocation
+                returnMap.branchId = challanInst[0].branchId.id
             } else {
                 returnMap.branch = "N/A"
+                returnMap.branchId = "N/A"
             }
+
             returnMap.status = challanInst[0].isApproved.status
+            if(challanInst[0].isApproved.id<3){
+                returnMap.editable=false
+            }
+            else{
+                returnMap.editable=true
+            }
             returnMap.challanInst = challanInst
             returnMap.rollNo = rollNo
+            returnMap.studentIDList = studentIDList
+            returnMap.allPaymentMode = PaymentMode.list(sort:'paymentModeName')
+            returnMap.allBank = Bank.list(sort:'bankName')
+            if (challanInst[0].bankId) {
+                returnMap.allBranch = Branch.findAllByBank(Bank.findById(challanInst[0].bankId.id))
+            }
             returnMap.program = program
             returnMap.feeAmount = feeAmount
             returnMap.total = total

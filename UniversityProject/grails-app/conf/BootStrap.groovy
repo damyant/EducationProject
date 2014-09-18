@@ -81,6 +81,7 @@ class BootStrap {
 //        if (!studyC.authorities.contains(studyCentreRole)) {
 //            UserRole.create studyC, studyCentreRole
 //        }
+
         RollNoGenerationFixture gb = new RollNoGenerationFixture (
                 startD:new Date(),
                 endD:new  Date(),

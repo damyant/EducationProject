@@ -1,25 +1,11 @@
 package universityproject
 
-import examinationproject.AdmissionFee
-import examinationproject.City
-import examinationproject.CustomChallan
-import examinationproject.ExistingChallan
-import examinationproject.FeeDetails
-
-
-import examinationproject.FeeSession
-
-import examinationproject.FeeType
-import examinationproject.ProgramDetail
-import examinationproject.Status
-import examinationproject.ProgramSession
-import examinationproject.StudyCenter
-import examinationproject.Student
+import examinationproject.*
 import grails.transaction.Transactional
 import groovy.transform.Synchronized
 
 import java.security.SecureRandom
-import java.text.DateFormat;
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 
 @Transactional
@@ -61,9 +47,7 @@ class StudentRegistrationService {
             studentRegistration.addressTown = params.addressTown
             studentRegistration.studentAddress = params.studentAddress
             studentRegistration.addressDistrict = params.addressDistrict
-//            println("roll number is "+params.rollNo)
             if (params.rollNo) {
-//                println("roll number is "+params.rollNo)
                 def studentToBeUpdate
                 try {
                     studentToBeUpdate = Student.findByRollNo(params.rollNo)
@@ -86,8 +70,7 @@ class StudentRegistrationService {
                 }
 
                 if (isAdmin) {
-
-                    Set<StudyCenter> studyCentre  = StudyCenter.findAllByCenterCode((params.studyCentreCode))
+                    Set<StudyCenter> studyCentre = StudyCenter.findAllById(Integer.parseInt(params.studyCentre))
                     studentRegistration.studyCentre = studyCentre
 
                 } else {
@@ -95,14 +78,13 @@ class StudentRegistrationService {
                     studentRegistration.studyCentre = studyCentre
                 }
             }
-        }
-        else {
+        } else {
             studentRegistration = new Student(params)
             studentRegistration.registrationYear = ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear
             if (springSecurityService.isLoggedIn()) {
                 studentRegistration.referenceNumber = 0
                 studentRegistration.status = Status.findById(2)
-                def rollNo=getStudentRollNumber(params)
+                def rollNo = getStudentRollNumber(params)
                 studentRegistration.rollNo = rollNo
 
             } else {
@@ -127,14 +109,13 @@ class StudentRegistrationService {
                     programSessionIns = programIns[0]
                 }
             }
-        }
-        else {
+        } else {
             programSessionIns = new ProgramSession(sessionOfProgram: programSession).save(flush: true, failOnError: true)
         }
         studentRegistration.programSession = programSessionIns
         studentRegistration.programDetail = programDetail
-        if (params.idol == "idol"){
-            println('in idol')
+        if (params.idol == "idol") {
+//            println('in idol')
             studentRegistration.challanNo = getChallanNumber()
         }
         Set<City> examinationCentreList = City.findAllById(Integer.parseInt(params.examinationCentre))
@@ -144,8 +125,8 @@ class StudentRegistrationService {
                 studentRegistration.studentImage = photographe.bytes
         } else {
         }
-        if(params.applicationNo){
-             studentRegistration.applicationNo = ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear.toString()+params.applicationNo
+        if (params.applicationNo) {
+            studentRegistration.applicationNo = ProgramDetail.findById(Long.parseLong(params.programId)).admissionYear.toString() + params.applicationNo
         }
         studentRegistration.semester = 1
         studentRegistration.admitCardGenerated = false
@@ -158,7 +139,7 @@ class StudentRegistrationService {
                 feeDetails.paidAmount = Integer.parseInt(params.admissionFeeAmount)
                 feeDetails.challanNo = studentRegistration.challanNo
                 feeDetails.challanDate = new Date()
-                feeDetails.isApproved=Status.findById(1)
+                feeDetails.isApproved = Status.findById(1)
                 feeDetails.student = studentRegistration
                 feeDetails.semesterValue = 1
                 feeDetails.save(failOnError: true, flush: true)
@@ -301,18 +282,17 @@ class StudentRegistrationService {
             int j = 0
             ArrayList<String> rollNoKeyList = new ArrayList<String>(rollNoList.keySet());
 //            println("keys"+rollNoKeyList)
+            def studReturnList = []
             studentIdList.each { i ->
                 rollNumber = rollNoList.get(rollNoKeyList.get(j))
                 stuObj = Student.findById(i)
-                if (!stuObj.rollNo)
+                if (!stuObj.rollNo) {
                     stuObj.rollNo = rollNumber
+                }
                 stuObj.status = Status.findById(Long.parseLong("2"))
                 stuObj.save(flush: true, failOnError: true)
                 j++
             }
-
-
-
 
             return rollNumber
         } catch (Exception e) {
@@ -320,11 +300,6 @@ class StudentRegistrationService {
         }
     }
 
-    /**
-     * Service to generate the reference no.
-     * @param courseId
-     * @return
-     */
     def getStudentReferenceNumber() {
         /* Assign a string that contains the set of characters you allow. */
         String symbols = "123456789987654321";
@@ -387,6 +362,9 @@ class StudentRegistrationService {
             }
         }
     }
+
+    static int a = 0
+
     @Synchronized("challanLock")
     def getChallanNumber() {
         int serialNo = 1
@@ -396,6 +374,7 @@ class StudentRegistrationService {
         def challanSr
         def length
         def challanNo
+        def returnChallanNo
         def studentByChallanNo
         if (Student.count() > 0) {
             def stdObj = Student.createCriteria()
@@ -407,43 +386,55 @@ class StudentRegistrationService {
             def custObj = CustomChallan.createCriteria()
             def custByChallanNo = custObj.list {
                 maxResults(1)
-
                 order("id", "desc")
             }
 
-                if (feeDetailByChallanNo) {
-                    if (custByChallanNo) {
-                        if (Integer.parseInt(feeDetailByChallanNo[0].challanNo)  > Integer.parseInt(custByChallanNo[0].challanNo)) {
-                            studentByChallanNo = feeDetailByChallanNo
-                        }  else {
-                            studentByChallanNo = custByChallanNo
+            def envChallanInst=ExistingChallan.findBySession(2014)
+            if (feeDetailByChallanNo) {
+                if (custByChallanNo) {
+                    if (envChallanInst) {
+                        if((Integer.parseInt(envChallanInst.challan)>Integer.parseInt(feeDetailByChallanNo[0].challanNo))&&(Integer.parseInt(feeDetailByChallanNo[0].challanNo) > Integer.parseInt(custByChallanNo[0].challanNo))){
+                            studentByChallanNo=envChallanInst.challan
                         }
-                    } else {
-                            studentByChallanNo = feeDetailByChallanNo
+                        else if((Integer.parseInt(envChallanInst.challan)<Integer.parseInt(feeDetailByChallanNo[0].challanNo))&&(Integer.parseInt(feeDetailByChallanNo[0].challanNo) < Integer.parseInt(custByChallanNo[0].challanNo))){
+                            studentByChallanNo=custByChallanNo[0].challanNo
+                        }
+                        else{
+                            studentByChallanNo = feeDetailByChallanNo[0].challanNo
+                        }
                     }
-                }
-
-            def lastChallanDate
-
-            if(studentByChallanNo){
-                if (studentByChallanNo[0].challanNo != null) {
-                    lastChallanDate = studentByChallanNo[0].challanNo.substring(0, 6)
-
-                    if (lastChallanDate.equalsIgnoreCase(challan)) {
-                        serialNo = Integer.parseInt(studentByChallanNo[0].challanNo.substring(6, 10))
-                        serialNo = serialNo + 1
-
-                       } else {
-                        serialNo=1
+                    else{
+                    if (Integer.parseInt(feeDetailByChallanNo[0].challanNo) > Integer.parseInt(custByChallanNo[0].challanNo)) {
+                        studentByChallanNo = feeDetailByChallanNo[0].challanNo
+                    } else {
+                        studentByChallanNo = custByChallanNo[0].challanNo
+                    }
                     }
                 } else {
-                    serialNo=1
+                    studentByChallanNo = feeDetailByChallanNo[0].challanNo
                 }
-            }else {
-                serialNo = 1
 
             }
 
+            def lastChallanDate
+            if (studentByChallanNo) {
+                if (studentByChallanNo != null) {
+                    lastChallanDate = studentByChallanNo.substring(0, 6)
+
+                    if (lastChallanDate.equalsIgnoreCase(challan)) {
+                        serialNo = Integer.parseInt(studentByChallanNo.substring(6, 10))
+                        serialNo = serialNo + 1
+
+                    } else {
+                        serialNo = 1
+                    }
+                } else {
+                    serialNo = 1
+                }
+
+            } else {
+                serialNo = 1
+            }
             length = serialNo.toString().length()
             switch (length) {
                 case 1:
@@ -463,29 +454,32 @@ class StudentRegistrationService {
         } else {
             challanSr = "000" + serialNo.toString()
             challanNo = challan + challanSr
-
         }
-        def existingChallan=ExistingChallan.findByChallan(challanNo)
-        if(existingChallan){
-            challanNo=Integer.parseInt(challanNo)+1
-        }
-<<<<<<< HEAD
-//        a++
-=======
+        def existingChallan = ExistingChallan.findByChallan(challanNo)
 
->>>>>>> 7cbfbc832bd06d948c466b413335199f59c2ae2d
+        if (existingChallan) {
+            challanNo = Integer.parseInt(challanNo) + 1
+        }
+
         def existingChallanInst
-        if(ExistingChallan.findBySession(2014)){
-            existingChallanInst=ExistingChallan.findBySession(2014)
-            existingChallanInst.challan=challanNo
+        if (ExistingChallan.findBySession(2014)) {
+            existingChallanInst = ExistingChallan.findBySession(2014)
+            def existingDate=existingChallanInst.challan.substring(0, 6)
+            def existingChallanSr=existingChallanInst.challan.substring(6, 10)
+            if((Integer.parseInt(existingDate)==Integer.parseInt(challan))&&(Integer.parseInt(challanSr)<Integer.parseInt(existingChallanSr))){
+                challanNo = Integer.parseInt(existingChallanInst.challan) + 1
+            }
+            existingChallanInst.challan = challanNo
+            returnChallanNo = challanNo
+        } else {
+            existingChallanInst = new ExistingChallan()
+            existingChallanInst.challan = challanNo
+            existingChallanInst.session = 2014
+            if (existingChallanInst.save(flush: true, failOnError: true)) {
+                returnChallanNo = challanNo
+            }
         }
-        else{
-            existingChallanInst=new ExistingChallan()
-            existingChallanInst.challan=challanNo
-            existingChallanInst.session=2014
-            existingChallanInst.save(flush: true, failOnError: true)
-        }
-        return challanNo
+        return returnChallanNo
     }
 
     def saveCChallan(params) {
@@ -521,15 +515,13 @@ class StudentRegistrationService {
 
         def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(ProgramDetail.findById(student.programDetail[0].id), sessionVal)
         def programFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj, 1)
-//        println('this is the programFee ' + programFee)
-
         try {
             def lateFeeDate = student.programDetail.lateFeeDate[0]
             def today = new Date()
             if (lateFeeDate != null) {
                 if (today.compareTo(lateFeeDate) > 0) {
 
-                    lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj,1).lateFeeAmount
+                    lateFee = AdmissionFee.findByFeeSessionAndTerm(feeSessionObj, 1).lateFeeAmount
 
                 }
             }
@@ -541,6 +533,39 @@ class StudentRegistrationService {
             redirect(controller: student, action: enrollmentAtIdol)
 
         }
+    }
+
+    def deleteStudentWithDetails(params) {
+        def studentInst = Student.findById(Long.parseLong(params.studentId))
+        def status = true
+        if ((studentInst.status.id != 3) && (studentInst.status.id != 4)) {
+            def feeDetailInst = FeeDetails.findAllByStudent(studentInst)
+            if (feeDetailInst) {
+                feeDetailInst.each {
+                    it.delete(flush: true, failOnError: true)
+                    if (FeeDetails.exists(it.id)) {
+                        status = false
+                    }
+                }
+            }
+            def studyCenterId = studentInst.studyCentre[0].id
+            def cityId = studentInst.city[0].id
+            def programId = studentInst.programDetail[0].id
+            if (status) {
+                City.findById(cityId).removeFromStudent(studentInst)
+                StudyCenter.findById(studyCenterId).removeFromStudent(studentInst)
+                ProgramDetail.findById(programId).removeFromStudent(studentInst)
+            }
+            if (status) {
+                studentInst.delete(flush: true, failOnError: true)
+                if (Student.exists(studentInst.id)) {
+                    status = false
+                }
+            }
+        } else {
+            status = false
+        }
+        return status
     }
 }
 

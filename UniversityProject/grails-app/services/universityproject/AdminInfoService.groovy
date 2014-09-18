@@ -226,7 +226,7 @@ def springSecurityService
         def venueList=params.venueList.split(",")
 //        ProgramExamVenue.removeAll(examCentreIns,courseIns)
         def preSavedVenues = ProgramExamVenue.findAllByExamCenterAndCourseDetailInList(examCentreIns,courseIns)
-        println('pre saved venue is '+ preSavedVenues)
+//        println('pre saved venue is '+ preSavedVenues)
         preSavedVenues.each{
             it.delete(flush: true)
         }
@@ -234,7 +234,7 @@ def springSecurityService
           def venue = it
           courseIns.each{
              def course = it
-              println(venue+' venue '+ course)
+//              println(venue+' venue '+ course)
                    ProgramExamVenue.create course , examCentreIns, ExaminationVenue.findById(Integer.parseInt(venue.toString()))
           }
 

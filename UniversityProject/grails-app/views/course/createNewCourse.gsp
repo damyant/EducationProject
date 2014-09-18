@@ -14,7 +14,6 @@
     <g:javascript src='validate.js'/>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'validation.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'multiselectable.js')}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'fileUpload.js')}"></script>
     <script type="text/javascript">
 
   </script>

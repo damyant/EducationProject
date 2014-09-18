@@ -590,8 +590,6 @@ function getStudentsForIdentityCard() {
         });
     }
 }
-
-
 function showExamVenueList1() {
     $('#addExamCentre').empty();
     var data = $('#examinationCentre').val();
@@ -602,17 +600,31 @@ function showExamVenueList1() {
             url: url('examinationCenter', 'getExamCentreList', ''),
             data: $('#assignExamVenue').serialize(),
             success: function (data) {
-                $('#submitButton').show()
-                $("#examCenterList").empty().append('')
-                for (var i = 0; i < data.name.length; i++) {
-                    $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
-                    $("#moveButton").css("visibility", 'visible');
-                    $("#movetoSelect").css("visibility", 'visible');
-                }
+                if(data.status) {
+                    $('#submitButton').show()
+                    $("#examCenterList").empty().append('')
+                    for (var i = 0; i < data.name.length; i++) {
+                        $("#examCenterList").append('<option value="' + data.id[i] + '">' + data.name[i] + '</option>')
+                        $("#moveButton").css("visibility", 'visible');
+                        $("#movetoSelect").css("visibility", 'visible');
+                    }
 //                alert(data.assocaitedExamVenue)
-                for (var j = 0; j < data.assocaitedExamVenue.length; j++) {
-                    $("#addExamCentre").append('<option value="' + data.assocaitedExamVenue[j].id + '">' + data.assocaitedExamVenue[j].name + '</option>')
+                    for (var j = 0; j < data.assocaitedExamVenue.length; j++) {
+                        $("#addExamCentre").append('<option value="' + data.assocaitedExamVenue[j].id + '">' + data.assocaitedExamVenue[j].name + '</option>')
 
+                    }
+                }
+                else{
+                    $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>No Examination venue Associated with this Examination Centre.</p></div>").dialog({
+                        title: "Sorry",
+                        resizable: false,
+                        modal: true,
+                        buttons: {
+                            "Ok": function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
                 }
 
             },

@@ -19,6 +19,7 @@
                     src="${resource(dir: 'images', file: 'users-icon.png')}" alt="User List"/>User List</g:link>
             </div>
         </div>
+
     </fieldset>
 </div>
 %{--<a href="#list-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>

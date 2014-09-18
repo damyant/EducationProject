@@ -316,8 +316,6 @@ function appendStudentList(data) {
         var table_row_limit = 10;
 
         var page_table = function (page) {
-
-            // calculate the offset and limit values
             var offset = (page - 1) * table_row_limit,
                 limit = page * table_row_limit;
 
@@ -335,10 +333,11 @@ function appendStudentList(data) {
         else {
             pageNo = parseInt($table_rows.length / table_row_limit)
         }
-//                alert(5%5)
         $('.pagination').jqPagination({
             max_page: pageNo,
-            paged: page_table
+            current_page: 1,
+            paged: page_table,
+            trigger: true
         });
         page_table(1);
         $(".datePickers").datepicker({
@@ -678,7 +677,6 @@ function clearFields() {
     document.getElementById("paginationDiv").style.visibility = "hidden";
     document.getElementById("paymentDetails").style.visibility = "hidden"
     document.getElementById("generateFeeChallan").style.visibility = "hidden"
-//    $('#generateFeeChallan').prop('hidden', true);
 }
 
 function loadProgram(t) {
@@ -688,10 +686,7 @@ function loadProgram(t) {
     $('#rangeRadioButtons').prop('hidden', true)
     document.getElementById("paymentDetails").style.visibility = "hidden"
     document.getElementById("generateFeeChallan").style.visibility = "hidden"
-//    $('#generateFeeChallan').prop('hidden', true)
     var type = $(t).val();
-//    alert(type)
-
     $.ajax({
         type: "post",
         url: url('feeDetails', 'loadProgram', ''),
@@ -717,6 +712,7 @@ function loadProgramList(t) {
         url: url('admin', 'loadSubject', ''),
         data: {type: type},
         success: function (data) {
+//<<<<<<< HEAD
              if(data.subSession.length>0) {
 
                 for (var i=0;i<data.subSession.length;i++){
@@ -727,23 +723,21 @@ function loadProgramList(t) {
                         '</tr>')
 
 
+//=======
+//            if (data.subjectList.length > 0) {
+//                for (var i = 0; i < data.subjectList.length; i++) {
+//                    var count = i + 1
+//                    $('#courseTable tbody').append('<tr><td>' + count + '</td><td>' + data.subjectList[i].subjectName + '</td><td><input type="button" class="university-button" onclick="deleteCourse(' + data.subjectList[i].id + ')" value="Delete"/> <input type="button" class="university-button" onclick="editCourse(' + data.subjectList[i].id + ')" value="Edit"/></td></tr>')
+//>>>>>>> origin/damyant
                 }
                 document.getElementById("paginationDiv").style.visibility = "visible";
                 document.getElementById("courseTable").style.visibility = "visible"
                 $table_rows = $('#courseTable tbody tr');
-
                 var table_row_limit = 10;
-
                 var page_table = function (page) {
-
-                    // calculate the offset and limit values
                     var offset = (page - 1) * table_row_limit,
                         limit = page * table_row_limit;
-
-                    // hide all table rows
                     $table_rows.hide();
-
-                    // show only the n rows
                     $table_rows.slice(offset, limit).show();
 
                 }
@@ -754,7 +748,6 @@ function loadProgramList(t) {
                 else {
                     pageNo = parseInt($table_rows.length / table_row_limit)
                 }
-//                alert(5%5)
                 $('.pagination').jqPagination({
                     max_page: pageNo,
                     paged: page_table
@@ -774,12 +767,10 @@ function editCourse(data) {
 }
 function deleteCourse(data) {
     $('#deleteCityId').val(data)
-//        alert($('#deleteCityId').val())
     $('#deleteCityInst').submit()
 }
 function loadStudents(t) {
     var challanNo = $(t).value();
-//    alert(challanNo)
     $.ajax({
         type: "post",
         url: url('feeDetails', 'populateStudentsByChallan', ''),
@@ -792,23 +783,21 @@ function loadStudents(t) {
                     '<td>' + data.studList[i].rollNo + '</td>' +
                     '</tr>')
             }
-
         }
     });
 }
 function enableAll() {
-    if($("#feeCategory").val()!=""){
-    $("#programList").val('')
-    $("#semesterList").val('')
-    $('#programCategory').attr('disabled', false);
-    $('#programList').attr('disabled', false);
-    $('#allProgram').attr('disabled', false);
-    if ($('#feeCategory').val() != '2') {
-        $('#semesterList').attr('disabled', false);
-
+    if ($("#feeCategory").val() != "") {
+        $("#programList").val('')
+        $("#semesterList").val('')
+        $('#programCategory').attr('disabled', false);
+        $('#programList').attr('disabled', false);
+        $('#allProgram').attr('disabled', false);
+        if ($('#feeCategory').val() != '2') {
+            $('#semesterList').attr('disabled', false);
+        }
     }
-}
-    else{
+    else {
         $("#programList").val('')
         $("#programCategory").val('')
         $("#semesterList").val('')
@@ -822,40 +811,150 @@ function enableAll() {
 
 function showChallanNumberStatus() {
     var challanNo = $("#challanNoText").val()
-//    alert(challanNo)
-    if(challanNo){
-    $.ajax({
-        type: "post",
-        url: url('feeDetails', 'challanDetails', ''),
-        data: {challanNo: challanNo},
-        success: function (data) {
-            if (data.challanError) {
-                $('#errorMsg').html(data.challanError)
-                $("#challanStatus thead").empty()
-                $("#challanStatus tbody").empty()
-                $('#challanStatusStaticData').empty()
-                document.getElementById("horizontalLine").style.visibility = "hidden";
-            }
-            else {
-                $('#errorMsg').html('')
-                $("#challanStatus thead").empty().append('<tr><th>Roll Number</th><th>Course</th><th>Amount</th></tr>')
-                $("#challanStatus tbody").empty()
-                for (var i = 0; i < data.challanInst.length; i++) {
-                    $("#challanStatus tbody").append('<tr><td>' + data.rollNo[i] + '</td><td>' + data.program[i] + '</td><td>' + data.feeAmount[i] + '</td></tr>')
+    if (challanNo) {
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'challanDetails', ''),
+            data: {challanNo: challanNo},
+            success: function (data) {
+                if (data.challanError) {
+                    $('#errorMsg').html(data.challanError)
+                    $("#challanStatus thead").empty()
+                    $("#challanStatus tbody").empty()
+                    $('#challanStatusStaticData').empty()
+                    document.getElementById("horizontalLine").style.visibility = "hidden";
                 }
-                $('#challanStatusStaticData').empty().append('<tr><td class="university-size-1-3">Total Amount</td><td class="university-size-2-3">' + data.total + '</td></tr>')
-                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Payment Date</td><td class="university-size-2-3">' + data.paydate + '</td></tr>')
-                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Payment Mode</td><td class="university-size-2-3">' + data.paymentMode + '</td></tr>')
-                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Study Centre</td><td class="university-size-2-3">' + data.studyCentre + '</td></tr>')
-                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Status</td><td class="university-size-2-3">' + data.status + '</td></tr>')
-                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Bank</td><td class="university-size-2-3">' + data.bank + '</td></tr>')
-                $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Branch</td><td class="university-size-2-3">' + data.branch + '</td></tr>')
+                else {
+                    $('#errorMsg').html('')
+                    $("#challanStatus thead").empty().append('<tr><th>Roll Number</th><th>Course</th><th>Amount</th></tr>')
+                    $("#challanStatus tbody").empty()
+                    for (var i = 0; i < data.challanInst.length; i++) {
+                        $("#challanStatus tbody").append('<tr><td>' + data.rollNo[i] + '</td><td>' + data.program[i] + '</td><td>' + data.feeAmount[i] + '</td></tr>')
+                    }
+                    $('#challanStatusStaticData').empty().append('<tr><td class="university-size-1-3">Total Amount</td><td class="university-size-2-3">' + data.total + '</td></tr>')
+                    $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Payment Date</td><td class="university-size-2-3">' + data.paydate + '</td></tr>')
+                    $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Payment Mode</td><td class="university-size-2-3">' + data.paymentMode + '</td></tr>')
+                    $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Study Centre</td><td class="university-size-2-3">' + data.studyCentre + '</td></tr>')
+                    $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Status</td><td class="university-size-2-3">' + data.status + '</td></tr>')
+                    $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Bank</td><td class="university-size-2-3">' + data.bank + '</td></tr>')
+                    $('#challanStatusStaticData').append('<tr><td class="university-size-1-3">Branch</td><td class="university-size-2-3">' + data.branch + '</td></tr>')
+                }
             }
-        }
-    });
+        });
     }
-    else{
+    else {
         $('#errorMsg').html("Please Enter Challan Number")
     }
 }
-
+function editChallanDetails() {
+    var challanNo = $("#challanNoText").val()
+    if (challanNo) {
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'challanDetails', ''),
+            data: {challanNo: challanNo},
+            success: function (data) {
+                if (data.challanError) {
+                    $('#errorMsg').html(data.challanError)
+                    $("#challanStatus thead").empty()
+                    $("#challanStatus tbody").empty()
+                    $('#challanStatusStaticData').empty()
+                    $('#challanDataEdit').empty()
+                    document.getElementById("horizontalLine").style.visibility = "hidden";
+                }
+                else {
+                    if (data.editable) {
+                        $('#errorMsg').html('')
+                        $("#challanStatus thead").empty().append('<tr><th>Roll Number</th><th>Course</th><th>Amount</th></tr>')
+                        $("#challanStatus tbody").empty()
+                        for (var i = 0; i < data.challanInst.length; i++) {
+                            $("#challanStatus tbody").append('<tr><td>' + data.rollNo[i] + '</td><td>' + data.program[i] + '</td><td>' + data.feeAmount[i] + '</td></tr>')
+                        }
+                        $('#challanStatusStaticData').empty()
+                        $('#challanDataEdit').empty().append('<tr><td class="university-size-1-3">Payment Mode</td><td class="university-size-2-3"><select name="paymentMode" class="university-size-1-2" id="paymentMode"><option value="">Select Payment Mode</option> </select></td></tr>')
+                        if (data.editPaydate != 'N/A') {
+                            $('#challanDataEdit').append('<tr><td class="university-size-1-3">Payment Date</td><td class="university-size-2-3"><input type="text" class="university-size-1-2" id="paymentDate" value="' + data.editPaydate + '" name="paymentDate"></td></tr>')
+                        }
+                        if (data.refNo != 'N/A') {
+                            $('#challanDataEdit').append('<tr><td class="university-size-1-3">Reference No</td><td class="university-size-2-3"><input type="text" name="paymentReferenceNumber" maxlength="10" value="' + data.refNo + '" onkeypress="return isNumber(event)" class="university-size-1-2" id="paymentReferenceNumber" value=""></td></tr>')
+                        }
+                        $('#challanDataEdit').append('<tr><td class="university-size-1-3">Bank</td><td class="university-size-2-3"><select name="bankName"  class="university-size-1-2" id="bankName"  onchange="loadBranch(this)"><option value="">Select Bank</option></select></td></tr>')
+                        $('#challanDataEdit').append('<tr><td class="university-size-1-3">Branch</td><td class="university-size-2-3"><select name="branchLocation"  class="university-size-1-2" id="branchLocation"><option value="">Select Branch</option></select></td></tr>')
+                        $('#challanDataEdit').append('<tr><td class="university-size-1-3"></td><td class="university-size-2-3"><input type="submit" value="Update"  class="university-button"></td></tr>')
+                        for (var i = 0; i < data.allPaymentMode.length; i++) {
+                            $("#paymentMode").append('<option value="' + data.allPaymentMode[i].id + '">' + data.allPaymentMode[i].paymentModeName + '</option>')
+                        }
+                        for (var i = 0; i < data.allBank.length; i++) {
+                            $("#bankName").append('<option value="' + data.allBank[i].id + '">' + data.allBank[i].bankName + '</option>')
+                        }
+                        for (var i = 0; i < data.allBranch.length; i++) {
+                            $("#branchLocation").append('<option value="' + data.allBranch[i].id + '">' + data.allBranch[i].branchLocation + '</option>')
+                        }
+                        if (data.paymentModeId != 'N/A') {
+                            $("#paymentMode").val(data.paymentModeId)
+                        }
+                        if (data.bankId != 'N/A') {
+                            $("#bankName").val(data.bankId)
+                        }
+                        if (data.branchId != 'N/A') {
+                            $("#branchLocation").val(data.branchId)
+                        }
+                        $("#paymentDate").datepicker({
+                            changeMonth: true,
+                            changeYear: true,
+                            dateFormat: "dd/mm/yy",
+                            maxDate: 0
+                        });
+                    }
+                    else {
+                        $('#errorMsg').html("Challan Not Paid.")
+                        $("#challanStatus thead").empty()
+                        $("#challanStatus tbody").empty()
+                        $('#challanStatusStaticData').empty()
+                        $('#challanDataEdit').empty()
+                        document.getElementById("horizontalLine").style.visibility = "hidden";
+                    }
+                }
+            }
+        });
+    }
+    else {
+        $('#errorMsg').html("Please Enter Challan Number")
+    }
+}
+function removeStudentDetails() {
+    var challanNo = $("#challanNoText").val()
+    if (challanNo) {
+        $.ajax({
+            type: "post",
+            url: url('feeDetails', 'challanDetailsRemove', ''),
+            data: {challanNo: challanNo},
+            success: function (data) {
+                if (data.challanError) {
+                    $('#errorMsg').html(data.challanError)
+                    $("#challanStatus thead").empty()
+                    $("#challanStatus tbody").empty()
+                    $('#challanStatusStaticData').empty()
+                    $('#challanDataEdit').empty()
+                    document.getElementById("horizontalLine").style.visibility = "hidden";
+                }
+                else {
+                    $('#errorMsg').html('')
+                    $("#challanStatus thead").empty().append('<tr><th>Roll Number</th><th>Course</th><th>Amount</th><th></th></tr>')
+                    $("#challanStatus tbody").empty()
+                    for (var i = 0; i < data.challanInst.length; i++) {
+                        $("#challanStatus tbody").append('<tr><td>' + data.rollNo[i] + '</td><td>' + data.program[i] + '</td><td>' + data.feeAmount[i] + '</td><td><input type="button" value="Delete" class="university-button" onclick="removeStuFromChallan(' + data.studentIDList[i] + ')"></td></tr>')
+                    }
+                    $('#challanStatusStaticData').empty()
+                }
+            }
+        });
+    }
+    else {
+        $('#errorMsg').html("Please Enter Challan Number")
+    }
+}
+function removeStuFromChallan(studentID) {
+    var data = studentID
+    window.location.href = '/UniversityProject/feeDetails/deleteStudentFromChallan?studentId=' + data;
+}

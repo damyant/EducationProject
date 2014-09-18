@@ -76,6 +76,7 @@ class Student {
         examinationVenue(nullable: true)
         challanNo(nullable: true)
         result(nullable: true)
+
     }
 
     static mapping ={

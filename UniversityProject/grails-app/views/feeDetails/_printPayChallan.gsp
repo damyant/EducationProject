@@ -51,7 +51,7 @@
         </tr>
         <g:each in="${0..stuList.size()-1}" var="index">
             <tr>
-                <td>${stuList.getAt(index)?.firstName} ${stuList.getAt(index)?.lastName}</td>
+                <td>${stuList.getAt(index)?.firstName}${stuList.getAt(index)?.middleName} ${stuList.getAt(index)?.lastName}</td>
                 <td>${stuList.getAt(index)?.rollNo}</td>
                 <td>${courseFee.getAt(index)}
                     <g:if test="${lateFee!=0}">

@@ -18,12 +18,7 @@
     %{--<link rel='stylesheet' href="${resource(dir: 'css', file: 'jquery.ui.theme.css')}" type='text/css'>--}%
 
 </head>
-<script>
-
-</script>
-
 <body>
-
 <div id="main">
 <g:if test="${!studyCentre}">
     <fieldset class="form">
@@ -69,20 +64,20 @@
                     <tr>
                         <td>
                             <input type="text" tabindex="1" name="firstName"
-                                   style="margin-left: -10px;text-transform: capitalize;"
+                                   style="margin-left: -10px;"
                                    onkeypress="return onlyAlphabets(event);"
                                    maxlength="50" class="university-size-1-1" value="" placeholder="First Name"/>
 
                         </td>
                         <td style="vertical-align: top;">
                             <input type="text" tabindex="2" name="middleName"
-                                   style="margin-left: -10px;text-transform: capitalize;"
+                                   style="margin-left: -10px;"
                                    onkeypress="return onlyAlphabets(event);"
                                    maxlength="50" class="university-size-1-1" value="" placeholder="Middle Name"/>
                         </td>
                         <td>
                             <input type="text" tabindex="3" name="lastName"
-                                   style="margin-left: -10px;text-transform: capitalize;"
+                                   style="margin-left: -10px;"
                                    onkeypress="return onlyAlphabets(event);"
                                    maxlength="50" class="university-size-1-1" value="" placeholder="Last Name"/>
                         </td>
@@ -104,7 +99,7 @@
         <tr>
             <td class="university-size-1-3">Application Number <span class="university-obligatory">*</span></td>
             <td class="university-size-2-3">
-                <input type="text" name="applicationNo" id="applicationNo" tabindex="5" onchange="checkApplicationNumber(this)"
+                <input type="text" name="applicationNo" id="applicationNo" tabindex="5" onchange="return checkApplicationNumber(this)"
                        onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2" disabled/>
                 <label id="errorMsg" class="error1"></label>
             </td>

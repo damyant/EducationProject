@@ -12,14 +12,14 @@ class HomeAssignmentController {
     def index() {}
     def submitHomeAssignment={
         if(params.studentId){
-            println('this is the id of student '+ params.termList.size())
+//            println('this is the id of student '+ params.termList.size())
             def termList= []
             params.termList.each{
                termList.add(Integer.parseInt(it))
             }
             def studentIns = Student.findById(Integer.parseInt(params.studentId))
             def homeAssignmentIns = HomeAssignment.findAllBySemesterInListAndStudent(termList, studentIns)
-            println('this is the homeAssignment '+ homeAssignmentIns)
+//            println('this is the homeAssignment '+ homeAssignmentIns)
             def studentName
             def rollNo
             def semList =[]
@@ -57,7 +57,7 @@ class HomeAssignmentController {
                     assignmentSubmitList.add(it.semester)
                 }
             }
-            println('this is the list of semesters '+ assignmentSubmitList)
+//            println('this is the list of semesters '+ assignmentSubmitList)
             returnMap.submitList = assignmentSubmitList
             if (springSecurityService.isLoggedIn()){
                 def userDetails = springSecurityService.principal.getAuthorities()
@@ -81,7 +81,7 @@ class HomeAssignmentController {
     }
 
     def saveHomeAssignment ={
-        println('these are the params '+ params)
+//        println('these are the params '+ params)
         if (springSecurityService.isLoggedIn()){
             def userDetails = springSecurityService.principal.getAuthorities()
             boolean isAdmin = false
@@ -92,14 +92,14 @@ class HomeAssignmentController {
                     }
             }
             if (isAdmin){
-                println('admin')
+//                println('admin')
                 def studentInstance= Student.findByRollNo(params.rollNumberInput)
                 def studentHomeAssignments = HomeAssignment.findAllByStudent(studentInstance)
                 studentHomeAssignments.each{
                     it.delete(flush:true)
                 }
                     params.terms.each{
-                            println('value '+ it)
+//                            println('value '+ it)
                             def homAssignmentIns = new HomeAssignment()
                             homAssignmentIns.student = studentInstance;
                             homAssignmentIns.semester = Integer.parseInt(it)
@@ -109,7 +109,7 @@ class HomeAssignmentController {
             } else {
                 def studentInstance= Student.findByRollNo(params.rollNumberInput)
                 params.terms.each{
-                    println('value '+ it)
+//                    println('value '+ it)
                     def homAssignmentIns = new HomeAssignment()
                     homAssignmentIns.student = studentInstance;
                     homAssignmentIns.semester = Integer.parseInt(it)
@@ -135,12 +135,12 @@ class HomeAssignmentController {
    }
 
     def printStudentAddress={
-        println("-------------------------------"+params)
+//        println("-------------------------------"+params)
         def studentName=[],studentAddress=[],studentPin=[],studentMobNo=[],stuList=[] ,studentTown=[],studentDistrict=[],studentState=[]
         if(params.type=='single'){
-            println('in single'+params.rollNo)
+//            println('in single'+params.rollNo)
             def studentInst = Student.findByRollNo(params.rollNo)
-            println('in single'+studentInst)
+//            println('in single'+studentInst)
             if(studentInst){
                 studentName<<studentInst.firstName+" "+(studentInst.middleName?studentInst.middleName:'')+" "+(studentInst.lastName?studentInst.lastName:'')
                 studentAddress<<studentInst.studentAddress

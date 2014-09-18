@@ -51,8 +51,8 @@
         </tr>
         <g:each in="${0..studList.size() - 1}" var="index">
             <tr>
-                <td>${studList[index].firstName} ${studList[index].lastName}</td>
-                <td>${studList[index].rollNo}</td>
+                <td>${studList[index]?.firstName} ${studList[index]?.middleName} ${studList[index]?.lastName}</td>
+                <td>${studList[index]?.rollNo}</td>
                 <td>${addmissionFee[index]}
                     <g:if test="${lateFee!=0}">
                         <label style="font-size: 13px;display: block">(with late fee ${lateFee})</label>

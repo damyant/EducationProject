@@ -160,15 +160,14 @@ class AdmitCardController {
 
         def stuList = [], mode = [], examType = [], courseName = []
         def status
+        def month = ""
         def admitInst = null
         def user = springSecurityService.currentUser
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         StringBuilder examDate = new StringBuilder()
         StringBuilder examTime = new StringBuilder()
         def webRootDir = servletContext.getRealPath("/")
-//        println('*******************************************************' + webRootDir)
         def byte[] logo = new File(webRootDir + "/images/gu-logo.jpg").bytes
-//        println("these are the logo bytes " + logo);
 
         if (params.rollNumber && springSecurityService.currentUser) {
             stuList = admitCardService.getStudentByRollNo(user, params)
@@ -180,7 +179,6 @@ class AdmitCardController {
             def studentList = params.studentList.split(",")
             studentList.each {
                 def studentInst = Student.findById(Integer.parseInt(it.toString()))
-//                println("AAAAAAAAAAAAAAAAAAAA"+studentInst.studyCentre[0].centerCode)
                 Set<City> cityInst = City.findAllById(8)
                 if (studentInst.city == cityInst) {
                     admitInst = AdmitCard.findByExamVenue(ExaminationVenue.findById(params.examinationVenue))
@@ -208,7 +206,6 @@ class AdmitCardController {
                      timeList << CourseSubject.findBySubjectSessionIdAndProgramSession(it, programSessionIns).examTime
                   }
             }
-
             def programGroupList=ProgramGroup.findAllBySemesterAndProgramSession(Semester.findBySemesterNoAndProgramSession(stuList[0].semester, stuList[0].programSession), programSessionIns)
                  if(programGroupList){
                     programGroupList.each{
@@ -223,7 +220,8 @@ class AdmitCardController {
             def count = 1
             def total = dateList.size()
 
-            def month = ""
+
+
             if (stuList[0].semester % 2 == 0) {
                 month = "July"
             } else {
@@ -254,6 +252,7 @@ class AdmitCardController {
 
         def stuList = [], mode = [], examType = [], courseName = []
         def status
+        def month = ""
         def admitInst = null
         def user = springSecurityService.currentUser
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -298,7 +297,8 @@ class AdmitCardController {
             def count = 1
             def total = dateList.size()
 
-            def month = ""
+
+
             if (stuList[0].semester % 2 == 0) {
                 month = "July"
             } else {

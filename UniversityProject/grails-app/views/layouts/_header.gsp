@@ -1,6 +1,6 @@
 <div>
 <div class="logo">
-    <div class="header-parts"><img src="${resource(dir: 'images', file: 'logo.png')}" class="logo-image"></div>
+    <div class="header-parts"><img src="${resource(dir: 'images', file: 'logo.png')}" class="window"></div>
 
     <div class="header-parts" name="logout">
         <sec:ifLoggedIn>
@@ -367,6 +367,8 @@
         <sec:ifAnyGranted roles="ROLE_ADMIN">
         <li><g:link controller="photoUpload" action="photoUpload"><g:message
                 code="default.mainMenu3.subMenu2.submenu5"/></g:link></li>
+        <li><g:link controller="feeDetails" action="printAChallan"><g:message
+                    code="default.mainMenu3.subMenu2.submenu3"/></g:link></li>
         </sec:ifAnyGranted>
     </ul>
 </li>
@@ -409,6 +411,8 @@
                         code="default.mainMenu7.subMenu1.subMenu1"/></g:link></li>
                 <li><g:link controller="admin" action="generateCustomChallan"><g:message
                         code="default.mainMenu6.subMenu12"/></g:link></li>
+                <li><g:link controller="feeDetails" action="searchCustomChallan"><g:message
+                        code="default.mainMenu6.subMenu8"/></g:link></li>
             </ul>
         </li>
     </sec:ifNotGranted>

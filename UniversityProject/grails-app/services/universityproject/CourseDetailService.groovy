@@ -34,7 +34,7 @@ class CourseDetailService {
         def status = ""
         def updateStatus=""
         def existingCourseObj
-        println(params)
+//        println(params)
         if (params.courseId) {
             existingCourseObj = ProgramDetail.findById(Integer.parseInt(params.courseId))
             updateStatus="update"
@@ -207,7 +207,6 @@ class CourseDetailService {
 //        courseDetail.groupSelectionType=groupSelectionType
 //        courseDetail.groupNoOfSubjects=groupNoOfSubjects
         courseDetail.semesterList = subList
-
         return courseDetail
 
     }

@@ -70,13 +70,18 @@ class ExaminationCentreService {
     def examVenueList(params) {
 
         if (params) {
-            def cityList = City.findAllById(Integer.parseInt(params.examinationCentre))
-//            println("<<<" + list)
-//            def obj=ExaminationVenue.createCriteria();
-//            def examVenueList=obj.list{
-//                ex
-//            }
-           return cityList.examVenue[0];
+//<<<<<<< HEAD
+//            def cityList = City.findAllById(Integer.parseInt(params.examinationCentre))
+////            println("<<<" + list)
+////            def obj=ExaminationVenue.createCriteria();
+////            def examVenueList=obj.list{
+////                ex
+////            }
+//           return cityList.examVenue[0];
+//=======
+            def list = City.findAllById(Integer.parseInt(params.examinationCentre))
+            return list.examVenue[0];
+//>>>>>>> origin/damyant
 
         }
 

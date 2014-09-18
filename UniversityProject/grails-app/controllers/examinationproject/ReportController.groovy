@@ -32,6 +32,7 @@ class ReportController {
        render sessionList as JSON
     }
    def generateReport={
+       println("===================="+params)
        if(params.value=='session' && (params.session || params.sessionStudentList)){
            if(params.inExcel){
                def webRootDir = servletContext.getRealPath("/")
@@ -113,7 +114,30 @@ class ReportController {
 
        }
 
+      else if(params.value=='StudyCentreStudentDetails'){
+           println("*************StudyCentreStudentDetails**************"+params)
+           def webRootDir = servletContext.getRealPath("/")
+           def userDir = new File(webRootDir,'/Report')
+           userDir.mkdirs()
+           def excelPath = servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.studyCentreStudentSession+'.xls'
+           def status = reportService.getReportOfStudentDetails(params, excelPath)
+           if(status){
+               File myFile = new File(servletContext.getRealPath("/")+'Report'+System.getProperty('file.separator')+'Student_List_'+params.studyCentreStudentSession+'.xls')
+               response.setHeader "Content-disposition", "attachment; filename="+'Student_List_'+params.studyCentreStudentSession+".xls"
+               response.contentType = new MimetypesFileTypeMap().getContentType(myFile )
+               response.outputStream << myFile .bytes
+               response.outputStream.flush()
+               myFile.delete()
+           }
+           else{
+               flash.message = "${message(code: 'record.not.found.message')}"
+               redirect(action: 'reportIndex')
+           }
+       }
+
+
       else if(params.value=='studyCentre' && params.studyCentre){
+           println("*************studyCentre**************"+params)
            if(params.inExcel){
                def webRootDir = servletContext.getRealPath("/")
                def userDir = new File(webRootDir,'/Report')
@@ -204,7 +228,7 @@ class ReportController {
            def sessionVal
            def studyCentre=null
            if(params.admissionUnapprovedStudyCentre=='All' && params.admissionApprovedStudyCentre=='All') {
-               println('true')
+//               println('true')
                studyCentre = 'All'
            }
            def totalList = reportService.getReportDataAdmissionApprovedUnapproved(params)
