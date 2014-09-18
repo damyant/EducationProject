@@ -469,7 +469,11 @@ class StudentRegistrationService {
         if(existingChallan){
             challanNo=Integer.parseInt(challanNo)+1
         }
+<<<<<<< HEAD
 //        a++
+=======
+
+>>>>>>> 7cbfbc832bd06d948c466b413335199f59c2ae2d
         def existingChallanInst
         if(ExistingChallan.findBySession(2014)){
             existingChallanInst=ExistingChallan.findBySession(2014)

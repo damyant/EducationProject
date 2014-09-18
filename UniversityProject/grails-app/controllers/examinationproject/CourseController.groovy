@@ -187,8 +187,7 @@ class CourseController {
 
         def subjectList=[]
        subjectList= courseDetailService.getCourseOnProgramCode(params)
-       println(subjectList.size())
-       render subjectList as JSON
+      render subjectList as JSON
 
     }
 

@@ -57,6 +57,7 @@
     <sec:ifLoggedIn>
     <sec:ifAnyGranted roles="ROLE_ADMIN">
     <div class="university-size-full-1-1">
+<<<<<<< HEAD
             %{--<div style="float: left; height: 100%;width:49%;">--}%
                 %{--<table class="inner university-size-1-1" style="padding-top: 2px; top: 10;margin: auto;">--}%
                     %{--<tr>--}%
@@ -84,6 +85,35 @@
                             %{--Total Student--}%
                         %{--</th>--}%
                     %{--</tr>--}%
+=======
+            <div style="float: left; height: 100%;width:49%;">
+                <table class="inner university-size-1-1" style="padding-top: 2px; top: 10;margin: auto;">
+                    <tr>
+                        <td colspan="2">
+                            <h3>
+                                Self Enrollment Student Count
+                            </h3>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td  colspan="2" style="text-align: center;">
+                            <label>Total Number of Student:  ${selfEnrollmentCount}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  colspan="2" style="text-align: center;">
+                            <label>Total Number of Student without Roll No:  ${rollNoNotCount}</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Program Name</th>
+                        <th>
+                            Total Student
+                        </th>
+                    </tr>
+>>>>>>> 7cbfbc832bd06d948c466b413335199f59c2ae2d
                     %{--<g:each in="${0..programName.size()-1}" var="index">--}%
                         %{--<g:if test="${programCount[index]!=0}">--}%
                         %{--<tr>--}%
@@ -93,6 +123,7 @@
                         %{--</g:if>--}%
                     %{--</g:each>--}%
 
+<<<<<<< HEAD
                 %{--</table>--}%
             %{--</div>--}%
             %{--<div class="university-size-1-2"  style="float: right;margin: auto;">--}%
@@ -110,6 +141,25 @@
                         %{--<th>Approve Challan</th>--}%
                         %{--<th>Unapprove Challan</th>--}%
                     %{--</tr>--}%
+=======
+                </table>
+            </div>
+            <div class="university-size-1-2"  style="float: right;margin: auto;">
+                <table class="inner university-size-1-1" style="margin-top: 2px;top: 10;">
+                    <tr>
+                        <td colspan="3">
+                            <h3>
+                                Fee Challan Status Count
+                            </h3>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th>Study Centre Name</th>
+                        <th>Approve Challan</th>
+                        <th>Unapprove Challan</th>
+                    </tr>
+>>>>>>> 7cbfbc832bd06d948c466b413335199f59c2ae2d
                     %{--<g:each in="${0..studyCentreName.size()-1}" var="index">--}%
                         %{--<g:if test="${studyCentreFeeUnAppCount[index]!=0&&studyCentreFeeAppCount[index]!=0}">--}%
                         %{--<tr>--}%
@@ -119,8 +169,13 @@
                         %{--</tr>--}%
                             %{--</g:if>--}%
                     %{--</g:each>--}%
+<<<<<<< HEAD
                 %{--</table>--}%
             %{--</div>--}%
+=======
+                </table>
+            </div>
+>>>>>>> 7cbfbc832bd06d948c466b413335199f59c2ae2d
     </div>
 <div class="university-clear-both"></div>
     </sec:ifAnyGranted>

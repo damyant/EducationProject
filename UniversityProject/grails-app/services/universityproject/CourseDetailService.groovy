@@ -30,6 +30,7 @@ class CourseDetailService {
     }
 
     def saveCourseInfo(params) {
+        println("&&&&&&&&&&&&")
         def status = ""
         def updateStatus=""
         def existingCourseObj
@@ -42,7 +43,7 @@ class CourseDetailService {
 
         def session = ProgramSession.count()
         def sessionObj
-
+            println("******************==="+existingCourseObj)
         if (existingCourseObj) {
             existingCourseObj.courseName = params.courseName
             existingCourseObj.courseCode = params.courseCode
@@ -346,13 +347,10 @@ class CourseDetailService {
                eq('programTypeId',ProgramType.get(params.programType))
            }
          }
-        println("++++++++++"+finalSubjectList)
         finalSubjectList.each{
             resultList<< SubjectSession.findBySubjectId(it)
-            println("++++++++++"+SubjectSession.findBySubjectId(it))
             courseNameList<<SubjectSession.findBySubjectId(it).subjectId.subjectName
             courseCodeList<<SubjectSession.findBySubjectId(it).subjectId.subjectCode
-
         }
 
         resultList.each{
@@ -363,6 +361,7 @@ class CourseDetailService {
             ++counter;
             returnList<<returnMap
         }
+
 
         return returnList
 
