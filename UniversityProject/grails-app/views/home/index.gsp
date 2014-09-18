@@ -57,70 +57,70 @@
     <sec:ifLoggedIn>
     <sec:ifAnyGranted roles="ROLE_ADMIN">
     <div class="university-size-full-1-1">
-            <div style="float: left; height: 100%;width:49%;">
-                <table class="inner university-size-1-1" style="padding-top: 2px; top: 10;margin: auto;">
-                    <tr>
-                        <td colspan="2">
-                            <h3>
-                                Self Enrollment Student Count
-                            </h3>
-                        </td>
+            %{--<div style="float: left; height: 100%;width:49%;">--}%
+                %{--<table class="inner university-size-1-1" style="padding-top: 2px; top: 10;margin: auto;">--}%
+                    %{--<tr>--}%
+                        %{--<td colspan="2">--}%
+                            %{--<h3>--}%
+                                %{--Self Enrollment Student Count--}%
+                            %{--</h3>--}%
+                        %{--</td>--}%
 
-                    </tr>
-                    <tr>
-                        <td  colspan="2" style="text-align: center;">
-                            <label>Total Number of Student:  ${selfEnrollmentCount}</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td  colspan="2" style="text-align: center;">
-                            <label>Total Number of Student without Roll No:  ${rollNoNotCount}</label>
-                        </td>
-                    </tr>
+                    %{--</tr>--}%
+                    %{--<tr>--}%
+                        %{--<td  colspan="2" style="text-align: center;">--}%
+                            %{--<label>Total Number of Student:  ${selfEnrollmentCount}</label>--}%
+                        %{--</td>--}%
+                    %{--</tr>--}%
+                    %{--<tr>--}%
+                        %{--<td  colspan="2" style="text-align: center;">--}%
+                            %{--<label>Total Number of Student without Roll No:  ${rollNoNotCount}</label>--}%
+                        %{--</td>--}%
+                    %{--</tr>--}%
 
-                    <tr>
-                        <th>Program Name</th>
-                        <th>
-                            Total Student
-                        </th>
-                    </tr>
-                    <g:each in="${0..programName.size()-1}" var="index">
-                        <g:if test="${programCount[index]!=0}">
-                        <tr>
-                            <td>${programName[index]}</td>
-                            <td>${programCount[index]}</td>
-                        </tr>
-                        </g:if>
-                    </g:each>
+                    %{--<tr>--}%
+                        %{--<th>Program Name</th>--}%
+                        %{--<th>--}%
+                            %{--Total Student--}%
+                        %{--</th>--}%
+                    %{--</tr>--}%
+                    %{--<g:each in="${0..programName.size()-1}" var="index">--}%
+                        %{--<g:if test="${programCount[index]!=0}">--}%
+                        %{--<tr>--}%
+                            %{--<td>${programName[index]}</td>--}%
+                            %{--<td>${programCount[index]}</td>--}%
+                        %{--</tr>--}%
+                        %{--</g:if>--}%
+                    %{--</g:each>--}%
 
-                </table>
-            </div>
-            <div class="university-size-1-2"  style="float: right;margin: auto;">
-                <table class="inner university-size-1-1" style="margin-top: 2px;top: 10;">
-                    <tr>
-                        <td colspan="3">
-                            <h3>
-                                Fee Challan Status Count
-                            </h3>
-                        </td>
+                %{--</table>--}%
+            %{--</div>--}%
+            %{--<div class="university-size-1-2"  style="float: right;margin: auto;">--}%
+                %{--<table class="inner university-size-1-1" style="margin-top: 2px;top: 10;">--}%
+                    %{--<tr>--}%
+                        %{--<td colspan="3">--}%
+                            %{--<h3>--}%
+                                %{--Fee Challan Status Count--}%
+                            %{--</h3>--}%
+                        %{--</td>--}%
 
-                    </tr>
-                    <tr>
-                        <th>Study Centre Name</th>
-                        <th>Approve Challan</th>
-                        <th>Unapprove Challan</th>
-                    </tr>
-                    <g:each in="${0..studyCentreName.size()-1}" var="index">
-                        <g:if test="${studyCentreFeeUnAppCount[index]!=0&&studyCentreFeeAppCount[index]!=0}">
-                        <tr>
-                            <td class="university-size-1-2">${studyCentreName[index]}</td>
-                            <td class="university-size-1-4">${studyCentreFeeAppCount[index]}</td>
-                            <td class="university-size-1-4">${studyCentreFeeUnAppCount[index]}</td>
-                        </tr>
-                            </g:if>
-                    </g:each>
-                </table>
-            </div>
+                    %{--</tr>--}%
+                    %{--<tr>--}%
+                        %{--<th>Study Centre Name</th>--}%
+                        %{--<th>Approve Challan</th>--}%
+                        %{--<th>Unapprove Challan</th>--}%
+                    %{--</tr>--}%
+                    %{--<g:each in="${0..studyCentreName.size()-1}" var="index">--}%
+                        %{--<g:if test="${studyCentreFeeUnAppCount[index]!=0&&studyCentreFeeAppCount[index]!=0}">--}%
+                        %{--<tr>--}%
+                            %{--<td class="university-size-1-2">${studyCentreName[index]}</td>--}%
+                            %{--<td class="university-size-1-4">${studyCentreFeeAppCount[index]}</td>--}%
+                            %{--<td class="university-size-1-4">${studyCentreFeeUnAppCount[index]}</td>--}%
+                        %{--</tr>--}%
+                            %{--</g:if>--}%
+                    %{--</g:each>--}%
+                %{--</table>--}%
+            %{--</div>--}%
     </div>
 <div class="university-clear-both"></div>
     </sec:ifAnyGranted>

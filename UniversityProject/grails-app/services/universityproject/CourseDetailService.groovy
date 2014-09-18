@@ -377,11 +377,9 @@ class CourseDetailService {
         def indexVal=0;
         for (def i = 1; i <= Integer.parseInt(params.noOfTerms); i++) {
             semObj = new Semester()
-
             semObj.semesterNo = i
             semObj.programSession = sessionObj
             semObj.save(failOnError: true)
-println("******************"+semObj)
             params.semesterList.each {
                 i
                 def subjectList = it."semester${i}".sort()
