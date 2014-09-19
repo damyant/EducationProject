@@ -37,7 +37,7 @@
 
 #menu {
     zoom:1;
-    width: 90%;
+    width: 100%;
     margin: auto;
 }
 
@@ -48,12 +48,12 @@
     position: relative;
     margin: 1px 10px;
     border: 0px 1px solid #abd361;
-    min-width: 8%;
+    min-width: 3%;
 }
 
 #menu a {
     float: left;
-    padding: 11px 6px;
+    padding: 11px 2px;
     /*color: #00068f;*/
     color: #FFF;
     text-transform: uppercase;
@@ -104,7 +104,7 @@
 #menu ul ul {
     top: 0;
     left: 180px;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 6px;
     _margin: 0;
     /*IE6 only*/
     box-shadow: -1px 0 0 rgba(255,255,255,.3);
@@ -200,6 +200,9 @@
 }
 .logo-image{
     width: 100%;
+}
+#logo-images{
+    height: 120px;
 }
 
 .header-parts {

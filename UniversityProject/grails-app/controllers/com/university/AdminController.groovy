@@ -978,5 +978,61 @@ class AdminController {
 //        println 'out:\n' + outStream
 //        println 'err:\n' + errStream
 //    }
+ def noticeBoard={
+
+
+
+
+ }
+    def noticeBoardSave={
+//        def f = request.getFile('fle')
+//        if (f.empty) {
+//            flash.message = 'file cannot be empty'
+//
+//            return
+//        }
+//
+//         f.transferTo(new File(servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator')+ f.originalFilename))
+////        response.sendError(200, 'Done')
+//
+//        redirect(action: "noticeBoard")
+
+
+            def file = request.getFile('fle')
+            if(file.empty) {
+                flash.message = "File cannot be empty"
+            } else {
+                def documentInstance = new NoticeBoard()
+                documentInstance.fileName = file.originalFilename
+//                documentInstance.filedata = file.getBytes()
+                documentInstance.save()
+            }
+            redirect (action:"noticeBoard")
+
+    }
+
+
+    def noticeBoardView={
+
+    }
+
+
+    def download={
+        NoticeBoard documentInstance = NoticeBoard.get(id)
+        if ( documentInstance == null) {
+            flash.message = "Document not found."
+            redirect (action:'list')
+        } else {
+            response.setContentType("APPLICATION/OCTET-STREAM")
+            response.setHeader("Content-Disposition", "Attachment;Filename=\"${documentInstance.filename}\"")
+
+            def outputStream = response.getOutputStream()
+            outputStream << documentInstance.fileName
+            outputStream.flush()
+            outputStream.close()
+        }
+    }
+
+
 
 }

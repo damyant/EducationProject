@@ -1,6 +1,6 @@
 <div>
 <div class="logo">
-    <div class="header-parts"><img src="${resource(dir: 'images', file: 'logo.png')}" class="window"></div>
+    <div class="header-parts"><img id="logo-images" src="${resource(dir: 'images', file: 'logoist.png')}" class="window"></div>
 
     <div class="header-parts" name="logout">
         <sec:ifLoggedIn>
@@ -281,6 +281,32 @@
         <li><a href="#"><g:message code="default.mainMenu5"/></a></li>
     </sec:ifNotGranted>
 </sec:ifLoggedIn>
+<li><a href="#"><g:message code="default.mainMenu10"/></a>
+<ul>
+    <li><g:link controller="employe" action="createEmployee"> <g:message code="default.mainMenu10.subMenu1"/></g:link></li>
+    <li><a href="#"><g:message code="default.mainMenu10.subMenu2"/></a></li>
+</ul></li>
+
+<li><a href="#"><g:message code="default.mainMenu11"/></a></li>
+
+<li><a href="#"><g:message code="default.mainMenu12"/></a>
+<ul>
+    <li>
+        <g:link controller="admin" action="noticeBoard"><g:message
+                code="default.mainMenu3.subMenu7.subMenu3"/></g:link>
+    </li>
+    <li>
+        <g:link controller="admin" action="noticeBoardView"><g:message
+                code="default.mainMenu12.subMenu2"/></g:link>
+    </li>
+
+</ul>
+
+</li>
+
+<li><a href="#"><g:message code="default.mainMenu13"/></a></li>
+
+
 
 <sec:ifLoggedIn>
 
