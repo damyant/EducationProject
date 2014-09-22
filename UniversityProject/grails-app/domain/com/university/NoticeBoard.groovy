@@ -6,6 +6,7 @@ class NoticeBoard {
 
 	String noticeHeader
 	String fileName
+    Date noticeDate
 
 
 	static constraints = {
@@ -15,6 +16,7 @@ class NoticeBoard {
 	static mapping = {
         noticeHeader column: 'noticeHeader'
         fileName column: "fileName"
+        noticeDate column: "noticeDate"
 	}
 
 	}

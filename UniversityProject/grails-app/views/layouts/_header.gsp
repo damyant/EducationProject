@@ -165,8 +165,10 @@
 
         <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
             <ul>
+
                 <li><g:link controller="admin" action="addCourses"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
-                <li><g:link controller="admin" action="listOfCourses"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
+
+                    <li><g:link controller="admin" action="listOfCourses"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
             </ul>
         </li>
     </ul>
@@ -291,10 +293,17 @@
 
 <li><a href="#"><g:message code="default.mainMenu12"/></a>
 <ul>
+<sec:ifAnyGranted roles="ROLE_ADMIN">
     <li>
         <g:link controller="admin" action="noticeBoard"><g:message
                 code="default.mainMenu3.subMenu7.subMenu3"/></g:link>
     </li>
+    <li>
+        <g:link controller="admin" action="noticeBoardDel"><g:message
+                code="default.mainMenu12.subMenu3"/></g:link>
+    </li>
+
+    </sec:ifAnyGranted>
     <li>
         <g:link controller="admin" action="noticeBoardView"><g:message
                 code="default.mainMenu12.subMenu2"/></g:link>
