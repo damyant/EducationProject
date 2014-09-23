@@ -77,19 +77,19 @@ class AdminController {
         def stuList = []
         def responseMap = [:]
         def status
-        def refNo=[], rollNum=[]
+        def refNo = [], rollNum = []
         if (params.pageType == "Approve RollNo") {
             status = studentRegistrationService.approvedStudents(params)
         } else {
             def studentIdList = params.studentList.split(",")
             rollNumber = studentRegistrationService.getUpdatedStudentRollNumber(params)
 
-            if(rollNumber){
+            if (rollNumber) {
                 studentIdList.each { i ->
-                   def stuObjs = Student.findById(i)
-                    def stmt="# Ref No : "+stuObjs.referenceNumber.concat("  Roll No "+stuObjs.rollNo+"     ")
-                    refNo<<stmt
-            }
+                    def stuObjs = Student.findById(i)
+                    def stmt = "# Ref No : " + stuObjs.referenceNumber.concat("  Roll No " + stuObjs.rollNo + "     ")
+                    refNo << stmt
+                }
             }
         }
         if (stuObj) {
@@ -410,14 +410,14 @@ class AdminController {
             def programIns = ProgramDetail.findById(Integer.parseInt(params.program))
             def feeSessionObj = FeeSession.findByProgramDetailIdAndSessionOfFee(programIns, sessionVal)
             def lateFeeDate = programIns.lateFeeDate
-            if(feeSessionObj==null){
-                def feeObj=FeeSession.createCriteria()
-            feeSessionObj=feeObj.list{
-                eq('programDetailId',programIns)
-                order('id','desc')
-                maxResults(1)
+            if (feeSessionObj == null) {
+                def feeObj = FeeSession.createCriteria()
+                feeSessionObj = feeObj.list {
+                    eq('programDetailId', programIns)
+                    order('id', 'desc')
+                    maxResults(1)
+                }
             }
-        }
             def today = new Date()
             if (lateFeeDate != null) {
                 if (today.compareTo(lateFeeDate) > 0) {
@@ -527,26 +527,25 @@ class AdminController {
     //ADDED BY DIGVIJAY ON 19 May 2014
     @Secured(["ROLE_ADMIN"])
     def addCourses = {
-        def updateMode=false
-        def courseList,courseSession
+        def updateMode = false
+        def courseList, courseSession
         def programTypeList = ProgramType.list()
-        if(params.id){
+        if (params.id) {
 //         courseList = Subject.findById(params.id)
-         courseSession=SubjectSession.findById(params.id)
-          courseList=courseSession.subjectId
+            courseSession = SubjectSession.findById(params.id)
+            courseList = courseSession.subjectId
 //            println("<<<<"+courseSession.)
-            updateMode=true
+            updateMode = true
         }
-        def marksTypeList=MarksType.list()
+        def marksTypeList = MarksType.list()
         def subjectSessions = programFeeService.getProgramSessions(params)
-        def subjectMarksList=SubjectMarksDetail.findAllBySubjectSession(courseSession)
-        def marksMap=[:]
+        def subjectMarksList = SubjectMarksDetail.findAllBySubjectSession(courseSession)
+        def marksMap = [:]
 //
 
 
-
-        [programTypeList: programTypeList, courseList: courseList,courseSession:courseSession,updateMode:updateMode,
-                marksTypeList:marksTypeList,marksMap:marksMap,subjectSessions:subjectSessions]
+        [programTypeList: programTypeList, courseList: courseList, courseSession: courseSession, updateMode: updateMode,
+                marksTypeList: marksTypeList, marksMap: marksMap, subjectSessions: subjectSessions]
     }
     @Secured(["ROLE_ADMIN"])
     def listOfCourses = {
@@ -797,24 +796,24 @@ class AdminController {
         catch (Exception e) {
             flash.message = "Unable To Remove Course"
         }
-        redirect( controller: "admin" ,action: "listOfCourses")
+        redirect(controller: "admin", action: "listOfCourses")
     }
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def loadSubject = {
-        def returnMap=[:]
-        def subSessionList=[],subjectNameList=[]
+        def returnMap = [:]
+        def subSessionList = [], subjectNameList = []
         def programType = ProgramType.findById(Long.parseLong(params.type))
         def subjectList = Subject.findAllByProgramTypeId(programType)
 
-        subjectList.each{
-         subSessionList<< SubjectSession.findAllBySubjectId(it)
-         subjectNameList<<SubjectSession.findAllBySubjectId(it).subjectId
+        subjectList.each {
+            subSessionList << SubjectSession.findAllBySubjectId(it)
+            subjectNameList << SubjectSession.findAllBySubjectId(it).subjectId
         }
 
-        returnMap.subSession=subSessionList
-        returnMap.subject=subjectNameList
+        returnMap.subSession = subSessionList
+        returnMap.subject = subjectNameList
         def response = [subjectList: subSessionList]
-            println(subjectNameList)
+        println(subjectNameList)
         render returnMap as JSON
     }
 
@@ -836,8 +835,8 @@ class AdminController {
         def searchList = []
         def year = Integer.parseInt(params.session)
         def searchobj = Student.createCriteria()
-        def arr=params.student.split(' ')
-        if (arr.size()==2) {
+        def arr = params.student.split(' ')
+        if (arr.size() == 2) {
 
             searchList = searchobj.list {
                 or {
@@ -863,8 +862,7 @@ class AdminController {
                 }
                 order('rollNo')
             }.unique()
-        }
-        else  if (arr.size()>2) {
+        } else if (arr.size() > 2) {
             searchList = searchobj.list {
                 or {
                     like('firstName', '%' + arr[0] + '%')
@@ -898,8 +896,7 @@ class AdminController {
                 }
                 order('rollNo')
             }.unique()
-        }
-        else {
+        } else {
             searchList = searchobj.list {
                 or {
                     like('firstName', '%' + params.student + '%')
@@ -978,61 +975,124 @@ class AdminController {
 //        println 'out:\n' + outStream
 //        println 'err:\n' + errStream
 //    }
- def noticeBoard={
+    def noticeBoard = {
 
 
+       def noticeBoardIns = null
 
 
- }
-    def noticeBoardSave={
-//        def f = request.getFile('fle')
-//        if (f.empty) {
-//            flash.message = 'file cannot be empty'
-//
-//            return
-//        }
-//
-//         f.transferTo(new File(servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator')+ f.originalFilename))
-////        response.sendError(200, 'Done')
-//
-//        redirect(action: "noticeBoard")
-
-
-            def file = request.getFile('fle')
-            if(file.empty) {
-                flash.message = "File cannot be empty"
-            } else {
-                def documentInstance = new NoticeBoard()
-                documentInstance.fileName = file.originalFilename
-//                documentInstance.filedata = file.getBytes()
-                documentInstance.save()
-            }
-            redirect (action:"noticeBoard")
-
-    }
-
-
-    def noticeBoardView={
-
-    }
-
-
-    def download={
-        NoticeBoard documentInstance = NoticeBoard.get(id)
-        if ( documentInstance == null) {
-            flash.message = "Document not found."
-            redirect (action:'list')
-        } else {
-            response.setContentType("APPLICATION/OCTET-STREAM")
-            response.setHeader("Content-Disposition", "Attachment;Filename=\"${documentInstance.filename}\"")
-
-            def outputStream = response.getOutputStream()
-            outputStream << documentInstance.fileName
-            outputStream.flush()
-            outputStream.close()
+        if(params.noticeInstId)
+        {
+           noticeBoardIns = NoticeBoard.findById(Long.parseLong(params.noticeInstId))
+            [noticeIns:noticeBoardIns]
         }
+        else
+        {
+
+        }
+//        def noticeInst = NoticeBoard.findById(Long.parseLong(params.noticeInstId))
+
+    }
+    def noticeBoardSave = {
+        println("=========================="+params)
+        def f = request.getFile('fle')
+        if(f.originalFilename){
+            def noticeInst
+            if(params.noticeUpdate){
+                noticeInst=NoticeBoard.findById(Long.parseLong(params.noticeUpdate))
+                if(noticeInst){
+                    boolean fileSuccessfullyDeleted = new File(noticeInst.fileName).delete()
+                }
+            }
+            f.transferTo(new File(servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator') + f.originalFilename))
+            File newFile = new File(servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator') + f.originalFilename)
+
+            if (newFile.exists()) {
+                def noticeBoardInst = new NoticeBoard()
+                noticeBoardInst.fileName = newFile.absolutePath
+                noticeBoardInst.noticeHeader = params.noticeHeader
+                noticeBoardInst.noticeDate = new Date()
+                if (noticeBoardInst.save(failOnError: true, flush: true)) {
+                    flash.message = "Saved Successfully"
+                } else {
+                    flash.message = "Not Saved "
+                }
+
+            }
+        }
+//        if(f.ex)
+//        f.transferTo(new File(servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator') + f.originalFilename))
+//        File newFile = new File(servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator') + f.originalFilename)
+//        if (newFile.exists()) {
+//            def noticeBoardInst = new NoticeBoard()
+//            noticeBoardInst.fileName = newFile.absolutePath
+//            noticeBoardInst.noticeHeader = params.noticeHeader
+//            noticeBoardInst.noticeDate = new Date()
+//            if (noticeBoardInst.save(failOnError: true, flush: true)) {
+//                flash.message = "Saved Succesfully"
+//            } else {
+//                flash.message = "Not Saved "
+//            }
+//
+//        }
+        redirect(controller: "admin", action: "noticeBoard")
+
+    }
+
+
+    def noticeBoardView = {
+        def noticeList = NoticeBoard.list()
+        def filePath = servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator')
+        [noticeList: noticeList,  filePath: filePath]
+
+    }
+
+
+    def download = {
+        def file = new File(params.fileName)
+        def fileInputStream = new FileInputStream(file)
+        def outputStream = response.getOutputStream()
+
+        byte[] buffer = new byte[4096];
+        int len;
+        while ((len = fileInputStream.read(buffer)) > 0) {
+            outputStream.write(buffer, 0, len);
+        }
+
+        outputStream.flush()
+        outputStream.close()
+        fileInputStream.close()
+    }
+
+    def noticeBoardDel = {
+        def noticeList = NoticeBoard.list()
+        def filePath = servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator')
+        [noticeList: noticeList,filePath: filePath ]
     }
 
 
 
+
+
+
+     def delNotice = {
+        def noticeInst = NoticeBoard.findById(Long.parseLong(params.noticeInstId))
+        noticeInst.delete()
+        if (!NoticeBoard.exists(noticeInst.id)) {
+            boolean fileSuccessfullyDeleted = new File(noticeInst.fileName).delete()
+            if (fileSuccessfullyDeleted) {
+                flash.message = "Delete Successfully"
+            }
+        }
+        redirect(controller: "admin", action: "noticeBoardDel")
+    }
+
+//    def editNotice={
+////        println('Hello sanjay these are the params   '+ params.notice)
+//
+//        def noticeInst = NoticeBoard.findById(Long.parseLong(params.noticeInstId))
+//        redirect(controller: 'admin', action: "noticeBoard", params:[noticIns:noticeInst.id])
+//
+//
+//    }
 }
