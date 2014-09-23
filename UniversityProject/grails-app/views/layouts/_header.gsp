@@ -281,12 +281,18 @@
         <li><a href="#"><g:message code="default.mainMenu5"/></a></li>
     </sec:ifNotGranted>
 </sec:ifLoggedIn>
+<sec:ifAnyGranted roles="ROLE_ADMIN">
 <li><a href="#"><g:message code="default.mainMenu10"/></a>
 <ul>
     <li><g:link controller="employe" action="createEmployee"> <g:message code="default.mainMenu10.subMenu1"/></g:link></li>
-    <li><a href="#"><g:message code="default.mainMenu10.subMenu2"/></a></li>
+    <li><g:link controller="employe" action="listOfEmployee"> <g:message code="default.mainMenu10.subMenu2"/></g:link></li>
 </ul></li>
-
+    <li><a href="#"><g:message code="default.mainMenu13"/></a>
+        <ul>
+            <li><g:link controller="equipment" action="createEquipment"> <g:message code="default.mainMenu13.subMenu1"/></g:link></li>
+            <li><g:link controller="equipment" action="listOfEquipment"> <g:message code="default.mainMenu13.subMenu2"/></g:link></li>
+        </ul></li>
+</sec:ifAnyGranted>
 <li><a href="#"><g:message code="default.mainMenu11"/></a></li>
 
 <li><a href="#"><g:message code="default.mainMenu12"/></a>
@@ -303,9 +309,6 @@
 </ul>
 
 </li>
-
-<li><a href="#"><g:message code="default.mainMenu13"/></a></li>
-
 
 
 <sec:ifLoggedIn>
