@@ -39,12 +39,10 @@ def employeeInformationService
     def viewEmployeeDetail(){
       def employeeObj=Employee.get(params.id)
        [employeeObj: employeeObj]
-
-
     }
+
     def deleteEmployee()
     {
-        println("in dellllll"+params)
         def returnMap=[:]
         def empObj=Employee.get(params.empId)
         empObj.delete(failOnError:true,flush: true)

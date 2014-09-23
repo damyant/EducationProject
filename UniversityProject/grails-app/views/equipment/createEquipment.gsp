@@ -12,18 +12,7 @@
     <title>Create Equipment Page</title>
     <script type="text/javascript">
 
-        var category = "${studInstance?.category}"
-        var nationality = "${studInstance?.nationality}"
-        var isAppliedFor = "${studInstance?.isAppliedFor}"
-        var state = "${studInstance?.state}"
-        $('#document').ready(function () {
 
-            if(${params.id}){
-                var gender = "${employeeObj?.gender}"
-                $("input[name='gender'][value=" + gender + "]").attr('checked', 'checked');
-            }
-
-        });
     </script>
 
 </head>
@@ -38,16 +27,16 @@
                     class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
             <table class="inner university-size-full-1-1">
                 <tr>
-                    <g:hiddenField name="employeeId" value="${employeeObj?.id}" />
+                    <g:hiddenField name="employeeId" value="${equipmentObj?.id}" />
                     <td class="university-size-1-3">Name of Equipment <span class="university-obligatory">*</span></td>
                     <td class="university-size-2-3">
                         <table class="inner university-table-1-3 university-size-1-1" style="vertical-align: top;">
                             <tr>
                                 <td>
-                                    <input type="text" tabindex="1" name="firstName"
+                                    <input type="text" tabindex="1" name="equipmentName"
                                            style="margin-left: -10px;"
                                            onkeypress="return onlyAlphabets(event);"
-                                           maxlength="50" class="university-size-1-2" value="${employeeObj?.firstName}" />
+                                           maxlength="50" class="university-size-1-2" value="${equipmentObj?.equipmentName}" />
 
                                 </td>
 
@@ -59,7 +48,7 @@
                 <tr>
                     <td class="university-size-1-3">Equipment Id <span class="university-obligatory">*</span></td>
                     <td class="university-size-2-3">
-                        <input type="text" name="equipmentId" id="equipmentId" tabindex="5" value="${employeeObj?.employeeCode}"
+                        <input type="text" name="equipmentId" id="equipmentId" tabindex="5" value="${equipmentObj?.equipmentId}"
                                onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2" />
                         <label id="errorMsg" class="error1"></label>
                     </td>
@@ -67,7 +56,7 @@
                 <tr>
                     <td class="university-size-1-3">Lab Inventory Id <span class="university-obligatory">*</span></td>
                     <td class="university-size-2-3">
-                        <input type="text" name="labInventoryId" id="labInventoryId" tabindex="5" value="${employeeObj?.employeeCode}"
+                        <input type="text" name="labInventoryId" id="labInventoryId" tabindex="5" value="${equipmentObj?.labInventoryId}"
                                onkeypress="return isNumber(event)" maxlength="10" class="university-size-1-2" />
                         <label id="errorMsg" class="error1"></label>
                     </td>
@@ -75,7 +64,7 @@
                 <tr>
                     <td class="university-size-1-3">Equipment Type <span class="university-obligatory">*</span></td>
                     <td class="university-size-2-3">
-                        <input type="text" name="equipmentType" id="equipmentType" tabindex="5" value="${employeeObj?.employeeCode}"
+                        <input type="text" name="equipmentType" id="equipmentType" tabindex="5" value="${equipmentObj?.equipmentType}"
                                  class="university-size-1-2" />
                         <label id="errorMsg" class="error1"></label>
                     </td>
@@ -83,7 +72,7 @@
                 <tr>
                     <td class="university-size-1-3">Manufacturer <span class="university-obligatory">*</span></td>
                     <td class="university-size-2-3">
-                        <input type="text" name="manufacturer" id="manufacturer" tabindex="5" value="${employeeObj?.employeeCode}"
+                        <input type="text" name="manufacturer" id="manufacturer" tabindex="5" value="${equipmentObj?.manufacturer}"
                                class="university-size-1-2" />
                         <label id="errorMsg" class="error1"></label>
                     </td>
@@ -93,7 +82,7 @@
                 <tr>
                     <td>Date of Purchase <span class="university-obligatory">*</span></td>
                     <td>
-                        <input type="text" name="dateOfPurchase" maxlength="10" tabindex="6" PLACEHOLDER="DD/MM/YYYY" value="<g:formatDate format="MM/dd/yyyy" date="${employeeObj?.dob}"/>"
+                        <input type="text" name="dateOfPurchase" maxlength="10" tabindex="6" PLACEHOLDER="DD/MM/YYYY" value="<g:formatDate format="MM/dd/yyyy" date="${equipmentObj?.dateOfPurchase}"/>"
                                class="university-size-1-2" id="datepicker2">
 
                     </td>
@@ -102,7 +91,7 @@
                 <tr>
                     <td class="university-size-1-3">Description <span class="university-obligatory">*</span></td>
                     <td class="university-size-2-3">
-                        <g:textArea  name="description" id="description" tabindex="5" rows="5" value="${employeeObj?.currentAddress}"
+                        <g:textArea  name="description" id="description" tabindex="5" rows="5" value="${equipmentObj?.description}"
                                  class="university-size-1-2" />
                         <label id="errorMsg" class="error1"></label>
                     </td>
@@ -111,7 +100,7 @@
                 <tr>
                     <td>Warranty<span class="university-obligatory">*</span></td>
                     <td>
-                   <input type="text" id="warranty" name="warranty"  tabindex="9" value="${employeeObj?.mobileNo}"  class="university-size-1-2"  />
+                   <input type="text" id="warranty" name="warranty"  tabindex="9" value="${equipmentObj?.warranty}"  class="university-size-1-2"  />
                     </td>
                 </tr>
 
@@ -122,7 +111,7 @@
                                                                                             %{--class="university-registration-photo"--}%
                                                                                             %{--id="picture"/></div>--}%
                         <input type='file' id="profileImage" onchange="readURL(this, 'picture');" class="university-button"
-                               name="photograph"/></td>
+                               name="documentImage"/></td>
                 </tr>
 
                 %{--<tr>--}%

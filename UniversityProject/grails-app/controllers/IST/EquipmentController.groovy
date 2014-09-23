@@ -10,5 +10,10 @@ class EquipmentController {
 
     def listOfEquipment(){
 
+
+    }
+    def viewEquipmentDetail(){
+        def equipmentObj=Equipment.get(params.id)
+        [equipmentObj: equipmentObj]
     }
 }
