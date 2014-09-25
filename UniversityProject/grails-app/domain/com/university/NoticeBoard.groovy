@@ -6,6 +6,7 @@ class NoticeBoard {
 
 	String noticeHeader
 	String fileName
+	Boolean isArchive
     Date noticeDate
 
 
@@ -17,6 +18,7 @@ class NoticeBoard {
         noticeHeader column: 'noticeHeader'
         fileName column: "fileName"
         noticeDate column: "noticeDate"
+        isArchive column: "isArchive"
 	}
 
 	}
