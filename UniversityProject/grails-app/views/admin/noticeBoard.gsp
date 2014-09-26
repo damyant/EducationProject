@@ -10,6 +10,20 @@
 <head>
     <meta name="layout" content="main"/>
     <title></title>
+<g:if test="${noticeIns}">
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        if(${noticeIns.isArchive})  {
+            $('#Archive').click()
+        }
+        else{
+            $('#Active').click()
+        }
+    })
+    </script>
+</g:if>
 </head>
 
 <body>

@@ -978,45 +978,69 @@ class AdminController {
     def noticeBoard = {
 
 
-       def noticeBoardIns = null
+        def noticeBoardIns = null
 
 
-        if(params.noticeInstId)
-        {
-           noticeBoardIns = NoticeBoard.findById(Long.parseLong(params.noticeInstId))
-            [noticeIns:noticeBoardIns]
-        }
-        else
-        {
+        if (params.noticeInstId) {
+            noticeBoardIns = NoticeBoard.findById(Long.parseLong(params.noticeInstId))
+            [noticeIns: noticeBoardIns]
+        } else {
 
         }
-//        def noticeInst = NoticeBoard.findById(Long.parseLong(params.noticeInstId))
+
 
     }
     def noticeBoardSave = {
-        println("=========================="+params)
+        println("==========================" + params)
         def f = request.getFile('fle')
-        if(f.originalFilename){
+        if (f.originalFilename) {
             def noticeInst
-            if(params.noticeUpdate){
-                noticeInst=NoticeBoard.findById(Long.parseLong(params.noticeUpdate))
-                if(noticeInst){
+            if (params.noticeUpdate) {
+                noticeInst = NoticeBoard.findById(Long.parseLong(params.noticeUpdate))
+                if (noticeInst) {
                     boolean fileSuccessfullyDeleted = new File(noticeInst.fileName).delete()
                 }
             }
             f.transferTo(new File(servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator') + f.originalFilename))
             File newFile = new File(servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator') + f.originalFilename)
-
             if (newFile.exists()) {
-                def noticeBoardInst = new NoticeBoard()
-                noticeBoardInst.fileName = newFile.absolutePath
-                noticeBoardInst.noticeHeader = params.noticeHeader
-                noticeBoardInst.noticeDate = new Date()
-                if (noticeBoardInst.save(failOnError: true, flush: true)) {
+                if (params.noticeUpdate) {
+                    println("params.noticeHeader====================="+params.noticeHeader)
+                    def noticeBoardUpdateInst = NoticeBoard.findById(Long.parseLong(params.noticeUpdate))
+                    noticeBoardUpdateInst.noticeHeader = params.noticeHeader
+                    if (params.noticeStatus == 'Archive') {
+                        noticeBoardUpdateInst.isArchive = true
+                    }
+                    noticeBoardUpdateInst.fileName = newFile.absolutePath
                     flash.message = "Saved Successfully"
+
                 } else {
-                    flash.message = "Not Saved "
+                    def noticeBoardInst = new NoticeBoard()
+                    noticeBoardInst.fileName = newFile.absolutePath
+                    noticeBoardInst.noticeHeader = params.noticeHeader
+                    noticeBoardInst.noticeDate = new Date()
+                    noticeBoardInst.isArchive = false
+                    if (noticeBoardInst.save(failOnError: true, flush: true)) {
+                        flash.message = "Saved Successfully"
+                    } else {
+                        flash.message = "Not Saved "
+                    }
                 }
+
+            }
+
+        }
+        else{
+
+            if (params.noticeUpdate) {
+
+                def noticeBoardUpdateInst = NoticeBoard.findById(Long.parseLong(params.noticeUpdate))
+
+                noticeBoardUpdateInst.noticeHeader = params.noticeHeader
+                if (params.noticeStatus == 'Archive') {
+                    noticeBoardUpdateInst.isArchive = true
+                }
+                flash.message = "Saved Successfully"
 
             }
         }
@@ -1041,10 +1065,33 @@ class AdminController {
 
 
     def noticeBoardView = {
-        def noticeList = NoticeBoard.list()
-        def filePath = servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator')
-        [noticeList: noticeList,  filePath: filePath]
 
+        def noticeList=[]
+        println(params)
+        if(params.archive){
+            println(params.archiveNoticeList.size())
+            for(def i=0;i<params.archiveNoticeList.size();i++){
+                println("======================="+params.archiveNoticeList.getAt(i))
+                noticeList<<NoticeBoard.findById(Long.parseLong(params.archiveNoticeList.getAt(i)))
+            }
+
+        }
+        else{
+
+            def noticeListAll=NoticeBoard.findAllByIsArchive(false)
+//            SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            def today=new Date()
+            for(def j=0;j<noticeListAll.size();j++){
+               long diffDays = (today.getTime()-noticeListAll[j].noticeDate.getTime())/ (24 * 60 * 60 * 1000);
+                if(diffDays>60){
+                    noticeListAll[j].isArchive=true
+                }
+            }
+            noticeList=NoticeBoard.findAllByIsArchive(false)
+        }
+        def filePath = servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator')
+
+        [noticeList: noticeList, filePath: filePath]
     }
 
 
@@ -1067,15 +1114,11 @@ class AdminController {
     def noticeBoardDel = {
         def noticeList = NoticeBoard.list()
         def filePath = servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator')
-        [noticeList: noticeList,filePath: filePath ]
+        [noticeList: noticeList, filePath: filePath]
     }
 
 
-
-
-
-
-     def delNotice = {
+    def delNotice = {
         def noticeInst = NoticeBoard.findById(Long.parseLong(params.noticeInstId))
         noticeInst.delete()
         if (!NoticeBoard.exists(noticeInst.id)) {
@@ -1088,11 +1131,19 @@ class AdminController {
     }
 
 //    def editNotice={
-////        println('Hello sanjay these are the params   '+ params.notice)
-//
-//        def noticeInst = NoticeBoard.findById(Long.parseLong(params.noticeInstId))
-//        redirect(controller: 'admin', action: "noticeBoard", params:[noticIns:noticeInst.id])
-//
-//
 //    }
+    def loadArchiveNotice={
+        println(params)
+        def noticeList = NoticeBoard.list()
+        def archiveNoticeList=[]
+        DateFormat df = new SimpleDateFormat("yyyy-MM")
+        def month=params.month
+        noticeList.each {
+            def dbDate=df.format(it.noticeDate)
+            if((month==dbDate) && (it.isArchive)){
+                archiveNoticeList<<it.id
+            }
+        }
+        redirect(controller: "admin", action: "noticeBoardView", params: [archiveNoticeList:archiveNoticeList,archive:'archive'])
+    }
 }

@@ -1787,3 +1787,8 @@ function checkStudyCentreStatus(){
     })
 }
 //>>>>>>> origin/damyant
+function loadAllArchiveNotice(){
+    alert("jdksdksdks")
+   $('#loadArchiveNoticeForm').submit()
+}
+
