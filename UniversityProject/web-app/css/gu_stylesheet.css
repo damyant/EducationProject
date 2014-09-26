@@ -285,6 +285,17 @@ table.ui-datepicker-calendar {
     text-align: center;
 
 }
+.image-preview-div {
+    height: 200px;
+    width: 380px;
+    border: 1px solid black;
+    display: block;
+    /*background: url("../images/profile.png") no-repeat;*/
+    background-position: bottom;
+    background-size: 100%;
+    text-align: center;
+
+}
 .university-signature {
     height: 150px;
     width: 250px;

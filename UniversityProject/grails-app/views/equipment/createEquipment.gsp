@@ -22,12 +22,14 @@
 <div id="main">
     <fieldset class="form">
     %{--<h3>Empolyee </h3>--}%
-        <g:form  controller="employe" action="saveEmployee">
+
+            <g:uploadForm controller="equipment" action="saveEquipment" method='post' enctype="multipart/form-data"
+                          id="equipmentCreation" name="equipmentCreation">
             <div style="margin-left: 10px;"><label><h6>All [<span
                     class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
             <table class="inner university-size-full-1-1">
                 <tr>
-                    <g:hiddenField name="employeeId" value="${equipmentObj?.id}" />
+                    <g:hiddenField name="id" value="${equipmentObj?.id}" />
                     <td class="university-size-1-3">Name of Equipment <span class="university-obligatory">*</span></td>
                     <td class="university-size-2-3">
                         <table class="inner university-table-1-3 university-size-1-1" style="vertical-align: top;">
@@ -106,31 +108,26 @@
 
                 <tr>
                     <td> Attach Documents</td>
-                    <td>
-                     %{--<div id="profile-image" class='registration-image-div'><img src="" alt="Space for Photograph "--}%
-                                                                                            %{--class="university-registration-photo"--}%
-                                                                                            %{--id="picture"/></div>--}%
-                        <input type='file' id="profileImage" onchange="readURL(this, 'picture');" class="university-button"
-                               name="documentImage"/></td>
+                <td>
+
+                <g:if test="${equipmentObj?.documentImage}">
+                     <img src="${createLink(controller: 'equipment', action: 'showImage', id: equipmentObj?.id, mime: 'image/jpeg')}"
+                         class="image-preview-div" id="picture1"/>
+                    <input type='file' id="profileImage" onchange="readURL1(this, 'picture1');" class="university-button"
+                           name="documentImage"/>
+                </g:if>
+                <g:else>
+
+                        <div id="profile-image" class='image-preview-div'>
+                            <img src="" class="image-preview-div" id="picture"/>
+                                       <input type='file' id="profileImage" onchange="readURL1(this, 'picture');" class="university-button"
+                           name="documentImage"/>
+                        </div>
+
+                </g:else>
+                    </td>
                 </tr>
 
-                %{--<tr>--}%
-                %{--<td>Select District<span class="university-obligatory">*</span></td>--}%
-                %{--<td>--}%
-                %{--<g:select name="examDistrict" id="district" tabindex="10" optionKey="id"--}%
-                %{--value=""--}%
-                %{--class="university-size-1-2"--}%
-                %{--onChange="showExamCenterList()" optionValue="districtName"--}%
-                %{--from="${districtList}" noSelection="['': ' Select District']"/>--}%
-                %{--</td>--}%
-                %{--</tr>--}%
-                %{--<tr>--}%
-                %{--<td>Select Preference of examination Centre <span class="university-obligatory">*</span></td>--}%
-                %{--<td>--}%
-                %{--<g:select name="examinationCentre" tabindex="11" id="examinationCentre" class="university-size-1-2"--}%
-                %{--from=" " noSelection="['': 'Select Examination Centre']"/>--}%
-                %{--</td>--}%
-                %{--</tr>--}%
                 <tr>
                     <td></td>
                     <td>
@@ -141,13 +138,11 @@
                     </td>
                 </tr>
             </table>
-        </g:form>
+        </g:uploadForm>
 
 
     </fieldset>
-    %{--</g:else>--}%
 
-    %{--</div>--}%
 
 
 </div>
@@ -160,31 +155,9 @@
                 dateFormat: "dd/mm/yy",
                 maxDate: 0
             });
-            $("#datepicker3").datepicker({
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: "dd/mm/yy",
-                maxDate: 0
-            });
 
         });
-        $(".dialog").dialog({
-            autoOpen: false,
-            draggable: false,
-            position: ['center', 0],
-//        maxWidth:600,
-//        maxHeight: 500,
-            width: 750,
-            resizable: false,
-            height: 550,
-            modal: true,
-            title: 'Fee Voucher',
-            close: function (ev, ui) {
-                $.unblockUI();
-//            getStudentsList()
-            }
 
-        });
     });
 
 </script>

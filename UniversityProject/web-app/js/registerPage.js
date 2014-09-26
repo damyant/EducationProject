@@ -77,6 +77,74 @@ function readURL(input, type) {
 }
 
 
+
+function readURL1(input, type) {
+    $('#imageValidate').val("")
+    if (input.files && input.files[0]){
+        var FileUploadPath = $("#profileImage").val()
+        var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+//        var imgkbytes = Math.round(parseInt(input.files[0].size) / 1024)
+//        if (imgkbytes <= 100 && (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg"|| Extension=="pdf" || Extension=="docx")) {
+            if (Extension == "gif" || Extension == "png" || Extension == "bmp" || Extension == "jpeg" || Extension == "jpg"|| Extension=="pdf" || Extension=="docx") {
+
+                var reader = new FileReader();
+            if (type == 'picture')
+                reader.onload = function (e) {
+                    $('#picture')
+                        .attr('src', e.target.result)
+                        .width(380)
+                        .height(200);
+                };
+            if (type == 'picture1')
+                reader.onload = function (e) {
+                    $('#picture1')
+                        .attr('src', e.target.result)
+                        .width(380)
+                        .height(200);
+                };
+            if (type == 'picture2')
+                reader.onload = function (e) {
+                    $('#picture2')
+                        .attr('src', e.target.result)
+                        .width(380)
+                        .height(200);
+                };
+            if (type == 'signature')
+                reader.onload = function (e) {
+                    $('#signature')
+                        .attr('src', e.target.result)
+                        .width(380)
+                        .height(150);
+                };
+            if ($('#imageValidate').length > 0) {
+                $('#imageValidate').val("uploded")
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+        else {
+            $('#imageValidate').val("")
+            $("#profileImage").val('')
+            $("#picture").attr('src', ' ')
+            $("<div></div>").html("<div style='text-align: justify;font-size: 12px;'><p>Please upload an image of size less then 100kb and image Extension should be gif/png/bmp/jpeg/jpg.</p></div>").dialog({
+                title: "Sorry",
+                resizable: false,
+                modal: true,
+                buttons: {
+                    "Ok": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+    }
+}
+
+function previewWindow(){
+
+    var FileUploadPath = $("#profileImage").val()
+    window.open(FileUploadPath,'1387538381256','width=1000,height=700,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
+}
+
 jQuery(function ($) {
     $("#datePick").datepicker({
         changeMonth: true,

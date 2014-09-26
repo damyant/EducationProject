@@ -32,6 +32,6 @@ class Equipment {
         dateOfPurchase column: 'DateOfPurchase'
         description column: 'Description'
         warranty column: 'Warranty'
-        documentImage column: 'DocumentImage' ,sqlType: "blob"
+        documentImage column: 'DocumentImage' ,sqlType: "LONGBLOB"
     }
 }

@@ -10,7 +10,6 @@ def employeeInformationService
 
     def index() {}
     def createEmployee(){
-        println(params)
         if(params.id){
             def employeeObj=Employee.get(params.id)
             [employeeObj:employeeObj]
@@ -26,7 +25,6 @@ def employeeInformationService
         else{
             redirect(action: "createEmployee")
         }
-
 
     }
 
