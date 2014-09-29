@@ -1,5 +1,7 @@
 package com.university
 
+import IST.Catalog
+import IST.CatalogType
 import examinationproject.AdmissionFee
 import examinationproject.Bank
 import examinationproject.Branch
@@ -8,9 +10,6 @@ import examinationproject.FeeDetails
 import examinationproject.FeeSession
 import examinationproject.FeeType
 import examinationproject.MiscellaneousFee
-import groovy.sql.Sql
-import org.codehaus.groovy.grails.commons.ApplicationHolder
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
 import examinationproject.ProgramExamVenue
@@ -22,13 +21,8 @@ import examinationproject.StudyCenter
 import examinationproject.Subject
 import examinationproject.SubjectSession
 import grails.converters.JSON
-
-import grails.util.Holders
 import postexamination.MarksType
 import postexamination.SubjectMarksDetail
-
-import javax.activation.MimetypesFileTypeMap
-
 import grails.plugins.springsecurity.Secured
 
 import javax.activation.MimetypesFileTypeMap
@@ -1005,7 +999,7 @@ class AdminController {
             File newFile = new File(servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator') + f.originalFilename)
             if (newFile.exists()) {
                 if (params.noticeUpdate) {
-                    println("params.noticeHeader====================="+params.noticeHeader)
+                    println("params.noticeHeader=====================" + params.noticeHeader)
                     def noticeBoardUpdateInst = NoticeBoard.findById(Long.parseLong(params.noticeUpdate))
                     noticeBoardUpdateInst.noticeHeader = params.noticeHeader
                     if (params.noticeStatus == 'Archive') {
@@ -1029,8 +1023,7 @@ class AdminController {
 
             }
 
-        }
-        else{
+        } else {
 
             if (params.noticeUpdate) {
 
@@ -1066,28 +1059,27 @@ class AdminController {
 
     def noticeBoardView = {
 
-        def noticeList=[]
+        def noticeList = []
         println(params)
-        if(params.archive){
+        if (params.archive) {
             println(params.archiveNoticeList.size())
-            for(def i=0;i<params.archiveNoticeList.size();i++){
-                println("======================="+params.archiveNoticeList.getAt(i))
-                noticeList<<NoticeBoard.findById(Long.parseLong(params.archiveNoticeList.getAt(i)))
+            for (def i = 0; i < params.archiveNoticeList.size(); i++) {
+                println("=======================" + params.archiveNoticeList.getAt(i))
+                noticeList << NoticeBoard.findById(Long.parseLong(params.archiveNoticeList.getAt(i)))
             }
 
-        }
-        else{
+        } else {
 
-            def noticeListAll=NoticeBoard.findAllByIsArchive(false)
+            def noticeListAll = NoticeBoard.findAllByIsArchive(false)
 //            SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-            def today=new Date()
-            for(def j=0;j<noticeListAll.size();j++){
-               long diffDays = (today.getTime()-noticeListAll[j].noticeDate.getTime())/ (24 * 60 * 60 * 1000);
-                if(diffDays>60){
-                    noticeListAll[j].isArchive=true
+            def today = new Date()
+            for (def j = 0; j < noticeListAll.size(); j++) {
+                long diffDays = (today.getTime() - noticeListAll[j].noticeDate.getTime()) / (24 * 60 * 60 * 1000);
+                if (diffDays > 60) {
+                    noticeListAll[j].isArchive = true
                 }
             }
-            noticeList=NoticeBoard.findAllByIsArchive(false)
+            noticeList = NoticeBoard.findAllByIsArchive(false)
         }
         def filePath = servletContext.getRealPath("/") + 'Noticeboard' + System.getProperty('file.separator')
 
@@ -1132,18 +1124,97 @@ class AdminController {
 
 //    def editNotice={
 //    }
-    def loadArchiveNotice={
+    def loadArchiveNotice = {
         println(params)
         def noticeList = NoticeBoard.list()
-        def archiveNoticeList=[]
+        def archiveNoticeList = []
         DateFormat df = new SimpleDateFormat("yyyy-MM")
-        def month=params.month
+        def month = params.month
         noticeList.each {
-            def dbDate=df.format(it.noticeDate)
-            if((month==dbDate) && (it.isArchive)){
-                archiveNoticeList<<it.id
+            def dbDate = df.format(it.noticeDate)
+            if ((month == dbDate) && (it.isArchive)) {
+                archiveNoticeList << it.id
             }
         }
-        redirect(controller: "admin", action: "noticeBoardView", params: [archiveNoticeList:archiveNoticeList,archive:'archive'])
+        redirect(controller: "admin", action: "noticeBoardView", params: [archiveNoticeList: archiveNoticeList, archive: 'archive'])
+    }
+
+
+    def addCatalog = {
+
+        def catIns = null
+
+        def catalogTypeList = CatalogType.list()
+        if (params.catalogInstId) {
+            catIns = Catalog.findById(Long.parseLong(params.catalogInstId))
+            [catalogIns: catIns, catalogTypeList: catalogTypeList]
+        } else {
+            [catalogTypeList: catalogTypeList]
+        }
+
+    }
+
+    def saveCatalog = {
+        def catalogInst
+        if (params.catalogUpdate) {
+            catalogInst = Catalog.findById(Long.parseLong(params.catalogUpdate))
+            catalogInst.isbn = params.catalogIsbn
+            catalogInst.title = params.catalogTitle
+            catalogInst.author = params.catalogAuthor
+            catalogInst.publisher = params.catalogPublisher
+            catalogInst.year = Integer.parseInt(params.catalogYear)
+            if (catalogInst.isbn == params.catalogIsbn) {
+                flash.message = "Updated Successfully"
+            } else {
+                flash.message = "Not Updated"
+            }
+        } else {
+            catalogInst = new Catalog()
+            catalogInst.type = CatalogType.findById(Long.parseLong(params.catalogType))
+            catalogInst.isbn = params.catalogIsbn
+            catalogInst.title = params.catalogTitle
+            catalogInst.author = params.catalogAuthor
+            catalogInst.publisher = params.catalogPublisher
+            catalogInst.year = Integer.parseInt(params.catalogYear)
+
+            if (catalogInst.save(failOnError: true, flush: true)) {
+                flash.message = "Saved Successfully"
+            } else {
+                flash.message = "Not Saved "
+            }
+        }
+        redirect(controller: "admin", action: "addCatalog")
+
+    }
+
+    def editCatalog = {
+        def catalogList = Catalog.list()
+
+
+        [catalogList: catalogList]
+
+    }
+
+    def viewCatalog = {
+        def catalogList = Catalog.list()
+
+
+        [catalogList: catalogList]
+
+    }
+
+    def delCatalog = {
+        def catalogInst = Catalog.findById(Long.parseLong(params.catalogInstId))
+        catalogInst.delete()
+        if (!Catalog.exists(catalogInst.id)) {
+            boolean fileSuccessfullyDeleted = new File(catalogInst.fileName).delete()
+            if (fileSuccessfullyDeleted) {
+                flash.message = "Delete Successfully"
+            }
+        }
+        redirect(controller: "admin", action: "editCatalog")
+
     }
 }
+
+

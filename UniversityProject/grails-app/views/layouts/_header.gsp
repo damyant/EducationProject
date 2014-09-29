@@ -295,7 +295,17 @@
             <li><g:link controller="equipment" action="listOfEquipment"> <g:message code="default.mainMenu13.subMenu2"/></g:link></li>
         </ul></li>
 </sec:ifAnyGranted>
-<li><a href="#"><g:message code="default.mainMenu11"/></a></li>
+<li><a href="#"><g:message code="default.mainMenu11"/></a>
+<ul>
+    <li> <g:link><g:message code="default.mainMenu11.subMenu1"/> </g:link>
+        <ul>
+        <g:link controller="admin" action="addCatalog"> <g:message code="default.mainMenu11.subMenu1.submenu1"/></g:link>
+        <g:link controller="admin" action="editCatalog"> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>
+        <g:link controller="admin" action="viewCatalog"> <g:message code="default.mainMenu11.subMenu1.submenu3"/></g:link>
+        </ul>
+    </li>
+</ul>
+</li>
 
 <li><a href="#"><g:message code="default.mainMenu12"/></a>
 <ul>
