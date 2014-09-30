@@ -10,6 +10,7 @@ class Catalog {
     String author
     String publisher
     Integer year
+    Integer quantity
 
     static constraints = {
     }
@@ -21,6 +22,7 @@ class Catalog {
         author column: "author"
         publisher column: "publisher"
         year column:"year"
+        quantity column:"quantity"
     }
 
 }

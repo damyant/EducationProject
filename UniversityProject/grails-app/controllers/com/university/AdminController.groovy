@@ -1162,6 +1162,7 @@ class AdminController {
             catalogInst.author = params.catalogAuthor
             catalogInst.publisher = params.catalogPublisher
             catalogInst.year = Integer.parseInt(params.catalogYear)
+            catalogInst.quantity = Integer.parseInt(params.catalogQuantity)
             if (catalogInst.isbn == params.catalogIsbn) {
                 flash.message = "Updated Successfully"
             } else {
@@ -1175,7 +1176,7 @@ class AdminController {
             catalogInst.author = params.catalogAuthor
             catalogInst.publisher = params.catalogPublisher
             catalogInst.year = Integer.parseInt(params.catalogYear)
-
+            catalogInst.quantity = Integer.parseInt(params.catalogQuantity)
             if (catalogInst.save(failOnError: true, flush: true)) {
                 flash.message = "Saved Successfully"
             } else {

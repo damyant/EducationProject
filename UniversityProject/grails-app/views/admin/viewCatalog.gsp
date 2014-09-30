@@ -25,7 +25,8 @@
                 <g:sortableColumn property="title" title="Title" class="university-size-1-6"/>
                 <g:sortableColumn property="title" title="Author" class="university-size-1-6"/>
                 <g:sortableColumn property="title" title="Publisher" class="university-size-1-6"/>
-                <g:sortableColumn property="title" title="Year" class="university-size-1-6"/>
+                <g:sortableColumn property="title" title="Year" class="university-size-1-4"/>
+                <g:sortableColumn property="title" title="Quantity" class="university-size-1-2"/>
             </tr>
             </thead>
             <tbody>
@@ -37,6 +38,7 @@
                     <td>${catalogInst.author}</td>
                     <td>${catalogInst.publisher}</td>
                     <td>${catalogInst.year}</td>
+                    <td>${catalogInst.quantity}</td>
                 </tr>
             </g:each>
             </tbody>

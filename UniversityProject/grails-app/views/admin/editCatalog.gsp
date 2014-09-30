@@ -28,6 +28,7 @@
                 <g:sortableColumn property="title" title="Author" class="university-size-1-4"/>
                 <g:sortableColumn property="title" title="Publisher" class="university-size-1-6"/>
                 <g:sortableColumn property="title" title="Year" class="university-size-1-2"/>
+                <g:sortableColumn property="title" title="Quantity" class="university-size-1-2"/>
                 <g:sortableColumn property="title" title="Edit" class="university-size-1-4"/>
                 <g:sortableColumn property="title" title="Delete" class="university-size-1-4"/>
                 <g:hiddenField name="id" value="id"/>
@@ -42,6 +43,7 @@
                     <td>${catalogInst.author}</td>
                     <td>${catalogInst.publisher}</td>
                     <td>${catalogInst.year}</td>
+                    <td>${catalogInst.quantity}</td>
                     <td><g:link controller="admin" action="addCatalog" params="[catalogInstId:catalogInst.id]">Edit</g:link></td>
 
                     <td><g:link controller="admin" action="delCatalog" params="[catalogInstId:catalogInst.id]">Delete</g:link></td>

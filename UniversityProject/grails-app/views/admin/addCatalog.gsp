@@ -67,6 +67,11 @@
                     <td class="university-size-1-3">Year<span class="university-obligatory">*</span></td>
                     <td class="university-size-1-3"><input type="text" name="catalogYear" class="university-size-1-2" value="${catalogIns?.year}"></td>
                 </tr>
+                <tr>
+
+                    <td class="university-size-1-3">Quantity<span class="university-obligatory">*</span></td>
+                    <td class="university-size-1-3"><input type="text" name="catalogQuantity" class="university-size-1-2" value="${catalogIns?.quantity}"></td>
+                </tr>
 
 
                 <tr>
