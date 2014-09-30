@@ -517,12 +517,7 @@
 
 <div class="scroller"><!-- this is for emulating position fixed of the nav -->
     <div class="scroller-inner">
-        <g:render template="/layouts/viewResultPopup"/>
-        <g:render template="/layouts/newAdmitCardPopup"/>
-        <g:render template="/layouts/viewAdmitCardPopup"/>
-        <g:render template="/layouts/editAdmitCardPopup"/>
-        <g:render template="/layouts/deleteAdmitCardPopup"/>
         <g:render template="/layouts/statusPopup"/>
-    </div><!-- /scroller-inner -->
-</div><!-- /scroller -->
+    </div>
+</div>
 </div>

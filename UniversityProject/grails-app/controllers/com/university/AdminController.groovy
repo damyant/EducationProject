@@ -670,11 +670,10 @@ class AdminController {
 
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
     def getStudentForStudyMaterial() {
-//        println("???????????"+params)
         def returnMap = [:]
         returnMap = adminInfoService.studentForStudyMaterial(params)
-//        println('this is the returning map '+returnMap)
         render returnMap as JSON
+
     }
 
     @Secured(["ROLE_ADMIN", "ROLE_ACCOUNT"])
