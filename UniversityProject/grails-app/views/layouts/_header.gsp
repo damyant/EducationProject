@@ -24,6 +24,7 @@
 <ul id="menu">
 <li><g:link controller="home" action="index"><g:message
         code="default.mainMenu1"/></g:link></li>
+<sec:ifNotGranted roles="ROLE_LIBRARY">
 <li><a href="#"><g:message code="default.mainMenu2"/></a>
     <ul>
         <sec:ifLoggedIn>
@@ -278,11 +279,11 @@
 
     </sec:ifNotGranted>
 </sec:ifLoggedIn>
-<sec:ifLoggedIn>
-    <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
-        <li><a href="#"><g:message code="default.mainMenu5"/></a></li>
-    </sec:ifNotGranted>
-</sec:ifLoggedIn>
+%{--<sec:ifLoggedIn>--}%
+    %{--<sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">--}%
+        %{--<li><a href="#"><g:message code="default.mainMenu5"/></a></li>--}%
+    %{--</sec:ifNotGranted>--}%
+%{--</sec:ifLoggedIn>--}%
 <sec:ifAnyGranted roles="ROLE_ADMIN">
 <li><a href="#"><g:message code="default.mainMenu10"/></a>
 <ul>
@@ -295,6 +296,9 @@
             <li><g:link controller="equipment" action="listOfEquipment"> <g:message code="default.mainMenu13.subMenu2"/></g:link></li>
         </ul></li>
 </sec:ifAnyGranted>
+</sec:ifNotGranted>
+<sec:ifAnyGranted roles="ROLE_LIBRARY">
+
 <li><a href="#"><g:message code="default.mainMenu11"/></a>
 <ul>
     <li> <g:link><g:message code="default.mainMenu11.subMenu2"/> </g:link>
@@ -313,6 +317,7 @@
     </li>
 </ul>
 </li>
+</sec:ifAnyGranted>
 
 <li><a href="#"><g:message code="default.mainMenu12"/></a>
 <ul>
@@ -336,7 +341,7 @@
 
 </li>
 
-
+<sec:ifNotGranted roles="ROLE_LIBRARY">
 <sec:ifLoggedIn>
 
 <li><a href="#"><g:message code="default.mainMenu6"/></a>
@@ -377,7 +382,7 @@
 
         <li><a href="#"><g:message code="default.mainMenu6.subMenu7"/></a>
             <ul>
-                    <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
+                    <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_LIBRARY">
                         <li><g:link controller="admin" action="searchStudentName"><g:message
                                 code="default.mainMenu6.subMenu2"/></g:link></li>
                     </sec:ifNotGranted>
@@ -427,6 +432,7 @@
         </sec:ifAnyGranted>
     </ul>
 </li>
+
 </sec:ifLoggedIn>
 <sec:ifLoggedIn>
 <li><a href="#"><g:message
@@ -510,7 +516,7 @@
     
 <sec:ifLoggedIn>
 <li><g:link controller="report" action="reportIndex"><g:message code="default.mainMenu9"/></g:link></li>
-</sec:ifLoggedIn>
+</sec:ifLoggedIn>    </sec:ifNotGranted>
 </div>
 %{--</div>--}%
 

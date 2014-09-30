@@ -54,7 +54,7 @@
 
 #menu a {
     float: left;
-    padding: 11px 2px;
+    padding: 11px 20px;
     /*color: #00068f;*/
     color: #FFF;
     text-transform: uppercase;
@@ -104,7 +104,7 @@
 
 #menu ul ul {
     top: 0;
-    left: 180px;
+    left: 190px;
     margin: 0 0 0 6px;
     _margin: 0;
     /*IE6 only*/

@@ -1138,7 +1138,7 @@ class AdminController {
         redirect(controller: "admin", action: "noticeBoardView", params: [archiveNoticeList: archiveNoticeList, archive: 'archive'])
     }
 
-
+    @Secured(["ROLE_LIBRARY"])
     def addCatalog = {
 
         def catIns = null
@@ -1152,7 +1152,7 @@ class AdminController {
         }
 
     }
-
+    @Secured(["ROLE_LIBRARY"])
     def saveCatalog = {
         def catalogInst
         if (params.catalogUpdate) {
@@ -1186,7 +1186,7 @@ class AdminController {
         redirect(controller: "admin", action: "addCatalog")
 
     }
-
+    @Secured(["ROLE_LIBRARY"])
     def editCatalog = {
         def catalogList = Catalog.list()
 
@@ -1194,7 +1194,7 @@ class AdminController {
         [catalogList: catalogList]
 
     }
-
+    @Secured(["ROLE_LIBRARY"])
     def viewCatalog = {
         def catalogList = Catalog.list()
 
@@ -1202,7 +1202,7 @@ class AdminController {
         [catalogList: catalogList]
 
     }
-
+    @Secured(["ROLE_LIBRARY"])
     def delCatalog = {
         def catalogInst = Catalog.findById(Long.parseLong(params.catalogInstId))
         catalogInst.delete()
@@ -1215,6 +1215,7 @@ class AdminController {
         redirect(controller: "admin", action: "editCatalog")
 
     }
+    @Secured(["ROLE_LIBRARY"])
     def catalogType={
         if(params.view){
             def catagoryTypeList=CatalogType.list()
@@ -1225,6 +1226,7 @@ class AdminController {
             [catagoryTypeInst:catagoryTypeInst]
         }
     }
+    @Secured(["ROLE_LIBRARY"])
     def saveCatalogType={
         println("=================="+params)
         def catalogTypeInst
@@ -1248,7 +1250,7 @@ class AdminController {
         }
         redirect(controller: "admin", action: "catalogType")
     }
-
+    @Secured(["ROLE_LIBRARY"])
     def delCatalogType={
         def catalogTypeInst=CatalogType.findById(Long.parseLong(params.catId))
         catalogTypeInst.delete(flush: true)
