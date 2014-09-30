@@ -1,6 +1,7 @@
 <div>
 <div class="logo">
-    <div class="header-parts"><img id="logo-images" src="${resource(dir: 'images', file: 'logoist.png')}" class="window"></div>
+    <div class="header-parts"><img id="logo-images" src="${resource(dir: 'images', file: 'logoist.png')}"
+                                   class="window"></div>
 
     <div class="header-parts" name="logout">
         <sec:ifLoggedIn>
@@ -164,17 +165,18 @@
                     </ul>
                 </li>
 
-        <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
-            <ul>
+                <li><a href="#"><g:message code="default.mainMenu3.subMenu9"/></a>
+                    <ul>
 
-                <li><g:link controller="admin" action="addCourses"><g:message code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
+                        <li><g:link controller="admin" action="addCourses"><g:message
+                                code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
 
-                    <li><g:link controller="admin" action="listOfCourses"><g:message code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
+                        <li><g:link controller="admin" action="listOfCourses"><g:message
+                                code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
+                    </ul>
+                </li>
             </ul>
         </li>
-    </ul>
-</li>
-
 
     </sec:ifNotGranted>
 </sec:ifLoggedIn>
@@ -206,12 +208,12 @@
                             code="default.mainMenu4.subMenu1"/>
                     </g:link>
                 </li>
-            <li>
-                <g:link controller="postExamination"
-                        action="homeAssignmentExcelUpload"><g:message
-                        code="default.mainMenu4.subMenu2.subMenu1"/>
-                </g:link>
-            </li>
+                <li>
+                    <g:link controller="postExamination"
+                            action="homeAssignmentExcelUpload"><g:message
+                            code="default.mainMenu4.subMenu2.subMenu1"/>
+                    </g:link>
+                </li>
                 <li>
                     <g:link controller="postExamination"
                             action="marksEntering"><g:message
@@ -249,12 +251,12 @@
                             code="default.mainMenu4.subMenu7"/>
                     </g:link>
                 </li>
-            <li>
-                <g:link controller="postExamination"
-                        action="meritRegister"><g:message
-                        code="default.mainMenu4.subMenu10"/>
-                </g:link>
-            </li>
+                <li>
+                    <g:link controller="postExamination"
+                            action="meritRegister"><g:message
+                            code="default.mainMenu4.subMenu10"/>
+                    </g:link>
+                </li>
 
 
                 <li><a href="#"><g:message code="default.mainMenu4.subMenu8"/></a>
@@ -280,243 +282,242 @@
     </sec:ifNotGranted>
 </sec:ifLoggedIn>
 %{--<sec:ifLoggedIn>--}%
-    %{--<sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">--}%
-        %{--<li><a href="#"><g:message code="default.mainMenu5"/></a></li>--}%
-    %{--</sec:ifNotGranted>--}%
+%{--<sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">--}%
+%{--<li><a href="#"><g:message code="default.mainMenu5"/></a></li>--}%
+%{--</sec:ifNotGranted>--}%
 %{--</sec:ifLoggedIn>--}%
-<sec:ifAnyGranted roles="ROLE_ADMIN">
-<li><a href="#"><g:message code="default.mainMenu10"/></a>
-<ul>
-    <li><g:link controller="employe" action="createEmployee"> <g:message code="default.mainMenu10.subMenu1"/></g:link></li>
-    <li><g:link controller="employe" action="listOfEmployee"> <g:message code="default.mainMenu10.subMenu2"/></g:link></li>
-</ul></li>
-    <li><a href="#"><g:message code="default.mainMenu13"/></a>
-        <ul>
-            <li><g:link controller="equipment" action="createEquipment"> <g:message code="default.mainMenu13.subMenu1"/></g:link></li>
-            <li><g:link controller="equipment" action="listOfEquipment"> <g:message code="default.mainMenu13.subMenu2"/></g:link></li>
-        </ul></li>
-</sec:ifAnyGranted>
+
 </sec:ifNotGranted>
 <sec:ifAnyGranted roles="ROLE_LIBRARY">
 
-<li><a href="#"><g:message code="default.mainMenu11"/></a>
-<ul>
-    <li> <g:link><g:message code="default.mainMenu11.subMenu2"/> </g:link>
+    <li><a href="#"><g:message code="default.mainMenu11"/></a>
         <ul>
-            <g:link controller="admin" action="catalogType"> <g:message code="default.mainMenu11.subMenu1.submenu1"/></g:link>
-            %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
-            <g:link controller="admin" action="catalogType" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu1.submenu3"/></g:link>
+            <li><g:link><g:message code="default.mainMenu11.subMenu2"/></g:link>
+                <ul>
+                    <g:link controller="admin" action="catalogType"><g:message
+                            code="default.mainMenu11.subMenu1.submenu1"/></g:link>
+                    <g:link controller="admin" action="catalogType" params="[view: 'view']"><g:message
+                            code="default.mainMenu11.subMenu1.submenu3"/></g:link>
+                </ul>
+            </li>
+            <li><a href="#"><g:message code="default.mainMenu11.subMenu1"/></a>
+                <ul>
+                    <g:link controller="admin" action="addCatalog"><g:message
+                            code="default.mainMenu11.subMenu1.submenu1"/></g:link>
+                    <g:link controller="admin" action="editCatalog"><g:message
+                            code="default.mainMenu11.subMenu1.submenu2"/></g:link>
+                    <g:link controller="admin" action="viewCatalog"><g:message
+                            code="default.mainMenu11.subMenu1.submenu3"/></g:link>
+                </ul>
+            </li>
         </ul>
     </li>
-    <li> <a href="#"><g:message code="default.mainMenu11.subMenu1"/> </a>
-        <ul>
-        <g:link controller="admin" action="addCatalog"> <g:message code="default.mainMenu11.subMenu1.submenu1"/></g:link>
-        <g:link controller="admin" action="editCatalog"> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>
-        <g:link controller="admin" action="viewCatalog"> <g:message code="default.mainMenu11.subMenu1.submenu3"/></g:link>
-        </ul>
-    </li>
-</ul>
-</li>
 </sec:ifAnyGranted>
 
 <li><a href="#"><g:message code="default.mainMenu12"/></a>
-<ul>
-<sec:ifAnyGranted roles="ROLE_ADMIN">
-    <li>
-        <g:link controller="admin" action="noticeBoard"><g:message
-                code="default.mainMenu3.subMenu7.subMenu3"/></g:link>
-    </li>
-    <li>
-        <g:link controller="admin" action="noticeBoardDel"><g:message
-                code="default.mainMenu12.subMenu3"/></g:link>
-    </li>
+    <ul>
+        <sec:ifAnyGranted roles="ROLE_ADMIN">
+            <li>
+                <g:link controller="admin" action="noticeBoard"><g:message
+                        code="default.mainMenu3.subMenu7.subMenu3"/></g:link>
+            </li>
+            <li>
+                <g:link controller="admin" action="noticeBoardDel"><g:message
+                        code="default.mainMenu12.subMenu3"/></g:link>
+            </li>
 
-    </sec:ifAnyGranted>
-    <li>
-        <g:link controller="admin" action="noticeBoardView"><g:message
-                code="default.mainMenu12.subMenu2"/></g:link>
-    </li>
+        </sec:ifAnyGranted>
+        <li>
+            <g:link controller="admin" action="noticeBoardView"><g:message
+                    code="default.mainMenu12.subMenu2"/></g:link>
+        </li>
 
-</ul>
+    </ul>
 
 </li>
 
 <sec:ifNotGranted roles="ROLE_LIBRARY">
-<sec:ifLoggedIn>
+    <sec:ifLoggedIn>
 
-<li><a href="#"><g:message code="default.mainMenu6"/></a>
-    <ul>
-            <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
-                <li><a href="#"><g:message code="default.mainMenu6.subMenu11"/></a>
+        <li><a href="#"><g:message code="default.mainMenu6"/></a>
+            <ul>
+                <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
+                    <li><a href="#"><g:message code="default.mainMenu6.subMenu11"/></a>
+                        <ul>
+                            <li><g:link controller="admin" action="assignAdmissionPeriod"><g:message
+                                    code="default.mainMenu3.subMenu7.subMenu8"/></g:link></li>
+                            <li><a href="#"><g:message code="default.mainMenu3.subMenu7.subMenu7"/></a>
+                                <ul>
+                                    <li><g:link controller="admin" action="assignLateFeeDate"><g:message
+                                            code="default.mainMenu3.subMenu7.subMenu7.subMenu1"/></g:link>
+                                    </li>
+                                    <li><g:link controller="admin" action="removeLateFeeDate"><g:message
+                                            code="default.mainMenu3.subMenu7.subMenu7.subMenu2"/></g:link></li>
+                                </ul>
+                            </li>
+                            <li><g:link controller="admin" action="assignExaminationDate"><g:message
+                                    code="default.mainMenu6.subMenu4"/></g:link></li>
+                            <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
+                                    code="default.mainMenu6.subMenu9"/></g:link></li>
+                        </ul>
+                    </li>
+                </sec:ifNotGranted>
+                <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
+                    <li><g:link controller="admin" action="assignExaminationVenue"><g:message
+                            code="default.mainMenu6.subMenu5"/></g:link></li>
+                </sec:ifNotGranted>
+                <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
+                    <li><g:link controller="admin" action="downloadAttendanceSheet"><g:message
+                            code="default.mainMenu6.subMenu6"/></g:link></li>
+                </sec:ifNotGranted>
+                <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
+                    <li><g:link controller="admin" action="studyMaterial"><g:message
+                            code="default.mainMenu6.subMenu10"/></g:link></li>
+                </sec:ifNotGranted>
+
+                <li><a href="#"><g:message code="default.mainMenu6.subMenu7"/></a>
                     <ul>
-                        <li><g:link controller="admin" action="assignAdmissionPeriod"><g:message
-                                code="default.mainMenu3.subMenu7.subMenu8"/></g:link></li>
-                        <li><a href="#"><g:message code="default.mainMenu3.subMenu7.subMenu7"/></a>
-                            <ul>
-                                <li><g:link controller="admin" action="assignLateFeeDate"><g:message
-                                        code="default.mainMenu3.subMenu7.subMenu7.subMenu1"/></g:link>
-                                </li>
-                                <li><g:link controller="admin" action="removeLateFeeDate"><g:message
-                                        code="default.mainMenu3.subMenu7.subMenu7.subMenu2"/></g:link></li>
-                            </ul>
-                        </li>
-                        <li><g:link controller="admin" action="assignExaminationDate"><g:message
-                                code="default.mainMenu6.subMenu4"/></g:link></li>
-                        <li><g:link controller="admin" action="assignRollNoGenerationDate"><g:message
-                                code="default.mainMenu6.subMenu9"/></g:link></li>
+                        <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_LIBRARY">
+                            <li><g:link controller="admin" action="searchStudentName"><g:message
+                                    code="default.mainMenu6.subMenu2"/></g:link></li>
+                        </sec:ifNotGranted>
+                        <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
+                            <li><g:link controller="student" action="studentListView"><g:message
+                                    code="default.mainMenu2.subMenu6"/></g:link></li>
+                        </sec:ifNotGranted>
+                        <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
+                            <li><g:link controller="admin" action="individualStudentUpdate"><g:message
+                                    code="default.mainMenu2.subMenu12"/></g:link></li>
+                        </sec:ifNotGranted>
+                        <sec:ifAnyGranted roles="ROLE_STUDY_CENTRE">
+                            <li><g:link controller="admin" action="individualStudentUpdate"><g:message
+                                    code="default.mainMenu2.subMenu13"/></g:link></li>
+                        </sec:ifAnyGranted>
                     </ul>
                 </li>
-            </sec:ifNotGranted>
-            <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
-                <li><g:link controller="admin" action="assignExaminationVenue"><g:message
-                        code="default.mainMenu6.subMenu5"/></g:link></li>
-            </sec:ifNotGranted>
-            <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
-                <li><g:link controller="admin" action="downloadAttendanceSheet"><g:message
-                        code="default.mainMenu6.subMenu6"/></g:link></li>
-            </sec:ifNotGranted>
-            <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
-                <li><g:link controller="admin" action="studyMaterial"><g:message
-                        code="default.mainMenu6.subMenu10"/></g:link></li>
-            </sec:ifNotGranted>
+                <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
+                    <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message
+                            code="default.mainMenu6.subMenu1"/></g:link></li>
+                </sec:ifNotGranted>
 
-        <li><a href="#"><g:message code="default.mainMenu6.subMenu7"/></a>
-            <ul>
-                    <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_LIBRARY">
-                        <li><g:link controller="admin" action="searchStudentName"><g:message
-                                code="default.mainMenu6.subMenu2"/></g:link></li>
-                    </sec:ifNotGranted>
-                    <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
-                        <li><g:link controller="student" action="studentListView"><g:message
-                                code="default.mainMenu2.subMenu6"/></g:link></li>
-                    </sec:ifNotGranted>
-                    <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
-                        <li><g:link controller="admin" action="individualStudentUpdate"><g:message
-                                code="default.mainMenu2.subMenu12"/></g:link></li>
-                    </sec:ifNotGranted>
-                    <sec:ifAnyGranted roles="ROLE_STUDY_CENTRE">
-                        <li><g:link controller="admin" action="individualStudentUpdate"><g:message
-                                code="default.mainMenu2.subMenu13"/></g:link></li>
-                    </sec:ifAnyGranted>
+                <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
+                    <li><g:link controller="admitCard" action="loadIdolSignatureInAdmit"><g:message
+                            code="default.mainMenu6.subMenu3"/></g:link></li>
+                    <li><g:link controller="homeAssignment" action="submitHomeAssignment"><g:message
+                            code="default.mainMenu6.subMenu20"/></g:link></li>
+                    <li><a href="#"><g:message code="default.mainMenu6.subMenu21"/></a>
+                        <ul>
+                            <li><g:link controller="homeAssignment" action="studentAddressSingle"><g:message code="default.mainMenu3.subMenu2.submenu1.submemu1"/></g:link></li>
+                            <li><g:link controller="homeAssignment" action="studentAddress"><g:message code="default.mainMenu3.subMenu2.submenu4"/></g:link></li>
+                        </ul>
+                    </li>
+                </sec:ifNotGranted>
+                <sec:ifAnyGranted roles="ROLE_ADMIN">
+                    <li><g:link controller="photoUpload" action="photoUpload"><g:message code="default.mainMenu3.subMenu2.submenu5"/></g:link></li>
+                    <li><g:link controller="feeDetails" action="printAChallan"><g:message code="default.mainMenu3.subMenu2.submenu3"/></g:link></li>
+                </sec:ifAnyGranted>
+                <sec:ifAnyGranted roles="ROLE_ADMIN">
+                    <li><a href="#"><g:message code="default.mainMenu10"/></a>
+                        <ul>
+                            <li><g:link controller="employe" action="createEmployee"><g:message
+                                    code="default.mainMenu10.subMenu1"/></g:link></li>
+                            <li><g:link controller="employe" action="listOfEmployee"><g:message
+                                    code="default.mainMenu10.subMenu2"/></g:link></li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><g:message code="default.mainMenu13"/></a>
+                        <ul>
+                            <li><g:link controller="equipment" action="createEquipment"><g:message
+                                    code="default.mainMenu13.subMenu1"/></g:link></li>
+                            <li><g:link controller="equipment" action="listOfEquipment"><g:message
+                                    code="default.mainMenu13.subMenu2"/></g:link></li>
+                        </ul>
+                    </li>
+                </sec:ifAnyGranted>
             </ul>
         </li>
-    <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
-        <li><g:link controller="admin" action="viewListGenerateRollNumber"><g:message
-                code="default.mainMenu6.subMenu1"/></g:link></li>
-    </sec:ifNotGranted>
-
-    <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
-        <li><g:link controller="admitCard" action="loadIdolSignatureInAdmit"><g:message
-                code="default.mainMenu6.subMenu3"/></g:link></li>
-
-
-        <li><g:link controller="homeAssignment" action="submitHomeAssignment"><g:message
-                code="default.mainMenu6.subMenu20"/></g:link></li>
-
-        <li><a href="#"><g:message code="default.mainMenu6.subMenu21"/></a>
+    </sec:ifLoggedIn>
+    <sec:ifLoggedIn>
+        <li><a href="#"><g:message code="default.mainMenu7"/></a>
             <ul>
-                <li><g:link controller="homeAssignment" action="studentAddressSingle"><g:message
-                        code="default.mainMenu3.subMenu2.submenu1.submemu1"/></g:link></li>
-                <li><g:link controller="homeAssignment" action="studentAddress"><g:message
-                        code="default.mainMenu3.subMenu2.submenu4"/></g:link></li>
-            </ul>
+                <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
+                    <li><a href="#"><g:message code="default.mainMenu8.subMenu5"/></a>
+                        <ul>
+                            <li><g:link controller="programFee" action="addFeeType"><g:message
+                                    code="default.mainMenu3.subMenu7.subMenu4"/></g:link></li>
+                            <li><g:link controller="programFee" action="viewExistingFeeType"><g:message
+                                    code="default.mainMenu3.subMenu7.subMenu5"/></g:link></li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><g:message code="default.mainMenu8.subMenu6"/></a>
+                        <ul>
+                            <li><g:link controller="programFee" action="createAdmissionFee"><g:message
+                                    code="default.mainMenu3.subMenu7.subMenu11"/></g:link></li>
+                            <li><g:link controller="programFee" action="listOfAdmissionFee"><g:message
+                                    code="default.mainMenu3.subMenu7.subMenu12"/></g:link></li>
+                            <li><g:link controller="programFee" action="createNewFeeType"><g:message
+                                    code="default.mainMenu3.subMenu7.subMenu1"/></g:link></li>
+                            <li><g:link controller="programFee" action="listOfFeeType"><g:message
+                                    code="default.mainMenu3.subMenu7.subMenu2"/></g:link></li>
+                        </ul>
+                    </li>
+                </sec:ifNotGranted>
+                <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
+                    <li><a href="#"><g:message code="default.mainMenu7.subMenu4.chandan"/></a>
+                        <ul>
+                            <li><g:link controller="feeDetails" action="postAdmissionFeeAtIdol"><g:message
+                                    code="default.mainMenu8.subMenu4.subMenu3"/></g:link></li>
+                            <li><g:link controller="admin" action="feeVoucher"><g:message
+                                    code="default.mainMenu7.subMenu1"/></g:link></li>
+                            <li><g:link controller="admin" action="feeVoucher"><g:message
+                                    code="default.mainMenu7.subMenu1.subMenu1"/></g:link></li>
+                            <li><g:link controller="admin" action="generateCustomChallan"><g:message
+                                    code="default.mainMenu6.subMenu12"/></g:link></li>
+                            <li><g:link controller="feeDetails" action="searchCustomChallan"><g:message
+                                    code="default.mainMenu6.subMenu8"/></g:link></li>
+                        </ul>
+                    </li>
+                </sec:ifNotGranted>
+                <sec:ifNotGranted roles="ROLE_IDOL_USER">
+                    <li><a href="#"><g:message code="default.mainMenu8.subMenu3"/></a>
+                        <ul>
+                            <li><g:link controller="feeDetails" action="generateChallanSCAdmissionFee"><g:message
+                                    code="default.mainMenu8.subMenu3.subMenu1"/></g:link></li>
+                        </ul>
+                    </li>
+                </sec:ifNotGranted>
+                <sec:ifNotGranted roles="ROLE_IDOL_USER">
+                    <li><a href="#"><g:message code="default.mainMenu8.subMenu4"/></a>
+                        <ul>
+                            <li>
+                                <g:link controller="feeDetails" action="payAdmissionFee"><g:message
+                                        code="default.mainMenu8.subMenu3.subMenu3"/></g:link>
+                            </li>
+                            <li>
+                                <g:link controller="feeDetails" action="payMiscellaneousFee"><g:message
+                                        code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>
 
-        </li>
-    </sec:ifNotGranted>
-
-        <sec:ifAnyGranted roles="ROLE_ADMIN">
-        <li><g:link controller="photoUpload" action="photoUpload"><g:message
-                code="default.mainMenu3.subMenu2.submenu5"/></g:link></li>
-        <li><g:link controller="feeDetails" action="printAChallan"><g:message
-                    code="default.mainMenu3.subMenu2.submenu3"/></g:link></li>
-        </sec:ifAnyGranted>
-    </ul>
-</li>
-
-</sec:ifLoggedIn>
-<sec:ifLoggedIn>
-<li><a href="#"><g:message
-        code="default.mainMenu7"/></a>
-
-    <ul>
-       <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
-        <li><a href="#"><g:message code="default.mainMenu8.subMenu5"/></a>
-            <ul>
-                <li><g:link controller="programFee" action="addFeeType"><g:message
-                        code="default.mainMenu3.subMenu7.subMenu4"/></g:link></li>
-                <li><g:link controller="programFee" action="viewExistingFeeType"><g:message
-                        code="default.mainMenu3.subMenu7.subMenu5"/></g:link></li>
-            </ul>
-        </li>
-        <li><a href="#"><g:message code="default.mainMenu8.subMenu6"/></a>
-            <ul>
-                <li><g:link controller="programFee" action="createAdmissionFee"><g:message
-                        code="default.mainMenu3.subMenu7.subMenu11"/></g:link></li>
-                <li><g:link controller="programFee" action="listOfAdmissionFee"><g:message
-                        code="default.mainMenu3.subMenu7.subMenu12"/></g:link></li>
-                <li><g:link controller="programFee" action="createNewFeeType"><g:message
-                        code="default.mainMenu3.subMenu7.subMenu1"/></g:link></li>
-                <li><g:link controller="programFee" action="listOfFeeType"><g:message
-                        code="default.mainMenu3.subMenu7.subMenu2"/></g:link></li>
-            </ul>
-        </li>
-       </sec:ifNotGranted>
-    <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
-        <li><a href="#"><g:message code="default.mainMenu7.subMenu4.chandan"/></a>
-            <ul>
-                <li><g:link controller="feeDetails" action="postAdmissionFeeAtIdol"><g:message
-                        code="default.mainMenu8.subMenu4.subMenu3"/></g:link></li>
-                <li><g:link controller="admin" action="feeVoucher"><g:message
-                        code="default.mainMenu7.subMenu1"/></g:link></li>
-                <li><g:link controller="admin" action="feeVoucher"><g:message
-                        code="default.mainMenu7.subMenu1.subMenu1"/></g:link></li>
-                <li><g:link controller="admin" action="generateCustomChallan"><g:message
-                        code="default.mainMenu6.subMenu12"/></g:link></li>
-                <li><g:link controller="feeDetails" action="searchCustomChallan"><g:message
-                        code="default.mainMenu6.subMenu8"/></g:link></li>
-            </ul>
-        </li>
-    </sec:ifNotGranted>
-        <sec:ifNotGranted roles="ROLE_IDOL_USER">
-        <li><a href="#"><g:message code="default.mainMenu8.subMenu3"/></a>
-            <ul>
-                <li><g:link controller="feeDetails" action="generateChallanSCAdmissionFee"><g:message
-                        code="default.mainMenu8.subMenu3.subMenu1"/></g:link></li>
+                        </ul>
+                    </li>
+                </sec:ifNotGranted>
+                <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
+                    <li><g:link controller="admin"
+                                action="approvePayInSlip"><g:message
+                                code="default.mainMenu7.subMenu2"/></g:link></li>
+                </sec:ifNotGranted>
+                <li><g:link controller="feeDetails"
+                            action="feeStatusForRollNumber"><g:message
+                            code="default.mainMenu7.subMenu3"/></g:link></li>
+                <li><g:link controller="feeDetails"
+                            action="challanNumberStatus"><g:message
+                            code="default.mainMenu7.subMenu4"/></g:link></li>
             </ul>
         </li>
-        </sec:ifNotGranted>
-    <sec:ifNotGranted roles="ROLE_IDOL_USER">
-        <li><a href="#"><g:message code="default.mainMenu8.subMenu4"/></a>
-            <ul>
-                <li>
-                    <g:link controller="feeDetails" action="payAdmissionFee"><g:message
-                            code="default.mainMenu8.subMenu3.subMenu3"/></g:link>
-                </li>
-                <li>
-                    <g:link controller="feeDetails" action="payMiscellaneousFee"><g:message
-                            code="default.mainMenu8.subMenu4.subMenu2"/></g:link></li>
+    </sec:ifLoggedIn>
 
-            </ul>
-        </li>
-    </sec:ifNotGranted>
-        <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">
-        <li><g:link controller="admin"
-                    action="approvePayInSlip"><g:message
-                    code="default.mainMenu7.subMenu2"/></g:link></li>
-    </sec:ifNotGranted>
-        <li><g:link controller="feeDetails"
-                    action="feeStatusForRollNumber"><g:message
-                    code="default.mainMenu7.subMenu3"/></g:link></li>
-        <li><g:link controller="feeDetails"
-                    action="challanNumberStatus"><g:message
-                    code="default.mainMenu7.subMenu4"/></g:link></li>
-    </ul>
-    </li>
-</sec:ifLoggedIn>
-    
-<sec:ifLoggedIn>
-<li><g:link controller="report" action="reportIndex"><g:message code="default.mainMenu9"/></g:link></li>
-</sec:ifLoggedIn>    </sec:ifNotGranted>
+    <sec:ifLoggedIn>
+        <li><g:link controller="report" action="reportIndex"><g:message code="default.mainMenu9"/></g:link></li>
+    </sec:ifLoggedIn></sec:ifNotGranted>
 </div>
 %{--</div>--}%
 
