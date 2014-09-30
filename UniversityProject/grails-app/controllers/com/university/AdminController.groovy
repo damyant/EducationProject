@@ -1215,6 +1215,53 @@ class AdminController {
         redirect(controller: "admin", action: "editCatalog")
 
     }
+    def catalogType={
+        if(params.view){
+            def catagoryTypeList=CatalogType.list()
+            [catagoryTypeList:catagoryTypeList]
+        }
+        else if(params.catId){
+            def catagoryTypeInst=CatalogType.findById(Long.parseLong(params.catId))
+            [catagoryTypeInst:catagoryTypeInst]
+        }
+    }
+    def saveCatalogType={
+        println("=================="+params)
+        def catalogTypeInst
+        if(params.catgoryTypeId){
+            catalogTypeInst=CatalogType.findById(Long.parseLong(params.catgoryTypeId))
+            catalogTypeInst.catalogTypeName=params.catalogName
+            if ( catalogTypeInst.catalogTypeName==params.catalogName) {
+                flash.message = "Updated Successfully"
+            } else {
+                flash.message = "Not Updated "
+            }
+        }
+        else{
+        catalogTypeInst=new CatalogType()
+        catalogTypeInst.catalogTypeName=params.catalogName
+        if (catalogTypeInst.save(failOnError: true, flush: true)) {
+            flash.message = "Saved Successfully"
+        } else {
+            flash.message = "Not Saved "
+        }
+        }
+        redirect(controller: "admin", action: "catalogType")
+    }
+
+    def delCatalogType={
+        def catalogTypeInst=CatalogType.findById(Long.parseLong(params.catId))
+        catalogTypeInst.delete(flush: true)
+        if(CatalogType.exists(catalogTypeInst.id)){
+            flash.message = "Unable Delete "
+        }
+        else{
+            flash.message= "deleted Successfully"
+        }
+        redirect(controller: "admin", action: "catalogType", params:"view" )
+    }
+
 }
+
 
 

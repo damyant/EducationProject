@@ -297,7 +297,14 @@
 </sec:ifAnyGranted>
 <li><a href="#"><g:message code="default.mainMenu11"/></a>
 <ul>
-    <li> <g:link><g:message code="default.mainMenu11.subMenu1"/> </g:link>
+    <li> <g:link><g:message code="default.mainMenu11.subMenu2"/> </g:link>
+        <ul>
+            <g:link controller="admin" action="catalogType"> <g:message code="default.mainMenu11.subMenu1.submenu1"/></g:link>
+            %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
+            <g:link controller="admin" action="catalogType" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu1.submenu3"/></g:link>
+        </ul>
+    </li>
+    <li> <a href="#"><g:message code="default.mainMenu11.subMenu1"/> </a>
         <ul>
         <g:link controller="admin" action="addCatalog"> <g:message code="default.mainMenu11.subMenu1.submenu1"/></g:link>
         <g:link controller="admin" action="editCatalog"> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>
