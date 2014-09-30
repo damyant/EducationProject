@@ -29,7 +29,10 @@
                     class="university-obligatory">*</span>] marked fields are Mandatory.</h6></label></div>
             <table class="inner university-size-full-1-1">
                 <tr>
-                    <g:hiddenField name="id" value="${equipmentObj?.id}" />
+                    <g:if test="${equipmentObj?.equipmentName}">
+                        <g:hiddenField name="equId" value="${equipmentObj?.id}" />
+                    </g:if>
+
                     <td class="university-size-1-3">Name of Equipment <span class="university-obligatory">*</span></td>
                     <td class="university-size-2-3">
                         <table class="inner university-table-1-3 university-size-1-1" style="vertical-align: top;">

@@ -13,9 +13,9 @@ class EquipmentService {
     }
 
     def saveEquipmentInformation(params, documentImage) {
-        if (params.id) {
+        if (params.equId) {
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy")
-            def equipmentObj = Equipment.findByEquipmentId(Integer.parseInt(params.equipmentId))
+            def equipmentObj = Equipment.findById(Long.parseLong(params.equId))
             equipmentObj.equipmentId = Integer.parseInt(params.equipmentId)
             equipmentObj.equipmentName = params.equipmentName
             equipmentObj.equipmentType = params.equipmentType
