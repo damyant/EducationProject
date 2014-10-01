@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div id="header-Menu">
+<div id="cssmenu">
 %{--<div id="header-Menu">--}%
 <ul id="menu">
 <li><g:link controller="home" action="index"><g:message
