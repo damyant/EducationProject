@@ -29,33 +29,19 @@
 
                     <td class="university-size-1-3">Type<span class="university-obligatory">*</span></td>
                     <td class="university-size-1-3">
-                        <g:if test="${catalogIns}">
-                            <g:select name="catalogType" class="university-size-1-2" optionKey="id"
-                                      optionValue="catalogTypeName"
-                                      from="${catalogTypeList}" noSelection="['': ' Select Catalog Type']"
-                                      value="${catalogIns?.type?.id}"/>
-                        </g:if><g:else>
                         <g:select name="catalogType" class="university-size-1-2" optionKey="id"
-                                  optionValue="catalogCatagoryName"
-                                  from="${catalogCatagoryList}" noSelection="['': ' Select Catalog Type']"
+                                  optionValue="catalogTypeName" value="${catalogIns?.type?.id}"
+                                  from="${catalogTypeList}" noSelection="['': ' Select Catalog Type']"
                                   onchange=""/>
-                        </g:else>
                     </td>
                 </tr>
                 <tr>
                     <td class="university-size-1-3">Category<span class="university-obligatory">*</span></td>
                     <td class="university-size-1-3">
-                        <g:if test="${catalogIns}">
-                            <g:select name="catalogCategory" class="university-size-1-2" optionKey="id"
-                                      optionValue="catalogCatagoryName"
-                                      from="${catalogCatagoryList}" noSelection="['': ' Select Catalog Catagory']"
-                                      value="${catalogIns?.catagory?.id}"/>
-                        </g:if><g:else>
-                            <g:select name="catalogCategory" class="university-size-1-2" optionKey="id"
-                                      optionValue="catalogCatagoryName"
+                            <g:select name="catalogCatagory" class="university-size-1-2" optionKey="id"
+                                      optionValue="catalogCatagoryName" value="${catalogIns?.catagory?.id}"
                                       from="${catalogCatagoryList}" noSelection="['': ' Select Catalog Catagory']"
                                       onchange=""/>
-                        </g:else>
                     </td>
                 </tr>
 

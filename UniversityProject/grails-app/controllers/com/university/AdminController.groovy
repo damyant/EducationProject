@@ -1174,6 +1174,7 @@ class AdminController {
         } else {
             catalogInst = new Catalog()
             catalogInst.type = CatalogType.findById(Long.parseLong(params.catalogType))
+            catalogInst.catagory = CatalogCatagory.findById(Long.parseLong(params.catalogCatagory))
             catalogInst.isbn = params.catalogIsbn
             catalogInst.title = params.catalogTitle
             catalogInst.author = params.catalogAuthor
@@ -1267,13 +1268,24 @@ class AdminController {
     }
 
     @Secured(["ROLE_LIBRARY"])
+    def catalogCatagory={
+        if(params.view){
+            def catagoryCatagoryList=CatalogCatagory.list()
+            [catagoryCatagoryList:catagoryCatagoryList]
+        }
+        else if(params.catId){
+            def catagoryCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catId))
+            [catagoryCatagoryInst:catagoryCatagoryInst]
+        }
+    }
+    @Secured(["ROLE_LIBRARY"])
     def saveCatalogCatagory={
         println("=================="+params)
         def catalogCatagoryInst
-        if(params.catgoryCatagoryId){
-            catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catagory.CatagoryId))
-            catalogCatagoryInst.catalogCatagoryName=params.catalogName
-            if ( catalogCatagoryInst.catalogCatagoryName==params.catalogName) {
+        if(params.catagoryCatagoryId){
+            catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catagoryCatagoryId))
+            catalogCatagoryInst.catalogCatagoryName=params.catalogCatagoryName
+            if ( catalogCatagoryInst.catalogCatagoryName==params.catalogCatagoryName) {
                 flash.message = "Updated Successfully"
             } else {
                 flash.message = "Not Updated "
@@ -1281,7 +1293,7 @@ class AdminController {
         }
         else{
             catalogCatagoryInst=new CatalogCatagory()
-            catalogCatagoryInst.catalogCatagoryName=params.catalogName
+            catalogCatagoryInst.catalogCatagoryName=params.catalogCatagoryName
             if (catalogCatagoryInst.save(failOnError: true, flush: true)) {
                 flash.message = "Saved Successfully"
             } else {
@@ -1289,6 +1301,19 @@ class AdminController {
             }
         }
         redirect(controller: "admin", action: "catalogCatagory")
+    }
+
+    @Secured(["ROLE_LIBRARY"])
+    def delCatalogCatagory={
+        def catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catId))
+        catalogCatagoryInst.delete(flush: true)
+        if(CatalogCatagory.exists(catalogCatagoryInst.id)){
+            flash.message = "Unable Delete "
+        }
+        else{
+            flash.message= "deleted Successfully"
+        }
+        redirect(controller: "admin", action: "catalogCatagory", params:"view" )
     }
 
 }

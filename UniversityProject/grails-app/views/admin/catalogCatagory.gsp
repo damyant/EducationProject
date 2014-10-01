@@ -44,7 +44,7 @@
                         <td class="university-size-1-3">Catalog Catagory</td>
                         <td class="university-size-2-3"><input type="text" class="university-size-1-1"
                                                                value="${catagoryCatagoryInst?.catalogCatagoryName}"
-                                                               name="catalogCatagory"></td>
+                                                               name="catalogCatagoryName"></td>
                     </tr>
                     <tr>
                         <td></td>
