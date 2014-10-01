@@ -5,6 +5,7 @@ class Catalog {
     transient springSecurityService
 
     CatalogType type
+    CatalogCatagory catagory
     String isbn
     String title
     String author
@@ -17,6 +18,7 @@ class Catalog {
 
     static mapping = {
         type column: "type"
+        catagory column: "catagory"
         isbn column: 'isbn'
         title column: "title"
         author column: "author"

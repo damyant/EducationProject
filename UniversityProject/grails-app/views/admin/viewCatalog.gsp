@@ -21,6 +21,7 @@
             <thead>
             <tr>
                 <g:sortableColumn property="title" title="Type" class="university-size-1-6"/>
+                <g:sortableColumn property="title" title="Category" class="university-size-1-6"/>
                 <g:sortableColumn property="title" title="ISBN" class="university-size-1-6"/>
                 <g:sortableColumn property="title" title="Title" class="university-size-1-6"/>
                 <g:sortableColumn property="title" title="Author" class="university-size-1-6"/>
@@ -33,6 +34,7 @@
             <g:each in="${catalogList}" status="i" var="catalogInst">
                 <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                     <td>${catalogInst.type.catalogTypeName}</td>
+                    <td>${catalogInst.category.catalogCategoryName}</td>
                     <td>${catalogInst.isbn}</td>
                     <td>${catalogInst.title}</td>
                     <td>${catalogInst.author}</td>

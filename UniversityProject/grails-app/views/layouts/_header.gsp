@@ -308,6 +308,17 @@
             <g:link controller="admin" action="catalogType" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu1.submenu3"/></g:link>
         </ul>
     </li>
+    <li> <g:link><g:message code="default.mainMenu11.subMenu3"/> </g:link>
+        <ul>
+            <g:link controller="admin" action="catalogCategory"> <g:message code="default.mainMenu11.subMenu3.submenu1"/></g:link>
+            %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
+            <g:link controller="admin" action="catalogCategory" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu3.submenu2"/></g:link>
+        </ul>
+    </li>
+
+
+
+
     <li> <a href="#"><g:message code="default.mainMenu11.subMenu1"/> </a>
         <ul>
         <g:link controller="admin" action="addCatalog"> <g:message code="default.mainMenu11.subMenu1.submenu1"/></g:link>
