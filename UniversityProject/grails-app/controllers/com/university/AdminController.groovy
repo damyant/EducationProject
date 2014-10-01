@@ -1,6 +1,7 @@
 package com.university
 
 import IST.Catalog
+import IST.CatalogCatagory
 import IST.CatalogType
 import examinationproject.AdmissionFee
 import examinationproject.Bank
@@ -1144,11 +1145,13 @@ class AdminController {
         def catIns = null
 
         def catalogTypeList = CatalogType.list()
+        def catalogCatagoryList = CatalogCatagory.list()
         if (params.catalogInstId) {
             catIns = Catalog.findById(Long.parseLong(params.catalogInstId))
-            [catalogIns: catIns, catalogTypeList: catalogTypeList]
+            [catalogIns: catIns, catalogTypeList: catalogTypeList,catalogCatagoryList:catalogCatagoryList]
+
         } else {
-            [catalogTypeList: catalogTypeList]
+            [catalogTypeList: catalogTypeList,catalogCatagoryList:catalogCatagoryList]
         }
 
     }
@@ -1261,6 +1264,31 @@ class AdminController {
             flash.message= "deleted Successfully"
         }
         redirect(controller: "admin", action: "catalogType", params:"view" )
+    }
+
+    @Secured(["ROLE_LIBRARY"])
+    def saveCatalogCatagory={
+        println("=================="+params)
+        def catalogCatagoryInst
+        if(params.catgoryCatagoryId){
+            catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catagory.CatagoryId))
+            catalogCatagoryInst.catalogCatagoryName=params.catalogName
+            if ( catalogCatagoryInst.catalogCatagoryName==params.catalogName) {
+                flash.message = "Updated Successfully"
+            } else {
+                flash.message = "Not Updated "
+            }
+        }
+        else{
+            catalogCatagoryInst=new CatalogCatagory()
+            catalogCatagoryInst.catalogCatagoryName=params.catalogName
+            if (catalogCatagoryInst.save(failOnError: true, flush: true)) {
+                flash.message = "Saved Successfully"
+            } else {
+                flash.message = "Not Saved "
+            }
+        }
+        redirect(controller: "admin", action: "catalogCatagory")
     }
 
 }
