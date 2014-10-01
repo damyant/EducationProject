@@ -1161,23 +1161,23 @@ td {
     /*animation-iteration-count: infinite;*/
 /*}*/
 
-@-moz-keyframes blinker {
-    0% { opacity: 1.0; }
-    50% { opacity: 0.0; }
-    100% { opacity: 1.0; }
-}
+/*@-moz-keyframes blinker {*/
+    /*0% { opacity: 1.0; }*/
+    /*50% { opacity: 0.0; }*/
+    /*100% { opacity: 1.0; }*/
+/*}*/
 
-@-webkit-keyframes blinker {
-    0% { opacity: 1.0; }
-    50% { opacity: 0.0; }
-    100% { opacity: 1.0; }
-}
+/*@-webkit-keyframes blinker {*/
+    /*0% { opacity: 1.0; }*/
+    /*50% { opacity: 0.0; }*/
+    /*100% { opacity: 1.0; }*/
+/*}*/
 
-@keyframes blinker {
-    0% { opacity: 1.0; }
-    50% { opacity: 0.0; }
-    100% { opacity: 1.0; }
-}
+/*@keyframes blinker {*/
+    /*0% { opacity: 1.0; }*/
+    /*50% { opacity: 0.0; }*/
+    /*100% { opacity: 1.0; }*/
+/*}*/
 .month-picker {
     width: 200px;
     display: none;
