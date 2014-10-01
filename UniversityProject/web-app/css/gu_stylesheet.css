@@ -1108,9 +1108,6 @@ td {
     padding: 10px;
 }
 
-
-
-
 .a_demo_one {
     background-color:#ba2323;
     padding:10px;
@@ -1123,7 +1120,6 @@ td {
     background-image: linear-gradient(bottom, rgb(171,27,27) 0%, rgb(212,51,51) 100%);
     border-radius: 5px;
 }
-
 .a_demo_one:active {
     padding-bottom:9px;
     padding-left:10px;
@@ -1132,8 +1128,6 @@ td {
     top:1px;
     background-image: linear-gradient(bottom, rgb(171,27,27) 100%, rgb(212,51,51) 0%);
 }
-
-
 
 .a_demo_one::before {
     background-color:#ccd0d5;
@@ -1150,22 +1144,22 @@ td {
     box-shadow: inset 0px 1px 1px #909193, 0px 1px 0px #fff;
 }
 
-.blink_me {
-    -webkit-animation-name: blinker;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-timing-function: ease-in;
-    -webkit-animation-iteration-count: infinite;
+/*.blink_me {*/
+    /*-webkit-animation-name: blinker;*/
+    /*-webkit-animation-duration: 1s;*/
+    /*-webkit-animation-timing-function: ease-in;*/
+    /*-webkit-animation-iteration-count: infinite;*/
 
-    -moz-animation-name: blinker;
-    -moz-animation-duration: 1s;
-    -moz-animation-timing-function: ease-in;
-    -moz-animation-iteration-count: infinite;
+    /*-moz-animation-name: blinker;*/
+    /*-moz-animation-duration: 1s;*/
+    /*-moz-animation-timing-function: ease-in;*/
+    /*-moz-animation-iteration-count: infinite;*/
 
-    animation-name: blinker;
-    animation-duration: 1s;
-    animation-timing-function: ease-in;
-    animation-iteration-count: infinite;
-}
+    /*animation-name: blinker;*/
+    /*animation-duration: 1s;*/
+    /*animation-timing-function: ease-in;*/
+    /*animation-iteration-count: infinite;*/
+/*}*/
 
 @-moz-keyframes blinker {
     0% { opacity: 1.0; }
