@@ -340,6 +340,17 @@
                             code="default.mainMenu11.subMenu1.submenu3"/></g:link>
                 </ul>
             </li>
+            <li><a href="#"><g:message code="default.mainMenu11.subMenu4"/></a>
+                <ul>
+                    <g:link controller="libraryReports" action="issuedBooks"><g:message
+                            code="default.mainMenu11.subMenu4.submenu1"/></g:link>
+                    <g:link controller="libraryReports" action="listOfCatalogs"><g:message
+                            code="default.mainMenu11.subMenu4.submenu2"/></g:link>
+                    <g:link controller="libraryReports" action="overdueBooks"><g:message
+                            code="default.mainMenu11.subMenu4.submenu3"/></g:link>
+                </ul>
+
+            </li>
         </ul>
     </li>
 </sec:ifAnyGranted>

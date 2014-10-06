@@ -1270,20 +1270,20 @@ class AdminController {
     @Secured(["ROLE_LIBRARY"])
     def catalogCatagory={
         if(params.view){
-            def catagoryCatagoryList=CatalogCatagory.list()
-            [catagoryCatagoryList:catagoryCatagoryList]
+            def catalogCatagoryList=CatalogCatagory.list()
+            [catalogCatagoryList:catalogCatagoryList]
         }
         else if(params.catId){
-            def catagoryCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catId))
-            [catagoryCatagoryInst:catagoryCatagoryInst]
+            def catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catId))
+            [catalogCatagoryInst:catalogCatagoryInst]
         }
     }
     @Secured(["ROLE_LIBRARY"])
     def saveCatalogCatagory={
         println("=================="+params)
         def catalogCatagoryInst
-        if(params.catagoryCatagoryId){
-            catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catagoryCatagoryId))
+        if(params.catalogCatagoryId){
+            catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catalogCatagoryId))
             catalogCatagoryInst.catalogCatagoryName=params.catalogCatagoryName
             if ( catalogCatagoryInst.catalogCatagoryName==params.catalogCatagoryName) {
                 flash.message = "Updated Successfully"
