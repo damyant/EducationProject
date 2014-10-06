@@ -34,6 +34,7 @@
                                   from="${catalogTypeList}" noSelection="['': ' Select Catalog Type']"
                                   onchange=""/>
 
+
                     </td>
                 </tr>
                 <tr>
@@ -43,8 +44,7 @@
                             <g:select name="catalogCategory" class="university-size-1-2" optionKey="id"
                                       optionValue="catalogCatagoryName" value="${catalogIns?.catagory?.id}"
                                       from="${catalogCatagoryList}" noSelection="['': ' Select Catalog Category']"
-                                      onchange=""/>
-                    </td>
+
                 </tr>
 
                 <tr>

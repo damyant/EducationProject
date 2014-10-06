@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div id="header-Menu">
+<div id="cssmenu">
 %{--<div id="header-Menu">--}%
 <ul id="menu">
 <li><g:link controller="home" action="index"><g:message
@@ -292,6 +292,7 @@
 
     <li><a href="#"><g:message code="default.mainMenu11"/></a>
 
+
         <ul>
             <li><g:link><g:message code="default.mainMenu11.subMenu2"/></g:link>
                 <ul>
@@ -303,13 +304,13 @@
             </li>
     <li> <g:link><g:message code="default.mainMenu11.subMenu3"/> </g:link>
         <ul>
-            <g:link controller="admin" action="catalogCategory"> <g:message code="default.mainMenu11.subMenu3.submenu1"/></g:link>
+
+            <g:link controller="admin" action="catalogCatagory"> <g:message code="default.mainMenu11.subMenu3.submenu1"/></g:link>
             %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
-            <g:link controller="admin" action="catalogCategory" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu3.submenu2"/></g:link>
+            <g:link controller="admin" action="catalogCatagory" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu3.submenu2"/></g:link>
         </ul>
     </li>
-
-    <li><a href="#"><g:message code="default.mainMenu11.subMenu1"/></a>
+            <li><a href="#"><g:message code="default.mainMenu11.subMenu1"/></a>
                 <ul>
                     <g:link controller="admin" action="addCatalog"><g:message
                             code="default.mainMenu11.subMenu1.submenu1"/></g:link>
@@ -319,8 +320,20 @@
                             code="default.mainMenu11.subMenu1.submenu3"/></g:link>
                 </ul>
             </li>
+
             <li><g:link controller="admin" action="bookIssue"><g:message
-                    code="default.mainMenu11.subMenu4"/></g:link>
+                    code="default.mainMenu11.subMenu5"/></g:link>
+
+            <li><a href="#"><g:message code="default.mainMenu11.subMenu4"/></a>
+                <ul>
+                    <g:link controller="libraryReports" action="issuedBooks"><g:message
+                            code="default.mainMenu11.subMenu4.submenu1"/></g:link>
+                    <g:link controller="libraryReports" action="listOfCatalogs"><g:message
+                            code="default.mainMenu11.subMenu4.submenu2"/></g:link>
+                    <g:link controller="libraryReports" action="overdueBooks"><g:message
+                            code="default.mainMenu11.subMenu4.submenu3"/></g:link>
+                </ul>
+
 
             </li>
         </ul>

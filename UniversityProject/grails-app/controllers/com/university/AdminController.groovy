@@ -1268,13 +1268,24 @@ class AdminController {
     }
 
     @Secured(["ROLE_LIBRARY"])
+    def catalogCatagory={
+        if(params.view){
+            def catalogCatagoryList=CatalogCatagory.list()
+            [catalogCatagoryList:catalogCatagoryList]
+        }
+        else if(params.catId){
+            def catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catId))
+            [catalogCatagoryInst:catalogCatagoryInst]
+        }
+    }
+    @Secured(["ROLE_LIBRARY"])
     def saveCatalogCatagory={
         println("=================="+params)
         def catalogCatagoryInst
-        if(params.catgoryCatagoryId){
-            catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catagory.CatagoryId))
-            catalogCatagoryInst.catalogCatagoryName=params.catalogName
-            if ( catalogCatagoryInst.catalogCatagoryName==params.catalogName) {
+        if(params.catalogCatagoryId){
+            catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catalogCatagoryId))
+            catalogCatagoryInst.catalogCatagoryName=params.catalogCatagoryName
+            if ( catalogCatagoryInst.catalogCatagoryName==params.catalogCatagoryName) {
                 flash.message = "Updated Successfully"
             } else {
                 flash.message = "Not Updated "
@@ -1282,7 +1293,7 @@ class AdminController {
         }
         else{
             catalogCatagoryInst=new CatalogCatagory()
-            catalogCatagoryInst.catalogCatagoryName=params.catalogName
+            catalogCatagoryInst.catalogCatagoryName=params.catalogCatagoryName
             if (catalogCatagoryInst.save(failOnError: true, flush: true)) {
                 flash.message = "Saved Successfully"
             } else {
@@ -1293,6 +1304,7 @@ class AdminController {
     }
 
     @Secured(["ROLE_LIBRARY"])
+
     def bookIssue={
         def catalogTypeList = CatalogType.list()
         def catalogCatagoryList = CatalogCatagory.list()
@@ -1329,9 +1341,19 @@ class AdminController {
         }
         render returnMap as JSON
 
+    }
+    def delCatalogCatagory={
+        def catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catId))
+        catalogCatagoryInst.delete(flush: true)
+        if(CatalogCatagory.exists(catalogCatagoryInst.id)){
+            flash.message = "Unable Delete "
+        }
+        else{
+            flash.message= "deleted Successfully"
+        }
+        redirect(controller: "admin", action: "catalogCatagory", params:"view" )
 
     }
-
 }
 
 
