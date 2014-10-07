@@ -284,14 +284,8 @@
 
 </sec:ifNotGranted>
 <sec:ifAnyGranted roles="ROLE_LIBRARY">
-<<<<<<< HEAD
-    <li><a href="#"><g:message code="default.mainMenu11"/></a>
-=======
-
     <li><a href="#"><g:message code="default.mainMenu11"/></a>
 
-
->>>>>>> c9776522b4744d2497b2b9409244c5dbfb53df7d
         <ul>
             <li><g:link><g:message code="default.mainMenu11.subMenu2"/></g:link>
                 <ul>
@@ -302,18 +296,6 @@
                             code="default.mainMenu11.subMenu1.submenu3"/></g:link>
                 </ul>
             </li>
-<<<<<<< HEAD
-            <li><g:link><g:message code="default.mainMenu11.subMenu3"/></g:link>
-                <ul>
-                    <g:link controller="admin" action="catalogCategory"><g:message
-                            code="default.mainMenu11.subMenu3.submenu1"/></g:link>
-                    %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
-                    <g:link controller="admin" action="catalogCategory" params="[view: 'view']"><g:message
-                            code="default.mainMenu11.subMenu3.submenu2"/></g:link>
-                </ul>
-            </li>
-
-=======
     <li> <g:link><g:message code="default.mainMenu11.subMenu3"/> </g:link>
         <ul>
 
@@ -322,7 +304,6 @@
             <g:link controller="admin" action="catalogCatagory" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu3.submenu2"/></g:link>
         </ul>
     </li>
->>>>>>> c9776522b4744d2497b2b9409244c5dbfb53df7d
             <li><a href="#"><g:message code="default.mainMenu11.subMenu1"/></a>
                 <ul>
                     <g:link controller="admin" action="addCatalog"><g:message
@@ -568,9 +549,6 @@
         <li><g:link controller="report" action="reportIndex"><g:message code="default.mainMenu9"/></g:link></li>
     </sec:ifLoggedIn></sec:ifNotGranted>
 </div>
-%{--</div>--}%
-
-
 <div class="scroller"><!-- this is for emulating position fixed of the nav -->
     <div class="scroller-inner">
         <g:render template="/layouts/statusPopup"/>
