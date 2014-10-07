@@ -284,7 +284,14 @@
 
 </sec:ifNotGranted>
 <sec:ifAnyGranted roles="ROLE_LIBRARY">
+<<<<<<< HEAD
     <li><a href="#"><g:message code="default.mainMenu11"/></a>
+=======
+
+    <li><a href="#"><g:message code="default.mainMenu11"/></a>
+
+
+>>>>>>> c9776522b4744d2497b2b9409244c5dbfb53df7d
         <ul>
             <li><g:link><g:message code="default.mainMenu11.subMenu2"/></g:link>
                 <ul>
@@ -295,6 +302,7 @@
                             code="default.mainMenu11.subMenu1.submenu3"/></g:link>
                 </ul>
             </li>
+<<<<<<< HEAD
             <li><g:link><g:message code="default.mainMenu11.subMenu3"/></g:link>
                 <ul>
                     <g:link controller="admin" action="catalogCategory"><g:message
@@ -305,6 +313,16 @@
                 </ul>
             </li>
 
+=======
+    <li> <g:link><g:message code="default.mainMenu11.subMenu3"/> </g:link>
+        <ul>
+
+            <g:link controller="admin" action="catalogCatagory"> <g:message code="default.mainMenu11.subMenu3.submenu1"/></g:link>
+            %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
+            <g:link controller="admin" action="catalogCatagory" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu3.submenu2"/></g:link>
+        </ul>
+    </li>
+>>>>>>> c9776522b4744d2497b2b9409244c5dbfb53df7d
             <li><a href="#"><g:message code="default.mainMenu11.subMenu1"/></a>
                 <ul>
                     <g:link controller="admin" action="addCatalog"><g:message
@@ -315,8 +333,25 @@
                             code="default.mainMenu11.subMenu1.submenu3"/></g:link>
                 </ul>
             </li>
+
+            <li><g:link controller="admin" action="bookIssue"><g:message
+                    code="default.mainMenu11.subMenu5"/></g:link>
+
+            <li><a href="#"><g:message code="default.mainMenu11.subMenu4"/></a>
+                <ul>
+                    <g:link controller="libraryReports" action="issuedBooks"><g:message
+                            code="default.mainMenu11.subMenu4.submenu1"/></g:link>
+                    <g:link controller="libraryReports" action="listOfCatalogs"><g:message
+                            code="default.mainMenu11.subMenu4.submenu2"/></g:link>
+                    <g:link controller="libraryReports" action="overdueBooks"><g:message
+                            code="default.mainMenu11.subMenu4.submenu3"/></g:link>
+                </ul>
+
+
+            </li>
         </ul>
     </li>
+
 </sec:ifAnyGranted>
 
 <li><a href="#"><g:message code="default.mainMenu12"/></a>

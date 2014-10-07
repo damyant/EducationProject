@@ -1,5 +1,6 @@
 package com.university
 
+import IST.BookIssue
 import IST.Catalog
 import IST.CatalogCatagory
 import IST.CatalogType
@@ -1151,6 +1152,7 @@ class AdminController {
             [catalogIns: catIns, catalogTypeList: catalogTypeList,catalogCatagoryList:catalogCatagoryList]
 
         } else {
+            println("<<<"+catalogTypeList)
             [catalogTypeList: catalogTypeList,catalogCatagoryList:catalogCatagoryList]
         }
 
@@ -1174,6 +1176,7 @@ class AdminController {
         } else {
             catalogInst = new Catalog()
             catalogInst.type = CatalogType.findById(Long.parseLong(params.catalogType))
+            catalogInst.catagory=CatalogCatagory.get(Long.parseLong(params.catalogCategory))
             catalogInst.isbn = params.catalogIsbn
             catalogInst.title = params.catalogTitle
             catalogInst.author = params.catalogAuthor
@@ -1200,9 +1203,7 @@ class AdminController {
     @Secured(["ROLE_LIBRARY"])
     def viewCatalog = {
         def catalogList = Catalog.list()
-
-
-        [catalogList: catalogList]
+       [catalogList: catalogList]
 
     }
     @Secured(["ROLE_LIBRARY"])
@@ -1267,13 +1268,24 @@ class AdminController {
     }
 
     @Secured(["ROLE_LIBRARY"])
+    def catalogCatagory={
+        if(params.view){
+            def catalogCatagoryList=CatalogCatagory.list()
+            [catalogCatagoryList:catalogCatagoryList]
+        }
+        else if(params.catId){
+            def catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catId))
+            [catalogCatagoryInst:catalogCatagoryInst]
+        }
+    }
+    @Secured(["ROLE_LIBRARY"])
     def saveCatalogCatagory={
         println("=================="+params)
         def catalogCatagoryInst
-        if(params.catgoryCatagoryId){
-            catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catagory.CatagoryId))
-            catalogCatagoryInst.catalogCatagoryName=params.catalogName
-            if ( catalogCatagoryInst.catalogCatagoryName==params.catalogName) {
+        if(params.catalogCatagoryId){
+            catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catalogCatagoryId))
+            catalogCatagoryInst.catalogCatagoryName=params.catalogCatagoryName
+            if ( catalogCatagoryInst.catalogCatagoryName==params.catalogCatagoryName) {
                 flash.message = "Updated Successfully"
             } else {
                 flash.message = "Not Updated "
@@ -1281,7 +1293,7 @@ class AdminController {
         }
         else{
             catalogCatagoryInst=new CatalogCatagory()
-            catalogCatagoryInst.catalogCatagoryName=params.catalogName
+            catalogCatagoryInst.catalogCatagoryName=params.catalogCatagoryName
             if (catalogCatagoryInst.save(failOnError: true, flush: true)) {
                 flash.message = "Saved Successfully"
             } else {
@@ -1291,6 +1303,57 @@ class AdminController {
         redirect(controller: "admin", action: "catalogCatagory")
     }
 
+    @Secured(["ROLE_LIBRARY"])
+
+    def bookIssue={
+        def catalogTypeList = CatalogType.list()
+        def catalogCatagoryList = CatalogCatagory.list()
+        [catalogTypeList: catalogTypeList,catalogCatagoryList: catalogCatagoryList]
+
+    }
+
+    def getBooksName={
+        def categoryIns=CatalogCatagory.get(params.catalogCategory)
+        def catalogTypeIns=CatalogType.get(params.catalogType)
+        def boolList=Catalog.findAllByCatagoryAndType(categoryIns,catalogTypeIns)
+        render boolList as JSON
+
+    }
+
+    def saveBookIssue={
+        def returnMap=[:]
+       def bookList=params.bookList.split(",")
+        def catalogCategoryObj=CatalogCatagory.get(params.catalogCategory)
+                def catalogTypeObj=CatalogType.get(params.catalogType)
+        bookList.each{
+            def obj= new BookIssue()
+            def catalogObj=Catalog.get(it.toString())
+            catalogObj.availableCatalog=catalogObj.availableCatalog-1
+            obj.catalog=catalogObj
+            obj.catalogCategory=catalogCategoryObj
+            obj.catalogType=catalogTypeObj
+            obj.issuingPersonId=params.id
+            obj.issueTo=params.type
+            obj.save(failOnError: true)
+            catalogObj.save(failOnError:true)
+            returnMap.flag="true"
+
+        }
+        render returnMap as JSON
+
+    }
+    def delCatalogCatagory={
+        def catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catId))
+        catalogCatagoryInst.delete(flush: true)
+        if(CatalogCatagory.exists(catalogCatagoryInst.id)){
+            flash.message = "Unable Delete "
+        }
+        else{
+            flash.message= "deleted Successfully"
+        }
+        redirect(controller: "admin", action: "catalogCatagory", params:"view" )
+
+    }
 }
 
 

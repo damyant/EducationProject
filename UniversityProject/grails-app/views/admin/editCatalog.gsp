@@ -39,7 +39,7 @@
             <g:each in="${catalogList}" status="i" var="catalogInst">
                 <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                     <td>${catalogInst.type.catalogTypeName}</td>
-                    <td>${catalogInst.type.catalogCategoryName}</td>
+                    <td>${catalogInst.catagory.catalogCatagoryName}</td>
                     <td>${catalogInst.isbn}</td>
                     <td>${catalogInst.title}</td>
                     <td>${catalogInst.author}</td>

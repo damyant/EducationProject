@@ -171,11 +171,7 @@ function addToList(j) {
             $('#semester' + j).append("<option value='" + selectedValues[l] + "'>" + $(list1Selected).text() + "</option>");
 
             var text1 = $(list1Selected).val()
-//            alert(text1);
-//            $('#semester'+j+' option').filter(function() {
-//                //may want to use $.trim in here
-//                return $(this).val() == text1;
-//            }).attr('selected', true);
+
             $('#allsubjectList' + j + ' option:selected').each(function (n, allsubSelected) {
                 var text3 = $(allsubSelected).val()
                 $('#allsubjectList' + j + ' option').filter(function () {
