@@ -1354,6 +1354,8 @@ class AdminController {
         redirect(controller: "admin", action: "catalogCatagory", params:"view" )
 
     }
+
+
 }
 
 

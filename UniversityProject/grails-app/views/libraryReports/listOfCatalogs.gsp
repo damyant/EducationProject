@@ -9,14 +9,14 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
+    <g:javascript src='bookIssue.js'/>
     <title></title>
 </head>
 
 <body>
 <div id="main">
     <fieldset class="form">
-
-        <g:uploadForm>
+        <g:form name="catalogList" id="catalogList">
             <table class="university-size-full-1-1 inner spinner">
                 <tr>
 
@@ -38,35 +38,35 @@
                     </td>
                 </tr>
 
-
-
                 <tr>
 
-                    <td class="university-size-1-3">ISBN<span class="university-obligatory">*</span></td>
+                    <td class="university-size-1-3">ISBN</td>
                     <td class="university-size-1-3"><input type="text" name="catalogIsbn" class="university-size-1-2" value="${catalogIns?.isbn}"></td>
                 </tr>
                 <tr>
 
-                    <td class="university-size-1-3">Title<span class="university-obligatory">*</span></td>
+                    <td class="university-size-1-3">Title</td>
                     <td class="university-size-1-3"><input type="text" name="catalogTitle" class="university-size-1-2" value="${catalogIns?.title}"></td>
                 </tr>
                 <tr>
 
-                    <td class="university-size-1-3">Author<span class="university-obligatory">*</span></td>
+                    <td class="university-size-1-3">Author</td>
                     <td class="university-size-1-3"><input type="text" name="catalogAuthor" class="university-size-1-2" value="${catalogIns?.author}"></td>
                 </tr>
-
-
 
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" class="university-size-1-2 university-button" value="Submit"/>
+                        <input type="button" class="university-size-1-2 university-button" value="Show" onclick="showCatalogList()"/>
                     </td>
                     <td></td>
                 </tr>
             </table>
-        </g:uploadForm>
+        </g:form>
+
+        <table class="university-size-full-1-1 inner spinner" id="catalogList">
+            <div id="errorMsg" class="university-status-message"></div>
+
     </fieldset>
 </div>
 

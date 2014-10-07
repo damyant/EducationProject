@@ -13,7 +13,15 @@ $(document).ready(function(){
         $('#quantity > option').eq(index).attr('selected','selected')
 
     });
+
+    $("#test").click(function(){
+        alert("hi")
+    })
+
+
 })
+
+
 
 function getSubjects(){
     $.ajax({
@@ -106,12 +114,10 @@ function validateLength() {
 }
 
 function saveData(){
-    var bookList=[]
+    var bookList=[];
     $('#selectedBookList option').each(function () {
-
         bookList.push($(this).val() || '');
-
-    })
+    });
 
     $.ajax({
         type: "post",
@@ -120,14 +126,87 @@ function saveData(){
         success: function (data) {
             if(data.flag=="true") {
                  location.reload();
-
             }else{
                 $('#allBookList option').remove()
             }
         }
     })
 
+}
 
+function showIssuedBooks(){
+    $.ajax({
+        type: "post",
+        url: url('libraryReports', 'getIssuedBooks', ''),
+        data:"id="+$("#textBoxId").val(),
+        success: function (data) {
+            if(data.length>0) {
+                var count=1;
+                $("#bookList tr").remove()
+                $('#errorMsg').text(" ")
+                $("#bookList").append("<tr><th>S.No</th><th>Book Name</th><th>Category</th><th>ISBN</th><th>Issuing Date</th></tr>")
+                for(var i=0;i<data.length;i++){
+                    $("#bookList").append('<tr><td>'+count+'</td><td>'+data[i][0]+'</td><td>'+data[i][1]+'</td><td>'+data[i][2]+'</td><td>'+data[i][3]+'</td></tr>')
+                ++count
+                }
+
+            }else{
+                $("#bookList tr").remove()
+                $('#errorMsg').text("No Record Found")
+            }
+        }
+    })
+
+}
+
+function showCatalogList(){
+
+    $.ajax({
+        type: "post",
+        url: url('libraryReports', 'getCatalogList', ''),
+        data:$("#catalogList").serialize(),
+        success: function (data) {
+            if(data.length>0) {
+                var count=1;
+                $("#bookList tr").remove()
+                $('#errorMsg').text(" ")
+                $("#bookList").append("<tr><th>S.No</th><th>Book Name</th><th>Category</th><th>ISBN</th><th>Issuing Date</th></tr>")
+                for(var i=0;i<data.length;i++){
+                    $("#bookList").append('<tr><td>'+count+'</td><td>'+data[i][0]+'</td><td>'+data[i][1]+'</td><td>'+data[i][2]+'</td><td>'+data[i][3]+'</td></tr>')
+                    ++count
+                }
+
+            }else{
+                $("#bookList tr").remove()
+                $('#errorMsg').text("No Record Found")
+            }
+        }
+    })
+
+}
+
+function getOverDueBooks(){
+    $.ajax({
+        type: "post",
+        url: url('libraryReports', 'getOverDueBooks', ''),
+        data:"id="+$("#textBoxId").val(),
+        success: function (data) {
+            if(data.length>0) {
+                var count=1;
+                $("#bookList tr").remove()
+                $('#errorMsg').text(" ")
+                $("#bookList").append("<tr><th>S.No</th><th>Book Name</th><th>Category</th><th>ISBN</th><th>Issuing Date</th></tr>")
+                for(var i=0;i<data.length;i++){
+                    $("#bookList").append('<tr><td>'+count+'</td><td>'+data[i][0]+'</td><td>'+data[i][1]+'</td><td>'+data[i][2]+'</td><td>'+data[i][3]+'</td></tr>')
+                    ++count
+                }
+
+            }else{
+                $("#bookList tr").remove()
+                $('#errorMsg').text("No Record Found")
+            }
+        }
+    })
 }
 
 
