@@ -44,14 +44,7 @@
                         code="default.mainMenu2.enrollAtIdol"/></g:link></li>
             </sec:ifNotGranted>
         </sec:ifLoggedIn>
-        <li><g:link controller="student" action="downloadAdmitCard"><g:message
-                code="default.mainMenu2.subMenu3"/></g:link></li>
-        <sec:ifLoggedIn>
-            <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
-                <li><g:link controller="student" action="generateIdentityCard"><g:message
-                        code="default.mainMenu2.subMenu4"/></g:link></li>
-            </sec:ifNotGranted>
-        </sec:ifLoggedIn>
+
     %{--<li><a href="#"><g:message code="default.mainMenu2.subMenu4"/></a></li>--}%
         <li><a class="statustopopup" href="#"><g:message code="default.mainMenu2.subMenu5"/></a></li>
     </ul>
@@ -281,50 +274,31 @@
 
     </sec:ifNotGranted>
 </sec:ifLoggedIn>
-%{--<sec:ifLoggedIn>--}%
-%{--<sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_IDOL_USER">--}%
-%{--<li><a href="#"><g:message code="default.mainMenu5"/></a></li>--}%
-%{--</sec:ifNotGranted>--}%
-%{--</sec:ifLoggedIn>--}%
+<li><a href="#"><g:message code="default.mainMenu5"/></a>
+    <ul>
+        <li><g:link controller="student" action="downloadAdmitCard"><g:message
+                code="default.mainMenu2.subMenu3"/></g:link></li>
+
+    </ul>
+</li>
 
 </sec:ifNotGranted>
 <sec:ifAnyGranted roles="ROLE_LIBRARY">
-
-%{--<<<<<<< HEAD--}%
-%{--<li><a href="#"><g:message code="default.mainMenu11"/></a>--}%
-%{--<ul>--}%
-    %{--<li> <g:link><g:message code="default.mainMenu11.subMenu2"/> </g:link>--}%
-        %{--<ul>--}%
-            %{--<g:link controller="admin" action="catalogType"> <g:message code="default.mainMenu11.subMenu1.submenu1"/></g:link>--}%
-            %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
-            %{--<g:link controller="admin" action="catalogType" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu1.submenu3"/></g:link>--}%
-        %{--</ul>--}%
-    %{--</li>--}%
-    %{--<li> <g:link><g:message code="default.mainMenu11.subMenu3"/> </g:link>--}%
-        %{--<ul>--}%
-            %{--<g:link controller="admin" action="catalogCategory"> <g:message code="default.mainMenu11.subMenu3.submenu1"/></g:link>--}%
-            %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
-            %{--<g:link controller="admin" action="catalogCategory" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu3.submenu2"/></g:link>--}%
-        %{--</ul>--}%
-    %{--</li>--}%
-
-
-
-
-    %{--<li> <a href="#"><g:message code="default.mainMenu11.subMenu1"/> </a>--}%
-%{--=======--}%
     <li><a href="#"><g:message code="default.mainMenu11"/></a>
+
         <ul>
             <li><g:link><g:message code="default.mainMenu11.subMenu2"/></g:link>
                 <ul>
                     <g:link controller="admin" action="catalogType"><g:message
                             code="default.mainMenu11.subMenu1.submenu1"/></g:link>
+                    %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
                     <g:link controller="admin" action="catalogType" params="[view: 'view']"><g:message
                             code="default.mainMenu11.subMenu1.submenu3"/></g:link>
                 </ul>
             </li>
     <li> <g:link><g:message code="default.mainMenu11.subMenu3"/> </g:link>
         <ul>
+
             <g:link controller="admin" action="catalogCatagory"> <g:message code="default.mainMenu11.subMenu3.submenu1"/></g:link>
             %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
             <g:link controller="admin" action="catalogCatagory" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu3.submenu2"/></g:link>
@@ -340,6 +314,10 @@
                             code="default.mainMenu11.subMenu1.submenu3"/></g:link>
                 </ul>
             </li>
+
+            <li><g:link controller="admin" action="bookIssue"><g:message
+                    code="default.mainMenu11.subMenu5"/></g:link>
+
             <li><a href="#"><g:message code="default.mainMenu11.subMenu4"/></a>
                 <ul>
                     <g:link controller="libraryReports" action="issuedBooks"><g:message
@@ -363,9 +341,11 @@
                             code="default.mainMenu11.subMenu4.submenu3"/></g:link>
                 </ul>
 
+
             </li>
         </ul>
     </li>
+
 </sec:ifAnyGranted>
 
 <li><a href="#"><g:message code="default.mainMenu12"/></a>
@@ -428,7 +408,12 @@
                     <li><g:link controller="admin" action="studyMaterial"><g:message
                             code="default.mainMenu6.subMenu10"/></g:link></li>
                 </sec:ifNotGranted>
-
+                <sec:ifLoggedIn>
+                    <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
+                        <li><g:link controller="student" action="generateIdentityCard"><g:message
+                                code="default.mainMenu2.subMenu4"/></g:link></li>
+                    </sec:ifNotGranted>
+                </sec:ifLoggedIn>
                 <li><a href="#"><g:message code="default.mainMenu6.subMenu7"/></a>
                     <ul>
                         <sec:ifNotGranted roles="ROLE_STUDY_CENTRE,ROLE_LIBRARY">
@@ -461,14 +446,18 @@
                             code="default.mainMenu6.subMenu20"/></g:link></li>
                     <li><a href="#"><g:message code="default.mainMenu6.subMenu21"/></a>
                         <ul>
-                            <li><g:link controller="homeAssignment" action="studentAddressSingle"><g:message code="default.mainMenu3.subMenu2.submenu1.submemu1"/></g:link></li>
-                            <li><g:link controller="homeAssignment" action="studentAddress"><g:message code="default.mainMenu3.subMenu2.submenu4"/></g:link></li>
+                            <li><g:link controller="homeAssignment" action="studentAddressSingle"><g:message
+                                    code="default.mainMenu3.subMenu2.submenu1.submemu1"/></g:link></li>
+                            <li><g:link controller="homeAssignment" action="studentAddress"><g:message
+                                    code="default.mainMenu3.subMenu2.submenu4"/></g:link></li>
                         </ul>
                     </li>
                 </sec:ifNotGranted>
                 <sec:ifAnyGranted roles="ROLE_ADMIN">
-                    <li><g:link controller="photoUpload" action="photoUpload"><g:message code="default.mainMenu3.subMenu2.submenu5"/></g:link></li>
-                    <li><g:link controller="feeDetails" action="printAChallan"><g:message code="default.mainMenu3.subMenu2.submenu3"/></g:link></li>
+                    <li><g:link controller="photoUpload" action="photoUpload"><g:message
+                            code="default.mainMenu3.subMenu2.submenu5"/></g:link></li>
+                    <li><g:link controller="feeDetails" action="printAChallan"><g:message
+                            code="default.mainMenu3.subMenu2.submenu3"/></g:link></li>
                 </sec:ifAnyGranted>
                 <sec:ifAnyGranted roles="ROLE_ADMIN">
                     <li><a href="#"><g:message code="default.mainMenu10"/></a>
@@ -573,9 +562,6 @@
         <li><g:link controller="report" action="reportIndex"><g:message code="default.mainMenu9"/></g:link></li>
     </sec:ifLoggedIn></sec:ifNotGranted>
 </div>
-%{--</div>--}%
-
-
 <div class="scroller"><!-- this is for emulating position fixed of the nav -->
     <div class="scroller-inner">
         <g:render template="/layouts/statusPopup"/>

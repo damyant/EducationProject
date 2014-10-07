@@ -69,12 +69,23 @@ body {
 .university-size-1-2 {
     width: 50%;
 }
+.new-university-size-1-2 {
+    width: 90%;
+}
+.subHeading{
+    /*margin-right: 20px;*/
+    font-weight: bold;
+}
 .university-size-3-4{
     width: 75%;
 }
 
 .university-size-1-3 {
     width: 33.33%;
+}
+
+.new-university-size-1-3 {
+    width: 20.33%;
 }
 
 .university-size-2-3 {
@@ -341,6 +352,13 @@ input[disabled], input[readonly] {
     margin-bottom: 5px;
     font-size: 80%;
 }
+
+.multiSelect-buttons-button1 {
+    width: 40%;
+    margin-bottom: 5px;
+    font-size: 80%;
+}
+
 
 #multiSelectTab .multiSelect-buttons {
     width: 10%;

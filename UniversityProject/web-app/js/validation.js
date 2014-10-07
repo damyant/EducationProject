@@ -710,9 +710,10 @@ function admissionFeeValidation(index){
 
 function checkValidation() {
 //    alert("hi")
-    $("#paychallanForStudyCenter,#assignLateFeeDate,#assignAdmissionPeriod").validate({
+    $("#paychallanForStudyCenter,#assignLateFeeDate,#assignAdmissionPeriod, #saveCatalogType").validate({
         rules: {
             paymentMode:"required",
+            catalogName:"required",
             paymentDate:"required",
             programCategory:"required",
             rollNoSearch:"required",
@@ -738,6 +739,7 @@ function checkValidation() {
         },
         messages: {
             programCategory:"Please Select Programme Category",
+            catalogName:"Please Enter Catalog Name ",
             program:"Please Select Programme",
             paymentMode:"Please  Select Payment Mode",
             rollNoSearch:"Please Enter valid Roll No",

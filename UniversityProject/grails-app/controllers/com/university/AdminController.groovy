@@ -1,5 +1,6 @@
 package com.university
 
+import IST.BookIssue
 import IST.Catalog
 import IST.CatalogCatagory
 import IST.CatalogType
@@ -1151,6 +1152,7 @@ class AdminController {
             [catalogIns: catIns, catalogTypeList: catalogTypeList,catalogCatagoryList:catalogCatagoryList]
 
         } else {
+            println("<<<"+catalogTypeList)
             [catalogTypeList: catalogTypeList,catalogCatagoryList:catalogCatagoryList]
         }
 
@@ -1174,7 +1176,7 @@ class AdminController {
         } else {
             catalogInst = new Catalog()
             catalogInst.type = CatalogType.findById(Long.parseLong(params.catalogType))
-            catalogInst.catagory = CatalogCatagory.findById(Long.parseLong(params.catalogCatagory))
+            catalogInst.catagory=CatalogCatagory.get(Long.parseLong(params.catalogCategory))
             catalogInst.isbn = params.catalogIsbn
             catalogInst.title = params.catalogTitle
             catalogInst.author = params.catalogAuthor
@@ -1201,9 +1203,7 @@ class AdminController {
     @Secured(["ROLE_LIBRARY"])
     def viewCatalog = {
         def catalogList = Catalog.list()
-
-
-        [catalogList: catalogList]
+       [catalogList: catalogList]
 
     }
     @Secured(["ROLE_LIBRARY"])
@@ -1304,6 +1304,44 @@ class AdminController {
     }
 
     @Secured(["ROLE_LIBRARY"])
+
+    def bookIssue={
+        def catalogTypeList = CatalogType.list()
+        def catalogCatagoryList = CatalogCatagory.list()
+        [catalogTypeList: catalogTypeList,catalogCatagoryList: catalogCatagoryList]
+
+    }
+
+    def getBooksName={
+        def categoryIns=CatalogCatagory.get(params.catalogCategory)
+        def catalogTypeIns=CatalogType.get(params.catalogType)
+        def boolList=Catalog.findAllByCatagoryAndType(categoryIns,catalogTypeIns)
+        render boolList as JSON
+
+    }
+
+    def saveBookIssue={
+        def returnMap=[:]
+       def bookList=params.bookList.split(",")
+        def catalogCategoryObj=CatalogCatagory.get(params.catalogCategory)
+                def catalogTypeObj=CatalogType.get(params.catalogType)
+        bookList.each{
+            def obj= new BookIssue()
+            def catalogObj=Catalog.get(it.toString())
+            catalogObj.availableCatalog=catalogObj.availableCatalog-1
+            obj.catalog=catalogObj
+            obj.catalogCategory=catalogCategoryObj
+            obj.catalogType=catalogTypeObj
+            obj.issuingPersonId=params.id
+            obj.issueTo=params.type
+            obj.save(failOnError: true)
+            catalogObj.save(failOnError:true)
+            returnMap.flag="true"
+
+        }
+        render returnMap as JSON
+
+    }
     def delCatalogCatagory={
         def catalogCatagoryInst=CatalogCatagory.findById(Long.parseLong(params.catId))
         catalogCatagoryInst.delete(flush: true)
@@ -1314,7 +1352,9 @@ class AdminController {
             flash.message= "deleted Successfully"
         }
         redirect(controller: "admin", action: "catalogCatagory", params:"view" )
+
     }
+
 
 }
 

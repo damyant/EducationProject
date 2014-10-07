@@ -29,23 +29,23 @@
 
                     <td class="university-size-1-3">Type<span class="university-obligatory">*</span></td>
                     <td class="university-size-1-3">
-                        <g:select name="catalogType" class="university-size-1-2" optionKey="id"
-                                  optionValue="catalogTypeName" value="${catalogIns?.type?.id}"
+                              <g:select name="catalogType" class="university-size-1-2" optionKey="id"
+                                  optionValue="catalogTypeName"  value="${catalogIns?.type?.id}"
                                   from="${catalogTypeList}" noSelection="['': ' Select Catalog Type']"
                                   onchange=""/>
+
+
                     </td>
                 </tr>
                 <tr>
                     <td class="university-size-1-3">Category<span class="university-obligatory">*</span></td>
                     <td class="university-size-1-3">
-                            <g:select name="catalogCatagory" class="university-size-1-2" optionKey="id"
+
+                            <g:select name="catalogCategory" class="university-size-1-2" optionKey="id"
                                       optionValue="catalogCatagoryName" value="${catalogIns?.catagory?.id}"
-                                      from="${catalogCatagoryList}" noSelection="['': ' Select Catalog Catagory']"
-                                      onchange=""/>
-                    </td>
+                                      from="${catalogCatagoryList}" noSelection="['': ' Select Catalog Category']"
+
                 </tr>
-
-
 
                 <tr>
 

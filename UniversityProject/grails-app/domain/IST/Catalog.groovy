@@ -12,8 +12,10 @@ class Catalog {
     String publisher
     Integer year
     Integer quantity
+    Integer availableCatalog
 
     static constraints = {
+        availableCatalog (nullable: true)
     }
 
     static mapping = {
@@ -25,6 +27,7 @@ class Catalog {
         publisher column: "publisher"
         year column:"year"
         quantity column:"quantity"
+        availableCatalog column: "availableCatalog"
     }
 
 }
