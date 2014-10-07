@@ -42,13 +42,13 @@
                 <table class="inner university-size-1-2" style="margin: auto;">
                     <tr>
                         <td class="university-size-1-3">Catalog Name</td>
-                        <td class="university-size-2-3"><input type="text" class="university-size-1-1"
+                        <td class="university-size-2-3"><input type="text" class="university-size-1-1" onkeypress="return onlyAlphabets(event);"
                                                                value="${catagoryTypeInst?.catalogTypeName}"
                                                                name="catalogName"></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><input type="submit" class="university-button" value="Save"/></td>
+                        <td><input type="submit" class="university-button" onclick="checkValidation()" value="Save"/></td>
                     </tr>
                 </table>
             </g:form>
