@@ -114,23 +114,27 @@ function validateLength() {
 }
 
 function saveData(){
-    var bookList=[];
-    $('#selectedBookList option').each(function () {
-        bookList.push($(this).val() || '');
-    });
+    validateLibrary()
+    var result=$('#bookIssueForm').valid()
+    if (result) {
+        var bookList = [];
+        $('#selectedBookList option').each(function () {
+            bookList.push($(this).val() || '');
+        });
 
-    $.ajax({
-        type: "post",
-        url: url('admin', 'saveBookIssue', ''),
-        data:$("#bookIssueForm").serialize()+"&bookList="+bookList,
-        success: function (data) {
-            if(data.flag=="true") {
-                 location.reload();
-            }else{
-                $('#allBookList option').remove()
+        $.ajax({
+            type: "post",
+            url: url('admin', 'saveBookIssue', ''),
+            data: $("#bookIssueForm").serialize() + "&bookList=" + bookList,
+            success: function (data) {
+                if (data.flag == "true") {
+                    location.reload();
+                } else {
+                    $('#allBookList option').remove()
+                }
             }
-        }
-    })
+        })
+    }
 
 }
 

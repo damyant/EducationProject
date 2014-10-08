@@ -17,7 +17,7 @@
     <fieldset class="form">
         <h3>Add Catalog</h3>
 
-        <g:uploadForm id="ctl1" controller="admin" action="saveCatalog">
+        <g:form controller="admin" action="saveCatalog"  id="saveCatalog"  name="saveCatalog" >
             <g:if test="${flash.message}">
                 <div class="message"><div class="university-status-message">${flash.message}</div></div>
             </g:if>
@@ -43,7 +43,7 @@
 
                             <g:select name="catalogCategory" class="university-size-1-2" optionKey="id"
                                       optionValue="catalogCatagoryName" value="${catalogIns?.catagory?.id}"
-                                      from="${catalogCatagoryList}" noSelection="['': ' Select Catalog Category']"
+                                      from="${catalogCatagoryList}" noSelection="['': ' Select Catalog Category']"/>
 
                 </tr>
 
@@ -82,12 +82,12 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" class="university-size-1-2 university-button" value="Submit"/>
+                        <input type="submit" class="university-size-1-2 university-button" onclick="validateLibrary()" value="Submit"/>
                     </td>
                     <td></td>
                 </tr>
             </table>
-        </g:uploadForm>
+        </g:form>
     </fieldset>
 </div>
 
