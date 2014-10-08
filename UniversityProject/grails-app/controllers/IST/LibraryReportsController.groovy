@@ -18,11 +18,27 @@ class LibraryReportsController {
         def catalogCatagoryList = CatalogCatagory.list()
         [catalogTypeList: catalogTypeList,catalogCatagoryList: catalogCatagoryList]
 
+
     }
     def overdueBooks(){
 
     }
 
+    def byType(){
+        redirect(action: 'listOfCatalogs', params: [by:'byType'])
+    }
+    def byCategory(){
+        redirect(action: 'listOfCatalogs', params: [by:'byCategory'])
+    }
+    def byIsbn(){
+        redirect(action: 'listOfCatalogs', params: [by:'byIsbn'])
+    }
+    def byTitle(){
+        redirect(action: 'listOfCatalogs', params: [by:'byTitle'])
+    }
+    def byAuthor(){
+        redirect(action: 'listOfCatalogs', params: [by:'byAuthor'])
+    }
     def getIssuedBooks={
         def finalList=[]
         def bookIns=BookIssue.findAllByIssuingPersonId(params.id)
@@ -69,6 +85,4 @@ class LibraryReportsController {
         }
         render finalList as JSON
     }
-
-
 }

@@ -322,8 +322,21 @@
                 <ul>
                     <g:link controller="libraryReports" action="issuedBooks"><g:message
                             code="default.mainMenu11.subMenu4.submenu1"/></g:link>
-                    <g:link controller="libraryReports" action="listOfCatalogs"><g:message
+                    <li><g:link controller="libraryReports" action="listOfCatalogs"><g:message
                             code="default.mainMenu11.subMenu4.submenu2"/></g:link>
+                    <ul>
+                        <g:link controller="libraryReports" action="byType"><g:message
+                                code="default.mainMenu11.subMenu4.submenu2.submenu1"/></g:link>
+                        <g:link controller="libraryReports" action="byCategory"><g:message
+                                    code="default.mainMenu11.subMenu4.submenu2.submenu2"/></g:link>
+                        <g:link controller="libraryReports" action="byIsbn"><g:message
+                                    code="default.mainMenu11.subMenu4.submenu2.submenu3"/></g:link>
+                        <g:link controller="libraryReports" action="byTitle"><g:message
+                                code="default.mainMenu11.subMenu4.submenu2.submenu4"/></g:link>
+                        <g:link controller="libraryReports" action="byAuthor"><g:message
+                                    code="default.mainMenu11.subMenu4.submenu2.submenu5"/></g:link>
+                    </ul></li>
+
                     <g:link controller="libraryReports" action="overdueBooks"><g:message
                             code="default.mainMenu11.subMenu4.submenu3"/></g:link>
                 </ul>

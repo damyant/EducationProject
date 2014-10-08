@@ -16,8 +16,28 @@
 <body>
 <div id="main">
     <fieldset class="form">
+
+
         <g:form name="catalogList" id="catalogList">
             <table class="university-size-full-1-1 inner spinner">
+            <g:if test="${params.by=="byType"}">
+
+               <tr>
+
+                   <td class="university-size-1-3">Type<span class="university-obligatory">*</span></td>
+                   <td class="university-size-1-3">
+                <g:select name="catalogType" class="university-size-1-2" optionKey="id"
+                          optionValue="catalogTypeName" value="${catalogIns?.type?.id}"
+                          from="${catalogTypeList}" noSelection="['': ' Select Catalog Type']"
+                          onchange=""/>
+                </td>
+            </tr>
+
+        </g:if>
+
+
+
+            <g:if test="${params.by=="byCategory"}">
                 <tr>
 
                     <td class="university-size-1-3">Type<span class="university-obligatory">*</span></td>
@@ -28,6 +48,7 @@
                                   onchange=""/>
                     </td>
                 </tr>
+
                 <tr>
                     <td class="university-size-1-3">Category<span class="university-obligatory">*</span></td>
                     <td class="university-size-1-3">
@@ -37,22 +58,29 @@
                                   onchange=""/>
                     </td>
                 </tr>
+           </g:if>
+                <g:if test="${params.by=="byIsbn"}">
 
                 <tr>
 
                     <td class="university-size-1-3">ISBN</td>
                     <td class="university-size-1-3"><input type="text" name="catalogIsbn" class="university-size-1-2" value="${catalogIns?.isbn}"></td>
                 </tr>
+                </g:if>
+            <g:if test="${params.by=="byTitle"}">
                 <tr>
 
                     <td class="university-size-1-3">Title</td>
                     <td class="university-size-1-3"><input type="text" name="catalogTitle" class="university-size-1-2" value="${catalogIns?.title}"></td>
                 </tr>
+            </g:if>
+            <g:if test="${params.by=="byAuthor"}">
                 <tr>
 
                     <td class="university-size-1-3">Author</td>
                     <td class="university-size-1-3"><input type="text" name="catalogAuthor" class="university-size-1-2" value="${catalogIns?.author}"></td>
                 </tr>
+            </g:if>
 
                 <tr>
                     <td></td>
