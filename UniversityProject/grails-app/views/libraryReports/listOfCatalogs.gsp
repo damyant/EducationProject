@@ -18,7 +18,7 @@
     <fieldset class="form">
 
 
-        <g:form name="catalogList" id="catalogList">
+        <g:form name="catalogForm" id="catalogForm">
             <table class="university-size-full-1-1 inner spinner">
             <g:if test="${params.by=="byType"}">
 
@@ -92,8 +92,8 @@
             </table>
         </g:form>
 
-        <table class="university-size-full-1-1 inner spinner" id="catalogList">
-            <div id="errorMsg" class="university-status-message"></div>
+        <table class="university-size-full-1-1 inner spinner" id="bookList">
+            <div id="errorMsg" class="university-status-message"></div></table>
 
     </fieldset>
 </div>

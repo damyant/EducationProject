@@ -17,8 +17,6 @@ class LibraryReportsController {
         def catalogTypeList = CatalogType.list()
         def catalogCatagoryList = CatalogCatagory.list()
         [catalogTypeList: catalogTypeList,catalogCatagoryList: catalogCatagoryList]
-
-
     }
     def overdueBooks(){
 
@@ -61,9 +59,63 @@ class LibraryReportsController {
     }
 
     def getCatalogList={
+        def finalList=[]
         if(params.catalogIsbn){
-
+            def catalogObj=Catalog.findByIsbn(params.catalogIsbn)
+            if(catalogObj){
+            def subList=[]
+            subList<<catalogObj.title
+            subList<<catalogObj.publisher
+            subList<<catalogObj.isbn
+            subList<<catalogObj.author
+            finalList<<subList
+            }
         }
+        if(params.catalogTitle){
+            def catalogObj=Catalog.findAllByTitle(params.catalogTitle)
+            if(catalogObj){
+                catalogObj.each{
+                def subList=[]
+                subList<<it.title
+                subList<<it.publisher
+                subList<<it.isbn
+                subList<<it.author
+                finalList<<subList
+                }
+            }
+        }
+        if(params.catalogCatagory && params.catalogType){
+            def catalogCategory=CatalogCatagory.get(params.catalogCatagory)
+            def catalogType=CatalogType.get(params.catalogType)
+            def catalogObj=Catalog.findAllByCatagoryAndType(catalogCategory,catalogType)
+            if(catalogObj){
+                catalogObj.each{
+                    def subList=[]
+                    subList<<it.title
+                    subList<<it.publisher
+                    subList<<it.isbn
+                    subList<<it.author
+                    finalList<<subList
+                }
+            }
+        }
+        if(params.catalogAuthor){
+            def catalogObj=Catalog.findAllByAuthor(params.catalogAuthor)
+            if(catalogObj){
+                catalogObj.each{
+                    def subList=[]
+                    subList<<it.title
+                    subList<<it.publisher
+                    subList<<it.isbn
+                    subList<<it.author
+                    finalList<<subList
+                }
+            }
+        }
+        render finalList as JSON
+
+
+
     }
 
     def getOverDueBooks={
