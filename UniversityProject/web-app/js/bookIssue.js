@@ -211,7 +211,48 @@ function getOverDueBooks(){
             }
         }
     })
+
+
+
+}
+function enableRoll(){
+
+
+    $("#rollnum").prop( "disabled", false );
+    if($("#rollnum").length > 0 && $("#rollnum").val() != ''){
+        $("#catalogType").removeAttr( 'disabled' );
+    }
+
 }
 
 
 
+function enableType(){
+
+  if($("#rollnum").length > 0 && $("#rollnum").val() != ''){
+        $("#catalogType").removeAttr( 'disabled' );
+    }
+
+}
+
+function enableCategory(){
+
+    if($("#catalogType").length > 0 && $("#catalogType").val() != ''){
+ $("#catalogCategory").removeAttr('disabled');
+    }
+}
+
+
+function enableElements(){
+
+    if($("#catalogCategory").length > 0 && $("#catalogCategory").val() != ''){
+
+        $("#allBookList").removeAttr('disabled');
+        $("#quantity").removeAttr('disabled');
+        $("#addButton").prop( "disabled", false );
+        $("#removeButton").prop( "disabled", false );
+        $("#selectedBookList").removeAttr('disabled');
+        $("#button1").prop( "disabled", false );
+
+    }
+}
