@@ -22,8 +22,9 @@
         <table class="university-size-full-1-1 inner spinner">
             <tr>
                 <td class="new-university-size-1-3">Book Allocation To<span class="university-obligatory">*</span></td>
-                <td class="new-university-size-1-3">
+                <td class="new-university-size-2-3">
                     <select class="university-size-1-2" name="type">
+                    <option value="">Sellect Allocation Type</option>
                     <option value="student">Student</option>
                     <option  value="faculty">Faculty</option>
                     </select>
@@ -31,11 +32,11 @@
             </tr>
             <tr>
                 <td class="new-university-size-1-3">Enter RollNumber/ EmpId<span class="university-obligatory">*</span></td>
-                <td class="new-university-size-1-3"><input type="text" name="id" class="university-size-1-2"></td>
+                <td class="new-university-size-2-3"><input type="text" name="id" class="university-size-1-2"></td>
             </tr>
             <tr>
                <td class="new-university-size-1-3">Type<span class="university-obligatory">*</span></td>
-                <td class="new-university-size-1-3">
+                <td class="new-university-size-2-3">
                     <g:select name="catalogType" id="catalogType" class="university-size-1-2" optionKey="id"
                               optionValue="catalogTypeName"  value="${catalogIns?.type?.id}"
                               from="${catalogTypeList}" noSelection="['': ' Select Catalog Type']"
@@ -45,7 +46,7 @@
             </tr>
             <tr>
                 <td class="new-university-size-1-3">Category<span class="university-obligatory">*</span></td>
-                <td class="new-university-size-1-3">
+                <td class="new-university-size-2-3">
 
                     <g:select name="catalogCategory" id="catalogCategory" class="university-size-1-2" optionKey="id"
                               optionValue="catalogCatagoryName" value="${catalogIns?.catagory?.id}"
@@ -55,25 +56,31 @@
             </tr>
             <tr>
                 <td class="new-university-size-1-3">Books List<span class="university-obligatory">*</span></td>
-                <td>
-                    <g:select name="allBookList" id="allBookList" class="new-university-size-1-2" optionKey="id"
-                              optionValue="catalogCatagoryName" value=""
-                              from="" onchange="" multiple="true"/>
+                <td  class="new-university-size-2-3">
+                    <table class="university-size-full-1-1 inner">
+                        <tr>
+                            <td style="width: 35%;">
+                                <g:select name="allBookList" id="allBookList" class="university-size-1-1" optionKey="id"
+                                          optionValue="catalogCatagoryName" value=""
+                                          from="" onchange="" multiple="true"/>
+                            </td>
+                            <td  style="width: 10%;">
+                                <g:select name="quantity" id="quantity" class="university-size-1-1" optionKey="id"
+                                          optionValue="catalogCatagoryName" value=""
+                                          from="" onchange="" multiple="true"/>
+                            </td>
+                            <td  style="width: 20%;">
+                                <input type="button" value="Add" class=" multiSelect-buttons-button1" onclick="addToList()">
+                                <input type="button" value="Remove" class="multiSelect-buttons-button1" onclick="removeFromList()">
+                            </td>
+                            <td  style="width: 40%;">
+                                <g:select name="selectedBookList" id="selectedBookList" class="university-size-1-1" optionKey="id"
+                                          optionValue="catalogCatagoryName" value=""
+                                          from=""  onchange="" multiple="true"/>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
-                <td>
-                    <g:select name="quantity" id="quantity" class="new-university-size-1-2" optionKey="id"
-                              optionValue="catalogCatagoryName" value=""
-                              from="" onchange="" multiple="true"/>
-                </td>
-                <td style="width:12% "><input type="button" value="Add" class="multiSelect-buttons-button1" onclick="addToList()">
-                    <input type="button" value="Remove" class="multiSelect-buttons-button1" onclick="removeFromList()">
-                </td>
-                <td>
-                    <g:select name="selectedBookList" id="selectedBookList" class="university-size-1-2" optionKey="id"
-                              optionValue="catalogCatagoryName" value=""
-                              from=""  onchange="" multiple="true"/>
-                </td>
-
             </tr>
 
             <tr>

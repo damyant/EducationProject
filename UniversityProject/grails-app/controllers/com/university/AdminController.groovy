@@ -1061,7 +1061,7 @@ class AdminController {
     def noticeBoardView = {
 
         def noticeList = []
-        println(params)
+        println("<<<<<<<<<<<<"+params)
         if (params.archive) {
             println(params.archiveNoticeList.size())
             for (def i = 0; i < params.archiveNoticeList.size(); i++) {

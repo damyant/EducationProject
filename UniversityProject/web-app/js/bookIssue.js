@@ -114,23 +114,27 @@ function validateLength() {
 }
 
 function saveData(){
-    var bookList=[];
-    $('#selectedBookList option').each(function () {
-        bookList.push($(this).val() || '');
-    });
+    validateLibrary()
+    var result=$('#bookIssueForm').valid()
+    if (result) {
+        var bookList = [];
+        $('#selectedBookList option').each(function () {
+            bookList.push($(this).val() || '');
+        });
 
-    $.ajax({
-        type: "post",
-        url: url('admin', 'saveBookIssue', ''),
-        data:$("#bookIssueForm").serialize()+"&bookList="+bookList,
-        success: function (data) {
-            if(data.flag=="true") {
-                 location.reload();
-            }else{
-                $('#allBookList option').remove()
+        $.ajax({
+            type: "post",
+            url: url('admin', 'saveBookIssue', ''),
+            data: $("#bookIssueForm").serialize() + "&bookList=" + bookList,
+            success: function (data) {
+                if (data.flag == "true") {
+                    location.reload();
+                } else {
+                    $('#allBookList option').remove()
+                }
             }
-        }
-    })
+        })
+    }
 
 }
 
@@ -164,13 +168,13 @@ function showCatalogList(){
     $.ajax({
         type: "post",
         url: url('libraryReports', 'getCatalogList', ''),
-        data:$("#catalogList").serialize(),
+        data:$("#catalogForm").serialize(),
         success: function (data) {
             if(data.length>0) {
                 var count=1;
                 $("#bookList tr").remove()
                 $('#errorMsg').text(" ")
-                $("#bookList").append("<tr><th>S.No</th><th>Book Name</th><th>Category</th><th>ISBN</th><th>Issuing Date</th></tr>")
+                $("#bookList").append("<tr><th>S.No</th><th>Book Name</th><th>Publisher</th><th>ISBN</th><th>Author</th></tr>")
                 for(var i=0;i<data.length;i++){
                     $("#bookList").append('<tr><td>'+count+'</td><td>'+data[i][0]+'</td><td>'+data[i][1]+'</td><td>'+data[i][2]+'</td><td>'+data[i][3]+'</td></tr>')
                     ++count

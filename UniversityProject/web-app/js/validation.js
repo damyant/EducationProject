@@ -710,10 +710,11 @@ function admissionFeeValidation(index){
 
 function checkValidation() {
 //    alert("hi")
-    $("#paychallanForStudyCenter,#assignLateFeeDate,#assignAdmissionPeriod, #saveCatalogType").validate({
+    $("#paychallanForStudyCenter,#assignLateFeeDate,#assignAdmissionPeriod, #saveCatalogCatagory, #saveCatalogType").validate({
         rules: {
             paymentMode:"required",
             catalogName:"required",
+            catalogCatagoryName:"required",
             paymentDate:"required",
             programCategory:"required",
             rollNoSearch:"required",
@@ -740,6 +741,7 @@ function checkValidation() {
         messages: {
             programCategory:"Please Select Programme Category",
             catalogName:"Please Enter Catalog Name ",
+            catalogCatagoryName:"Please Enter Catalog Category Name ",
             program:"Please Select Programme",
             paymentMode:"Please  Select Payment Mode",
             rollNoSearch:"Please Enter valid Roll No",
@@ -863,3 +865,40 @@ function disableKeyInput(t){
 //function disableThisButton(t){
 //    $(t).attr("disabled", true)
 //}
+
+function validateLibrary() {
+    $("#saveCatalog, #bookIssueForm, #ntc1").validate({
+        rules: {
+            catalogType:"required",
+            catalogCategory:"required",
+            catalogIsbn:"required",
+            catalogTitle:"required",
+            catalogAuthor:"required",
+            catalogPublisher:"required",
+            catalogYear:"required",
+            catalogQuantity:"required",
+//            ----------------
+            type:"required",
+            id:"required",
+            selectedBookList:"required",
+//            --------------
+            noticeHeader:'required',
+            fle:'required'
+        },
+        messages: {
+            catalogType:"Please Select Category Type",
+            catalogCategory:"Please Select Catalog Category Type",
+            catalogIsbn:"Please Enter Catalog ISBN",
+            catalogTitle:"Please Enter Catalog Title",
+            catalogAuthor:"Please Enter Catalog Author",
+            catalogPublisher:"Please Enter Catalog Publisher",
+            catalogYear:"Please Enter Catalog Year",
+            catalogQuantity:"Please Enter Catalog Quantity",
+            type:"Please Select Type",
+            id:"Please Select RollNumber/ EmpId",
+            selectedBookList:"Please Add Book",
+            noticeHeader:"Please Enter Notice Header",
+            fle:"Please Upload Folder"
+        }
+    })
+}

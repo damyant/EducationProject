@@ -17,7 +17,12 @@
 <div id="main">
     <fieldset class="form">
 
-        <g:form name="catalogList" id="catalogList">
+%{--<<<<<<< HEAD--}%
+        %{--<g:form name="catalogList" id="catalogList">--}%
+%{--=======--}%
+
+        <g:form name="catalogForm" id="catalogForm">
+%{-->>>>>>> 1e80db771602f69bf943c51c846fab3e5830eba3--}%
             <table class="university-size-full-1-1 inner spinner">
                 <g:if test="${params.by == "byType"}">
 
@@ -97,6 +102,11 @@
                 </tr>
             </table>
         </g:form>
+
+
+        <table class="university-size-full-1-1 inner spinner" id="bookList">
+            <div id="errorMsg" class="university-status-message"></div></table>
+
 
     </fieldset>
 </div>

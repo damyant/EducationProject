@@ -33,7 +33,7 @@
         <g:if test="${flash.message}">
             <div class="message"><div class="university-status-message">${flash.message}</div></div>
         </g:if>
-        <g:uploadForm id="ntc1" controller="admin" action="noticeBoardSave">
+        <g:uploadForm controller="admin" action="noticeBoardSave" id="ntc1"  name="ntc1" >
 
             <table class="university-size-full-1-1 inner spinner">
                 <tr>
@@ -68,7 +68,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" class="university-size-1-2 university-button" value="Submit"/>
+                        <input type="submit" class="university-size-1-2 university-button" onclick="validateLibrary()" value="Submit"/>
                     </td>
                     <td></td>
                 </tr>

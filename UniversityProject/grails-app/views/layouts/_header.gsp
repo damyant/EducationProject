@@ -182,71 +182,60 @@
                 <li><a href="#"><g:message code="default.mainMenu4.subMenu9"/></a>
                     <ul>
                         <li>
-                            <g:link controller="marksType"
-                                    action="createMarksType"><g:message
+                            <g:link controller="marksType" action="createMarksType"><g:message
                                     code="default.mainMenu4.subMenu9.submenu1"/>
                             </g:link>
                         </li>
                         <li>
-                            <g:link controller="marksType"
-                                    action="marksTypeList"><g:message
+                            <g:link controller="marksType" action="marksTypeList"><g:message
                                     code="default.mainMenu4.subMenu9.submenu2"/>
                             </g:link>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <g:link controller="postExamination"
-                            action="createMarksFoil"><g:message
+                    <g:link controller="postExamination" action="createMarksFoil"><g:message
                             code="default.mainMenu4.subMenu1"/>
                     </g:link>
                 </li>
                 <li>
-                    <g:link controller="postExamination"
-                            action="homeAssignmentExcelUpload"><g:message
+                    <g:link controller="postExamination" action="homeAssignmentExcelUpload"><g:message
                             code="default.mainMenu4.subMenu2.subMenu1"/>
                     </g:link>
                 </li>
                 <li>
-                    <g:link controller="postExamination"
-                            action="marksEntering"><g:message
+                    <g:link controller="postExamination" action="marksEntering"><g:message
                             code="default.mainMenu4.subMenu2"/>
                     </g:link>
                 </li>
 
                 <li>
-                    <g:link controller="postExamination"
-                            action="markMismatchReport"><g:message
+                    <g:link controller="postExamination" action="markMismatchReport"><g:message
                             code="default.mainMenu4.subMenu3"/>
                     </g:link>
                 </li>
                 <li>
-                    <g:link controller="postExamination"
-                            action="absenteeProcessing"><g:message
+                    <g:link controller="postExamination" action="absenteeProcessing"><g:message
                             code="default.mainMenu4.subMenu4"/>
                     </g:link>
                 </li>
                 <li>
-                    <g:link controller="postExamination"
-                            action="marksUpdation"><g:message
+                    <g:link controller="postExamination" action="marksUpdation"><g:message
                             code="default.mainMenu4.subMenu5"/>
                     </g:link>
                 </li>
                 <li>
-                    <g:link controller="postExamination"
-                            action="resultProcessing"><g:message
+                    <g:link controller="postExamination" action="resultProcessing"><g:message
                             code="default.mainMenu4.subMenu6"/>
                     </g:link>
                 </li>
                 <li>
-                    <g:link controller="postExamination"
-                            action="finalResult"><g:message
+                    <g:link controller="postExamination" action="finalResult"><g:message
                             code="default.mainMenu4.subMenu7"/>
                     </g:link>
                 </li>
                 <li>
-                    <g:link controller="postExamination"
-                            action="meritRegister"><g:message
+                    <g:link controller="postExamination" action="meritRegister"><g:message
                             code="default.mainMenu4.subMenu10"/>
                     </g:link>
                 </li>
@@ -255,14 +244,12 @@
                 <li><a href="#"><g:message code="default.mainMenu4.subMenu8"/></a>
                     <ul>
                         <li>
-                            <g:link controller="postExamination"
-                                    action="bulkMarksSheet"><g:message
+                            <g:link controller="postExamination" action="bulkMarksSheet"><g:message
                                     code="default.mainMenu4.subMenu8.submenu1"/>
                             </g:link>
                         </li>
                         <li>
-                            <g:link controller="postExamination"
-                                    action="singleMarksSheet"><g:message
+                            <g:link controller="postExamination" action="singleMarksSheet"><g:message
                                     code="default.mainMenu4.subMenu8.submenu2"/>
                             </g:link>
                         </li>
@@ -291,19 +278,19 @@
                 <ul>
                     <g:link controller="admin" action="catalogType"><g:message
                             code="default.mainMenu11.subMenu1.submenu1"/></g:link>
-                    %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
                     <g:link controller="admin" action="catalogType" params="[view: 'view']"><g:message
                             code="default.mainMenu11.subMenu1.submenu3"/></g:link>
                 </ul>
             </li>
-    <li> <g:link><g:message code="default.mainMenu11.subMenu3"/> </g:link>
-        <ul>
+            <li><g:link><g:message code="default.mainMenu11.subMenu3"/></g:link>
+                <ul>
 
-            <g:link controller="admin" action="catalogCatagory"> <g:message code="default.mainMenu11.subMenu3.submenu1"/></g:link>
-            %{--<g:link controller="" action=""> <g:message code="default.mainMenu11.subMenu1.submenu2"/></g:link>--}%
-            <g:link controller="admin" action="catalogCatagory" params="[view:'view']"> <g:message code="default.mainMenu11.subMenu3.submenu2"/></g:link>
-        </ul>
-    </li>
+                    <g:link controller="admin" action="catalogCatagory"><g:message
+                            code="default.mainMenu11.subMenu3.submenu1"/></g:link>
+                    <g:link controller="admin" action="catalogCatagory" params="[view: 'view']"><g:message
+                            code="default.mainMenu11.subMenu3.submenu2"/></g:link>
+                </ul>
+            </li>
             <li><a href="#"><g:message code="default.mainMenu11.subMenu1"/></a>
                 <ul>
                     <g:link controller="admin" action="addCatalog"><g:message
@@ -324,23 +311,22 @@
                             code="default.mainMenu11.subMenu4.submenu1"/></g:link>
                     <li><g:link controller="libraryReports" action="listOfCatalogs"><g:message
                             code="default.mainMenu11.subMenu4.submenu2"/></g:link>
-                    <ul>
-                        <g:link controller="libraryReports" action="byType"><g:message
-                                code="default.mainMenu11.subMenu4.submenu2.submenu1"/></g:link>
-                        <g:link controller="libraryReports" action="byCategory"><g:message
+                        <ul>
+                            %{--<g:link controller="libraryReports" action="byType"><g:message--}%
+                                    %{--code="default.mainMenu11.subMenu4.submenu2.submenu1"/></g:link>--}%
+                            <g:link controller="libraryReports" action="byCategory"><g:message
                                     code="default.mainMenu11.subMenu4.submenu2.submenu2"/></g:link>
-                        <g:link controller="libraryReports" action="byIsbn"><g:message
+                            <g:link controller="libraryReports" action="byIsbn"><g:message
                                     code="default.mainMenu11.subMenu4.submenu2.submenu3"/></g:link>
-                        <g:link controller="libraryReports" action="byTitle"><g:message
-                                code="default.mainMenu11.subMenu4.submenu2.submenu4"/></g:link>
-                        <g:link controller="libraryReports" action="byAuthor"><g:message
+                            <g:link controller="libraryReports" action="byTitle"><g:message
+                                    code="default.mainMenu11.subMenu4.submenu2.submenu4"/></g:link>
+                            <g:link controller="libraryReports" action="byAuthor"><g:message
                                     code="default.mainMenu11.subMenu4.submenu2.submenu5"/></g:link>
-                    </ul></li>
+                        </ul></li>
 
                     <g:link controller="libraryReports" action="overdueBooks"><g:message
                             code="default.mainMenu11.subMenu4.submenu3"/></g:link>
                 </ul>
-
 
             </li>
         </ul>
@@ -562,6 +548,7 @@
         <li><g:link controller="report" action="reportIndex"><g:message code="default.mainMenu9"/></g:link></li>
     </sec:ifLoggedIn></sec:ifNotGranted>
 </div>
+
 <div class="scroller"><!-- this is for emulating position fixed of the nav -->
     <div class="scroller-inner">
         <g:render template="/layouts/statusPopup"/>
