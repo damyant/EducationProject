@@ -168,13 +168,13 @@ function showCatalogList(){
     $.ajax({
         type: "post",
         url: url('libraryReports', 'getCatalogList', ''),
-        data:$("#catalogList").serialize(),
+        data:$("#catalogForm").serialize(),
         success: function (data) {
             if(data.length>0) {
                 var count=1;
                 $("#bookList tr").remove()
                 $('#errorMsg').text(" ")
-                $("#bookList").append("<tr><th>S.No</th><th>Book Name</th><th>Category</th><th>ISBN</th><th>Issuing Date</th></tr>")
+                $("#bookList").append("<tr><th>S.No</th><th>Book Name</th><th>Publisher</th><th>ISBN</th><th>Author</th></tr>")
                 for(var i=0;i<data.length;i++){
                     $("#bookList").append('<tr><td>'+count+'</td><td>'+data[i][0]+'</td><td>'+data[i][1]+'</td><td>'+data[i][2]+'</td><td>'+data[i][3]+'</td></tr>')
                     ++count
@@ -211,7 +211,48 @@ function getOverDueBooks(){
             }
         }
     })
+
+
+
+}
+function enableRoll(){
+
+
+    $("#rollnum").prop( "disabled", false );
+    if($("#rollnum").length > 0 && $("#rollnum").val() != ''){
+        $("#catalogType").removeAttr( 'disabled' );
+    }
+
 }
 
 
 
+function enableType(){
+
+  if($("#rollnum").length > 0 && $("#rollnum").val() != ''){
+        $("#catalogType").removeAttr( 'disabled' );
+    }
+
+}
+
+function enableCategory(){
+
+    if($("#catalogType").length > 0 && $("#catalogType").val() != ''){
+ $("#catalogCategory").removeAttr('disabled');
+    }
+}
+
+
+function enableElements(){
+
+    if($("#catalogCategory").length > 0 && $("#catalogCategory").val() != ''){
+
+        $("#allBookList").removeAttr('disabled');
+        $("#quantity").removeAttr('disabled');
+        $("#addButton").prop( "disabled", false );
+        $("#removeButton").prop( "disabled", false );
+        $("#selectedBookList").removeAttr('disabled');
+        $("#button1").prop( "disabled", false );
+
+    }
+}
