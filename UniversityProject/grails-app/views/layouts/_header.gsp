@@ -38,12 +38,12 @@
             <li><g:link controller="student" action="registration"><g:message
                     code="default.mainMenu2.subMenu1"/></g:link></li>
         </sec:ifNotLoggedIn>
-        <sec:ifLoggedIn>
-            <sec:ifNotGranted roles="ROLE_STUDY_CENTRE">
-                <li><g:link controller="student" action="enrollmentAtIdol"><g:message
-                        code="default.mainMenu2.enrollAtIdol"/></g:link></li>
-            </sec:ifNotGranted>
-        </sec:ifLoggedIn>
+        %{--<sec:ifLoggedIn>--}%
+            %{--<sec:ifNotGranted roles="ROLE_STUDY_CENTRE">--}%
+                %{--<li><g:link controller="student" action="enrollmentAtIdol"><g:message--}%
+                        %{--code="default.mainMenu2.enrollAtIdol"/></g:link></li>--}%
+            %{--</sec:ifNotGranted>--}%
+        %{--</sec:ifLoggedIn>--}%
 
     %{--<li><a href="#"><g:message code="default.mainMenu2.subMenu4"/></a></li>--}%
         <li><a class="statustopopup" href="#"><g:message code="default.mainMenu2.subMenu5"/></a></li>
@@ -101,40 +101,39 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#"><g:message code="default.mainMenu2.subMenu2"/></a>
-                    <ul>
-                        <li><g:link controller="examinationCenter" action="createExamCentre"><g:message
-                                code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>
-                        <li><g:link controller="examinationCenter" action="listOfExamCentre"><g:message
-                                code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>
-                    </ul>
-                </li>
-                <li><a href="#"><g:message code="default.mainMenu3.subMenu3"/></a>
-                    <ul>
-                        <li><g:link controller="studyCenter" action="createNewStudyCenter"><g:message
-                                code="default.mainMenu3.subMenu3.subMenu1"/></g:link></li>
-                        <li><g:link controller="studyCenter" action="viewStudyCentre"><g:message
-                                code="default.mainMenu3.subMenu3.subMenu2"/></g:link></li>
-                        <li><g:link controller="studyCenter" action="updateStudyCentre"><g:message
-                                code="default.mainMenu3.subMenu3.subMenu3"/></g:link></li>
-                    </ul>
-                </li>
+                %{--<li>--}%
+                    %{--<a href="#"><g:message code="default.mainMenu2.subMenu2"/></a>--}%
+                    %{--<ul>--}%
+                        %{--<li><g:link controller="examinationCenter" action="createExamCentre"><g:message--}%
+                                %{--code="default.mainMenu3.subMenu11.subMenu1"/></g:link></li>--}%
+                        %{--<li><g:link controller="examinationCenter" action="listOfExamCentre"><g:message--}%
+                                %{--code="default.mainMenu3.subMenu11.subMenu2"/></g:link></li>--}%
+                    %{--</ul>--}%
+                %{--</li>--}%
+                %{--<li><a href="#"><g:message code="default.mainMenu3.subMenu3"/></a>--}%
+                    %{--<ul>--}%
+                        %{--<li><g:link controller="studyCenter" action="createNewStudyCenter"><g:message--}%
+                                %{--code="default.mainMenu3.subMenu3.subMenu1"/></g:link></li>--}%
+                        %{--<li><g:link controller="studyCenter" action="viewStudyCentre"><g:message--}%
+                                %{--code="default.mainMenu3.subMenu3.subMenu2"/></g:link></li>--}%
+                        %{--<li><g:link controller="studyCenter" action="updateStudyCentre"><g:message--}%
+                                %{--code="default.mainMenu3.subMenu3.subMenu3"/></g:link></li>--}%
+                    %{--</ul>--}%
+                %{--</li>--}%
 
-                <li><a href="#"><g:message code="default.mainMenu3.subMenu1"/></a>
-                    <ul>
-                        <li><g:link controller="examinationCenter" action="create"><g:message
-                                code="default.mainMenu3.subMenu1.subMenu1"/></g:link></li>
-                        <li><g:link controller="examinationCenter" action="viewExaminationCentre"><g:message
-                                code="default.mainMenu3.subMenu1.subMenu2"/></g:link></li>
-                        <li><g:link controller="examinationCenter" action="updateExaminationCentre"><g:message
-                                code="default.mainMenu3.subMenu1.subMenu3"/></g:link></li>
-                    </ul>
-                </li>
+                %{--<li><a href="#"><g:message code="default.mainMenu3.subMenu1"/></a>--}%
+                    %{--<ul>--}%
+                        %{--<li><g:link controller="examinationCenter" action="create"><g:message--}%
+                                %{--code="default.mainMenu3.subMenu1.subMenu1"/></g:link></li>--}%
+                        %{--<li><g:link controller="examinationCenter" action="viewExaminationCentre"><g:message--}%
+                                %{--code="default.mainMenu3.subMenu1.subMenu2"/></g:link></li>--}%
+                        %{--<li><g:link controller="examinationCenter" action="updateExaminationCentre"><g:message--}%
+                                %{--code="default.mainMenu3.subMenu1.subMenu3"/></g:link></li>--}%
+                    %{--</ul>--}%
+                %{--</li>--}%
 
 
                 <li><a href="#"><g:message code="default.mainMenu3.subMenu6"/></a>
-
                     <ul>
                         <li><g:link controller="course" action="createNewCourse"><g:message
                                 code="default.mainMenu3.subMenu6.subMenu1"/></g:link></li>
@@ -521,14 +520,14 @@
                         </ul>
                     </li>
                 </sec:ifNotGranted>
-                <sec:ifNotGranted roles="ROLE_IDOL_USER">
-                    <li><a href="#"><g:message code="default.mainMenu8.subMenu3"/></a>
-                        <ul>
-                            <li><g:link controller="feeDetails" action="generateChallanSCAdmissionFee"><g:message
-                                    code="default.mainMenu8.subMenu3.subMenu1"/></g:link></li>
-                        </ul>
-                    </li>
-                </sec:ifNotGranted>
+                %{--<sec:ifNotGranted roles="ROLE_IDOL_USER">--}%
+                    %{--<li><a href="#"><g:message code="default.mainMenu8.subMenu3"/></a>--}%
+                        %{--<ul>--}%
+                            %{--<li><g:link controller="feeDetails" action="generateChallanSCAdmissionFee"><g:message--}%
+                                    %{--code="default.mainMenu8.subMenu3.subMenu1"/></g:link></li>--}%
+                        %{--</ul>--}%
+                    %{--</li>--}%
+                %{--</sec:ifNotGranted>--}%
                 <sec:ifNotGranted roles="ROLE_IDOL_USER">
                     <li><a href="#"><g:message code="default.mainMenu8.subMenu4"/></a>
                         <ul>
