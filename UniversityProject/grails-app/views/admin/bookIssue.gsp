@@ -23,7 +23,7 @@
             <tr>
                 <td class="new-university-size-1-3">Book Allocation To<span class="university-obligatory">*</span></td>
                 <td class="new-university-size-2-3">
-                    <select class="university-size-1-2" name="type">
+                    <select class="university-size-1-2" name="type" id="type" onchange="getTotalBooks()">
                     <option value="">Sellect Allocation Type</option>
                     <option value="student">Student</option>
                     <option  value="faculty">Faculty</option>
@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <td class="new-university-size-1-3">Enter RollNumber/ EmpId<span class="university-obligatory">*</span></td>
-                <td class="new-university-size-2-3"><input type="text" name="id" class="university-size-1-2"></td>
+                <td class="new-university-size-2-3"><input type="text" name="id" id="issuingPersonId" class="university-size-1-2" onblur="getIssuedBooks()"></td>
             </tr>
             <tr>
                <td class="new-university-size-1-3">Type<span class="university-obligatory">*</span></td>
@@ -53,6 +53,16 @@
                               from="${catalogCatagoryList}" noSelection="['': ' Select Catalog Category']"
                               onchange="getSubjects()"/>
                 </td>
+            </tr>
+            <tr>
+                <td class="new-university-size-1-3">Max. Books Allocated</td>
+                <td class="new-university-size-2-3"><input type="text" disabled="disabled" id="maxBooks"> </td>
+
+            </tr>
+            <tr>
+                <td class="new-university-size-1-3">Books Already Issued</td>
+                <td class="new-university-size-2-3"><input type="text" disabled="disabled" id="issuedBooks"> </td>
+
             </tr>
             <tr>
                 <td class="new-university-size-1-3">Books List<span class="university-obligatory">*</span></td>

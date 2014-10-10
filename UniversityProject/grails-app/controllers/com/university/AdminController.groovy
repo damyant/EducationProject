@@ -1355,6 +1355,26 @@ class AdminController {
 
     }
 
+    def getTotalBooks={
+        def returnMap=[:]
+        if(params.type=="student"){
+          returnMap.value= grailsApplication.config.maxBooksForStudents
+        }
+        else{
+            returnMap.value= grailsApplication.config.maxBooksForFaculty
+        }
+        render  returnMap as JSON
+        
+    }
+
+
+    def getIssuedBooks={
+        def returnMap=[:]
+        returnMap.value=BookIssue.countByIssuingPersonId(params.issuingPersonId)
+        render  returnMap as JSON
+
+    }
+
 
 }
 

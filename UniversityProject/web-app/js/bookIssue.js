@@ -116,13 +116,21 @@ function validateLength() {
 function saveData(){
     validateLibrary()
     var result=$('#bookIssueForm').valid()
+    var count=0;
     if (result) {
         var bookList = [];
         $('#selectedBookList option').each(function () {
             bookList.push($(this).val() || '');
-        });
+            ++count;
 
-        $.ajax({
+        });
+        var issueBooks=parseInt($("#issuedBooks").val())
+        issueBooks=issueBooks+count
+        if( issueBooks>parseInt($("#maxBooks").val())){
+         alert("Books allocation limit exceeded")
+        }
+        else{
+                $.ajax({
             type: "post",
             url: url('admin', 'saveBookIssue', ''),
             data: $("#bookIssueForm").serialize() + "&bookList=" + bookList,
@@ -133,7 +141,8 @@ function saveData(){
                     $('#allBookList option').remove()
                 }
             }
-        })
+            })
+          }
     }
 
 }
@@ -209,6 +218,30 @@ function getOverDueBooks(){
                 $("#bookList tr").remove()
                 $('#errorMsg').text("No Record Found")
             }
+        }
+    })
+}
+
+function getTotalBooks(){
+    $.ajax({
+        type: "post",
+        url: url('admin', 'getTotalBooks', ''),
+        data:"type="+$("#type").val(),
+        success: function (data) {
+            $("#maxBooks").val(data.value)
+
+        }
+    })
+}
+
+function getIssuedBooks(){
+    $.ajax({
+        type: "post",
+        url: url('admin', 'getIssuedBooks', ''),
+        data:"issuingPersonId="+$("#issuingPersonId").val(),
+        success: function (data) {
+            $("#issuedBooks").val(data.value)
+
         }
     })
 }

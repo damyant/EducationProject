@@ -124,5 +124,7 @@ grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.university.U
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.university.UserRole'
 grails.plugins.springsecurity.authority.className = 'com.university.Role'
 xmlPath='D:\\mySpace\\myXml.xml'
+maxBooksForStudents=7
+maxBooksForFaculty=10
 
 
