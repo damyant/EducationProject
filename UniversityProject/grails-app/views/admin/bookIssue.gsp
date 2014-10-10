@@ -51,7 +51,7 @@
                     <g:select name="catalogCategory" id="catalogCategory" class="university-size-1-2" optionKey="id"
                               optionValue="catalogCatagoryName" value="${catalogIns?.catagory?.id}"
                               from="${catalogCatagoryList}" noSelection="['': ' Select Catalog Category']"
-                              onchange="enableElements(),getSubjects()"  disabled=""/>
+                              onchange="getSubjects()"  disabled=""/>
                 </td>
             </tr>
             <tr>
