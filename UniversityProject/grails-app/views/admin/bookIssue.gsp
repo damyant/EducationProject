@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <td class="new-university-size-1-3">Enter RollNumber/ EmpId<span class="university-obligatory">*</span></td>
-                <td class="new-university-size-2-3"><input type="text" name="id" id="issuingPersonId" class="university-size-1-2" onblur="getIssuedBooks()"></td>
+                <td class="new-university-size-2-3"><input type="text" name="id" id="id" class="university-size-1-2" onblur="getIssuedBooks()"></td>
             </tr>
             <tr>
                <td class="new-university-size-1-3">Type<span class="university-obligatory">*</span></td>

@@ -1168,6 +1168,7 @@ class AdminController {
             catalogInst.publisher = params.catalogPublisher
             catalogInst.year = Integer.parseInt(params.catalogYear)
             catalogInst.quantity = Integer.parseInt(params.catalogQuantity)
+            catalogInst.availableCatalog = Integer.parseInt(params.catalogQuantity)
             if (catalogInst.isbn == params.catalogIsbn) {
                 flash.message = "Updated Successfully"
             } else {
@@ -1183,6 +1184,7 @@ class AdminController {
             catalogInst.publisher = params.catalogPublisher
             catalogInst.year = Integer.parseInt(params.catalogYear)
             catalogInst.quantity = Integer.parseInt(params.catalogQuantity)
+            catalogInst.availableCatalog = Integer.parseInt(params.catalogQuantity)
             if (catalogInst.save(failOnError: true, flush: true)) {
                 flash.message = "Saved Successfully"
             } else {
@@ -1308,7 +1310,8 @@ class AdminController {
     def bookIssue={
         def catalogTypeList = CatalogType.list()
         def catalogCatagoryList = CatalogCatagory.list()
-        [catalogTypeList: catalogTypeList,catalogCatagoryList: catalogCatagoryList]
+
+       [catalogTypeList: catalogTypeList,catalogCatagoryList: catalogCatagoryList]
 
     }
 
@@ -1316,6 +1319,10 @@ class AdminController {
         def categoryIns=CatalogCatagory.get(params.catalogCategory)
         def catalogTypeIns=CatalogType.get(params.catalogType)
         def boolList=Catalog.findAllByCatagoryAndType(categoryIns,catalogTypeIns)
+        boolList.each
+                {
+                    println(it.availableCatalog)
+                }
         render boolList as JSON
 
     }
