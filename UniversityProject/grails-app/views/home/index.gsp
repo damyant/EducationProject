@@ -23,25 +23,25 @@
                 <div class="university-size-full-1-1">
                     <table class="university-size-full-1-1 inner">
                         <tr>
-                            <td class="university-size-1-3" style="text-align: center;"><input type="button"
+                            <td class="university-size-1-2" style="text-align: center;"><input type="button"
                                                                                                style="margin: auto;"
-                                                                                               class="university-size-1-2 university-button"
+                                                                                               class="university-size-1-3 university-button"
                                                                                                value="Self Enrollment Status"
                                                                                                id="checkSelfEnrollmentStatus"
                                                                                                onclick="checkSelfEnrollmentStatus()">
                             </td>
-                            <td class="university-size-1-3" style="text-align: center;"><input type="button"
+                            <td class="university-size-1-2" style="text-align: center;"><input type="button"
                                                                                                style="margin: auto;"
-                                                                                               class="university-size-1-2 university-button"
+                                                                                               class="university-size-1-3 university-button"
                                                                                                value="Fee Status"
                                                                                                onclick="checkFeeStatus()">
                             </td>
-                            <td class="university-size-1-3" style="text-align: center;"><input type="button"
-                                                                                               style="margin: auto;"
-                                                                                               class="university-button"
-                                                                                               value="Study Centre Registration Status"
-                                                                                               onclick="checkStudyCentreStatus()">
-                            </td>
+                            %{--<td class="university-size-1-3" style="text-align: center;"><input type="button"--}%
+                                                                                               %{--style="margin: auto;"--}%
+                                                                                               %{--class="university-button"--}%
+                                                                                               %{--value="Study Centre Registration Status"--}%
+                                                                                               %{--onclick="checkStudyCentreStatus()">--}%
+                            %{--</td>--}%
                         </tr>
                     </table>
                     <table id="showCounts" class="university-size-2-3 inner" style="margin: auto;">
