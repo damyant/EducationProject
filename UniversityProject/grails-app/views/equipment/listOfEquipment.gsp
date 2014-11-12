@@ -37,6 +37,17 @@
 
 <body>
 <div id="main">
+    <div>
+        <select>
+            <option value="" selected="selected">Search By</option>
+            <option value="name">Name</option>
+            <option value="id">Id</option>
+            <option value="manufacturer">Manufacturer</option>
+            <option value="equipment">Type</option>
+        </select>
+        <input type="text" id="search">
+        <input type="submit" value="enter">
+    </div>
     <fieldset class="form">
         <g:if test="${flash.message}">
             <div class="message"><div class="university-status-message">${flash.message}</div></div>

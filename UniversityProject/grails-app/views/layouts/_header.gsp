@@ -1,6 +1,6 @@
 <div>
 <div class="logo">
-    <div class="header-parts"><img id="logo-images" src="${resource(dir: 'images', file: 'logoist.png')}"
+    <div class="header-parts"><img id="logo-images" src="${resource(dir: 'images', file: 'd-edufocus.png')}"
                                    class="window"></div>
 
     <div class="header-parts" name="logout">
