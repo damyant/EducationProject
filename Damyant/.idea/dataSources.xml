@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="753783626">
+    <data-source source="LOCAL" name="UniversityProject dev" uuid="36a2556b-a6de-4c9c-a4b6-a5874b4e5a70">
+      <driver-ref>mysql</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/universityproject_dev?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;autoreconnect=true</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dfd8dfc5dfc5dfdedf9bdf98df99</user-password>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Damyant dev" uuid="4af6f491-f3b9-4d5f-9491-149b1faa113c">
+      <driver-ref>mysql</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/universityproject_dev?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;autoreconnect=true</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dfd8dfc5dfc5dfdedf9bdf98df99</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

@@ -1,0 +1,39 @@
+<plugin name='rendering' version='0.4.4' grailsVersion='1.3.0 &gt; *'>
+  <author>Grails Plugin Collective</author>
+  <authorEmail>grails.plugin.collective@gmail.com</authorEmail>
+  <title>Grails Rendering</title>
+  <description>Render GSPs as PDFs, JPEGs, GIFs and PNGs</description>
+  <documentation>http://gpc.github.com/grails-rendering</documentation>
+  <type>RenderingGrailsPlugin</type>
+  <resources>
+    <resource>RenderingController</resource>
+    <resource>grails.plugin.rendering.RenderingService</resource>
+    <resource>grails.plugin.rendering.document.XhtmlDocumentService</resource>
+    <resource>grails.plugin.rendering.image.GifRenderingService</resource>
+    <resource>grails.plugin.rendering.image.ImageRenderingService</resource>
+    <resource>grails.plugin.rendering.image.JpegRenderingService</resource>
+    <resource>grails.plugin.rendering.image.PngRenderingService</resource>
+    <resource>grails.plugin.rendering.pdf.PdfRenderingService</resource>
+    <resource>grails.plugin.rendering.test.BackgroundRenderingService</resource>
+    <resource>grails.plugin.rendering.RenderingTagLib</resource>
+  </resources>
+  <repositories>
+    <repository name='grailsCentral' url='http://plugins.grails.org' />
+    <repository name='http://repo.grails.org/grails/plugins' url='http://repo.grails.org/grails/plugins/' />
+    <repository name='http://repo.grails.org/grails/core' url='http://repo.grails.org/grails/core/' />
+    <repository name='grailsCore' url='http://svn.codehaus.org/grails/trunk/grails-plugins' />
+    <repository name='mavenCentral' url='http://repo1.maven.org/maven2/' />
+  </repositories>
+  <dependencies>
+    <test>
+      <dependency group='org.apache.pdfbox' name='pdfbox' version='1.0.0' />
+    </test>
+    <compile>
+      <dependency group='org.xhtmlrenderer' name='core-renderer' version='R8' />
+      <dependency group='com.lowagie' name='itext' version='2.1.0' />
+    </compile>
+  </dependencies>
+  <plugins />
+  <runtimePluginRequirements />
+  <behavior />
+</plugin>
