@@ -14,6 +14,17 @@
 
 <body>
 <div id="main">
+    <div>
+        <select>
+            <option value="-1" selected="selected">Search By</option>
+            <option value="name">Name</option>
+            <option value="id">Id</option>
+            <option value="manufacturer">Manufacturer</option>
+            <option value="equipment">Type</option>
+        </select>
+        <input type="text" id="search">
+        <input type="submit" value="enter">
+    </div>
     <fieldset class="form">
         <h3>Edit Catalog</h3>
 
@@ -48,7 +59,7 @@
                     <td>${catalogInst.quantity}</td>
                     <td><g:link controller="admin" action="addCatalog" params="[catalogInstId:catalogInst.id]">Edit</g:link></td>
 
-                    <td><g:link controller="admin" action="delCatalog" params="[catalogInstId:catalogInst.id]">Delete</g:link></td>
+                    <td><g:link controller="admin" action="delCatalog" params="[catalogInstId:catalogInst.id]" onclick="return confirm('Are you sure you want to delete?')">Delete</g:link></td>
 
                 </tr>
             </g:each>
