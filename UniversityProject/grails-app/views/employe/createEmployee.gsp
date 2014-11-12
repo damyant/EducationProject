@@ -11,18 +11,15 @@
     <meta name="layout" content="main"/>
     <title>Create Employee Page</title>
     <script type="text/javascript">
-
         var category = "${studInstance?.category}"
         var nationality = "${studInstance?.nationality}"
         var isAppliedFor = "${studInstance?.isAppliedFor}"
         var state = "${studInstance?.state}"
         $('#document').ready(function () {
-
             if(${params.id}){
                var gender = "${employeeObj?.gender}"
                 $("input[name='gender'][value=" + gender + "]").attr('checked', 'checked');
             }
-
         });
     </script>
 
