@@ -4,8 +4,6 @@ package examinationproject
 
 class FeeDetails {
     String challanNo
-    FeeType feeTypeId
-    Boolean isAdmission=false
     int paidAmount
     PaymentMode paymentModeId
     Date paymentDate
@@ -16,14 +14,12 @@ class FeeDetails {
     FeeType feeType
     Student student
     int semesterValue
-    Boolean isApproved =false
+    int isApproved = 0
 
 
 
     static constraints = {
         challanNo(nullable: false)
-       feeTypeId(nullable: true)
-        paymentModeId(nullable: false)
         paidAmount(nullable: false)
         paymentModeId(nullable: true)
         paymentReferenceNumber(nullable: true)
@@ -38,7 +34,6 @@ class FeeDetails {
 
     static mapping = {
         challanNo column: "challanNo"
-       feeTypeId column: "FeeTypeId",defaultValue: "0"
         isApproved column: "isApproved"
         paymentModeId column: "PaymentModeId"
         paymentDate column: "PaymentDate"

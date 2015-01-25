@@ -7,8 +7,12 @@ import examinationproject.City
 import examinationproject.CustomChallan
 import examinationproject.ExaminationVenue
 import examinationproject.FeeDetails
+
+
 import examinationproject.FeeSession
+
 import examinationproject.FeeType
+import examinationproject.MiscellaneousFee
 import examinationproject.MiscellaneousFeeChallan
 import examinationproject.PaymentMode
 import examinationproject.ProgramDetail
@@ -151,14 +155,10 @@ class StudentRegistrationService {
                 feeDetails.feeType = FeeType.findById(3)
                 feeDetails.paidAmount = Integer.parseInt(params.admissionFeeAmount)
                 feeDetails.challanNo = studentRegistration.challanNo
-
-                feeDetails.paymentDate = df.parse(params.paymentDate)
-                feeDetails = FeeType.get(1)
                 feeDetails.challanDate = new Date()
                 feeDetails.student = studentRegistration
                 feeDetails.semesterValue = 1
                 feeDetails.save(failOnError: true, flush: true)
-//                params.fee = params.admissionFeeAmount
 
             }
             return studentRegistration
@@ -443,22 +443,23 @@ class StudentRegistrationService {
                 maxResults(1)
                 order("id", "desc")
             }
-                if (feeDetailByChallanNo) {
-                    if (custByChallanNo) {
-                        if (Integer.parseInt(feeDetailByChallanNo[0].challanNo)  > Integer.parseInt(custByChallanNo[0].challanNo)) {
-                            studentByChallanNo = feeDetailByChallanNo
-                            println('11')
-                        }  else {
-                            studentByChallanNo = custByChallanNo
-                            println('33')
-                        }
-                    } else {
-                            studentByChallanNo = feeDetailByChallanNo
-                            println('333')
-
+            if (feeDetailByChallanNo) {
+                if (custByChallanNo) {
+                    if (Integer.parseInt(feeDetailByChallanNo[0].challanNo)  > Integer.parseInt(custByChallanNo[0].challanNo)) {
+                        studentByChallanNo = feeDetailByChallanNo
+                        println('11')
+                    }  else {
+                        studentByChallanNo = custByChallanNo
+                        println('33')
                     }
+                } else {
+                    studentByChallanNo = feeDetailByChallanNo
+                    println('333')
+
                 }
-                def lastChallanDate
+            }
+            def lastChallanDate
+            if(studentByChallanNo){
                 if (studentByChallanNo[0].challanNo != null) {
                     lastChallanDate = studentByChallanNo[0].challanNo.substring(0, 6)
 
@@ -471,6 +472,10 @@ class StudentRegistrationService {
                 } else {
                     serialNo = 1
                 }
+            }else {
+                serialNo = 1
+            }
+
 
 
             length = serialNo.toString().length()
